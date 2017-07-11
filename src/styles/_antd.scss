@@ -1,0 +1,19 @@
+.ant-dropdown {
+    .ant-dropdown-menu {
+        padding: 1rem 3rem;
+        padding-left: 1rem;
+        border-radius: 0.1rem;
+        background: rgba(0, 0, 0, 0.6);
+
+        .ant-dropdown-menu-item {
+            & > a.active {
+                color: aqua;
+            }
+        }
+
+        .ant-dropdown-menu-item-selected, .ant-dropdown-menu-item-selected > a {
+            background: none;
+        }
+    }
+
+}

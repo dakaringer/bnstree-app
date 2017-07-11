@@ -1,0 +1,116 @@
+import {combineReducers} from 'redux-immutable'
+import {fromJS} from 'immutable'
+import * as actionType from './actionTypes'
+
+function ui(state = fromJS({
+    classCode: 'BM',
+    view: {
+        mode: 'LIST',
+        order: 'LEVEL',
+        visibility: 'ALL'
+    },
+    filter: 'ALL',
+    search: '',
+    patch: 'BASE'
+}), action) {
+    switch (action.type) {
+        case actionType.SKILL_UI_SET_CLASS:
+            return state.set('classCode', action.classCode)
+        case actionType.SKILL_UI_SET_VIEW:
+            return state.setIn(['view', action.type], action.value)
+        case actionType.SKILL_UI_SET_FILTER:
+            return state.set('filter', action.filter)
+        case actionType.SKILL_UI_SET_SEARCH:
+            return state.set('search', action.search)
+        case actionType.SKILL_UI_SET_PATCH:
+            return state.set('patch', action.patch)
+        default:
+            return state
+    }
+}
+
+function character(state = fromJS({
+    ap: 13,
+    apPet: 5,
+    ad: 0,
+    c: 1,
+    element: {
+        flame: 100.00,
+        frost: 100.00,
+        lightning: 100.00,
+        shadow: 100.00,
+        wind: 100.00,
+        earth: 100.00
+    },
+    equip: {
+        s3: null,
+        s5: null,
+        s8: null,
+        wep: null,
+        sBadge: null,
+        mBadge: null
+    }
+}), action) {
+    switch (action.type) {
+        switch (action.type) {
+        case actionType.SKILL_CHAR_SET_STAT:
+            return state.set(action.stat, action.value)
+        case actionType.SKILL_CHAR_SET_ELEMENT_DMG:
+            return state.setIn(['element', action.element], action.value)
+        case actionType.SKILL_CHAR_SET_EQUIP:
+            return state.setIn(['equip', action.type], action.item)
+        default:
+            return state
+    }
+}
+
+function data(state = Map(), action) {
+    switch (action.type) {
+        case actionType.SKILL_DATA_SET_CLASS_DATA:
+        case actionType.SKILL_DATA_SET_BUILD_LIST:
+        case actionType.SKILL_DATA_SET_USER_BUILDS:
+            return state.set(action.classCode, data(state.get(action.classCode, Map()), action))
+        default:
+            return state
+    }
+}
+
+function classData(state = Map(), action) {
+    switch (action.type) {
+        case actionType.SKILL_DATA_SET_CLASS_DATA:
+            return state.merge({
+                classData: action.classData,
+                skillData: action.skillData,
+                groupData: action.groupData,
+                patchData: action.patchData
+            })
+        case actionType.SKILL_DATA_SET_BUILD_LIST:
+            return state.merge({buildList: action.list})
+        case actionType.SKILL_DATA_SET_USER_BUILDS:
+            return state.merge({userBuilds: action.list})
+        default:
+            return state
+    }
+}
+
+function build(state = Map(), action) {
+    switch (action.type) {
+        case actionType.SKILL_BUILD_SET_ELEMENT:
+            return state.setIn([action.classCode, 'element'], action.element)
+        case actionType.SKILL_BUILD_SET_SKILL:
+            return state.setIn([action.classCode, 'build', action.element, action.skill], action.move)
+        default:
+            return state
+    }
+}
+
+function ref(state = fromJS(skillNames: {})) {
+    switch (action.type) {
+        case actionType.SKILL_REF_SET_NAMES:
+            return state.mergeDeepIn(['skillNames'], action.nameData)
+        default:
+            return state
+    }
+}
+
+export default combineReducers({ui, character, data, build, ref})

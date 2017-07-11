@@ -1,0 +1,19 @@
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    & > .loadingContainer {
+        height: 100vh;
+    }
+
+    .app-content {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 3rem 1rem;
+
+        @media(min-width: 1200px) {
+            padding: 3rem 4rem;
+        }
+    }
+}

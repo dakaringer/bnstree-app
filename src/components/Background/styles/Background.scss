@@ -1,0 +1,30 @@
+.background {
+    position: fixed;
+    background: black;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 120vh;
+    z-index: -1;
+    opacity: 0.9;
+
+    .ant-carousel, .slick-slider, .slick-list, .slick-track {
+        height: 100%;
+    }
+
+    span {
+        img {
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+            min-width: 100%;
+            min-height: 100%;
+        }
+    }
+
+    @media(max-width: 767px) {
+        transform: translate(0, 0) !important;
+    }
+}
