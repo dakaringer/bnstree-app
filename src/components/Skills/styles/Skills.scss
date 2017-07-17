@@ -1,0 +1,14 @@
+@import 'SkillSubHeader';
+@import 'SkillInfo';
+@import 'SkillList';
+@import 'SkillTooltip';
+
+.skills {
+    .skills-content {
+        margin: 3rem 0;
+    }
+}
+
+.skill-name {
+    color: aqua;
+}

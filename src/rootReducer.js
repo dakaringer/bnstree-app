@@ -1,6 +1,8 @@
 import {combineReducers} from 'redux-immutable'
 import {fromJS} from 'immutable'
 import * as actionType from './actionTypes'
+
+import skills from './components/Skills/reducer'
 /*
 import trainer from './components/trainer/reducer'
 import trainer2 from './components/trainer2/reducer'
@@ -26,4 +28,4 @@ function general(state = fromJS({uiText: {}, language: 'en', user: null, loading
     }
 }
 
-export default combineReducers({general})
+export default combineReducers({general, skills})

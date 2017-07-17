@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400&subset=latin-ext');
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url('//fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
 html {
     font-size: 10px;
@@ -16,7 +16,7 @@ body {
 }
 
 a {
-    color: #999;
+    color: #aaa;
     text-decoration: none !important;
 
     &:hover {
@@ -24,4 +24,20 @@ a {
     }
 }
 
+::-webkit-input-placeholder {
+    color: #9d9d9d;
+}
+input {
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 0.1rem solid #aaa;
+
+    &:active,
+    &:focus {
+        border-color: aqua;
+    }
+}
+
 @import 'antd';
+@import 'general';

@@ -6,14 +6,14 @@
     & > .loadingContainer {
         height: 100vh;
     }
+    background: rgba(0, 0, 0, 0.7);
 
     .app-content {
         flex: 1;
-        background: rgba(0, 0, 0, 0.6);
-        padding: 3rem 1rem;
+        padding: 0rem 1rem;
 
         @media(min-width: 1200px) {
-            padding: 3rem 4rem;
+            padding: 0rem 4rem;
         }
     }
 }

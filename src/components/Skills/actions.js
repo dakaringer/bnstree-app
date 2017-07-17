@@ -1,12 +1,13 @@
 import * as actionType from './actionTypes'
-import i18n from './i18n'
-import {browserHistory} from 'react-router'
+import i18n from '../../i18n'
+import {message} from 'antd'
+
 import {makeActionCreator, flatten} from '../../helpers'
 import {setLoading, setUIText} from '../../actions'
 import {
-    uiClassSelector,
-    currentElementSelector,
-    classElementSelector,
+    classSelector,
+    buildElementSelector,
+    elementDataSelector,
     buildSelector,
     buildFormatSelector
 } from './selectors'
@@ -16,23 +17,23 @@ const postHeaders = {
 }
 
 const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
-const setView = makeActionCreator(actionType.SKILL_UI_SET_VIEW, 'type', 'value')
+const setView = makeActionCreator(actionType.SKILL_UI_SET_VIEW, 'viewType', 'value')
 export const setFilter = makeActionCreator(actionType.SKILL_UI_SET_FILTER, 'filter')
 export const setSearch = makeActionCreator(actionType.SKILL_UI_SET_SEARCH, 'search')
 export const setPatch = makeActionCreator(actionType.SKILL_UI_SET_PATCH, 'patch')
 
 export const setStat = makeActionCreator(actionType.SKILL_CHAR_SET_STAT, 'stat', 'value')
 export const setElementDmg = makeActionCreator(actionType.SKILL_CHAR_SET_ELEMENT_DMG, 'element', 'value')
-export const setEquip = makeActionCreator(actionType.SKILL_CHAR_SET_EQUIP, 'type', 'item')
+export const setEquip = makeActionCreator(actionType.SKILL_CHAR_SET_EQUIP, 'equipType', 'item')
 
 const setClassData = makeActionCreator(actionType.SKILL_DATA_SET_CLASS_DATA, 'classCode', 'classData', 'groupData', 'skillData', 'patchData')
 const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
-const setUserBuilds = makeActionCreator(actionType.SKILL_DATA_SET_USER_BUILDS, 'classCode', 'list')
+//const setUserBuilds = makeActionCreator(actionType.SKILL_DATA_SET_USER_BUILDS, 'classCode', 'list')
 
 const setBuildElement = makeActionCreator(actionType.SKILL_BUILD_SET_ELEMENT, 'classCode', 'element')
 const setBuildSkill = makeActionCreator(actionType.SKILL_BUILD_SET_SKILL, 'classCode', 'element', 'skill', 'move')
 
-const setNames = makeActionCreator(actionType.SKILL_REF_SET_NAMES, 'nameData')
+const setNames = makeActionCreator(actionType.SKILL_REF_SET_NAMES, 'language', 'nameData')
 
 export function loadClass(classCode, buildCode, buildLink) {
     return (dispatch, getState) => {
@@ -44,21 +45,20 @@ export function loadClass(classCode, buildCode, buildLink) {
                 method: 'get',
                 credentials: 'include'
             }).then(response => response.json()).then(json => {
-                if (json.success === 0) {
-                    browserHistory.push('/404')
+                if (json.success === 0 || !json.classData) {
                     return
                 }
                 document.title = `${i18n.t(`general:${classCode}`)} | BnSTree`
 
                 let elements = json.classData.elements
-                dispatch(loadClassData(classCode, json.classData, flatten(json.groupData), flatten(json.skillData), flatten(json.patchData)))
-                dispatch(setBuildElement(classCode, elements[0]))
+                dispatch(setClassData(classCode, elements, flatten(json.groupData), flatten(json.skillData), flatten(json.patchData)))
+                dispatch(setBuildElement(classCode, elements[0].element))
                 dispatch(setView('mode', json.view.mode))
                 dispatch(setView('order', json.view.order))
                 dispatch(setView('visibility', json.view.visibility))
 
                 if (buildCode) {
-                    let currentElement = elements[buildCode[0]]
+                    let currentElement = elements[buildCode[0]].element
                     let buildString = buildCode.substring(1)
                     dispatch(setBuildElement(classCode, currentElement.element))
                     currentElement.buildFormat.forEach((id, i) => {
@@ -79,10 +79,10 @@ export function loadClass(classCode, buildCode, buildLink) {
                     }).then(response => response.json()).then(json => {
                         if (json.success === 1 && json.build) {
                             dispatch(setBuildElement(classCode, json.build.element))
-                            for (id of json.build.build) {
+                            for (let id in json.build.build) {
                                 dispatch(learnMove(id, json.build.build[id]))
                             }
-                            message.success(i18n.t('general:buildLoadSuccess', 2)
+                            message.success(i18n.t('general:buildLoadSuccess', 2))
                         }
                         dispatch(setLoading(false))
                     })
@@ -120,17 +120,17 @@ export function loadBuildList(classCode, page, element=null, type=null) {
 
 export function loadTextData(lang) {
     return (dispatch) => {
-        fetch(`https://api.bnstree.com/languages/skill/${lang}`, {
+        fetch(`https://api.bnstree.com/languages/skills?lang=${lang}`, {
             method: 'get',
             credentials: 'include'
         }).then(response => response.json()).then(json => {
             if (json.success === 1) {
-                dispatch(setUIText(json.lang, 'skill', json.languages))
-                i18n.addResourceBundle(json.lang, 'skill', json.languages, true)
+                dispatch(setUIText(json.lang, 'skills', json.languages))
+                i18n.addResourceBundle(json.lang, 'skills', json.languages, true)
             }
         })
 
-        fetch(`https://api.bnstree.com/languages/tooltip/${lang}`, {
+        fetch(`https://api.bnstree.com/languages/tooltip?lang=${lang}`, {
             method: 'get',
             credentials: 'include'
         }).then(response => response.json()).then(json => {
@@ -140,12 +140,41 @@ export function loadTextData(lang) {
             }
         })
 
-        fetch('https://api.bnstree.com/skills/names', {
+        fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
             method: 'get',
             credentials: 'include'
         }).then(response => response.json()).then(json => {
             if (json.success === 1) {
-                dispatch(setNames(flatten(json.skillNames)))
+                dispatch(setNames(json.lang, flatten(json.skillNames)))
+            }
+        })
+
+        fetch('https://api.bnstree.com/languages/skills?lang=en', {
+            method: 'get',
+            credentials: 'include'
+        }).then(response => response.json()).then(json => {
+            if (json.success === 1) {
+                dispatch(setUIText(json.lang, 'skills', json.languages))
+                i18n.addResourceBundle('en', 'skills', json.languages, true)
+            }
+        })
+
+        fetch('https://api.bnstree.com/languages/tooltip?lang=en', {
+            method: 'get',
+            credentials: 'include'
+        }).then(response => response.json()).then(json => {
+            if (json.success === 1) {
+                dispatch(setUIText(json.lang, 'tooltip', json.languages))
+                i18n.addResourceBundle('en', 'tooltip', json.languages, true)
+            }
+        })
+
+        fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
+            method: 'get',
+            credentials: 'include'
+        }).then(response => response.json()).then(json => {
+            if (json.success === 1) {
+                dispatch(setNames('en', flatten(json.skillNames)))
             }
         })
     }
@@ -153,8 +182,8 @@ export function loadTextData(lang) {
 
 export function postBuild(title, type) {
     return (dispatch, getState) => {
-        let element = currentElementSelector(getState())
-        let classCode = uiClassSelector(getState())
+        let element = buildElementSelector(getState())
+        let classCode = classSelector(getState())
         let build = buildSelector(getState())
 
         buildFormatSelector(getState()).forEach(id => {
@@ -178,13 +207,13 @@ export function postBuild(title, type) {
             body: JSON.stringify(buildDoc)
         }).then(response => response.json()).then(json => {
             if (json.success === 1) {
-                history.replaceState(null, null, `${json.link}`)
+                window.history.replaceState(null, null, `${json.link}`)
 
                 loadBuildList(classCode, 1)
-                message.success(i18n.t('general:buildPostSuccess', 2)
+                message.success(i18n.t('general:buildPostSuccess', 2))
             }
             else {
-                message.danger(i18n.t('general:buildPostFail', 2)
+                message.danger(i18n.t('general:buildPostFail', 2))
             }
         })
     }
@@ -206,9 +235,9 @@ export function updateView(type, value) {
 
 export function toggleElement() {
     return (dispatch, getState) => {
-        let classCode = uiClassSelector(getState())
-        let classElements = classElementSelector(getState())
-        let currentElement = currentElementSelector(getState())
+        let classCode = classSelector(getState())
+        let classElements = elementDataSelector(getState())
+        let currentElement = buildElementSelector(getState())
 
         let otherElement = classElements.getIn([0, 'element']) === currentElement ? classElements.getIn([1, 'element']) : classElements.getIn([0, 'element'])
 
@@ -219,8 +248,8 @@ export function toggleElement() {
 
 export function learnMove(skill, move) {
     return (dispatch, getState) => {
-        let classCode = uiClassSelector(getState())
-        let element = currentElementSelector(getState())
+        let classCode = classSelector(getState())
+        let element = buildElementSelector(getState())
 
         dispatch(setBuildSkill(classCode, element, skill, move))
     }

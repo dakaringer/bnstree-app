@@ -1,0 +1,117 @@
+.skill-list {
+    padding-bottom: 100rem;
+    display: flex;
+    justify-content: space-between;
+
+    .skill-group {
+        .group-label {
+            color: #eee;
+            font-weight: 300;
+        }
+
+        .group-skills {
+            padding-left: 0rem;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+
+    .hotkeyBar {
+        width: 5rem;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        font-size: 1.4rem;
+
+        a {
+            margin: 0.5rem 0;
+        }
+    }
+}
+
+.skill-list-item {
+    margin: 1rem;
+    display: flex;
+    padding: 1.2rem;
+    background: linear-gradient(to right,  rgba(0,0,0,0.4) 75%,rgba(0,0,0,0) 100%);
+    width: 42.5rem;
+
+    .skill-icon {
+        margin-right: 1.5rem;
+        width: 7.4rem;
+        height: 7.4rem;
+        cursor: pointer;
+    }
+
+    .skill-name {
+        color: aqua;
+        font-weight: 300;
+        font-size: 1.6rem;
+        margin-top: -0.5rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .skill-hotkey {
+        height: 1em;
+        margin-left: 0.8rem;
+    }
+
+    .skill-moves {
+        display: flex;
+
+        .skill-move-wrapper {
+            border-right: 0.1rem solid rgba(255, 255, 255, 0.35);
+            position: relative;
+
+            &.filtered h6 {
+                color: goldenrod !important;
+            }
+            
+            &:last-child {
+                border: none;
+            }
+            .skill-move {
+                display: flex;
+                flex-direction: column-reverse;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.5rem;
+                width: 10rem;
+                cursor: pointer;
+
+                h6 {
+                    color: #eee;
+                }
+
+                .typeImg {
+                    width: 2.5rem;
+                }
+
+                &.current {
+                    background: linear-gradient(to top, rgba(80, 200, 250, 0.35) 0%,rgba(0,0,0,0) 85%);
+                }
+            }
+
+            .hmButton {
+                position: absolute;
+                height: 2.5rem;
+                width: 2.5rem;
+                top: -0.3rem;
+                left: -0.2rem;
+                cursor: pointer;
+                background-color: none;
+                background: url(../images/ic_mastery_pc.png) center no-repeat;
+
+                &.active {
+                    background: url(../images/ic_mastery_pc_active.png) center no-repeat;
+                }
+            }
+        }
+
+        &.single .skill-move {
+            background: none !important;
+            opacity: 0.7;
+        }
+    }
+}

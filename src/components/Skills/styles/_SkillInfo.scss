@@ -1,0 +1,39 @@
+.skill-info {
+    .filters {
+        margin-bottom: 3rem;
+        .filter {
+            display: block;
+            font-size: 2rem;
+            font-weight: 300;
+            margin: 0.5rem 0;
+            user-select: none;
+
+            /*
+            &.stun {
+                color: mediumslateblue;
+                &:hover, &.active {
+                    color: lightskyblue;
+                }
+            }
+
+            &.daze {
+                color: firebrick;
+                &:hover, &.active {
+                    color: indianred;
+                }
+            }
+
+            &.knockdown {
+                color: forestgreen;
+                &:hover, &.active {
+                    color: palegreen;
+                }
+            }
+            */
+
+            &.active {
+                color: white;
+            }
+        }
+    }
+}

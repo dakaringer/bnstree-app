@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux-immutable'
-import {fromJS} from 'immutable'
+import {fromJS, Map} from 'immutable'
 import * as actionType from './actionTypes'
 
 function ui(state = fromJS({
@@ -17,7 +17,7 @@ function ui(state = fromJS({
         case actionType.SKILL_UI_SET_CLASS:
             return state.set('classCode', action.classCode)
         case actionType.SKILL_UI_SET_VIEW:
-            return state.setIn(['view', action.type], action.value)
+            return state.setIn(['view', action.viewType], action.value)
         case actionType.SKILL_UI_SET_FILTER:
             return state.set('filter', action.filter)
         case actionType.SKILL_UI_SET_SEARCH:
@@ -52,13 +52,12 @@ function character(state = fromJS({
     }
 }), action) {
     switch (action.type) {
-        switch (action.type) {
         case actionType.SKILL_CHAR_SET_STAT:
             return state.set(action.stat, action.value)
         case actionType.SKILL_CHAR_SET_ELEMENT_DMG:
             return state.setIn(['element', action.element], action.value)
         case actionType.SKILL_CHAR_SET_EQUIP:
-            return state.setIn(['equip', action.type], action.item)
+            return state.setIn(['equip', action.equipType], action.item)
         default:
             return state
     }
@@ -69,7 +68,7 @@ function data(state = Map(), action) {
         case actionType.SKILL_DATA_SET_CLASS_DATA:
         case actionType.SKILL_DATA_SET_BUILD_LIST:
         case actionType.SKILL_DATA_SET_USER_BUILDS:
-            return state.set(action.classCode, data(state.get(action.classCode, Map()), action))
+            return state.set(action.classCode, classData(state.get(action.classCode, Map()), action))
         default:
             return state
     }
@@ -104,10 +103,10 @@ function build(state = Map(), action) {
     }
 }
 
-function ref(state = fromJS(skillNames: {})) {
+function ref(state = fromJS({skillNames: {}}), action) {
     switch (action.type) {
         case actionType.SKILL_REF_SET_NAMES:
-            return state.mergeDeepIn(['skillNames'], action.nameData)
+            return state.mergeDeepIn(['skillNames', action.language], action.nameData)
         default:
             return state
     }

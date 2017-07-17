@@ -1,0 +1,220 @@
+.skill-tooltip-wrap {
+    .ant-tooltip-arrow {
+        border-right-color: rgba(10,10,10,0.8) !important;
+
+        @media(max-width: 767px) {
+            display: none;
+        }
+    }
+
+    .ant-tooltip-inner {
+        max-width: 60rem;
+        background: rgba(10,10,10,0.8);
+        border: 0.1rem solid #111;
+
+        hr {
+            border-color: #111;
+        }
+
+        @media(max-width: 767px) {
+            max-width: 97vw;
+        }
+
+        .skillItem {
+            margin: 0;
+            background: none;
+        }
+    }
+}
+
+.skill-tooltip {
+    width: 55rem;
+    padding: 0.5rem;
+    padding-top: 0;
+    font-weight: 300;
+
+    .mod {
+        color: #FFDF33;
+    }
+    .add {
+        color: #66FF66;
+    }
+    .delete {
+        color: #aaa;
+        text-decoration: line-through;
+        .skill {
+            filter: grayscale(100%);
+            color: #aaa;
+        }
+    }
+
+    .attribute {
+        font-size: 1.2rem;
+        line-height: 1.4em;
+
+        .element {
+            width: 1.2em;
+            vertical-align: sub;
+        }
+
+        .tag {
+            color: white;
+            font-size: 0.7em;
+            padding: 0em 0.4em;
+            border-radius: 0.2rem;
+            font-weight: 400;
+
+            &.add {
+                background: #1c951c;
+            }
+            &.mod {
+                background: #cbac00;
+            }
+        }
+
+        .skill {
+            color: aqua;
+        }
+
+        img {
+            width: 1.1em;
+            vertical-align: middle;
+        }
+    }
+
+    .boosted {
+        color: lawngreen;
+    }
+
+    .scale {
+        color: gold;
+
+        &.pet {
+            color: aqua;
+        }
+    }
+
+    @media(max-width: 767px) {
+        max-width: 92vw;
+    }
+    .tooltip-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .skill-name {
+            font-weight: 300;
+            font-size: 2rem;
+            small {
+                color: #999;
+            }
+        }
+
+        .skill-focus {
+            font-size: 1.4rem;
+            vertical-align: middle;
+            .anticon {
+                margin: 0 0.5rem;
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .tooltip-main-block {
+        display: flex;
+        margin-bottom: 1rem;
+
+        .tooltip-icon {
+            margin-right: 1.2rem;
+            height: 6.4rem;
+        }
+
+        .tooltip-m1 .attribute {
+            font-size: 1.6rem;
+            line-height: 1em;
+        }
+    }
+
+
+    .tooltip-info-block {
+        display: flex;
+        justify-content: center;
+        margin: 1.5rem 0;
+
+        .info-box {
+            padding: 0 0.2rem;
+            text-align: center;
+            width: 25%;
+
+            .info-data,
+            .info-header {
+                background-color: rgba(0, 0, 0, 0.7);
+                border-radius: 0.2rem;
+            }
+
+            .info-header {
+                height: 2.5rem;
+                line-height: 2.5rem;
+            }
+
+            .info-data {
+                margin-top: 0.2rem;
+                height: 6rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+
+                .anticon {
+                    margin: 0.5rem;
+                }
+            }
+
+            @for $i from 1 through 6 {
+                .area_#{$i} {
+                    background-image: url(../images/area_#{$i}.png);
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: auto 100%;
+                }
+            }
+        }
+    }
+
+    .tooltip-subAttribute-block {
+        .subAttribute-group {
+            margin-bottom: 1rem;
+
+            h4 {
+                color: gold;
+                font-weight: 300;
+                margin-bottom: 0.2rem;
+                font-size: 1.2rem;
+            }
+            .attribute img {
+                height: 1.4em;
+                width: 1.4em;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    .tooltip-tag-block {
+        margin-top: 1.5rem;
+
+        .skillTag {
+            display: inline-block;
+            padding: 0rem 0.5rem;
+            background: #195F9A;
+            border-radius: 0.2rem;
+            font-size: 1.1rem;
+            margin-right: 0.5rem;
+
+            &.disabled {
+                background: #555;
+                color: #aaa;
+            }
+        }
+    }
+}

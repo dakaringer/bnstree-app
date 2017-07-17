@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Dropdown, Menu} from 'antd'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, withRouter} from 'react-router-dom'
 
 import {currentLanguageSelector} from '../../selectors'
 import {setLanguageUI} from '../../actions'
@@ -11,19 +11,18 @@ import './styles/NavBar.scss'
 
 import mainLogo from './images/logo.png'
 
-const classes = ['BM', 'KF', 'DE', 'FM', 'AS', 'SU', 'BD', 'WL', 'SF', 'SH']
-const classPaths = {
-    'BM': 'blade-master',
-    'KF': 'kung-fu-master',
-    'DE': 'destroyer',
-    'FM': 'force-master',
-    'AS': 'assassin',
-    'SU': 'summoner',
-    'BD': 'blade-dancer',
-    'WL': 'warlock',
-    'SF': 'soul-fighter',
-    'SH': 'shooter'
-}
+export const classes = [
+    ['BM', 'blade-master'], 
+    ['KF', 'kung-fu-master'], 
+    ['DE', 'destroyer'], 
+    ['FM', 'force-master'], 
+    ['AS', 'assassin'], 
+    ['SU', 'summoner'], 
+    ['BD', 'blade-dancer'], 
+    ['WL', 'warlock'], 
+    ['SF', 'soul-fighter'], 
+    ['SH', 'shooter']
+]
 
 const languages = ['en', 'ko']
 const languageNames = {
@@ -50,8 +49,8 @@ class NavBar extends Component {
         let classDropdown = []
         classes.forEach(c => {
             classDropdown.push(
-                <Menu.Item key={c}>
-                    <NavLink to={`/skills/${classPaths[c]}`}>{t(c)}</NavLink>
+                <Menu.Item key={c[0]}>
+                    <NavLink to={`/skills/${c[1]}`}>{t(c)}</NavLink>
                 </Menu.Item>
             )
         })
@@ -89,7 +88,7 @@ class NavBar extends Component {
                 <div className='main-nav-right'>
                     <div className='main-nav-menu'>
                         <Dropdown overlay={<Menu theme='dark'>{classDropdown}</Menu>} trigger={['hover', 'click']}>
-                            <Link to={`/skill/${classPaths.BM}`} className='main-nav-menu-item'>
+                            <Link to={`/skill/${classes[0][1]}`} className='main-nav-menu-item'>
                                 {t('skills')}
                             </Link>
                         </Dropdown>
@@ -115,4 +114,4 @@ class NavBar extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar)))

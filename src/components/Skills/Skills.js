@@ -1,15 +1,36 @@
 import React from 'react'
+import {connect} from 'react-redux'
+
 import {Row, Col} from 'antd'
 
-import {connect} from 'react-redux'
-import {currentLanguageSelector} from '../../selectors'
+import {currentLanguageSelector, loadingSelector} from '../../selectors'
+import {viewSelector} from './selectors'
+import {loadTextData, loadClass} from './actions'
 
 import './styles/Skills.scss'
+
+import {classes} from '../NavBar/NavBar'
+import LoadingLyn from '../LoadingLyn/LoadingLyn'
+import Header from './components/SkillHeader'
+import SubHeader from './components/SkillSubHeader'
+import SkillInfo from './components/SkillInfo'
+import SkillList from './components/SkillList'
+
+function getClassCode(link) {
+    let classCode = 'BM'
+    classes.forEach(c => {
+        if (c[1] === link) {
+            classCode = c[0]
+        }
+    })
+    return classCode
+}
 
 const mapStateToProps = (state) => {
     return {
         currentLanguage: currentLanguageSelector(state),
-        mode: modeSelector(state)
+        view: viewSelector(state),
+        loading: loadingSelector(state)
     }
 }
 
@@ -22,16 +43,22 @@ const mapDispatchToProps = (dispatch) => {
 
 class Skills extends React.Component {
     componentWillMount() {
-        let params = new URLSearchParams(this.props.location.search)
-        this.props.loadText(this.props.currentLanguage)
-        this.props.loadClass(this.props.match.params.classCode, params.get('b'), this.props.match.params.buildLink)
+        const {location, match, currentLanguage, loadText, loadClass} = this.props
+
+        let params = new URLSearchParams(location.search)
+        let classCode = getClassCode(match.params.classCode)
+        loadText(currentLanguage)
+        loadClass(classCode, params.get('b'), match.params.buildLink)
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.currentLanguage != this.props.currentLanguage) {
-            this.props.loadText(nextProps.currentLanguage)
+        const {match, currentLanguage, loadText, loadClass} = this.props
+
+        let classCode = getClassCode(nextProps.match.params.classCode)
+        if (nextProps.currentLanguage !== currentLanguage) {
+            loadText(nextProps.currentLanguage)
         }
-        if (nextProps.match.params.classCode != this.props.match.params.classCode || nextProps.match.params.buildLink != this.props.match.params.buildLink) {
-            this.props.loadClass(nextProps.match.params.classCode, null, nextProps.match.params.buildLink)
+        if (classCode !== getClassCode(match.params.classCode) || nextProps.match.params.buildLink !== match.params.buildLink) {
+            loadClass(classCode, null, nextProps.match.params.buildLink)
         }
     }
     componentDidMount() {
@@ -39,8 +66,27 @@ class Skills extends React.Component {
     }
 
     render() {
+        const {loading} = this.props
+
+        let content = <div>
+            <Header/>
+            <SubHeader/>
+            <Row className='skills-content'>
+                <Col sm={4} className='info-container'>
+                    <SkillInfo/>
+                </Col>
+                <Col sm={20} className='main-container'>
+                    <SkillList/>
+                </Col>
+            </Row>
+        </div>
+        if (loading) {
+            content = <LoadingLyn/>
+        }
+
         return (
             <div className='skills'>
+                {content}
             </div>
         )
     }

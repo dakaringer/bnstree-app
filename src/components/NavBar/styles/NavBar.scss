@@ -1,9 +1,8 @@
 .main-nav {
-    background: rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 8rem;
+    height: 10rem;
     padding: 0 1rem;
 
     @media(min-width: 1200px) {
@@ -21,7 +20,7 @@
     .main-nav-right {
         display: flex;
         align-items: center;
-        border-top: 0.1rem solid #c6c6c6;
+        border-top: 0.1rem solid rgba(255, 255, 255, 0.35);
         height: 4.5rem;
 
         .main-nav-menu {
@@ -34,10 +33,10 @@
         }
 
         .main-nav-submenu {
-
             .main-nav-menu-item {
                 padding: 0.5rem 2rem;
                 font-size: 1.4rem;
+                color: #888;
             }
         }
     }

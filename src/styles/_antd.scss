@@ -15,5 +15,9 @@
             background: none;
         }
     }
+}
 
+.ant-checkbox-checked .ant-checkbox-inner, .ant-checkbox-indeterminate .ant-checkbox-inner {
+    background-color: aqua;
+    border-color: aqua;
 }

@@ -1,0 +1,36 @@
+.skill-sub-header {
+    .elementToggle {
+        font-size: 2rem;
+        img {
+            width: 2.5rem;
+        }
+    }
+    
+    .skillSearch {
+        font-size: 1.5rem;
+        position: relative;
+
+        input {
+            width: 100%;
+        }
+
+        .clear {
+            visibility: hidden;
+            position: absolute;
+            right: 0.2rem;
+            top: 0.3rem;
+            cursor: pointer;
+
+            &.active {
+                visibility: visible;
+            }
+        }
+    }
+
+    .skillVisibility {
+        .ant-checkbox-wrapper {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+    }
+}
