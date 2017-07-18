@@ -162,42 +162,45 @@ const SkillTooltip = (props) => {
     subAttributes.forEach((group, type) => {
         group.forEach((pair, n) => {
             let attb = pair.get('text')
-            let search = findAttb(attb, comparisonSubAttributes, true)
-            let cAttb = search[0]
-            comparisonSubAttributes = search[1]
 
-            let flag = null
-            if (!cAttb) {
-                flag = 'add'
-            }
-            else if (!attb.get(1, Map()).equals(cAttb.get(1, Map())) && attb.get(1, Map()).delete('element').keySeq().equals(cAttb.get(1, Map()).delete('element').keySeq())) {
-                flag = 'mod'
-            }
+            if (attb.get(2, element) === element) {
+                let search = findAttb(attb, comparisonSubAttributes, true)
+                let cAttb = search[0]
+                comparisonSubAttributes = search[1]
 
-            let tag = null
-            if (flag) {
-                tag = <span className={`tag ${flag}`}>{t(`tag-${flag}`)}</span>
-            }
+                let flag = null
+                if (!cAttb) {
+                    flag = 'add'
+                }
+                else if (!attb.get(1, Map()).equals(cAttb.get(1, Map())) && attb.get(1, Map()).delete('element').keySeq().equals(cAttb.get(1, Map()).delete('element').keySeq())) {
+                    flag = 'mod'
+                }
 
-            let icon = pair.get('icon', 'buff_debuff_icon_08_53')
-            if (type === 'unlock') {
-                icon = 'achievement'
-            }
-            subAttbList[type].push(
-                <p className={`attribute ${flag ? flag : ''}`} key={n}>
-                    <img alt={type} src={`https://static.bnstree.com/images/skill/${icon}`}/>
-                    <span>{parser(attb, element, characterData, skillNames)} {tag}</span>
-                </p>
-            )
+                let tag = null
+                if (flag) {
+                    tag = <span className={`tag ${flag}`}>{t(`tag-${flag}`)}</span>
+                }
 
-            if (flag === 'mod') {
-                let icon2 = search[0].get('icon', 'buff_debuff_icon_08_53')
+                let icon = pair.get('icon', 'buff_debuff_icon_08_53')
+                if (type === 'unlock') {
+                    icon = 'achievement'
+                }
                 subAttbList[type].push(
-                    <p className='attribute delete' key={`mod-${n}`}>
-                        <img alt={type} src={`https://static.bnstree.com/images/skill/${icon2}`}/>
-                        <span>{parser(cAttb, element, characterData, skillNames)}</span>
+                    <p className={`attribute ${flag ? flag : ''}`} key={n}>
+                        <img alt={type} src={`https://static.bnstree.com/images/skill/${icon}`}/>
+                        <span>{parser(attb, element, characterData, skillNames)} {tag}</span>
                     </p>
                 )
+
+                if (flag === 'mod') {
+                    let icon2 = search[0].get('icon', 'buff_debuff_icon_08_53')
+                    subAttbList[type].push(
+                        <p className='attribute delete' key={`mod-${n}`}>
+                            <img alt={type} src={`https://static.bnstree.com/images/skill/${icon2}`}/>
+                            <span>{parser(cAttb, element, characterData, skillNames)}</span>
+                        </p>
+                    )
+                }
             }
         })
     })
@@ -205,13 +208,15 @@ const SkillTooltip = (props) => {
         if (type !== 'unlock') {
             group.forEach((pair, n) => {
                 let attb = pair.get('text')
-                let icon = pair.get('icon', 'buff_debuff_icon_08_53')
-                subAttbList[type].push(
-                    <p className='attribute delete' key={`del-${n}`}>
-                        <img alt={type} src={`https://static.bnstree.com/images/skill/${icon}`}/>
-                        <span>{parser(attb, element, characterData, skillNames)}</span>
-                    </p>
-                )
+                if (attb.get(2, element) === element) {
+                    let icon = pair.get('icon', 'buff_debuff_icon_08_53')
+                    subAttbList[type].push(
+                        <p className='attribute delete' key={`del-${n}`}>
+                            <img alt={type} src={`https://static.bnstree.com/images/skill/${icon}`}/>
+                            <span>{parser(attb, element, characterData, skillNames)}</span>
+                        </p>
+                    )
+                }
             })
         }
     })
