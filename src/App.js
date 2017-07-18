@@ -72,7 +72,6 @@ class App extends Component {
                         <Route exact path='/skills/:classCode/:buildLink' component={Skills}/>
                     </Switch>
                 </div>
-                <Background/>
             </div>
         }
 
