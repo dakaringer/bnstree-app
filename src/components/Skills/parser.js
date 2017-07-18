@@ -11,16 +11,18 @@ function getSkill(idString, skillNames, noIcon=false) {
     let moves = skillQuery.slice(1)
     let name = skillNames.getIn([id, 'name'])
 
+    moves = moves.map(m => m > 3 ? i18n.t('skills:HM', {move: m-3}) : m)
+
     let affix = null
     if (moves.length > 0) {
-        affix = i18n.t('skills:moves', {moves: moves.join(', ')})
+        affix = ' ' + i18n.t('skills:moves', {moves: moves.join(', ')})
     }
     
     let icon = null
     if (!noIcon) {
         icon = <img alt={id} src={`https://static.bnstree.com/images/skill/${skillNames.getIn([id, 'icon'])}`}/>
     }
-    return <span key={id}><span className='skill'>{icon} {name}</span> {affix}</span>
+    return <span key={id}><span className='skill'>{icon} {name}</span>{affix}</span>
 }
 
 export default function parser(obj, defaultElement, stats, skillNames, obj2=List()) {
@@ -69,10 +71,14 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
                 break
             } 
             case 'skill':
+            case 'skill2':
             case 'skillName': {
                 let skillList = []
                 if (List.isList(value)) {
                     value.forEach(idString => {
+                        if (skillList.length !== 0) {
+                            skillList.push(', ')
+                        }
                         skillList.push(getSkill(idString, skillNames, key==='skillName'))
                     })
                 }
