@@ -39,5 +39,9 @@
                 color: #888;
             }
         }
+
+        @media(max-width: 767px) {
+            display: none;
+        }
     }
 }

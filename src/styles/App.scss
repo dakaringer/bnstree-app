@@ -2,6 +2,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 1;
 
     & > .loadingContainer {
         height: 100vh;
@@ -16,4 +18,8 @@
             padding: 0rem 4rem;
         }
     }
+}
+
+#root {
+    background: rgb(50, 50, 50);
 }

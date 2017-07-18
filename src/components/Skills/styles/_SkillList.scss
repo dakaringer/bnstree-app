@@ -23,9 +23,18 @@
         display: flex;
         flex-direction: column;
         font-size: 1.4rem;
+        text-align: center;
 
         a {
             margin: 0.5rem 0;
+        }
+    }
+
+    @media(max-width: 767px) {
+        padding: 0;
+
+        .hotkeyBar {
+            display: none;
         }
     }
 }
@@ -100,7 +109,6 @@
                 top: -0.3rem;
                 left: -0.2rem;
                 cursor: pointer;
-                background-color: none;
                 background: url(../images/ic_mastery_pc.png) center no-repeat;
 
                 &.active {
@@ -112,6 +120,22 @@
         &.single .skill-move {
             background: none !important;
             opacity: 0.7;
+        }
+    }
+
+    @media(max-width: 767px) {
+        margin: 0.5rem 0;
+        margin-left: -0.5rem;
+        padding: 0.8rem;
+        width: 98vw;
+        overflow: hidden;
+
+        .hmButton {
+            background-size: 3rem !important;
+        }
+
+        .skill-icon {
+            margin-right: 1rem;
         }
     }
 }
