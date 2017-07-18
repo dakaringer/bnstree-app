@@ -149,34 +149,36 @@ export function loadTextData(lang) {
             }
         })
 
-        fetch('https://api.bnstree.com/languages/skills?lang=en', {
-            method: 'get',
-            credentials: 'include'
-        }).then(response => response.json()).then(json => {
-            if (json.success === 1) {
-                dispatch(setUIText(json.lang, 'skills', json.languages))
-                i18n.addResourceBundle('en', 'skills', json.languages, true)
-            }
-        })
+        if (lang !== 'en') {
+            fetch('https://api.bnstree.com/languages/skills?lang=en', {
+                method: 'get',
+                credentials: 'include'
+            }).then(response => response.json()).then(json => {
+                if (json.success === 1) {
+                    dispatch(setUIText(json.lang, 'skills', json.languages))
+                    i18n.addResourceBundle('en', 'skills', json.languages, true)
+                }
+            })
 
-        fetch('https://api.bnstree.com/languages/tooltip?lang=en', {
-            method: 'get',
-            credentials: 'include'
-        }).then(response => response.json()).then(json => {
-            if (json.success === 1) {
-                dispatch(setUIText(json.lang, 'tooltip', json.languages))
-                i18n.addResourceBundle('en', 'tooltip', json.languages, true)
-            }
-        })
+            fetch('https://api.bnstree.com/languages/tooltip?lang=en', {
+                method: 'get',
+                credentials: 'include'
+            }).then(response => response.json()).then(json => {
+                if (json.success === 1) {
+                    dispatch(setUIText(json.lang, 'tooltip', json.languages))
+                    i18n.addResourceBundle('en', 'tooltip', json.languages, true)
+                }
+            })
 
-        fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
-            method: 'get',
-            credentials: 'include'
-        }).then(response => response.json()).then(json => {
-            if (json.success === 1) {
-                dispatch(setNames('en', flatten(json.skillNames)))
-            }
-        })
+            fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
+                method: 'get',
+                credentials: 'include'
+            }).then(response => response.json()).then(json => {
+                if (json.success === 1) {
+                    dispatch(setNames('en', flatten(json.skillNames)))
+                }
+            })
+        }
     }
 }
 
