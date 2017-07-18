@@ -8,7 +8,7 @@
     bottom: 0;
     height: 120vh;
     min-height: 100rem;
-    z-index: -1;
+    z-index: 0;
     opacity: 0.9;
 
     .ant-carousel, .slick-slider, .slick-list, .slick-track {
@@ -27,5 +27,13 @@
 
     @media(max-width: 767px) {
         transform: translate(0, 0) !important;
+    }
+
+    .cover {
+        position: relative;
+        z-index: 1;
+        margin-top: -50rem;
+        height: 50rem;
+        background: linear-gradient(to top, rgb(50, 50, 50) 0%,rgba(0,0,0,0) 100%);
     }
 }

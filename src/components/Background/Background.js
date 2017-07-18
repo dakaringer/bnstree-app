@@ -54,7 +54,7 @@ class Background extends React.PureComponent {
     handleScroll(event, t) {
         let scrollTop = event.srcElement.body.scrollTop
         t.setState({
-            bgTranslate: scrollTop/2
+            bgTranslate: scrollTop/5
         })
     }
 
@@ -69,6 +69,7 @@ class Background extends React.PureComponent {
                 <Carousel effect="fade" dots={false} autoplay={true} autoplaySpeed='60000' draggable={false} pauseOnHover={false} lazyLoad={true} infinite={true}>
                     {this.state.backgrounds}
                 </Carousel>
+                <div className='cover'/>
             </div>
         )
     }
