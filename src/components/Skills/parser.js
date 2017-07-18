@@ -94,6 +94,10 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
                 else if (obj2 && obj2.get(1) && obj2.getIn([1, key]) !== value) {
                     value = <span key={key}>{obj2.getIn([1, key])} <Icon type="caret-right" /> {value}</span>
                 }
+
+                if (key.startsWith('count')) {
+                    value = isNaN(value) ? <Interpolate i18nKey={`tooltip:${key}`} count={value}/> : i18n.t(`tooltip:${key}`, {count: value})
+                }
             }
         }
         return value
