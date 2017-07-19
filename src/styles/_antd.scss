@@ -21,3 +21,9 @@
     background-color: aqua;
     border-color: aqua;
 }
+
+.ant-tooltip {
+    @media(max-width: 767px) {
+        left: 0 !important;
+    }
+}

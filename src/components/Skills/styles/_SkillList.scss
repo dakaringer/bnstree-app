@@ -40,11 +40,18 @@
 }
 
 .skill-list-item {
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
     margin: 1rem;
     display: flex;
     padding: 1.2rem;
     background: linear-gradient(to right,  rgba(0,0,0,0.4) 75%,rgba(0,0,0,0) 100%);
     width: 42.5rem;
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
 
     .skill-icon {
         margin-right: 1.5rem;
@@ -70,11 +77,16 @@
         display: flex;
 
         .skill-move-wrapper {
-            border-right: 0.1rem solid rgba(255, 255, 255, 0.35);
+            border-right: 0.1rem solid rgba(255, 255, 255, 0.2);
             position: relative;
 
             &.filtered h6 {
-                color: goldenrod !important;
+                @keyframes glow {
+                    from {color: palegoldenrod;}
+                    to {color: goldenrod;}
+                }
+
+                animation: glow 1.5s ease infinite alternate;
             }
             
             &:last-child {
@@ -98,7 +110,14 @@
                 }
 
                 &.current {
-                    background: linear-gradient(to top, rgba(80, 200, 250, 0.35) 0%,rgba(0,0,0,0) 85%);
+                    @keyframes slide { 
+                        0%{background-position:50% 0%}
+                        100%{background-position:50% 100%}
+                    }
+
+                    background: linear-gradient(to top, rgba(80, 200, 250, 0.35) 0%,rgba(0,0,0,0) 40%);
+                    background-size: 100% 200%;
+                    animation: slide 0.5s ease forwards;
                 }
             }
 
@@ -110,6 +129,8 @@
                 left: -0.2rem;
                 cursor: pointer;
                 background: url(../images/ic_mastery_pc.png) center no-repeat;
+                background-size: 2.5rem !important;
+                opacity: 0.9;
 
                 &.active {
                     background: url(../images/ic_mastery_pc_active.png) center no-repeat;
@@ -127,7 +148,7 @@
         margin: 0.5rem 0;
         margin-left: -0.5rem;
         padding: 0.8rem;
-        width: 98vw;
+        width: 94vw;
         overflow: hidden;
 
         .hmButton {
