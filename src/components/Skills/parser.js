@@ -38,6 +38,13 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
         element = defaultElement
         options = options.set('element', element)
     }
+    
+    if (!element) {
+        options = options.set('element', '')
+    }
+    if (!options.has('additional')) {
+        options = options.set('additional', '')
+    }
 
     options = options.map((value, key) => {
         switch(key) {
