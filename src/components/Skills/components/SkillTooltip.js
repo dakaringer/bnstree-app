@@ -49,50 +49,54 @@ const SkillTooltip = (props) => {
     } 
     attributes.forEach((group, type) => {
         group.forEach((attb, n) => {
-            let search = findAttb(attb, comparisonAttributes)
-            let cAttb = search[0]
-            comparisonAttributes = search[1]
-            let flag = null
-            let deleted = null
-            if (!cAttb) {
-                flag = 'add'
-            }
-            else if (!attb.get(1, Map()).equals(cAttb.get(1, Map())) && attb.get(1, Map()).delete('element').keySeq().equals(cAttb.get(1, Map()).delete('element').keySeq())) {
-                flag = 'mod'
+            if (attb.get(2, element) === element) {
+                let search = findAttb(attb, comparisonAttributes)
+                let cAttb = search[0]
+                comparisonAttributes = search[1]
+                let flag = null
+                let deleted = null
+                if (!cAttb) {
+                    flag = 'add'
+                }
+                else if (!attb.get(1, Map()).equals(cAttb.get(1, Map())) && attb.get(1, Map()).delete('element').keySeq().equals(cAttb.get(1, Map()).delete('element').keySeq())) {
+                    flag = 'mod'
 
-                cAttb.get(1).forEach((v, k) => {
-                    if (attb.get(0, '').startsWith('damage') || (isNaN(v) && attb.getIn([1, k]) !== v)) {
-                        deleted = parser(cAttb, element, characterData, skillNames)
-                        return false
-                    }
-                })
-            }
+                    cAttb.get(1).forEach((v, k) => {
+                        if (attb.get(0, '').startsWith('damage') || (isNaN(v) && attb.getIn([1, k]) !== v)) {
+                            deleted = parser(cAttb, element, characterData, skillNames)
+                            return false
+                        }
+                    })
+                }
 
-            let tag = null
-            if (flag) {
-                tag = <span className={`tag ${flag}`}>{t(`tag-${flag}`)}</span>
-            }      
-            
-            if (flag !== 'mod' || deleted) {
-                cAttb = null
-            }
+                let tag = null
+                if (flag) {
+                    tag = <span className={`tag ${flag}`}>{t(`tag-${flag}`)}</span>
+                }      
+                
+                if (flag !== 'mod' || deleted) {
+                    cAttb = null
+                }
 
-            attbList[type].push(
-                <p className={`attribute ${flag ? flag : ''}`} key={n}>{parser(attb, element, characterData, skillNames, cAttb)} {tag}</p>
-            )
-
-            if (deleted) {
                 attbList[type].push(
-                    <p className='attribute delete' key={`mod-${n}`}>{deleted}</p>
+                    <p className={`attribute ${flag ? flag : ''}`} key={n}>{parser(attb, element, characterData, skillNames, cAttb)} {tag}</p>
                 )
+
+                if (deleted) {
+                    attbList[type].push(
+                        <p className='attribute delete' key={`mod-${n}`}>{deleted}</p>
+                    )
+                }
             }
         })
     })
     comparisonAttributes.forEach((group, type) => {
         group.forEach((attb, n) => {
-            attbList[type].push(
-                <p className='attribute delete' key={`del-${n}`}>{parser(attb, element, characterData, skillNames)}</p>
-            )
+            if (attb.get(2, element) === element) {
+                attbList[type].push(
+                    <p className='attribute delete' key={`del-${n}`}>{parser(attb, element, characterData, skillNames)}</p>
+                )
+            }
         })
     })
 
@@ -288,7 +292,7 @@ const SkillTooltip = (props) => {
     )
 }
 
-export default connect(mapStateToProps)(translate('skills')(SkillTooltip))
+export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillTooltip))
 
 function focusHandler(focus, t) {
     if (focus !== 0) {
@@ -309,7 +313,8 @@ function findAttb(attb, list, sub=false) {
             let includeCheck = group.includes(attb) && attb.equals(c)
             let sameKeySeqCheck = attb.get(0) === c.get(0) && attb.get(1, Map()).delete('element').keySeq().equals(c.get(1, Map()).delete('element').keySeq())
             let sameStatusCheck = attb.getIn([1, 'status']) === c.getIn([1, 'status'])
-            if (includeCheck || (sameKeySeqCheck && sameStatusCheck)) {
+            let sameStatCheck = attb.getIn([1, 'stat']) === c.getIn([1, 'stat'])
+            if (includeCheck || (sameKeySeqCheck && sameStatusCheck && sameStatCheck)) {
                 cAttb = c
                 list = list.deleteIn([type, i])
                 return false

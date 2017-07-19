@@ -66,4 +66,4 @@ const SkillList = (props) => {
     )
 }
 
-export default connect(mapStateToProps)(translate('skills')(SkillList))
+export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillList))

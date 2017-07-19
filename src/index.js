@@ -8,7 +8,7 @@ import thunk from 'redux-thunk'
 import {Map} from 'immutable'
 import {BrowserRouter, Route} from 'react-router-dom'
 import rootReducer from './rootReducer'
-import {initialize} from './actions'
+import {setUILanguage} from './actions'
 
 import './styles/index.scss'
 
@@ -40,7 +40,8 @@ const withTracker = (WrappedComponent) => {
 
 class Root extends Component {
     componentDidMount() {
-        store.dispatch(initialize())
+        let lang = navigator.language.substring(0, 2)
+        store.dispatch(setUILanguage(lang, true))
     }
 
     render() {

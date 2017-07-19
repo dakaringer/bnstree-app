@@ -5,7 +5,7 @@ import {Dropdown, Menu} from 'antd'
 import {Link, NavLink, withRouter} from 'react-router-dom'
 
 import {currentLanguageSelector} from '../../selectors'
-import {setLanguageUI} from '../../actions'
+import {setUILanguage} from '../../actions'
 
 import './styles/NavBar.scss'
 
@@ -38,7 +38,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setLanguage: (lang) => dispatch(setLanguageUI(lang))
+        setLanguage: (lang) => dispatch(setUILanguage(lang))
     }
 }
 

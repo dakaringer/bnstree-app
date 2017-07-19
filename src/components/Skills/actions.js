@@ -3,7 +3,7 @@ import i18n from '../../i18n'
 import {message} from 'antd'
 
 import {makeActionCreator, flatten} from '../../helpers'
-import {setLoading, setUIText} from '../../actions'
+import {setLoading} from '../../actions'
 import {
     classSelector,
     buildElementSelector,
@@ -120,26 +120,6 @@ export function loadBuildList(classCode, page, element=null, type=null) {
 
 export function loadTextData(lang) {
     return (dispatch) => {
-        fetch(`https://api.bnstree.com/languages/skills?lang=${lang}`, {
-            method: 'get',
-            credentials: 'include'
-        }).then(response => response.json()).then(json => {
-            if (json.success === 1) {
-                dispatch(setUIText(json.lang, 'skills', json.languages))
-                i18n.addResourceBundle(json.lang, 'skills', json.languages, true)
-            }
-        })
-
-        fetch(`https://api.bnstree.com/languages/tooltip?lang=${lang}`, {
-            method: 'get',
-            credentials: 'include'
-        }).then(response => response.json()).then(json => {
-            if (json.success === 1) {
-                dispatch(setUIText(json.lang, 'tooltip', json.languages))
-                i18n.addResourceBundle(json.lang, 'tooltip', json.languages, true)
-            }
-        })
-
         fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
             method: 'get',
             credentials: 'include'
@@ -150,26 +130,6 @@ export function loadTextData(lang) {
         })
 
         if (lang !== 'en') {
-            fetch('https://api.bnstree.com/languages/skills?lang=en', {
-                method: 'get',
-                credentials: 'include'
-            }).then(response => response.json()).then(json => {
-                if (json.success === 1) {
-                    dispatch(setUIText(json.lang, 'skills', json.languages))
-                    i18n.addResourceBundle('en', 'skills', json.languages, true)
-                }
-            })
-
-            fetch('https://api.bnstree.com/languages/tooltip?lang=en', {
-                method: 'get',
-                credentials: 'include'
-            }).then(response => response.json()).then(json => {
-                if (json.success === 1) {
-                    dispatch(setUIText(json.lang, 'tooltip', json.languages))
-                    i18n.addResourceBundle('en', 'tooltip', json.languages, true)
-                }
-            })
-
             fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
                 method: 'get',
                 credentials: 'include'
