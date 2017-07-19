@@ -7,6 +7,7 @@ import SUimg from './side_active_su.png'
 import BDimg from './side_active_sm.png'
 import WLimg from './side_active_wl.png'
 import SFimg from './side_active_sf.png'
+import SHimg from './side_active_sh.png'
 
 const classImages = {
     BM: BMimg,
@@ -17,7 +18,8 @@ const classImages = {
     SU: SUimg,
     BD: BDimg,
     WL: WLimg,
-    SF: SFimg
+    SF: SFimg,
+    SH: SHimg
 }
 
 export default classImages
