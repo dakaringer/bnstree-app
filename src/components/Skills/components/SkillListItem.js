@@ -59,6 +59,7 @@ const types = {
     'GRAPPLE' : 't26',
     'DEFENSE_BREAK' : 't16',
     'DEFENSE_PENETRATION' : 't16',
+    'DEFLECT_PENETRATION' : 't16',
     'CHARGE_DISABLE' : 't12',
     'DEFENSE_DISABLE' : 't12',
     'TARGET_DISABLE' : 't12',
