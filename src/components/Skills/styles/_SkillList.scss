@@ -48,8 +48,8 @@
     margin: 1rem;
     display: flex;
     padding: 1.2rem;
-    background: linear-gradient(to right,  rgba(0,0,0,0.4) 75%,rgba(0,0,0,0) 100%);
-    width: 42.5rem;
+    background: linear-gradient(to right,  rgba(0,0,0,0.35) 70%,rgba(0,0,0,0) 110%);
+    width: 45rem;
     animation: fadeIn 1s ease forwards;
     opacity: 0;
 
@@ -98,7 +98,7 @@
                 align-items: center;
                 justify-content: space-between;
                 padding: 0.5rem;
-                width: 10rem;
+                width: 11rem;
                 cursor: pointer;
 
                 h6 {
@@ -115,7 +115,7 @@
                         100%{background-position:50% 100%}
                     }
 
-                    background: linear-gradient(to top, rgba(80, 200, 250, 0.35) 0%,rgba(0,0,0,0) 40%);
+                    background: linear-gradient(to top, rgba(80, 200, 250, 0.35) 0%,rgba(0,0,0,0) 45%);
                     background-size: 100% 200%;
                     animation: slide 0.5s ease forwards;
                 }
