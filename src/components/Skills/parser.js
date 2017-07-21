@@ -78,7 +78,7 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
                 break
             } 
             case 'skill':
-            case 'skill2':
+            case 'skill-2':
             case 'skillName': {
                 let skillList = []
                 if (List.isList(value)) {
@@ -100,8 +100,8 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
                     if (List.isList(value)) {
                         value = value.map((s) => i18n.t(`tooltip:${s}`)).join(', ')
                     }
-                    else {
-                        value = i18n.t(`tooltip:${value}`)
+                    else if (!value.includes('/')) {
+                        value = i18n.t(`tooltip:${value.split('-')[0]}`)
                     }
                 }
                 else if (obj2 && obj2.get(1) && obj2.getIn([1, key]) !== value) {
