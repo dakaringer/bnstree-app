@@ -135,9 +135,9 @@ const SkillTooltip = (props) => {
             }
             else if (areaValue !== areaValue2) {
                 div = <div className={`area_${areaType}`}>
-                    <div>{`area_${areaType}`}>{getInfoText(areaValue, type, t)}</div>
+                    <div className={`area_${areaType}`}>{getInfoText(areaValue, type, t)}</div>
                     <Icon type="caret-down" />
-                    <div className='mod'>{`mod area_${areaType2}`}>{getInfoText(areaValue2, type, t)}</div>
+                    <div className={`mod area_${areaType2}`}>{getInfoText(areaValue2, type, t)}</div>
                 </div>
             }
             else {
@@ -173,11 +173,13 @@ const SkillTooltip = (props) => {
                 comparisonSubAttributes = search[1]
 
                 let flag = null
-                if (!cAttb) {
-                    flag = 'add'
-                }
-                else if (!attb.get(1, Map()).equals(cAttb.get(1, Map())) && attb.get(1, Map()).delete('element').keySeq().equals(cAttb.get(1, Map()).delete('element').keySeq())) {
-                    flag = 'mod'
+                if (type !== 'unlock') {
+                    if (!cAttb) {
+                        flag = 'add'
+                    }
+                    else if (!attb.get(1, Map()).equals(cAttb.get(1, Map())) && attb.get(1, Map()).delete('element').keySeq().equals(cAttb.get(1, Map()).delete('element').keySeq())) {
+                        flag = 'mod'
+                    }
                 }
 
                 let tag = null
@@ -312,9 +314,11 @@ function findAttb(attb, list, sub=false) {
             }
             let includeCheck = group.includes(attb) && attb.equals(c)
             let sameKeySeqCheck = attb.get(0) === c.get(0) && attb.get(1, Map()).delete('element').keySeq().equals(c.get(1, Map()).delete('element').keySeq())
-            let sameStatusCheck = attb.getIn([1, 'status']) === c.getIn([1, 'status'])
-            let sameStatCheck = attb.getIn([1, 'stat']) === c.getIn([1, 'stat'])
-            if (includeCheck || (sameKeySeqCheck && sameStatusCheck && sameStatCheck)) {
+            let sameStatusCheck = List.isList(attb.getIn([1, 'status'])) ? attb.getIn([1, 'status']).equals(c.getIn([1, 'status'])) : attb.getIn([1, 'status']) === c.getIn([1, 'status'])
+            let sameStatCheck = List.isList(attb.getIn([1, 'stat'])) ? attb.getIn([1, 'stat']).equals(c.getIn([1, 'stat'])) : attb.getIn([1, 'stat']) === c.getIn([1, 'stat'])
+            let sameSkillCheck = List.isList(attb.getIn([1, 'skill'])) ? attb.getIn([1, 'skill']).equals(c.getIn([1, 'skill'])) : attb.getIn([1, 'skill']) === c.getIn([1, 'skill'])
+            let elementCheck = attb.get(2) === c.get(2)
+            if (elementCheck && (includeCheck || (sameKeySeqCheck && sameStatusCheck && sameStatCheck && sameSkillCheck))) {
                 cAttb = c
                 list = list.deleteIn([type, i])
                 return false
