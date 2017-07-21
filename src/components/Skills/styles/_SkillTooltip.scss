@@ -133,7 +133,7 @@
 
         .tooltip-m1 .attribute {
             font-size: 1.6rem;
-            line-height: 1em;
+            line-height: 1.2em;
         }
     }
 
@@ -198,6 +198,10 @@
                 height: 1.4em;
                 width: 1.4em;
                 margin-right: 0.5rem;
+            }
+
+            &.unlock .attribute {
+                color: aqua;
             }
         }
     }
