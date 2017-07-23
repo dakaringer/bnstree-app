@@ -30,6 +30,7 @@
     "file-loader": "0.11.2",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
+    "http-server": "^0.10.0",
     "i18next": "^8.4.3",
     "i18next-fetch-backend": "0.0.1",
     "immutable": "^3.8.1",
@@ -64,6 +65,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
+    "now-start": "http-server build -d false -g true -c 604800 -s",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
