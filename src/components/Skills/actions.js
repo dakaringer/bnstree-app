@@ -40,6 +40,7 @@ export function loadClass(classCode, buildCode, buildLink) {
     return (dispatch, getState) => {
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
+        document.title = `${i18n.t(`general:${classCode}`)} | BnSTree`
         if (!dataSelector(getState()).has(classCode)) {
             dispatch(setLoading(true))
             fetch(`https://api.bnstree.com/skills/${classCode}`, {
@@ -49,7 +50,6 @@ export function loadClass(classCode, buildCode, buildLink) {
                 if (json.success === 0 || !json.classData) {
                     return
                 }
-                document.title = `${i18n.t(`general:${classCode}`)} | BnSTree`
 
                 let elements = json.classData.elements
                 dispatch(setClassData(classCode, elements, flatten(json.groupData), flatten(json.skillData), flatten(json.patchData)))
