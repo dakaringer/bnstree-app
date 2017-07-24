@@ -53,11 +53,12 @@ class Background extends React.PureComponent {
 
     handleScroll(event, t) {
         let scrollTop = event.srcElement.body.scrollTop
-        t.setState({
-            bgTranslate: scrollTop/5
+        requestAnimationFrame(() => {
+            t.setState({
+                bgTranslate: scrollTop/5
+            })
         })
     }
-
 
     render() {
         let transform = {
@@ -66,7 +67,7 @@ class Background extends React.PureComponent {
 
         return (
             <div className='background' style={transform}>
-                <Carousel effect="fade" dots={false} autoplay={true} autoplaySpeed='60000' draggable={false} pauseOnHover={false} lazyLoad={true} infinite={true}>
+                <Carousel effect="fade" dots={false} autoplay={true} autoplaySpeed='60000' draggable={false} touchMove={false} pauseOnHover={false} infinite={true}>
                     {this.state.backgrounds}
                 </Carousel>
                 <div className='cover'/>
