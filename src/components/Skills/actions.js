@@ -5,6 +5,7 @@ import {message} from 'antd'
 import {makeActionCreator, flatten} from '../../helpers'
 import {setLoading} from '../../actions'
 import {
+    dataSelector,
     classSelector,
     buildElementSelector,
     elementDataSelector,
@@ -37,10 +38,11 @@ const setNames = makeActionCreator(actionType.SKILL_REF_SET_NAMES, 'language', '
 
 export function loadClass(classCode, buildCode, buildLink) {
     return (dispatch, getState) => {
-        dispatch(setLoading(true))
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
-        if (!getState().hasIn(['trainer', 'classData', classCode])) {
+        if (!dataSelector(getState()).has(classCode)) {
+            console.log(classCode)
+            dispatch(setLoading(true))
             fetch(`https://api.bnstree.com/skills/${classCode}`, {
                 method: 'get',
                 credentials: 'include'
@@ -91,8 +93,6 @@ export function loadClass(classCode, buildCode, buildLink) {
                     dispatch(setLoading(false))
                 }
             })
-        } else {
-            dispatch(setLoading(false))
         }
     }
 }
