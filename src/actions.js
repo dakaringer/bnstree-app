@@ -1,6 +1,7 @@
 import * as actionType from './actionTypes'
 import {makeActionCreator} from './helpers'
 import i18n from './i18n'
+import {currentLanguageSelector} from './selectors'
 
 const setLanguage = makeActionCreator(actionType.GENERAL_SET_LANGUAGE, 'language')
 export const setUser = makeActionCreator(actionType.GENERAL_SET_USER, 'user')
@@ -9,8 +10,8 @@ const setInitialized = makeActionCreator(actionType.GENERAL_SET_INITIALIZED, 'in
 
 export function setUILanguage(lang, initial) {
     return (dispatch, getState) => {
+        let previousLanguage = currentLanguageSelector(getState())
         dispatch(setInitialized(false))
-        dispatch(setLanguage(lang))
 
         fetch(`https://api.bnstree.com/languages/${lang}${initial ? '?initial=true' : ''}`, {
             method: 'post',
@@ -19,8 +20,16 @@ export function setUILanguage(lang, initial) {
             if (json.success === 1) {
                 i18n.changeLanguage(json.lang)
                 dispatch(setLanguage(json.lang))
-                dispatch(setInitialized(true))
             }
+            else {
+                i18n.changeLanguage(previousLanguage)
+                dispatch(setLanguage(previousLanguage))
+            }
+            dispatch(setInitialized(true))
+        }).catch(() => {
+            i18n.changeLanguage(previousLanguage)
+            dispatch(setLanguage(previousLanguage))
+            dispatch(setInitialized(true))
         })
     }
 }
