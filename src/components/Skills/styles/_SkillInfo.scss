@@ -1,6 +1,12 @@
 .skill-info {
-    .filters {
+    @media(max-width: 767px) {
+        padding: 2rem 0;
         margin-bottom: 3rem;
+        border-top: 0.15rem solid rgba(255, 255, 255, 0.35);
+        border-bottom: 0.15rem solid rgba(255, 255, 255, 0.35);
+    }
+
+    .filters {
         .filter {
             display: block;
             font-size: 2rem;

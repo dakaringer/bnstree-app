@@ -33,4 +33,16 @@
             font-weight: 300;
         }
     }
+
+    .sub-header-group {
+        display: flex;
+        align-items: center;
+
+        @media(max-width: 767px) {
+            .skillSearch {
+                margin-left: 3rem !important;
+                flex: 1;
+            }
+        }
+    }
 }

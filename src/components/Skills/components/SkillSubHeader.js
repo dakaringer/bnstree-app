@@ -48,17 +48,19 @@ const SkillSubHeader = (props) => {
     return (
         <div className='skill-sub-header sub-header'>
             <div className='sub-header-left'>
-                <div className='elementToggle sub-header-item'>
-                    <a onClick={() => toggleElement()}>
-                        <img alt={element} src={elementImages[element]}/>
-                        <span>
-                            {t(`general:${element}`)} <small><Icon type="swap" /></small>
-                        </span>
-                    </a>
-                </div>
-                <div className='skillSearch sub-header-item'>
-                    <input placeholder={t('general:search')} value={search} onChange={(e) => setSearch(e.target.value)}/>
-                    <Icon onClick={() => setSearch('')} className={`clear ${search.length > 0 ? 'active' : ''}`} type="close" />
+                <div className='sub-header-group'>
+                    <div className='elementToggle sub-header-item'>
+                        <a onClick={() => toggleElement()}>
+                            <img alt={element} src={elementImages[element]}/>
+                            <span>
+                                {t(`general:${element}`)} <small><Icon type="swap" /></small>
+                            </span>
+                        </a>
+                    </div>
+                    <div className='skillSearch sub-header-item'>
+                        <input placeholder={t('general:search')} value={search} onChange={(e) => setSearch(e.target.value)}/>
+                        <Icon onClick={() => setSearch('')} className={`clear ${search.length > 0 ? 'active' : ''}`} type="close" />
+                    </div>
                 </div>
                 <div className='skillVisibility sub-header-item'>
                     <Checkbox
