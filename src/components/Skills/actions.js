@@ -41,7 +41,6 @@ export function loadClass(classCode, buildCode, buildLink) {
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
         if (!dataSelector(getState()).has(classCode)) {
-            console.log(classCode)
             dispatch(setLoading(true))
             fetch(`https://api.bnstree.com/skills/${classCode}`, {
                 method: 'get',
