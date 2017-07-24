@@ -57,6 +57,7 @@ const types = {
     'DEFENSE_DOWN' : 't22',
     'AERIAL' : 't27',
     'GRAPPLE' : 't26',
+    'PHANTOM_GRIP' : 't26',
     'DEFENSE_BREAK' : 't16',
     'DEFENSE_PENETRATION' : 't16',
     'DEFLECT_PENETRATION' : 't16',
