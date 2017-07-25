@@ -96,7 +96,10 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
                 break
             }
             default: {
-                if (isNaN(value)) {
+                if (key === 'resource') {
+                    value = i18n.t(`tooltip:${value}`, {count: options.get('value', 1)})
+                }
+                else if (isNaN(value)) {
                     if (List.isList(value)) {
                         value = value.map((s) => i18n.t(`tooltip:${s}`)).join(', ')
                     }
