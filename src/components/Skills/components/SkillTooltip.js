@@ -127,17 +127,17 @@ const SkillTooltip = (props) => {
             let areaValue2 = info.getIn([type, 'value'], 0)
 
             if (areaType !== areaType2) {
-                div = <div>
+                div = <div className='info-data'>
                     <div className={`area_${areaType}`}>{getInfoText(areaValue, type, t)}</div>
                     <Icon type='caret-down' />
                     <div className={`mod area_${areaType2}`}>{getInfoText(areaValue2, type, t)}</div>
                 </div>
             }
             else if (areaValue !== areaValue2) {
-                div = <div className={`area_${areaType}`}>
-                    <div className={`area_${areaType}`}>{getInfoText(areaValue, type, t)}</div>
+                div = <div className={`info-data area_${areaType}`}>
+                    <div>{getInfoText(areaValue, type, t)}</div>
                     <Icon type="caret-down" />
-                    <div className={`mod area_${areaType2}`}>{getInfoText(areaValue2, type, t)}</div>
+                    <div className={`mod`}>{getInfoText(areaValue2, type, t)}</div>
                 </div>
             }
             else {
