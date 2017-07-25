@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {translate} from 'react-i18next'
 
 import {Row, Col} from 'antd'
 
@@ -62,7 +63,9 @@ class Skills extends React.Component {
         }
     }
     componentDidMount() {
-        document.title = 'Skills | BnSTree'
+        const {match, t} = this.props
+        let classCode = getClassCode(match.params.classCode)
+        document.title = `${t(classCode)} | BnSTree`
     }
 
     render() {
@@ -92,4 +95,4 @@ class Skills extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Skills)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(Skills))
