@@ -39,6 +39,7 @@ function asyncComponent(getComponent) {
     }
 }
 
+const Home = asyncComponent(() => import('./components/Home/Home').then(module => module.default))
 const Skills = asyncComponent(() => import('./components/Skills/Skills').then(module => module.default))
 
 const mapStateToProps = (state) => {
@@ -66,7 +67,9 @@ class App extends Component {
                 <NavBar/>
                 <div className='app-content'>
                     <Switch>
-                        <Redirect exact from='/skills' to='/skill/blade-master'/>
+                        <Route exact path='/' component={Home}/>
+
+                        <Redirect exact from='/skills' to='/skills/blade-master'/>
                         {redirectLinks}
                         <Route exact path='/skills/:classCode' component={Skills}/>
                         <Route exact path='/skills/:classCode/:buildLink' component={Skills}/>
