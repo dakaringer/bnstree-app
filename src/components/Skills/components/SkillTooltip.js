@@ -273,13 +273,13 @@ const SkillTooltip = (props) => {
                 {infoList.cooldown}
             </div>
             <div className='tooltip-subAttribute-block'>
-                <div className='subAttribute-group stance'>
-                    {subAttbList.stanceChange.length > 0 ? <h4>{t('stanceChange')}</h4> : null}
-                    {subAttbList.stanceChange}
-                </div>
                 <div className='subAttribute-group condition'>
                     {subAttbList.condition.length > 0 ? <h4>{t('condition')}</h4> : null}
                     {subAttbList.condition}
+                </div>
+                <div className='subAttribute-group stance'>
+                    {subAttbList.stanceChange.length > 0 ? <h4>{t('stanceChange')}</h4> : null}
+                    {subAttbList.stanceChange}
                 </div>
                 <div className='subAttribute-group unlock'>
                     {subAttbList.unlock.length > 0 ? <h4>{t('unlock')}</h4> : null}
