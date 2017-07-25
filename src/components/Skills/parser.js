@@ -97,7 +97,7 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
             }
             default: {
                 if (key === 'resource') {
-                    value = i18n.t(`tooltip:${value}`, {count: options.get('value', 1)})
+                    value = i18n.t(`tooltip:${value}`, {count: options.get('count', 1)})
                 }
                 else if (isNaN(value)) {
                     if (List.isList(value)) {
@@ -107,12 +107,11 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
                         value = i18n.t(`tooltip:${value.split('-')[0]}`)
                     }
                 }
+                else if (key !== 'count' && key.startsWith('count')) {
+                    value = isNaN(value) ? <Interpolate i18nKey={`tooltip:${key}`} count={value}/> : i18n.t(`tooltip:${key}`, {count: value})
+                }
                 else if (obj2 && obj2.get(1) && obj2.getIn([1, key]) !== value) {
                     value = <span key={key}>{obj2.getIn([1, key])} <Icon type="caret-right" /> {value}</span>
-                }
-
-                if (key.startsWith('count')) {
-                    value = isNaN(value) ? <Interpolate i18nKey={`tooltip:${key}`} count={value}/> : i18n.t(`tooltip:${key}`, {count: value})
                 }
             }
         }
