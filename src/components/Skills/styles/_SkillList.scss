@@ -86,7 +86,7 @@
                     to {color: goldenrod;}
                 }
 
-                animation: glow 1.5s ease infinite alternate;
+                animation: glow 1s ease infinite alternate;
             }
             
             &:last-child {
@@ -117,7 +117,7 @@
 
                     background: linear-gradient(to top, rgba(80, 200, 250, 0.35) 0%,rgba(0,0,0,0) 45%);
                     background-size: 100% 200%;
-                    animation: slide 0.5s ease forwards;
+                    animation: slide 0.3s ease forwards;
                 }
             }
 
