@@ -101,8 +101,8 @@ const SkillTooltip = (props) => {
     })
 
     //Info
-    let info = moveData.get('info', Map())
-    let comparisonInfo = comparisonData.get('info', Map())
+    let info = moveData.getIn(['info', element], moveData.get('info', Map()))
+    let comparisonInfo = comparisonData.getIn(['info', element], comparisonData.get('info', Map()))
     let infoList = {}
     comparisonInfo.forEach((i, type) => {
         let div = null
