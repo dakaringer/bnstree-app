@@ -1,7 +1,4 @@
 import React, {Component} from 'react'
-import {translate} from 'react-i18next'
-import {Dropdown, Menu} from 'antd'
-import {Link} from 'react-router-dom'
 
 import './styles/Home.scss'
 
