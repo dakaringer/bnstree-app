@@ -93,18 +93,24 @@ const mapDispatchToProps = (dispatch) => {
 
 const SkillListItem = (props) => {
     const {t, skillData, skillId, learnMove, filter} = props
+    
+    let offset = skillData.getIn(['moves', 0, 'move'], 1) - 1
 
     let currentMove = skillData.get('currentMove', 1)
-    let moveIndex = currentMove - 1
+    let moveIndex = 0
+    skillData.get('moves', List()).forEach((m, i) => {
+        if (m.get('move', 1) === currentMove + offset) {
+            moveIndex = i
+            return false
+        }
+    })
 
     let moves = []
-    let count = 1
     skillData.get('moves', List()).forEach((move, i) => {
         let moveNumber = move.get('move', 1)
         if (moveNumber > 3) {
             return false
         }
-        let offset = moveNumber - count
         moveNumber = moveNumber - offset
         
         let type = move.get('type', 'BASIC')
@@ -139,7 +145,6 @@ const SkillListItem = (props) => {
                 {hm}
             </div>
         )
-        count++
     })
 
     let mainTooltip = <SkillTooltip moveData={skillData.getIn(['moves', moveIndex])} comparisonData={skillData.getIn(['moves', moveIndex])}/>
