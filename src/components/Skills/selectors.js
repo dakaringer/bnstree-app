@@ -45,6 +45,7 @@ const tagOrder = [
     'FROST_PRISON', 
     'AERIAL', 
     'PULL', 
+    'LOCKDOWN',
     'DEEP_FREEZE', 
     'ROOT', 
     'FREEZE', 
