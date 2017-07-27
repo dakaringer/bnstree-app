@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
 import {Affix} from 'antd'
-import {Link, Element} from 'react-scroll'
+import {Link, Element, animateScroll} from 'react-scroll'
 
 import SkillListItem from './SkillListItem'
 
@@ -46,11 +46,17 @@ const SkillList = (props) => {
         )
 
         hotkeyBar.push(
-            <Link smooth={true} to={`group_${k}`} duration={500} key={k}>
+            <Link smooth={true} to={`group_${k}`} duration={1000} key={k}>
                 {key}
             </Link>
         )
     })
+
+    hotkeyBar.push(
+        <a key='top' className='top' onClick={() => animateScroll.scrollToTop({duration: 1000})}>
+            {t('top')}
+        </a>
+    )
 
     return (
         <div className='skill-list'>

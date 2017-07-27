@@ -28,6 +28,10 @@
         a {
             margin: 0.5rem 0;
         }
+
+        .top {
+            margin-top: 3rem;
+        }
     }
 
     @media(max-width: 767px) {
@@ -45,7 +49,7 @@
         to   { opacity: 1; }
     }
 
-    margin: 1rem;
+    margin: 1rem 2rem;
     display: flex;
     padding: 1.2rem;
     background: linear-gradient(to right,  rgba(0,0,0,0.35) 70%,rgba(0,0,0,0) 110%);
