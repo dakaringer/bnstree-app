@@ -10,6 +10,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
@@ -267,6 +268,7 @@ module.exports = {
         ],
     },
     plugins: [
+        new webpack.optimize.ModuleConcatenationPlugin(),
         // Makes some environment variables available in index.html.
         // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
         // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
@@ -296,6 +298,20 @@ module.exports = {
         // Otherwise React will be compiled in the very slow development mode.
         new webpack.DefinePlugin(env.stringified),
         // Minify the code.
+        new UglifyJSPlugin({
+            uglifyOptions: {
+                compress: {
+                    warnings: false,
+                    comparisons: false
+                },
+                output: {
+                    comments: false,
+                    ascii_only: true
+                }
+            },
+            sourceMap: true
+        }),
+        /*
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false,
@@ -313,6 +329,7 @@ module.exports = {
             },
             sourceMap: true,
         }),
+        */
         // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
         new ExtractTextPlugin({
             filename: cssFilename,
