@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SkillInfo = (props) => {
-    const {t, elementData, currentFilter, setFilter} = props
+    const {t, currentFilter, setFilter} = props
 
     let filters = []
     filterList.forEach(f => {
