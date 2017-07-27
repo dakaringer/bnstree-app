@@ -28,15 +28,20 @@ const SkillTooltip = (props) => {
     let focus = moveData.get('focus', 0)
     let compFocus = comparisonData.get('focus', 0)
     let focusTxt = focusHandler(focus, t)
-    if (focus !== compFocus && compFocus !== 0) {
-        if ((focus > 0 && compFocus > 0) || (focus < 0 && compFocus < 0) || focus === 0) {
-            focusTxt = Math.abs(focus)
+    if (focus !== compFocus) {
+        if (compFocus !== 0) {
+            if ((focus > 0 && compFocus > 0) || (focus < 0 && compFocus < 0) || focus === 0) {
+                focusTxt = Math.abs(focus)
+            }
+            focusTxt = <span>
+                {focusHandler(comparisonData.get('focus', 0), t)}
+                <Icon type="caret-right" />
+                <span className='mod'>{focusTxt}</span>
+            </span>
         }
-        focusTxt = <span>
-            {focusHandler(comparisonData.get('focus', 0), t)}
-            <Icon type="caret-right" />
-            <span className='mod'>{focusTxt}</span>
-        </span>
+        else {
+            focusTxt = <span className='mod'>{focusTxt}</span>
+        }
     }
 
     //attributes
