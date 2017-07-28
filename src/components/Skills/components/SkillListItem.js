@@ -51,7 +51,7 @@ const types = {
     'UNCONSCIOUS' : 't30',
     'PULL' : 't28',
     'SLOW' : 't22',
-    'SNARE' : 't25',
+    'ROOT' : 't25',
     'FREEZE' : 't25',
     'FROST_PRISON' : 't25',
     'DEFENSE_DOWN' : 't22',
@@ -149,13 +149,15 @@ const SkillListItem = (props) => {
 
     let mainTooltip = <SkillTooltip moveData={skillData.getIn(['moves', moveIndex])} comparisonData={skillData.getIn(['moves', moveIndex])}/>
 
+    let hotkeyImg = skillData.get('hotkey') !== 'None' ? <img className='skill-hotkey' alt={skillData.get('hotkey')} src={keyImages[skillData.get('hotkey')]}/> : null
+
     return (
         <div className='skill-list-item'>
             <Tooltip placement="bottomLeft" title={mainTooltip} align={{overflow: {adjustY: false, adjustX: true}}} overlayClassName='skill-tooltip-wrap'>
                 <img className='skill-icon' alt={skillId} src={`https://static.bnstree.com/images/skill/${skillData.getIn(['moves', moveIndex, 'icon'])}`}/>
             </Tooltip>
             <div>
-                <h4 className='skill-name'>{skillData.getIn(['moves', moveIndex, 'name'])}<img className='skill-hotkey' alt={skillData.get('hotkey')} src={keyImages[skillData.get('hotkey')]}/></h4>
+                <h4 className='skill-name'>{skillData.getIn(['moves', moveIndex, 'name'])}{hotkeyImg}</h4>
                 <div className={`skill-moves ${moves.length === 1 ? 'single' : ''}`}>
                     {moves}
                 </div>
