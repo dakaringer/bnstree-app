@@ -25,9 +25,9 @@ const SkillTooltip = (props) => {
     const {t, moveData, comparisonData, characterData, skillNames, element} = props    
 
     //focus
-    let focus = moveData.get('focus', 0)
-    let compFocus = comparisonData.get('focus', 0)
-    let focusTxt = focusHandler(focus, t)
+    let focus = moveData.get('focus', moveData.get('health', 0))
+    let compFocus = comparisonData.get('focus', comparisonData.get('health', 0))
+    let focusTxt = focusHandler(focus, t, moveData.has('health'))
     if (focus !== compFocus) {
         if (compFocus !== 0) {
             if ((focus > 0 && compFocus > 0) || (focus < 0 && compFocus < 0) || focus === 0) {
@@ -301,9 +301,14 @@ const SkillTooltip = (props) => {
 
 export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillTooltip))
 
-function focusHandler(focus, t) {
-    if (focus !== 0) {
-        return focus > 0 ? t('focusRegen', {focus: focus}) : t('focusCost', {focus: Math.abs(focus)})
+function focusHandler(value, t, health) {
+    if (value !== 0) {
+        if (!health) {
+            return value > 0 ? t('focusRegen', {focus: value}) : t('focusCost', {focus: Math.abs(value)})
+        }
+        else {
+            return t('healthCost', {value: value})
+        }
     }
     else {
         return null
