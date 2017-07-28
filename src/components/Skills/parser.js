@@ -48,11 +48,11 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
 
     options = options.map((value, key) => {
         switch(key) {
-            case 'scale': 
-            case 'scaleDual':
-            case 'scalePet' : {
+            case 'scale': {
+                let pet = options.has('pet')
+
                 let intl = new Intl.NumberFormat(i18n.language)
-                let ap = key === 'scalePet' ? stats.get('apPet', 5) : stats.get('ap', 13)
+                let ap = pet ? stats.get('apPet', 5) : stats.get('ap', 13)
                 let ad = stats.get('ad', 0)
                 let c = stats.get('c', 1)
 
@@ -70,10 +70,10 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
                 if (multiplyer > 1) {
                     scaleTxt += ` × ${multiplyer.toFixed(2)}`
                 }
-                scaleTxt = key === 'scalePet' ? i18n.t('tooltip:scalePet', {scaleTxt: scaleTxt}) : i18n.t('tooltip:scale', {scaleTxt: scaleTxt})
+                scaleTxt = pet ? i18n.t('tooltip:scalePet', {scaleTxt: scaleTxt}) : i18n.t('tooltip:scale', {scaleTxt: scaleTxt})
 
                 value = <span className={`damage ${multiplyer > 1 ? 'boosted' : ''}`} key={key}>
-                    {intl.format(bottom)} ~ {intl.format(top)} <span className={`scale ${key === 'scalePet' ? 'pet' : ''}`}>[{scaleTxt}]</span>
+                    {intl.format(bottom)} ~ {intl.format(top)} <span className={`scale ${pet ? 'pet' : ''}`}>[{scaleTxt}]</span>
                 </span>
                 break
             } 
