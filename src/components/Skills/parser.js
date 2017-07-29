@@ -123,5 +123,6 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
         element = <img className='element' alt={element} src={elementImages[element]}/>
     }
 
-    return <span><Interpolate i18nKey={`tooltip:${template}`} {...options.toJS()}/> {element}</span>
+    options = options.toJS()
+    return <span><Interpolate i18nKey={`tooltip:${template}`} options={options} {...options}/> {element}</span>
 }
