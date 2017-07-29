@@ -79,7 +79,8 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
             } 
             case 'skill':
             case 'skill-2':
-            case 'skillName': {
+            case 'skillName':
+            case 'skillName-2': {
                 let skillList = []
                 if (List.isList(value)) {
                     value.forEach(idString => {
