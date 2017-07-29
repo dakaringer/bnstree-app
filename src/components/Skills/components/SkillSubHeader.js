@@ -53,7 +53,7 @@ const SkillSubHeader = (props) => {
                         <a onClick={() => toggleElement()}>
                             <img alt={element} src={elementImages[element]}/>
                             <span>
-                                {t(`general:${element}`)} <small><Icon type="swap" /></small>
+                                {element ? t(`general:${element}`) : ''} <small><Icon type="swap" /></small>
                             </span>
                         </a>
                     </div>

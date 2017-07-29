@@ -87,11 +87,11 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2=List
                         if (skillList.length !== 0) {
                             skillList.push(', ')
                         }
-                        skillList.push(getSkill(idString, skillNames, key==='skillName'))
+                        skillList.push(getSkill(idString, skillNames, key.startsWith('skillName')))
                     })
                 }
                 else {
-                    skillList.push(getSkill(value, skillNames, key==='skillName'))
+                    skillList.push(getSkill(value, skillNames, key.startsWith('skillName')))
                 }
                 value = <span>{skillList}</span>
                 break
