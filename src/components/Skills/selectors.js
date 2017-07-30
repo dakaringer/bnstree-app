@@ -197,7 +197,7 @@ const filteredSkillDataSelector = createSelector(groupedSkillDataSelector, group
 })
 
 export const catagorizedSkillDataSelector = createSelector(filteredSkillDataSelector, viewSelector, (data, view) => {
-    data = data.filter(group => group.get('moves', List()).size > 0).sortBy((value, key) => key, (a, b) => a - b)
+    data = data.filter(group => group.get('moves', List()).size > 0)
 
     if (view.get('visibility', 'ALL') !== 'ALL') {
         data = data.filter(group => group.get('moves', List()).size > 1)
@@ -209,5 +209,6 @@ export const catagorizedSkillDataSelector = createSelector(filteredSkillDataSele
     else {
         data = data.groupBy(group => group.get('minLevel')).sortBy((value, key) => key, (a, b) => a - b)
     }
-    return data
+
+    return data.map(group => group.sortBy((value, key) => key, (a, b) => a - b))
 })
