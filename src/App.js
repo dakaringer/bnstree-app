@@ -55,7 +55,7 @@ class App extends Component {
         let redirectLinks = []
         classes.forEach(c => {
             redirectLinks.push(
-                <Redirect key={c[0]} exact from={`/skill/${c[0]}`} to={`/skill/${c[1]}`}/>
+                <Redirect key={c[0]} exact from={`/skill/${c[0]}`} to={`/skills/${c[1]}`}/>
             )
         })
 
