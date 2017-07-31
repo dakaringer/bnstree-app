@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router-dom'
 
@@ -30,19 +30,25 @@ function asyncComponent(getComponent) {
         render() {
             const {Component} = this.state
             if (Component) {
-                return <Component {...this.props}/>
+                return <Component {...this.props} />
             }
-            return <div className='mainLoading'>
-                <LoadingLyn/>
-            </div>
+            return (
+                <div className="mainLoading">
+                    <LoadingLyn />
+                </div>
+            )
         }
     }
 }
 
-const Home = asyncComponent(() => import('./components/Home/Home').then(module => module.default))
-const Skills = asyncComponent(() => import('./components/Skills/Skills').then(module => module.default))
+const Home = asyncComponent(() =>
+    import('./components/Home/Home').then(module => module.default)
+)
+const Skills = asyncComponent(() =>
+    import('./components/Skills/Skills').then(module => module.default)
+)
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         initialized: initializedSelector(state)
     }
@@ -51,40 +57,61 @@ const mapStateToProps = (state) => {
 class App extends Component {
     render() {
         const {initialized} = this.props
-        
+
         let redirectLinks = []
         classes.forEach(c => {
             redirectLinks.push(
-                <Redirect key={c[0]} exact from={`/skill/${c[0]}`} to={`/skills/${c[1]}`}/>
+                <Redirect
+                    key={c[0]}
+                    exact
+                    from={`/skill/${c[0]}`}
+                    to={`/skills/${c[1]}`}
+                />
             )
         })
 
-        let app = <div className='App'>
-            <LoadingLyn/>
-        </div>
-        if (initialized) {
-            app = <div className='App'>
-                <NavBar/>
-                <div className='app-content'>
-                    <Switch>
-                        <Route exact path='/' component={Home}/>
-
-                        <Redirect exact from='/skills' to='/skills/blade-master'/>
-                        {redirectLinks}
-                        <Route exact path='/skills/:classCode' component={Skills}/>
-                        <Route exact path='/skills/:classCode/:buildLink' component={Skills}/>
-                    </Switch>
-                </div>
+        let app = (
+            <div className="App">
+                <LoadingLyn />
             </div>
+        )
+        if (initialized) {
+            app = (
+                <div className="App">
+                    <NavBar />
+                    <div className="app-content">
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+
+                            <Redirect
+                                exact
+                                from="/skills"
+                                to="/skills/blade-master"
+                            />
+                            {redirectLinks}
+                            <Route
+                                exact
+                                path="/skills/:classCode"
+                                component={Skills}
+                            />
+                            <Route
+                                exact
+                                path="/skills/:classCode/:buildLink"
+                                component={Skills}
+                            />
+                        </Switch>
+                    </div>
+                </div>
+            )
         }
 
         return (
             <div>
                 {app}
-                <Background/>
+                <Background />
             </div>
         )
     }
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(App)

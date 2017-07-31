@@ -7,28 +7,34 @@ import classImages from '../images/map_classImg'
 
 import {classSelector} from '../selectors'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         classCode: classSelector(state)
     }
 }
 
-const SkillHeader = (props) => {
+const SkillHeader = props => {
     const {t, classCode} = props
 
     return (
-        <div className='skill-header section-header'>
-            <div className='header-title'>
-                <img alt={classCode} src={classImages[classCode]}/>
-                <span>{t(classCode)}</span>
+        <div className="skill-header section-header">
+            <div className="header-title">
+                <img alt={classCode} src={classImages[classCode]} />
+                <span>
+                    {t(classCode)}
+                </span>
             </div>
-            <div className='header-right'>
-                <div className='share header-item'>
-                    <a>{t('skills:shareSkills')} <Icon type="share-alt" /></a>
+            <div className="header-right">
+                <div className="share header-item">
+                    <a>
+                        {t('skills:shareSkills')} <Icon type="share-alt" />
+                    </a>
                 </div>
             </div>
         </div>
     )
 }
 
-export default connect(mapStateToProps)(translate('general', 'skills')(SkillHeader))
+export default connect(mapStateToProps)(
+    translate('general', 'skills')(SkillHeader)
+)

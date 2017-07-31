@@ -11,7 +11,15 @@ import character from './components/character/reducer'
 import home from './components/home/reducer'
 import rankings from './components/rankings/reducer'
 */
-function general(state = fromJS({language: 'en', user: null, loading: false, initialized: false}), action) {
+function general(
+    state = fromJS({
+        language: 'en',
+        user: null,
+        loading: false,
+        initialized: false
+    }),
+    action
+) {
     switch (action.type) {
         case actionType.GENERAL_SET_LANGUAGE:
             return state.set('language', fromJS(action.language))

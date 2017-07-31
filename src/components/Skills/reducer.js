@@ -2,17 +2,20 @@ import {combineReducers} from 'redux-immutable'
 import {fromJS, Map} from 'immutable'
 import * as actionType from './actionTypes'
 
-function ui(state = fromJS({
-    classCode: 'BM',
-    view: {
-        mode: 'LIST',
-        order: 'LEVEL',
-        visibility: 'ALL'
-    },
-    filter: 'ALL',
-    search: '',
-    patch: 'BASE'
-}), action) {
+function ui(
+    state = fromJS({
+        classCode: 'BM',
+        view: {
+            mode: 'LIST',
+            order: 'LEVEL',
+            visibility: 'ALL'
+        },
+        filter: 'ALL',
+        search: '',
+        patch: 'BASE'
+    }),
+    action
+) {
     switch (action.type) {
         case actionType.SKILL_UI_SET_CLASS:
             return state.set('classCode', action.classCode)
@@ -29,28 +32,31 @@ function ui(state = fromJS({
     }
 }
 
-function character(state = fromJS({
-    ap: 13,
-    apPet: 5,
-    ad: 0,
-    c: 1,
-    element: {
-        flame: 100.00,
-        frost: 100.00,
-        lightning: 100.00,
-        shadow: 100.00,
-        wind: 100.00,
-        earth: 100.00
-    },
-    equip: {
-        s3: null,
-        s5: null,
-        s8: null,
-        wep: null,
-        sBadge: null,
-        mBadge: null
-    }
-}), action) {
+function character(
+    state = fromJS({
+        ap: 13,
+        apPet: 5,
+        ad: 0,
+        c: 1,
+        element: {
+            flame: 100.0,
+            frost: 100.0,
+            lightning: 100.0,
+            shadow: 100.0,
+            wind: 100.0,
+            earth: 100.0
+        },
+        equip: {
+            s3: null,
+            s5: null,
+            s8: null,
+            wep: null,
+            sBadge: null,
+            mBadge: null
+        }
+    }),
+    action
+) {
     switch (action.type) {
         case actionType.SKILL_CHAR_SET_STAT:
             return state.set(action.stat, action.value)
@@ -68,7 +74,10 @@ function data(state = Map(), action) {
         case actionType.SKILL_DATA_SET_CLASS_DATA:
         case actionType.SKILL_DATA_SET_BUILD_LIST:
         case actionType.SKILL_DATA_SET_USER_BUILDS:
-            return state.set(action.classCode, classData(state.get(action.classCode, Map()), action))
+            return state.set(
+                action.classCode,
+                classData(state.get(action.classCode, Map()), action)
+            )
         default:
             return state
     }
@@ -97,7 +106,10 @@ function build(state = Map(), action) {
         case actionType.SKILL_BUILD_SET_ELEMENT:
             return state.setIn([action.classCode, 'element'], action.element)
         case actionType.SKILL_BUILD_SET_SKILL:
-            return state.setIn([action.classCode, 'build', action.element, action.skill], action.move)
+            return state.setIn(
+                [action.classCode, 'build', action.element, action.skill],
+                action.move
+            )
         default:
             return state
     }
@@ -106,7 +118,10 @@ function build(state = Map(), action) {
 function ref(state = fromJS({skillNames: {}}), action) {
     switch (action.type) {
         case actionType.SKILL_REF_SET_NAMES:
-            return state.mergeDeepIn(['skillNames', action.language], action.nameData)
+            return state.mergeDeepIn(
+                ['skillNames', action.language],
+                action.nameData
+            )
         default:
             return state
     }

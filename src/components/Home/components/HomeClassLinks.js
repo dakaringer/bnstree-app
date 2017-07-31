@@ -11,15 +11,17 @@ class Home extends Component {
         let links = []
         classes.forEach(c => {
             links.push(
-                <Link to={`/skills/${c[1]}`} className='class-link' key={c[0]}>
-                    <img alt={c[1]} src={classImages[c[0]]}/>
-                    <p>{t(c[0])}</p>
+                <Link to={`/skills/${c[1]}`} className="class-link" key={c[0]}>
+                    <img alt={c[1]} src={classImages[c[0]]} />
+                    <p>
+                        {t(c[0])}
+                    </p>
                 </Link>
             )
         })
 
         return (
-            <div className='home-class-links'>
+            <div className="home-class-links">
                 {links}
             </div>
         )

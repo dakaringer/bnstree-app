@@ -34,7 +34,7 @@
         }
     }
 
-    @media(max-width: 767px) {
+    @media (max-width: 767px) {
         padding: 0;
 
         .hotkeyBar {
@@ -45,14 +45,22 @@
 
 .skill-list-item {
     @keyframes fadeIn {
-        from { opacity: 0; }
-        to   { opacity: 1; }
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 
     margin: 1rem 2rem;
     display: flex;
     padding: 1.2rem;
-    background: linear-gradient(to right,  rgba(0,0,0,0.4) 70%,rgba(0,0,0,0) 110%);
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.4) 70%,
+        rgba(0, 0, 0, 0) 110%
+    );
     width: 45rem;
     animation: fadeIn 1s ease forwards;
     opacity: 0;
@@ -86,13 +94,17 @@
 
             &.filtered h6 {
                 @keyframes glow {
-                    from {color: palegoldenrod;}
-                    to {color: goldenrod;}
+                    from {
+                        color: palegoldenrod;
+                    }
+                    to {
+                        color: goldenrod;
+                    }
                 }
 
                 animation: glow 1s ease infinite alternate;
             }
-            
+
             &:last-child {
                 border: none;
             }
@@ -114,12 +126,20 @@
                 }
 
                 &.current {
-                    @keyframes slide { 
-                        0%{background-position:50% 0%}
-                        100%{background-position:50% 100%}
+                    @keyframes slide {
+                        0% {
+                            background-position: 50% 0%;
+                        }
+                        100% {
+                            background-position: 50% 100%;
+                        }
                     }
 
-                    background: linear-gradient(to top, rgba(80, 200, 250, 0.35) 0%,rgba(0,0,0,0) 45%);
+                    background: linear-gradient(
+                        to top,
+                        rgba(80, 200, 250, 0.35) 0%,
+                        rgba(0, 0, 0, 0) 45%
+                    );
                     background-size: 100% 200%;
                     animation: slide 0.3s ease forwards;
                 }
@@ -137,7 +157,8 @@
                 opacity: 0.9;
 
                 &.active {
-                    background: url(../images/ic_mastery_pc_active.png) center no-repeat;
+                    background: url(../images/ic_mastery_pc_active.png) center
+                        no-repeat;
                 }
             }
         }
@@ -148,7 +169,7 @@
         }
     }
 
-    @media(max-width: 767px) {
+    @media (max-width: 767px) {
         margin: 0.5rem 0;
         margin-left: -0.5rem;
         padding: 0.8rem;

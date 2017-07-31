@@ -1,8 +1,8 @@
 .skill-tooltip-wrap {
     .ant-tooltip-arrow {
-        border-bottom-color: rgba(30,30,30,0.8);
+        border-bottom-color: rgba(30, 30, 30, 0.8);
 
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
             display: none;
         }
     }
@@ -10,14 +10,14 @@
     .ant-tooltip-inner {
         max-width: 60rem;
         width: 60rem;
-        background: rgba(10,10,10,0.8);
+        background: rgba(10, 10, 10, 0.8);
         border: 0.1rem solid #111;
 
         hr {
             border-color: #111;
         }
 
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
             max-width: 100vw;
             width: 100vw;
         }
@@ -34,15 +34,15 @@
     padding-top: 0;
     font-weight: 300;
 
-    @media(max-width: 767px) {
+    @media (max-width: 767px) {
         width: 100%;
     }
 
     .mod {
-        color: #FFDF33;
+        color: #ffdf33;
     }
     .add {
-        color: #66FF66;
+        color: #66ff66;
     }
     .delete {
         color: #aaa;
@@ -55,7 +55,8 @@
 
     .attribute {
         font-size: 1.2rem;
-        line-height: 1.4em;
+        line-height: 1em;
+        margin-bottom: 0.3rem;
 
         .element {
             width: 1.2em;
@@ -137,7 +138,6 @@
         }
     }
 
-
     .tooltip-info-block {
         display: flex;
         justify-content: center;
@@ -212,7 +212,7 @@
         .skillTag {
             display: inline-block;
             padding: 0rem 0.5rem;
-            background: #195F9A;
+            background: #195f9a;
             border-radius: 0.2rem;
             font-size: 1.1rem;
             margin-right: 0.5rem;

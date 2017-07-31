@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
@@ -15,24 +15,31 @@ import './styles/index.scss'
 import {LocaleProvider} from 'antd'
 import enUS from 'antd/lib/locale-provider/en_US'
 import i18n from './i18n'
-import { I18nextProvider } from 'react-i18next'
+import {I18nextProvider} from 'react-i18next'
 
 import ReactGA from 'react-ga'
 ReactGA.initialize('UA-61749626-5')
 
-let store = createStore(rootReducer, Map(), compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f))
+let store = createStore(
+    rootReducer,
+    Map(),
+    compose(
+        applyMiddleware(thunk),
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+)
 
-const withTracker = (WrappedComponent) => {
-    const trackPage = (page) => {
+const withTracker = WrappedComponent => {
+    const trackPage = page => {
         ReactGA.set({page})
         ReactGA.pageview(page)
     }
 
-    const HOC = (props) => {
+    const HOC = props => {
         const page = props.location.pathname
         trackPage(page)
 
-        return (<WrappedComponent {...props}/>)
+        return <WrappedComponent {...props} />
     }
 
     return HOC
@@ -48,9 +55,9 @@ class Root extends Component {
         return (
             <LocaleProvider locale={enUS}>
                 <Provider store={store}>
-                    <I18nextProvider i18n={ i18n }>
+                    <I18nextProvider i18n={i18n}>
                         <BrowserRouter>
-                            <Route component={withTracker(App)}/>
+                            <Route component={withTracker(App)} />
                         </BrowserRouter>
                     </I18nextProvider>
                 </Provider>
@@ -59,5 +66,5 @@ class Root extends Component {
     }
 }
 
-ReactDOM.render(<Root/>, document.getElementById('root'))
+ReactDOM.render(<Root />, document.getElementById('root'))
 registerServiceWorker()

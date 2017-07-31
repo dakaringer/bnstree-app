@@ -27,7 +27,7 @@ function getClassCode(link) {
     return classCode
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         currentLanguage: currentLanguageSelector(state),
         view: viewSelector(state),
@@ -35,16 +35,23 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        loadText: (lang) => dispatch(loadTextData(lang)),
-        loadClass: (classCode, buildCode, buildLink) => dispatch(loadClass(classCode, buildCode, buildLink))
+        loadText: lang => dispatch(loadTextData(lang)),
+        loadClass: (classCode, buildCode, buildLink) =>
+            dispatch(loadClass(classCode, buildCode, buildLink))
     }
 }
 
 class Skills extends React.Component {
     componentWillMount() {
-        const {location, match, currentLanguage, loadText, loadClass} = this.props
+        const {
+            location,
+            match,
+            currentLanguage,
+            loadText,
+            loadClass
+        } = this.props
 
         let params = new URLSearchParams(location.search)
         let classCode = getClassCode(match.params.classCode)
@@ -58,7 +65,10 @@ class Skills extends React.Component {
         if (nextProps.currentLanguage !== currentLanguage) {
             loadText(nextProps.currentLanguage)
         }
-        if (classCode !== getClassCode(match.params.classCode) || nextProps.match.params.buildLink !== match.params.buildLink) {
+        if (
+            classCode !== getClassCode(match.params.classCode) ||
+            nextProps.match.params.buildLink !== match.params.buildLink
+        ) {
             loadClass(classCode, null, nextProps.match.params.buildLink)
         }
     }
@@ -71,28 +81,32 @@ class Skills extends React.Component {
     render() {
         const {loading} = this.props
 
-        let content = <div>
-            <Header/>
-            <SubHeader/>
-            <Row className='skills-content'>
-                <Col sm={4} className='info-container'>
-                    <SkillInfo/>
-                </Col>
-                <Col sm={20} className='main-container'>
-                    <SkillList/>
-                </Col>
-            </Row>
-        </div>
+        let content = (
+            <div>
+                <Header />
+                <SubHeader />
+                <Row className="skills-content">
+                    <Col sm={4} className="info-container">
+                        <SkillInfo />
+                    </Col>
+                    <Col sm={20} className="main-container">
+                        <SkillList />
+                    </Col>
+                </Row>
+            </div>
+        )
         if (loading) {
-            content = <LoadingLyn/>
+            content = <LoadingLyn />
         }
 
         return (
-            <div className='skills'>
+            <div className="skills">
                 {content}
             </div>
         )
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(Skills))
+export default connect(mapStateToProps, mapDispatchToProps)(
+    translate('general')(Skills)
+)

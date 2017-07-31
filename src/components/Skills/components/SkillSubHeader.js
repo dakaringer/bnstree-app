@@ -5,20 +5,14 @@ import {translate} from 'react-i18next'
 import elementImages from '../images/map_elementImg'
 
 //import {userSelector} from '../../../selector'
-import {
-    buildElementSelector,
-    searchSelector,
-    viewSelector
-} from '../selectors'
-import {
-    toggleElement,
-    setSearch,
-    updateView
-} from '../actions'
+import {buildElementSelector, searchSelector, viewSelector} from '../selectors'
+import {toggleElement, setSearch, updateView} from '../actions'
+
+import SkillSettings from './SkillSettings'
 
 import {Icon, Checkbox} from 'antd'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         element: buildElementSelector(state),
         search: searchSelector(state),
@@ -26,43 +20,59 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
         toggleElement: () => dispatch(toggleElement()),
-        setSearch: (value) => dispatch(setSearch(value)),
-        toggleVisibility: (e) => dispatch(updateView('visibility', e.target.checked ? 'TRAINABLE' : 'ALL'))
+        setSearch: value => dispatch(setSearch(value)),
+        toggleVisibility: e =>
+            dispatch(
+                updateView('visibility', e.target.checked ? 'TRAINABLE' : 'ALL')
+            )
     }
 }
 
-const SkillSubHeader = (props) => {
+const SkillSubHeader = props => {
     const {
-        t, 
-        element, 
+        t,
+        element,
         toggleElement,
         search,
         setSearch,
         visibility,
         toggleVisibility
     } = props
-    
+
     return (
-        <div className='skill-sub-header sub-header'>
-            <div className='sub-header-left'>
-                <div className='sub-header-group'>
-                    <div className='elementToggle sub-header-item'>
+        <div className="skill-sub-header sub-header">
+            <div className="sub-header-left">
+                <div className="sub-header-group">
+                    <div className="elementToggle sub-header-item">
                         <a onClick={() => toggleElement()}>
-                            <img alt={element} src={elementImages[element]}/>
+                            <img alt={element} src={elementImages[element]} />
                             <span>
-                                {element ? t(`general:${element}`) : ''} <small><Icon type="swap" /></small>
+                                {element ? t(`general:${element}`) : ''}{' '}
+                                <small>
+                                    <Icon type="swap" />
+                                </small>
                             </span>
                         </a>
                     </div>
-                    <div className='skillSearch sub-header-item'>
-                        <input placeholder={t('general:search')} value={search} onChange={(e) => setSearch(e.target.value)}/>
-                        <Icon onClick={() => setSearch('')} className={`clear ${search.length > 0 ? 'active' : ''}`} type="close" />
+                    <div className="skillSearch sub-header-item">
+                        <input
+                            placeholder={t('general:search')}
+                            value={search}
+                            onChange={e => setSearch(e.target.value)}
+                        />
+                        <Icon
+                            onClick={() => setSearch('')}
+                            className={`clear ${search.length > 0
+                                ? 'active'
+                                : ''}`}
+                            type="close"
+                        />
                     </div>
                 </div>
-                <div className='skillVisibility sub-header-item'>
+                <div className="skillVisibility sub-header-item">
                     <Checkbox
                         defaultChecked={false}
                         size="small"
@@ -72,13 +82,12 @@ const SkillSubHeader = (props) => {
                     </Checkbox>
                 </div>
             </div>
-            <div className='sub-header-right'>
-                <div className='settings sub-header-item'>
-                    <a>{t('settings')} <Icon type="setting" /></a>
-                </div>
-            </div>
+
+            <SkillSettings />
         </div>
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('skills', 'general')(SkillSubHeader))
+export default connect(mapStateToProps, mapDispatchToProps)(
+    translate('skills', 'general')(SkillSubHeader)
+)

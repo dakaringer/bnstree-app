@@ -11,19 +11,45 @@
             }
         }
 
-        .ant-dropdown-menu-item-selected, .ant-dropdown-menu-item-selected > a {
+        .ant-dropdown-menu-item-selected,
+        .ant-dropdown-menu-item-selected > a {
             background: none;
         }
     }
 }
 
-.ant-checkbox-checked .ant-checkbox-inner, .ant-checkbox-indeterminate .ant-checkbox-inner {
+.ant-checkbox-checked .ant-checkbox-inner,
+.ant-checkbox-indeterminate .ant-checkbox-inner {
     background-color: aqua;
     border-color: aqua;
 }
 
 .ant-tooltip {
-    @media(max-width: 767px) {
+    @media (max-width: 767px) {
         left: 0 !important;
+    }
+}
+
+.ant-modal-mask {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.ant-modal {
+    .ant-modal-close {
+        outline: none;
+        color: white;
+    }
+
+    .ant-modal-content {
+        background: rgba(50, 50, 50, 0.8);
+        color: white;
+        .ant-modal-footer,
+        .ant-modal-header {
+            border: none;
+            background: none;
+            .ant-modal-title {
+                color: white;
+            }
+        }
     }
 }
