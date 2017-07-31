@@ -63,7 +63,7 @@ const types = {
     'DEFLECT_PENETRATION' : 't16',
     'CHARGE_DISABLE' : 't12',
     'DEFENSE_DISABLE' : 't12',
-    'TARGET_DISABLE' : 't12',
+    'TARGET_BLOCK' : 't12',
     'ESCAPE' : 't24',
     'AWAKENED' : 't23',
     'RESTRAIN' : 't23',
