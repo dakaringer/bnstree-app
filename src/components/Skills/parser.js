@@ -65,10 +65,15 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
 
                 let intl = new Intl.NumberFormat(i18n.language)
                 let ap = pet ? stats.get('apPet', 5) : stats.get('ap', 13)
+                ap = ap === '' || isNaN(ap) ? (pet ? 5 : 13) : parseInt(ap, 10)
                 let ad = stats.get('ad', 0)
+                ad = ad === '' || isNaN(ad) ? 0 : parseInt(ad, 10)
                 let c = stats.get('c', 1)
+                c = c === '' || isNaN(c) ? 1 : parseInt(c, 10)
+                let elementDmg = stats.getIn(['element', element], 100)
+                elementDmg = elementDmg === '' || isNaN(elementDmg) ? 100 : parseInt(elementDmg, 10)
 
-                let multiplyer = 1 * stats.getIn(['element', element], 100) / 100
+                let multiplyer = 1 * elementDmg / 100
                 let scale = value
                 let bottomScale = List.isList(scale) ? scale.get(0) : scale
                 let topScale = List.isList(scale) ? scale.get(1) : scale
