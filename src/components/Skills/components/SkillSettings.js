@@ -79,7 +79,7 @@ class SkillSettings extends React.Component {
                     <h5>
                         {t('characterStats')}
                     </h5>
-                    <table>
+                    <table className="character-stats">
                         <tbody>
                             <tr>
                                 <td>
@@ -127,7 +127,7 @@ class SkillSettings extends React.Component {
                                         <Tooltip
                                             placement="bottomLeft"
                                             title={t('weaponConstantInfo')}>
-                                            <Icon type="question-circle-o" />
+                                            <Icon className="help" type="question-circle-o" />
                                         </Tooltip>
                                     </label>
                                 </td>

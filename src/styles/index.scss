@@ -35,13 +35,20 @@ a {
     color: #9d9d9d;
 }
 input {
+    color: white;
     background: none;
     border: none;
     outline: none;
+    border-radius: 0;
     border-bottom: 0.1rem solid #aaa;
+    padding: 0;
+    transition: all 0.3s;
+    padding-left: 0.3rem;
 
+    &:hover,
     &:active,
     &:focus {
+        box-shadow: none;
         border-color: aqua;
     }
 }
