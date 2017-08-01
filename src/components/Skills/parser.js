@@ -124,26 +124,32 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
                 break
             }
             default: {
-                if (key === 'resource') {
-                    value = i18n.t(`tooltip:${value}`, {
-                        count: options.get('count', 1)
-                    })
-                } else if (isNaN(value)) {
-                    if (List.isList(value)) {
-                        value = value.map(s => i18n.t(`tooltip:${s}`)).join(', ')
-                    } else if (!value.includes('/')) {
-                        value = i18n.t(`tooltip:${value.split('-')[0]}`)
-                    }
-                } else if (key !== 'count' && key.startsWith('count')) {
-                    value = isNaN(value)
-                        ? <Interpolate i18nKey={`tooltip:${key}`} count={value} />
-                        : i18n.t(`tooltip:${key}`, {count: value})
-                } else if (obj2 && obj2.get(1) && obj2.getIn([1, key]) !== value) {
+                if (obj2 && obj2.get(1) && obj2.getIn([1, key]) !== obj.getIn([1, key])) {
                     value = (
                         <span key={key}>
                             {obj2.getIn([1, key])} <Icon type="caret-right" /> {value}
                         </span>
                     )
+                }
+
+                if (key === 'resource') {
+                    value = i18n.t(`tooltip:${value}`, {
+                        count: options.get('count', 1)
+                    })
+                } else if (key !== 'count' && key.startsWith('count')) {
+                    value = isNaN(value)
+                        ? <Interpolate
+                              i18nKey={`tooltip:${key}`}
+                              count={value}
+                              options={{count: obj.getIn([1, key])}}
+                          />
+                        : i18n.t(`tooltip:${key}`, {count: value})
+                } else if (isNaN(value)) {
+                    if (List.isList(value)) {
+                        value = value.map(s => i18n.t(`tooltip:${s}`)).join(', ')
+                    } else if (typeof value === 'string' && !value.includes('/')) {
+                        value = i18n.t(`tooltip:${value.split('-')[0]}`)
+                    }
                 }
             }
         }
@@ -157,7 +163,12 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
     options = options.toJS()
     return (
         <span>
-            <Interpolate i18nKey={`tooltip:${template}`} options={options} {...options} /> {element}
+            <Interpolate
+                i18nKey={`tooltip:${template}`}
+                options={{count: options.count}}
+                {...options}
+            />{' '}
+            {element}
         </span>
     )
 }
