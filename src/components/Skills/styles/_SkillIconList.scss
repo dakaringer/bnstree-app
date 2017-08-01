@@ -84,9 +84,19 @@
     }
 
     .skill-icon-list-item {
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
         cursor: pointer;
         width: 5rem;
         margin: 0.5rem;
+        animation: fadeIn 1s ease forwards;
+        opacity: 0;
 
         .skill-icon {
             width: 100%;
