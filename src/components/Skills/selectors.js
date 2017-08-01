@@ -259,6 +259,8 @@ export const catagorizedSkillDataSelector = createSelector(
                 .sortBy((value, key) => key, (a, b) => a - b)
         }
 
-        return data.map(group => group.sortBy((value, key) => key, (a, b) => a - b))
+        return data.map(group =>
+            group.sortBy((value, key) => key, (a, b) => a.substring(0, 5) - b.substring(0, 5))
+        )
     }
 )
