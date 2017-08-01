@@ -104,7 +104,7 @@ class NavBar extends Component {
                                 </Menu>
                             }
                             trigger={['hover', 'click']}>
-                            <Link to={`/skill/${classes[0][1]}`} className="main-nav-menu-item">
+                            <Link to={`/skills/${classes[0][1]}`} className="main-nav-menu-item">
                                 {t('skills')}
                             </Link>
                         </Dropdown>
