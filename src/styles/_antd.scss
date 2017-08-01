@@ -38,8 +38,6 @@
     }
 
     .ant-tooltip-inner {
-        max-width: 60rem;
-        width: 60rem;
         background: rgba(10, 10, 10, 0.9);
         border: 0.1rem solid #111;
 
@@ -86,6 +84,16 @@
     .ant-modal-content {
         background: rgba(50, 50, 50, 0.8);
         color: white;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: white;
+            font-size: 1.4rem;
+        }
         .ant-modal-footer,
         .ant-modal-header {
             border: none;
