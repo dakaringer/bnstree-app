@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {Modal, Switch, Icon, Tooltip, Input} from 'antd'
+import {Modal, Switch, Icon, Tooltip} from 'antd'
 
 import {viewSelector, charSelector} from '../selectors'
 import {updateView, setStat} from '../actions.js'
