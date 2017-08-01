@@ -35,6 +35,4 @@ const SkillHeader = props => {
     )
 }
 
-export default connect(mapStateToProps)(
-    translate('general', 'skills')(SkillHeader)
-)
+export default connect(mapStateToProps)(translate('general', 'skills')(SkillHeader))

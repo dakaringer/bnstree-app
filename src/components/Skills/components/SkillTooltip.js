@@ -7,11 +7,7 @@ import parser from '../parser'
 
 import {Icon} from 'antd'
 
-import {
-    charSelector,
-    skillNamesSelector,
-    buildElementSelector
-} from '../selectors'
+import {charSelector, skillNamesSelector, buildElementSelector} from '../selectors'
 
 const mapStateToProps = state => {
     return {
@@ -22,14 +18,7 @@ const mapStateToProps = state => {
 }
 
 const SkillTooltip = props => {
-    const {
-        t,
-        moveData,
-        comparisonData,
-        characterData,
-        skillNames,
-        element
-    } = props
+    const {t, moveData, comparisonData, characterData, skillNames, element} = props
 
     //focus
     let focus = moveData.get('focus', moveData.get('health', 0))
@@ -37,11 +26,7 @@ const SkillTooltip = props => {
     let focusTxt = focusHandler(focus, t, moveData.has('health'))
     if (focus !== compFocus) {
         if (compFocus !== 0) {
-            if (
-                (focus > 0 && compFocus > 0) ||
-                (focus < 0 && compFocus < 0) ||
-                focus === 0
-            ) {
+            if ((focus > 0 && compFocus > 0) || (focus < 0 && compFocus < 0) || focus === 0) {
                 focusTxt = Math.abs(focus)
             }
             focusTxt = (
@@ -95,12 +80,7 @@ const SkillTooltip = props => {
                             attb.get(0, '').startsWith('damage') ||
                             (isNaN(v) && attb.getIn([1, k]) !== v)
                         ) {
-                            deleted = parser(
-                                cAttb,
-                                element,
-                                characterData,
-                                skillNames
-                            )
+                            deleted = parser(cAttb, element, characterData, skillNames)
                             return false
                         }
                     })
@@ -121,14 +101,7 @@ const SkillTooltip = props => {
 
                 attbList[type].push(
                     <p className={`attribute ${flag ? flag : ''}`} key={n}>
-                        {parser(
-                            attb,
-                            element,
-                            characterData,
-                            skillNames,
-                            cAttb
-                        )}{' '}
-                        {tag}
+                        {parser(attb, element, characterData, skillNames, cAttb)} {tag}
                     </p>
                 )
 
@@ -156,10 +129,7 @@ const SkillTooltip = props => {
 
     //Info
     let info = moveData.getIn(['info', element], moveData.get('info', Map()))
-    let comparisonInfo = comparisonData.getIn(
-        ['info', element],
-        comparisonData.get('info', Map())
-    )
+    let comparisonInfo = comparisonData.getIn(['info', element], comparisonData.get('info', Map()))
     let infoList = {}
     comparisonInfo.forEach((i, type) => {
         let div = null
@@ -266,9 +236,7 @@ const SkillTooltip = props => {
                             .get(1, Map())
                             .delete('element')
                             .keySeq()
-                            .equals(
-                                cAttb.get(1, Map()).delete('element').keySeq()
-                            )
+                            .equals(cAttb.get(1, Map()).delete('element').keySeq())
                     ) {
                         flag = 'mod'
                     }
@@ -289,18 +257,9 @@ const SkillTooltip = props => {
                 }
                 subAttbList[type].push(
                     <p className={`attribute ${flag ? flag : ''}`} key={n}>
-                        <img
-                            alt={type}
-                            src={`https://static.bnstree.com/images/skill/${icon}`}
-                        />
+                        <img alt={type} src={`https://static.bnstree.com/images/skill/${icon}`} />
                         <span>
-                            {parser(
-                                attb,
-                                element,
-                                characterData,
-                                skillNames
-                            )}{' '}
-                            {tag}
+                            {parser(attb, element, characterData, skillNames)} {tag}
                         </span>
                     </p>
                 )
@@ -314,12 +273,7 @@ const SkillTooltip = props => {
                                 src={`https://static.bnstree.com/images/skill/${icon2}`}
                             />
                             <span>
-                                {parser(
-                                    cAttb,
-                                    element,
-                                    characterData,
-                                    skillNames
-                                )}
+                                {parser(cAttb, element, characterData, skillNames)}
                             </span>
                         </p>
                     )
@@ -340,12 +294,7 @@ const SkillTooltip = props => {
                                 src={`https://static.bnstree.com/images/skill/${icon}`}
                             />
                             <span>
-                                {parser(
-                                    attb,
-                                    element,
-                                    characterData,
-                                    skillNames
-                                )}
+                                {parser(attb, element, characterData, skillNames)}
                             </span>
                         </p>
                     )
@@ -376,9 +325,7 @@ const SkillTooltip = props => {
 
     let moveNumber = moveData.get('move')
     let classification =
-        moveNumber > 3
-            ? t('moveTypeHM', {move: moveNumber - 3})
-            : t('moveType', {move: moveNumber})
+        moveNumber > 3 ? t('moveTypeHM', {move: moveNumber - 3}) : t('moveType', {move: moveNumber})
 
     return (
         <div className="skill-tooltip">
@@ -394,9 +341,7 @@ const SkillTooltip = props => {
                 <img
                     className="tooltip-icon"
                     alt={moveData.get('skillId')}
-                    src={`https://static.bnstree.com/images/skill/${moveData.get(
-                        'icon'
-                    )}`}
+                    src={`https://static.bnstree.com/images/skill/${moveData.get('icon')}`}
                 />
                 <div>
                     <div className="tooltip-m1">
@@ -450,9 +395,7 @@ const SkillTooltip = props => {
     )
 }
 
-export default connect(mapStateToProps)(
-    translate(['skills', 'tooltip'])(SkillTooltip)
-)
+export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillTooltip))
 
 function focusHandler(value, t, health) {
     if (value !== 0) {
@@ -496,10 +439,7 @@ function findAttb(attb, list, sub = false) {
             if (
                 elementCheck &&
                 (includeCheck ||
-                    (sameKeySeqCheck &&
-                        sameStatusCheck &&
-                        sameStatCheck &&
-                        sameSkillCheck))
+                    (sameKeySeqCheck && sameStatusCheck && sameStatCheck && sameSkillCheck))
             ) {
                 cAttb = c
                 list = list.deleteIn([type, i])

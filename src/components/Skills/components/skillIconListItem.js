@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {List} from 'immutable'
 
-import {Tooltip} from 'antd'
+import {Tooltip, Popover} from 'antd'
 
 import SkillMoves from './SkillMoves'
 import SkillTooltip from './SkillTooltip'
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
     }
 }
 
-const SkillListItem = props => {
+const SkillIconListItem = props => {
     const {skillData, skillId} = props
 
     let offset = skillData.getIn(['moves', 0, 'move'], 1) - 1
@@ -37,25 +37,30 @@ const SkillListItem = props => {
     )
 
     return (
-        <div className="skill-list-item">
+        <div className="skill-icon-list-item">
             <Tooltip
                 placement="bottomLeft"
                 title={mainTooltip}
                 align={{overflow: {adjustY: false, adjustX: true}}}
                 overlayClassName="skill-tooltip-wrap">
-                <img
-                    className="skill-icon"
-                    alt={skillId}
-                    src={`https://static.bnstree.com/images/skill/${skillData.getIn([
-                        'moves',
-                        moveIndex,
-                        'icon'
-                    ])}`}
-                />
+                <Popover
+                    placement="topLeft"
+                    trigger="click"
+                    align={{overflow: {adjustY: false, adjustX: true}}}
+                    content={<SkillMoves skillData={skillData} skillId={skillId} />}>
+                    <img
+                        className="skill-icon"
+                        alt={skillId}
+                        src={`https://static.bnstree.com/images/skill/${skillData.getIn([
+                            'moves',
+                            moveIndex,
+                            'icon'
+                        ])}`}
+                    />
+                </Popover>
             </Tooltip>
-            <SkillMoves skillData={skillData} skillId={skillId} />
         </div>
     )
 }
 
-export default connect(mapStateToProps)(SkillListItem)
+export default connect(mapStateToProps)(SkillIconListItem)

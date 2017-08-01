@@ -23,10 +23,7 @@ ReactGA.initialize('UA-61749626-5')
 let store = createStore(
     rootReducer,
     Map(),
-    compose(
-        applyMiddleware(thunk),
-        window.devToolsExtension ? window.devToolsExtension() : f => f
-    )
+    compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
 )
 
 const withTracker = WrappedComponent => {

@@ -40,9 +40,7 @@ const SkillInfo = props => {
             <a
                 key={f}
                 onClick={() => setFilter(active ? 'ALL' : f)}
-                className={`filter ${f.toLowerCase()} ${active
-                    ? 'active'
-                    : ''}`}>
+                className={`filter ${f.toLowerCase()} ${active ? 'active' : ''}`}>
                 {t(f)}
             </a>
         )
@@ -57,6 +55,4 @@ const SkillInfo = props => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    translate('skills')(SkillInfo)
-)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillInfo))

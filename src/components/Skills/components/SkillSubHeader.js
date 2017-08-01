@@ -25,22 +25,12 @@ const mapDispatchToProps = dispatch => {
         toggleElement: () => dispatch(toggleElement()),
         setSearch: value => dispatch(setSearch(value)),
         toggleVisibility: e =>
-            dispatch(
-                updateView('visibility', e.target.checked ? 'TRAINABLE' : 'ALL')
-            )
+            dispatch(updateView('visibility', e.target.checked ? 'TRAINABLE' : 'ALL'))
     }
 }
 
 const SkillSubHeader = props => {
-    const {
-        t,
-        element,
-        toggleElement,
-        search,
-        setSearch,
-        visibility,
-        toggleVisibility
-    } = props
+    const {t, element, toggleElement, search, setSearch, visibility, toggleVisibility} = props
 
     return (
         <div className="skill-sub-header sub-header">
@@ -65,9 +55,7 @@ const SkillSubHeader = props => {
                         />
                         <Icon
                             onClick={() => setSearch('')}
-                            className={`clear ${search.length > 0
-                                ? 'active'
-                                : ''}`}
+                            className={`clear ${search.length > 0 ? 'active' : ''}`}
                             type="close"
                         />
                     </div>

@@ -16,6 +16,7 @@ import Header from './components/SkillHeader'
 import SubHeader from './components/SkillSubHeader'
 import SkillInfo from './components/SkillInfo'
 import SkillList from './components/SkillList'
+import SkillIconList from './components/SkillIconList'
 
 function getClassCode(link) {
     let classCode = 'BM'
@@ -45,13 +46,7 @@ const mapDispatchToProps = dispatch => {
 
 class Skills extends React.Component {
     componentWillMount() {
-        const {
-            location,
-            match,
-            currentLanguage,
-            loadText,
-            loadClass
-        } = this.props
+        const {location, match, currentLanguage, loadText, loadClass} = this.props
 
         let params = new URLSearchParams(location.search)
         let classCode = getClassCode(match.params.classCode)
@@ -79,22 +74,36 @@ class Skills extends React.Component {
     }
 
     render() {
-        const {loading} = this.props
+        const {loading, view} = this.props
 
-        let content = (
-            <div>
-                <Header />
-                <SubHeader />
-                <Row className="skills-content">
-                    <Col sm={4} className="info-container">
-                        <SkillInfo />
-                    </Col>
-                    <Col sm={20} className="main-container">
-                        <SkillList />
-                    </Col>
-                </Row>
-            </div>
-        )
+        let content = null
+        if (view.get('mode') === 'LIST') {
+            content = (
+                <div>
+                    <Header />
+                    <SubHeader />
+                    <Row className="skills-content">
+                        <Col sm={4} className="info-container">
+                            <SkillInfo />
+                        </Col>
+                        <Col sm={20} className="main-container">
+                            <SkillList />
+                        </Col>
+                    </Row>
+                </div>
+            )
+        } else {
+            content = (
+                <div>
+                    <Header />
+                    <SubHeader />
+                    <div className="skills-content">
+                        <SkillIconList />
+                    </div>
+                </div>
+            )
+        }
+
         if (loading) {
             content = <LoadingLyn />
         }
@@ -107,6 +116,4 @@ class Skills extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    translate('general')(Skills)
-)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(Skills))

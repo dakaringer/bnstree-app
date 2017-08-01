@@ -18,39 +18,18 @@ const postHeaders = {
 }
 
 const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
-const setView = makeActionCreator(
-    actionType.SKILL_UI_SET_VIEW,
-    'viewType',
-    'value'
-)
-export const setFilter = makeActionCreator(
-    actionType.SKILL_UI_SET_FILTER,
-    'filter'
-)
-export const setSearch = makeActionCreator(
-    actionType.SKILL_UI_SET_SEARCH,
-    'search'
-)
-export const setPatch = makeActionCreator(
-    actionType.SKILL_UI_SET_PATCH,
-    'patch'
-)
+const setView = makeActionCreator(actionType.SKILL_UI_SET_VIEW, 'viewType', 'value')
+export const setFilter = makeActionCreator(actionType.SKILL_UI_SET_FILTER, 'filter')
+export const setSearch = makeActionCreator(actionType.SKILL_UI_SET_SEARCH, 'search')
+export const setPatch = makeActionCreator(actionType.SKILL_UI_SET_PATCH, 'patch')
 
-export const setStat = makeActionCreator(
-    actionType.SKILL_CHAR_SET_STAT,
-    'stat',
-    'value'
-)
+export const setStat = makeActionCreator(actionType.SKILL_CHAR_SET_STAT, 'stat', 'value')
 export const setElementDmg = makeActionCreator(
     actionType.SKILL_CHAR_SET_ELEMENT_DMG,
     'element',
     'value'
 )
-export const setEquip = makeActionCreator(
-    actionType.SKILL_CHAR_SET_EQUIP,
-    'equipType',
-    'item'
-)
+export const setEquip = makeActionCreator(actionType.SKILL_CHAR_SET_EQUIP, 'equipType', 'item')
 
 const setClassData = makeActionCreator(
     actionType.SKILL_DATA_SET_CLASS_DATA,
@@ -60,11 +39,7 @@ const setClassData = makeActionCreator(
     'skillData',
     'patchData'
 )
-const setBuildList = makeActionCreator(
-    actionType.SKILL_DATA_SET_BUILD_LIST,
-    'classCode',
-    'list'
-)
+const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
 //const setUserBuilds = makeActionCreator(actionType.SKILL_DATA_SET_USER_BUILDS, 'classCode', 'list')
 
 const setBuildElement = makeActionCreator(
@@ -80,11 +55,7 @@ const setBuildSkill = makeActionCreator(
     'move'
 )
 
-const setNames = makeActionCreator(
-    actionType.SKILL_REF_SET_NAMES,
-    'language',
-    'nameData'
-)
+const setNames = makeActionCreator(actionType.SKILL_REF_SET_NAMES, 'language', 'nameData')
 
 export function loadClass(classCode, buildCode, buildLink) {
     return (dispatch, getState) => {
@@ -121,9 +92,7 @@ export function loadClass(classCode, buildCode, buildLink) {
                     if (buildCode) {
                         let currentElement = elements[buildCode[0]].element
                         let buildString = buildCode.substring(1)
-                        dispatch(
-                            setBuildElement(classCode, currentElement.element)
-                        )
+                        dispatch(setBuildElement(classCode, currentElement.element))
                         currentElement.buildFormat.forEach((id, i) => {
                             if (buildString[i]) {
                                 let trait = (buildString[i] - 1).toString()
@@ -135,30 +104,18 @@ export function loadClass(classCode, buildCode, buildLink) {
                         })
                         dispatch(setLoading(false))
                     } else if (buildLink) {
-                        fetch(
-                            `https://api.bnstree.com/skill-builds/${buildLink}`,
-                            {
-                                method: 'get',
-                                credentials: 'include'
-                            }
-                        )
+                        fetch(`https://api.bnstree.com/skill-builds/${buildLink}`, {
+                            method: 'get',
+                            credentials: 'include'
+                        })
                             .then(response => response.json())
                             .then(json => {
                                 if (json.success === 1 && json.build) {
-                                    dispatch(
-                                        setBuildElement(
-                                            classCode,
-                                            json.build.element
-                                        )
-                                    )
+                                    dispatch(setBuildElement(classCode, json.build.element))
                                     for (let id in json.build.build) {
-                                        dispatch(
-                                            learnMove(id, json.build.build[id])
-                                        )
+                                        dispatch(learnMove(id, json.build.build[id]))
                                     }
-                                    message.success(
-                                        i18n.t('general:buildLoadSuccess', 2)
-                                    )
+                                    message.success(i18n.t('general:buildLoadSuccess', 2))
                                 }
                                 dispatch(setLoading(false))
                             })

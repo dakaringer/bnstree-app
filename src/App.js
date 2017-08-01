@@ -41,9 +41,7 @@ function asyncComponent(getComponent) {
     }
 }
 
-const Home = asyncComponent(() =>
-    import('./components/Home/Home').then(module => module.default)
-)
+const Home = asyncComponent(() => import('./components/Home/Home').then(module => module.default))
 const Skills = asyncComponent(() =>
     import('./components/Skills/Skills').then(module => module.default)
 )
@@ -61,12 +59,7 @@ class App extends Component {
         let redirectLinks = []
         classes.forEach(c => {
             redirectLinks.push(
-                <Redirect
-                    key={c[0]}
-                    exact
-                    from={`/skill/${c[0]}`}
-                    to={`/skills/${c[1]}`}
-                />
+                <Redirect key={c[0]} exact from={`/skill/${c[0]}`} to={`/skills/${c[1]}`} />
             )
         })
 
@@ -83,22 +76,10 @@ class App extends Component {
                         <Switch>
                             <Route exact path="/" component={Home} />
 
-                            <Redirect
-                                exact
-                                from="/skills"
-                                to="/skills/blade-master"
-                            />
+                            <Redirect exact from="/skills" to="/skills/blade-master" />
                             {redirectLinks}
-                            <Route
-                                exact
-                                path="/skills/:classCode"
-                                component={Skills}
-                            />
-                            <Route
-                                exact
-                                path="/skills/:classCode/:buildLink"
-                                component={Skills}
-                            />
+                            <Route exact path="/skills/:classCode" component={Skills} />
+                            <Route exact path="/skills/:classCode/:buildLink" component={Skills} />
                         </Switch>
                     </div>
                 </div>

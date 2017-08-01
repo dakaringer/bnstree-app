@@ -94,21 +94,11 @@ const buildDataSelector = state => state.getIn(['skills', 'build'], Map())
 const refSelector = state => state.getIn(['skills', 'ref'], Map())
 
 //ui
-export const classSelector = createSelector(uiSelector, state =>
-    state.get('classCode', 'BM')
-)
-export const viewSelector = createSelector(uiSelector, state =>
-    state.get('view', Map())
-)
-export const filterSelector = createSelector(uiSelector, state =>
-    state.get('filter', 'ALL')
-)
-export const searchSelector = createSelector(uiSelector, state =>
-    state.get('search', '')
-)
-export const patchSelector = createSelector(uiSelector, state =>
-    state.get('patch', 'BASE')
-)
+export const classSelector = createSelector(uiSelector, state => state.get('classCode', 'BM'))
+export const viewSelector = createSelector(uiSelector, state => state.get('view', Map()))
+export const filterSelector = createSelector(uiSelector, state => state.get('filter', 'ALL'))
+export const searchSelector = createSelector(uiSelector, state => state.get('search', ''))
+export const patchSelector = createSelector(uiSelector, state => state.get('patch', 'BASE'))
 
 //build
 export const buildElementSelector = createSelector(
@@ -120,8 +110,7 @@ export const buildSelector = createSelector(
     buildDataSelector,
     classSelector,
     buildElementSelector,
-    (state, classCode, element) =>
-        state.getIn([classCode, 'build', element], Map())
+    (state, classCode, element) => state.getIn([classCode, 'build', element], Map())
 )
 
 //ref
@@ -132,10 +121,8 @@ export const skillNamesSelector = createSelector(
 )
 
 //data
-const classDataSelector = createSelector(
-    dataSelector,
-    classSelector,
-    (state, classCode) => state.get(classCode, Map())
+const classDataSelector = createSelector(dataSelector, classSelector, (state, classCode) =>
+    state.get(classCode, Map())
 )
 export const elementDataSelector = createSelector(classDataSelector, state =>
     state.get('classData', List())
@@ -144,19 +131,13 @@ export const buildFormatSelector = createSelector(
     classDataSelector,
     buildElementSelector,
     (data, element) => {
-        return data
-            .find(a => a.get('element') === element, null, Map())
-            .get('buildFormat', List())
+        return data.find(a => a.get('element') === element, null, Map()).get('buildFormat', List())
     }
 )
 
-const groupDataSelector = createSelector(classDataSelector, data =>
-    data.get('groupData', Map())
-)
+const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))
 
-const patchDataSelector = createSelector(classDataSelector, data =>
-    data.get('patchData', Map())
-)
+const patchDataSelector = createSelector(classDataSelector, data => data.get('patchData', Map()))
 export const mergedPatchDataSelector = createSelector(
     patchDataSelector,
     patchSelector,
@@ -180,9 +161,7 @@ export const mergedPatchDataSelector = createSelector(
     }
 )
 
-const skillDataSelector = createSelector(classDataSelector, data =>
-    data.get('skillData', Map())
-)
+const skillDataSelector = createSelector(classDataSelector, data => data.get('skillData', Map()))
 const namedSkillDataSelector = createSelector(
     skillDataSelector,
     skillNamesSelector,
@@ -203,34 +182,27 @@ const patchedSkillDataSelector = createSelector(
     namedSkillDataSelector,
     mergedPatchDataSelector,
     (data, patch) => {
-        return data
-            .mergeWith(merger, patch)
-            .filter(skill => !skill.get('deleted', false))
+        return data.mergeWith(merger, patch).filter(skill => !skill.get('deleted', false))
     }
 )
 const elementSkillDataSelector = createSelector(
     patchedSkillDataSelector,
     buildElementSelector,
     (data, element) => {
-        return data.filter(
-            skill => skill.get('elementSpec', element) === element
-        )
+        return data.filter(skill => skill.get('elementSpec', element) === element)
     }
 )
-const groupedSkillDataSelector = createSelector(
-    elementSkillDataSelector,
-    data => {
-        data = data.sort((a, b) => {
-            if (a.get('move', '') < b.get('move', '')) {
-                return -1
-            } else {
-                return 1
-            }
-        })
-        data = data.groupBy(skill => skill.get('groupId'))
-        return data
-    }
-)
+const groupedSkillDataSelector = createSelector(elementSkillDataSelector, data => {
+    data = data.sort((a, b) => {
+        if (a.get('move', '') < b.get('move', '')) {
+            return -1
+        } else {
+            return 1
+        }
+    })
+    data = data.groupBy(skill => skill.get('groupId'))
+    return data
+})
 
 const filteredSkillDataSelector = createSelector(
     groupedSkillDataSelector,
@@ -253,10 +225,7 @@ const filteredSkillDataSelector = createSelector(
                 filterOK = filterOK || filterList.includes(filter)
                 searchOK =
                     searchOK ||
-                    skill
-                        .get('name', '')
-                        .toLowerCase()
-                        .startsWith(search.trim().toLowerCase())
+                    skill.get('name', '').toLowerCase().startsWith(search.trim().toLowerCase())
             })
 
             return filterOK && searchOK
@@ -280,24 +249,16 @@ export const catagorizedSkillDataSelector = createSelector(
             data = data.filter(group => group.get('moves', List()).size > 1)
         }
 
-        if (
-            view.get('mode', 'LIST') === 'GRID' ||
-            view.get('order', 'LEVEL') === 'HOTKEY'
-        ) {
+        if (view.get('mode', 'LIST') === 'ICON' || view.get('order', 'LEVEL') === 'HOTKEY') {
             data = data
                 .groupBy(group => group.get('hotkey'))
-                .sortBy(
-                    (value, key) => key,
-                    (a, b) => keyOrder.indexOf(a) - keyOrder.indexOf(b)
-                )
+                .sortBy((value, key) => key, (a, b) => keyOrder.indexOf(a) - keyOrder.indexOf(b))
         } else {
             data = data
                 .groupBy(group => group.get('minLevel'))
                 .sortBy((value, key) => key, (a, b) => a - b)
         }
 
-        return data.map(group =>
-            group.sortBy((value, key) => key, (a, b) => a - b)
-        )
+        return data.map(group => group.sortBy((value, key) => key, (a, b) => a - b))
     }
 )

@@ -28,9 +28,7 @@ const SkillList = props => {
         let label = order === 'LEVEL' ? t('levelLabel', {level: k}) : t(k)
 
         section.forEach((skill, id) => {
-            skills.push(
-                <SkillListItem skillData={skill} skillId={id} key={id} />
-            )
+            skills.push(<SkillListItem skillData={skill} skillId={id} key={id} />)
         })
 
         list.push(
@@ -52,10 +50,7 @@ const SkillList = props => {
     })
 
     hotkeyBar.push(
-        <a
-            key="top"
-            className="top"
-            onClick={() => animateScroll.scrollToTop({duration: 1000})}>
+        <a key="top" className="top" onClick={() => animateScroll.scrollToTop({duration: 1000})}>
             {t('top')}
         </a>
     )
@@ -74,6 +69,4 @@ const SkillList = props => {
     )
 }
 
-export default connect(mapStateToProps)(
-    translate(['skills', 'tooltip'])(SkillList)
-)
+export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillList))
