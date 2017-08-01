@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {Modal, Switch, Icon} from 'antd'
+import {Modal, Switch, Icon, Dropdown} from 'antd'
 
 import {viewSelector} from '../selectors'
 import {updateView} from '../actions.js'
@@ -38,17 +38,21 @@ class SkillSettings extends React.Component {
         let sortDiv = null
         if (view.get('mode', 'LIST') === 'LIST') {
             sortDiv = (
-                <div className="switchGroup">
-                    <label>
-                        {t('sort')}:
-                    </label>
-                    <Switch
-                        checked={view.get('order', 'LEVEL') === 'HOTKEY'}
-                        unCheckedChildren={t('level')}
-                        checkedChildren={t('hotkey')}
-                        onChange={checked => updateView('order', checked ? 'HOTKEY' : 'LEVEL')}
-                    />
-                </div>
+                <tr className="switchGroup">
+                    <td>
+                        <label>
+                            {t('sort')}
+                        </label>
+                    </td>
+                    <td>
+                        <Switch
+                            checked={view.get('order', 'LEVEL') === 'HOTKEY'}
+                            unCheckedChildren={t('level')}
+                            checkedChildren={t('hotkey')}
+                            onChange={checked => updateView('order', checked ? 'HOTKEY' : 'LEVEL')}
+                        />
+                    </td>
+                </tr>
             )
         }
 
@@ -63,18 +67,37 @@ class SkillSettings extends React.Component {
                     onCancel={() => this.toggleModal()}
                     footer={null}
                     wrapClassName="skill-settings">
-                    <div className="switchGroup">
+                    <table>
+                        <tbody>
+                            <tr className="switchGroup">
+                                <td>
+                                    <label>
+                                        {t('mode')}
+                                    </label>
+                                </td>
+                                <td>
+                                    <Switch
+                                        checked={view.get('mode', 'LIST') === 'ICON'}
+                                        unCheckedChildren={t('list')}
+                                        checkedChildren={t('icon')}
+                                        onChange={checked =>
+                                            updateView('mode', checked ? 'ICON' : 'LIST')}
+                                    />
+                                </td>
+                            </tr>
+                            {sortDiv}
+                        </tbody>
+                    </table>
+                    <hr />
+                    <div>
                         <label>
-                            {t('mode')}:
+                            {t('patch')}
                         </label>
-                        <Switch
-                            checked={view.get('mode', 'LIST') === 'ICON'}
-                            unCheckedChildren={t('list')}
-                            checkedChildren={t('icon')}
-                            onChange={checked => updateView('mode', checked ? 'ICON' : 'LIST')}
-                        />
+
+                        <a className="patch-selector" disabled>
+                            KR 7.19 <Icon type="down" />
+                        </a>
                     </div>
-                    {sortDiv}
                 </Modal>
             </div>
         )
