@@ -55,15 +55,11 @@
 }
 
 .ant-popover {
-    @media (max-width: 767px) {
-        left: 0 !important;
-    }
-
     .ant-popover-arrow {
-        border-top-color: rgba(30, 30, 30, 0.9);
+        border-bottom-color: rgba(30, 30, 30, 0.9) !important;
 
-        @media (max-width: 767px) {
-            display: none;
+        &::after {
+            border-bottom-color: #000 !important;
         }
     }
 
@@ -73,11 +69,6 @@
 
         hr {
             border-color: #111;
-        }
-
-        @media (max-width: 767px) {
-            max-width: 100vw;
-            width: 100vw;
         }
     }
 }

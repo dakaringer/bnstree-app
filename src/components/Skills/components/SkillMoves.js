@@ -133,7 +133,7 @@ const SkillMoves = props => {
             : null
 
     return (
-        <div>
+        <div className='skill-moves-item'>
             <h4 className="skill-name">
                 {skillData.getIn(['moves', moveIndex, 'name'])}
                 {hotkeyImg}

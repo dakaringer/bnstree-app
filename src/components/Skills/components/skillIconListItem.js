@@ -2,10 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {List} from 'immutable'
 
-import {Tooltip, Popover} from 'antd'
+import {Popover} from 'antd'
 
 import SkillMoves from './SkillMoves'
-import SkillTooltip from './SkillTooltip'
 
 import {filterSelector} from '../selectors'
 
@@ -29,38 +28,14 @@ const SkillIconListItem = props => {
         }
     })
 
-    let mainTooltip = (
-        <SkillTooltip
-            moveData={skillData.getIn(['moves', moveIndex])}
-            comparisonData={skillData.getIn(['moves', moveIndex])}
-        />
-    )
-
-    return (
-        <div className="skill-icon-list-item">
-            <Tooltip
-                placement="bottomLeft"
-                title={mainTooltip}
-                align={{overflow: {adjustY: false, adjustX: true}}}
-                overlayClassName="skill-tooltip-wrap">
-                <Popover
-                    placement="topLeft"
-                    trigger="click"
-                    align={{overflow: {adjustY: false, adjustX: true}}}
-                    content={<SkillMoves skillData={skillData} skillId={skillId} />}>
-                    <img
-                        className="skill-icon"
-                        alt={skillId}
-                        src={`https://static.bnstree.com/images/skill/${skillData.getIn([
-                            'moves',
-                            moveIndex,
-                            'icon'
-                        ])}`}
-                    />
-                </Popover>
-            </Tooltip>
+    return <div className="skill-icon-list-item">
+            <Popover placement="bottomLeft" align={{overflow: {adjustY: false, adjustX: true}}} overlayClassName="skill-icon-popover-wrap"
+                content={<SkillMoves skillData={skillData} skillId={skillId} />}>
+                <img className="skill-icon" alt={skillId} src={`https://static.bnstree.com/images/skill/${skillData.getIn(
+                        ['moves', moveIndex, 'icon']
+                    )}`} />
+            </Popover>
         </div>
-    )
 }
 
 export default connect(mapStateToProps)(SkillIconListItem)
