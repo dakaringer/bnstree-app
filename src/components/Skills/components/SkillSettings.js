@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {Modal, Switch, Icon, Tooltip} from 'antd'
+import {Modal, Switch, Icon, Tooltip, Input} from 'antd'
 
 import {viewSelector, charSelector} from '../selectors'
 import {updateView, setStat} from '../actions.js'
@@ -19,8 +19,8 @@ const mapDispatchToProps = dispatch => {
         updateView: (type, value) => dispatch(updateView(type, value)),
         setStat: (stat, value) => {
             const reg = /^(0|[1-9][0-9]*)(\.[0-9]*)?$/
-            if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
-                dispatch(setStat(stat, parseInt(value, 10)))
+            if ((!isNaN(value) && reg.test(value)) || value === '') {
+                dispatch(setStat(stat, value))
             }
         }
     }
@@ -91,6 +91,19 @@ class SkillSettings extends React.Component {
                                     <input
                                         value={character.get('ap', 13)}
                                         onChange={e => setStat('ap', e.target.value)}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>
+                                        {t('attackPowerPet')}
+                                    </label>
+                                </td>
+                                <td>
+                                    <input
+                                        value={character.get('apPet', 5)}
+                                        onChange={e => setStat('apPet', e.target.value)}
                                     />
                                 </td>
                             </tr>
