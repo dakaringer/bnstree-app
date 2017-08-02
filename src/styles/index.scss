@@ -53,5 +53,13 @@ input {
     }
 }
 
+hr {
+    border-bottom: none;
+}
+
+.noscroll {
+    overflow: hidden;
+}
+
 @import 'antd';
 @import 'general';

@@ -12,6 +12,9 @@
     .main-nav-header {
         display: flex;
         align-items: center;
+        position: relative;
+        z-index: 2;
+
         a,
         .main-nav-logo {
             height: 5rem;
@@ -42,7 +45,33 @@
         }
 
         @media (max-width: 767px) {
+            align-items: baseline;
+            border-top: none;
+            padding: 1rem 0;
+
+            .main-nav-menu,
+            .main-nav-submenu {
+                display: none;
+            }
+        }
+    }
+
+    .nav-toggle {
+        font-size: 2rem;
+        cursor: pointer;
+        color: #888;
+        margin: 0 1.5rem;
+        position: relative;
+        z-index: 2;
+
+        &:hover {
+            color: white;
+        }
+        @media (min-width: 768px) {
             display: none;
         }
     }
 }
+
+@import 'NavOverlayMenu';
+@import 'Hamburger';
