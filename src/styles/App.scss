@@ -8,15 +8,10 @@
     & > .loadingContainer {
         height: 100vh;
     }
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.75);
 
     .app-content {
         flex: 1;
-        padding: 0rem 1rem;
-
-        @media (min-width: 1200px) {
-            padding: 0rem 4rem;
-        }
     }
 }
 
