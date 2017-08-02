@@ -33,7 +33,7 @@ class Background extends React.PureComponent {
 
     render() {
         let transform = {
-            transform: `translate(0px, -${this.state.bgTranslate}px)`
+            transform: `translate3d(0px, -${this.state.bgTranslate}px, 0)`
         }
 
         return (
