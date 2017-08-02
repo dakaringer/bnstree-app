@@ -70,7 +70,7 @@ const SkillSubMenu = props => {
     let filters = []
     filterList.forEach(f => {
         filters.push(
-            <Radio style={radioStyle} value={f}>
+            <Radio style={radioStyle} value={f} key={f}>
                 {t(f)}
             </Radio>
         )

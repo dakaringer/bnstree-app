@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
+import {Route, Switch} from 'react-router-dom'
 
 import {Row, Col} from 'antd'
 
@@ -74,37 +75,45 @@ class Skills extends React.Component {
     }
 
     render() {
-        const {loading, view} = this.props
+        const {loading, view, match} = this.props
 
-        let content = null
-        let header = <Header />
+        let skillComponent = null
 
         if (view.get('mode') === 'LIST') {
-            content = (
-                <div className="container">
-                    {header}
-                    <Row className="skills-content">
-                        <Col sm={4} className="info-container">
-                            <SkillMenu />
-                        </Col>
-                        <Col sm={20} className="main-container">
-                            <SkillSubMenu />
-                            <SkillList />
-                        </Col>
-                    </Row>
+            skillComponent = (
+                <div>
+                    <SkillSubMenu />
+                    <SkillList />
                 </div>
             )
         } else {
-            content = (
-                <div className="container">
-                    {header}
+            skillComponent = (
+                <div>
                     <SkillSubMenu />
-                    <div className="skills-content">
-                        <SkillIconList />
-                    </div>
+                    <SkillIconList />
                 </div>
             )
         }
+
+        let content = (
+            <div className="container">
+                <Header />
+                <Row className="skills-content">
+                    <Col sm={4} className="info-container">
+                        <SkillMenu />
+                    </Col>
+                    <Col sm={20} className="main-container">
+                        <Switch>
+                            <Route
+                                exact
+                                path={`/skills/${match.params.classCode}`}
+                                render={() => skillComponent}
+                            />
+                        </Switch>
+                    </Col>
+                </Row>
+            </div>
+        )
 
         if (loading) {
             content = <LoadingLyn />

@@ -1,27 +1,25 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-
-import {elementDataSelector, filterSelector} from '../selectors'
-import {setFilter} from '../actions'
-
-const mapStateToProps = state => {
-    return {
-        elementData: elementDataSelector(state),
-        currentFilter: filterSelector(state)
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        setFilter: filter => dispatch(setFilter(filter))
-    }
-}
+import {NavLink, withRouter} from 'react-router-dom'
 
 const SkillMenu = props => {
-    const {t, currentFilter, setFilter} = props
+    const {t, match} = props
 
-    return <div className="skill-menu side-bar" />
+    let classLink = match.params.classCode
+
+    return (
+        <div className="skill-menu side-bar">
+            <NavLink to={`/skills/${classLink}`} exact={true}>
+                {t('skills')}
+            </NavLink>
+            <NavLink to={`/skills/${classLink}/info`}>
+                {t('classInfo')}
+            </NavLink>
+            <NavLink to={`/skills/${classLink}/builds`}>
+                {t('userBuilds')}
+            </NavLink>
+        </div>
+    )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillMenu))
+export default withRouter(translate('skills')(SkillMenu))

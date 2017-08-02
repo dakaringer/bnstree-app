@@ -78,8 +78,7 @@ class App extends Component {
 
                             <Redirect exact from="/skills" to="/skills/blade-master" />
                             {redirectLinks}
-                            <Route exact path="/skills/:classCode" component={Skills} />
-                            <Route exact path="/skills/:classCode/:buildLink" component={Skills} />
+                            <Route path="/skills/:classCode" component={Skills} />
                         </Switch>
                     </div>
                 </div>
