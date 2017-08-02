@@ -1,52 +1,19 @@
 import React from 'react'
-import {Carousel} from 'antd'
 
 import './styles/Background.scss'
-
-function shuffle(array) {
-    var currentIndex = array.length,
-        temporaryValue,
-        randomIndex
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex)
-        currentIndex -= 1
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex]
-        array[currentIndex] = array[randomIndex]
-        array[randomIndex] = temporaryValue
-    }
-
-    return array
-}
 
 class Background extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            backgrounds: [],
-            bgTranslate: 0
+            bgTranslate: 0,
+            i: 1
         }
     }
 
     componentWillMount() {
-        let backgrounds = []
-        for (let i = 1; i <= 12; i++) {
-            backgrounds.push(
-                <span key={`bg${i}`}>
-                    <img
-                        src={`https://static.bnstree.com/images/backgrounds/${i}.jpg`}
-                        alt="background"
-                    />
-                </span>
-            )
-        }
-        this.setState({backgrounds: shuffle(backgrounds)})
-
         window.addEventListener('scroll', e => this.handleScroll(e, this))
+        this.setState({i: Math.floor(Math.random() * 12 + 1)})
     }
 
     componentWillUnmount() {
@@ -71,17 +38,10 @@ class Background extends React.PureComponent {
 
         return (
             <div className="background" style={transform}>
-                <Carousel
-                    effect="fade"
-                    dots={false}
-                    autoplay={true}
-                    autoplaySpeed="60000"
-                    draggable={false}
-                    touchMove={false}
-                    pauseOnHover={false}
-                    infinite={true}>
-                    {this.state.backgrounds}
-                </Carousel>
+                <img
+                    src={`https://static.bnstree.com/images/backgrounds/${this.state.i}.jpg`}
+                    alt="background"
+                />
                 <div className="cover" />
             </div>
         )
