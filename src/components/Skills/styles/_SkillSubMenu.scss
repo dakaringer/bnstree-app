@@ -11,6 +11,7 @@
     .skillSearch {
         font-size: 1.5rem;
         position: relative;
+        margin-right: 1rem !important;
 
         input {
             height: 100%;
@@ -53,7 +54,12 @@
 
         @media (max-width: 767px) {
             .skillSearch {
-                width: 100%;
+                flex: 1;
+                padding-right: 1rem;
+            }
+
+            .filter {
+                margin-right: 1rem !important;
             }
         }
     }

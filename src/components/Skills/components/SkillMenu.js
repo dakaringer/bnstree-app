@@ -5,18 +5,6 @@ import {translate} from 'react-i18next'
 import {elementDataSelector, filterSelector} from '../selectors'
 import {setFilter} from '../actions'
 
-const filterList = [
-    'ALL',
-    'STUN',
-    'DAZE',
-    'KNOCKDOWN',
-    'RESIST',
-    'DEFENSE',
-    'ESCAPE',
-    'PARTY',
-    'CORE'
-]
-
 const mapStateToProps = state => {
     return {
         elementData: elementDataSelector(state),
@@ -33,26 +21,7 @@ const mapDispatchToProps = dispatch => {
 const SkillMenu = props => {
     const {t, currentFilter, setFilter} = props
 
-    let filters = []
-    filterList.forEach(f => {
-        let active = currentFilter === f
-        filters.push(
-            <a
-                key={f}
-                onClick={() => setFilter(active ? 'ALL' : f)}
-                className={`filter ${f.toLowerCase()} ${active ? 'active' : ''}`}>
-                {t(f)}
-            </a>
-        )
-    })
-
-    return (
-        <div className="skill-menu side-bar">
-            <div className="filters">
-                {filters}
-            </div>
-        </div>
-    )
+    return <div className="skill-menu side-bar" />
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillMenu))
