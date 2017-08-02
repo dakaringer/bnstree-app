@@ -44,7 +44,7 @@ const mapDispatchToProps = dispatch => {
 
 class NavBar extends Component {
     render() {
-        const {t, currentLang} = this.props
+        const {t, currentLang, setLanguage} = this.props
 
         let classDropdown = []
         classes.forEach(c => {
@@ -122,7 +122,7 @@ class NavBar extends Component {
                     <div className="main-nav-submenu">
                         <Dropdown
                             overlay={
-                                <Menu onClick={e => this.props.setLanguage(e.key)} theme="dark">
+                                <Menu onClick={e => setLanguage(e.key)} theme="dark">
                                     {languageDropdown}
                                 </Menu>
                             }
@@ -138,6 +138,4 @@ class NavBar extends Component {
     }
 }
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
-)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
