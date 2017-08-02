@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const SkillInfo = props => {
+const SkillMenu = props => {
     const {t, currentFilter, setFilter} = props
 
     let filters = []
@@ -47,7 +47,7 @@ const SkillInfo = props => {
     })
 
     return (
-        <div className="skill-info side-bar">
+        <div className="skill-menu side-bar">
             <div className="filters">
                 {filters}
             </div>
@@ -55,4 +55,4 @@ const SkillInfo = props => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillInfo))
+export default connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillMenu))

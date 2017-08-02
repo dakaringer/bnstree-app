@@ -29,7 +29,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const SkillSubHeader = props => {
+const SkillSubMenu = props => {
     const {t, element, toggleElement, search, setSearch, visibility, toggleVisibility} = props
 
     let clear = search
@@ -37,10 +37,10 @@ const SkillSubHeader = props => {
         : null
 
     return (
-        <div className="skill-sub-header sub-header">
-            <div className="sub-header-left">
-                <div className="sub-header-group">
-                    <div className="elementToggle sub-header-item">
+        <div className="skill-option-bar sub-menu">
+            <div className="sub-menu-left">
+                <div className="sub-menu-group">
+                    <div className="elementToggle sub-menu-item">
                         <a onClick={() => toggleElement()}>
                             <img alt={element} src={elementImages[element]} />
                             <span>
@@ -51,7 +51,7 @@ const SkillSubHeader = props => {
                             </span>
                         </a>
                     </div>
-                    <div className="skillSearch sub-header-item">
+                    <div className="skillSearch sub-menu-item">
                         <input
                             placeholder={t('general:search')}
                             value={search}
@@ -60,7 +60,7 @@ const SkillSubHeader = props => {
                         {clear}
                     </div>
                 </div>
-                <div className="skillVisibility sub-header-item">
+                <div className="skillVisibility sub-menu-item">
                     <Checkbox
                         defaultChecked={false}
                         size="small"
@@ -70,12 +70,18 @@ const SkillSubHeader = props => {
                     </Checkbox>
                 </div>
             </div>
-
-            <SkillSettings />
+            <div className="sub-menu-right">
+                <SkillSettings />
+                <div className="share sub-menu-item">
+                    <a>
+                        {t('general:share')} <Icon type="share-alt" />
+                    </a>
+                </div>
+            </div>
         </div>
     )
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    translate('skills', 'general')(SkillSubHeader)
+    translate(['skills', 'general'])(SkillSubMenu)
 )

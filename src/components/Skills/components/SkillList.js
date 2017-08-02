@@ -43,14 +43,14 @@ const SkillList = props => {
         )
 
         hotkeyBar.push(
-            <Link smooth={true} to={`group_${k}`} duration={1000} key={k}>
+            <Link smooth={true} to={`group_${k}`} duration={500} key={k}>
                 {key}
             </Link>
         )
     })
 
     hotkeyBar.push(
-        <a key="top" className="top" onClick={() => animateScroll.scrollToTop({duration: 1000})}>
+        <a key="top" className="top" onClick={() => animateScroll.scrollToTop({duration: 500})}>
             {t('top')}
         </a>
     )

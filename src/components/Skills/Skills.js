@@ -13,8 +13,8 @@ import './styles/Skills.scss'
 import {classes} from '../NavBar/NavBar'
 import LoadingLyn from '../LoadingLyn/LoadingLyn'
 import Header from './components/SkillHeader'
-import SubHeader from './components/SkillSubHeader'
-import SkillInfo from './components/SkillInfo'
+import SkillMenu from './components/SkillMenu'
+import SkillSubMenu from './components/SkillSubMenu'
 import SkillList from './components/SkillList'
 import SkillIconList from './components/SkillIconList'
 
@@ -77,16 +77,18 @@ class Skills extends React.Component {
         const {loading, view} = this.props
 
         let content = null
+        let header = <Header />
+
         if (view.get('mode') === 'LIST') {
             content = (
-                <div>
-                    <Header />
-                    <SubHeader />
+                <div className="container">
+                    {header}
                     <Row className="skills-content">
                         <Col sm={4} className="info-container">
-                            <SkillInfo />
+                            <SkillMenu />
                         </Col>
                         <Col sm={20} className="main-container">
+                            <SkillSubMenu />
                             <SkillList />
                         </Col>
                     </Row>
@@ -94,9 +96,9 @@ class Skills extends React.Component {
             )
         } else {
             content = (
-                <div>
-                    <Header />
-                    <SubHeader />
+                <div className="container">
+                    {header}
+                    <SkillSubMenu />
                     <div className="skills-content">
                         <SkillIconList />
                     </div>

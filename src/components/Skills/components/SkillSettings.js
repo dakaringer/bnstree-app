@@ -66,7 +66,7 @@ class SkillSettings extends React.Component {
         }
 
         return (
-            <div className="settings sub-header-item">
+            <div className="settings sub-menu-item">
                 <a onClick={() => this.toggleModal()}>
                     {t('settings')} <Icon type="setting" />
                 </a>
