@@ -60,8 +60,8 @@ const SkillList = props => {
             <div className="list">
                 {list}
             </div>
-            <Affix offsetTop={30}>
-                <div className="hotkeyBar">
+            <Affix offsetTop={30} className="hotkey-bar-wrapper">
+                <div className="hotkey-bar">
                     {hotkeyBar}
                 </div>
             </Affix>

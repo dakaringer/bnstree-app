@@ -16,9 +16,12 @@
             flex-wrap: wrap;
         }
     }
+}
 
-    .hotkeyBar {
-        width: 5rem;
+.hotkey-bar-wrapper {
+    width: 8rem !important;
+    .hotkey-bar {
+        width: 100%;
         text-align: right;
         display: flex;
         flex-direction: column;
