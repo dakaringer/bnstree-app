@@ -47,6 +47,10 @@
         }
     }
 
+    .filter .active {
+        color: aqua;
+    }
+
     .sub-menu-group {
         display: flex;
         flex-wrap: wrap;
