@@ -1,5 +1,6 @@
 {
     "name": "BnSTree",
+    "short_name": "BnSTree",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
