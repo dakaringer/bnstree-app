@@ -61,6 +61,7 @@ export function loadClass(classCode, buildCode, buildLink) {
     return (dispatch, getState) => {
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
+        dispatch(setSearch(''))
         document.title = `${i18n.t(`general:${classCode}`)} | BnSTree`
         if (!dataSelector(getState()).has(classCode)) {
             dispatch(setLoading(true))
