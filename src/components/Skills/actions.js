@@ -1,4 +1,5 @@
 import * as actionType from './actionTypes'
+import {Map} from 'immutable'
 import i18n from '../../i18n'
 import {message} from 'antd'
 
@@ -10,7 +11,9 @@ import {
     buildElementSelector,
     elementDataSelector,
     buildSelector,
-    buildFormatSelector
+    buildFormatSelector,
+    skillNamesSelector,
+    refSelector
 } from './selectors'
 
 const postHeaders = {
@@ -149,19 +152,8 @@ export function loadBuildList(classCode, page, element = null, type = null) {
 }
 
 export function loadTextData(lang) {
-    return dispatch => {
-        fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 1) {
-                    dispatch(setNames(json.lang, flatten(json.skillNames)))
-                }
-            })
-
-        if (lang !== 'en') {
+    return (dispatch, getState) => {
+        if (skillNamesSelector(getState()).equals(Map())) {
             fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
                 method: 'get',
                 credentials: 'include'
@@ -169,9 +161,22 @@ export function loadTextData(lang) {
                 .then(response => response.json())
                 .then(json => {
                     if (json.success === 1) {
-                        dispatch(setNames('en', flatten(json.skillNames)))
+                        dispatch(setNames(json.lang, flatten(json.skillNames)))
                     }
                 })
+
+            if (lang !== 'en' && !refSelector(getState()).hasIn(['skillNames', 'en'])) {
+                fetch('https://api.bnstree.com/skills/names?lang=en', {
+                    method: 'get',
+                    credentials: 'include'
+                })
+                    .then(response => response.json())
+                    .then(json => {
+                        if (json.success === 1) {
+                            dispatch(setNames('en', flatten(json.skillNames)))
+                        }
+                    })
+            }
         }
     }
 }
