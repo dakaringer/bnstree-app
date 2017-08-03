@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Dropdown, Menu} from 'antd'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, withRouter} from 'react-router-dom'
 
 import {currentLanguageSelector} from '../../selectors'
 import {setUILanguage} from '../../actions'
@@ -86,6 +86,7 @@ class NavBar extends Component {
             </Menu>
         )
 
+        /*
         let itemDropdown = (
             <Menu theme="dark" onClick={() => this.closeMenu()}>
                 <Menu.Item key="soulshield">
@@ -95,6 +96,7 @@ class NavBar extends Component {
                 </Menu.Item>
             </Menu>
         )
+        */
 
         let characterDropdown = (
             <Menu theme="dark" onClick={() => this.closeMenu()}>
@@ -131,24 +133,19 @@ class NavBar extends Component {
                 </div>
                 <div className="main-nav-right">
                     <div className="main-nav-menu">
-                        <Dropdown overlay={classDropdown} trigger={['hover', 'click']}>
+                        <Dropdown overlay={classDropdown}>
                             <Link to={`/skills/${classes[0][1]}`} className="main-nav-menu-item">
                                 {t('skills')}
                             </Link>
                         </Dropdown>
-                        <Dropdown overlay={itemDropdown} trigger={['hover', 'click']}>
-                            <Link to="/items/soulshield" className="main-nav-menu-item">
-                                {t('items')}
-                            </Link>
-                        </Dropdown>
-                        <Dropdown overlay={characterDropdown} trigger={['hover', 'click']}>
+                        <Dropdown overlay={characterDropdown}>
                             <Link to="/character/search" className="main-nav-menu-item">
                                 {t('character')}
                             </Link>
                         </Dropdown>
                     </div>
                     <div className="main-nav-submenu">
-                        <Dropdown overlay={languageDropdown} trigger={['hover', 'click']}>
+                        <Dropdown overlay={languageDropdown}>
                             <a className="main-nav-menu-item">
                                 {languageNames[currentLang]}
                             </a>
@@ -176,11 +173,6 @@ class NavBar extends Component {
                             </Panel>
                         </Collapse>
                         <Collapse bordered={false}>
-                            <Panel header={t('items')}>
-                                {itemDropdown}
-                            </Panel>
-                        </Collapse>
-                        <Collapse bordered={false}>
                             <Panel header={t('character')}>
                                 {characterDropdown}
                             </Panel>
@@ -198,4 +190,6 @@ class NavBar extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
+)
