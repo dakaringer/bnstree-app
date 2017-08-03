@@ -31,7 +31,6 @@ export const setElementDmg = makeActionCreator(
 )
 export const setEquip = makeActionCreator(actionType.SKILL_CHAR_SET_EQUIP, 'equipType', 'item')
 
-const setClassData = makeActionCreator(
 export const setClassData = makeActionCreator(
     actionType.SKILL_DATA_SET_CLASS_DATA,
     'classCode',
