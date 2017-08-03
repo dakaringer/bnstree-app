@@ -5,6 +5,7 @@ const types = {
     DAMAGE_ADD: 't3',
     DAMAGE_TIME: 't3',
     HEAL: 't15',
+    HEALTH_UP: 't15',
     LIFESTEAL: 't15',
     FOCUS_REGEN: 't15',
     AREA: 't5',
