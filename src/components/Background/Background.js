@@ -13,7 +13,7 @@ class Background extends React.PureComponent {
 
     componentWillMount() {
         window.addEventListener('scroll', e => this.handleScroll(e, this))
-        this.setState({i: Math.floor(Math.random() * 12 + 1)})
+        this.setState({i: Math.floor(Math.random() * 17 + 1)})
     }
 
     componentWillUnmount() {
