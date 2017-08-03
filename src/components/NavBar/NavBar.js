@@ -138,11 +138,9 @@ class NavBar extends Component {
                                 {t('skills')}
                             </Link>
                         </Dropdown>
-                        <Dropdown overlay={characterDropdown} trigger={['hover', 'click']}>
-                            <Link to="/character/search" className="main-nav-menu-item">
-                                {t('character')}
-                            </Link>
-                        </Dropdown>
+                        <Link to="/character/search" className="main-nav-menu-item">
+                            {t('character')}
+                        </Link>
                     </div>
                     <div className="main-nav-submenu">
                         <Dropdown overlay={languageDropdown} trigger={['hover', 'click']}>
@@ -172,11 +170,12 @@ class NavBar extends Component {
                                 {classDropdown}
                             </Panel>
                         </Collapse>
-                        <Collapse bordered={false}>
-                            <Panel header={t('character')}>
-                                {characterDropdown}
-                            </Panel>
-                        </Collapse>
+                        <NavLink
+                            to="/character"
+                            className="overlay-nav-menu-item"
+                            onClick={() => this.closeMenu()}>
+                            {t('search')}
+                        </NavLink>
                         <hr />
                         <Collapse bordered={false} className="language">
                             <Panel header={languageNames[currentLang]}>
