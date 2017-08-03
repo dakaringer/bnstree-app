@@ -3,11 +3,11 @@ import {fromJS} from 'immutable'
 import * as actionType from './actionTypes'
 
 import skills from './components/Skills/reducer'
+import character from './components/Character/reducer'
 /*
 import trainer from './components/trainer/reducer'
 import trainer2 from './components/trainer2/reducer'
 import mixer from './components/mixer/reducer'
-import character from './components/character/reducer'
 import home from './components/home/reducer'
 import rankings from './components/rankings/reducer'
 */
@@ -34,4 +34,4 @@ function general(
     }
 }
 
-export default combineReducers({general, skills})
+export default combineReducers({general, skills, character})
