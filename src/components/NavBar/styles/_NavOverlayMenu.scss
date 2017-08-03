@@ -63,6 +63,19 @@
         }
     }
 
+    .overlay-nav-menu-item {
+        color: #aaa;
+        width: 100%;
+        display: block;
+        font-size: 1.8rem;
+        margin: 1.5rem 0;
+        padding-left: 3.2rem;
+
+        &:hover {
+            color: white;
+        }
+    }
+
     .language {
         .ant-collapse-header {
             font-size: 1.4rem;
