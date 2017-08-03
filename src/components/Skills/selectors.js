@@ -94,7 +94,7 @@ const uiSelector = state => state.getIn(['skills', 'ui'], Map())
 export const charSelector = state => state.getIn(['skills', 'character'], Map())
 export const dataSelector = state => state.getIn(['skills', 'data'], Map())
 const buildDataSelector = state => state.getIn(['skills', 'build'], Map())
-const refSelector = state => state.getIn(['skills', 'ref'], Map())
+export const refSelector = state => state.getIn(['skills', 'ref'], Map())
 
 //ui
 export const classSelector = createSelector(uiSelector, state => state.get('classCode', 'BM'))
