@@ -45,6 +45,9 @@ const Home = asyncComponent(() => import('./components/Home/Home').then(module =
 const Skills = asyncComponent(() =>
     import('./components/Skills/Skills').then(module => module.default)
 )
+const Character = asyncComponent(() =>
+    import('./components/Character/Character').then(module => module.default)
+)
 
 const mapStateToProps = state => {
     return {
@@ -79,6 +82,8 @@ class App extends Component {
                             <Redirect exact from="/skills" to="/skills/blade-master" />
                             {redirectLinks}
                             <Route path="/skills/:classCode" component={Skills} />
+
+                            <Route path="/character" component={Character} />
                         </Switch>
                     </div>
                 </div>
