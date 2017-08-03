@@ -133,19 +133,19 @@ class NavBar extends Component {
                 </div>
                 <div className="main-nav-right">
                     <div className="main-nav-menu">
-                        <Dropdown overlay={classDropdown}>
+                        <Dropdown overlay={classDropdown} trigger={['hover', 'click']}>
                             <Link to={`/skills/${classes[0][1]}`} className="main-nav-menu-item">
                                 {t('skills')}
                             </Link>
                         </Dropdown>
-                        <Dropdown overlay={characterDropdown}>
+                        <Dropdown overlay={characterDropdown} trigger={['hover', 'click']}>
                             <Link to="/character/search" className="main-nav-menu-item">
                                 {t('character')}
                             </Link>
                         </Dropdown>
                     </div>
                     <div className="main-nav-submenu">
-                        <Dropdown overlay={languageDropdown}>
+                        <Dropdown overlay={languageDropdown} trigger={['hover', 'click']}>
                             <a className="main-nav-menu-item">
                                 {languageNames[currentLang]}
                             </a>
