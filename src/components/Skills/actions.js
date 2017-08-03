@@ -103,7 +103,6 @@ export function loadClass(classCode, buildCode, buildLink) {
                                 dispatch(learnMove(id, trait))
                             }
                         })
-                        dispatch(setLoading(false))
                     } else if (buildLink) {
                         fetch(`https://api.bnstree.com/skill-builds/${buildLink}`, {
                             method: 'get',
@@ -118,12 +117,10 @@ export function loadClass(classCode, buildCode, buildLink) {
                                     }
                                     message.success(i18n.t('general:buildLoadSuccess', 2))
                                 }
-                                dispatch(setLoading(false))
                             })
-                    } else {
-                        dispatch(setLoading(false))
                     }
                 })
+                .then(() => dispatch(setLoading(false)))
         }
     }
 }
