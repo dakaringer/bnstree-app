@@ -48,7 +48,11 @@ class Character extends Component {
                     <Header />
                     <div className="main-container">
                         <Switch>
-                            <Route exact path={'/character/:region'} component={CharacterSearch} />
+                            <Route
+                                exact
+                                path={'/character/:region'}
+                                render={() => <CharacterSearch center />}
+                            />
                             <Route
                                 exact
                                 path={'/character/:region/:character'}
