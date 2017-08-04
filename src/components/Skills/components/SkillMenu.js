@@ -9,7 +9,7 @@ const SkillMenu = props => {
 
     return (
         <div className="skill-menu side-bar">
-            <NavLink to={`/skills/${classLink}`} exact={true}>
+            <NavLink to={`/skills/${classLink}`} exact>
                 {t('skills')}
             </NavLink>
             <NavLink to={`/skills/${classLink}/info`}>

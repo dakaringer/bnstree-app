@@ -1,0 +1,70 @@
+.character-profile {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 300;
+
+    .character-profile-image img {
+        width: 100%;
+    }
+
+    .main-info {
+        margin-bottom: 1rem;
+
+        .class-image {
+            height: 5rem;
+            vertical-align: bottom;
+        }
+
+        .character-name-block {
+            margin-left: 1rem;
+            display: inline-block;
+
+            p {
+                margin: 0;
+            }
+
+            .character-name {
+                font-size: 2.4rem;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+
+    .hmLevel {
+        color: #f09c00;
+    }
+
+    .character-arena-info {
+        h2 {
+            color: white;
+            font-weight: 300;
+        }
+
+        .arena-stats {
+            color: aqua;
+        }
+
+        .arena-type {
+            margin: 1rem 0;
+            h5 {
+                color: white;
+                font-weight: 300;
+                margin-bottom: 0.5rem;
+            }
+
+            img {
+                height: 6rem;
+                margin-right: 1rem;
+                vertical-align: top;
+            }
+
+            .arena-type-stats {
+                display: inline-block;
+
+                .rating {
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+}

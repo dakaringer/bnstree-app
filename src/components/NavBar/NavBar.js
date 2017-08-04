@@ -96,7 +96,6 @@ class NavBar extends Component {
                 </Menu.Item>
             </Menu>
         )
-        */
 
         let characterDropdown = (
             <Menu theme="dark" onClick={() => this.closeMenu()}>
@@ -107,6 +106,7 @@ class NavBar extends Component {
                 </Menu.Item>
             </Menu>
         )
+        */
 
         let languageLinks = []
         languages.forEach(l => {
@@ -138,7 +138,7 @@ class NavBar extends Component {
                                 {t('skills')}
                             </Link>
                         </Dropdown>
-                        <Link to="/character/search" className="main-nav-menu-item">
+                        <Link to="/character" className="main-nav-menu-item">
                             {t('character')}
                         </Link>
                     </div>
@@ -174,7 +174,7 @@ class NavBar extends Component {
                             to="/character"
                             className="overlay-nav-menu-item"
                             onClick={() => this.closeMenu()}>
-                            {t('search')}
+                            {t('character')}
                         </NavLink>
                         <hr />
                         <Collapse bordered={false} className="language">

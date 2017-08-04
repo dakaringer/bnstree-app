@@ -1,0 +1,32 @@
+.character-search {
+    width: 40rem;
+    display: flex;
+
+    .inputGroup {
+        display: flex;
+        flex: 1;
+
+        input {
+            flex: 1;
+            margin-right: 1rem;
+        }
+    }
+
+    &.center {
+        width: 50rem;
+        max-width: 100%;
+        flex-direction: column-reverse;
+        align-items: center;
+        font-size: 1.8rem;
+        margin: 0 auto;
+
+        .inputGroup {
+            width: 100%;
+            margin: 2rem 0;
+        }
+    }
+
+    @media (max-width: 767px) {
+        width: 100%;
+    }
+}

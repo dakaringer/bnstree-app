@@ -68,11 +68,6 @@ class Skills extends React.Component {
             loadClass(classCode, null, nextProps.match.params.buildLink)
         }
     }
-    componentDidMount() {
-        const {match, t} = this.props
-        let classCode = getClassCode(match.params.classCode)
-        document.title = `${t(classCode)} | BnSTree`
-    }
 
     render() {
         const {loading, view, match} = this.props
@@ -95,28 +90,28 @@ class Skills extends React.Component {
             )
         }
 
-        let content = (
-            <div className="container">
-                <Header />
-                <Row className="skills-content">
-                    <Col sm={4} className="info-container">
-                        <SkillMenu />
-                    </Col>
-                    <Col sm={20} className="main-container">
-                        <Switch>
-                            <Route
-                                exact
-                                path={`/skills/${match.params.classCode}`}
-                                render={() => skillComponent}
-                            />
-                        </Switch>
-                    </Col>
-                </Row>
-            </div>
-        )
+        let content = <LoadingLyn />
 
-        if (loading) {
-            content = <LoadingLyn />
+        if (!loading) {
+            content = (
+                <div className="container">
+                    <Header />
+                    <Row className="skills-content">
+                        <Col sm={4} className="menu-container">
+                            <SkillMenu />
+                        </Col>
+                        <Col sm={20} className="main-container">
+                            <Switch>
+                                <Route
+                                    exact
+                                    path={`/skills/${match.params.classCode}`}
+                                    render={() => skillComponent}
+                                />
+                            </Switch>
+                        </Col>
+                    </Row>
+                </div>
+            )
         }
 
         return (

@@ -69,7 +69,8 @@
         display: block;
         font-size: 1.8rem;
         margin: 1.5rem 0;
-        padding-left: 3.2rem;
+        line-height: 22px;
+        padding: 8px 0 8px 32px;
 
         &:hover {
             color: white;
@@ -84,5 +85,6 @@
 
     hr {
         margin: 3rem 3rem;
+        opacity: 0.6;
     }
 }

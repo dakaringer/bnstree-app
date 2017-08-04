@@ -65,7 +65,7 @@ export function loadClass(classCode, buildCode, buildLink) {
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
         dispatch(setSearch(''))
-        document.title = `${i18n.t(`general:${classCode}`)} | BnSTree`
+        document.title = `${i18n.t(`general:${classCode}`)} - ${i18n.t('general:skills')} | BnSTree`
         if (!dataSelector(getState()).has(classCode)) {
             dispatch(setLoading(true))
             fetch(`https://api.bnstree.com/skills/${classCode}`, {

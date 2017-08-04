@@ -1,0 +1,220 @@
+@mixin itemColors() {
+    &.grade_0 {
+        color: #999;
+    }
+    &.grade_3 {
+        color: #008746;
+    }
+    &.grade_4 {
+        color: #297bb0;
+    }
+    &.grade_5 {
+        color: #a847bd;
+    }
+    &.grade_7 {
+        color: #ed6900;
+    }
+}
+
+.character-equips {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1rem 0.5rem;
+
+    .equip-item {
+        margin: 0.3rem 1rem;
+        display: flex;
+        align-items: center;
+
+        .img-container {
+            background: rgba(0, 0, 0, 0.5);
+            height: 3.2rem;
+            width: 3.2rem;
+            display: inline-block;
+            margin-right: 1rem;
+        }
+        img {
+            width: 3.2rem;
+        }
+
+        p {
+            color: #777;
+            @include itemColors();
+            display: inline-block;
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        &.weapon {
+            .img-container {
+                height: 4.5rem;
+                width: 4.5rem;
+                margin-right: 1rem;
+            }
+            p {
+                font-size: 1.4rem;
+            }
+            img {
+                width: 4.5rem;
+            }
+
+            .gems {
+                margin-top: 0.3rem;
+                img {
+                    width: 2.5rem;
+                }
+            }
+        }
+    }
+
+    .soulshield {
+        display: flex;
+        align-items: baseline;
+
+        .imagePreview {
+            width: 24rem;
+            height: 24rem;
+            position: relative;
+            transform-origin: center;
+            transform: scale(0.75);
+            margin-top: 0rem;
+            user-select: none;
+
+            .blankImg {
+                position: relative;
+                z-index: 2;
+            }
+
+            .soulshield-piece {
+                position: absolute;
+                z-index: 1;
+                width: 12rem;
+
+                &.soulshield_8,
+                &.soulshield_1,
+                &.soulshield_2 {
+                    top: 0rem;
+                }
+
+                &.soulshield_7,
+                &.soulshield_3 {
+                    top: 6rem;
+                }
+
+                &.soulshield_6,
+                &.soulshield_5,
+                &.soulshield_4 {
+                    top: 12rem;
+                }
+
+                &.soulshield_8,
+                &.soulshield_7,
+                &.soulshield_6 {
+                    left: 0rem;
+                }
+
+                &.soulshield_1,
+                &.soulshield_5 {
+                    left: 6rem;
+                }
+
+                &.soulshield_2,
+                &.soulshield_3,
+                &.soulshield_4 {
+                    left: 12rem;
+                }
+            }
+
+            .setBackground {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                margin: 0 auto;
+                opacity: 0.7;
+                width: 100%;
+            }
+        }
+
+        .soulshield-attribute-button {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            color: #ccc;
+            cursor: pointer;
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+
+    @media (max-width: 767px) {
+        height: auto;
+        min-height: inherit;
+        max-height: none;
+
+        .attack,
+        .defense {
+            height: auto;
+            width: 100%;
+        }
+    }
+}
+
+.soulshield-attributes {
+    .ant-popover-inner-content {
+        color: #eee;
+        font-size: 1.3rem;
+    }
+
+    .ant-tooltip-inner {
+        max-width: 50rem;
+    }
+
+    .add {
+        color: aqua;
+    }
+
+    h3 {
+        color: white;
+
+        small {
+            margin-left: 0.5rem;
+            color: #aaa;
+        }
+    }
+
+    table {
+        width: 100%;
+        min-width: 25rem;
+        margin-top: 1rem;
+
+        .total {
+            color: aqua;
+            text-align: right;
+            padding-right: 1rem;
+        }
+    }
+
+    .soulshield-effect {
+        margin-top: 2rem;
+
+        .soulshield-effect-name {
+            color: aqua;
+        }
+
+        .effect-description {
+            margin-top: 0.5rem;
+            margin-left: 0.5rem;
+            line-height: 1.3rem;
+        }
+
+        h6 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.7rem;
+        }
+    }
+}

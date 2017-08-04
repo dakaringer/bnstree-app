@@ -55,9 +55,11 @@
 .ant-popover {
     .ant-popover-arrow {
         border-bottom-color: rgba(30, 30, 30, 0.9) !important;
+        border-top-color: rgba(30, 30, 30, 0.9) !important;
 
         &::after {
-            border-bottom-color: #000 !important;
+            border-bottom-color: #111 !important;
+            border-top-color: #111 !important;
         }
     }
 
@@ -106,6 +108,24 @@
         hr {
             border-color: rgba(255, 255, 255, 0.2);
             margin: 1.5rem 0;
+        }
+    }
+}
+
+.ant-tabs-bar {
+    border-color: rgba(255, 255, 255, 0.35) !important;
+    .ant-tabs-nav {
+        color: #aaa;
+
+        .ant-tabs-tab:hover {
+            color: white;
+        }
+        .ant-tabs-tab-active {
+            color: aqua !important;
+        }
+
+        .ant-tabs-ink-bar {
+            background-color: aqua;
         }
     }
 }

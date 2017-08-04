@@ -98,7 +98,7 @@ const SkillSubMenu = props => {
                 <div className="sub-menu-group">
                     <div className="skillSearch sub-menu-item">
                         <input
-                            placeholder={t('general:search')}
+                            placeholder={t('search')}
                             value={search}
                             onChange={e => setSearch(e.target.value)}
                         />
