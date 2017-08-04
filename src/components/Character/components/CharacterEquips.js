@@ -219,9 +219,9 @@ class CharacterEquips extends Component {
                         content={ssTooltip}
                         trigger="click"
                         overlayClassName="soulshield-attributes">
-                        <p className="soulshield-attribute-button">
+                        <a className="soulshield-attribute-button">
                             {t('ssShowAttributes')}
-                        </p>
+                        </a>
                     </Popover>
                 </div>
             </div>
