@@ -2,22 +2,23 @@ import React from 'react'
 import {translate} from 'react-i18next'
 import {withRouter} from 'react-router'
 
-import {Icon, Radio} from 'antd'
-const RadioGroup = Radio.Group
+import {Icon} from 'antd'
+import {Radio, RadioGroup} from 'react-radio-group'
 
 class CharacterSearch extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            characterName: ''
+            characterName: '',
+            region: 'na'
         }
     }
     componentDidMount() {
         this.setState({region: this.props.match.params.region || 'na'})
     }
 
-    changeRegion(e) {
-        this.setState({region: e.target.value})
+    changeRegion(value) {
+        this.setState({region: value})
     }
 
     enterCharacter(e) {
@@ -36,13 +37,17 @@ class CharacterSearch extends React.Component {
             <form
                 className={`character-search ${center ? 'center' : ''}`}
                 onSubmit={e => this.searchCharacter(e)}>
-                <RadioGroup onChange={e => this.changeRegion(e)} value={this.state.region}>
-                    <Radio key="a" value={'na'}>
-                        NA
-                    </Radio>
-                    <Radio key="b" value={'eu'}>
-                        EU
-                    </Radio>
+                <RadioGroup
+                    name="fruit"
+                    selectedValue={this.state.region}
+                    onChange={value => this.changeRegion(value)}
+                    className="regionSelector">
+                    <label>
+                        <Radio value="na" />NA
+                    </label>
+                    <label>
+                        <Radio value="eu" />EU
+                    </label>
                 </RadioGroup>
                 <div className="inputGroup">
                     <input
