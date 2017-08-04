@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 15rem 15%;
+    padding-bottom: 7rem;
     justify-content: center;
 
     .class-link {
@@ -19,10 +20,12 @@
 
     @media (max-width: 1200px) {
         padding: 15rem 5%;
+        padding-bottom: 5rem;
     }
 
     @media (max-width: 767px) {
         padding: 10rem 0;
+        padding-bottom: 2rem;
     }
 
     @media (max-width: 576px) {
