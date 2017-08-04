@@ -39,8 +39,6 @@ class CharacterProfile extends React.PureComponent {
 
         let classCode = character.get('classCode', 'BM')
         let hmLevel = null
-        console.log(character.toJS())
-        console.log(character.get('level').toJS())
         if (character.hasIn(['level', 1])) {
             hmLevel = (
                 <span className="hmLevel">
