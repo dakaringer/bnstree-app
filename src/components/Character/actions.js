@@ -23,15 +23,14 @@ export function loadCharacter(region, name) {
             })
                 .then(response => response.json())
                 .then(json => {
+                    dispatch(loadCharacterData(json))
                     if (json.success === 0 || !json.general) {
-                        dispatch(setLoading(false))
                         return
                     }
 
                     document.title = `${json.general.name} - ${i18n.t(
                         'general:character'
                     )} | BnSTree`
-                    dispatch(loadCharacterData(json))
 
                     let classCode = json.general.classCode
                     if (!dataSelector(getState()).has(classCode)) {
