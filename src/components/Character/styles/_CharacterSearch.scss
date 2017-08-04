@@ -12,6 +12,20 @@
         }
     }
 
+    .regionSelector {
+        margin-right: 1rem;
+
+        label {
+            margin: 0 1rem;
+            font-size: 1.6rem;
+
+            input {
+                margin-right: 0.5rem;
+                vertical-align: middle;
+            }
+        }
+    }
+
     &.center {
         width: 50rem;
         max-width: 100%;
@@ -23,6 +37,10 @@
         .inputGroup {
             width: 100%;
             margin: 2rem 0;
+        }
+
+        .regionSelector {
+            margin-right: 0;
         }
     }
 
