@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
-import {createStore, applyMiddleware, compose} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
+import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import {Map} from 'immutable'
@@ -20,11 +21,8 @@ import {I18nextProvider} from 'react-i18next'
 import ReactGA from 'react-ga'
 ReactGA.initialize('UA-61749626-5')
 
-let store = createStore(
-    rootReducer,
-    Map(),
-    compose(applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f => f)
-)
+const composeEnhancers = composeWithDevTools({})
+let store = createStore(rootReducer, Map(), composeEnhancers(applyMiddleware(thunk)))
 
 const withTracker = WrappedComponent => {
     const trackPage = page => {
