@@ -38,7 +38,6 @@ class CharacterSearch extends React.Component {
                 className={`character-search ${center ? 'center' : ''}`}
                 onSubmit={e => this.searchCharacter(e)}>
                 <RadioGroup
-                    name="fruit"
                     selectedValue={this.state.region}
                     onChange={value => this.changeRegion(value)}
                     className="regionSelector">

@@ -2,7 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {Modal, Switch, Icon, Tooltip} from 'antd'
+import {Modal, Icon, Tooltip} from 'antd'
+import {Radio, RadioGroup} from 'react-radio-group'
 
 import {viewSelector, charSelector} from '../selectors'
 import {updateView, setStat} from '../actions.js'
@@ -54,12 +55,18 @@ class SkillSettings extends React.Component {
                         </label>
                     </td>
                     <td>
-                        <Switch
-                            checked={view.get('order', 'LEVEL') === 'HOTKEY'}
-                            unCheckedChildren={t('level')}
-                            checkedChildren={t('hotkey')}
-                            onChange={checked => updateView('order', checked ? 'HOTKEY' : 'LEVEL')}
-                        />
+                        <RadioGroup
+                            selectedValue={view.get('order', 'LEVEL')}
+                            onChange={value => updateView('order', value)}>
+                            <label>
+                                <Radio value="LEVEL" />
+                                {t('level')}
+                            </label>
+                            <label>
+                                <Radio value="HOTKEY" />
+                                {t('hotkey')}
+                            </label>
+                        </RadioGroup>
                     </td>
                 </tr>
             )
@@ -150,13 +157,18 @@ class SkillSettings extends React.Component {
                                     </label>
                                 </td>
                                 <td>
-                                    <Switch
-                                        checked={view.get('mode', 'LIST') === 'ICON'}
-                                        unCheckedChildren={t('list')}
-                                        checkedChildren={t('icon')}
-                                        onChange={checked =>
-                                            updateView('mode', checked ? 'ICON' : 'LIST')}
-                                    />
+                                    <RadioGroup
+                                        selectedValue={view.get('mode', 'LIST')}
+                                        onChange={value => updateView('mode', value)}>
+                                        <label>
+                                            <Radio value="LIST" />
+                                            {t('list')}
+                                        </label>
+                                        <label>
+                                            <Radio value="ICON" />
+                                            {t('icon')}
+                                        </label>
+                                    </RadioGroup>
                                 </td>
                             </tr>
                             {sortDiv}

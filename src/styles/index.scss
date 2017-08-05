@@ -44,6 +44,7 @@ input {
     padding: 0;
     transition: all 0.3s;
     padding-left: 0.3rem;
+    vertical-align: middle;
 
     &:hover,
     &:active,
@@ -51,6 +52,10 @@ input {
         box-shadow: none;
         border-color: aqua;
     }
+}
+
+label input {
+    margin-right: 0.5rem;
 }
 
 hr {
