@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
+import {Map} from 'immutable'
 
 import {Icon, Modal} from 'antd'
 
@@ -9,7 +10,7 @@ import {buildElementSelector, buildSelector, elementDataSelector} from '../selec
 function generateLink(element, build, elementData) {
     let elementIndex = elementData.findIndex(a => a.get('element') === element)
     let buildString = ''
-    elementData.getIn([elementIndex, 'buildFormat']).forEach(id => {
+    elementData.getIn([elementIndex, 'buildFormat'], Map()).forEach(id => {
         let trait = build.get(id, '1')
         buildString += parseInt(trait, 10)
     })
