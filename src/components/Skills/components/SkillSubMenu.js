@@ -9,6 +9,7 @@ import {buildElementSelector, searchSelector, viewSelector, filterSelector} from
 import {toggleElement, setSearch, updateView, setFilter} from '../actions'
 
 import SkillSettings from './SkillSettings'
+import SkillShareMenu from './SkillShareMenu'
 
 import {Icon, Checkbox, Popover, Radio} from 'antd'
 const RadioGroup = Radio.Group
@@ -124,11 +125,7 @@ const SkillSubMenu = props => {
             </div>
             <div className="sub-menu-right">
                 <SkillSettings />
-                <div className="share sub-menu-item">
-                    <a>
-                        {t('general:share')} <Icon type="share-alt" />
-                    </a>
-                </div>
+                <SkillShareMenu />
             </div>
         </div>
     )

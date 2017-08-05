@@ -130,13 +130,6 @@ const classDataSelector = createSelector(dataSelector, classSelector, (state, cl
 export const elementDataSelector = createSelector(classDataSelector, state =>
     state.get('classData', List())
 )
-export const buildFormatSelector = createSelector(
-    classDataSelector,
-    buildElementSelector,
-    (data, element) => {
-        return data.find(a => a.get('element') === element, null, Map()).get('buildFormat', List())
-    }
-)
 
 const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))
 
