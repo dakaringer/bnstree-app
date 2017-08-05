@@ -2,14 +2,15 @@ import React, {Component} from 'react'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Dropdown, Menu} from 'antd'
-import {Link, NavLink, withRouter} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 
-import {currentLanguageSelector} from '../../selectors'
+import {currentLanguageSelector, userSelector} from '../../selectors'
 import {setUILanguage} from '../../actions'
 
 import './styles/NavBar.scss'
 
 import mainLogo from './images/logo.png'
+import gLogo from './images/g-logo.png'
 
 import {Collapse} from 'antd'
 const Panel = Collapse.Panel
@@ -35,7 +36,8 @@ const languageNames = {
 
 const mapStateToProps = state => {
     return {
-        currentLang: currentLanguageSelector(state)
+        currentLang: currentLanguageSelector(state),
+        user: userSelector(state)
     }
 }
 
@@ -68,7 +70,7 @@ class NavBar extends Component {
     }
 
     render() {
-        const {t, currentLang, setLanguage} = this.props
+        const {t, currentLang, user, setLanguage} = this.props
 
         let classLinks = []
         classes.forEach(c => {
@@ -124,6 +126,27 @@ class NavBar extends Component {
             </Menu>
         )
 
+        let loginDropdown = (
+            <Menu theme="dark" onClick={e => setLanguage(e.key)}>
+                <Menu.Item>
+                    {user
+                        ? <a href="https://api.bnstree.com/user/logout">
+                              {t('logout')}
+                          </a>
+                        : <a
+                              href={`https://api.bnstree.com/user/login?r=${window.location
+                                  .protocol}//${window.location.host + window.location.pathname}`}>
+                              <div className="google-login">
+                                  <span className="img-wrap">
+                                      <img alt="google" src={gLogo} />
+                                  </span>
+                                  <span className="google-text">Sign in with Google</span>
+                              </div>
+                          </a>}
+                </Menu.Item>
+            </Menu>
+        )
+
         return (
             <div className="main-nav">
                 <div className="main-nav-header">
@@ -143,6 +166,11 @@ class NavBar extends Component {
                         </Link>
                     </div>
                     <div className="main-nav-submenu">
+                        <Dropdown overlay={loginDropdown} trigger={['hover', 'click']}>
+                            <a className="main-nav-menu-item">
+                                {user ? user.get('displayName') : t('login')}
+                            </a>
+                        </Dropdown>
                         <Dropdown overlay={languageDropdown} trigger={['hover', 'click']}>
                             <a className="main-nav-menu-item">
                                 {languageNames[currentLang]}
@@ -177,6 +205,11 @@ class NavBar extends Component {
                             {t('character')}
                         </NavLink>
                         <hr />
+                        <Collapse bordered={false} className="login">
+                            <Panel header={user ? user.get('displayName') : t('login')}>
+                                {loginDropdown}
+                            </Panel>
+                        </Collapse>
                         <Collapse bordered={false} className="language">
                             <Panel header={languageNames[currentLang]}>
                                 {languageDropdown}
@@ -189,6 +222,4 @@ class NavBar extends Component {
     }
 }
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
-)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))

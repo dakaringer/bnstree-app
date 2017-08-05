@@ -73,5 +73,38 @@
     }
 }
 
+.google-login {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    width: 15rem;
+    padding: 0.2rem;
+    background: #555;
+    border-radius: 0.2rem;
+
+    .img-wrap {
+        background: white;
+        height: 2.5rem;
+        width: 2.5rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.2rem;
+
+        img {
+            height: 80%;
+            vertical-align: middle;
+        }
+    }
+
+    .google-text {
+        flex: 1;
+        text-align: center;
+        font-family: 'Roboto';
+        font-size: 1.2rem;
+    }
+}
+
 @import 'NavOverlayMenu';
 @import 'Hamburger';
