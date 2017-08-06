@@ -11,6 +11,7 @@ import {
     buildElementSelector,
     elementDataSelector,
     skillNamesSelector,
+    buildSelector,
     refSelector
 } from './selectors'
 
@@ -57,18 +58,6 @@ const setBuildSkill = makeActionCreator(
 
 const setNames = makeActionCreator(actionType.SKILL_REF_SET_NAMES, 'language', 'nameData')
 
-function parseBuild(elements, classCode, buildCode, dispatch) {
-    let currentElement = elements.get(buildCode[0])
-    let buildString = buildCode.substring(1)
-    dispatch(setBuildElement(classCode, currentElement.get('element')))
-    currentElement.get('buildFormat', Map()).forEach((id, i) => {
-        if (buildString[i]) {
-            let trait = parseInt(buildString[i], 10)
-            dispatch(learnMove(id, trait))
-        }
-    })
-}
-
 export function loadClass(classCode, buildCode, buildId) {
     return (dispatch, getState) => {
         dispatch(setClass(classCode))
@@ -111,60 +100,6 @@ export function loadClass(classCode, buildCode, buildId) {
     }
 }
 
-export function loadBuild(buildCode, buildId) {
-    return (dispatch, getState) => {
-        let classCode = classSelector(getState())
-        let classElements = elementDataSelector(getState())
-
-        dispatch(updateView('visibility', 'TRAINABLE'))
-        if (buildId) {
-            fetch(`https://api.bnstree.com/skill-builds/${buildId}`, {
-                method: 'get',
-                credentials: 'include'
-            })
-                .then(response => response.json())
-                .then(json => {
-                    if (
-                        json.success === 1 &&
-                        classCode === json.build.classCode &&
-                        json.build.buildCode
-                    ) {
-                        parseBuild(classElements, classCode, json.build.buildCode, dispatch)
-                        message.success(i18n.t('skills:buildLoaded'))
-                    }
-                })
-        } else {
-            parseBuild(classElements, classCode, buildCode, dispatch)
-        }
-    }
-}
-
-export function loadBuildList(page = 1, classCode = null, element = null, type = null) {
-    return dispatch => {
-        let url = `https://api.bnstree.com/skill-builds?page=${page}&limit=10`
-        if (classCode) {
-            url += `&classCode=${classCode}`
-        }
-        if (element) {
-            url += `&element=${element}`
-        }
-        if (type) {
-            url += `&type=${type}`
-        }
-
-        fetch(url, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 1) {
-                    dispatch(setBuildList(classCode, json.result))
-                }
-            })
-    }
-}
-
 export function loadTextData(lang) {
     return (dispatch, getState) => {
         if (skillNamesSelector(getState()).equals(Map())) {
@@ -195,17 +130,55 @@ export function loadTextData(lang) {
     }
 }
 
-export function postBuild(title, type, buildCode) {
+export function loadBuildList(page = 1, classCode = null, element = null, type = null) {
+    return dispatch => {
+        let url = `https://api.bnstree.com/skill-builds?page=${page}&limit=10`
+        if (classCode) {
+            url += `&classCode=${classCode}`
+        }
+        if (element) {
+            url += `&element=${element}`
+        }
+        if (type) {
+            url += `&type=${type}`
+        }
+
+        fetch(url, {
+            method: 'get',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.success === 1) {
+                    dispatch(setBuildList(classCode, json.result))
+                }
+            })
+    }
+}
+
+export function postBuild(title, type) {
     return (dispatch, getState) => {
         let element = buildElementSelector(getState())
+        let classElements = elementDataSelector(getState())
+        let elementIndex = classElements.findIndex(a => a.get('element') === element)
+
         let classCode = classSelector(getState())
+        let build = buildSelector(getState())
+
+        let buildObjects = []
+        classElements.getIn([elementIndex, 'buildFormat'], Map()).forEach(id => {
+            buildObjects.push({
+                id: id,
+                trait: build.get(id, 1)
+            })
+        })
 
         let buildDoc = {
             title: title,
             type: type,
             classCode: classCode,
             element: element,
-            buildCode: buildCode
+            buildObjects: buildObjects
         }
 
         fetch('https://api.bnstree.com/skill-builds', {
@@ -223,6 +196,45 @@ export function postBuild(title, type, buildCode) {
                     message.danger(i18n.t('general:postFail'))
                 }
             })
+    }
+}
+
+export function loadBuild(buildCode, buildId) {
+    return (dispatch, getState) => {
+        let classCode = classSelector(getState())
+
+        dispatch(updateView('visibility', 'TRAINABLE'))
+        if (buildId) {
+            fetch(`https://api.bnstree.com/skill-builds/${buildId}`, {
+                method: 'get',
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(json => {
+                    if (
+                        json.success === 1 &&
+                        json.build &&
+                        classCode === json.build.classCode &&
+                        json.build.buildObjects
+                    ) {
+                        json.build.buildObjects.forEach(skill => {
+                            dispatch(learnMove(skill.id, skill.trait))
+                        })
+
+                        message.success(i18n.t('skills:buildLoaded'))
+                    }
+                })
+        } else {
+            let currentElement = elementDataSelector(getState()).get(buildCode[0])
+            let buildString = buildCode.substring(1)
+            dispatch(setBuildElement(classCode, currentElement.get('element')))
+            currentElement.get('buildFormat', Map()).forEach((id, i) => {
+                if (buildString[i]) {
+                    let trait = parseInt(buildString[i], 10)
+                    dispatch(learnMove(id, trait))
+                }
+            })
+        }
     }
 }
 
