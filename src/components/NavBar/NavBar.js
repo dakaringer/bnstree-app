@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Dropdown, Menu} from 'antd'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, withRouter} from 'react-router-dom'
 
 import {currentLanguageSelector, userSelector} from '../../selectors'
 import {setUILanguage} from '../../actions'
@@ -222,4 +222,6 @@ class NavBar extends Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
+)
