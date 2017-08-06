@@ -39,7 +39,8 @@ export const setClassData = makeActionCreator(
     'classData',
     'groupData',
     'skillData',
-    'patchData'
+    'patchData',
+    'statData'
 )
 const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
 
@@ -83,7 +84,8 @@ export function loadClass(classCode, buildCode, buildId) {
                             elements,
                             flatten(json.groupData),
                             flatten(json.skillData),
-                            flatten(json.patchData)
+                            flatten(json.patchData),
+                            flatten(json.statData)
                         )
                     )
                     dispatch(setBuildElement(classCode, elements[0].element))

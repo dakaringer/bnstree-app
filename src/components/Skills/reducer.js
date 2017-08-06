@@ -90,7 +90,8 @@ function classData(state = Map(), action) {
                 classData: action.classData,
                 skillData: action.skillData,
                 groupData: action.groupData,
-                patchData: action.patchData
+                patchData: action.patchData,
+                statData: action.statData
             })
         case actionType.SKILL_DATA_SET_BUILD_LIST:
             return state.merge({buildList: action.list})
