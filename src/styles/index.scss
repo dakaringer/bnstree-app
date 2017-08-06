@@ -54,8 +54,13 @@ input {
     }
 }
 
-label input {
-    margin-right: 0.5rem;
+.radio {
+    label {
+        margin-right: 2rem;
+        input {
+            margin-right: 0.5rem;
+        }
+    }
 }
 
 hr {

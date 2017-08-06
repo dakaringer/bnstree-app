@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import SkillIconListItem from './skillIconListItem'
+import SkillGridItem from './SkillGridItem'
 
 import {catagorizedSkillDataSelector} from '../selectors'
 
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
     }
 }
 
-const SkillIconList = props => {
+const SkillGrid = props => {
     const {t, skillData} = props
 
     let topLeft = []
@@ -25,7 +25,7 @@ const SkillIconList = props => {
     skillData.forEach((section, k) => {
         let skills = []
         section.forEach((skill, id) => {
-            skills.push(<SkillIconListItem skillData={skill} skillId={id} key={id} />)
+            skills.push(<SkillGridItem skillData={skill} skillId={id} key={id} />)
         })
 
         let label = t(k)
@@ -117,4 +117,4 @@ const SkillIconList = props => {
     )
 }
 
-export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillIconList))
+export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillGrid))

@@ -17,7 +17,8 @@ import Header from './components/SkillHeader'
 import SkillMenu from './components/SkillMenu'
 import SkillSubMenu from './components/SkillSubMenu'
 import SkillList from './components/SkillList'
-import SkillIconList from './components/SkillIconList'
+import SkillGrid from './components/SkillGrid'
+import SkillBuildList from './components/SkillBuildList'
 
 function getClassCode(link) {
     let classCode = 'BM'
@@ -52,25 +53,27 @@ class Skills extends React.Component {
         let params = new URLSearchParams(location.search)
         let classCode = getClassCode(match.params.classCode)
         loadText(currentLanguage)
-        loadClass(classCode, params.get('b'), match.params.buildLink)
+        loadClass(classCode, params.get('b'), params.get('id'))
     }
     componentWillReceiveProps(nextProps) {
-        const {match, currentLanguage, loadText, loadClass} = this.props
+        const {location, match, currentLanguage, loadText, loadClass} = this.props
 
+        let params = new URLSearchParams(location.search)
+        let nextParams = new URLSearchParams(nextProps.location.search)
         let classCode = getClassCode(nextProps.match.params.classCode)
         if (nextProps.currentLanguage !== currentLanguage) {
             loadText(nextProps.currentLanguage)
         }
         if (
             classCode !== getClassCode(match.params.classCode) ||
-            nextProps.match.params.buildLink !== match.params.buildLink
+            nextParams.get('id') !== params.get('id')
         ) {
-            loadClass(classCode, null, nextProps.match.params.buildLink)
+            loadClass(classCode, null, nextParams.get('id'))
         }
     }
 
     render() {
-        const {loading, view, match} = this.props
+        const {loading, view} = this.props
 
         let skillComponent = null
 
@@ -85,7 +88,7 @@ class Skills extends React.Component {
             skillComponent = (
                 <div>
                     <SkillSubMenu />
-                    <SkillIconList />
+                    <SkillGrid />
                 </div>
             )
         }
@@ -104,7 +107,18 @@ class Skills extends React.Component {
                             <Switch>
                                 <Route
                                     exact
-                                    path={`/skills/${match.params.classCode}`}
+                                    path="/skills/:classCode"
+                                    render={() => skillComponent}
+                                />
+                                <Route exact path={`/skills/:classCode/info`} render={() => null} />
+                                <Route
+                                    exact
+                                    path="/skills/:classCode/builds"
+                                    component={SkillBuildList}
+                                />
+                                <Route
+                                    exact
+                                    path="/skills/:classCode/:buildLink"
                                     render={() => skillComponent}
                                 />
                             </Switch>

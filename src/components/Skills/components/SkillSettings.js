@@ -56,6 +56,7 @@ class SkillSettings extends React.Component {
                     </td>
                     <td>
                         <RadioGroup
+                            className="radio"
                             selectedValue={view.get('order', 'LEVEL')}
                             onChange={value => updateView('order', value)}>
                             <label>
@@ -158,6 +159,7 @@ class SkillSettings extends React.Component {
                                 </td>
                                 <td>
                                     <RadioGroup
+                                        className="radio"
                                         selectedValue={view.get('mode', 'LIST')}
                                         onChange={value => updateView('mode', value)}>
                                         <label>

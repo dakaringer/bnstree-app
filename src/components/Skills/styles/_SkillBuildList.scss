@@ -1,0 +1,35 @@
+.skill-build-list {
+    .ant-table-row {
+        height: 5rem;
+
+        .element {
+            width: 4rem;
+            img {
+                vertical-align: middle;
+                width: 100%;
+            }
+        }
+
+        .type {
+            width: 10rem;
+        }
+
+        .title {
+            flex: 1;
+            font-size: 1.6rem;
+            text-overflow: ellipsis;
+
+            & > a {
+                color: dodgerblue;
+            }
+
+            .new {
+                margin-left: 1.5rem;
+            }
+        }
+        .date {
+            color: #aaa;
+            width: 12rem;
+        }
+    }
+}

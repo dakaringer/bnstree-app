@@ -14,7 +14,7 @@ const mapStateToProps = state => {
     }
 }
 
-const SkillIconListItem = props => {
+const SkillGridItem = props => {
     const {skillData, skillId} = props
 
     let offset = skillData.getIn(['moves', 0, 'move'], 1) - 1
@@ -28,14 +28,25 @@ const SkillIconListItem = props => {
         }
     })
 
-    return <div className="skill-icon-list-item">
-            <Popover placement="bottomLeft" align={{overflow: {adjustY: false, adjustX: true}}} overlayClassName="skill-icon-popover-wrap"
+    return (
+        <div className="skill-icon-list-item">
+            <Popover
+                placement="bottomLeft"
+                align={{overflow: {adjustY: false, adjustX: true}}}
+                overlayClassName="skill-icon-popover-wrap"
                 content={<SkillMoves skillData={skillData} skillId={skillId} />}>
-                <img className="skill-icon" alt={skillId} src={`https://static.bnstree.com/images/skill/${skillData.getIn(
-                        ['moves', moveIndex, 'icon']
-                    )}`} />
+                <img
+                    className="skill-icon"
+                    alt={skillId}
+                    src={`https://static.bnstree.com/images/skill/${skillData.getIn([
+                        'moves',
+                        moveIndex,
+                        'icon'
+                    ])}`}
+                />
             </Popover>
         </div>
+    )
 }
 
-export default connect(mapStateToProps)(SkillIconListItem)
+export default connect(mapStateToProps)(SkillGridItem)

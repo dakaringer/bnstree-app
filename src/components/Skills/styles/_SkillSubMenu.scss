@@ -97,7 +97,19 @@
 }
 
 .skill-share-menu {
-    input {
+    .build-title,
+    .share-link {
         width: 100%;
+    }
+
+    .build-title,
+    .typeSelector,
+    .post,
+    .error {
+        margin-top: 1rem;
+    }
+
+    .error {
+        color: #f04134;
     }
 }

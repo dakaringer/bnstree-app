@@ -10,8 +10,6 @@ import {
     classSelector,
     buildElementSelector,
     elementDataSelector,
-    buildSelector,
-    buildFormatSelector,
     skillNamesSelector,
     refSelector
 } from './selectors'
@@ -43,7 +41,6 @@ export const setClassData = makeActionCreator(
     'patchData'
 )
 const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
-//const setUserBuilds = makeActionCreator(actionType.SKILL_DATA_SET_USER_BUILDS, 'classCode', 'list')
 
 const setBuildElement = makeActionCreator(
     actionType.SKILL_BUILD_SET_ELEMENT,
@@ -60,7 +57,19 @@ const setBuildSkill = makeActionCreator(
 
 const setNames = makeActionCreator(actionType.SKILL_REF_SET_NAMES, 'language', 'nameData')
 
-export function loadClass(classCode, buildCode, buildLink) {
+function parseBuild(elements, classCode, buildCode, dispatch) {
+    let currentElement = elements.get(buildCode[0])
+    let buildString = buildCode.substring(1)
+    dispatch(setBuildElement(classCode, currentElement.get('element')))
+    currentElement.get('buildFormat', Map()).forEach((id, i) => {
+        if (buildString[i]) {
+            let trait = parseInt(buildString[i], 10)
+            dispatch(learnMove(id, trait))
+        }
+    })
+}
+
+export function loadClass(classCode, buildCode, buildId) {
     return (dispatch, getState) => {
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
@@ -93,34 +102,8 @@ export function loadClass(classCode, buildCode, buildLink) {
                     dispatch(setView('order', json.view.order))
                     dispatch(setView('visibility', json.view.visibility))
 
-                    if (buildCode) {
-                        let currentElement = elements[buildCode[0]].element
-                        let buildString = buildCode.substring(1)
-                        dispatch(setBuildElement(classCode, currentElement.element))
-                        currentElement.buildFormat.forEach((id, i) => {
-                            if (buildString[i]) {
-                                let trait = (buildString[i] - 1).toString()
-                                if (trait > 2) {
-                                    trait = trait - 3 + '-hm'
-                                }
-                                dispatch(learnMove(id, trait))
-                            }
-                        })
-                    } else if (buildLink) {
-                        fetch(`https://api.bnstree.com/skill-builds/${buildLink}`, {
-                            method: 'get',
-                            credentials: 'include'
-                        })
-                            .then(response => response.json())
-                            .then(json => {
-                                if (json.success === 1 && json.build) {
-                                    dispatch(setBuildElement(classCode, json.build.element))
-                                    for (let id in json.build.build) {
-                                        dispatch(learnMove(id, json.build.build[id]))
-                                    }
-                                    message.success(i18n.t('general:buildLoadSuccess', 2))
-                                }
-                            })
+                    if (buildCode || buildId) {
+                        dispatch(loadBuild(buildCode, buildId))
                     }
                 })
                 .then(() => dispatch(setLoading(false)))
@@ -128,9 +111,40 @@ export function loadClass(classCode, buildCode, buildLink) {
     }
 }
 
-export function loadBuildList(classCode, page, element = null, type = null) {
+export function loadBuild(buildCode, buildId) {
+    return (dispatch, getState) => {
+        let classCode = classSelector(getState())
+        let classElements = elementDataSelector(getState())
+
+        dispatch(updateView('visibility', 'TRAINABLE'))
+        if (buildId) {
+            fetch(`https://api.bnstree.com/skill-builds/${buildId}`, {
+                method: 'get',
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(json => {
+                    if (
+                        json.success === 1 &&
+                        classCode === json.build.classCode &&
+                        json.build.buildCode
+                    ) {
+                        parseBuild(classElements, classCode, json.build.buildCode, dispatch)
+                        message.success(i18n.t('skills:buildLoaded'))
+                    }
+                })
+        } else {
+            parseBuild(classElements, classCode, buildCode, dispatch)
+        }
+    }
+}
+
+export function loadBuildList(page = 1, classCode = null, element = null, type = null) {
     return dispatch => {
-        let url = `https://api.bnstree.com/skill-builds?classCode=${classCode}&page=${page}&limit=10`
+        let url = `https://api.bnstree.com/skill-builds?page=${page}&limit=10`
+        if (classCode) {
+            url += `&classCode=${classCode}`
+        }
         if (element) {
             url += `&element=${element}`
         }
@@ -181,24 +195,17 @@ export function loadTextData(lang) {
     }
 }
 
-export function postBuild(title, type) {
+export function postBuild(title, type, buildCode) {
     return (dispatch, getState) => {
         let element = buildElementSelector(getState())
         let classCode = classSelector(getState())
-        let build = buildSelector(getState())
-
-        buildFormatSelector(getState()).forEach(id => {
-            if (!build.has(id)) {
-                build = build.set(id, '0')
-            }
-        })
 
         let buildDoc = {
             title: title,
             type: type,
             classCode: classCode,
             element: element,
-            build: build
+            buildCode: buildCode
         }
 
         fetch('https://api.bnstree.com/skill-builds', {
@@ -210,12 +217,10 @@ export function postBuild(title, type) {
             .then(response => response.json())
             .then(json => {
                 if (json.success === 1) {
-                    window.history.replaceState(null, null, `${json.link}`)
-
                     loadBuildList(classCode, 1)
-                    message.success(i18n.t('general:buildPostSuccess', 2))
+                    message.success(i18n.t('general:postSuccess'))
                 } else {
-                    message.danger(i18n.t('general:buildPostFail', 2))
+                    message.danger(i18n.t('general:postFail'))
                 }
             })
     }

@@ -40,7 +40,7 @@ class CharacterSearch extends React.Component {
                 <RadioGroup
                     selectedValue={this.state.region}
                     onChange={value => this.changeRegion(value)}
-                    className="regionSelector">
+                    className="radio regionSelector">
                     <label>
                         <Radio value="na" />NA
                     </label>

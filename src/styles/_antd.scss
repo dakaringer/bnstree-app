@@ -129,3 +129,55 @@
         }
     }
 }
+
+.ant-message-custom-content {
+    color: #555;
+}
+
+.ant-table-content {
+    .ant-table-placeholder {
+        background: transparent;
+        color: #aaa;
+        border-color: rgba(255, 255, 255, 0.35);
+    }
+    .ant-table-tbody {
+        color: #aaa;
+
+        .ant-table-row {
+            & > td {
+                border-color: rgba(255, 255, 255, 0.35);
+            }
+            &:hover > td {
+                background: rgba(0, 0, 0, 0.6);
+            }
+        }
+    }
+}
+
+.ant-table-pagination {
+    float: none !important;
+}
+
+.ant-pagination {
+    display: flex;
+    justify-content: center;
+
+    .ant-pagination-item,
+    li {
+        border-radius: 0;
+        margin: 0 0.3rem !important;
+        border: none;
+        background: none;
+        a {
+            color: white;
+        }
+    }
+
+    .ant-pagination-disabled {
+        display: none;
+    }
+
+    .ant-pagination-item-active {
+        background-color: dodgerblue !important;
+    }
+}

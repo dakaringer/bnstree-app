@@ -119,3 +119,16 @@
 .side-bar {
     overflow: hidden;
 }
+
+.new {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    color: white;
+    width: 1.2rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: 1rem;
+    text-align: center;
+    background: dodgerblue;
+}
