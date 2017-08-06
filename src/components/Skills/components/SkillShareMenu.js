@@ -111,7 +111,7 @@ class SkillShareMenu extends React.Component {
                     </div>
                     <hr />
                     <div>
-                        <p>Post on BnSTree</p>
+                        <h4>Post on BnSTree</h4>
                         <input
                             className="build-title"
                             placeholder={user ? t('title') : t('loginRequired')}
@@ -119,23 +119,28 @@ class SkillShareMenu extends React.Component {
                             onChange={e => this.changeTitle(e)}
                             disabled={!user}
                         />
-                        <RadioGroup
-                            className="radio typeSelector"
-                            selectedValue={type}
-                            onChange={value => this.setType(value)}>
-                            <label>
-                                <Radio value="PvE" disabled={!user} />
-                                {t('PvE')}
-                            </label>
-                            <label>
-                                <Radio value="PvP" disabled={!user} />
-                                {t('PvP')}
-                            </label>
-                            <label>
-                                <Radio value="6v6" disabled={!user} />
-                                {t('6v6')}
-                            </label>
-                        </RadioGroup>
+                        <div className="typeSelector">
+                            <p>
+                                {t('type')}
+                            </p>
+                            <RadioGroup
+                                className="radio"
+                                selectedValue={type}
+                                onChange={value => this.setType(value)}>
+                                <label>
+                                    <Radio value="PvE" disabled={!user} />
+                                    {t('PvE')}
+                                </label>
+                                <label>
+                                    <Radio value="PvP" disabled={!user} />
+                                    {t('PvP')}
+                                </label>
+                                <label>
+                                    <Radio value="6v6" disabled={!user} />
+                                    {t('6v6')}
+                                </label>
+                            </RadioGroup>
+                        </div>
                         {noTitle
                             ? <p className="error">
                                   {t('noTitle')}
