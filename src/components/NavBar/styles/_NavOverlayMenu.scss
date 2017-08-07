@@ -1,12 +1,16 @@
-.overlayMenu {
+.overlay-menu {
     position: fixed;
     top: 0;
     left: 0;
     top: 0;
     bottom: 0;
+    padding-top: 10rem;
     background: rgba(0, 0, 0, 0.9);
-    padding-top: 8rem;
-    overflow: auto;
+
+    .overlay-menu-container {
+        height: 100%;
+        overflow: auto;
+    }
 
     &[aria-hidden="true"] {
         transition: opacity 0.5s, z-index 0s 0.5s;

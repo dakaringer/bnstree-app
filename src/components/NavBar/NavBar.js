@@ -64,6 +64,7 @@ class NavBar extends Component {
     }
 
     closeMenu() {
+        document.body.classList.toggle('noscroll', false)
         this.setState({
             menuOpen: false
         })
@@ -191,8 +192,8 @@ class NavBar extends Component {
                     </span>
                 </div>
 
-                <div className="overlayMenu" aria-hidden={!this.state.menuOpen}>
-                    <div className="overlayMenuContainer">
+                <div className="overlay-menu" aria-hidden={!this.state.menuOpen}>
+                    <div className="overlay-menu-container">
                         <Collapse bordered={false}>
                             <Panel header={t('skills')}>
                                 {classDropdown}

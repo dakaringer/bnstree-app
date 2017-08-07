@@ -46,7 +46,7 @@
         }
 
         @media (max-width: 767px) {
-            max-width: 100vw;
+            max-width: 100vw !important;
             width: 100vw;
         }
     }
