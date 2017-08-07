@@ -341,7 +341,10 @@ const SkillTooltip = props => {
                 <img
                     className="tooltip-icon"
                     alt={moveData.get('skillId')}
-                    src={`https://static.bnstree.com/images/skill/${moveData.get('icon')}`}
+                    src={`https://static.bnstree.com/images/skill/${moveData.get(
+                        'icon',
+                        'skill_icon_forcemaster_1_33'
+                    )}`}
                 />
                 <div>
                     <div className="tooltip-m1">

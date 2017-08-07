@@ -38,11 +38,10 @@ const SkillGridItem = props => {
                 <img
                     className="skill-icon"
                     alt={skillId}
-                    src={`https://static.bnstree.com/images/skill/${skillData.getIn([
-                        'moves',
-                        moveIndex,
-                        'icon'
-                    ])}`}
+                    src={`https://static.bnstree.com/images/skill/${skillData.getIn(
+                        ['moves', moveIndex, 'icon'],
+                        'skill_icon_forcemaster_1_33'
+                    )}`}
                 />
             </Popover>
         </div>
