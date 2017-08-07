@@ -5,17 +5,18 @@ import {List} from 'immutable'
 import moment from 'moment'
 import {Link} from 'react-router-dom'
 
-import {Table, Icon, Dropdown} from 'antd'
+import {Table, Icon, Dropdown, Menu} from 'antd'
 
 import elementImages from '../images/map_elementImg'
 
-import {classSelector, buildListSelector} from '../selectors'
+import {classSelector, buildListSelector, elementDataSelector} from '../selectors'
 import {loadBuildList, loadBuild} from '../actions'
 
 const mapStateToProps = state => {
     return {
         classCode: classSelector(state),
-        buildList: buildListSelector(state)
+        buildList: buildListSelector(state),
+        elementData: elementDataSelector(state)
     }
 }
 
@@ -48,8 +49,17 @@ class SkillBuildList extends React.PureComponent {
         }
     }
 
+    handleFilter(type, value) {
+        let {classCode} = this.props
+        let s = this.state
+        s[type] = value
+        this.props.loadBuildList(1, classCode, s.element, s.type)
+        this.setState(s)
+    }
+
     render() {
-        const {t, buildList, classCode, match, loadBuild, loadBuildList} = this.props
+        const {t, buildList, classCode, elementData, match, loadBuild, loadBuildList} = this.props
+        const {element, type} = this.state
 
         let now = moment(new Date())
         const columns = [
@@ -108,8 +118,64 @@ class SkillBuildList extends React.PureComponent {
             }
         ]
 
+        let elements = [
+            <Menu.Item key="all">
+                {t('all')}
+            </Menu.Item>
+        ]
+        elementData.forEach(e => {
+            let element = e.get('element')
+            elements.push(
+                <Menu.Item key={element}>
+                    {t(element)}
+                </Menu.Item>
+            )
+        })
+        let elementFilter = (
+            <Menu theme="dark" onClick={e => this.handleFilter('element', e.key)}>
+                {elements}
+            </Menu>
+        )
+
+        let typeFilter = (
+            <Menu theme="dark" onClick={e => this.handleFilter('type', e.key)}>
+                <Menu.Item key="all">
+                    {t('all')}
+                </Menu.Item>
+                <Menu.Item key="PvE">
+                    {t('PvE')}
+                </Menu.Item>
+                <Menu.Item key="PvP">
+                    {t('PvP')}
+                </Menu.Item>
+                <Menu.Item key="6v6">
+                    {t('6v6')}
+                </Menu.Item>
+            </Menu>
+        )
+
         return (
             <div className="skill-build-list">
+                <div className="skill-build-filter sub-menu">
+                    <div className="sub-menu-left">
+                        <div className="sub-menu-item">
+                            {`${t('element')}: `}
+                            <Dropdown overlay={elementFilter} trigger={['click']}>
+                                <a>
+                                    {t(element)} <Icon type="down" />
+                                </a>
+                            </Dropdown>
+                        </div>
+                        <div className="sub-menu-item">
+                            {`${t('type')}: `}
+                            <Dropdown overlay={typeFilter} trigger={['click']}>
+                                <a>
+                                    {t(type)} <Icon type="down" />
+                                </a>
+                            </Dropdown>
+                        </div>
+                    </div>
+                </div>
                 <Table
                     className="build-list"
                     rowKey={record => record._id}
