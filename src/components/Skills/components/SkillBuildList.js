@@ -55,12 +55,13 @@ class SkillBuildList extends React.PureComponent {
         }
     }
 
-    handleFilter(type, value) {
-        let {classCode, user} = this.props
-        let s = this.state
-        s[type] = value
-        this.props.loadBuildList(1, classCode, s.element, s.type, user)
-        this.setState(s)
+    handleFilter(field, value) {
+        const {classCode, user} = this.props
+        const {element, type} = this.state
+        this.props.loadBuildList(1, classCode, element, type, user)
+        this.setState({
+            [field]: value
+        })
     }
 
     handleDelete(id) {
