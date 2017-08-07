@@ -58,7 +58,7 @@ const SkillTooltip = props => {
     attributes.forEach((group, type) => {
         group.forEach((attb, n) => {
             if (attb.get(2, element) === element) {
-                let search = findAttb(attb, comparisonAttributes)
+                let search = findAttb(attb, comparisonAttributes, element)
                 let cAttb = search[0]
                 comparisonAttributes = search[1]
                 let flag = null
@@ -222,7 +222,7 @@ const SkillTooltip = props => {
             let attb = pair.get('text')
 
             if (attb.get(2, element) === element) {
-                let search = findAttb(attb, comparisonSubAttributes, true)
+                let search = findAttb(attb, comparisonSubAttributes, element, true)
                 let cAttb = search[0]
                 comparisonSubAttributes = search[1]
 
@@ -411,7 +411,7 @@ function focusHandler(value, t, health) {
     }
 }
 
-function findAttb(attb, list, sub = false) {
+function findAttb(attb, list, element, sub = false) {
     let cAttb = null
     list.forEach((group, type) => {
         group.forEach((c, i) => {
@@ -435,7 +435,7 @@ function findAttb(attb, list, sub = false) {
             let sameSkillCheck = List.isList(attb.getIn([1, 'skill']))
                 ? attb.getIn([1, 'skill']).equals(c.getIn([1, 'skill']))
                 : attb.getIn([1, 'skill']) === c.getIn([1, 'skill'])
-            let elementCheck = attb.get(2) === c.get(2)
+            let elementCheck = attb.get(2, element) === c.get(2, element)
             if (
                 elementCheck &&
                 (includeCheck ||
