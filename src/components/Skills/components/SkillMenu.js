@@ -1,25 +1,39 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {NavLink, withRouter} from 'react-router-dom'
 
-const SkillMenu = props => {
-    const {t, match} = props
+import {userSelector} from '../../../selectors'
 
-    let classLink = match.params.classCode
+const mapStateToProps = state => {
+    return {
+        user: userSelector(state)
+    }
+}
+
+const SkillMenu = props => {
+    const {t, match, user} = props
+
+    let classCode = match.params.classCode
 
     return (
         <div className="skill-menu side-bar">
-            <NavLink to={`/skills/${classLink}/info`}>
+            <NavLink to={`/skills/${classCode}/info`}>
                 {t('classInfo')}
             </NavLink>
-            <NavLink to={`/skills/${classLink}`} exact>
+            <NavLink to={`/skills/${classCode}`} exact>
                 {t('skills')}
             </NavLink>
-            <NavLink to={`/skills/${classLink}/builds`}>
+            <NavLink to={`/skills/${classCode}/builds`}>
                 {t('userBuilds')}
             </NavLink>
+            {user
+                ? <NavLink to={`/skills/${classCode}/myBuilds`} exact>
+                      {t('myBuilds')}
+                  </NavLink>
+                : null}
         </div>
     )
 }
 
-export default withRouter(translate('skills')(SkillMenu))
+export default withRouter(connect(mapStateToProps)(translate('skills')(SkillMenu)))

@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 
 import {Row, Col} from 'antd'
 
-import {currentLanguageSelector, loadingSelector} from '../../selectors'
+import {currentLanguageSelector, loadingSelector, userSelector} from '../../selectors'
 import {viewSelector} from './selectors'
 import {loadTextData, loadClass} from './actions'
 
@@ -34,7 +34,8 @@ const mapStateToProps = state => {
     return {
         currentLanguage: currentLanguageSelector(state),
         view: viewSelector(state),
-        loading: loadingSelector(state)
+        loading: loadingSelector(state),
+        user: userSelector(state)
     }
 }
 
@@ -73,7 +74,7 @@ class Skills extends React.Component {
     }
 
     render() {
-        const {loading, view} = this.props
+        const {loading, view, user} = this.props
 
         let skillComponent = null
 
@@ -116,6 +117,16 @@ class Skills extends React.Component {
                                     path="/skills/:classCode/builds"
                                     component={SkillBuildList}
                                 />
+                                {user
+                                    ? <Route
+                                          exact
+                                          path="/skills/:classCode/myBuilds"
+                                          component={SkillBuildList}
+                                      />
+                                    : <Redirect
+                                          from="/skills/:classCode/myBuilds"
+                                          to="/skills/:classCode"
+                                      />}
                                 <Route
                                     exact
                                     path="/skills/:classCode/:buildLink"
