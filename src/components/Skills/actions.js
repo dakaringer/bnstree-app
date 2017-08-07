@@ -43,6 +43,11 @@ export const setClassData = makeActionCreator(
     'statData'
 )
 const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
+const setUserBuildList = makeActionCreator(
+    actionType.SKILL_DATA_SET_USER_BUILD_LIST,
+    'classCode',
+    'list'
+)
 
 const setBuildElement = makeActionCreator(
     actionType.SKILL_BUILD_SET_ELEMENT,
@@ -132,7 +137,13 @@ export function loadTextData(lang) {
     }
 }
 
-export function loadBuildList(page = 1, classCode = null, element = null, type = null) {
+export function loadBuildList(
+    page = 1,
+    classCode = null,
+    element = null,
+    type = null,
+    user = null
+) {
     return dispatch => {
         let url = `https://api.bnstree.com/skill-builds?page=${page}&limit=10`
         if (classCode) {
@@ -144,6 +155,9 @@ export function loadBuildList(page = 1, classCode = null, element = null, type =
         if (type) {
             url += `&type=${type}`
         }
+        if (user) {
+            url += '&user=true'
+        }
 
         fetch(url, {
             method: 'get',
@@ -152,7 +166,11 @@ export function loadBuildList(page = 1, classCode = null, element = null, type =
             .then(response => response.json())
             .then(json => {
                 if (json.success === 1) {
-                    dispatch(setBuildList(classCode, json.result))
+                    if (user) {
+                        dispatch(setUserBuildList(classCode, json.result))
+                    } else {
+                        dispatch(setBuildList(classCode, json.result))
+                    }
                 }
             })
     }
@@ -192,10 +210,30 @@ export function postBuild(title, type) {
             .then(response => response.json())
             .then(json => {
                 if (json.success === 1) {
-                    loadBuildList(classCode, 1)
+                    //loadBuildList(classCode, 1)
                     message.success(i18n.t('general:postSuccess'))
                 } else {
-                    message.danger(i18n.t('general:postFail'))
+                    message.error(i18n.t('general:fail'))
+                }
+            })
+    }
+}
+
+export function deleteBuild(id, classCode) {
+    return dispatch => {
+        fetch('https://api.bnstree.com/skill-builds', {
+            method: 'delete',
+            credentials: 'include',
+            headers: postHeaders,
+            body: JSON.stringify({id: id})
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.success === 1 && json.result.n === 1) {
+                    message.success(i18n.t('general:deleteSuccess'))
+                    dispatch(loadBuildList(1, classCode, null, null, true))
+                } else {
+                    message.error(i18n.t('general:fail'))
                 }
             })
     }

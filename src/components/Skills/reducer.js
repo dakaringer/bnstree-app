@@ -73,7 +73,7 @@ function data(state = Map(), action) {
     switch (action.type) {
         case actionType.SKILL_DATA_SET_CLASS_DATA:
         case actionType.SKILL_DATA_SET_BUILD_LIST:
-        case actionType.SKILL_DATA_SET_USER_BUILDS:
+        case actionType.SKILL_DATA_SET_USER_BUILD_LIST:
             return state.set(
                 action.classCode,
                 classData(state.get(action.classCode, Map()), action)
@@ -95,8 +95,8 @@ function classData(state = Map(), action) {
             })
         case actionType.SKILL_DATA_SET_BUILD_LIST:
             return state.merge({buildList: action.list})
-        case actionType.SKILL_DATA_SET_USER_BUILDS:
-            return state.merge({userBuilds: action.list})
+        case actionType.SKILL_DATA_SET_USER_BUILD_LIST:
+            return state.merge({userBuildList: action.list})
         default:
             return state
     }

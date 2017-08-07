@@ -121,7 +121,7 @@ class Skills extends React.Component {
                                     ? <Route
                                           exact
                                           path="/skills/:classCode/myBuilds"
-                                          component={SkillBuildList}
+                                          render={() => <SkillBuildList user />}
                                       />
                                     : <Redirect
                                           from="/skills/:classCode/myBuilds"

@@ -6,6 +6,10 @@
     .ant-table-row {
         height: 5rem;
 
+        td {
+            white-space: nowrap;
+        }
+
         .element {
             width: 4rem;
             img {
@@ -34,6 +38,13 @@
         .date {
             color: #aaa;
             width: 12rem;
+        }
+        .delete {
+            width: 10rem;
+
+            a {
+                color: crimson;
+            }
         }
     }
 }

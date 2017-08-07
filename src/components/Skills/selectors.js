@@ -133,6 +133,9 @@ export const elementDataSelector = createSelector(classDataSelector, state =>
 export const buildListSelector = createSelector(classDataSelector, state =>
     state.get('buildList', Map())
 )
+export const userBuildListSelector = createSelector(classDataSelector, state =>
+    state.get('userBuildList', Map())
+)
 
 const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))
 

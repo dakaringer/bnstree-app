@@ -3,28 +3,35 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {List} from 'immutable'
 import moment from 'moment'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 
-import {Table, Icon, Dropdown, Menu} from 'antd'
+import {Table, Icon, Dropdown, Menu, Popconfirm} from 'antd'
 
 import elementImages from '../images/map_elementImg'
 
-import {classSelector, buildListSelector, elementDataSelector} from '../selectors'
-import {loadBuildList, loadBuild} from '../actions'
+import {
+    classSelector,
+    buildListSelector,
+    elementDataSelector,
+    userBuildListSelector
+} from '../selectors'
+import {loadBuildList, loadBuild, deleteBuild} from '../actions'
 
 const mapStateToProps = state => {
     return {
         classCode: classSelector(state),
         buildList: buildListSelector(state),
+        userBuildList: userBuildListSelector(state),
         elementData: elementDataSelector(state)
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadBuildList: (page, classCode, element, type) =>
-            dispatch(loadBuildList(page, classCode, element, type)),
-        loadBuild: buildId => dispatch(loadBuild(null, buildId))
+        loadBuildList: (page, classCode, element, type, user) =>
+            dispatch(loadBuildList(page, classCode, element, type, user)),
+        loadBuild: buildId => dispatch(loadBuild(null, buildId)),
+        deleteBuild: (buildId, classCode) => dispatch(deleteBuild(buildId, classCode))
     }
 }
 
@@ -38,31 +45,45 @@ class SkillBuildList extends React.PureComponent {
     }
 
     componentWillMount() {
-        let {classCode, loadBuildList} = this.props
-
-        loadBuildList(1, classCode)
-        //loadBuildList(1, classCode, element !== 'all' ? element : null, type !== 'all' ? type : null)
+        let {classCode, loadBuildList, user} = this.props
+        loadBuildList(1, classCode, null, null, user)
     }
+
     componentWillReceiveProps(nextProps) {
-        if (nextProps.classCode !== this.props.classCode) {
-            this.props.loadBuildList(1, nextProps.classCode)
+        if (nextProps.classCode !== this.props.classCode || this.props.user !== nextProps.user) {
+            this.props.loadBuildList(1, nextProps.classCode, null, null, nextProps.user)
         }
     }
 
     handleFilter(type, value) {
-        let {classCode} = this.props
+        let {classCode, user} = this.props
         let s = this.state
         s[type] = value
-        this.props.loadBuildList(1, classCode, s.element, s.type)
+        this.props.loadBuildList(1, classCode, s.element, s.type, user)
         this.setState(s)
     }
 
+    handleDelete(id) {
+        let {deleteBuild, classCode} = this.props
+        deleteBuild(id, classCode)
+    }
+
     render() {
-        const {t, buildList, classCode, elementData, match, loadBuild, loadBuildList} = this.props
+        const {
+            t,
+            buildList,
+            userBuildList,
+            classCode,
+            elementData,
+            user,
+            match,
+            loadBuild,
+            loadBuildList
+        } = this.props
         const {element, type} = this.state
 
         let now = moment(new Date())
-        const columns = [
+        let columns = [
             {
                 dataIndex: 'element',
                 className: 'element',
@@ -109,14 +130,29 @@ class SkillBuildList extends React.PureComponent {
                         timeString = time.format('LL')
                     }
 
-                    return (
-                        <span className="time">
-                            {timeString}
-                        </span>
-                    )
+                    return timeString
                 }
             }
         ]
+
+        if (user) {
+            columns.push({
+                className: 'delete',
+                render: (text, record) => {
+                    return (
+                        <Popconfirm
+                            title={t('deleteQuestion')}
+                            onConfirm={() => this.handleDelete(record._id)}
+                            okText={t('delete')}
+                            cancelText={t('cancel')}>
+                            <a>
+                                {t('delete')}
+                            </a>
+                        </Popconfirm>
+                    )
+                }
+            })
+        }
 
         let elements = [
             <Menu.Item key="all">
@@ -181,13 +217,17 @@ class SkillBuildList extends React.PureComponent {
                     rowKey={record => record._id}
                     showHeader={false}
                     columns={columns}
-                    dataSource={buildList.get('list', List()).toJS()}
+                    dataSource={
+                        user
+                            ? userBuildList.get('list', List()).toJS()
+                            : buildList.get('list', List()).toJS()
+                    }
                     pagination={{
                         size: 'small',
                         total: buildList.get('count', 0),
                         current: buildList.get('page', 1),
                         pageSize: buildList.get('limit', 10),
-                        onChange: p => loadBuildList(p, classCode)
+                        onChange: p => loadBuildList(p, classCode, element, type, user)
                     }}
                 />
             </div>
@@ -195,4 +235,6 @@ class SkillBuildList extends React.PureComponent {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillBuildList))
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillBuildList))
+)
