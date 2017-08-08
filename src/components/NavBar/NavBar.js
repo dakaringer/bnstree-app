@@ -77,14 +77,14 @@ class NavBar extends Component {
         classes.forEach(c => {
             classLinks.push(
                 <Menu.Item key={c[0]}>
-                    <NavLink to={`/skills/${c[1]}`}>
+                    <NavLink to={`/classes/${c[1]}`}>
                         {t(c)}
                     </NavLink>
                 </Menu.Item>
             )
         })
         let classDropdown = (
-            <Menu theme="dark" onClick={() => this.closeMenu()}>
+            <Menu theme="dark" onClick={() => this.closeMenu()} selectable={false}>
                 {classLinks}
             </Menu>
         )
@@ -122,13 +122,13 @@ class NavBar extends Component {
             }
         })
         let languageDropdown = (
-            <Menu theme="dark" onClick={e => setLanguage(e.key)}>
+            <Menu theme="dark" onClick={e => setLanguage(e.key)} selectable={false}>
                 {languageLinks}
             </Menu>
         )
 
         let loginDropdown = (
-            <Menu theme="dark" onClick={e => setLanguage(e.key)}>
+            <Menu theme="dark" onClick={e => setLanguage(e.key)} selectable={false}>
                 <Menu.Item>
                     {user
                         ? <a href="https://api.bnstree.com/user/logout">
@@ -157,14 +157,19 @@ class NavBar extends Component {
                 </div>
                 <div className="main-nav-right">
                     <div className="main-nav-menu">
-                        <Dropdown overlay={classDropdown} trigger={['hover', 'click']}>
-                            <Link to={`/skills/${classes[0][1]}`} className="main-nav-menu-item">
-                                {t('skills')}
-                            </Link>
+                        <NavLink to="/news" className="main-nav-menu-item">
+                            {t('news')}
+                        </NavLink>
+                        <Dropdown overlay={classDropdown} trigger={['hover']}>
+                            <NavLink
+                                to={`/classes/${classes[0][1]}`}
+                                className="main-nav-menu-item">
+                                {t('classes')}
+                            </NavLink>
                         </Dropdown>
-                        <Link to="/character" className="main-nav-menu-item">
+                        <NavLink to="/character" className="main-nav-menu-item">
                             {t('character')}
-                        </Link>
+                        </NavLink>
                     </div>
                     <div className="main-nav-submenu">
                         <Dropdown overlay={loginDropdown} trigger={['hover', 'click']}>
@@ -194,8 +199,14 @@ class NavBar extends Component {
 
                 <div className="overlay-menu" aria-hidden={!this.state.menuOpen}>
                     <div className="overlay-menu-container">
+                        <NavLink
+                            to="/news"
+                            className="overlay-nav-menu-item"
+                            onClick={() => this.closeMenu()}>
+                            {t('news')}
+                        </NavLink>
                         <Collapse bordered={false}>
-                            <Panel header={t('skills')}>
+                            <Panel header={t('classes')}>
                                 {classDropdown}
                             </Panel>
                         </Collapse>

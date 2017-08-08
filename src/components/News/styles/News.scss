@@ -1,0 +1,11 @@
+@import 'NewsList';
+@import 'NewsEditor';
+@import 'NewsViewer';
+
+.news-header .header-title {
+    width: 100%;
+
+    .add-new {
+        float: right;
+    }
+}

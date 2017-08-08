@@ -93,12 +93,9 @@ class SkillBuildList extends React.PureComponent {
 
             let time = moment(build.get('datePosted'))
             let n = null
-            if (now.diff(time, 'days') < 1) {
-                n = <span className="new">N</span>
-            }
-
             let timeString = ''
             if (now.diff(time, 'days') < 1) {
+                n = <span className="new">N</span>
                 timeString = time.fromNow()
             } else {
                 timeString = time.format('LL')
@@ -120,7 +117,7 @@ class SkillBuildList extends React.PureComponent {
             }
 
             let mobileTimestamp = (
-                <div className="build-timestamp mobile">
+                <div className="list-item-timestamp mobile">
                     {timeString}
                 </div>
             )
@@ -130,7 +127,7 @@ class SkillBuildList extends React.PureComponent {
                     to={`/classes/${match.params.classCode}?id=${id}`}
                     onClick={() => loadBuild(id)}
                     key={id}>
-                    <div className="build-item">
+                    <div className="build-item list-item">
                         <div className="build-details">
                             <div className="build-type">
                                 <img
@@ -142,13 +139,13 @@ class SkillBuildList extends React.PureComponent {
                             </div>
                             {mobileTimestamp}
                         </div>
-                        <div className="build-title">
+                        <div className="build-title list-item-title">
                             {build.get('title')}
                             <small>
                                 {n}
                             </small>
                         </div>
-                        <div className="build-timestamp">
+                        <div className="list-item-timestamp">
                             {timeString}
                         </div>
                         {del}
@@ -215,14 +212,14 @@ class SkillBuildList extends React.PureComponent {
                         </div>
                     </div>
                 </div>
-                <div className="build-list">
-                    {rows}
+                <div className="build-list listing">
+                    {rows.length > 0 ? rows : <p className="no-data">No Data</p>}
                 </div>
                 <Pagination
                     size="small"
-                    total={buildList.get('count', 0)}
-                    current={buildList.get('page', 1)}
-                    pageSize={buildList.get('limit', 10)}
+                    total={list.get('count', 0)}
+                    current={list.get('page', 1)}
+                    pageSize={list.get('limit', 10)}
                     onChange={p => loadBuildList(p, classCode, elementFilter, typeFilter, user)}
                 />
             </div>

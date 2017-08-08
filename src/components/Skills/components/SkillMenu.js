@@ -18,17 +18,17 @@ const SkillMenu = props => {
 
     return (
         <div className="skill-menu side-bar">
-            <NavLink to={`/skills/${classCode}/info`}>
+            <NavLink to={`/classes/${classCode}/info`}>
                 {t('classInfo')}
             </NavLink>
-            <NavLink to={`/skills/${classCode}`} exact>
+            <NavLink to={`/classes/${classCode}`} exact>
                 {t('skills')}
             </NavLink>
-            <NavLink to={`/skills/${classCode}/builds`}>
+            <NavLink to={`/classes/${classCode}/builds`}>
                 {t('userBuilds')}
             </NavLink>
             {user
-                ? <NavLink to={`/skills/${classCode}/myBuilds`} exact>
+                ? <NavLink to={`/classes/${classCode}/myBuilds`} exact>
                       {t('myBuilds')}
                   </NavLink>
                 : null}

@@ -108,28 +108,32 @@ class Skills extends React.Component {
                             <Switch>
                                 <Route
                                     exact
-                                    path="/skills/:classCode"
+                                    path="/classes/:classCode"
                                     render={() => skillComponent}
                                 />
-                                <Route exact path={`/skills/:classCode/info`} render={() => null} />
                                 <Route
                                     exact
-                                    path="/skills/:classCode/builds"
+                                    path={`/classes/:classCode/info`}
+                                    render={() => null}
+                                />
+                                <Route
+                                    exact
+                                    path="/classes/:classCode/builds"
                                     component={SkillBuildList}
                                 />
                                 {user
                                     ? <Route
                                           exact
-                                          path="/skills/:classCode/myBuilds"
+                                          path="/classes/:classCode/myBuilds"
                                           render={() => <SkillBuildList user />}
                                       />
                                     : <Redirect
-                                          from="/skills/:classCode/myBuilds"
-                                          to="/skills/:classCode"
+                                          from="/classes/:classCode/myBuilds"
+                                          to="/classes/:classCode"
                                       />}
                                 <Route
                                     exact
-                                    path="/skills/:classCode/:buildLink"
+                                    path="/classes/:classCode/:buildLink"
                                     render={() => skillComponent}
                                 />
                             </Switch>

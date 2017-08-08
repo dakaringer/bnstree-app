@@ -6,7 +6,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 120vh;
+    height: 150rem;
     min-height: 100rem;
     z-index: 0;
     opacity: 0.9;
@@ -27,8 +27,8 @@
     .cover {
         position: relative;
         z-index: 1;
-        margin-top: -50rem;
-        height: 50rem;
-        background: linear-gradient(to top, rgb(50, 50, 50) 0%, rgba(0, 0, 0, 0) 100%);
+        margin-top: -100rem;
+        height: 100rem;
+        background: linear-gradient(to top, rgb(50, 50, 50) 25%, rgba(0, 0, 0, 0) 100%);
     }
 }

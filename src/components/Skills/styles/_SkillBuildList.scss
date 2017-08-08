@@ -2,15 +2,13 @@
     .build-list {
         margin: 2rem 0;
 
-        .build-item {
-            padding: 2rem 1rem;
-            display: flex;
-            align-items: center;
-            border-bottom: 0.1rem solid rgba(255, 255, 255, 0.2);
+        .no-data {
+            text-align: center;
+            color: #777;
+        }
 
-            &:hover {
-                background: rgba(0, 0, 0, 0.4);
-            }
+        .build-item {
+            align-items: center;
 
             .build-type {
                 height: 2rem;
@@ -31,17 +29,6 @@
                 flex: 1;
                 display: flex;
                 align-items: center;
-
-                color: #ddd;
-
-                .new {
-                    margin-left: 1rem;
-                }
-            }
-
-            .build-timestamp {
-                color: #777;
-                font-size: 1.4rem;
             }
 
             .build-details {
@@ -65,7 +52,7 @@
                     font-size: 2rem;
                 }
 
-                .build-timestamp {
+                .list-item-timestamp {
                     display: none;
 
                     &.mobile {

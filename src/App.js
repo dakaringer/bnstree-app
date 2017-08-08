@@ -42,6 +42,7 @@ function asyncComponent(getComponent) {
 }
 
 const Home = asyncComponent(() => import('./components/Home/Home').then(module => module.default))
+const News = asyncComponent(() => import('./components/News/News').then(module => module.default))
 const Skills = asyncComponent(() =>
     import('./components/Skills/Skills').then(module => module.default)
 )
@@ -62,7 +63,7 @@ class App extends Component {
         let redirectLinks = []
         classes.forEach(c => {
             redirectLinks.push(
-                <Redirect key={c[0]} exact from={`/skill/${c[0]}`} to={`/skills/${c[1]}`} />
+                <Redirect key={c[0]} exact from={`/skill/${c[0]}`} to={`/classes/${c[1]}`} />
             )
         })
 
@@ -79,9 +80,11 @@ class App extends Component {
                         <Switch>
                             <Route exact path="/" component={Home} />
 
-                            <Redirect exact from="/skills" to="/skills/blade-master" />
+                            <Route path="/news" component={News} />
+
+                            <Redirect exact from="/classes" to="/classes/blade-master" />
                             {redirectLinks}
-                            <Route path="/skills/:classCode" component={Skills} />
+                            <Route path="/classes/:classCode" component={Skills} />
 
                             <Route path="/character" component={Character} />
                         </Switch>

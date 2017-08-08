@@ -121,14 +121,52 @@
 }
 
 .new {
-    position: relative;
-    z-index: 1;
     display: inline-block;
     color: white;
     width: 1.2rem;
     height: 1.2rem;
-    line-height: 1.2rem;
+    line-height: 1.3rem;
     font-size: 1rem;
     text-align: center;
     background: dodgerblue;
+}
+
+.listing {
+    margin: 2rem 0;
+
+    .no-data {
+        text-align: center;
+        color: #777;
+    }
+
+    .list-item {
+        border-bottom: 0.1rem solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        padding: 2rem 0;
+        transition: all 0.3s;
+        overflow: hidden;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.4);
+            padding-left: 2rem;
+        }
+
+        .list-item-title {
+            font-size: 2.2rem;
+            color: #ddd;
+            font-weight: 300;
+            display: flex;
+            align-items: baseline;
+            white-space: nowrap;
+
+            .new {
+                margin-left: 1rem;
+            }
+        }
+
+        .list-item-timestamp {
+            color: #777;
+            font-size: 1.4rem;
+        }
+    }
 }

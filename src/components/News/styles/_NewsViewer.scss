@@ -1,0 +1,44 @@
+.news-viewer {
+    .news-article {
+        padding: 2rem;
+
+        .news-title {
+            color: white;
+        }
+
+        .news-timestamp {
+            color: #999;
+        }
+
+        .content {
+            margin-bottom: 10rem;
+            padding: 2rem 0;
+
+            p {
+                margin-bottom: 1rem;
+            }
+        }
+    }
+
+    .news-list-side {
+        padding: 2rem;
+
+        h3 {
+            color: white;
+            font-weight: 300;
+        }
+
+        hr {
+            margin: 0.5rem 0;
+            margin-bottom: -2rem;
+        }
+
+        .list-item {
+            padding: 1rem 0;
+
+            .news-subtitle {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,102 @@
+import React from 'react'
+import {connect} from 'react-redux'
+import moment from 'moment'
+import MarkdownIt from 'markdown-it'
+
+import {Row, Col, Button} from 'antd'
+
+import NewsList from './NewsList'
+
+import {skillNamesSelector} from '../../Skills/selectors'
+import {loadTextData} from '../../Skills/actions'
+import {articleSelector} from '../selectors'
+import {loadArticle} from '../actions'
+
+const mapStateToProps = state => {
+    return {
+        skillNames: skillNamesSelector(state),
+        article: articleSelector(state)
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loadText: lang => dispatch(loadTextData(lang)),
+        loadArticle: id => dispatch(loadArticle(id))
+    }
+}
+
+class NewsViewer extends React.Component {
+    componentWillMount() {
+        const {loadText, loadArticle, match} = this.props
+
+        loadText('en')
+        loadArticle(match.params.id)
+    }
+    componentWillReceiveProps(nextProps) {
+        const {loadArticle, match} = this.props
+
+        if (nextProps.match.params.id !== match.params.id) {
+            loadArticle(nextProps.match.params.id)
+        }
+    }
+
+    render() {
+        const {article, skillNames} = this.props
+
+        let content = null
+        if (article.has('title')) {
+            let md = new MarkdownIt()
+
+            let time = moment(article.get('datePosted'))
+            let now = moment(new Date())
+            let timeString = ''
+            if (now.diff(time, 'days') < 1) {
+                timeString = time.fromNow()
+            } else {
+                timeString = time.format('LL')
+            }
+
+            let renderedContent = article
+                .get('content', '')
+                .replace(/\[skill]\((\w+-?\w+)\)/g, (match, id) => {
+                    let skill = skillNames.get(id, Map())
+                    return `![${id}](https://static.bnstree.com/images/skill/${skill.get(
+                        'icon',
+                        'skill_icon_forcemaster_1_33'
+                    )}) **${skill.get('name')}**`
+                })
+
+            content = (
+                <div>
+                    <h1 className="news-title">
+                        {article.get('title')}
+                    </h1>
+                    <p className="news-timestamp">
+                        {timeString}
+                    </p>
+                    <hr />
+                    <div
+                        className="content"
+                        dangerouslySetInnerHTML={{__html: md.render(renderedContent)}}
+                    />
+                </div>
+            )
+        }
+
+        return (
+            <Row className="news-viewer" gutter={20}>
+                <Col className="news-article" md={{span: 18, push: 6}}>
+                    {content}
+                </Col>
+                <Col className="news-list-side" md={{span: 6, pull: 18}}>
+                    <h3>More Articles</h3>
+                    <hr />
+                    <NewsList />
+                </Col>
+            </Row>
+        )
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsViewer)
