@@ -138,30 +138,6 @@
     color: #555;
 }
 
-.ant-table-content {
-    .ant-table-placeholder {
-        background: transparent;
-        color: #aaa;
-        border-color: rgba(255, 255, 255, 0.35);
-    }
-    .ant-table-tbody {
-        color: #aaa;
-
-        .ant-table-row {
-            & > td {
-                border-color: rgba(255, 255, 255, 0.35);
-            }
-            &:hover > td {
-                background: rgba(0, 0, 0, 0.6);
-            }
-        }
-    }
-}
-
-.ant-table-pagination {
-    float: none !important;
-}
-
 .ant-pagination {
     display: flex;
     justify-content: center;

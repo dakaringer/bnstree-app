@@ -1,49 +1,81 @@
 .skill-build-list {
     .build-list {
-        margin-top: 2rem;
-    }
+        margin: 2rem 0;
 
-    .ant-table-row {
-        height: 5rem;
+        .build-item {
+            padding: 2rem 1rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 0.1rem solid rgba(255, 255, 255, 0.2);
 
-        td {
-            white-space: nowrap;
-        }
-
-        .element {
-            width: 4rem;
-            img {
-                vertical-align: middle;
-                width: 100%;
-            }
-        }
-
-        .type {
-            width: 10rem;
-        }
-
-        .title {
-            flex: 1;
-            font-size: 1.6rem;
-            text-overflow: ellipsis;
-
-            & > a {
-                color: dodgerblue;
+            &:hover {
+                background: rgba(0, 0, 0, 0.4);
             }
 
-            .new {
-                margin-left: 1.5rem;
-            }
-        }
-        .date {
-            color: #aaa;
-            width: 12rem;
-        }
-        .delete {
-            width: 10rem;
+            .build-type {
+                height: 2rem;
+                display: flex;
+                align-items: center;
+                color: #777;
+                padding-right: 2rem;
+                font-size: 1.4rem;
 
-            a {
-                color: crimson;
+                img {
+                    height: 100%;
+                    margin-right: 0.5rem;
+                }
+            }
+
+            .build-title {
+                font-size: 1.8rem;
+                flex: 1;
+                display: flex;
+                align-items: center;
+
+                color: #ddd;
+
+                .new {
+                    margin-left: 1rem;
+                }
+            }
+
+            .build-timestamp {
+                color: #777;
+                font-size: 1.4rem;
+            }
+
+            .build-details {
+                display: flex;
+                justify-content: space-between;
+                .mobile {
+                    display: none;
+                }
+            }
+
+            @media (max-width: 767px) {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1.5rem;
+
+                .build-type {
+                    margin-bottom: 1rem;
+                }
+
+                .build-title {
+                    font-size: 2rem;
+                }
+
+                .build-timestamp {
+                    display: none;
+
+                    &.mobile {
+                        display: block;
+                    }
+                }
+
+                .build-details {
+                    width: 100%;
+                }
             }
         }
     }
