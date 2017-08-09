@@ -26,6 +26,7 @@ class News extends Component {
                         <Switch>
                             <Route exact path={'/news'} component={NewsList} />
                             <Route exact path={'/news/new'} component={NewsEditor} />
+                            <Route exact path={'/news/edit/:id'} component={NewsEditor} />
                             <Route path={'/news/:id'} component={NewsViewer} />
                         </Switch>
                     </div>

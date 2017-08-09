@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 import MarkdownIt from 'markdown-it'
+import {Link} from 'react-router-dom'
 
 import {Row, Col, Button} from 'antd'
 
@@ -88,6 +89,11 @@ class NewsViewer extends React.Component {
             <Row className="news-viewer">
                 <Col className="news-article" md={{span: 18, push: 6}}>
                     {content}
+                    <Link to={`/news/edit/${article.get('_id')}`}>
+                        <Button type="primary" ghost>
+                            Edit
+                        </Button>
+                    </Link>
                 </Col>
                 <Col className="news-list-side" md={{span: 6, pull: 18}}>
                     <h3>More Articles</h3>

@@ -6,6 +6,8 @@ import {Map} from 'immutable'
 
 import {skillNamesSelector} from '../../Skills/selectors'
 import {loadTextData} from '../../Skills/actions'
+import {articleSelector} from '../selectors'
+import {loadArticle} from '../actions'
 
 import {Row, Col, message, Button} from 'antd'
 
@@ -15,13 +17,15 @@ const postHeaders = {
 
 const mapStateToProps = state => {
     return {
-        skillNames: skillNamesSelector(state)
+        skillNames: skillNamesSelector(state),
+        article: articleSelector(state)
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadText: lang => dispatch(loadTextData(lang))
+        loadText: lang => dispatch(loadTextData(lang)),
+        loadArticle: id => dispatch(loadArticle(id))
     }
 }
 
@@ -39,12 +43,32 @@ class Editor extends React.PureComponent {
     }
 
     componentWillMount() {
-        this.props.loadText('en')
+        const {loadText, loadArticle, match} = this.props
+
+        loadText('en')
+        loadArticle(match.params.id)
+    }
+    componentWillReceiveProps(nextProps) {
+        const {loadArticle, article, match} = this.props
+
+        if (nextProps.match.params.id !== match.params.id) {
+            loadArticle(nextProps.match.params.id)
+        }
+
+        if (nextProps.match.params.id && nextProps.article.equals(article)) {
+            console.log(nextProps.article.toJS())
+            this.setState({
+                id: nextProps.article.get('_id'),
+                title: nextProps.article.get('title'),
+                content: nextProps.article.get('content'),
+                thumb: nextProps.article.get('thumb')
+            })
+        }
     }
 
     save() {
         let {t} = this.props
-        let {id, title, content, tags, thumb} = this.state
+        let {id, title, content, thumb} = this.state
         if (title.trim() !== '') {
             this.setState({
                 saved: false
@@ -53,7 +77,6 @@ class Editor extends React.PureComponent {
                 id: id,
                 title: title,
                 content: content,
-                tags: tags.split(' '),
                 thumb: thumb
             }
 
@@ -112,7 +135,7 @@ class Editor extends React.PureComponent {
 
     render() {
         let {skillNames} = this.props
-        let {id, title, content, tags, thumb, saved} = this.state
+        let {id, title, content, thumb, saved} = this.state
 
         let md = new MarkdownIt()
 
@@ -140,12 +163,6 @@ class Editor extends React.PureComponent {
                                 value={content}
                                 placeholder="Content"
                                 onChange={e => this.onChange(e, 'content')}
-                            />
-                            <input
-                                className="tags"
-                                value={tags}
-                                placeholder="Tags"
-                                onChange={e => this.onChange(e, 'tags')}
                             />
                             <input
                                 className="bg"
