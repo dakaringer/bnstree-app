@@ -2,6 +2,7 @@ import {createSelector} from 'reselect'
 import {Map, List, fromJS} from 'immutable'
 
 import {currentLanguageSelector} from '../../selectors'
+import {characterSelector} from '../Character/selectors'
 
 function merger(a, b) {
     if (a && a.mergeWith && !List.isList(a) && !List.isList(b)) {
@@ -91,7 +92,8 @@ const tagOrder = [
 ]
 
 const uiSelector = state => state.getIn(['skills', 'ui'], Map())
-export const charSelector = state => state.getIn(['skills', 'character'], Map())
+
+const charDataSelector = state => state.getIn(['skills', 'character'], Map())
 export const dataSelector = state => state.getIn(['skills', 'data'], Map())
 const buildDataSelector = state => state.getIn(['skills', 'build'], Map())
 export const refSelector = state => state.getIn(['skills', 'ref'], Map())
@@ -102,6 +104,31 @@ const characterBuildDataSelector = state => state.getIn(['character', 'data', 's
 export const characterModeSelector = createSelector(uiSelector, state =>
     state.get('characterMode', false)
 )
+export const charSelector = createSelector(
+    charDataSelector,
+    characterModeSelector,
+    characterSelector,
+    (data, characterMode, characterStat) => {
+        if (characterMode) {
+            let totalStats = characterStat.getIn(['statData', 'total_ability'], Map())
+            return fromJS({
+                ap: totalStats.get('int_attack_power_value', 13),
+                ad: totalStats.get('int_attack_damage_modify_diff', 0),
+                c: 30,
+                element: {
+                    earth: totalStats.get('attack_attribute_earth_rate', 100),
+                    flame: totalStats.get('attack_attribute_fire_rate', 100),
+                    frost: totalStats.get('attack_attribute_ice_rate', 100),
+                    lightning: totalStats.get('attack_attribute_lightning_rate', 100),
+                    shadow: totalStats.get('attack_attribute_void_rate', 100),
+                    wind: totalStats.get('attack_attribute_wind_rate', 100)
+                }
+            })
+        }
+        return data
+    }
+)
+
 export const classSelector = createSelector(uiSelector, state => state.get('classCode', 'BM'))
 export const viewSelector = createSelector(
     uiSelector,
