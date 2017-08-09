@@ -92,7 +92,7 @@ class NewsViewer extends React.Component {
                 <Col className="news-list-side" md={{span: 6, pull: 18}}>
                     <h3>More Articles</h3>
                     <hr />
-                    <NewsList />
+                    <NewsList currentId={article.get('_id')} />
                 </Col>
             </Row>
         )

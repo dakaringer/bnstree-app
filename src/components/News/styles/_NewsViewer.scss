@@ -36,8 +36,17 @@
         .list-item {
             padding: 1rem 0;
 
+            .list-item-title {
+                font-size: 1.8rem;
+                line-height: 1.8rem;
+            }
+
             .news-subtitle {
                 display: none;
+            }
+
+            .list-item-timestamp {
+                font-size: 1.2rem;
             }
         }
     }

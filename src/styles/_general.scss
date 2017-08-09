@@ -146,6 +146,7 @@
         transition: all 0.3s;
         overflow: hidden;
 
+        &.selected,
         &:hover {
             background: rgba(0, 0, 0, 0.4);
             padding-left: 2rem;
