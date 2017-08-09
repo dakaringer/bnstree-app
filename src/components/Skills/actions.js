@@ -12,18 +12,20 @@ import {
     elementDataSelector,
     skillNamesSelector,
     buildSelector,
-    refSelector
+    refSelector,
+    characterModeSelector
 } from './selectors'
 
 const postHeaders = {
     'Content-type': 'application/json; charset=UTF-8'
 }
 
-const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
+export const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
 const setView = makeActionCreator(actionType.SKILL_UI_SET_VIEW, 'viewType', 'value')
 export const setFilter = makeActionCreator(actionType.SKILL_UI_SET_FILTER, 'filter')
 export const setSearch = makeActionCreator(actionType.SKILL_UI_SET_SEARCH, 'search')
 export const setPatch = makeActionCreator(actionType.SKILL_UI_SET_PATCH, 'patch')
+export const setCharacterMode = makeActionCreator(actionType.SKILL_UI_SET_CHARACTER_MODE, 'mode')
 
 export const setStat = makeActionCreator(actionType.SKILL_CHAR_SET_STAT, 'stat', 'value')
 export const setElementDmg = makeActionCreator(
@@ -66,6 +68,7 @@ const setNames = makeActionCreator(actionType.SKILL_REF_SET_NAMES, 'language', '
 
 export function loadClass(classCode, buildCode, buildId) {
     return (dispatch, getState) => {
+        dispatch(setCharacterMode(false))
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
         dispatch(setSearch(''))
@@ -312,9 +315,11 @@ export function toggleElement() {
 
 export function learnMove(skill, move) {
     return (dispatch, getState) => {
-        let classCode = classSelector(getState())
-        let element = buildElementSelector(getState())
+        if (characterModeSelector(getState())) {
+            let classCode = classSelector(getState())
+            let element = buildElementSelector(getState())
 
-        dispatch(setBuildSkill(classCode, element, skill, move))
+            dispatch(setBuildSkill(classCode, element, skill, move))
+        }
     }
 }

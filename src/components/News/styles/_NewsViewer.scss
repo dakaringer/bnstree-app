@@ -34,7 +34,7 @@
         }
 
         .list-item {
-            padding: 1rem 0;
+            padding: 1rem;
 
             .list-item-title {
                 font-size: 1.8rem;
@@ -48,6 +48,13 @@
             .list-item-timestamp {
                 font-size: 1.2rem;
             }
+        }
+    }
+
+    @media (max-width: 992px) {
+        .news-list-side,
+        .news-article {
+            padding: 2rem 0;
         }
     }
 }

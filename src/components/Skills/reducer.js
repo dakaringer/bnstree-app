@@ -12,7 +12,8 @@ function ui(
         },
         filter: 'ALL',
         search: '',
-        patch: 'BASE'
+        patch: 'BASE',
+        characterMode: false
     }),
     action
 ) {
@@ -27,6 +28,8 @@ function ui(
             return state.set('search', action.search)
         case actionType.SKILL_UI_SET_PATCH:
             return state.set('patch', action.patch)
+        case actionType.SKILL_UI_SET_CHARACTER_MODE:
+            return state.set('characterMode', action.mode)
         default:
             return state
     }

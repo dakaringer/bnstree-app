@@ -3,7 +3,7 @@ import i18n from '../../i18n'
 import {makeActionCreator, flatten} from '../../helpers'
 import {setLoading} from '../../actions'
 
-import {setClassData} from '../Skills/actions'
+import {setClassData, setClass, setCharacterMode} from '../Skills/actions'
 import {dataSelector} from '../Skills/selectors'
 
 //Action creators
@@ -33,6 +33,8 @@ export function loadCharacter(region, name) {
                     )} | BnSTree`
 
                     let classCode = json.general.classCode
+                    dispatch(setCharacterMode(true))
+                    dispatch(setClass(classCode))
                     if (!dataSelector(getState()).has(classCode)) {
                         fetch(`https://api.bnstree.com/skills/${classCode}`, {
                             method: 'get',
@@ -51,7 +53,8 @@ export function loadCharacter(region, name) {
                                         elements,
                                         flatten(json.groupData),
                                         flatten(json.skillData),
-                                        flatten(json.patchData)
+                                        flatten(json.patchData),
+                                        flatten(json.statData)
                                     )
                                 )
                             })

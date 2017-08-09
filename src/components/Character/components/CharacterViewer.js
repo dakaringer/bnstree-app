@@ -5,11 +5,17 @@ import {translate} from 'react-i18next'
 import {loadCharacter} from '../actions'
 import {loadingSelector} from '../../../selectors'
 import {characterSelector} from '../selectors'
+import {characterElementSelector} from '../../Skills/selectors'
 
 import LoadingLyn from '../../LoadingLyn/LoadingLyn'
 import CharacterProfile from './CharacterProfile'
 import CharacterStats from './CharacterStats'
 import CharacterEquips from './CharacterEquips'
+
+import SkillList from '../../Skills/components/SkillList'
+
+import '../../Skills/styles/Skills.scss'
+import elementImages from '../../Skills/images/map_elementImg'
 
 import {Row, Col, Tabs} from 'antd'
 const TabPane = Tabs.TabPane
@@ -17,7 +23,8 @@ const TabPane = Tabs.TabPane
 const mapStateToProps = state => {
     return {
         loading: loadingSelector(state),
-        character: characterSelector(state)
+        character: characterSelector(state),
+        characterElement: characterElementSelector(state)
     }
 }
 
@@ -44,7 +51,7 @@ class CharacterViewer extends Component {
     }
 
     render() {
-        const {t, character, loading} = this.props
+        const {t, character, characterElement, loading} = this.props
 
         let content = <LoadingLyn />
         if (!loading) {
@@ -67,7 +74,14 @@ class CharacterViewer extends Component {
                                     </Row>
                                 </TabPane>
                                 <TabPane tab={t('skills')} key="2">
-                                    <div />
+                                    <div className="character-build-element">
+                                        <img
+                                            alt={characterElement}
+                                            src={elementImages[characterElement]}
+                                        />
+                                        {t(characterElement)}
+                                    </div>
+                                    <SkillList characterViewer />
                                 </TabPane>
                             </Tabs>
                         </Col>

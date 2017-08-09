@@ -17,15 +17,15 @@ const mapStateToProps = state => {
 }
 
 const SkillList = props => {
-    const {t, skillData, order} = props
+    const {t, skillData, order, characterViewer} = props
 
     let list = []
     let hotkeyBar = []
     skillData.forEach((section, k) => {
         let skills = []
 
-        let key = order === 'LEVEL' ? k : t(k)
-        let label = order === 'LEVEL' ? t('levelLabel', {level: k}) : t(k)
+        let key = order === 'LEVEL' || characterViewer ? k : t(k)
+        let label = order === 'LEVEL' || characterViewer ? t('levelLabel', {level: k}) : t(k)
 
         section.forEach((skill, id) => {
             skills.push(<SkillListItem skillData={skill} skillId={id} key={id} />)

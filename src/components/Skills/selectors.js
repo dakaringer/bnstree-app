@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import {Map, List} from 'immutable'
+import {Map, List, fromJS} from 'immutable'
 
 import {currentLanguageSelector} from '../../selectors'
 
@@ -96,32 +96,28 @@ export const dataSelector = state => state.getIn(['skills', 'data'], Map())
 const buildDataSelector = state => state.getIn(['skills', 'build'], Map())
 export const refSelector = state => state.getIn(['skills', 'ref'], Map())
 
+const characterBuildDataSelector = state => state.getIn(['character', 'data', 'skillData'], Map())
+
 //ui
+export const characterModeSelector = createSelector(uiSelector, state =>
+    state.get('characterMode', false)
+)
 export const classSelector = createSelector(uiSelector, state => state.get('classCode', 'BM'))
-export const viewSelector = createSelector(uiSelector, state => state.get('view', Map()))
+export const viewSelector = createSelector(
+    uiSelector,
+    characterModeSelector,
+    (state, characterMode) =>
+        characterMode
+            ? fromJS({
+                  mode: 'LIST',
+                  order: 'LEVEL',
+                  visibility: 'TRAINABLE'
+              })
+            : state.get('view', Map())
+)
 export const filterSelector = createSelector(uiSelector, state => state.get('filter', 'ALL'))
 export const searchSelector = createSelector(uiSelector, state => state.get('search', ''))
 export const patchSelector = createSelector(uiSelector, state => state.get('patch', 'BASE'))
-
-//build
-export const buildElementSelector = createSelector(
-    buildDataSelector,
-    classSelector,
-    (state, classCode) => state.getIn([classCode, 'element'])
-)
-export const buildSelector = createSelector(
-    buildDataSelector,
-    classSelector,
-    buildElementSelector,
-    (state, classCode, element) => state.getIn([classCode, 'build', element], Map())
-)
-
-//ref
-export const skillNamesSelector = createSelector(
-    refSelector,
-    currentLanguageSelector,
-    (state, language) => state.getIn(['skillNames', language], Map())
-)
 
 //data
 const classDataSelector = createSelector(dataSelector, classSelector, (state, classCode) =>
@@ -137,6 +133,43 @@ export const userBuildListSelector = createSelector(classDataSelector, state =>
     state.get('userBuildList', Map())
 )
 
+//build
+export const characterElementSelector = createSelector(
+    characterBuildDataSelector,
+    elementDataSelector,
+    (characterBuild, elementData) => {
+        let index = characterBuild.get('elementIndex', 0)
+        return elementData.getIn([index, 'element'])
+    }
+)
+export const buildElementSelector = createSelector(
+    buildDataSelector,
+    classSelector,
+    characterModeSelector,
+    characterElementSelector,
+    (state, classCode, characterMode, characterElement) =>
+        characterMode ? characterElement : state.getIn([classCode, 'element'])
+)
+export const buildSelector = createSelector(
+    buildDataSelector,
+    classSelector,
+    buildElementSelector,
+    characterModeSelector,
+    characterBuildDataSelector,
+    (state, classCode, element, characterMode, characterBuild) =>
+        characterMode
+            ? characterBuild.get('build', Map())
+            : state.getIn([classCode, 'build', element], Map())
+)
+
+//ref
+export const skillNamesSelector = createSelector(
+    refSelector,
+    currentLanguageSelector,
+    (state, language) => state.getIn(['skillNames', language], Map())
+)
+
+//skillData
 const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))
 
 const patchDataSelector = createSelector(classDataSelector, data => data.get('patchData', Map()))

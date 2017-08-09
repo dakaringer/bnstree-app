@@ -22,5 +22,20 @@
             align-items: center;
             flex-direction: column;
         }
+
+        .character-build-element {
+            margin-bottom: 2rem;
+            color: white;
+            font-size: 2rem;
+            img {
+                margin-right: 0.5rem;
+                vertical-align: middle;
+                width: 2.5rem;
+            }
+        }
+
+        .hotkey-bar-wrapper {
+            display: none;
+        }
     }
 }

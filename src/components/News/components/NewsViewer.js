@@ -85,7 +85,7 @@ class NewsViewer extends React.Component {
         }
 
         return (
-            <Row className="news-viewer" gutter={20}>
+            <Row className="news-viewer">
                 <Col className="news-article" md={{span: 18, push: 6}}>
                     {content}
                 </Col>
