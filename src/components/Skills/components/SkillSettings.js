@@ -2,11 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {Modal, Icon, Tooltip} from 'antd'
-import {Radio, RadioGroup} from 'react-radio-group'
-
 import {viewSelector, charSelector} from '../selectors'
 import {updateView, setStat} from '../actions.js'
+
+import {Modal, Icon, Tooltip, Radio} from 'antd'
+const RadioButton = Radio.Button
+const RadioGroup = Radio.Group
 
 const mapStateToProps = state => {
     return {
@@ -50,23 +51,21 @@ class SkillSettings extends React.Component {
             sortDiv = (
                 <tr className="switchGroup">
                     <td>
-                        <label>
+                        <p>
                             {t('sort')}
-                        </label>
+                        </p>
                     </td>
                     <td>
                         <RadioGroup
-                            className="radio"
-                            selectedValue={view.get('order', 'LEVEL')}
-                            onChange={value => updateView('order', value)}>
-                            <label>
-                                <Radio value="LEVEL" />
+                            size="small"
+                            value={view.get('order', 'LEVEL')}
+                            onChange={e => updateView('order', e.target.value)}>
+                            <RadioButton value="LEVEL">
                                 {t('level')}
-                            </label>
-                            <label>
-                                <Radio value="HOTKEY" />
+                            </RadioButton>
+                            <RadioButton value="HOTKEY">
                                 {t('hotkey')}
-                            </label>
+                            </RadioButton>
                         </RadioGroup>
                     </td>
                 </tr>
@@ -91,9 +90,9 @@ class SkillSettings extends React.Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <label>
+                                    <p>
                                         {t('attackPower')}
-                                    </label>
+                                    </p>
                                 </td>
                                 <td>
                                     <input
@@ -104,9 +103,9 @@ class SkillSettings extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label>
+                                    <p>
                                         {t('attackPowerPet')}
-                                    </label>
+                                    </p>
                                 </td>
                                 <td>
                                     <input
@@ -117,9 +116,9 @@ class SkillSettings extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label>
+                                    <p>
                                         {t('additionalDamage')}
-                                    </label>
+                                    </p>
                                 </td>
                                 <td>
                                     <input
@@ -130,14 +129,14 @@ class SkillSettings extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <label>
+                                    <p>
                                         {t('weaponConstant')}{' '}
                                         <Tooltip
                                             placement="bottomLeft"
                                             title={t('weaponConstantInfo')}>
                                             <Icon className="help" type="question-circle-o" />
                                         </Tooltip>
-                                    </label>
+                                    </p>
                                 </td>
                                 <td>
                                     <input
@@ -153,23 +152,21 @@ class SkillSettings extends React.Component {
                         <tbody>
                             <tr className="switchGroup">
                                 <td>
-                                    <label>
+                                    <p>
                                         {t('mode')}
-                                    </label>
+                                    </p>
                                 </td>
                                 <td>
                                     <RadioGroup
-                                        className="radio"
-                                        selectedValue={view.get('mode', 'LIST')}
-                                        onChange={value => updateView('mode', value)}>
-                                        <label>
-                                            <Radio value="LIST" />
+                                        size="small"
+                                        value={view.get('mode', 'LIST')}
+                                        onChange={e => updateView('mode', e.target.value)}>
+                                        <RadioButton value="LIST">
                                             {t('list')}
-                                        </label>
-                                        <label>
-                                            <Radio value="ICON" />
+                                        </RadioButton>
+                                        <RadioButton value="ICON">
                                             {t('icon')}
-                                        </label>
+                                        </RadioButton>
                                     </RadioGroup>
                                 </td>
                             </tr>
@@ -178,9 +175,9 @@ class SkillSettings extends React.Component {
                     </table>
                     <hr />
                     <div>
-                        <label>
+                        <p>
                             {t('patch')}
-                        </label>
+                        </p>
 
                         <a className="patch-selector" disabled>
                             KR 7.19 <Icon type="down" />

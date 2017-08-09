@@ -161,3 +161,16 @@
         background-color: dodgerblue !important;
     }
 }
+
+.ant-radio-button-wrapper {
+    background: none !important;
+    color: white !important;
+
+    &.ant-radio-button-wrapper-checked {
+        color: dodgerblue !important;
+    }
+
+    &.ant-radio-button-wrapper-disabled {
+        color: #777 !important;
+    }
+}

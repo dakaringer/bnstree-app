@@ -86,7 +86,7 @@
     .switchGroup {
         height: 3rem;
     }
-    label {
+    p {
         margin-right: 2rem;
     }
 
@@ -102,10 +102,18 @@
     }
 
     .build-title,
-    .typeSelector,
     .post,
     .error {
         margin-top: 1rem;
+    }
+
+    .typeSelector {
+        margin: 2rem 0 1rem 0;
+
+        p {
+            display: inline-block;
+            margin-right: 2rem;
+        }
     }
 
     .error {

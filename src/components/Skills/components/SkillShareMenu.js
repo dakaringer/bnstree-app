@@ -3,12 +3,13 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map} from 'immutable'
 
-import {Icon, Modal, Button} from 'antd'
-import {Radio, RadioGroup} from 'react-radio-group'
-
 import {userSelector} from '../../../selectors'
 import {buildElementSelector, buildSelector, elementDataSelector} from '../selectors'
 import {postBuild} from '../actions'
+
+import {Icon, Modal, Button, Radio} from 'antd'
+const RadioButton = Radio.Button
+const RadioGroup = Radio.Group
 
 function generateLink(element, build, elementData) {
     let elementIndex = elementData.findIndex(a => a.get('element') === element)
@@ -124,21 +125,19 @@ class SkillShareMenu extends React.Component {
                                 {t('type')}
                             </p>
                             <RadioGroup
-                                className="radio"
-                                selectedValue={type}
-                                onChange={value => this.setType(value)}>
-                                <label>
-                                    <Radio value="PvE" disabled={!user} />
+                                size="small"
+                                value={type}
+                                onChange={e => this.setType(e.target.value)}
+                                disabled={!user}>
+                                <RadioButton value="PvE">
                                     {t('PvE')}
-                                </label>
-                                <label>
-                                    <Radio value="PvP" disabled={!user} />
+                                </RadioButton>
+                                <RadioButton value="PvP">
                                     {t('PvP')}
-                                </label>
-                                <label>
-                                    <Radio value="6v6" disabled={!user} />
+                                </RadioButton>
+                                <RadioButton value="6v6">
                                     {t('6v6')}
-                                </label>
+                                </RadioButton>
                             </RadioGroup>
                         </div>
                         {noTitle

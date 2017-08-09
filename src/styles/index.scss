@@ -20,6 +20,10 @@ body {
     background: #222;
     color: #c6c6c6;
     font-size: 1.6rem;
+
+    &.noscroll {
+        overflow: hidden;
+    }
 }
 
 a {
@@ -54,23 +58,10 @@ input {
     }
 }
 
-.radio {
-    label {
-        margin-right: 2rem;
-        input {
-            margin-right: 0.5rem;
-        }
-    }
-}
-
 hr {
     border-bottom: none;
     margin: 2rem 0;
     border-color: rgba(255, 255, 255, 0.35);
-}
-
-.noscroll {
-    overflow: hidden;
 }
 
 @import 'antd';

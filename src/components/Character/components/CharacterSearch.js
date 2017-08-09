@@ -2,8 +2,9 @@ import React from 'react'
 import {translate} from 'react-i18next'
 import {withRouter} from 'react-router'
 
-import {Icon} from 'antd'
-import {Radio, RadioGroup} from 'react-radio-group'
+import {Icon, Radio} from 'antd'
+const RadioButton = Radio.Button
+const RadioGroup = Radio.Group
 
 class CharacterSearch extends React.Component {
     constructor(props) {
@@ -38,15 +39,12 @@ class CharacterSearch extends React.Component {
                 className={`character-search ${center ? 'center' : ''}`}
                 onSubmit={e => this.searchCharacter(e)}>
                 <RadioGroup
-                    selectedValue={this.state.region}
-                    onChange={value => this.changeRegion(value)}
-                    className="radio regionSelector">
-                    <label>
-                        <Radio value="na" />NA
-                    </label>
-                    <label>
-                        <Radio value="eu" />EU
-                    </label>
+                    className="regionSelector"
+                    size="small"
+                    value={this.state.region}
+                    onChange={e => this.changeRegion(e.target.value)}>
+                    <RadioButton value="na">NA</RadioButton>
+                    <RadioButton value="eu">EU</RadioButton>
                 </RadioGroup>
                 <div className="inputGroup">
                     <input
