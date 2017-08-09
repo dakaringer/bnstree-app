@@ -315,7 +315,7 @@ export function toggleElement() {
 
 export function learnMove(skill, move) {
     return (dispatch, getState) => {
-        if (characterModeSelector(getState())) {
+        if (!characterModeSelector(getState())) {
             let classCode = classSelector(getState())
             let element = buildElementSelector(getState())
 
