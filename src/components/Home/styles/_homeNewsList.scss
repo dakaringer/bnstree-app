@@ -1,15 +1,17 @@
 .home-news-list-container {
     margin-bottom: 5rem;
+    padding: 0 2rem;
+    border-top: 0.1rem solid rgba(255, 255, 255, 0.2);
 
     .home-news-list {
         display: flex;
         margin: 0;
-        border-top: 0.1rem solid rgba(255, 255, 255, 0.2);
 
         .news-item {
             width: 25%;
             flex-direction: column;
             border: none;
+            padding: 1rem;
 
             .thumb {
                 width: 100%;
@@ -17,7 +19,7 @@
             }
 
             &:hover {
-                padding: 2rem 0.5rem;
+                padding: 1rem;
                 background: rgba(80, 80, 80, 0.2);
 
                 .thumb {
