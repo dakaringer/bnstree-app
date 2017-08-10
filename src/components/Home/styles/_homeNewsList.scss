@@ -2,13 +2,17 @@
     margin-bottom: 5rem;
     padding: 0 2rem;
     border-top: 0.1rem solid rgba(255, 255, 255, 0.2);
+    padding-top: 0.5rem;
+    p {
+        padding: 0 1rem;
+    }
 
     .home-news-list {
         display: flex;
         margin: 0;
 
         .news-item {
-            width: 20%;
+            width: 16.67%;
             flex-direction: column;
             border: none;
             padding: 1rem;
@@ -16,11 +20,11 @@
             .thumb {
                 width: 100%;
                 filter: brightness(70%);
+                transition: all 0.5s;
             }
 
             &:hover {
                 padding: 1rem;
-                background: rgba(80, 80, 80, 0.2);
 
                 .thumb {
                     filter: brightness(100%);
@@ -31,7 +35,7 @@
         @media (max-width: 1200px) {
             flex-wrap: wrap;
             .news-item {
-                width: 25%;
+                width: 33.33%;
             }
         }
 
