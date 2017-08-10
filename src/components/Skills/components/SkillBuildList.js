@@ -109,7 +109,7 @@ class SkillBuildList extends React.PureComponent {
                         onConfirm={() => this.handleDelete(id)}
                         okText={t('delete')}
                         cancelText={t('cancel')}>
-                        <a>
+                        <a className="delete">
                             {t('delete')}
                         </a>
                     </Popconfirm>
