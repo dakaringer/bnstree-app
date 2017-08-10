@@ -143,18 +143,23 @@
         border-bottom: 0.1rem solid rgba(255, 255, 255, 0.2);
         display: flex;
         padding: 2rem 0.5rem;
-        transition: all 0.3s;
+        transition: all 0.5s;
         overflow: hidden;
 
         &.selected,
         &:hover {
             background: rgba(0, 0, 0, 0.4);
             padding-left: 2rem;
+
+            .list-item-title {
+                color: white;
+            }
         }
 
         .list-item-title {
+            transition: all 0.5s;
             font-size: 2.2rem;
-            color: #ddd;
+            color: #aaa;
             font-weight: 300;
             display: flex;
             align-items: baseline;
