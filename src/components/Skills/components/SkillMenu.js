@@ -16,11 +16,14 @@ const SkillMenu = props => {
 
     let classCode = match.params.classCode
 
+    /*
+        <NavLink to={`/classes/${classCode}/info`} className="skill-menu-item">
+            {t('classInfo')}
+        </NavLink>
+    */
+
     return (
         <div className="skill-menu side-bar">
-            <NavLink to={`/classes/${classCode}/info`} className="skill-menu-item">
-                {t('classInfo')}
-            </NavLink>
             <NavLink to={`/classes/${classCode}`} exact className="skill-menu-item">
                 {t('skills')}
             </NavLink>
