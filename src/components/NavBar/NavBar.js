@@ -219,6 +219,12 @@ class NavBar extends Component {
                             onClick={() => this.closeMenu()}>
                             {t('character')}
                         </NavLink>
+                        <NavLink
+                            to="/streams"
+                            className="overlay-nav-menu-item"
+                            onClick={() => this.closeMenu()}>
+                            {t('streams')}
+                        </NavLink>
                         <hr />
                         <Collapse bordered={false} className="login">
                             <Panel header={user ? user.get('displayName') : t('login')}>
