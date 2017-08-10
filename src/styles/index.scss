@@ -1,5 +1,14 @@
 @import url('//fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 html {
     font-size: 10px;
 
@@ -62,6 +71,11 @@ hr {
     border-bottom: none;
     margin: 2rem 0;
     border-color: rgba(255, 255, 255, 0.35);
+}
+
+img {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
 }
 
 @import 'antd';
