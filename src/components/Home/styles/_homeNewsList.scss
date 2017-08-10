@@ -8,7 +8,7 @@
         margin: 0;
 
         .news-item {
-            width: 25%;
+            width: 20%;
             flex-direction: column;
             border: none;
             padding: 1rem;
@@ -31,13 +31,13 @@
         @media (max-width: 1200px) {
             flex-wrap: wrap;
             .news-item {
-                width: 50%;
+                width: 25%;
             }
         }
 
         @media (max-width: 767px) {
             .news-item {
-                width: 100%;
+                width: 50%;
             }
         }
     }
