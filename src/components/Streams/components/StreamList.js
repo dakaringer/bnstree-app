@@ -24,17 +24,24 @@ class StreamList extends Component {
     }
 
     render() {
-        let {list} = this.props
+        let {list, limit} = this.props
 
         let streams = []
+        let count = 0
         list.forEach((stream, i) => {
             if (stream.get('stream_type') === 'live') {
+                if (limit && count > limit - 1) {
+                    return false
+                }
+                count++
+
                 let title = stream.getIn(['channel', 'status'])
                 streams.push(
                     <a
                         className="stream-item"
                         href={stream.getIn(['channel', 'url'])}
                         target="_blank"
+                        rel="noopener noreferrer"
                         key={i}>
                         <div className="preview-container">
                             <img alt={title} src={stream.getIn(['preview', 'medium'])} />

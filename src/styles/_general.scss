@@ -6,6 +6,11 @@
     }
 }
 
+.slim-container {
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
 .image {
     opacity: 0;
     transition: opacity 0.3s;

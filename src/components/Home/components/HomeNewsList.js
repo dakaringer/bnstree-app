@@ -48,9 +48,9 @@ class HomeNewsList extends Component {
 
         return (
             <div className="home-news-list-container">
-                <p>
+                <h4>
                     {t('recentNews')}
-                </p>
+                </h4>
                 <div className="home-news-list listing">
                     {rows}
                 </div>

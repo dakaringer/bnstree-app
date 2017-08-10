@@ -1,4 +1,5 @@
 @import '../../Character/styles/CharacterSearch';
+@import '../../Streams/styles/_StreamList.scss';
 
 @import 'homeClassLinks';
 @import 'homeNewsList';
@@ -19,9 +20,63 @@
         flex: 1;
         background: rgba(0, 0, 0, 0.5);
         margin: 0 -1rem;
+
+        padding-bottom: 20rem;
     }
 
     .home-top {
         position: relative;
+    }
+
+    h4 {
+        color: #c6c6c6;
+        padding: 0 1rem;
+    }
+
+    .more {
+        margin: 1rem;
+        float: right;
+    }
+
+    .home-stream {
+        padding: 0 0.5rem;
+
+        .stream-list {
+            .stream-item {
+                width: 50%;
+            }
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    .side-menu {
+        padding: 3.9rem 2rem;
+
+        .side-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 2.4rem;
+            margin-bottom: 2rem;
+            height: auto;
+            border-radius: 0.2rem;
+
+            img {
+                height: 5rem;
+                vertical-align: middle;
+            }
+
+            span {
+                vertical-align: middle;
+            }
+
+            &.discord {
+                background: #7289da;
+                border: none;
+                color: white;
+            }
+        }
     }
 }
