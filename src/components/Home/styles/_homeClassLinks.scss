@@ -12,6 +12,8 @@
         width: 20%;
         text-align: center;
         filter: grayscale(100%) brightness(60%);
+        transition: all 0.5s;
+
         &:hover {
             filter: grayscale(0%) brightness(100%);
         }
