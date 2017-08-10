@@ -327,6 +327,34 @@ const SkillTooltip = props => {
     let classification =
         moveNumber > 3 ? t('moveTypeHM', {move: moveNumber - 3}) : t('moveType', {move: moveNumber})
 
+    let buildStat = null
+    if (moveData.has('buildStat')) {
+        let stat = moveData.get('buildStat')
+        let total = stat.get('total', 0)
+        let _PvE = (total === 0 ? 0 : stat.get('PvE', 0) / total * 100).toFixed(2)
+        let _PvP = (total === 0 ? 0 : stat.get('PvP', 0) / total * 100).toFixed(2)
+        let _6v6 = (total === 0 ? 0 : stat.get('6v6', 0) / total * 100).toFixed(2)
+        buildStat = (
+            <div className="skill-build-stat">
+                <hr />
+                <p>
+                    {t('buildStat')}
+                </p>
+                <div className="stat-bar">
+                    <div className="section-PvE bar-section" style={{width: `${_PvE}%`}}>
+                        {t('PvE')} <small>{_PvE}%</small>
+                    </div>
+                    <div className="section-PvP bar-section" style={{width: `${_PvP}%`}}>
+                        {t('PvP')} <small>{_PvP}%</small>
+                    </div>
+                    <div className="section-6v6 bar-section" style={{width: `${_6v6}%`}}>
+                        {t('6v6')} <small>{_6v6}%</small>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="skill-tooltip">
             <div className="tooltip-header">
@@ -394,6 +422,7 @@ const SkillTooltip = props => {
                 {tags}
                 {disabledTags}
             </div>
+            {buildStat}
         </div>
     )
 }

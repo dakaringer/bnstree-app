@@ -57,7 +57,7 @@ class CharacterViewer extends Component {
         if (!loading) {
             if (character.has('general')) {
                 content = (
-                    <Row className="character-content" gutter={24}>
+                    <Row className="character-content" gutter={16}>
                         <Col sm={4} className="profile-container">
                             <CharacterProfile />
                         </Col>

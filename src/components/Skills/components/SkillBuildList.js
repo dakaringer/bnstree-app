@@ -123,34 +123,28 @@ class SkillBuildList extends React.PureComponent {
             )
 
             rows.push(
-                <Link
-                    to={`/classes/${match.params.classCode}?id=${id}`}
-                    onClick={() => loadBuild(id)}
-                    key={id}>
-                    <div className="build-item list-item">
-                        <div className="build-details">
-                            <div className="build-type">
-                                <img
-                                    className="element"
-                                    alt={element}
-                                    src={elementImages[element]}
-                                />
-                                {t(build.get('type'))}
-                            </div>
-                            {mobileTimestamp}
+                <div className="build-item list-item" key={id}>
+                    <div className="build-details">
+                        <div className="build-type">
+                            <img className="element" alt={element} src={elementImages[element]} />
+                            {t(build.get('type'))}
                         </div>
-                        <div className="build-title list-item-title">
-                            {build.get('title')}
-                            <small>
-                                {n}
-                            </small>
-                        </div>
-                        <div className="list-item-timestamp">
-                            {timeString}
-                        </div>
-                        {del}
+                        {mobileTimestamp}
                     </div>
-                </Link>
+                    <Link
+                        className="build-title list-item-title"
+                        to={`/classes/${match.params.classCode}?id=${id}`}
+                        onClick={() => loadBuild(id)}>
+                        {build.get('title')}
+                        <small>
+                            {n}
+                        </small>
+                    </Link>
+                    <div className="list-item-timestamp">
+                        {timeString}
+                    </div>
+                    {del}
+                </div>
             )
         })
 

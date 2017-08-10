@@ -240,6 +240,7 @@ const namedSkillDataSelector = createSelector(
         })
     }
 )
+
 const patchedSkillDataSelector = createSelector(
     namedSkillDataSelector,
     mergedPatchDataSelector,
@@ -254,7 +255,40 @@ const elementSkillDataSelector = createSelector(
         return data.filter(skill => skill.get('elementSpec', element) === element)
     }
 )
-const groupedSkillDataSelector = createSelector(elementSkillDataSelector, data => {
+
+const statSkillDataSelector = createSelector(
+    elementSkillDataSelector,
+    classDataSelector,
+    buildElementSelector,
+    (data, classData, element) => {
+        let buildFormat = classData
+            .get('classData', List())
+            .find(e => e.get('element') === element, null, Map())
+            .get('buildFormat', Map())
+        let statData = classData.getIn(['statData', element], Map())
+        let count = classData.getIn(['buildCount', element, 'count'], 0)
+        let types = ['PvE', 'PvP', '6v6']
+        return data.map(skill => {
+            let id = skill.get('groupId')
+            if (buildFormat.includes(id)) {
+                types.forEach(t => {
+                    skill = skill.setIn(
+                        ['buildStat', t],
+                        statData
+                            .getIn(['types', t, id], Map())
+                            .find(s => s.get('move', 1) === skill.get('move'), null, Map())
+                            .get('count', 0)
+                    )
+                })
+                skill = skill.setIn(['buildStat', 'total'], count)
+            }
+
+            return skill
+        })
+    }
+)
+
+const groupedSkillDataSelector = createSelector(statSkillDataSelector, data => {
     data = data.sort((a, b) => {
         if (a.get('move', '') < b.get('move', '')) {
             return -1
