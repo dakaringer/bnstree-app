@@ -1,7 +1,8 @@
 @import '../../Character/styles/CharacterSearch';
 
-@import 'classLinks';
+@import 'homeClassLinks';
 @import 'homeNewsList';
+@import 'homeCharacter';
 
 .home {
     display: flex;
@@ -17,5 +18,9 @@
         flex: 1;
         background: rgba(0, 0, 0, 0.5);
         margin: 0 -1rem;
+    }
+
+    .home-top {
+        position: relative;
     }
 }

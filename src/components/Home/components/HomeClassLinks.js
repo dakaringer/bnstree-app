@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import classImages from '../../Skills/images/map_classImg'
 import {classes} from '../../NavBar/NavBar'
 
-class Home extends Component {
+class HomeClassLinks extends Component {
     render() {
         const {t} = this.props
         let links = []
@@ -28,4 +28,4 @@ class Home extends Component {
     }
 }
 
-export default translate('general')(Home)
+export default translate('general')(HomeClassLinks)
