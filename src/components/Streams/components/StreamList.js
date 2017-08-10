@@ -52,6 +52,7 @@ class StreamList extends Component {
                                 {stream.get('video_height')}p @{' '}
                                 {stream.get('average_fps').toFixed(0)}FPS
                             </div>
+                            <Icon type="play-circle-o" />
                         </div>
                         <p className="stream-title">
                             {title}
