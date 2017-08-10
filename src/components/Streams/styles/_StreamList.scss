@@ -1,6 +1,7 @@
 .stream-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 
     .stream-item {
         padding: 1.5rem;
