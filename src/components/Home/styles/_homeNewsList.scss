@@ -1,4 +1,6 @@
 .home-news-list-container {
+    margin-bottom: 5rem;
+
     .home-news-list {
         display: flex;
         margin: 0;
@@ -9,13 +11,18 @@
             flex-direction: column;
             border: none;
 
-            &:hover {
-                padding: 1.5rem;
-                background: rgba(100, 100, 100, 0.1);
-            }
-
             .thumb {
                 width: 100%;
+                opacity: 0.6;
+            }
+
+            &:hover {
+                padding: 1.5rem;
+                background: rgba(80, 80, 80, 0.1);
+
+                .thumb {
+                    opacity: 1;
+                }
             }
         }
 
