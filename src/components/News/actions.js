@@ -1,5 +1,6 @@
 import * as actionType from './actionTypes'
 import {List} from 'immutable'
+import i18n from '../../i18n'
 
 import {makeActionCreator} from '../../helpers'
 import {setLoading} from '../../actions'
@@ -40,11 +41,13 @@ export function loadArticle(id) {
                 .then(response => response.json())
                 .then(json => {
                     if (json.success === 1) {
+                        document.title = `${json.article.title} - ${i18n.t('news')} | BnSTree`
                         dispatch(setArticle(json.article))
                     }
                 })
                 .then(() => dispatch(setLoading(false)))
         } else {
+            document.title = `${article.get('title')} - ${i18n.t('news')} | BnSTree`
             dispatch(setArticle(article))
         }
     }
