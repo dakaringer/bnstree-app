@@ -1,10 +1,21 @@
-@import 'classLinks';
 @import '../../Character/styles/CharacterSearch';
 
+@import 'classLinks';
+@import 'homeNewsList';
+
 .home {
+    display: flex;
+    flex-direction: column;
     padding: 0 1rem;
+    flex: 1;
 
     .character-search {
         padding-bottom: 8rem;
+    }
+
+    .home-bottom {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.5);
+        margin: 0 -1rem;
     }
 }

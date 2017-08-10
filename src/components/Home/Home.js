@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 
 import './styles/Home.scss'
 
-import ClassLinks from './components/HomeClassLinks'
 import CharacterSearch from '../Character/components/CharacterSearch'
+import HomeClassLinks from './components/HomeClassLinks'
+import HomeNewsList from './components/HomeNewsList'
 
 class Home extends Component {
     componentDidMount() {
@@ -13,8 +14,11 @@ class Home extends Component {
     render() {
         return (
             <div className="home">
-                <ClassLinks />
+                <HomeClassLinks />
                 <CharacterSearch center />
+                <div className="home-bottom">
+                    <HomeNewsList />
+                </div>
             </div>
         )
     }

@@ -1,0 +1,40 @@
+.home-news-list-container {
+    .home-news-list {
+        display: flex;
+        margin: 0;
+        border-top: 0.1rem solid rgba(255, 255, 255, 0.2);
+
+        .news-item {
+            width: 25%;
+            flex-direction: column;
+            border: none;
+
+            &:hover {
+                padding: 1.5rem;
+                background: rgba(100, 100, 100, 0.1);
+            }
+
+            .thumb {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            flex-wrap: wrap;
+            .news-item {
+                width: 50%;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .news-item {
+                width: 100%;
+            }
+        }
+    }
+
+    .more {
+        margin: 1rem;
+        float: right;
+    }
+}

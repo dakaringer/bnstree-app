@@ -15,8 +15,6 @@ class News extends Component {
         document.title = `${t('news')} | BnSTree`
     }
 
-    //<Route exact path={'/news/:identifier'} component={NewsArticle} />
-
     render() {
         return (
             <div className="character">
