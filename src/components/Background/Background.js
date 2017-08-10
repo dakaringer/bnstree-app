@@ -39,7 +39,7 @@ class Background extends React.PureComponent {
         return (
             <div className="background" style={transform}>
                 <img
-                    src={`https://static.bnstree.com/images/backgrounds/${this.state.i}.jpg`}
+                    src={`https://static.bnstree.com/images/background/${this.state.i}.jpg`}
                     alt="background"
                 />
                 <div className="cover" />
