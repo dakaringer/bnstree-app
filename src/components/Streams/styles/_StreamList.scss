@@ -1,0 +1,50 @@
+.stream-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .stream-item {
+        padding: 1.5rem;
+        max-width: 50%;
+        width: 35rem;
+        overflow: hidden;
+
+        .preview-container {
+            position: relative;
+
+            img {
+                width: 100%;
+            }
+
+            .preview-overlay {
+                position: absolute;
+                background: rgba(0, 0, 0, 0.8);
+                padding: 0.3rem 0.8rem;
+                font-size: 1.4rem;
+                border-radius: 0.3rem;
+                color: #aaa;
+            }
+            .viewers {
+                top: 0.5rem;
+                left: 0.5rem;
+            }
+
+            .stream-stat {
+                bottom: 1rem;
+                right: 0.5rem;
+            }
+        }
+
+        .stream-title {
+            width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .stream-name {
+            color: #777;
+            font-size: 1.4rem;
+        }
+    }
+}

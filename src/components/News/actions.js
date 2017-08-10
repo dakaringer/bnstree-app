@@ -39,11 +39,11 @@ export function loadArticle(id) {
             })
                 .then(response => response.json())
                 .then(json => {
-                    dispatch(setLoading(false))
                     if (json.success === 1) {
                         dispatch(setArticle(json.article))
                     }
                 })
+                .then(() => dispatch(setLoading(false)))
         } else {
             dispatch(setArticle(article))
         }

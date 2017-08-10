@@ -1,0 +1,1 @@
+export const SET_STREAM_LIST = 'SET_STREAM_LIST'

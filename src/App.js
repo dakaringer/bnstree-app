@@ -49,6 +49,9 @@ const Skills = asyncComponent(() =>
 const Character = asyncComponent(() =>
     import('./components/Character/Character').then(module => module.default)
 )
+const Streams = asyncComponent(() =>
+    import('./components/Streams/Streams').then(module => module.default)
+)
 
 const mapStateToProps = state => {
     return {
@@ -87,6 +90,8 @@ class App extends Component {
                             <Route path="/classes/:classCode" component={Skills} />
 
                             <Route path="/character" component={Character} />
+
+                            <Route path="/streams" component={Streams} />
                         </Switch>
                     </div>
                 </div>

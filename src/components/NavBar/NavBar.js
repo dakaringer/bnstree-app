@@ -170,6 +170,9 @@ class NavBar extends Component {
                         <NavLink to="/character" className="main-nav-menu-item">
                             {t('character')}
                         </NavLink>
+                        <NavLink to="/streams" className="main-nav-menu-item">
+                            {t('streams')}
+                        </NavLink>
                     </div>
                     <div className="main-nav-submenu">
                         <Dropdown overlay={loginDropdown} trigger={['hover', 'click']}>

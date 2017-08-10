@@ -5,13 +5,8 @@ import * as actionType from './actionTypes'
 import news from './components/News/reducer'
 import skills from './components/Skills/reducer'
 import character from './components/Character/reducer'
-/*
-import trainer from './components/trainer/reducer'
-import trainer2 from './components/trainer2/reducer'
-import mixer from './components/mixer/reducer'
-import home from './components/home/reducer'
-import rankings from './components/rankings/reducer'
-*/
+import streams from './components/Streams/reducer'
+
 function general(
     state = fromJS({
         language: 'en',
@@ -35,4 +30,4 @@ function general(
     }
 }
 
-export default combineReducers({general, news, skills, character})
+export default combineReducers({general, news, skills, character, streams})
