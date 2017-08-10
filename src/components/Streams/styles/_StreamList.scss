@@ -1,7 +1,7 @@
 .stream-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
 
     .stream-item {
         padding: 1.5rem;
@@ -46,5 +46,12 @@
             color: #777;
             font-size: 1.4rem;
         }
+    }
+
+    &:after {
+        content: "";
+        padding: 1.5rem;
+        max-width: 50%;
+        width: 35rem;
     }
 }
