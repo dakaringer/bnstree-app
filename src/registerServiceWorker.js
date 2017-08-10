@@ -60,7 +60,8 @@ function registerValidSW(swUrl) {
                             notification.info({
                                 message: 'New Update',
                                 description: 'New update is available. Please refresh.',
-                                placement: 'bottomRight'
+                                placement: 'bottomRight',
+                                duration: 0
                             })
                         } else {
                             // At this point, everything has been precached.
