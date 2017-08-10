@@ -56,7 +56,6 @@ class Editor extends React.PureComponent {
         }
 
         if (nextProps.match.params.id && nextProps.article.equals(article)) {
-            console.log(nextProps.article.toJS())
             this.setState({
                 id: nextProps.article.get('_id'),
                 title: nextProps.article.get('title'),
@@ -89,7 +88,6 @@ class Editor extends React.PureComponent {
                 .then(response => response.json())
                 .then(json => {
                     if (json.success === 1) {
-                        console.log(json)
                         this.setState({
                             id: json.articleId,
                             saved: true
