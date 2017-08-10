@@ -67,6 +67,7 @@
             margin-bottom: 2rem;
             height: auto;
             border-radius: 0.2rem;
+            filter: brightness(85%);
 
             img {
                 height: 5rem;
@@ -80,7 +81,10 @@
             &.discord {
                 background: #7289da;
                 border: none;
-                color: white;
+            }
+
+            &:hover {
+                filter: brightness(100%);
             }
         }
     }
