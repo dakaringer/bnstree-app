@@ -42,7 +42,8 @@ const SkillListItem = props => {
                 placement="bottomLeft"
                 title={mainTooltip}
                 align={{overflow: {adjustY: false, adjustX: true}}}
-                overlayClassName="skill-tooltip-wrap">
+                overlayClassName="skill-tooltip-wrap"
+                trigger={['hover', 'click']}>
                 <img
                     className="skill-icon"
                     alt={skillId}

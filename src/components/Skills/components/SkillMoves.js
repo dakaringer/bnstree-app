@@ -76,7 +76,8 @@ const SkillMoves = props => {
                         placement="bottomLeft"
                         title={hmTooltip}
                         align={{overflow: {adjustY: false, adjustX: true}}}
-                        overlayClassName="skill-tooltip-wrap">
+                        overlayClassName="skill-tooltip-wrap"
+                        trigger={['hover', 'click']}>
                         <div
                             className={`hmButton ${currentMove === moveNumber + 3 ? 'active' : ''}`}
                             onClick={() =>
@@ -101,7 +102,8 @@ const SkillMoves = props => {
                     placement="bottomLeft"
                     title={tooltip}
                     align={{overflow: {adjustY: false, adjustX: true}}}
-                    overlayClassName="skill-tooltip-wrap">
+                    overlayClassName="skill-tooltip-wrap"
+                    trigger={['hover', 'click']}>
                     <div
                         className={`skill-move ${currentMove === moveNumber ||
                         currentMove === moveNumber + 3
@@ -133,7 +135,7 @@ const SkillMoves = props => {
             : null
 
     return (
-        <div className='skill-moves-item'>
+        <div className="skill-moves-item">
             <h4 className="skill-name">
                 {skillData.getIn(['moves', moveIndex, 'name'])}
                 {hotkeyImg}

@@ -34,7 +34,8 @@ const SkillGridItem = props => {
                 placement="bottomLeft"
                 align={{overflow: {adjustY: false, adjustX: true}}}
                 overlayClassName="skill-icon-popover-wrap"
-                content={<SkillMoves skillData={skillData} skillId={skillId} />}>
+                content={<SkillMoves skillData={skillData} skillId={skillId} />}
+                trigger={['hover', 'click']}>
                 <img
                     className="skill-icon"
                     alt={skillId}
