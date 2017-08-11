@@ -23,27 +23,34 @@ const SkillMenu = props => {
     */
 
     return (
-        <div className="skill-menu side-bar">
-            <NavLink to={`/classes/${classCode}`} exact className="skill-menu-item">
-                {t('skills')}
-            </NavLink>
-            <NavLink to={`/classes/${classCode}/builds`} className="skill-menu-item sub">
-                {t('userBuilds')}
-            </NavLink>
+        <div className="class-menu side-bar">
+            <div className="class-menu-item">
+                <NavLink to={`/classes/${classCode}`} exact>
+                    {t('skills')}
+                </NavLink>
+            </div>
+            <div className="class-menu-item sub">
+                <NavLink to={`/classes/${classCode}/builds`}>
+                    {t('userBuilds')}
+                </NavLink>
+            </div>
             {user
-                ? <NavLink
-                      to={`/classes/${classCode}/myBuilds`}
-                      exact
-                      className="skill-menu-item sub">
-                      {t('myBuilds')}
-                  </NavLink>
+                ? <div className="class-menu-item sub">
+                      <NavLink to={`/classes/${classCode}/myBuilds`} exact>
+                          {t('myBuilds')}
+                      </NavLink>
+                  </div>
                 : null}
-            <NavLink to={`/classes/${classCode}/soulshields`} className="skill-menu-item">
-                {t('soulshields')}
-            </NavLink>
-            <NavLink to={`/classes/${classCode}/badges`} className="skill-menu-item">
-                {t('badges')}
-            </NavLink>
+            <div className="class-menu-item">
+                <NavLink to={`/classes/${classCode}/soulshields`}>
+                    {t('soulshields')}
+                </NavLink>
+            </div>
+            <div className="class-menu-item">
+                <NavLink to={`/classes/${classCode}/badges`}>
+                    {t('badges')}
+                </NavLink>
+            </div>
         </div>
     )
 }
