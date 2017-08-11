@@ -104,8 +104,8 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
                             <span className={`scale ${pet ? 'pet' : ''}`}>[{scaleTxt}]</span>
                         </span>
                     )
-                    break
                 }
+                break
             }
             case 'skill':
             case 'skill-2':
