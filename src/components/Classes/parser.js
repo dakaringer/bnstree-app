@@ -44,7 +44,7 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
     let template = obj.get(0)
     let options = obj.get(1, Map())
     let elementSpec = obj.get(2, defaultElement)
-    if (elementSpec !== defaultElement) {
+    if (defaultElement && elementSpec !== defaultElement) {
         return null
     }
 
@@ -64,45 +64,48 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
     options = options.map((value, key) => {
         switch (key) {
             case 'scale': {
-                let pet = options.has('pet')
+                if (stats) {
+                    let pet = options.has('pet')
 
-                let intl = new Intl.NumberFormat(i18n.language)
-                let ap = pet ? stats.get('apPet', 5) : stats.get('ap', 13)
-                ap = ap === '' || isNaN(ap) ? (pet ? 5 : 13) : parseInt(ap, 10)
-                let ad = stats.get('ad', 0)
-                ad = ad === '' || isNaN(ad) ? 0 : parseInt(ad, 10)
-                let c = stats.get('c', 1)
-                c = c === '' || isNaN(c) ? 1 : parseInt(c, 10)
-                let elementDmg = stats.getIn(['element', element], 100)
-                elementDmg = elementDmg === '' || isNaN(elementDmg) ? 100 : parseInt(elementDmg, 10)
+                    let intl = new Intl.NumberFormat(i18n.language)
+                    let ap = pet ? stats.get('apPet', 5) : stats.get('ap', 13)
+                    ap = ap === '' || isNaN(ap) ? (pet ? 5 : 13) : parseInt(ap, 10)
+                    let ad = stats.get('ad', 0)
+                    ad = ad === '' || isNaN(ad) ? 0 : parseInt(ad, 10)
+                    let c = stats.get('c', 1)
+                    c = c === '' || isNaN(c) ? 1 : parseInt(c, 10)
+                    let elementDmg = stats.getIn(['element', element], 100)
+                    elementDmg =
+                        elementDmg === '' || isNaN(elementDmg) ? 100 : parseInt(elementDmg, 10)
 
-                let multiplyer = 1 * elementDmg / 100
-                let scale = value
-                let bottomScale = List.isList(scale) ? scale.get(0) : scale
-                let topScale = List.isList(scale) ? scale.get(1) : scale
+                    let multiplyer = 1 * elementDmg / 100
+                    let scale = value
+                    let bottomScale = List.isList(scale) ? scale.get(0) : scale
+                    let topScale = List.isList(scale) ? scale.get(1) : scale
 
-                let bottom = Math.round(Math.round((ap - c) * bottomScale) * multiplyer + ad)
-                let top = Math.round(Math.round((ap + c) * topScale) * multiplyer + ad)
-                bottom = bottom > 0 ? bottom : 0
-                top = top > 0 ? top : 0
+                    let bottom = Math.round(Math.round((ap - c) * bottomScale) * multiplyer + ad)
+                    let top = Math.round(Math.round((ap + c) * topScale) * multiplyer + ad)
+                    bottom = bottom > 0 ? bottom : 0
+                    top = top > 0 ? top : 0
 
-                let scaleTxt = List.isList(scale)
-                    ? `${bottomScale.toFixed(2)} ~ ${topScale.toFixed(2)}`
-                    : scale.toFixed(2)
-                if (multiplyer > 1) {
-                    scaleTxt += ` × ${multiplyer.toFixed(2)}`
+                    let scaleTxt = List.isList(scale)
+                        ? `${bottomScale.toFixed(2)} ~ ${topScale.toFixed(2)}`
+                        : scale.toFixed(2)
+                    if (multiplyer > 1) {
+                        scaleTxt += ` × ${multiplyer.toFixed(2)}`
+                    }
+                    scaleTxt = pet
+                        ? i18n.t('tooltip:scalePet', {scaleTxt: scaleTxt})
+                        : i18n.t('tooltip:scale', {scaleTxt: scaleTxt})
+
+                    value = (
+                        <span className={`damage ${multiplyer > 1 ? 'boosted' : ''}`} key={key}>
+                            {intl.format(bottom)} ~ {intl.format(top)}{' '}
+                            <span className={`scale ${pet ? 'pet' : ''}`}>[{scaleTxt}]</span>
+                        </span>
+                    )
+                    break
                 }
-                scaleTxt = pet
-                    ? i18n.t('tooltip:scalePet', {scaleTxt: scaleTxt})
-                    : i18n.t('tooltip:scale', {scaleTxt: scaleTxt})
-
-                value = (
-                    <span className={`damage ${multiplyer > 1 ? 'boosted' : ''}`} key={key}>
-                        {intl.format(bottom)} ~ {intl.format(top)}{' '}
-                        <span className={`scale ${pet ? 'pet' : ''}`}>[{scaleTxt}]</span>
-                    </span>
-                )
-                break
             }
             case 'skill':
             case 'skill-2':

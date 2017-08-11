@@ -19,6 +19,7 @@ import SkillSubMenu from './components/SkillSubMenu'
 import SkillList from './components/SkillList'
 import SkillGrid from './components/SkillGrid'
 import SkillBuildList from './components/SkillBuildList'
+import BadgeList from './components/BadgeList'
 
 function getClassCode(link) {
     let classCode = 'BM'
@@ -115,6 +116,11 @@ class Skills extends React.Component {
                                     exact
                                     path={`/classes/:classCode/info`}
                                     render={() => null}
+                                />
+                                <Route
+                                    exact
+                                    path="/classes/:classCode/badges"
+                                    component={BadgeList}
                                 />
                                 <Route
                                     exact

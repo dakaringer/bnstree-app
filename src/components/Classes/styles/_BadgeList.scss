@@ -1,0 +1,85 @@
+.badge-list {
+    padding: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    .badge-list-item {
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        margin: 0.5rem 1rem;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 110%);
+        width: 50%;
+        animation: fadeIn 1s ease forwards;
+        opacity: 0;
+
+        @media (max-width: 1199px) {
+            width: 100%;
+        }
+
+        .ant-collapse {
+            background: none;
+
+            .ant-collapse-item {
+                border-radius: 0;
+                border: none;
+
+                & > .ant-collapse-header:hover {
+                    background: none;
+                }
+
+                .ant-collapse-header {
+                    padding: 1rem;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    justify-content: space-between;
+                    .arrow {
+                        position: relative;
+                        color: white;
+                        left: -1rem;
+                        transform-origin: 50% 50%;
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+                .badge-header {
+                    display: flex;
+                    align-items: center;
+
+                    .badge-icon {
+                        height: 5rem;
+                        margin-right: 1rem;
+                    }
+                }
+
+                .ant-collapse-content {
+                    border: none;
+                    background: rgba(0, 0, 0, 0.6);
+                }
+            }
+        }
+
+        .badge-attributes {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .attribute {
+            color: white;
+
+            .skill {
+                color: aqua;
+                img {
+                    height: 1em;
+                }
+            }
+        }
+    }
+}
