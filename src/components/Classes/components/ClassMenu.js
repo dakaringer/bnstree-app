@@ -38,6 +38,12 @@ const SkillMenu = props => {
                       {t('myBuilds')}
                   </NavLink>
                 : null}
+            <NavLink to={`/classes/${classCode}/soulshields`} className="skill-menu-item">
+                {t('soulshields')}
+            </NavLink>
+            <NavLink to={`/classes/${classCode}/badges`} className="skill-menu-item">
+                {t('badges')}
+            </NavLink>
         </div>
     )
 }

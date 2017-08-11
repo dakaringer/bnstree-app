@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {translate} from 'react-i18next'
 import {Link} from 'react-router-dom'
 
-import classImages from '../../Skills/images/map_classImg'
+import classImages from '../../Classes/images/map_classImg'
 import {classes} from '../../NavBar/NavBar'
 
 class HomeClassLinks extends Component {

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map} from 'immutable'
 
-import classImg from '../../Skills/images/map_classImg'
+import classImg from '../../Classes/images/map_classImg'
 import rankImg from '../images/map_rankImg'
 
 import {characterSelector} from '../selectors'

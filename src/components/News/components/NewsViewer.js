@@ -8,8 +8,8 @@ import {Row, Col, Button} from 'antd'
 
 import NewsList from './NewsList'
 
-import {skillNamesSelector} from '../../Skills/selectors'
-import {loadTextData} from '../../Skills/actions'
+import {skillNamesSelector} from '../../Classes/selectors'
+import {loadTextData} from '../../Classes/actions'
 import {articleSelector} from '../selectors'
 import {loadArticle} from '../actions'
 

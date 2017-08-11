@@ -9,12 +9,12 @@ import {currentLanguageSelector, loadingSelector, userSelector} from '../../sele
 import {viewSelector} from './selectors'
 import {loadTextData, loadClass} from './actions'
 
-import './styles/Skills.scss'
+import './styles/Classes.scss'
 
 import {classes} from '../NavBar/NavBar'
 import LoadingLyn from '../LoadingLyn/LoadingLyn'
-import Header from './components/SkillHeader'
-import SkillMenu from './components/SkillMenu'
+import Header from './components/ClassHeader'
+import ClassMenu from './components/ClassMenu'
 import SkillSubMenu from './components/SkillSubMenu'
 import SkillList from './components/SkillList'
 import SkillGrid from './components/SkillGrid'
@@ -102,7 +102,7 @@ class Skills extends React.Component {
                     <Header />
                     <Row className="skills-content">
                         <Col sm={4} className="menu-container">
-                            <SkillMenu />
+                            <ClassMenu />
                         </Col>
                         <Col sm={20} className="main-container">
                             <Switch>

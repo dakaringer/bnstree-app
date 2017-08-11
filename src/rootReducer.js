@@ -3,7 +3,7 @@ import {fromJS} from 'immutable'
 import * as actionType from './actionTypes'
 
 import news from './components/News/reducer'
-import skills from './components/Skills/reducer'
+import classes from './components/Classes/reducer'
 import character from './components/Character/reducer'
 import streams from './components/Streams/reducer'
 
@@ -30,4 +30,4 @@ function general(
     }
 }
 
-export default combineReducers({general, news, skills, character, streams})
+export default combineReducers({general, news, classes, character, streams})

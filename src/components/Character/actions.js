@@ -3,8 +3,8 @@ import i18n from '../../i18n'
 import {makeActionCreator, flatten} from '../../helpers'
 import {setLoading} from '../../actions'
 
-import {setClassData, setClass, setCharacterMode} from '../Skills/actions'
-import {dataSelector} from '../Skills/selectors'
+import {setClassData, setClass, setCharacterMode} from '../Classes/actions'
+import {dataSelector} from '../Classes/selectors'
 
 //Action creators
 const setRegion = makeActionCreator(actionType.SET_CHARACTER_REGION, 'region')

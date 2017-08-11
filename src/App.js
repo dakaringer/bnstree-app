@@ -43,8 +43,8 @@ function asyncComponent(getComponent) {
 
 const Home = asyncComponent(() => import('./components/Home/Home').then(module => module.default))
 const News = asyncComponent(() => import('./components/News/News').then(module => module.default))
-const Skills = asyncComponent(() =>
-    import('./components/Skills/Skills').then(module => module.default)
+const Classes = asyncComponent(() =>
+    import('./components/Classes/Classes.js').then(module => module.default)
 )
 const Character = asyncComponent(() =>
     import('./components/Character/Character').then(module => module.default)
@@ -87,7 +87,7 @@ class App extends Component {
 
                             <Redirect exact from="/classes" to="/classes/blade-master" />
                             {redirectLinks}
-                            <Route path="/classes/:classCode" component={Skills} />
+                            <Route path="/classes/:classCode" component={Classes} />
 
                             <Route path="/character" component={Character} />
 

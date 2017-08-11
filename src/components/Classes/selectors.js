@@ -91,12 +91,12 @@ const tagOrder = [
     'WINDWALK'
 ]
 
-const uiSelector = state => state.getIn(['skills', 'ui'], Map())
+const uiSelector = state => state.getIn(['classes', 'ui'], Map())
 
-const charDataSelector = state => state.getIn(['skills', 'character'], Map())
-export const dataSelector = state => state.getIn(['skills', 'data'], Map())
-const buildDataSelector = state => state.getIn(['skills', 'build'], Map())
-export const refSelector = state => state.getIn(['skills', 'ref'], Map())
+const charDataSelector = state => state.getIn(['classes', 'character'], Map())
+export const dataSelector = state => state.getIn(['classes', 'data'], Map())
+const buildDataSelector = state => state.getIn(['classes', 'build'], Map())
+export const refSelector = state => state.getIn(['classes', 'ref'], Map())
 
 const characterBuildDataSelector = state => state.getIn(['character', 'data', 'skillData'], Map())
 
