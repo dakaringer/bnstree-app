@@ -4,7 +4,7 @@
     justify-content: space-between;
 
     .list {
-        max-width: 100rem;
+        max-width: 100%;
     }
 
     .skill-group {
@@ -65,7 +65,7 @@
     display: flex;
     padding: 1rem;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 110%);
-    width: 45rem;
+    width: calc(50% - 2rem);
     animation: fadeIn 1s ease forwards;
     opacity: 0;
 
@@ -74,6 +74,10 @@
         width: 7rem;
         height: 7rem;
         cursor: pointer;
+    }
+
+    @media (max-width: 1199px) {
+        width: 100%;
     }
 
     @media (max-width: 767px) {
@@ -90,6 +94,8 @@
 }
 
 .skill-moves-item {
+    flex: 1;
+
     .skill-name {
         color: aqua;
         font-weight: 300;
@@ -105,10 +111,12 @@
 
     .skill-moves {
         display: flex;
+        width: 100%;
 
         .skill-move-wrapper {
             border-right: 0.1rem solid rgba(255, 255, 255, 0.2);
             position: relative;
+            width: 33%;
 
             &.filtered h6 {
                 @keyframes glow {
@@ -132,11 +140,12 @@
                 align-items: center;
                 justify-content: space-between;
                 padding: 0.5rem;
-                width: 11rem;
                 cursor: pointer;
+                overflow: hidden;
 
                 h6 {
                     color: #eee;
+                    white-space: nowrap;
                 }
 
                 .typeImg {
