@@ -95,7 +95,8 @@ function classData(state = Map(), action) {
                 groupData: action.groupData,
                 patchData: action.patchData,
                 statData: action.statData,
-                buildCount: action.buildCount
+                buildCount: action.buildCount,
+                badgeData: action.badgeData
             })
         case actionType.SKILL_DATA_SET_BUILD_LIST:
             return state.merge({buildList: action.list})
@@ -122,8 +123,10 @@ function build(state = Map(), action) {
 
 function ref(state = fromJS({skillNames: {}}), action) {
     switch (action.type) {
-        case actionType.SKILL_REF_SET_NAMES:
+        case actionType.SKILL_REF_SET_SKILL_NAMES:
             return state.mergeDeepIn(['skillNames', action.language], action.nameData)
+        case actionType.SKILL_REF_SET_ITEM_NAMES:
+            return state.mergeDeepIn(['itemNames', action.language], action.nameData)
         default:
             return state
     }

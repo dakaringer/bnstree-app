@@ -43,7 +43,8 @@ export const setClassData = makeActionCreator(
     'skillData',
     'patchData',
     'statData',
-    'buildCount'
+    'buildCount',
+    'badgeData'
 )
 const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
 const setUserBuildList = makeActionCreator(
@@ -65,7 +66,12 @@ const setBuildSkill = makeActionCreator(
     'move'
 )
 
-const setNames = makeActionCreator(actionType.SKILL_REF_SET_NAMES, 'language', 'nameData')
+const setSkillNames = makeActionCreator(
+    actionType.SKILL_REF_SET_SKILL_NAMES,
+    'language',
+    'nameData'
+)
+const setItemNames = makeActionCreator(actionType.SKILL_REF_SET_ITEM_NAMES, 'language', 'nameData')
 
 export function loadClass(classCode, buildCode, buildId) {
     return (dispatch, getState) => {
@@ -87,7 +93,6 @@ export function loadClass(classCode, buildCode, buildId) {
                     if (json.success === 0 || !json.classData) {
                         return
                     }
-
                     let elements = json.classData.elements
                     dispatch(
                         setClassData(
@@ -97,7 +102,8 @@ export function loadClass(classCode, buildCode, buildId) {
                             flatten(json.skillData),
                             flatten(json.patchData),
                             flatten(json.statData),
-                            flatten(json.buildCount)
+                            flatten(json.buildCount),
+                            flatten(json.badgeData)
                         )
                     )
                     dispatch(setBuildElement(classCode, elements[0].element))
@@ -124,7 +130,8 @@ export function loadTextData(lang) {
                 .then(response => response.json())
                 .then(json => {
                     if (json.success === 1) {
-                        dispatch(setNames(json.lang, flatten(json.skillNames)))
+                        dispatch(setSkillNames(json.lang, flatten(json.skillNames)))
+                        dispatch(setItemNames(json.lang, flatten(json.itemNames)))
                     }
                 })
 
@@ -136,7 +143,8 @@ export function loadTextData(lang) {
                     .then(response => response.json())
                     .then(json => {
                         if (json.success === 1) {
-                            dispatch(setNames('en', flatten(json.skillNames)))
+                            dispatch(setSkillNames('en', flatten(json.skillNames)))
+                            dispatch(setItemNames('en', flatten(json.itemNames)))
                         }
                     })
             }

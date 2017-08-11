@@ -195,6 +195,26 @@ export const skillNamesSelector = createSelector(
     currentLanguageSelector,
     (state, language) => state.getIn(['skillNames', language], Map())
 )
+export const itemNamesSelector = createSelector(
+    refSelector,
+    currentLanguageSelector,
+    (state, language) => state.getIn(['itemNames', language], Map())
+)
+
+//badgeData
+const badgeDataSelector = createSelector(classDataSelector, data => data.get('badgeData', Map()))
+export const namedBadgeDataSelector = createSelector(
+    badgeDataSelector,
+    itemNamesSelector,
+    (data, names) => {
+        return data.map(badge => {
+            let id = badge.get('name')
+            return badge
+                .set('name', names.getIn([id, 'name'], ''))
+                .set('icon', names.getIn([id, 'icon'], ''))
+        })
+    }
+)
 
 //skillData
 const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))
