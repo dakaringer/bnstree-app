@@ -78,7 +78,7 @@ export function loadClass(classCode, buildCode, buildId) {
         )} | BnSTree`
         if (!dataSelector(getState()).has(classCode)) {
             dispatch(setLoading(true))
-            fetch(`https://api.bnstree.com/skills/${classCode}`, {
+            fetch(`https://api.bnstree.com/classes/${classCode}`, {
                 method: 'get',
                 credentials: 'include'
             })
@@ -117,7 +117,7 @@ export function loadClass(classCode, buildCode, buildId) {
 export function loadTextData(lang) {
     return (dispatch, getState) => {
         if (skillNamesSelector(getState()).equals(Map())) {
-            fetch(`https://api.bnstree.com/skills/names?lang=${lang}`, {
+            fetch(`https://api.bnstree.com/classes/names?lang=${lang}`, {
                 method: 'get',
                 credentials: 'include'
             })
@@ -129,7 +129,7 @@ export function loadTextData(lang) {
                 })
 
             if (lang !== 'en' && !refSelector(getState()).hasIn(['skillNames', 'en'])) {
-                fetch('https://api.bnstree.com/skills/names?lang=en', {
+                fetch('https://api.bnstree.com/classes/names?lang=en', {
                     method: 'get',
                     credentials: 'include'
                 })

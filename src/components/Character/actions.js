@@ -36,7 +36,7 @@ export function loadCharacter(region, name) {
                     dispatch(setCharacterMode(true))
                     dispatch(setClass(classCode))
                     if (!dataSelector(getState()).has(classCode)) {
-                        fetch(`https://api.bnstree.com/skills/${classCode}`, {
+                        fetch(`https://api.bnstree.com/classes/${classCode}`, {
                             method: 'get',
                             credentials: 'include'
                         })
