@@ -7,11 +7,12 @@
         .group-label {
             color: #eee;
             font-weight: 300;
+            font-size: 1.6rem;
         }
 
         .group-skills {
             padding-left: 0rem;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             display: flex;
             flex-wrap: wrap;
         }
@@ -56,9 +57,9 @@
         }
     }
 
-    margin: 1rem 2rem;
+    margin: 0.5rem 1rem;
     display: flex;
-    padding: 1.2rem;
+    padding: 1rem;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 110%);
     width: 45rem;
     animation: fadeIn 1s ease forwards;
@@ -66,8 +67,8 @@
 
     .skill-icon {
         margin-right: 1.5rem;
-        width: 7.4rem;
-        height: 7.4rem;
+        width: 7rem;
+        height: 7rem;
         cursor: pointer;
     }
 
@@ -90,11 +91,11 @@
         font-weight: 300;
         font-size: 1.6rem;
         margin-top: -0.5rem;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.3rem;
     }
 
     .skill-hotkey {
-        height: 1em;
+        height: 0.9em;
         margin-left: 0.8rem;
     }
 
@@ -135,7 +136,7 @@
                 }
 
                 .typeImg {
-                    width: 2.5rem;
+                    width: 2.3rem;
                 }
 
                 &.current {
