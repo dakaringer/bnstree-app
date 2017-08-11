@@ -42,7 +42,7 @@ class StreamList extends Component {
                         href={stream.getIn(['channel', 'url'])}
                         target="_blank"
                         rel="noopener noreferrer"
-                        key={i}>
+                        key={stream.getIn(['channel', 'display_name'])}>
                         <div className="preview-container">
                             <img alt={title} src={stream.getIn(['preview', 'medium'])} />
                             <div className="viewers preview-overlay">
@@ -64,6 +64,10 @@ class StreamList extends Component {
                 )
             }
         })
+
+        for (let i = 0; i < 10; i++) {
+            streams.push(<div className="stream-item hidden" key={i} />)
+        }
 
         return (
             <div className="stream-list">
