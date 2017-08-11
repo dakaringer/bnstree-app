@@ -20,6 +20,12 @@ const SkillMenu = props => {
         <NavLink to={`/classes/${classCode}/info`} className="skill-menu-item">
             {t('classInfo')}
         </NavLink>
+        
+            <div className="class-menu-item">
+                <NavLink to={`/classes/${classCode}/soulshields`}>
+                    {t('soulshields')}
+                </NavLink>
+            </div>
     */
 
     return (
@@ -41,11 +47,6 @@ const SkillMenu = props => {
                       </NavLink>
                   </div>
                 : null}
-            <div className="class-menu-item">
-                <NavLink to={`/classes/${classCode}/soulshields`}>
-                    {t('soulshields')}
-                </NavLink>
-            </div>
             <div className="class-menu-item">
                 <NavLink to={`/classes/${classCode}/badges`}>
                     {t('badges')}
