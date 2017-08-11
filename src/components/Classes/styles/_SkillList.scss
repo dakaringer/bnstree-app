@@ -3,6 +3,10 @@
     display: flex;
     justify-content: space-between;
 
+    .list {
+        max-width: 100rem;
+    }
+
     .skill-group {
         .group-label {
             color: #eee;
