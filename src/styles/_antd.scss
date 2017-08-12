@@ -72,9 +72,13 @@
         }
 
         .ant-popover-message {
-            color: white;
+            color: #999;
         }
     }
+}
+
+.ant-notification-notice-description {
+    color: #999;
 }
 
 .ant-modal-mask {
