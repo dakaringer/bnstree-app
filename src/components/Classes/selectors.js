@@ -91,6 +91,8 @@ const tagOrder = [
     'WINDWALK'
 ]
 
+const badgeOrder = ['legendary', 'lime', 'orange', 'purple', 'blue', 'green', 'red', 'yellow']
+
 const uiSelector = state => state.getIn(['classes', 'ui'], Map())
 
 const charDataSelector = state => state.getIn(['classes', 'character'], Map())
@@ -202,7 +204,18 @@ export const itemNamesSelector = createSelector(
 )
 
 //badgeData
-const badgeDataSelector = createSelector(classDataSelector, data => data.get('badgeData', Map()))
+const badgeDataSelector = createSelector(classDataSelector, data => {
+    data = data.get('badgeData', Map()).sort((a, b) => {
+        console.log(b.toJS())
+        if (a.get('group') === b.get('group')) {
+            return b.get('index') - a.get('index')
+        } else {
+            return badgeOrder.indexOf(a.get('group')) - badgeOrder.indexOf(b.get('group'))
+        }
+    })
+
+    return data
+})
 export const namedBadgeDataSelector = createSelector(
     badgeDataSelector,
     itemNamesSelector,
