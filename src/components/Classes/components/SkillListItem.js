@@ -49,7 +49,7 @@ const SkillListItem = props => {
                     alt={skillId}
                     src={`https://static.bnstree.com/images/skill/${skillData.getIn(
                         ['moves', moveIndex, 'icon'],
-                        'skill_icon_forcemaster_1_33'
+                        'blank'
                     )}`}
                 />
             </Tooltip>

@@ -56,7 +56,8 @@ const SkillListItem = props => {
                                 className="badge-icon"
                                 alt={badge.get('name')}
                                 src={`https://static.bnstree.com/images/badges/${badge.get(
-                                    'icon'
+                                    'icon',
+                                    'blank'
                                 )}`}
                             />
                             <h3 className={`grade_${badge.get('grade')}`}>

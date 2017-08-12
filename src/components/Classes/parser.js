@@ -20,7 +20,7 @@ function getSkill(idString, skillNames, noIcon = false) {
     moves = moves.map(m => (m > 3 ? i18n.t('skills:HM', {move: m - 3}) : m))
 
     if (moves.length > 0) {
-        affix = `${affix ? `${affix}, ` : ''} ${i18n.t('skills:moves', {moves: moves.join(', ')})}`
+        affix = `${affix ? `${affix}, ` : ''}${i18n.t('skills:moves', {moves: moves.join(', ')})}`
     }
 
     affix = affix ? ` (${affix})` : null
@@ -32,7 +32,7 @@ function getSkill(idString, skillNames, noIcon = false) {
                 alt={id}
                 src={`https://static.bnstree.com/images/skill/${skillNames.getIn(
                     [id, 'icon'],
-                    'skill_icon_forcemaster_1_33'
+                    'blank'
                 )}`}
             />
         )

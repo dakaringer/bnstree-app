@@ -64,7 +64,7 @@ class NewsViewer extends React.Component {
                     let skill = skillNames.get(id, Map())
                     return `![${id}](https://static.bnstree.com/images/skill/${skill.get(
                         'icon',
-                        'skill_icon_forcemaster_1_33'
+                        'blank'
                     )}) **${skill.get('name')}**`
                 })
 
