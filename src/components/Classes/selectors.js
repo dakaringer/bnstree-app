@@ -206,7 +206,6 @@ export const itemNamesSelector = createSelector(
 //badgeData
 const badgeDataSelector = createSelector(classDataSelector, data => {
     data = data.get('badgeData', Map()).sort((a, b) => {
-        console.log(b.toJS())
         if (a.get('group') === b.get('group')) {
             return b.get('index') - a.get('index')
         } else {
