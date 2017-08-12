@@ -12,6 +12,11 @@
             color: #eee;
             font-weight: 300;
             font-size: 1.6rem;
+            margin: 0 1rem;
+
+            @media (max-width: 767px) {
+                margin: 0;
+            }
         }
 
         .group-skills {
