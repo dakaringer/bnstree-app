@@ -107,6 +107,7 @@
             border-right: 0.1rem solid rgba(255, 255, 255, 0.2);
             position: relative;
             width: 33%;
+            user-select: none;
 
             &.filtered h6 {
                 @keyframes glow {
