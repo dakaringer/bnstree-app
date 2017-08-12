@@ -14,8 +14,7 @@
         }
 
         margin: 0.5rem 1rem;
-        background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 110%);
-        width: 50%;
+        width: calc(50% - 2rem);
         animation: fadeIn 1s ease forwards;
         opacity: 0;
 
@@ -24,7 +23,8 @@
         }
 
         .ant-collapse {
-            background: none;
+            border-radius: 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 110%);
 
             .ant-collapse-item {
                 border-radius: 0;
