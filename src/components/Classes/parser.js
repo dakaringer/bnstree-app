@@ -11,8 +11,6 @@ function getSkill(idString, skillNames, noIcon = false) {
     let moves = skillQuery.slice(1)
     let name = skillNames.getIn([id, 'name'])
 
-    console.log(moves)
-
     let affix = null
     if (isNaN(moves[0])) {
         affix = i18n.t(moves[0])
@@ -22,7 +20,7 @@ function getSkill(idString, skillNames, noIcon = false) {
     moves = moves.map(m => (m > 3 ? i18n.t('skills:HM', {move: m - 3}) : m))
 
     if (moves.length > 0) {
-        affix = `${affix ? ', ' : ''} ${i18n.t('skills:moves', {moves: moves.join(', ')})}`
+        affix = `${affix ? `${affix}, ` : ''} ${i18n.t('skills:moves', {moves: moves.join(', ')})}`
     }
 
     affix = affix ? ` (${affix})` : null
