@@ -15,6 +15,7 @@ import {
     refSelector,
     characterModeSelector
 } from './selectors'
+import {userSelector} from '../../selectors'
 
 const postHeaders = {
     'Content-type': 'application/json; charset=UTF-8'
@@ -78,6 +79,12 @@ export function loadClass(classCode, buildCode, buildId) {
         )} | BnSTree`
         if (!dataSelector(getState()).has(classCode)) {
             dispatch(setLoading(true))
+
+            dispatch(loadBuildList(1, classCode))
+            if (userSelector(getState())) {
+                dispatch(loadBuildList(1, classCode, null, null, true))
+            }
+
             fetch(`https://api.bnstree.com/classes/${classCode}`, {
                 method: 'get',
                 credentials: 'include'

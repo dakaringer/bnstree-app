@@ -44,17 +44,6 @@ class SkillBuildList extends React.PureComponent {
         }
     }
 
-    componentWillMount() {
-        let {classCode, loadBuildList, user} = this.props
-        loadBuildList(1, classCode, null, null, user)
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.classCode !== this.props.classCode || this.props.user !== nextProps.user) {
-            this.props.loadBuildList(1, nextProps.classCode, null, null, nextProps.user)
-        }
-    }
-
     handleFilter(field, value) {
         const {classCode, user} = this.props
         const {elementFilter, typeFilter} = this.state
