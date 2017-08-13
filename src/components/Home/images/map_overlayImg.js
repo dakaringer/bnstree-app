@@ -10,10 +10,7 @@ const overlayImages = {
         right: right_1
     },
     set_2: {
-        left: left_2,
-        leftStyle: {
-            left: '-15rem'
-        }
+        left: left_2
     },
     set_3: {
         right: right_3,

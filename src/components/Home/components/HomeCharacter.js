@@ -2,8 +2,8 @@ import React from 'react'
 
 import overlayImages from '../images/map_overlayImg'
 
-const max = 1
-const min = 4
+const min = 1
+const max = 4
 
 const HomeCharacter = () => {
     let setNumber = Math.floor(Math.random() * (max - min + 1)) + min
