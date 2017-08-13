@@ -1,5 +1,14 @@
+.badge-list-container {
+    h2 {
+        color: #eee;
+        font-weight: 300;
+        margin-top: 2rem;
+        padding: 0 1rem;
+    }
+}
+
 .badge-list {
-    padding: 2rem 0;
+    padding: 1rem 0;
     display: flex;
     flex-wrap: wrap;
 

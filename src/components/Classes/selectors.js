@@ -91,7 +91,8 @@ const tagOrder = [
     'WINDWALK'
 ]
 
-const badgeOrder = ['legendary', 'lime', 'orange', 'purple', 'blue', 'green', 'red', 'yellow']
+const soulBadgeOrder = ['legendary', 'lime', 'orange', 'purple', 'blue', 'green', 'red', 'yellow']
+const mysticBadgeOrder = ['legendary', 'yellow', 'red']
 
 const uiSelector = state => state.getIn(['classes', 'ui'], Map())
 
@@ -210,17 +211,10 @@ export const itemNamesSelector = createSelector(
 )
 
 //badgeData
-const badgeDataSelector = createSelector(classDataSelector, data => {
-    data = data.get('badgeData', Map()).sort((a, b) => {
-        if (a.get('group') === b.get('group')) {
-            return b.get('index') - a.get('index')
-        } else {
-            return badgeOrder.indexOf(a.get('group')) - badgeOrder.indexOf(b.get('group'))
-        }
-    })
-
-    return data
-})
+const badgeDataSelector = createSelector(
+    classDataSelector,
+    data => (data = data.get('badgeData', Map()))
+)
 const namedBadgeDataSelector = createSelector(
     badgeDataSelector,
     itemNamesSelector,
@@ -233,14 +227,14 @@ const namedBadgeDataSelector = createSelector(
         })
     }
 )
-export const combinedBadgeDataSelector = createSelector(namedBadgeDataSelector, data => {
+const combinedBadgeDataSelector = createSelector(namedBadgeDataSelector, data => {
     data = data.map(badge => {
         if (badge.has('combine')) {
             let enhance = List()
             let attributes = List()
             let combine = List()
             badge.get('combine').forEach(badgeId => {
-                let badgeOther = data.get(badgeId)
+                let badgeOther = data.get(badgeId, Map())
                 attributes = attributes.concat(badgeOther.get('attributes'))
                 enhance = enhance.concat(badgeOther.get('enhance'))
                 combine = combine.push(
@@ -258,6 +252,20 @@ export const combinedBadgeDataSelector = createSelector(namedBadgeDataSelector, 
         }
         return badge
     })
+
+    return data
+})
+export const sortedDataSelector = createSelector(combinedBadgeDataSelector, data => {
+    data = data.groupBy(b => b.get('type')).map((badgeType, type) =>
+        badgeType.sort((a, b) => {
+            if (a.get('group') === b.get('group')) {
+                return b.get('index') - a.get('index')
+            } else {
+                let badgeOrder = type === 'soul' ? soulBadgeOrder : mysticBadgeOrder
+                return badgeOrder.indexOf(a.get('group')) - badgeOrder.indexOf(b.get('group'))
+            }
+        })
+    )
 
     return data
 })
