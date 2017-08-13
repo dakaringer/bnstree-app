@@ -31,6 +31,20 @@ function getClassCode(link) {
     return classCode
 }
 
+function getPath(link) {
+    let item = link.split('/').slice(-1)[0]
+    switch (item) {
+        case 'builds':
+            return 'userBuilds'
+        case 'my-builds':
+            return 'myBuilds'
+        case 'badges':
+            return 'badges'
+        default:
+            return 'skills'
+    }
+}
+
 const mapStateToProps = state => {
     return {
         currentLanguage: currentLanguageSelector(state),
@@ -50,15 +64,17 @@ const mapDispatchToProps = dispatch => {
 
 class Skills extends React.Component {
     componentWillMount() {
-        const {location, match, currentLanguage, loadText, loadClass} = this.props
+        const {t, location, match, currentLanguage, loadText, loadClass} = this.props
 
         let params = new URLSearchParams(location.search)
         let classCode = getClassCode(match.params.classCode)
         loadText(currentLanguage)
         loadClass(classCode, params.get('b'), params.get('id'))
+
+        document.title = `${t(getPath(location.pathname))} - ${t(classCode)} | BnSTree`
     }
     componentWillReceiveProps(nextProps) {
-        const {location, match, currentLanguage, loadText, loadClass} = this.props
+        const {t, location, match, currentLanguage, loadText, loadClass} = this.props
 
         let params = new URLSearchParams(location.search)
         let nextParams = new URLSearchParams(nextProps.location.search)
@@ -71,6 +87,12 @@ class Skills extends React.Component {
             nextParams.get('id') !== params.get('id')
         ) {
             loadClass(classCode, null, nextParams.get('id'))
+        }
+
+        if (nextProps.location.pathname !== location.pathname) {
+            document.title = `${t(getPath(nextProps.location.pathname))} - ${t(
+                classCode
+            )} | BnSTree`
         }
     }
 
@@ -130,11 +152,11 @@ class Skills extends React.Component {
                                 {user
                                     ? <Route
                                           exact
-                                          path="/classes/:classCode/myBuilds"
+                                          path="/classes/:classCode/my-builds"
                                           render={() => <SkillBuildList user />}
                                       />
                                     : <Redirect
-                                          from="/classes/:classCode/myBuilds"
+                                          from="/classes/:classCode/my-builds"
                                           to="/classes/:classCode"
                                       />}
                                 <Route
@@ -157,4 +179,6 @@ class Skills extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(Skills))
+export default connect(mapStateToProps, mapDispatchToProps)(
+    translate(['skills', 'general'])(Skills)
+)

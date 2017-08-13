@@ -42,7 +42,7 @@ const SkillMenu = props => {
             </div>
             {user
                 ? <div className="class-menu-item sub">
-                      <NavLink to={`/classes/${classCode}/myBuilds`} exact>
+                      <NavLink to={`/classes/${classCode}/my-builds`} exact>
                           {t('myBuilds')}
                       </NavLink>
                   </div>
