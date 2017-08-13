@@ -38,13 +38,7 @@ export const setEquip = makeActionCreator(actionType.SKILL_CHAR_SET_EQUIP, 'equi
 export const setClassData = makeActionCreator(
     actionType.SKILL_DATA_SET_CLASS_DATA,
     'classCode',
-    'classData',
-    'groupData',
-    'skillData',
-    'patchData',
-    'statData',
-    'buildCount',
-    'badgeData'
+    'data'
 )
 const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
 const setUserBuildList = makeActionCreator(
@@ -90,22 +84,20 @@ export function loadClass(classCode, buildCode, buildId) {
             })
                 .then(response => response.json())
                 .then(json => {
-                    if (json.success === 0 || !json.classData) {
+                    if (json.success === 0 || !json.data) {
                         return
                     }
-                    let elements = json.classData.elements
-                    dispatch(
-                        setClassData(
-                            classCode,
-                            elements,
-                            flatten(json.groupData),
-                            flatten(json.skillData),
-                            flatten(json.patchData),
-                            flatten(json.statData),
-                            flatten(json.buildCount),
-                            flatten(json.badgeData)
-                        )
-                    )
+                    let elements = json.data.classData.elements
+
+                    let data = json.data
+                    Object.keys(data).forEach(k => {
+                        if (k !== 'classData') {
+                            data[k] = flatten(data[k])
+                        }
+                    })
+                    data.classData = elements
+
+                    dispatch(setClassData(classCode, data))
                     dispatch(setBuildElement(classCode, elements[0].element))
                     dispatch(setView('mode', json.view.mode))
                     dispatch(setView('order', json.view.order))
