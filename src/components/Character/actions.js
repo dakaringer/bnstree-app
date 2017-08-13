@@ -42,21 +42,22 @@ export function loadCharacter(region, name) {
                         })
                             .then(response => response.json())
                             .then(json => {
-                                if (json.success === 0 || !json.classData) {
+                                console.log(json)
+                                if (json.success === 0 || !json.data) {
                                     return
                                 }
 
-                                let elements = json.classData.elements
-                                dispatch(
-                                    setClassData(
-                                        classCode,
-                                        elements,
-                                        flatten(json.groupData),
-                                        flatten(json.skillData),
-                                        flatten(json.patchData),
-                                        flatten(json.statData)
-                                    )
-                                )
+                                let elements = json.data.classData.elements
+
+                                let data = json.data
+                                Object.keys(data).forEach(k => {
+                                    if (k !== 'classData') {
+                                        data[k] = flatten(data[k])
+                                    }
+                                })
+                                data.classData = elements
+
+                                dispatch(setClassData(classCode, data))
                             })
                     }
                 })
