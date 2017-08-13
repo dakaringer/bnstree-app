@@ -169,7 +169,7 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
         return value
     })
 
-    if (element) {
+    if (element && element !== 'elemental') {
         element = <img className="element" alt={element} src={elementImages[element]} />
     }
 
