@@ -221,7 +221,7 @@ const badgeDataSelector = createSelector(classDataSelector, data => {
 
     return data
 })
-export const namedBadgeDataSelector = createSelector(
+const namedBadgeDataSelector = createSelector(
     badgeDataSelector,
     itemNamesSelector,
     (data, names) => {
@@ -233,6 +233,34 @@ export const namedBadgeDataSelector = createSelector(
         })
     }
 )
+export const combinedBadgeDataSelector = createSelector(namedBadgeDataSelector, data => {
+    data = data.map(badge => {
+        if (badge.has('combine')) {
+            let enhance = List()
+            let attributes = List()
+            let combine = List()
+            badge.get('combine').forEach(badgeId => {
+                let badgeOther = data.get(badgeId)
+                attributes = attributes.concat(badgeOther.get('attributes'))
+                enhance = enhance.concat(badgeOther.get('enhance'))
+                combine = combine.push(
+                    Map({
+                        icon: badgeOther.get('icon'),
+                        name: badgeOther.get('name')
+                    })
+                )
+            })
+
+            return badge
+                .set('enhance', enhance)
+                .set('attributes', attributes)
+                .set('combine', combine)
+        }
+        return badge
+    })
+
+    return data
+})
 
 //skillData
 const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))

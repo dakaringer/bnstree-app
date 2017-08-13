@@ -1,10 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {translate} from 'react-i18next'
 import {Map, List, fromJS} from 'immutable'
 import parser from '../parser'
 
 import elementImages from '../images/map_elementImg'
 
+import {userSelector} from '../../../selectors'
 import {
     skillNamesSelector,
     elementDataSelector,
@@ -22,6 +24,7 @@ const postHeaders = {
 
 const mapStateToProps = state => {
     return {
+        user: userSelector(state),
         skillNames: skillNamesSelector(state),
         elements: elementDataSelector(state),
         classCode: classSelector(state),
@@ -90,9 +93,9 @@ class SkillListItem extends React.Component {
     }
 
     render() {
-        const {badge, badgeId, voteData, userVoteData, skillNames, elements} = this.props
+        const {t, user, badge, badgeId, voteData, userVoteData, skillNames, elements} = this.props
 
-        let skill = badge.get('enhance')
+        let skill = badge.get('enhance', List())
 
         let enhance = []
         if (List.isList(skill)) {
@@ -157,6 +160,33 @@ class SkillListItem extends React.Component {
             )
         })
 
+        let combine = null
+        if (badge.has('combine')) {
+            let mix = []
+            badge.get('combine', List()).forEach(b => {
+                mix.push(
+                    ' + ',
+                    <span className="grade_5" key={b.get('name')}>
+                        <img
+                            alt={b.get('name')}
+                            src={`https://static.bnstree.com/images/badges/${b.get(
+                                'icon',
+                                'blank'
+                            )}`}
+                        />
+                        {b.get('name')}
+                    </span>
+                )
+            })
+
+            combine = (
+                <div className="combine">
+                    <hr />
+                    <label>{t('combine')}:</label> {mix.slice(1)}
+                </div>
+            )
+        }
+
         return (
             <div className="badge-list-item">
                 <Collapse bordered={false}>
@@ -187,10 +217,13 @@ class SkillListItem extends React.Component {
                         <div className="badge-attributes">
                             {attributes}
                         </div>
-                        <hr />
-                        <div className="badge-vote-buttons">
-                            {voteButtons}
-                        </div>
+                        {combine}
+                        {user
+                            ? <div className="badge-vote-buttons">
+                                  <hr />
+                                  {voteButtons}
+                              </div>
+                            : null}
                     </Panel>
                 </Collapse>
             </div>
@@ -198,4 +231,4 @@ class SkillListItem extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(SkillListItem)
+export default connect(mapStateToProps)(translate('skills')(SkillListItem))

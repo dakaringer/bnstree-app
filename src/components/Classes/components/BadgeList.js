@@ -4,11 +4,11 @@ import {translate} from 'react-i18next'
 
 import BadgeListItem from './BadgeListItem'
 
-import {namedBadgeDataSelector} from '../selectors'
+import {combinedBadgeDataSelector} from '../selectors'
 
 const mapStateToProps = state => {
     return {
-        badges: namedBadgeDataSelector(state)
+        badges: combinedBadgeDataSelector(state)
     }
 }
 
