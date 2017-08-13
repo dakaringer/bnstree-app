@@ -8,7 +8,7 @@
     z-index: -1;
 
     opacity: 0.8;
-    filter: brightness(35%);
+    filter: brightness(50%);
 
     .character-left,
     .character-right {
@@ -25,6 +25,6 @@
     }
 
     @media (min-width: 1200px) {
-        filter: brightness(50%);
+        filter: brightness(75%);
     }
 }

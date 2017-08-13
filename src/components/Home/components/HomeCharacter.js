@@ -1,17 +1,32 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-import left from '../images/overlay_1_left.png'
-import right from '../images/overlay_1_right.png'
+import overlayImages from '../images/map_overlayImg'
 
-class HomeCharacter extends Component {
-    render() {
-        return (
-            <div className="home-character">
-                <img className="character-left" alt="character1" src={left} />
-                <img className="character-right" alt="character2" src={right} />
-            </div>
-        )
-    }
+const max = 1
+const min = 4
+
+const HomeCharacter = () => {
+    let setNumber = Math.floor(Math.random() * (max - min + 1)) + min
+    let set = overlayImages[`set_${setNumber}`]
+
+    let left = set.left
+        ? <img className="character-left" alt="character1" src={set.left} style={set.leftStyle} />
+        : null
+    let right = set.right
+        ? <img
+              className="character-right"
+              alt="character1"
+              src={set.right}
+              style={set.rightStyle}
+          />
+        : null
+
+    return (
+        <div className="home-character">
+            {left}
+            {right}
+        </div>
+    )
 }
 
 export default HomeCharacter
