@@ -14,7 +14,7 @@ const CharacterHeader = props => {
             <div className="header-title">
                 <img alt="character" src={icon} />
                 <span>
-                    {t('character')}
+                    {t('characterSearch')}
                 </span>
             </div>
             <div className="header-item">
