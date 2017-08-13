@@ -85,6 +85,8 @@ export function loadClass(classCode, buildCode, buildId) {
                 dispatch(loadBuildList(1, classCode, null, null, true))
             }
 
+            dispatch(loadBadges())
+
             fetch(`https://api.bnstree.com/classes/${classCode}`, {
                 method: 'get',
                 credentials: 'include'
@@ -224,7 +226,8 @@ export function postBuild(title, type) {
             .then(response => response.json())
             .then(json => {
                 if (json.success === 1) {
-                    //loadBuildList(classCode, 1)
+                    dispatch(loadBuildList(1, classCode))
+                    dispatch(loadBuildList(1, classCode, null, null, true))
                     message.success(i18n.t('general:postSuccess'))
                 } else {
                     message.error(i18n.t('general:fail'))
@@ -245,10 +248,11 @@ export function deleteBuild(id, classCode) {
             .then(json => {
                 if (json.success === 1 && json.result.n === 1) {
                     message.success(i18n.t('general:deleteSuccess'))
-                    dispatch(loadBuildList(1, classCode, null, null, true))
                 } else {
                     message.error(i18n.t('general:fail'))
                 }
+                dispatch(loadBuildList(1, classCode))
+                dispatch(loadBuildList(1, classCode, null, null, true))
             })
     }
 }
@@ -330,5 +334,44 @@ export function learnMove(skill, move) {
 
             dispatch(setBuildSkill(classCode, element, skill, move))
         }
+    }
+}
+
+function loadBadges() {
+    return (dispatch, getState) => {
+        let classCode = classSelector(getState())
+        dispatch(loadUserVotes())
+        fetch(`https://api.bnstree.com/items/badges/${classCode}`, {
+            method: 'get',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.success === 1) {
+                    let data = json.data
+                    Object.keys(data).forEach(k => {
+                        if (k !== 'classData') {
+                            data[k] = flatten(data[k])
+                        }
+                    })
+                    dispatch(setClassData(classCode, data))
+                }
+            })
+    }
+}
+
+export function loadUserVotes() {
+    return (dispatch, getState) => {
+        let classCode = classSelector(getState())
+        fetch(`https://api.bnstree.com/items/vote/${classCode}`, {
+            method: 'get',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.success === 1) {
+                    dispatch(setClassData(classCode, {userBadgeVoteData: json.data}))
+                }
+            })
     }
 }

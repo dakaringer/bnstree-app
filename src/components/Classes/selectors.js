@@ -161,6 +161,12 @@ export const buildListSelector = createSelector(classDataSelector, state =>
 export const userBuildListSelector = createSelector(classDataSelector, state =>
     state.get('userBuildList', Map())
 )
+export const badgeVoteDataSelector = createSelector(classDataSelector, state =>
+    state.get('badgeVoteData', List())
+)
+export const userBadgeVoteDataSelector = createSelector(classDataSelector, state =>
+    state.get('userBadgeVoteData', List())
+)
 
 //build
 export const characterElementSelector = createSelector(

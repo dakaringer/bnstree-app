@@ -24,7 +24,7 @@
 
         .ant-collapse {
             border-radius: 0;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 110%);
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0) 110%);
 
             .ant-collapse-item {
                 border-radius: 0;
@@ -57,11 +57,28 @@
                         height: 5rem;
                         margin-right: 1rem;
                     }
+
+                    .badge-votes {
+                        color: #aaa;
+                        font-size: 1.2rem;
+
+                        .badge-vote-element {
+                            margin-right: 2rem;
+                            img {
+                                height: 1.4em;
+                                vertical-align: sub;
+                            }
+                        }
+                    }
                 }
 
                 .ant-collapse-content {
                     border: none;
-                    background: rgba(0, 0, 0, 0.6);
+                    background: linear-gradient(
+                        to right,
+                        rgba(0, 0, 0, 0.5) 70%,
+                        rgba(0, 0, 0, 0) 110%
+                    );
                 }
             }
         }
@@ -73,11 +90,38 @@
 
         .attribute {
             color: white;
+            line-height: 1.2rem;
+            margin-bottom: 0.5rem;
 
             .skill {
                 color: aqua;
                 img {
-                    height: 1em;
+                    width: 1.1em;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .element {
+            width: 1.2em;
+            vertical-align: sub;
+        }
+
+        hr {
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .badge-vote-buttons {
+            img {
+                height: 1.2em;
+                vertical-align: middle;
+                margin-right: 0.8rem;
+            }
+            .badge-vote-button {
+                margin-right: 2rem;
+
+                .ant-btn-sm {
+                    height: 1.6rem;
                 }
             }
         }

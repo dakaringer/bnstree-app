@@ -16,8 +16,8 @@ const BadgeList = props => {
     const {badges} = props
 
     let list = []
-    badges.forEach((badge, i) => {
-        list.push(<BadgeListItem badge={badge} key={i} />)
+    badges.forEach((badge, id) => {
+        list.push(<BadgeListItem badge={badge} badgeId={id} key={id} />)
     })
 
     return (
