@@ -136,6 +136,14 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
                 )
                 break
             }
+            case 'effect': {
+                value = (
+                    <span className="skill">
+                        {i18n.t(`tooltip:${value}`)}
+                    </span>
+                )
+                break
+            }
             default: {
                 if (obj2 && obj2.get(1) && obj2.getIn([1, key]) !== obj.getIn([1, key])) {
                     value = (
