@@ -30,7 +30,7 @@ function getSkill(idString, skillNames, noIcon = false) {
         icon = (
             <img
                 alt={id}
-                src={`https://static.bnstree.com/images/skill/${skillNames.getIn(
+                src={`https://static.bnstree.com/images/skills/${skillNames.getIn(
                     [id, 'icon'],
                     'blank'
                 )}`}

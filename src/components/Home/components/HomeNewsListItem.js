@@ -15,11 +15,11 @@ class HomeNewsListItem extends PureComponent {
         if (article.get('thumb', '') === '') {
             let i = Math.floor(Math.random() * 17 + 1)
             this.setState({
-                image: `https://static.bnstree.com/images/background/${i}_1.jpg`
+                image: `https://static.bnstree.com/images/backgrounds/${i}_1.jpg`
             })
         } else {
             this.setState({
-                image: `https://static.bnstree.com/images/thumbnail/${article.get('thumb')}`
+                image: `https://static.bnstree.com/images/thumbnails/${article.get('thumb')}`
             })
         }
     }
@@ -47,7 +47,7 @@ class HomeNewsListItem extends PureComponent {
                 <img
                     alt="thumb"
                     className="thumb"
-                    src={`https://static.bnstree.com/images/background/${i}_1.jpg`}
+                    src={`https://static.bnstree.com/images/backgrounds/${i}_1.jpg`}
                 />
             )
         } else {
@@ -55,7 +55,7 @@ class HomeNewsListItem extends PureComponent {
                 <img
                     alt="thumb"
                     className="thumb"
-                    src={`https://static.bnstree.com/images/thumb/${article.get('thumb')}`}
+                    src={`https://static.bnstree.com/images/thumbnails/${article.get('thumb')}`}
                 />
             )
         }

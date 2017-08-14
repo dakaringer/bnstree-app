@@ -62,7 +62,7 @@ class NewsViewer extends React.Component {
                 .get('content', '')
                 .replace(/\[skill]\((\w+-?\w+)\)/g, (match, id) => {
                     let skill = skillNames.get(id, Map())
-                    return `![${id}](https://static.bnstree.com/images/skill/${skill.get(
+                    return `![${id}](https://static.bnstree.com/images/skills/${skill.get(
                         'icon',
                         'blank'
                     )}) **${skill.get('name')}**`

@@ -257,7 +257,7 @@ const SkillTooltip = props => {
                 }
                 subAttbList[type].push(
                     <p className={`attribute ${flag ? flag : ''}`} key={n}>
-                        <img alt={type} src={`https://static.bnstree.com/images/skill/${icon}`} />
+                        <img alt={type} src={`https://static.bnstree.com/images/skills/${icon}`} />
                         <span>
                             {parser(attb, element, characterData, skillNames)} {tag}
                         </span>
@@ -270,7 +270,7 @@ const SkillTooltip = props => {
                         <p className="attribute delete" key={`mod-${n}`}>
                             <img
                                 alt={type}
-                                src={`https://static.bnstree.com/images/skill/${icon2}`}
+                                src={`https://static.bnstree.com/images/skills/${icon2}`}
                             />
                             <span>
                                 {parser(cAttb, element, characterData, skillNames)}
@@ -291,7 +291,7 @@ const SkillTooltip = props => {
                         <p className="attribute delete" key={`del-${n}`}>
                             <img
                                 alt={type}
-                                src={`https://static.bnstree.com/images/skill/${icon}`}
+                                src={`https://static.bnstree.com/images/skills/${icon}`}
                             />
                             <span>
                                 {parser(attb, element, characterData, skillNames)}
@@ -369,7 +369,10 @@ const SkillTooltip = props => {
                 <img
                     className="tooltip-icon"
                     alt={moveData.get('skillId')}
-                    src={`https://static.bnstree.com/images/skill/${moveData.get('icon', 'blank')}`}
+                    src={`https://static.bnstree.com/images/skills/${moveData.get(
+                        'icon',
+                        'blank'
+                    )}`}
                 />
                 <div>
                     <div className="tooltip-m1">

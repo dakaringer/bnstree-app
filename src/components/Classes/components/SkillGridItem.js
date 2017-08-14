@@ -39,7 +39,7 @@ const SkillGridItem = props => {
                 <img
                     className="skill-icon"
                     alt={skillId}
-                    src={`https://static.bnstree.com/images/skill/${skillData.getIn(
+                    src={`https://static.bnstree.com/images/skills/${skillData.getIn(
                         ['moves', moveIndex, 'icon'],
                         'blank'
                     )}`}
