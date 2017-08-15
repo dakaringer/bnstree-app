@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 import MarkdownIt from 'markdown-it'
+import {Map} from 'immutable'
 import {Link} from 'react-router-dom'
 
 import {Row, Col, Button} from 'antd'
@@ -70,6 +71,15 @@ class NewsViewer extends React.Component {
                     )}) **${skill.get('name')}**`
                 })
 
+            let thumb = article.has('thumb')
+                ? <img
+                      alt={article.get('thumb')}
+                      src={`https://static.bnstree.com/images/thumbnails/${article.get(
+                          'thumb'
+                      )}.jpg`}
+                  />
+                : null
+
             content = (
                 <div>
                     <h1 className="news-title">
@@ -79,8 +89,9 @@ class NewsViewer extends React.Component {
                         {timeString}
                     </p>
                     <hr />
+                    {thumb}
                     <div
-                        className="content"
+                        className="news-content"
                         dangerouslySetInnerHTML={{__html: md.render(renderedContent)}}
                     />
                 </div>

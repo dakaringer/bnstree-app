@@ -19,7 +19,7 @@ class NewsListItem extends PureComponent {
             })
         } else {
             this.setState({
-                image: `https://static.bnstree.com/images/thumbnails/${article.get('thumb')}`
+                image: `https://static.bnstree.com/images/thumbnails/${article.get('thumb')}.jpg`
             })
         }
     }
@@ -55,7 +55,7 @@ class NewsListItem extends PureComponent {
                 <img
                     alt="thumb"
                     className="thumb"
-                    src={`https://static.bnstree.com/images/thumbnails/${article.get('thumb')}`}
+                    src={`https://static.bnstree.com/images/thumbnails/${article.get('thumb')}.jpg`}
                 />
             )
         }

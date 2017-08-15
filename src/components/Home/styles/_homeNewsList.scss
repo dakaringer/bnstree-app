@@ -14,9 +14,21 @@
             border: none;
             padding: 1rem;
 
+            .list-item-title {
+                white-space: normal;
+            }
+
+            .news-subtitle {
+                color: #aaa;
+
+                @media (max-width: 767px) {
+                    display: none;
+                }
+            }
+
             .thumb {
                 width: 100%;
-                filter: brightness(70%);
+                filter: brightness(80%);
                 transition: all 0.5s;
             }
 

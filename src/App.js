@@ -72,6 +72,8 @@ class App extends Component {
             )
         })
 
+        let year = new Date().getFullYear()
+
         let app = (
             <div className="App">
                 <LoadingLyn />
@@ -111,6 +113,13 @@ class App extends Component {
             <div>
                 {app}
                 <Background />
+                <footer>
+                    <div className="footer">
+                        <p>
+                            Copyright &copy; {year} BnSTree. All rights reserved.
+                        </p>
+                    </div>
+                </footer>
             </div>
         )
     }

@@ -10,13 +10,10 @@
             color: #999;
         }
 
-        .content {
-            margin-bottom: 10rem;
-            padding: 2rem 0;
-
-            p {
-                margin-bottom: 1rem;
-            }
+        & > div > img {
+            margin: 0 auto;
+            display: block;
+            height: 25rem;
         }
     }
 
@@ -55,6 +52,47 @@
         .news-list-side,
         .news-article {
             padding: 2rem 0;
+        }
+    }
+}
+
+.news-content {
+    margin-bottom: 10rem;
+    padding: 2rem 0;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: white;
+    }
+
+    ul {
+        list-style: disc;
+        padding: 0 2rem;
+    }
+
+    p,
+    ul {
+        margin-bottom: 1rem;
+        img {
+            vertical-align: sub;
+            height: 1em;
+        }
+    }
+
+    strong {
+        color: aqua;
+        font-weight: 400;
+    }
+
+    a {
+        color: dodgerblue;
+
+        &:hover {
+            color: deepskyblue;
         }
     }
 }

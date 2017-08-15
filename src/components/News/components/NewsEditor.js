@@ -183,7 +183,7 @@ class Editor extends React.PureComponent {
                               </a>
                             : null}
                     </Col>
-                    <Col sm={12} className="preview">
+                    <Col sm={12} className="preview news-content">
                         <div
                             className="content"
                             dangerouslySetInnerHTML={{__html: md.render(renderedContent)}}
