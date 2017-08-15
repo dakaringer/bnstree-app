@@ -71,14 +71,15 @@ class NewsViewer extends React.Component {
                     )}) **${skill.get('name')}**`
                 })
 
-            let thumb = article.has('thumb')
-                ? <img
-                      alt={article.get('thumb')}
-                      src={`https://static.bnstree.com/images/thumbnails/${article.get(
-                          'thumb'
-                      )}.jpg`}
-                  />
-                : null
+            let thumb =
+                article.get('thumb') !== ''
+                    ? <img
+                          alt={article.get('thumb')}
+                          src={`https://static.bnstree.com/images/thumbnails/${article.get(
+                              'thumb'
+                          )}.jpg`}
+                      />
+                    : null
 
             content = (
                 <div>
