@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom'
 
 import {Row, Col, Button} from 'antd'
 
+import AdSense from '../../AdSense/AdSense'
+
 import NewsList from './NewsList'
 
 import {skillNamesSelector} from '../../Classes/selectors'
@@ -99,6 +101,7 @@ class NewsViewer extends React.Component {
                     <h3>More Articles</h3>
                     <hr />
                     <NewsList currentId={article.get('_id')} />
+                    <AdSense client="ca-pub-2048637692232915" slot="9888022383" format="auto" />
                 </Col>
             </Row>
         )

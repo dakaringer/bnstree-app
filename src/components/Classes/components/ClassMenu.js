@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {NavLink, withRouter} from 'react-router-dom'
 
+import AdSense from '../../AdSense/AdSense'
+
 import {userSelector} from '../../../selectors'
 
 const mapStateToProps = state => {
@@ -53,6 +55,7 @@ const SkillMenu = props => {
                     {t('badges')}
                 </NavLink>
             </div>
+            <AdSense client="ca-pub-2048637692232915" slot="9888022383" format="auto" />
         </div>
     )
 }

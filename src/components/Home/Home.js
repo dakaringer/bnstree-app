@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom'
 
 import {Row, Col, Button} from 'antd'
 
+import AdSense from '../AdSense/AdSense'
+
 import './styles/Home.scss'
 import discordLogo from './images/discord.png'
 
@@ -30,6 +32,7 @@ class Home extends Component {
                 <div className="home-bottom">
                     <HomeNewsList />
                     <div className="slim-container container">
+                        <AdSense client="ca-pub-2048637692232915" slot="6768736382" format="auto" />
                         <Row>
                             <Col md={16} className="home-stream">
                                 <h4>
@@ -50,6 +53,11 @@ class Home extends Component {
                                         BnSTree Discord
                                     </Button>
                                 </a>
+                                <AdSense
+                                    client="ca-pub-2048637692232915"
+                                    slot="9888022383"
+                                    format="auto"
+                                />
                             </Col>
                         </Row>
                     </div>
