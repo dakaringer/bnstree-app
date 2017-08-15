@@ -154,6 +154,9 @@ class SoulshieldListItem extends React.Component {
                                     <h3 className={`grade_${set.get('grade')}`}>
                                         {set.get('name')}
                                     </h3>
+                                    <div className="set-name">
+                                        {t(`skills:${set.get('group')}`)}
+                                    </div>
                                 </div>
                             </div>
                         }>
