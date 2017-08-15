@@ -365,7 +365,7 @@ const statSkillDataSelector = createSelector(
             .find(e => e.get('element') === element, null, Map())
             .get('buildFormat', Map())
         let statData = classData.getIn(['statData', element], Map())
-        let count = classData.getIn(['buildCount', element, 'count'], 0)
+        let count = classData.getIn(['buildCount', element, 'count'], Map())
         let types = ['PvE', 'PvP', '6v6']
         return data.map(skill => {
             let id = skill.get('groupId')
