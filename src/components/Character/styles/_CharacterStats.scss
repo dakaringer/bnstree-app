@@ -87,8 +87,7 @@
             .ant-collapse-header {
                 height: 100%;
                 padding-right: 2.5rem;
-                color: white;
-                background: none !important;
+
                 .arrow {
                     float: right;
                     color: white;
@@ -97,11 +96,6 @@
                     float: right;
                     color: aqua;
                 }
-            }
-
-            .ant-collapse-content {
-                background: rgba(0, 0, 0, 0.3);
-                border: none;
             }
 
             .ant-collapse-content-box {
