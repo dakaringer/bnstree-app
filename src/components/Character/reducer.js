@@ -23,7 +23,7 @@ function data(state = Map(), action) {
     switch (action.type) {
         case actionType.SET_CHARACTER_DATA:
             if (action.characterData) {
-                return state.merge(fromJS(action.characterData))
+                return fromJS(action.characterData)
             } else {
                 return Map()
             }
