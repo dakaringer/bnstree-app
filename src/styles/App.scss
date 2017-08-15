@@ -19,12 +19,16 @@
 }
 
 .footer {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(15, 15, 15, 1);
     position: relative;
     z-index: 2;
     padding: 3rem 2rem;
     padding-top: 5rem;
     color: #777;
+
+    @media (max-width: 767px) {
+        text-align: center;
+    }
 }
 
 #root {
