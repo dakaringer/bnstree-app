@@ -54,6 +54,10 @@
         display: flex;
         align-items: baseline;
 
+        area {
+            cursor: default;
+        }
+
         .imagePreview {
             width: 24.5rem;
             height: 24.5rem;
