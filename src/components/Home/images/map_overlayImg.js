@@ -7,7 +7,15 @@ import right_4 from './overlay_4_right.png'
 const overlayImages = {
     set_1: {
         left: left_1,
-        right: right_1
+        leftStyle: {
+            bottom: '-20rem',
+            height: '124%'
+        },
+        right: right_1,
+        rightStyle: {
+            bottom: '-10rem',
+            height: '124%'
+        }
     },
     set_2: {
         left: left_2
@@ -15,7 +23,9 @@ const overlayImages = {
     set_3: {
         right: right_3,
         rightStyle: {
-            right: '-10rem'
+            right: '-20rem',
+            bottom: '-5rem',
+            height: '110%'
         }
     },
     set_4: {
