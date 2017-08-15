@@ -44,7 +44,8 @@ class SoulshieldListItem extends React.Component {
                         .get(1)
                         .map(
                             stat =>
-                                `${t(stat.get(0))} ${stat.get(1)}${stat.get(0) === 'critDamage'
+                                `${t(stat.get(0))} ${stat.get(1)}${stat.get(0) ===
+                                'attack_critical_damage_value'
                                     ? '%'
                                     : ''}`
                         )
