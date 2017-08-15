@@ -374,7 +374,7 @@ module.exports = {
             runtimeCaching: [
                 {
                     urlPattern: /^https:\/\/api.bnstree\.com/,
-                    handler: 'networkFirst'
+                    handler: 'fastest'
                 },
                 {
                     urlPattern: /^https:\/\/static.bnstree\.com/,
