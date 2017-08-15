@@ -16,6 +16,6 @@ export function loadStreams() {
             .then(json => {
                 dispatch(setList(json.streams))
             })
-            .then(() => dispatch(setLoading(true)))
+            .then(() => dispatch(setLoading(false)))
     }
 }

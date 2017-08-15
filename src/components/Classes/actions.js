@@ -113,9 +113,8 @@ export function loadClass(classCode, buildCode, buildId) {
                     if (buildCode || buildId) {
                         dispatch(loadBuild(buildCode, buildId))
                     }
-
-                    dispatch(setLoading(false))
                 })
+                .then(() => dispatch(setLoading(false)))
         }
     }
 }
