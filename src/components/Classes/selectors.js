@@ -284,8 +284,7 @@ const namedSoulshieldDataSelector = createSelector(
             return set
                 .set('name', names.getIn([id, 'name'], ''))
                 .set('setEffect', names.getIn([id, 'effect'], ''))
-                .set('setIcon', names.getIn([id, 'icon', 'set'], ''))
-                .set('pieceIcon', names.getIn([id, 'icon', 'piece'], ''))
+                .set('icon', names.getIn([id, 'icon'], ''))
         })
     }
 )

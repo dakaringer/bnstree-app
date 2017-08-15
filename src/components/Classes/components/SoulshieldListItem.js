@@ -146,7 +146,7 @@ class SoulshieldListItem extends React.Component {
                                     className="item-icon"
                                     alt={set.get('name')}
                                     src={`https://static.bnstree.com/images/soulshields/sets/${set.get(
-                                        'setIcon',
+                                        'icon',
                                         'blank'
                                     )}`}
                                 />
