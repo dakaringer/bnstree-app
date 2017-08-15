@@ -42,7 +42,6 @@ export function loadCharacter(region, name) {
                         })
                             .then(response => response.json())
                             .then(json => {
-                                console.log(json)
                                 if (json.success === 0 || !json.data) {
                                     return
                                 }
