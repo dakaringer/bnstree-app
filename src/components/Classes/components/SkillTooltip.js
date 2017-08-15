@@ -330,25 +330,34 @@ const SkillTooltip = props => {
     let buildStat = null
     if (moveData.has('buildStat')) {
         let stat = moveData.get('buildStat')
-        let total = stat.get('total', 0)
-        let _PvE = (total === 0 ? 0 : stat.get('PvE', 0) / total * 100).toFixed(2)
-        let _PvP = (total === 0 ? 0 : stat.get('PvP', 0) / total * 100).toFixed(2)
-        let _6v6 = (total === 0 ? 0 : stat.get('6v6', 0) / total * 100).toFixed(2)
+        let total = stat.get('total', Map())
+        let _PvE = (total.get('PvE', 0) === 0
+            ? 0
+            : stat.get('PvE', 0) / total.get('PvE', 0) * 100).toFixed(2)
+        let _PvP = (total.get('PvP', 0) === 0
+            ? 0
+            : stat.get('PvP', 0) / total.get('PvP', 0) * 100).toFixed(2)
+        let _6v6 = (total.get('6v6', 0) === 0
+            ? 0
+            : stat.get('6v6', 0) / total.get('6v6', 0) * 100).toFixed(2)
         buildStat = (
             <div className="skill-build-stat">
                 <hr />
                 <p>
                     {t('buildStat')}
                 </p>
-                <div className="stat-bar">
-                    <div className="section-PvE bar-section" style={{width: `${_PvE}%`}}>
+                <div className="stat-bars">
+                    <div className="section-PvE">
                         {t('PvE')} <small>{_PvE}%</small>
+                        <div className="percent-bar" style={{width: `${_PvE}%`}} />
                     </div>
-                    <div className="section-PvP bar-section" style={{width: `${_PvP}%`}}>
+                    <div className="section-PvP">
                         {t('PvP')} <small>{_PvP}%</small>
+                        <div className="percent-bar" style={{width: `${_PvP}%`}} />
                     </div>
-                    <div className="section-6v6 bar-section" style={{width: `${_6v6}%`}}>
+                    <div className="section-6v6">
                         {t('6v6')} <small>{_6v6}%</small>
+                        <div className="percent-bar" style={{width: `${_6v6}%`}} />
                     </div>
                 </div>
             </div>

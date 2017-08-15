@@ -210,28 +210,32 @@
             color: gold;
         }
 
-        .stat-bar {
+        .stat-bars {
             margin: 1rem 0;
-            display: flex;
-            height: 1.5rem;
-            line-height: 1.5rem;
 
-            .bar-section {
-                overflow: hidden;
+            .percent-bar {
                 min-width: 0.2rem;
                 padding: 0 0.1rem;
+                height: 1rem;
+                margin-bottom: 0.3rem;
             }
 
             .section-PvE {
-                background: #195f9a;
+                .percent-bar {
+                    background: #195f9a;
+                }
             }
 
             .section-PvP {
-                background: goldenrod;
+                .percent-bar {
+                    background: goldenrod;
+                }
             }
 
             .section-6v6 {
-                background: orangered;
+                .percent-bar {
+                    background: orangered;
+                }
             }
         }
     }
