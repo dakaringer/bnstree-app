@@ -62,7 +62,7 @@ class HomeNewsListItem extends PureComponent {
 
         return (
             <Link
-                to={`/news/${id}/${article.get('title', '').replace(' ', '-').toLowerCase()}`}
+                to={`/news/${id}/${article.get('title', '').replace(/ /g, '-').toLowerCase()}`}
                 className={`news-item list-item ${selected ? 'selected' : ''}`}>
                 <div className="thumb-wrapper">
                     {thumb}
