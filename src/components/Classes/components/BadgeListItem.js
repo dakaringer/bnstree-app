@@ -129,9 +129,9 @@ class BadgeListItem extends React.Component {
         elements.forEach(e => {
             let element = e.get('element')
 
-            let userVote = userVoteData.find(
-                v => v.get('item') === itemId && v.get('element') === element
-            )
+            let userVote = userVoteData
+                ? userVoteData.find(v => v.get('item') === itemId && v.get('element') === element)
+                : null
 
             let voted = (userVote && this.state[element] === 0) || this.state[element] > 0
 
