@@ -83,6 +83,7 @@ export function loadClass(classCode, buildCode, buildId) {
             }
 
             dispatch(loadBadges())
+            dispatch(loadSoulshields())
 
             fetch(`https://api.bnstree.com/classes/${classCode}`, {
                 method: 'get',
@@ -112,8 +113,9 @@ export function loadClass(classCode, buildCode, buildId) {
                     if (buildCode || buildId) {
                         dispatch(loadBuild(buildCode, buildId))
                     }
+
+                    dispatch(setLoading(false))
                 })
-                .then(() => dispatch(setLoading(false)))
         }
     }
 }
@@ -347,9 +349,7 @@ function loadBadges() {
                 if (json.success === 1) {
                     let data = json.data
                     Object.keys(data).forEach(k => {
-                        if (k !== 'classData') {
-                            data[k] = flatten(data[k])
-                        }
+                        data[k] = flatten(data[k])
                     })
                     dispatch(setClassData(classCode, data))
                 }
@@ -357,7 +357,7 @@ function loadBadges() {
     }
 }
 
-export function loadUserVotes() {
+function loadUserVotes() {
     return (dispatch, getState) => {
         let classCode = classSelector(getState())
         fetch(`https://api.bnstree.com/items/vote/${classCode}`, {
@@ -368,6 +368,27 @@ export function loadUserVotes() {
             .then(json => {
                 if (json.success === 1) {
                     dispatch(setClassData(classCode, {userBadgeVoteData: json.data}))
+                }
+            })
+    }
+}
+
+function loadSoulshields() {
+    return (dispatch, getState) => {
+        let classCode = classSelector(getState())
+        dispatch(loadUserVotes())
+        fetch(`https://api.bnstree.com/items/soulshields/${classCode}`, {
+            method: 'get',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.success === 1) {
+                    let data = json.data
+                    Object.keys(data).forEach(k => {
+                        data[k] = flatten(data[k])
+                    })
+                    dispatch(setClassData(classCode, data))
                 }
             })
     }

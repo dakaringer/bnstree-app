@@ -67,6 +67,8 @@
                 transform-origin: 50% 50%;
                 display: flex;
                 align-items: center;
+                height: 100%;
+                margin-top: 0.5rem;
             }
         }
 
@@ -122,6 +124,16 @@
                 width: 1.2em;
                 margin-right: 0.5rem;
                 vertical-align: middle;
+            }
+        }
+
+        .soulshield-pieces {
+            .ant-collapse-header {
+                height: 5rem;
+
+                .arrow {
+                    margin: 0;
+                }
             }
         }
     }

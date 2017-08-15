@@ -255,7 +255,7 @@ const combinedBadgeDataSelector = createSelector(namedBadgeDataSelector, data =>
 
     return data
 })
-export const sortedDataSelector = createSelector(combinedBadgeDataSelector, data => {
+export const sortedBadgeDataSelector = createSelector(combinedBadgeDataSelector, data => {
     data = data.groupBy(b => b.get('type')).map((badgeType, type) =>
         badgeType.sort((a, b) => {
             if (a.get('group') === b.get('group')) {
@@ -267,6 +267,32 @@ export const sortedDataSelector = createSelector(combinedBadgeDataSelector, data
         })
     )
 
+    return data
+})
+
+//soulshieldData
+const soulshieldDataSelector = createSelector(
+    classDataSelector,
+    data => (data = data.get('soulshieldData', Map()))
+)
+const namedSoulshieldDataSelector = createSelector(
+    soulshieldDataSelector,
+    itemNamesSelector,
+    (data, names) => {
+        return data.map(set => {
+            let id = set.get('name')
+            return set
+                .set('name', names.getIn([id, 'name'], ''))
+                .set('setEffect', names.getIn([id, 'effect'], ''))
+                .set('setIcon', names.getIn([id, 'icon', 'set'], ''))
+                .set('pieceIcon', names.getIn([id, 'icon', 'piece'], ''))
+        })
+    }
+)
+export const sortedSoulshieldDataSelector = createSelector(namedSoulshieldDataSelector, data => {
+    data = data
+        .groupBy(b => b.get('type'))
+        .map((setType, type) => setType.sort((a, b) => b.get('index') - a.get('index')))
     return data
 })
 

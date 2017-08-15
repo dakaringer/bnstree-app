@@ -1,0 +1,109 @@
+.item-list {
+    .soulshield-item {
+        width: 100%;
+
+        & > .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+            padding: 0;
+            padding-right: 1rem;
+
+            .arrow {
+                margin-top: 2rem;
+            }
+
+            .item-header {
+                overflow: hidden;
+                position: relative;
+                height: 8rem;
+                padding-left: 18rem;
+
+                .item-icon {
+                    top: 1rem;
+                    left: 1rem;
+                    position: absolute;
+                    height: 15rem;
+                }
+            }
+        }
+
+        .set-effects {
+            .set-effect-name {
+                color: goldenrod;
+                margin-bottom: 0.5rem;
+            }
+
+            .set-effect {
+                display: flex;
+                margin-bottom: 0.5rem;
+                font-size: 1.2rem;
+
+                .set-label {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    line-height: 1.3rem;
+                    text-align: center;
+                    background: #4f4b04;
+                    border: .1rem solid #b4b41d;
+                    border-radius: .2rem;
+                    font-size: 1.2rem;
+                    margin-right: 1rem;
+                }
+
+                .attribute {
+                    color: limegreen;
+                }
+            }
+        }
+
+        .soulshield-pieces {
+            .item-header {
+                padding-left: 1rem;
+            }
+
+            .soulshield-piece {
+                border-bottom: 0.1rem solid rgba(255, 255, 255, 0.35);
+                padding: 1rem 0;
+
+                .soulshield-piece-name {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 1rem;
+
+                    img {
+                        width: 5rem;
+                        margin-right: 1rem;
+                    }
+                }
+
+                .soulshield-piece-stat {
+                    margin-bottom: 1rem;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+
+                    & > div {
+                        margin: 0 1rem;
+                    }
+
+                    .sub {
+                        font-size: 1.2rem;
+                        margin-bottom: 1rem;
+
+                        .tag {
+                            margin-left: 0.5rem;
+                            font-size: 0.7em;
+                            padding: 0em 1em;
+                            border-radius: 0.2rem;
+                            font-weight: 400;
+                            background: darkgoldenrod;
+                        }
+                    }
+
+                    .maxFuse {
+                        color: limegreen;
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+    }
+}

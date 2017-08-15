@@ -33,7 +33,7 @@ const mapStateToProps = state => {
     }
 }
 
-class SkillListItem extends React.Component {
+class BadgeListItem extends React.Component {
     constructor(props) {
         super(props)
 
@@ -47,7 +47,7 @@ class SkillListItem extends React.Component {
     }
 
     vote(element, voted) {
-        let {badgeId, classCode} = this.props
+        let {itemId, classCode} = this.props
 
         if (!voted) {
             let state = this.state
@@ -60,7 +60,7 @@ class SkillListItem extends React.Component {
             credentials: 'include',
             headers: postHeaders,
             body: JSON.stringify({
-                item: badgeId,
+                item: itemId,
                 element: element,
                 classCode: classCode
             })
@@ -70,7 +70,7 @@ class SkillListItem extends React.Component {
     }
 
     unvote(element, voted) {
-        let {badgeId, classCode} = this.props
+        let {itemId, classCode} = this.props
 
         if (voted) {
             let state = this.state
@@ -83,7 +83,7 @@ class SkillListItem extends React.Component {
             credentials: 'include',
             headers: postHeaders,
             body: JSON.stringify({
-                item: badgeId,
+                item: itemId,
                 element: element,
                 classCode: classCode
             })
@@ -93,7 +93,7 @@ class SkillListItem extends React.Component {
     }
 
     render() {
-        const {t, user, badge, badgeId, voteData, userVoteData, skillNames, elements} = this.props
+        const {t, user, badge, itemId, voteData, userVoteData, skillNames, elements} = this.props
 
         let skill = badge.get('enhance', List())
 
@@ -123,27 +123,27 @@ class SkillListItem extends React.Component {
             )
         })
 
-        let voteCounts = voteData.getIn([badgeId, 'count'], Map())
+        let voteCounts = voteData.getIn([itemId, 'count'], Map())
         let votes = []
         let voteButtons = []
         elements.forEach(e => {
             let element = e.get('element')
 
             let userVote = userVoteData.find(
-                v => v.get('item') === badgeId && v.get('element') === element
+                v => v.get('item') === itemId && v.get('element') === element
             )
 
             let voted = (userVote && this.state[element] === 0) || this.state[element] > 0
 
             votes.push(
-                <span key={element} className="badge-vote-element">
+                <span key={element} className="item-vote-element">
                     <img alt={element} src={elementImages[element]} />{' '}
                     {voteCounts.get(element, 0) + this.state[element]}
                 </span>
             )
 
             voteButtons.push(
-                <span key={element} className="badge-vote-button">
+                <span key={element} className="item-vote-button">
                     <img alt={element} src={elementImages[element]} />
                     <Button
                         type="primary"
@@ -180,7 +180,7 @@ class SkillListItem extends React.Component {
             })
 
             combine = (
-                <div className="combine">
+                <div className="badge-combine">
                     <hr />
                     <label>{t('combine')}:</label> {mix.slice(1)}
                 </div>
@@ -188,13 +188,13 @@ class SkillListItem extends React.Component {
         }
 
         return (
-            <div className="badge-list-item">
+            <div className="item-list-item">
                 <Collapse bordered={false}>
                     <Panel
                         header={
-                            <div className="badge-header">
+                            <div className="item-header">
                                 <img
-                                    className="badge-icon"
+                                    className="item-icon"
                                     alt={badge.get('name')}
                                     src={`https://static.bnstree.com/images/badges/${badge.get(
                                         'icon',
@@ -205,7 +205,7 @@ class SkillListItem extends React.Component {
                                     <h3 className={`grade_${badge.get('grade')}`}>
                                         {badge.get('name')}
                                     </h3>
-                                    <div className="badge-votes">
+                                    <div className="item-votes">
                                         {votes}
                                     </div>
                                 </div>
@@ -214,12 +214,12 @@ class SkillListItem extends React.Component {
                         <div className="badge-enhance">
                             {enhance}
                         </div>
-                        <div className="badge-attributes">
+                        <div className="item-attributes">
                             {attributes}
                         </div>
                         {combine}
                         {user
-                            ? <div className="badge-vote-buttons">
+                            ? <div className="item-vote-buttons">
                                   <hr />
                                   {voteButtons}
                               </div>
@@ -231,4 +231,4 @@ class SkillListItem extends React.Component {
     }
 }
 
-export default connect(mapStateToProps)(translate('skills')(SkillListItem))
+export default connect(mapStateToProps)(translate('skills')(BadgeListItem))
