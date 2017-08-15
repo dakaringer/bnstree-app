@@ -23,6 +23,7 @@ export function loadNews(page = 1) {
                     dispatch(setList(json.result))
                 }
             })
+            .catch(e => console.log(e))
     }
 }
 
@@ -46,6 +47,7 @@ export function loadArticle(id) {
                     }
                 })
                 .then(() => dispatch(setLoading(false)))
+                .catch(e => console.log(e))
         } else {
             document.title = `${article.get('title')} - ${i18n.t('news')} | BnSTree`
             dispatch(setArticle(article))

@@ -43,16 +43,24 @@ function asyncComponent(getComponent) {
     }
 }
 
-const Home = asyncComponent(() => import('./components/Home/Home').then(module => module.default))
-const News = asyncComponent(() => import('./components/News/News').then(module => module.default))
+const Home = asyncComponent(() =>
+    import('./components/Home/Home').then(module => module.default).catch(e => console.log(e))
+)
+const News = asyncComponent(() =>
+    import('./components/News/News').then(module => module.default).catch(e => console.log(e))
+)
 const Classes = asyncComponent(() =>
-    import('./components/Classes/Classes.js').then(module => module.default)
+    import('./components/Classes/Classes.js')
+        .then(module => module.default)
+        .catch(e => console.log(e))
 )
 const Character = asyncComponent(() =>
-    import('./components/Character/Character').then(module => module.default)
+    import('./components/Character/Character')
+        .then(module => module.default)
+        .catch(e => console.log(e))
 )
 const Streams = asyncComponent(() =>
-    import('./components/Streams/Streams').then(module => module.default)
+    import('./components/Streams/Streams').then(module => module.default).catch(e => console.log(e))
 )
 
 const mapStateToProps = state => {

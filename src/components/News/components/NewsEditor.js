@@ -97,6 +97,7 @@ class Editor extends React.PureComponent {
                         message.error(t('general:fail'))
                     }
                 })
+                .catch(e => console.log(e))
         }
     }
 
@@ -121,6 +122,7 @@ class Editor extends React.PureComponent {
                         message.error(t('general:fail'))
                     }
                 })
+                .catch(e => console.log(e))
         }
     }
 

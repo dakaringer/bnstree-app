@@ -58,9 +58,11 @@ export function loadCharacter(region, name) {
 
                                 dispatch(setClassData(classCode, data))
                             })
+                            .catch(e => console.log(e))
                     }
                 })
                 .then(() => dispatch(setLoading(false)))
+                .catch(e => console.log(e))
         }
     }
 }

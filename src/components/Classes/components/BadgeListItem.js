@@ -67,6 +67,7 @@ class BadgeListItem extends React.Component {
         })
             .then(response => response.json())
             .then(json => {})
+            .catch(e => console.log(e))
     }
 
     unvote(element, voted) {
@@ -90,6 +91,7 @@ class BadgeListItem extends React.Component {
         })
             .then(response => response.json())
             .then(json => {})
+            .catch(e => console.log(e))
     }
 
     render() {

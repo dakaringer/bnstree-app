@@ -115,6 +115,7 @@ export function loadClass(classCode, buildCode, buildId) {
                     }
                 })
                 .then(() => dispatch(setLoading(false)))
+                .catch(e => console.log(e))
         }
     }
 }
@@ -133,6 +134,7 @@ export function loadTextData(lang) {
                         dispatch(setItemNames(json.lang, flatten(json.itemNames)))
                     }
                 })
+                .catch(e => console.log(e))
 
             if (lang !== 'en' && !refSelector(getState()).hasIn(['skillNames', 'en'])) {
                 fetch('https://api.bnstree.com/classes/names?lang=en', {
@@ -146,6 +148,7 @@ export function loadTextData(lang) {
                             dispatch(setItemNames('en', flatten(json.itemNames)))
                         }
                     })
+                    .catch(e => console.log(e))
             }
         }
     }
@@ -187,6 +190,7 @@ export function loadBuildList(
                     }
                 }
             })
+            .catch(e => console.log(e))
     }
 }
 
@@ -231,6 +235,7 @@ export function postBuild(title, type) {
                     message.error(i18n.t('general:fail'))
                 }
             })
+            .catch(e => console.log(e))
     }
 }
 
@@ -252,6 +257,7 @@ export function deleteBuild(id, classCode) {
                 dispatch(loadBuildList(1, classCode))
                 dispatch(loadBuildList(1, classCode, null, null, true))
             })
+            .catch(e => console.log(e))
     }
 }
 
@@ -280,6 +286,7 @@ export function loadBuild(buildCode, buildId) {
                         message.success(i18n.t('skills:buildLoaded'))
                     }
                 })
+                .catch(e => console.log(e))
         } else {
             let currentElement = elementDataSelector(getState()).get(buildCode[0])
             let buildString = buildCode.substring(1)
@@ -304,7 +311,7 @@ export function updateView(type, value) {
             credentials: 'include',
             headers: postHeaders,
             body: JSON.stringify(obj)
-        })
+        }).catch(e => console.log(e))
     }
 }
 
@@ -353,6 +360,7 @@ function loadBadges() {
                     dispatch(setClassData(classCode, data))
                 }
             })
+            .catch(e => console.log(e))
     }
 }
 
@@ -369,6 +377,7 @@ function loadUserVotes() {
                     dispatch(setClassData(classCode, {userBadgeVoteData: json.data}))
                 }
             })
+            .catch(e => console.log(e))
     }
 }
 
@@ -390,5 +399,6 @@ function loadSoulshields() {
                     dispatch(setClassData(classCode, data))
                 }
             })
+            .catch(e => console.log(e))
     }
 }
