@@ -31,13 +31,15 @@
 }
 
 .class-selector-popover {
+    width: 25rem;
     .class-link {
         display: flex;
         margin: 1rem 0;
         align-items: center;
         transition: all 0.5s;
+        font-size: 1.6rem;
         img {
-            margin-right: 1rem;
+            margin-right: 2rem;
             filter: grayscale(100%);
         }
 

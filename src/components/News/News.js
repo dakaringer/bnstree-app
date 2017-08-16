@@ -21,7 +21,7 @@ const News = props => {
                 <Header />
                 <div className="main-container">
                     <Switch>
-                        <Route exact path={'/news'} component={NewsList} />
+                        <Route exact path={'/news'} render={() => <NewsList ad />} />
                         <Route exact path={'/news/new'} component={NewsEditor} />
                         <Route exact path={'/news/edit/:id'} component={NewsEditor} />
                         <Route path={'/news/:id'} component={NewsViewer} />

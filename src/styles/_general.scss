@@ -39,6 +39,7 @@
 
         img {
             width: 4.5rem;
+            height: 4.5rem;
             margin-right: 1rem;
         }
     }
@@ -49,9 +50,6 @@
         .header-title {
             width: 100%;
             padding-bottom: 1rem;
-            img {
-                width: 4rem;
-            }
         }
 
         .header-item {
@@ -197,8 +195,4 @@
 }
 .grade_7 {
     color: #ed6900 !important;
-}
-
-.adSpace {
-    background: rgba(0, 0, 0, 0.4);
 }

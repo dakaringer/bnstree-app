@@ -5,6 +5,8 @@ import {List} from 'immutable'
 
 import {Pagination} from 'antd'
 
+import AdSense from '../../AdSense/AdSense'
+
 import {loadNews} from '../actions'
 import {listSelector} from '../selectors'
 
@@ -28,7 +30,7 @@ class NewsList extends Component {
     }
 
     render() {
-        let {list, loadNews, currentId} = this.props
+        let {list, loadNews, currentId, ad} = this.props
 
         let rows = []
         list.get('list', List()).forEach((article, i) => {
@@ -43,16 +45,24 @@ class NewsList extends Component {
 
         return (
             <div className="news-list-container">
-                <div className="news-list listing">
-                    {rows.length > 0 ? rows : <p className="no-data">No Data</p>}
+                {ad
+                    ? <AdSense client="ca-pub-2048637692232915" slot="6768736382" format="auto" />
+                    : null}
+                <div className="news-list-wrapper">
+                    <div className="news-list listing">
+                        {rows.length > 0 ? rows : <p className="no-data">No Data</p>}
+                    </div>
+                    <Pagination
+                        size="small"
+                        total={list.get('count', 0)}
+                        current={list.get('page', 1)}
+                        pageSize={list.get('limit', 10)}
+                        onChange={p => loadNews(p)}
+                    />
                 </div>
-                <Pagination
-                    size="small"
-                    total={list.get('count', 0)}
-                    current={list.get('page', 1)}
-                    pageSize={list.get('limit', 10)}
-                    onChange={p => loadNews(p)}
-                />
+                {ad
+                    ? <AdSense client="ca-pub-2048637692232915" slot="2719129989" format="auto" />
+                    : null}
             </div>
         )
     }

@@ -4,6 +4,8 @@ import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 
+import AdSense from '../AdSense/AdSense'
+
 import './styles/Character.scss'
 
 import Header from './components/CharacterHeader'
@@ -62,6 +64,9 @@ class Character extends Component {
                             />
                             <Route render={() => <CharacterSearch center />} />
                         </Switch>
+                    </div>
+                    <div className="slim-container">
+                        <AdSense client="ca-pub-2048637692232915" slot="2719129989" format="auto" />
                     </div>
                 </div>
             </div>

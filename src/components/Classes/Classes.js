@@ -6,6 +6,8 @@ import {Helmet} from 'react-helmet'
 
 import {Row, Col} from 'antd'
 
+import AdSense from '../AdSense/AdSense'
+
 import {currentLanguageSelector, loadingSelector, userSelector} from '../../selectors'
 import {viewSelector} from './selectors'
 import {loadTextData, loadClass} from './actions'
@@ -167,6 +169,11 @@ class Skills extends React.Component {
                                     render={() => skillComponent}
                                 />
                             </Switch>
+                            <AdSense
+                                client="ca-pub-2048637692232915"
+                                slot="2719129989"
+                                format="auto"
+                            />
                         </Col>
                     </Row>
                 </div>

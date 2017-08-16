@@ -27,33 +27,35 @@ const SkillMenu = props => {
     */
 
     return (
-        <div className="class-menu side-bar">
-            <div className="class-menu-item">
-                <NavLink to={`/classes/${classCode}`} exact>
-                    {t('skills')}
-                </NavLink>
-            </div>
-            <div className="class-menu-item sub">
-                <NavLink to={`/classes/${classCode}/builds`}>
-                    {t('userBuilds')}
-                </NavLink>
-            </div>
-            {user
-                ? <div className="class-menu-item sub">
-                      <NavLink to={`/classes/${classCode}/my-builds`} exact>
-                          {t('myBuilds')}
-                      </NavLink>
-                  </div>
-                : null}
-            <div className="class-menu-item">
-                <NavLink to={`/classes/${classCode}/soulshields`}>
-                    {t('soulshields')}
-                </NavLink>
-            </div>
-            <div className="class-menu-item">
-                <NavLink to={`/classes/${classCode}/badges`}>
-                    {t('badges')}
-                </NavLink>
+        <div>
+            <div className="class-menu side-bar">
+                <div className="class-menu-item">
+                    <NavLink to={`/classes/${classCode}`} exact>
+                        {t('skills')}
+                    </NavLink>
+                </div>
+                <div className="class-menu-item sub">
+                    <NavLink to={`/classes/${classCode}/builds`}>
+                        {t('userBuilds')}
+                    </NavLink>
+                </div>
+                {user
+                    ? <div className="class-menu-item sub">
+                          <NavLink to={`/classes/${classCode}/my-builds`} exact>
+                              {t('myBuilds')}
+                          </NavLink>
+                      </div>
+                    : null}
+                <div className="class-menu-item">
+                    <NavLink to={`/classes/${classCode}/soulshields`}>
+                        {t('soulshields')}
+                    </NavLink>
+                </div>
+                <div className="class-menu-item">
+                    <NavLink to={`/classes/${classCode}/badges`}>
+                        {t('badges')}
+                    </NavLink>
+                </div>
             </div>
             <AdSense client="ca-pub-2048637692232915" slot="9888022383" format="auto" />
         </div>

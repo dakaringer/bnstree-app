@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router-dom'
 
-import AdSense from './components/AdSense/AdSense'
-
 import {initializedSelector} from './selectors'
 
 import NavBar, {classes} from './components/NavBar/NavBar'
@@ -105,13 +103,6 @@ class App extends Component {
 
                             <Route path="/streams" component={Streams} />
                         </Switch>
-                        <div className="slim-container adspace">
-                            <AdSense
-                                client="ca-pub-2048637692232915"
-                                slot="2719129989"
-                                format="auto"
-                            />
-                        </div>
                     </div>
                 </div>
             )

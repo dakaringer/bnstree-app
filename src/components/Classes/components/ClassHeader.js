@@ -41,7 +41,7 @@ const ClassHeader = props => {
             <div className="header-title class-selector">
                 <Popover
                     trigger="click"
-                    placement="bottomRight"
+                    placement="bottomLeft"
                     content={
                         <div className="class-selector-popover">
                             {classLinks}
