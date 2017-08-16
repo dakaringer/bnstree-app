@@ -29,11 +29,11 @@
 }
 
 .hotkey-bar-wrapper {
-    width: 8rem !important;
+    width: 5rem !important;
     .hotkey-bar {
         width: 100%;
         height: 70rem;
-        max-height: 90vh;
+        max-height: calc(100vh - 15rem);
         text-align: right;
         display: flex;
         flex-direction: column;

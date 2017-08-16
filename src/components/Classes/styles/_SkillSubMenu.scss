@@ -6,6 +6,10 @@
         img {
             width: 2.5rem;
         }
+
+        @media (max-width: 767px) {
+            margin-bottom: -1rem !important;
+        }
     }
 
     .skillSearch {
