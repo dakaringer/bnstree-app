@@ -16,3 +16,37 @@
 .skill-name {
     color: aqua;
 }
+
+.class-header {
+    .class-selector {
+        cursor: pointer;
+        span {
+            display: flex;
+
+            .anticon {
+                font-size: 1.6rem;
+            }
+        }
+    }
+}
+
+.class-selector-popover {
+    .class-link {
+        display: flex;
+        margin: 1rem 0;
+        align-items: center;
+        transition: all 0.5s;
+        img {
+            margin-right: 1rem;
+            filter: grayscale(100%);
+        }
+
+        &:hover,
+        &.active {
+            color: aqua;
+            img {
+                filter: grayscale(0%);
+            }
+        }
+    }
+}
