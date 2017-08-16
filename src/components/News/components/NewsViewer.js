@@ -4,6 +4,8 @@ import moment from 'moment'
 import MarkdownIt from 'markdown-it'
 import {Map} from 'immutable'
 import {Link} from 'react-router-dom'
+import {translate} from 'react-i18next'
+import {Helmet} from 'react-helmet'
 
 import {Row, Col, Button} from 'antd'
 
@@ -46,7 +48,7 @@ class NewsViewer extends React.Component {
     }
 
     render() {
-        const {article, skillNames} = this.props
+        const {t, article, skillNames} = this.props
 
         let content = null
         if (article.has('title')) {
@@ -100,24 +102,33 @@ class NewsViewer extends React.Component {
         }
 
         return (
-            <Row className="news-viewer">
-                <Col className="news-article" md={{span: 18, push: 6}}>
-                    {content}
-                    <Link to={`/news/edit/${article.get('_id')}`}>
-                        <Button type="primary" ghost>
-                            Edit
-                        </Button>
-                    </Link>
-                </Col>
-                <Col className="news-list-side" md={{span: 6, pull: 18}}>
-                    <h3>More Articles</h3>
-                    <hr />
-                    <NewsList currentId={article.get('_id')} />
-                    <AdSense client="ca-pub-2048637692232915" slot="9888022383" format="auto" />
-                </Col>
-            </Row>
+            <div>
+                <Helmet>
+                    <title>{`${article.get('title')} - ${t('news')} | BnSTree`}</title>
+                    <meta
+                        name="description"
+                        content={article.get('content', '').split('\n\n')[0]}
+                    />
+                </Helmet>
+                <Row className="news-viewer">
+                    <Col className="news-article" md={{span: 18, push: 6}}>
+                        {content}
+                        <Link to={`/news/edit/${article.get('_id')}`}>
+                            <Button type="primary" ghost>
+                                Edit
+                            </Button>
+                        </Link>
+                    </Col>
+                    <Col className="news-list-side" md={{span: 6, pull: 18}}>
+                        <h3>More Articles</h3>
+                        <hr />
+                        <NewsList currentId={article.get('_id')} />
+                        <AdSense client="ca-pub-2048637692232915" slot="9888022383" format="auto" />
+                    </Col>
+                </Row>
+            </div>
         )
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsViewer)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(NewsViewer))

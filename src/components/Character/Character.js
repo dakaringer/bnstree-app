@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
+import {Helmet} from 'react-helmet'
 
 import './styles/Character.scss'
 
@@ -36,14 +37,15 @@ class Character extends Component {
             loadText(nextProps.currentLanguage)
         }
     }
-    componentDidMount() {
-        const {t} = this.props
-        document.title = `${t('character')} | BnSTree`
-    }
 
     render() {
+        const {t} = this.props
+
         return (
             <div className="character">
+                <Helmet>
+                    <title>{`${t('characterSearch')} | BnSTree`}</title>
+                </Helmet>
                 <div className="container">
                     <Header />
                     <div className="main-container">

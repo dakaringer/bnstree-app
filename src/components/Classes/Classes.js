@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Route, Switch, Redirect} from 'react-router-dom'
+import {Helmet} from 'react-helmet'
 
 import {Row, Col} from 'antd'
 
@@ -67,17 +68,15 @@ const mapDispatchToProps = dispatch => {
 
 class Skills extends React.Component {
     componentWillMount() {
-        const {t, location, match, currentLanguage, loadText, loadClass} = this.props
+        const {location, match, currentLanguage, loadText, loadClass} = this.props
 
         let params = new URLSearchParams(location.search)
         let classCode = getClassCode(match.params.classCode)
         loadText(currentLanguage)
         loadClass(classCode, params.get('b'), params.get('id'))
-
-        document.title = `${t(getPath(location.pathname))} - ${t(classCode)} | BnSTree`
     }
     componentWillReceiveProps(nextProps) {
-        const {t, location, match, currentLanguage, loadText, loadClass} = this.props
+        const {location, match, currentLanguage, loadText, loadClass} = this.props
 
         let params = new URLSearchParams(location.search)
         let nextParams = new URLSearchParams(nextProps.location.search)
@@ -91,18 +90,13 @@ class Skills extends React.Component {
         ) {
             loadClass(classCode, null, nextParams.get('id'))
         }
-
-        if (nextProps.location.pathname !== location.pathname) {
-            document.title = `${t(getPath(nextProps.location.pathname))} - ${t(
-                classCode
-            )} | BnSTree`
-        }
     }
 
     render() {
-        const {loading, view, user} = this.props
+        const {t, loading, view, user, location, match} = this.props
 
         let skillComponent = null
+        let classCode = getClassCode(match.params.classCode)
 
         if (view.get('mode') === 'LIST') {
             skillComponent = (
@@ -181,6 +175,9 @@ class Skills extends React.Component {
 
         return (
             <div className="skills">
+                <Helmet>
+                    <title>{`${t(getPath(location.pathname))} - ${t(classCode)} | BnSTree`}</title>
+                </Helmet>
                 {content}
             </div>
         )

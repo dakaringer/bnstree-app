@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
+import {Helmet} from 'react-helmet'
 
 import {loadCharacter} from '../actions'
 import {loadingSelector} from '../../../selectors'
@@ -100,10 +101,17 @@ class CharacterViewer extends Component {
 
         return (
             <div>
+                <Helmet>
+                    <title>{`${character.has('general')
+                        ? character.getIn(['general', 'name'])
+                        : t('general:characterSearch')} | BnSTree`}</title>
+                </Helmet>
                 {content}
             </div>
         )
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('character')(CharacterViewer))
+export default connect(mapStateToProps, mapDispatchToProps)(
+    translate(['character', 'general'])(CharacterViewer)
+)

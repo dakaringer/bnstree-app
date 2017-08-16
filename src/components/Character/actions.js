@@ -1,5 +1,4 @@
 import * as actionType from './actionTypes'
-import i18n from '../../i18n'
 import {makeActionCreator, flatten} from '../../helpers'
 import {setLoading} from '../../actions'
 
@@ -27,10 +26,6 @@ export function loadCharacter(region, name) {
                     if (json.success === 0 || !json.general) {
                         return
                     }
-
-                    document.title = `${json.general.name} - ${i18n.t(
-                        'general:character'
-                    )} | BnSTree`
 
                     let classCode = json.general.classCode
                     dispatch(setCharacterMode(true))
