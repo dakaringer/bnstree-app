@@ -279,6 +279,7 @@ export function loadBuild(buildCode, buildId) {
                         classCode === json.build.classCode &&
                         json.build.buildObjects
                     ) {
+                        dispatch(setBuildElement(classCode, json.build.element))
                         json.build.buildObjects.forEach(skill => {
                             dispatch(learnMove(skill.id, skill.trait))
                         })
