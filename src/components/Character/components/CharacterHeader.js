@@ -9,6 +9,8 @@ import CharacterSearch from './CharacterSearch'
 const CharacterHeader = props => {
     const {t, location} = props
 
+    let regex = /^\/character\/?(na|eu)?\/?$/
+
     return (
         <div className="character-header section-header">
             <div className="header-title">
@@ -18,11 +20,7 @@ const CharacterHeader = props => {
                 </span>
             </div>
             <div className="header-item">
-                {location.pathname !== '/character' &&
-                location.pathname !== '/character/na' &&
-                location.pathname !== '/character/eu'
-                    ? <CharacterSearch />
-                    : null}
+                {regex.test(location.pathname) ? null : <CharacterSearch />}
             </div>
         </div>
     )
