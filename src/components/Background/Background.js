@@ -22,7 +22,8 @@ class Background extends React.PureComponent {
 
     handleScroll(event, t) {
         if (window.innerWidth > 767) {
-            let scrollTop = event.srcElement.body.scrollTop
+            let target = event.target || event.srcElement
+            let scrollTop = target.body.scrollTop
             requestAnimationFrame(() => {
                 t.setState({
                     bgTranslate: scrollTop / 5
