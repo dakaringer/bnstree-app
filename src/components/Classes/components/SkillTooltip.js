@@ -327,7 +327,6 @@ const SkillTooltip = props => {
     let buildStat = null
     if (moveData.has('buildStat')) {
         let stat = moveData.get('buildStat')
-        console.log(stat.toJS())
         let total = stat.get('total', Map())
 
         let sections = []
