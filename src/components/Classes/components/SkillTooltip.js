@@ -323,23 +323,40 @@ const SkillTooltip = props => {
         }
     })
 
-    let moveNumber = moveData.get('move')
-    let classification =
-        moveNumber > 3 ? t('moveTypeHM', {move: moveNumber - 3}) : t('moveType', {move: moveNumber})
-
+    //buildStat
     let buildStat = null
     if (moveData.has('buildStat')) {
         let stat = moveData.get('buildStat')
+        console.log(stat.toJS())
         let total = stat.get('total', Map())
-        let _PvE = (total.get('PvE', 0) === 0
-            ? 0
-            : stat.get('PvE', 0) / total.get('PvE', 0) * 100).toFixed(2)
-        let _PvP = (total.get('PvP', 0) === 0
-            ? 0
-            : stat.get('PvP', 0) / total.get('PvP', 0) * 100).toFixed(2)
-        let _6v6 = (total.get('6v6', 0) === 0
-            ? 0
-            : stat.get('6v6', 0) / total.get('6v6', 0) * 100).toFixed(2)
+
+        let sections = []
+        let types = ['PvE', 'PvP', '6v6']
+        types.forEach(type => {
+            let totalType = stat.getIn([type, 'basic'], 0) + stat.getIn([type, 'hm'], 0)
+            let totalPercent = (total.get(type, 0) === 0
+                ? 0
+                : totalType / total.get(type, 0) * 100).toFixed(2)
+
+            let basicPercent =
+                totalType === 0 ? 0 : (stat.getIn([type, 'basic'], 0) / totalType * 100).toFixed(2)
+            let hmPercent =
+                totalType === 0 ? 0 : (stat.getIn([type, 'hm'], 0) / totalType * 100).toFixed(2)
+
+            sections.push(
+                <div className={`section-${type}`} key={type}>
+                    {t(type)} <small>{totalPercent}%</small>
+                    <div className="percent-bar-wrapper" style={{width: `${totalPercent}%`}}>
+                        <div className="percent-bar basic" style={{width: `${basicPercent}%`}}>
+                            {t('BASIC')}
+                        </div>
+                        <div className="percent-bar hm" style={{width: `${hmPercent}%`}}>
+                            {t('hm')}
+                        </div>
+                    </div>
+                </div>
+            )
+        })
         buildStat = (
             <div className="skill-build-stat">
                 <hr />
@@ -347,22 +364,15 @@ const SkillTooltip = props => {
                     {t('buildStat')}
                 </p>
                 <div className="stat-bars">
-                    <div className="section-PvE">
-                        {t('PvE')} <small>{_PvE}%</small>
-                        <div className="percent-bar" style={{width: `${_PvE}%`}} />
-                    </div>
-                    <div className="section-PvP">
-                        {t('PvP')} <small>{_PvP}%</small>
-                        <div className="percent-bar" style={{width: `${_PvP}%`}} />
-                    </div>
-                    <div className="section-6v6">
-                        {t('6v6')} <small>{_6v6}%</small>
-                        <div className="percent-bar" style={{width: `${_6v6}%`}} />
-                    </div>
+                    {sections}
                 </div>
             </div>
         )
     }
+
+    let moveNumber = moveData.get('move')
+    let classification =
+        moveNumber > 3 ? t('moveTypeHM', {move: moveNumber - 3}) : t('moveType', {move: moveNumber})
 
     return (
         <div className="skill-tooltip">

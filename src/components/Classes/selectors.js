@@ -371,11 +371,20 @@ const statSkillDataSelector = createSelector(
             let id = skill.get('groupId')
             if (buildFormat.includes(id)) {
                 types.forEach(t => {
+                    let hm = skill.get('move') > 3
                     skill = skill.setIn(
-                        ['buildStat', t],
+                        ['buildStat', t, hm ? 'hm' : 'basic'],
                         statData
                             .getIn(['types', t, id], Map())
                             .find(s => s.get('move', 1) === skill.get('move'), null, Map())
+                            .get('count', 0)
+                    )
+                    let offset = hm ? -3 : 3
+                    skill = skill.setIn(
+                        ['buildStat', t, hm ? 'basic' : 'hm'],
+                        statData
+                            .getIn(['types', t, id], Map())
+                            .find(s => s.get('move', 1) === skill.get('move') + offset, null, Map())
                             .get('count', 0)
                     )
                 })
