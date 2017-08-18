@@ -88,7 +88,7 @@ class CharacterEquips extends Component {
             set.get('effects').forEach((effect, j) => {
                 effects.push(
                     <p className="effect-description" key={j}>
-                        {effect}
+                        {effect.replace(/,/g, ', ')}
                     </p>
                 )
             })
