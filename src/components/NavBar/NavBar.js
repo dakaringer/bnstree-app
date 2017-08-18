@@ -149,57 +149,58 @@ class NavBar extends Component {
         )
 
         return (
-            <div className="main-nav">
-                <div className="main-nav-header">
-                    <Link to="/" onClick={() => this.closeMenu()}>
-                        <img className="main-nav-logo" src={mainLogo} alt="main" />
-                    </Link>
-                </div>
-                <div className="main-nav-right">
-                    <div className="main-nav-menu">
-                        <NavLink to="/news" className="main-nav-menu-item">
-                            {t('news')}
-                        </NavLink>
-                        <Dropdown overlay={classDropdown} trigger={['hover']}>
-                            <NavLink
-                                to={`/classes/${classes[0][1]}`}
-                                className="main-nav-menu-item">
-                                {t('classes')}
+            <div>
+                <div className="main-nav">
+                    <div className="main-nav-header">
+                        <Link to="/" onClick={() => this.closeMenu()}>
+                            <img className="main-nav-logo" src={mainLogo} alt="main" />
+                        </Link>
+                    </div>
+                    <div className="main-nav-right">
+                        <div className="main-nav-menu">
+                            <NavLink to="/news" className="main-nav-menu-item">
+                                {t('news')}
                             </NavLink>
-                        </Dropdown>
-                        <NavLink to="/character" className="main-nav-menu-item">
-                            {t('character')}
-                        </NavLink>
-                        <NavLink to="/streams" className="main-nav-menu-item">
-                            {t('streams')}
-                        </NavLink>
+                            <Dropdown overlay={classDropdown} trigger={['hover']}>
+                                <NavLink
+                                    to={`/classes/${classes[0][1]}`}
+                                    className="main-nav-menu-item">
+                                    {t('classes')}
+                                </NavLink>
+                            </Dropdown>
+                            <NavLink to="/character" className="main-nav-menu-item">
+                                {t('character')}
+                            </NavLink>
+                            <NavLink to="/streams" className="main-nav-menu-item">
+                                {t('streams')}
+                            </NavLink>
+                        </div>
+                        <div className="main-nav-submenu">
+                            <Dropdown overlay={loginDropdown} trigger={['hover', 'click']}>
+                                <a className="main-nav-menu-item">
+                                    {user ? user.get('displayName') : t('login')}
+                                </a>
+                            </Dropdown>
+                            <Dropdown overlay={languageDropdown} trigger={['hover', 'click']}>
+                                <a className="main-nav-menu-item">
+                                    {languageNames[currentLang]}
+                                </a>
+                            </Dropdown>
+                        </div>
+                        <span className="nav-toggle">
+                            <button
+                                onClick={() => this.openCloseMenu()}
+                                className={`hamburger hamburger--squeeze ${this.state.menuOpen
+                                    ? 'is-active'
+                                    : ''}`}
+                                type="button">
+                                <span className="hamburger-box">
+                                    <span className="hamburger-inner" />
+                                </span>
+                            </button>
+                        </span>
                     </div>
-                    <div className="main-nav-submenu">
-                        <Dropdown overlay={loginDropdown} trigger={['hover', 'click']}>
-                            <a className="main-nav-menu-item">
-                                {user ? user.get('displayName') : t('login')}
-                            </a>
-                        </Dropdown>
-                        <Dropdown overlay={languageDropdown} trigger={['hover', 'click']}>
-                            <a className="main-nav-menu-item">
-                                {languageNames[currentLang]}
-                            </a>
-                        </Dropdown>
-                    </div>
-                    <span className="nav-toggle">
-                        <button
-                            onClick={() => this.openCloseMenu()}
-                            className={`hamburger hamburger--squeeze ${this.state.menuOpen
-                                ? 'is-active'
-                                : ''}`}
-                            type="button">
-                            <span className="hamburger-box">
-                                <span className="hamburger-inner" />
-                            </span>
-                        </button>
-                    </span>
                 </div>
-
                 <div className="overlay-menu" aria-hidden={!this.state.menuOpen}>
                     <div className="overlay-menu-container">
                         <NavLink
