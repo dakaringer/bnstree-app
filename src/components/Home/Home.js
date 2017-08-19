@@ -31,7 +31,11 @@ const Home = props => {
             <div className="home-bottom">
                 <HomeNewsList />
                 <div className="slim-container container">
-                    <AdSense client="ca-pub-2048637692232915" slot="6768736382" format="auto" />
+                    <AdSense
+                        data-ad-client="ca-pub-2048637692232915"
+                        data-ad-slot="6768736382"
+                        data-ad-format="auto"
+                    />
                     <Row>
                         <Col md={16} className="home-stream">
                             <h4>
@@ -43,23 +47,31 @@ const Home = props => {
                             </Link>
                         </Col>
                         <Col md={8} className="side-menu">
-                            <a
-                                href="https://discord.gg/2ZdtPZM"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                <Button type="primary" className="side-button discord">
-                                    <img alt="discord" src={discordLogo} />
-                                    BnSTree Discord
-                                </Button>
-                            </a>
-                            <AdSense
-                                client="ca-pub-2048637692232915"
-                                slot="9888022383"
-                                format="auto"
-                            />
+                            <div>
+                                <a
+                                    href="https://discord.gg/2ZdtPZM"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    <Button type="primary" className="side-button discord">
+                                        <img alt="discord" src={discordLogo} />
+                                        BnSTree Discord
+                                    </Button>
+                                </a>
+                                <AdSense
+                                    data-ad-format="fluid"
+                                    data-ad-layout="image-top"
+                                    data-ad-layout-key="-8c+2n-ep+50+yc"
+                                    data-ad-client="ca-pub-2048637692232915"
+                                    data-ad-slot="5100203858"
+                                />
+                            </div>
                         </Col>
                     </Row>
-                    <AdSense client="ca-pub-2048637692232915" slot="2719129989" format="auto" />
+                    <AdSense
+                        data-ad-client="ca-pub-2048637692232915"
+                        data-ad-slot="2719129989"
+                        data-ad-format="auto"
+                    />
                 </div>
             </div>
         </div>

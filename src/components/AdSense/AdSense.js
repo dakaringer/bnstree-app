@@ -20,12 +20,8 @@ export default class GoogleAd extends React.Component {
             <div style={this.props.wrapperDivStyle} className="adBlock">
                 <ins
                     className="adsbygoogle"
-                    style={{
-                        display: 'block'
-                    }}
-                    data-ad-client={this.props.client}
-                    data-ad-slot={this.props.slot}
-                    data-ad-format={this.props.format}
+                    style={{display: 'block', textAlign: 'center'}}
+                    {...this.props}
                 />
             </div>
         )

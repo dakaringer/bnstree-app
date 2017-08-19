@@ -32,7 +32,7 @@ class HomeNewsList extends Component {
         let rows = []
         let count = 0
         list.get('list', List()).forEach((article, i) => {
-            if (count > 5) {
+            if (count > 4) {
                 return false
             }
             count++

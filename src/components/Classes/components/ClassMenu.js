@@ -57,7 +57,13 @@ const SkillMenu = props => {
                     </NavLink>
                 </div>
             </div>
-            <AdSense client="ca-pub-2048637692232915" slot="9888022383" format="auto" />
+            <AdSense
+                data-ad-format="fluid"
+                data-ad-layout="image-top"
+                data-ad-layout-key="-8c+2n-ep+50+yc"
+                data-ad-client="ca-pub-2048637692232915"
+                data-ad-slot="5100203858"
+            />
         </div>
     )
 }

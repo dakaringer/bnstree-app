@@ -112,19 +112,33 @@ class NewsViewer extends React.Component {
                 </Helmet>
                 <Row className="news-viewer">
                     <Col className="news-article" md={{span: 18, push: 6}}>
-                        {content}
-                        <Link to={`/news/edit/${article.get('_id')}`}>
-                            <Button type="primary" ghost>
-                                Edit
-                            </Button>
-                        </Link>
-                        <AdSense client="ca-pub-2048637692232915" slot="2719129989" format="auto" />
+                        <div>
+                            {content}
+                            <Link to={`/news/edit/${article.get('_id')}`}>
+                                <Button type="primary" ghost>
+                                    Edit
+                                </Button>
+                            </Link>
+                            <AdSense
+                                data-ad-client="ca-pub-2048637692232915"
+                                data-ad-slot="2719129989"
+                                data-ad-format="auto"
+                            />
+                        </div>
                     </Col>
                     <Col className="news-list-side" md={{span: 6, pull: 18}}>
-                        <h3>More Articles</h3>
-                        <hr />
-                        <NewsList currentId={article.get('_id')} />
-                        <AdSense client="ca-pub-2048637692232915" slot="9888022383" format="auto" />
+                        <div>
+                            <h3>More Articles</h3>
+                            <hr />
+                            <NewsList currentId={article.get('_id')} />
+                            <AdSense
+                                data-ad-format="fluid"
+                                data-ad-layout="image-side"
+                                data-ad-layout-key="-gs-y+4e+2e+2i"
+                                data-ad-client="ca-pub-2048637692232915"
+                                data-ad-slot="4449644773"
+                            />
+                        </div>
                     </Col>
                 </Row>
             </div>

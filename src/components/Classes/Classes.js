@@ -170,9 +170,9 @@ class Skills extends React.Component {
                                 />
                             </Switch>
                             <AdSense
-                                client="ca-pub-2048637692232915"
-                                slot="2719129989"
-                                format="auto"
+                                data-ad-client="ca-pub-2048637692232915"
+                                data-ad-slot="2719129989"
+                                data-ad-format="auto"
                             />
                         </Col>
                     </Row>

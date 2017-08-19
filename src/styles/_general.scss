@@ -147,6 +147,7 @@
         padding: 2rem 0.5rem;
         transition: all 0.5s;
         overflow: hidden;
+        width: 100%;
 
         &.selected,
         &:hover {
@@ -195,4 +196,8 @@
 }
 .grade_7 {
     color: #ed6900 !important;
+}
+
+.adBlock {
+    width: 100%;
 }

@@ -46,7 +46,11 @@ class NewsList extends Component {
         return (
             <div className="news-list-container">
                 {ad
-                    ? <AdSense client="ca-pub-2048637692232915" slot="6768736382" format="auto" />
+                    ? <AdSense
+                          data-ad-client="ca-pub-2048637692232915"
+                          data-ad-slot="6768736382"
+                          data-ad-format="auto"
+                      />
                     : null}
                 <div className="news-list-wrapper">
                     <div className="news-list listing">
@@ -60,9 +64,6 @@ class NewsList extends Component {
                         onChange={p => loadNews(p)}
                     />
                 </div>
-                {ad
-                    ? <AdSense client="ca-pub-2048637692232915" slot="2719129989" format="auto" />
-                    : null}
             </div>
         )
     }
