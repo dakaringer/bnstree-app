@@ -13,6 +13,7 @@ import AdSense from '../../AdSense/AdSense'
 
 import NewsList from './NewsList'
 
+import {userSelector} from '../../../selectors'
 import {skillNamesSelector} from '../../Classes/selectors'
 import {loadTextData} from '../../Classes/actions'
 import {articleSelector} from '../selectors'
@@ -20,6 +21,7 @@ import {loadArticle} from '../actions'
 
 const mapStateToProps = state => {
     return {
+        user: userSelector(state),
         skillNames: skillNamesSelector(state),
         article: articleSelector(state)
     }
@@ -48,7 +50,7 @@ class NewsViewer extends React.Component {
     }
 
     render() {
-        const {t, article, skillNames} = this.props
+        const {t, article, skillNames, user} = this.props
 
         let content = null
         if (article.has('title')) {
@@ -102,6 +104,17 @@ class NewsViewer extends React.Component {
             )
         }
 
+        let editButton = null
+        if (user.get('admin')) {
+            editButton = (
+                <Link to={`/news/edit/${article.get('_id')}`}>
+                    <Button type="primary" ghost>
+                        Edit
+                    </Button>
+                </Link>
+            )
+        }
+
         return (
             <div>
                 <Helmet>
@@ -115,11 +128,7 @@ class NewsViewer extends React.Component {
                     <Col className="news-article" md={{span: 18, push: 6}}>
                         <div>
                             {content}
-                            <Link to={`/news/edit/${article.get('_id')}`}>
-                                <Button type="primary" ghost>
-                                    Edit
-                                </Button>
-                            </Link>
+                            {editButton}
                             <AdSense
                                 data-ad-client="ca-pub-2048637692232915"
                                 data-ad-slot="2719129989"
