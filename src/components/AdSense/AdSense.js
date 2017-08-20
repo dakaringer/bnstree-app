@@ -1,26 +1,12 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
+import Delay from 'react-delay'
 
-export default class GoogleAd extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            show: false
-        }
-    }
-
+class GoogleAdUnit extends PureComponent {
     componentDidMount() {
-        setTimeout(() => {
-            this.setState({show: true})
-        }, 1000)
-    }
-
-    componentDidUpdate() {
-        if (this.state.show) {
-            try {
-                ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-            } catch (error) {
-                console.log(error)
-            }
+        try {
+            ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -31,22 +17,24 @@ export default class GoogleAd extends React.Component {
     }
 
     render() {
-        let ad = null
-
-        if (this.state.show) {
-            ad = (
+        return (
+            <div style={this.props.wrapperDivStyle} className="adBlock">
                 <ins
                     className="adsbygoogle"
                     style={{display: 'block', textAlign: 'center'}}
                     {...this.props}
                 />
-            )
-        }
-
-        return (
-            <div style={this.props.wrapperDivStyle} className="adBlock">
-                {ad}
             </div>
         )
     }
 }
+
+const GoogleAd = props => {
+    return (
+        <Delay wait={1000}>
+            <GoogleAdUnit {...props} />
+        </Delay>
+    )
+}
+
+export default GoogleAd
