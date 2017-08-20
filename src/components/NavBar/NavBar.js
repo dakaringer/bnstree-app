@@ -209,7 +209,7 @@ class NavBar extends Component {
                             onClick={() => this.closeMenu()}>
                             {t('news')}
                         </NavLink>
-                        <Collapse bordered={false}>
+                        <Collapse bordered={false} className="overlay-nav-menu-item">
                             <Panel header={t('classes')}>
                                 {classDropdown}
                             </Panel>
@@ -227,12 +227,12 @@ class NavBar extends Component {
                             {t('streams')}
                         </NavLink>
                         <hr />
-                        <Collapse bordered={false} className="login">
+                        <Collapse bordered={false} className="login overlay-nav-menu-item">
                             <Panel header={user ? user.get('displayName') : t('login')}>
                                 {loginDropdown}
                             </Panel>
                         </Collapse>
-                        <Collapse bordered={false} className="language">
+                        <Collapse bordered={false} className="language overlay-nav-menu-item">
                             <Panel header={languageNames[currentLang]}>
                                 {languageDropdown}
                             </Panel>

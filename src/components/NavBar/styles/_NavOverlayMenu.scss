@@ -76,8 +76,22 @@
         line-height: 22px;
         padding: 8px 0 8px 32px;
 
+        .ant-collapse-item > .ant-collapse-header {
+            color: #aaa;
+            padding: 0;
+        }
+
+        .ant-collapse-content,
+        .ant-collapse-content-box {
+            padding: 0.5rem 0;
+        }
+
         &:hover {
             color: white;
+
+            .ant-collapse-item > .ant-collapse-header {
+                color: white;
+            }
         }
     }
 
