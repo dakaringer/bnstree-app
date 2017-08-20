@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
 import {viewSelector, charSelector} from '../selectors'
-import {updateView, setStat} from '../actions.js'
+import {updateView, setStat, setElementDmg} from '../actions.js'
+
+import elementImages from '../images/map_elementImg'
 
 import {Modal, Icon, Tooltip, Radio} from 'antd'
 const RadioButton = Radio.Button
@@ -20,13 +22,21 @@ const mapDispatchToProps = dispatch => {
     return {
         updateView: (type, value) => dispatch(updateView(type, value)),
         setStat: (stat, value) => {
-            const reg = /^(0|[1-9][0-9]*)(\.[0-9]*)?$/
+            const reg = /^(0|[1-9][0-9]*)$/
             if ((!isNaN(value) && reg.test(value)) || value === '') {
                 dispatch(setStat(stat, value))
+            }
+        },
+        setElementDmg: (e, value) => {
+            const reg = /^(0|[1-9][0-9]*)(\.[0-9]*)?$/
+            if ((!isNaN(value) && reg.test(value)) || value === '') {
+                dispatch(setElementDmg(e, value))
             }
         }
     }
 }
+
+const elements = ['flame', 'frost', 'wind', 'earth', 'lightning', 'shadow']
 
 class SkillSettings extends React.Component {
     constructor(props) {
@@ -43,7 +53,7 @@ class SkillSettings extends React.Component {
     }
 
     render() {
-        const {t, view, character, updateView, setStat} = this.props
+        const {t, view, character, updateView, setStat, setElementDmg} = this.props
         const {show} = this.state
 
         let sortDiv = null
@@ -71,6 +81,30 @@ class SkillSettings extends React.Component {
                 </tr>
             )
         }
+
+        let elementDamage = []
+        elements.forEach(element => {
+            elementDamage.push(
+                <tr key={element}>
+                    <td>
+                        <p>
+                            <img
+                                className="element-img"
+                                alt={element}
+                                src={elementImages[element]}
+                            />
+                            {t(element)}
+                        </p>
+                    </td>
+                    <td>
+                        <input
+                            value={character.getIn(['element', element], 100)}
+                            onChange={e => setElementDmg(element, e.target.value)}
+                        />
+                    </td>
+                </tr>
+            )
+        })
 
         return (
             <div className="settings sub-menu-item">
@@ -148,6 +182,15 @@ class SkillSettings extends React.Component {
                         </tbody>
                     </table>
                     <hr />
+                    <h5>
+                        {t('elementDamage')}
+                    </h5>
+                    <table>
+                        <tbody>
+                            {elementDamage}
+                        </tbody>
+                    </table>
+                    <hr />
                     <table>
                         <tbody>
                             <tr className="switchGroup">
@@ -174,15 +217,22 @@ class SkillSettings extends React.Component {
                         </tbody>
                     </table>
                     <hr />
-                    <div>
-                        <p>
-                            {t('patch')}
-                        </p>
-
-                        <a className="patch-selector" disabled>
-                            KR 7.19 <Icon type="down" />
-                        </a>
-                    </div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>
+                                        {t('patch')}
+                                    </p>
+                                </td>
+                                <td>
+                                    <a className="patch-selector" disabled>
+                                        KR 7.19 <Icon type="down" />
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </Modal>
             </div>
         )
