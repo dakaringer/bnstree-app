@@ -93,7 +93,7 @@ class CharacterProfile extends React.PureComponent {
                 </div>
                 <hr />
                 <div className="character-arena-info">
-                    <h2>Arena</h2>
+                    <h3>Arena</h3>
                     <p className="arena-stats">
                         {t('games', {count: character.getIn(['arena', 'stats', 0], 0)})}
                         {' • '}
