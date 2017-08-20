@@ -31,9 +31,10 @@
 .hotkey-bar-wrapper {
     width: 5rem !important;
     .hotkey-bar {
+        margin-top: 2.5rem;
         width: 100%;
-        height: 70rem;
-        max-height: calc(100vh - 15rem);
+        height: 80rem;
+        max-height: calc(100vh - 5rem);
         text-align: right;
         display: flex;
         flex-direction: column;

@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {Affix} from 'antd'
+import {StickyContainer, Sticky} from 'react-sticky'
 import {Link, Element, animateScroll} from 'react-scroll'
 
 import SkillListItem from './SkillListItem'
@@ -56,16 +56,19 @@ const SkillList = props => {
     )
 
     return (
-        <div className="skill-list">
+        <StickyContainer className="skill-list">
             <div className="list">
                 {list}
             </div>
-            <Affix offsetTop={20} className="hotkey-bar-wrapper">
-                <div className="hotkey-bar">
-                    {hotkeyBar}
-                </div>
-            </Affix>
-        </div>
+            <div className="hotkey-bar-wrapper">
+                <Sticky bottomOffset={360}>
+                    {({style}) =>
+                        <div className="hotkey-bar" style={style}>
+                            {hotkeyBar}
+                        </div>}
+                </Sticky>
+            </div>
+        </StickyContainer>
     )
 }
 
