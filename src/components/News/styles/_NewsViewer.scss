@@ -34,15 +34,11 @@
             margin: 0.5rem 0;
         }
 
-        .news-list-container {
-            padding: 0;
+        .news-list-wrapper {
+            margin-top: 0;
 
-            .news-list-wrapper {
+            .news-list {
                 margin-top: 0;
-
-                .news-list {
-                    margin-top: 0;
-                }
             }
         }
 
@@ -57,13 +53,19 @@
 
             .thumb-wrapper {
                 width: 100%;
-                height: 12rem;
+                height: 15rem;
                 overflow: hidden;
                 margin-bottom: 1rem;
+
+                .thumb {
+                    position: relative;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
             }
 
             .news-subtitle {
-                display: none;
+                font-size: 1.4rem !important;
             }
 
             .list-item-timestamp {

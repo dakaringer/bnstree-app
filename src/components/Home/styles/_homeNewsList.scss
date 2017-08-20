@@ -29,7 +29,7 @@
             .thumb {
                 width: 100%;
                 filter: brightness(80%);
-                transition: all 0.5s;
+                transition: filter 0.5s;
             }
 
             &:hover {
@@ -51,6 +51,17 @@
         @media (max-width: 767px) {
             .news-item {
                 width: 100%;
+
+                .thumb-wrapper {
+                    height: 15rem;
+                    overflow: hidden;
+
+                    .thumb {
+                        position: relative;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
             }
         }
     }
