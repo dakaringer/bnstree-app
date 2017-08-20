@@ -76,6 +76,7 @@ class NewsViewer extends React.Component {
             let thumb =
                 article.get('thumb') !== ''
                     ? <img
+                          className="main-thumb"
                           alt={article.get('thumb')}
                           src={`https://static.bnstree.com/images/thumbnails/${article.get(
                               'thumb'
