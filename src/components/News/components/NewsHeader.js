@@ -25,7 +25,7 @@ const NewsHeader = props => {
                 <span>
                     {t('news')}
                 </span>
-                {user && user.has('admin') && location.pathname !== '/news/new'
+                {user && user.get('admin') && location.pathname !== '/news/new'
                     ? <div className="add-new">
                           <Link to={'/news/new'}>
                               <Button ghost type="danger">

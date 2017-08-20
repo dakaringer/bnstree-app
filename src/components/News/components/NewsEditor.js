@@ -87,7 +87,6 @@ class Editor extends React.PureComponent {
             })
                 .then(response => response.json())
                 .then(json => {
-                    console.log(json)
                     if (json.success === 1) {
                         this.setState({
                             id: json.articleId,
