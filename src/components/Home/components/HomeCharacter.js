@@ -2,11 +2,9 @@ import React from 'react'
 
 import overlayImages from '../images/map_overlayImg'
 
-const min = 1
-const max = 4
-
 const HomeCharacter = () => {
-    let setNumber = Math.floor(Math.random() * (max - min + 1)) + min
+    let max = Object.keys(overlayImages).length
+    let setNumber = Math.floor(Math.random() * max) + 1
     let set = overlayImages[`set_${setNumber}`]
 
     let left = set.left
