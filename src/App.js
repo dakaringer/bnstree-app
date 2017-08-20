@@ -69,12 +69,20 @@ const mapStateToProps = state => {
 
 class App extends Component {
     render() {
-        const {initialized} = this.props
+        const {initialized, location} = this.props
 
         let redirectLinks = []
         classes.forEach(c => {
             redirectLinks.push(
-                <Redirect key={c[0]} exact from={`/skill/${c[0]}`} to={`/classes/${c[1]}`} />
+                <Redirect
+                    key={c[0]}
+                    exact
+                    from={`/skill/${c[0]}`}
+                    to={{
+                        search: location.search,
+                        pathname: `/classes/${c[1]}`
+                    }}
+                />
             )
         })
 
