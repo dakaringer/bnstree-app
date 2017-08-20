@@ -105,7 +105,7 @@ class NewsViewer extends React.Component {
         }
 
         let editButton = null
-        if (user.get('admin')) {
+        if (user && user.get('admin')) {
             editButton = (
                 <Link to={`/news/edit/${article.get('_id')}`}>
                     <Button type="primary" ghost>

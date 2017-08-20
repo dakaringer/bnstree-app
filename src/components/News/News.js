@@ -22,13 +22,15 @@ const mapStateToProps = state => {
 const News = props => {
     const {t, user} = props
 
-    let editArticle = user.get('admin', false)
-        ? <Route exact path="/news/edit/:id" component={NewsEditor} />
-        : <Redirect exact from="/news/edit/:id" to="/news" />
+    let editArticle =
+        user && user.get('admin', false)
+            ? <Route exact path="/news/edit/:id" component={NewsEditor} />
+            : <Redirect exact from="/news/edit/:id" to="/news" />
 
-    let newArticle = user.get('admin', false)
-        ? <Route exact path="/news/new/:id" component={NewsEditor} />
-        : <Redirect exact from="/news/new/:id" to="/news" />
+    let newArticle =
+        user && user.get('admin', false)
+            ? <Route exact path="/news/new/:id" component={NewsEditor} />
+            : <Redirect exact from="/news/new/:id" to="/news" />
 
     return (
         <div className="character">
