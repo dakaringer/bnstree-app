@@ -24,10 +24,6 @@
         right: -15rem;
     }
 
-    @media (min-width: 1200px) {
-        filter: brightness(75%);
-    }
-
     @media (max-width: 576px) {
         filter: brightness(30%);
         width: 140%;

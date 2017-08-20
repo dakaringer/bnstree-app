@@ -13,6 +13,8 @@
         text-align: center;
         filter: grayscale(100%) brightness(80%);
         transition: all 0.5s;
+        text-shadow: 0.1rem 0.1rem black;
+        color: #ddd;
 
         &:hover {
             filter: grayscale(0%) brightness(100%);
