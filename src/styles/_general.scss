@@ -134,7 +134,7 @@
 }
 
 .listing {
-    margin: 2rem 0;
+    margin-bottom: 2rem;
 
     .no-data {
         text-align: center;
@@ -144,7 +144,7 @@
     .list-item {
         border-bottom: 0.1rem solid rgba(255, 255, 255, 0.2);
         display: flex;
-        padding: 2rem 0.5rem;
+        padding: 1.5rem 0.5rem;
         transition: all 0.5s;
         overflow: hidden;
         width: 100%;

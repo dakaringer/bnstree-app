@@ -4,6 +4,7 @@ import {Helmet} from 'react-helmet'
 
 import './styles/Stream.scss'
 
+import AdSense from '../AdSense/AdSense'
 import Header from './components/StreamHeader'
 import StreamList from './components/StreamList'
 
@@ -18,6 +19,11 @@ const Streams = props => {
                 <Header />
                 <div className="stream-container">
                     <StreamList />
+                    <AdSense
+                        data-ad-client="ca-pub-2048637692232915"
+                        data-ad-slot="2719129989"
+                        data-ad-format="auto"
+                    />
                 </div>
             </div>
         </div>

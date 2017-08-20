@@ -1,13 +1,15 @@
 .news-list-container {
     max-width: 120rem;
     margin: 0 auto;
+    padding-top: 1rem;
 
     .news-list-wrapper {
-        margin: 3rem 0;
+        margin: 1rem 0;
+        margin-bottom: 3rem;
     }
 
     .news-list {
-        margin: 2rem 0;
+        margin-bottom: 2rem;
 
         .no-data {
             text-align: center;

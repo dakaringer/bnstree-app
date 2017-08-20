@@ -64,6 +64,13 @@ class NewsList extends Component {
                         onChange={p => loadNews(p)}
                     />
                 </div>
+                {ad
+                    ? <AdSense
+                          data-ad-client="ca-pub-2048637692232915"
+                          data-ad-slot="2719129989"
+                          data-ad-format="auto"
+                      />
+                    : null}
             </div>
         )
     }
