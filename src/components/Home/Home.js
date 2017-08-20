@@ -67,11 +67,6 @@ const Home = props => {
                             </div>
                         </Col>
                     </Row>
-                    <AdSense
-                        data-ad-client="ca-pub-2048637692232915"
-                        data-ad-slot="2719129989"
-                        data-ad-format="auto"
-                    />
                 </div>
             </div>
         </div>

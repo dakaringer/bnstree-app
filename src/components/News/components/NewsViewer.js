@@ -133,10 +133,9 @@ class NewsViewer extends React.Component {
                             <NewsList currentId={article.get('_id')} />
                             <AdSense
                                 data-ad-format="fluid"
-                                data-ad-layout="image-side"
-                                data-ad-layout-key="-gs-y+4e+2e+2i"
+                                data-ad-layout="in-article"
                                 data-ad-client="ca-pub-2048637692232915"
-                                data-ad-slot="4449644773"
+                                data-ad-slot="5474542711"
                             />
                         </div>
                     </Col>
