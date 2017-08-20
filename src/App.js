@@ -82,6 +82,15 @@ class App extends Component {
                         search: location.search,
                         pathname: `/classes/${c[1]}`
                     }}
+                />,
+                <Redirect
+                    key={`${c[0]}-2`}
+                    exact
+                    from={`/skill/${c[0]}/:id`}
+                    to={{
+                        search: `?id=${location.pathname.split('/').slice(-1)[0]}`,
+                        pathname: `/classes/${c[1]}`
+                    }}
                 />
             )
         })
