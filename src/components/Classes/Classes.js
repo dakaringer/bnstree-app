@@ -123,10 +123,10 @@ class Skills extends React.Component {
                 <div className="container">
                     <Header />
                     <Row className="skills-content">
-                        <Col sm={4} className="menu-container">
+                        <Col md={4} className="menu-container">
                             <ClassMenu />
                         </Col>
-                        <Col sm={20} className="main-container">
+                        <Col md={20} className="main-container">
                             <Switch>
                                 <Route
                                     exact

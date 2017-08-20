@@ -63,7 +63,7 @@ input {
     &:active,
     &:focus {
         box-shadow: none;
-        border-color: aqua;
+        border-color: deepskyblue;
     }
 }
 
@@ -75,7 +75,7 @@ hr {
 
 img {
     opacity: 0;
-    animation: fadeIn 1s ease forwards;
+    animation: fadeIn 1.5s ease forwards;
 }
 
 @import 'antd';

@@ -3,11 +3,11 @@
         padding: 1rem 3rem;
         padding-left: 1rem;
         border-radius: 0.1rem;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.8);
 
         .ant-dropdown-menu-item {
             & > a.active {
-                color: aqua;
+                color: deepskyblue;
             }
         }
 
@@ -16,12 +16,6 @@
             background: none;
         }
     }
-}
-
-.ant-checkbox-checked .ant-checkbox-inner,
-.ant-checkbox-indeterminate .ant-checkbox-inner {
-    background-color: aqua;
-    border-color: aqua;
 }
 
 .ant-tooltip {
@@ -129,11 +123,11 @@
             color: white;
         }
         .ant-tabs-tab-active {
-            color: aqua !important;
+            color: deepskyblue !important;
         }
 
         .ant-tabs-ink-bar {
-            background-color: aqua;
+            background-color: deepskyblue;
         }
     }
 }

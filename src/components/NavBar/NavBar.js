@@ -162,9 +162,7 @@ class NavBar extends Component {
                                 {t('news')}
                             </NavLink>
                             <Dropdown overlay={classDropdown} trigger={['hover']}>
-                                <NavLink
-                                    to={`/classes/${classes[0][1]}`}
-                                    className="main-nav-menu-item">
+                                <NavLink to={`/classes`} className="main-nav-menu-item">
                                     {t('classes')}
                                 </NavLink>
                             </Dropdown>

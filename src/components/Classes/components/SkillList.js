@@ -61,7 +61,7 @@ const SkillList = props => {
                 {list}
             </div>
             <div className="hotkey-bar-wrapper">
-                <Sticky bottomOffset={360}>
+                <Sticky bottomOffset={400}>
                     {({style}) =>
                         <div className="hotkey-bar" style={style}>
                             {hotkeyBar}

@@ -2,7 +2,6 @@
     display: flex;
     position: relative;
     font-size: 1.4rem;
-    font-weight: 300;
 
     .attack,
     .defense {
@@ -18,11 +17,11 @@
     }
 
     .attack .mainStat {
-        background: linear-gradient(to top, rgba(200, 60, 60, 0.5) 0%, rgba(0, 0, 0, 0) 80%);
+        background: linear-gradient(to top, rgba(200, 60, 60, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     }
 
     .defense .mainStat {
-        background: linear-gradient(to top, rgba(80, 125, 181, 0.5) 0%, rgba(0, 0, 0, 0) 80%);
+        background: linear-gradient(to top, rgba(80, 125, 181, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     }
 
     .mainStat {
@@ -134,8 +133,6 @@
 }
 
 .hmPointMenu {
-    font-weight: 300;
-
     .ant-tooltip-inner {
         max-width: 30rem;
         width: 30rem;
