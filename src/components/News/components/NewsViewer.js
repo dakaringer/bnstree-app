@@ -77,13 +77,15 @@ class NewsViewer extends React.Component {
 
             let thumb =
                 article.get('thumb') !== ''
-                    ? <img
-                          className="main-thumb"
-                          alt={article.get('thumb')}
-                          src={`https://static.bnstree.com/images/thumbnails/${article.get(
-                              'thumb'
-                          )}.jpg`}
-                      />
+                    ? <div className="main-thumb-container">
+                          <img
+                              className="main-thumb"
+                              alt={article.get('thumb')}
+                              src={`https://static.bnstree.com/images/thumbnails/${article.get(
+                                  'thumb'
+                              )}.jpg`}
+                          />
+                      </div>
                     : null
 
             content = (
@@ -124,9 +126,9 @@ class NewsViewer extends React.Component {
                         content={article.get('content', '').split('\n\n')[0]}
                     />
                 </Helmet>
-                <Row className="news-viewer">
-                    <Col className="news-article" md={{span: 18, push: 6}}>
-                        <div>
+                <Row className="news-viewer" gutter={16}>
+                    <Col lg={18}>
+                        <div className="news-article">
                             {content}
                             {editButton}
                             <AdSense
@@ -136,11 +138,11 @@ class NewsViewer extends React.Component {
                             />
                         </div>
                     </Col>
-                    <Col className="news-list-side" md={{span: 6, pull: 18}}>
+                    <Col className="news-list-side" lg={6}>
                         <div>
                             <h3>More Articles</h3>
                             <hr />
-                            <NewsList currentId={article.get('_id')} />
+                            <NewsList currentId={article.get('_id')} icon />
                             <AdSense
                                 data-ad-format="fluid"
                                 data-ad-layout="in-article"

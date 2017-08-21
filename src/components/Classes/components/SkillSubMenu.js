@@ -96,7 +96,7 @@ const SkillSubMenu = props => {
                         </span>
                     </a>
                 </div>
-                <div className="sub-menu-group">
+                <div className="searchGroup sub-menu-group">
                     <div className="skillSearch sub-menu-item">
                         <input
                             placeholder={t('search')}

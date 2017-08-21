@@ -25,6 +25,23 @@
             width: 100%;
         }
     }
+    @media (max-width: 767px) {
+        display: flex;
+        margin-bottom: 1rem;
+
+        .character-profile-image,
+        .character-profile-container {
+            width: 50%;
+        }
+
+        .character-profile-image {
+            margin-right: 1rem;
+        }
+
+        .character-profile-container {
+            margin-left: 1rem;
+        }
+    }
 
     .main-info {
         margin-bottom: 1rem;

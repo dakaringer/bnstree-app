@@ -1,5 +1,6 @@
 @import '../../Character/styles/CharacterSearch';
 @import '../../Streams/styles/_StreamList.scss';
+@import '../../News/styles/_NewsList.scss';
 
 @import 'homeClassLinks';
 @import 'homeNewsList';
@@ -35,16 +36,19 @@
     }
 
     .more {
-        float: right;
+        align-self: flex-end;
+        margin: 0 1rem;
     }
 
     .ant-row {
-        margin-top: 2rem;
+        margin-top: 3rem;
     }
 
     .home-stream {
         padding: 0 0.5rem;
         padding-bottom: 5rem;
+        display: flex;
+        flex-direction: column;
 
         h4 {
             padding: 0 1.5rem;
@@ -70,7 +74,7 @@
     }
 
     .side-menu {
-        padding: 3.9rem 2rem;
+        padding: 3.4rem 2rem;
 
         .side-button {
             width: 100%;

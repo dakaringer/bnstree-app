@@ -25,7 +25,7 @@ class NewsListItem extends PureComponent {
     }
 
     render() {
-        let {article, selected} = this.props
+        let {article, selected, icon} = this.props
 
         let id = article.get('_id')
 
@@ -61,26 +61,28 @@ class NewsListItem extends PureComponent {
         }
 
         return (
-            <Link to={`/news/${id}/${article.get('title', '').replace(/ /g, '-').toLowerCase()}`}>
-                <div className={`news-item list-item ${selected ? 'selected' : ''}`}>
-                    <div className="thumb-wrapper">
-                        {thumb}
+            <Link
+                to={`/news/${id}/${article.get('title', '').replace(/ /g, '-').toLowerCase()}`}
+                className={`news-item list-item ${selected ? 'selected' : ''} ${icon
+                    ? 'icon'
+                    : ''}`}>
+                <div className="thumb-wrapper">
+                    {thumb}
+                </div>
+                <div className="news-item-content">
+                    <div className="news-title">
+                        <h3 className="list-item-title">
+                            {article.get('title')}
+                            <small>
+                                {n}
+                            </small>
+                        </h3>
+                        <h5 className="news-subtitle">
+                            {article.get('content', '').split('\n\n')[0]}
+                        </h5>
                     </div>
-                    <div className="news-item-content">
-                        <div className="news-title">
-                            <h3 className="list-item-title">
-                                {article.get('title')}
-                                <small>
-                                    {n}
-                                </small>
-                            </h3>
-                            <h5 className="news-subtitle">
-                                {article.get('content', '').split('\n\n')[0]}
-                            </h5>
-                        </div>
-                        <div className="list-item-timestamp">
-                            {timeString}
-                        </div>
+                    <div className="list-item-timestamp">
+                        {timeString}
                     </div>
                 </div>
             </Link>

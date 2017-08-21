@@ -46,6 +46,7 @@ const SkillMenu = props => {
                           </NavLink>
                       </div>
                     : null}
+                <hr />
                 <div className="class-menu-item">
                     <NavLink to={`/classes/${classCode}/soulshields`}>
                         {t('soulshields')}
@@ -57,12 +58,6 @@ const SkillMenu = props => {
                     </NavLink>
                 </div>
             </div>
-            <AdSense
-                data-ad-format="fluid"
-                data-ad-layout="in-article"
-                data-ad-client="ca-pub-2048637692232915"
-                data-ad-slot="5474542711"
-            />
         </div>
     )
 }

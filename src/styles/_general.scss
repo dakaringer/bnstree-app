@@ -21,7 +21,7 @@
 
 .section-header {
     height: 6.5rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
     border-bottom: 0.1rem solid rgba(255, 255, 255, 0.35);
     display: flex;
     align-items: baseline;
@@ -29,19 +29,25 @@
     flex-wrap: wrap;
 
     .header-title {
-        font-size: 3rem;
+        font-size: 2.8rem;
         font-weight: 300;
+        display: flex;
+        align-items: center;
 
-        img,
         span {
-            vertical-align: middle;
+            display: flex;
+            align-items: center;
         }
 
         img {
-            width: 4.5rem;
-            height: 4.5rem;
+            width: 4rem;
+            height: 4rem;
             margin-right: 1rem;
         }
+    }
+
+    .header-right {
+        display: flex;
     }
 
     @media (max-width: 767px) {
@@ -73,6 +79,7 @@
     .sub-menu-right {
         display: flex;
         align-items: baseline;
+        flex-wrap: wrap;
     }
 
     img,
@@ -107,13 +114,14 @@
     @media (max-width: 767px) {
         display: block;
         height: auto;
-        .sub-menu-left,
-        .sub-menu-right {
-            display: block;
-            width: 100%;
-        }
         .sub-menu-item {
-            margin: 1rem 0 !important;
+            margin-bottom: 2rem;
+        }
+
+        .sub-menu-right .sub-menu-item {
+            margin-left: 0;
+            margin-right: 2rem;
+            margin-bottom: 0;
         }
     }
 }
@@ -142,7 +150,6 @@
     }
 
     .list-item {
-        border-bottom: 0.1rem solid rgba(255, 255, 255, 0.2);
         display: flex;
         padding: 1.5rem 0.5rem;
         transition: all 0.5s;
@@ -152,7 +159,6 @@
         &.selected,
         &:hover {
             background: rgba(0, 0, 0, 0.4);
-            padding-left: 2rem;
 
             .list-item-title {
                 color: white;
@@ -163,7 +169,7 @@
             transition: all 0.5s;
             font-size: 2.2rem;
             line-height: 2.5rem;
-            color: #aaa;
+            color: #bbb;
             font-weight: 300;
             display: flex;
             align-items: baseline;

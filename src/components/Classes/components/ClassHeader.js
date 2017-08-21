@@ -8,16 +8,18 @@ import {Icon, Popover} from 'antd'
 import {classes} from '../../NavBar/NavBar'
 import classImages from '../images/map_classImg'
 
+import {userSelector} from '../../../selectors'
 import {classSelector} from '../selectors'
 
 const mapStateToProps = state => {
     return {
-        classCode: classSelector(state)
+        classCode: classSelector(state),
+        user: userSelector(state)
     }
 }
 
 const ClassHeader = props => {
-    const {t, classCode, location} = props
+    const {t, classCode, user, location} = props
 
     let currentPath = location.pathname.split('/').slice(-1)[0]
 
@@ -36,6 +38,32 @@ const ClassHeader = props => {
         )
     })
 
+    let subMenu = (
+        <div className="class-menu-popover">
+            <NavLink className="class-menu-item" to={`/classes/${classCode}`} exact>
+                {t('skills')}
+            </NavLink>
+            <NavLink className="class-menu-item sub" to={`/classes/${classCode}/builds`}>
+                {t('userBuilds')}
+            </NavLink>
+            {user
+                ? <NavLink
+                      className="class-menu-item sub"
+                      to={`/classes/${classCode}/my-builds`}
+                      exact>
+                      {t('myBuilds')}
+                  </NavLink>
+                : null}
+            <hr />
+            <NavLink className="class-menu-item" to={`/classes/${classCode}/soulshields`}>
+                {t('soulshields')}
+            </NavLink>
+            <NavLink className="class-menu-item" to={`/classes/${classCode}/badges`}>
+                {t('badges')}
+            </NavLink>
+        </div>
+    )
+
     return (
         <div className="class-header section-header">
             <div className="header-title class-selector">
@@ -53,8 +81,15 @@ const ClassHeader = props => {
                     </div>
                 </Popover>
             </div>
+            <div className="header-right">
+                <Popover trigger="click" placement="bottomRight" content={subMenu}>
+                    <a>
+                        <Icon type="ellipsis" />
+                    </a>
+                </Popover>
+            </div>
         </div>
     )
 }
 
-export default withRouter(connect(mapStateToProps)(translate('general')(ClassHeader)))
+export default withRouter(connect(mapStateToProps)(translate(['skills', 'general'])(ClassHeader)))

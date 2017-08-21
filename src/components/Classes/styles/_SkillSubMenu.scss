@@ -6,10 +6,6 @@
         img {
             width: 2.5rem;
         }
-
-        @media (max-width: 767px) {
-            margin-bottom: -0rem !important;
-        }
     }
 
     .skillSearch {
@@ -38,10 +34,6 @@
             transition: color 0.3s;
             font-size: 12px;
         }
-
-        @media (max-width: 992px) {
-            width: 10rem;
-        }
     }
 
     .skillVisibility {
@@ -61,6 +53,11 @@
         align-items: center;
 
         @media (max-width: 767px) {
+            &.searchGroup {
+                flex: 1;
+                min-width: 15rem;
+            }
+
             .skillSearch {
                 flex: 1;
             }

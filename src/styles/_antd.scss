@@ -35,10 +35,6 @@
         background: rgba(10, 10, 10, 0.9);
         border: 0.1rem solid #111;
 
-        hr {
-            border-color: #111;
-        }
-
         @media (max-width: 767px) {
             max-width: 97vw !important;
             width: 97vw !important;
@@ -60,10 +56,6 @@
     .ant-popover-inner {
         background: rgba(10, 10, 10, 0.9);
         border: 0.1rem solid #111;
-
-        hr {
-            border-color: #111;
-        }
 
         .ant-popover-message {
             color: #999;

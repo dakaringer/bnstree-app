@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import {loadNews} from '../../News/actions'
 import {listSelector} from '../../News/selectors'
 
-import HomeNewsListItem from './HomeNewsListItem'
+import NewsListItem from '../../News/components/NewsListItem'
 
 const mapStateToProps = state => {
     return {
@@ -38,10 +38,11 @@ class HomeNewsList extends Component {
             count++
 
             rows.push(
-                <HomeNewsListItem
+                <NewsListItem
                     article={article}
                     key={i}
                     selected={currentId === article.get('_id')}
+                    icon
                 />
             )
         })

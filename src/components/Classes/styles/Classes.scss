@@ -18,7 +18,12 @@
 }
 
 .class-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
     .class-selector {
+        width: auto;
         cursor: pointer;
         span {
             display: flex;
@@ -28,16 +33,25 @@
             }
         }
     }
+
+    .header-right {
+        font-size: 2rem;
+        padding: 0 1.8rem;
+
+        @media (min-width: 992px) {
+            display: none;
+        }
+    }
 }
 
 .class-selector-popover {
-    width: 25rem;
     .class-link {
         display: flex;
         margin: 1rem 0;
         align-items: center;
         transition: all 0.5s;
         font-size: 1.5rem;
+        padding-right: 5rem;
         img {
             margin-right: 1.5rem;
             width: 4rem;
@@ -50,6 +64,24 @@
             img {
                 filter: grayscale(0%) brightness(100%);
             }
+        }
+    }
+}
+
+.class-menu-popover {
+    display: flex;
+    flex-direction: column;
+    .class-menu-item {
+        margin: 0.5rem 0;
+        font-size: 1.6rem;
+        padding-right: 2rem;
+
+        &.sub {
+            font-size: 1.4rem;
+        }
+
+        &.active {
+            color: white;
         }
     }
 }

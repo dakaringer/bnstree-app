@@ -30,7 +30,7 @@ class NewsList extends Component {
     }
 
     render() {
-        let {list, loadNews, currentId, ad} = this.props
+        let {list, loadNews, currentId, ad, icon} = this.props
 
         let rows = []
         list.get('list', List()).forEach((article, i) => {
@@ -39,19 +39,13 @@ class NewsList extends Component {
                     article={article}
                     key={i}
                     selected={currentId === article.get('_id')}
+                    icon={icon}
                 />
             )
         })
 
         return (
             <div className="news-list-container">
-                {ad
-                    ? <AdSense
-                          data-ad-client="ca-pub-2048637692232915"
-                          data-ad-slot="6768736382"
-                          data-ad-format="auto"
-                      />
-                    : null}
                 <div className="news-list-wrapper">
                     <div className="news-list listing">
                         {rows.length > 0 ? rows : <p className="no-data">No Data</p>}

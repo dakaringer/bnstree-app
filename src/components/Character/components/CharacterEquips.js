@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map, List} from 'immutable'
 
-import {Popover} from 'antd'
+import {Popover, Tooltip} from 'antd'
 
 import {characterSelector} from '../selectors'
 
@@ -33,7 +33,15 @@ class CharacterEquips extends Component {
 
         let gems = []
         equipData.getIn(['weapon', 'gems'], List()).forEach((gem, i) => {
-            gems.push(<img alt={gem.get('name')} src={gem.get('icon')} key={i} />)
+            gems.push(
+                <Tooltip
+                    overlayClassName="gem-tooltip"
+                    title={gem.get('name')}
+                    placement="bottomLeft"
+                    key={i}>
+                    <img alt={gem.get('name')} src={gem.get('icon')} />
+                </Tooltip>
+            )
         })
 
         let accessories = []

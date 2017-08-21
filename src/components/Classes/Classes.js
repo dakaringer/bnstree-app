@@ -122,7 +122,7 @@ class Skills extends React.Component {
             content = (
                 <div className="container">
                     <Header />
-                    <Row className="skills-content">
+                    <Row className="skills-content" gutter={16}>
                         <Col md={4} className="menu-container">
                             <ClassMenu />
                         </Col>
