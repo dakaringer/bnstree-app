@@ -24,7 +24,7 @@
     }
 
     .ant-tooltip-arrow {
-        border-bottom-color: rgba(30, 30, 30, 0.9);
+        border-bottom-color: rgba(10, 10, 10, 0.9);
 
         @media (max-width: 767px) {
             display: none;
@@ -33,7 +33,7 @@
 
     .ant-tooltip-inner {
         background: rgba(10, 10, 10, 0.9);
-        border: 0.1rem solid #111;
+        border: 0.1rem solid #333;
 
         @media (max-width: 767px) {
             max-width: 97vw !important;
