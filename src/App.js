@@ -118,6 +118,8 @@ class App extends Component {
 
                             <Route path="/character" component={Character} />
 
+                            <Redirect from="/soulshield" to="/classes/blade-master/soulshields" />
+
                             <Route path="/streams" component={Streams} />
                         </Switch>
                     </div>
