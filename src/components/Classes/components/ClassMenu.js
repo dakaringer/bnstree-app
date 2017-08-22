@@ -3,8 +3,6 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {NavLink, withRouter} from 'react-router-dom'
 
-import AdSense from '../../AdSense/AdSense'
-
 import {userSelector} from '../../../selectors'
 
 const mapStateToProps = state => {
