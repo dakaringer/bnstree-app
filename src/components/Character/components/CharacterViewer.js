@@ -4,7 +4,7 @@ import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
 
 import {loadCharacter} from '../actions'
-import {loadingSelector} from '../../../selectors'
+import {loadingSelector, userSelector} from '../../../selectors'
 import {characterSelector} from '../selectors'
 import {characterElementSelector} from '../../Classes/selectors'
 
@@ -18,7 +18,7 @@ import SkillList from '../../Classes/components/SkillList'
 import '../../Classes/styles/Classes.scss'
 import elementImages from '../../Classes/images/map_elementImg'
 
-import {Row, Col, Tabs, Icon, Badge} from 'antd'
+import {Row, Col, Tabs, Icon} from 'antd'
 const TabPane = Tabs.TabPane
 
 const postHeaders = {
@@ -27,6 +27,7 @@ const postHeaders = {
 
 const mapStateToProps = state => {
     return {
+        user: userSelector(state),
         loading: loadingSelector(state),
         character: characterSelector(state),
         characterElement: characterElementSelector(state)
@@ -110,16 +111,19 @@ class CharacterViewer extends Component {
     }
 
     render() {
-        const {t, character, characterElement, loading} = this.props
+        const {t, user, character, characterElement, loading} = this.props
 
         let voted =
             (character.get('userVoted', 0) !== 0 && this.state.voted === 0) || this.state.voted > 0
 
+        let likeButton = user
+            ? <a onClick={voted ? () => this.unvote(voted) : () => this.vote(voted)}>
+                  {voted ? <Icon type="heart" /> : <Icon type="heart-o" />}
+              </a>
+            : <Icon type="heart-o" />
         let like = (
             <div className="like">
-                <a onClick={voted ? () => this.unvote(voted) : () => this.vote(voted)}>
-                    {voted ? <Icon type="heart" /> : <Icon type="heart-o" />}
-                </a>
+                {likeButton}
                 <span className="like-count">
                     {character.get('characterVotes', 0) + this.state.voted}
                 </span>

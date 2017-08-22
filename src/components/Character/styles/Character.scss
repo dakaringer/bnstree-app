@@ -41,21 +41,21 @@
         .like {
             display: flex;
             align-items: center;
-            a {
+
+            a,
+            .anticon {
                 font-size: 1.8rem;
                 color: hotpink;
-                margin-right: 1rem;
+            }
 
-                &:hover {
-                    color: pink;
-                }
+            a:hover {
+                color: pink;
             }
 
             .like-count {
                 color: #ccc;
                 font-size: 1.4rem;
-                padding: 0 0.5rem;
-                margin-right: 0.5rem;
+                padding: 0 1rem;
             }
         }
     }
