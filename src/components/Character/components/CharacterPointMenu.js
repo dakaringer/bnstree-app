@@ -6,14 +6,14 @@ import healthImg from '../images/hm_health.png'
 import defenseImg from '../images/hm_defense.png'
 
 const attack = {
-    statTypes: ['max_hp', 'elementDamage'],
+    statTypes: ['attack_power_value', 'elementDamage'],
     m1: [attackImg, v => v],
     m2: [attackImg, v => v * 2],
     sub: [[60, 60], [40, 50], [20, 30], [10, 20]]
 }
 
 const defense = {
-    statTypes: ['max_hp', 'elementDamage'],
+    statTypes: ['max_hp', 'defend_power_value'],
     m1: [healthImg, v => v * 250],
     m2: [defenseImg, v => v * 5],
     sub: [[20000, 105], [15000, 85], [10000, 45], [5000, 30]]
