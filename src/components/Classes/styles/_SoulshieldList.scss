@@ -59,12 +59,14 @@
         }
 
         .soulshield-pieces {
+            margin-top: 1.5rem;
+            background: rgba(25, 25, 25, 0.6);
             .item-header {
                 padding-left: 1rem;
             }
 
             .soulshield-piece {
-                border-bottom: 0.1rem solid rgba(255, 255, 255, 0.35);
+                border-bottom: 0.1rem solid rgba(255, 255, 255, 0.2);
                 padding: 1rem 0;
 
                 .soulshield-piece-name {
@@ -88,6 +90,10 @@
                         margin: 0 1rem;
                     }
 
+                    .m2 {
+                        font-size: 1.4rem;
+                    }
+
                     .sub {
                         font-size: 1.2rem;
                         margin-bottom: 1rem;
@@ -105,6 +111,13 @@
                     .maxFuse {
                         color: limegreen;
                         font-size: 1.2rem;
+                    }
+                }
+
+                @media (max-width: 767px) {
+                    .soulshield-piece-name,
+                    .soulshield-piece-stat {
+                        width: 100%;
                     }
                 }
             }

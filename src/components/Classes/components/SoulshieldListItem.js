@@ -75,27 +75,45 @@ class SoulshieldListItem extends React.Component {
 
         let pieces = []
         set.get('stats', List()).forEach((piece, i) => {
-            let m2 = piece.has('m2')
-                ? `${t(piece.getIn(['m2', 0]))} ${piece.getIn(['m2', 1, 0])}~${piece.getIn([
-                      'm2',
-                      1,
-                      1
-                  ])}`
-                : null
+            let m1Mod = [0, 0]
+            if (piece.getIn(['m2', 'stat']) === 'max_hp') {
+                m1Mod[0] = piece.getIn(['m2', 'values', 0]) * 10
+                m1Mod[1] = piece.getIn(['m2', 'values', 1]) * 10
+            }
+
+            let m2 =
+                piece.has('m2') && piece.getIn(['m2', 'stat']) !== 'max_hp'
+                    ? `${t(piece.getIn(['m2', 'stat']))}
+                       ${piece.getIn(['m2', 'values', 0])}~${piece.getIn(['m2', 'values', 1])}`
+                    : null
 
             let sub = []
+            let subDiv = null
             let subStats = piece.get('sub', Map())
             subStats
                 .get('stats', List())
                 .sort((a, b) => statOrder.indexOf(a) - statOrder.indexOf(b))
                 .forEach(stat => {
+                    let mod = stat === 'max_hp' ? 10 : 1
                     sub.push(
                         <div key={stat}>
-                            {t(stat)} {subStats.getIn(['values', 0])}~{subStats.getIn(['values', 1])}
+                            {t(stat)} {subStats.getIn(['values', 0]) * mod}~{subStats.getIn(['values', 1]) * mod}
                             <span className={`tag rng`}>%</span>
                         </div>
                     )
                 })
+            if (sub.length > 0) {
+                subDiv = (
+                    <div className="sub">
+                        <p>
+                            {t('skills:randomSub', {count: subStats.get('limit', 1)})}
+                        </p>
+                        <div>
+                            {sub}
+                        </div>
+                    </div>
+                )
+            }
 
             pieces.push(
                 <Row
@@ -115,20 +133,13 @@ class SoulshieldListItem extends React.Component {
                     <Col sm={12} className="soulshield-piece-stat">
                         <div>
                             <div className="m1">
-                                {t('max_hp')} {piece.getIn(['m1', 0])}~{piece.getIn(['m1', 1])}
+                                {t('max_hp')} {piece.getIn(['m1', 0]) + m1Mod[0]}~{piece.getIn(['m1', 1]) + m1Mod[1]}
                             </div>
                             <div className="m2">
                                 {m2}
                             </div>
                         </div>
-                        <div className="sub">
-                            <p>
-                                {t('skills:randomSub', {count: subStats.get('limit', 1)})}
-                            </p>
-                            <div>
-                                {sub}
-                            </div>
-                        </div>
+                        {subDiv}
                         <div className="maxFuse">
                             {t('skills:maxFuse')}: {piece.get('maxFuse')}
                         </div>
