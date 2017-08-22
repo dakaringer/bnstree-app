@@ -57,6 +57,15 @@ const Home = props => {
                                         BnSTree Discord
                                     </Button>
                                 </a>
+                                <a
+                                    href="https://discord.gg/TUFzGba"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    <Button type="primary" className="side-button discord raid">
+                                        <img alt="discord" src={discordLogo} />
+                                        Raid Recruitment Discord
+                                    </Button>
+                                </a>
                                 <AdSense
                                     data-ad-format="fluid"
                                     data-ad-layout="image-top"

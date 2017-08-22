@@ -78,9 +78,9 @@
 
         .side-button {
             width: 100%;
-            padding: 1rem;
-            font-size: 2.4rem;
-            margin-bottom: 3rem;
+            padding: 0.5rem;
+            font-size: 2rem;
+            margin-bottom: 2rem;
             height: auto;
             border-radius: 0.2rem;
             filter: brightness(85%);
@@ -97,6 +97,17 @@
             &.discord {
                 background: #7289da;
                 border: none;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+
+                img {
+                    margin-right: 1rem;
+                }
+
+                &.raid {
+                    background: goldenrod;
+                }
             }
 
             &:hover {
