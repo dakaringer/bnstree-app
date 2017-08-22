@@ -18,8 +18,12 @@ import SkillList from '../../Classes/components/SkillList'
 import '../../Classes/styles/Classes.scss'
 import elementImages from '../../Classes/images/map_elementImg'
 
-import {Row, Col, Tabs} from 'antd'
+import {Row, Col, Tabs, Icon, Badge} from 'antd'
 const TabPane = Tabs.TabPane
+
+const postHeaders = {
+    'Content-type': 'application/json; charset=UTF-8'
+}
 
 const mapStateToProps = state => {
     return {
@@ -36,6 +40,14 @@ const mapDispatchToProps = dispatch => {
 }
 
 class CharacterViewer extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            voted: 0
+        }
+    }
+
     componentWillMount() {
         const {match, loadCharacter} = this.props
         loadCharacter(match.params.region, match.params.character)
@@ -51,8 +63,68 @@ class CharacterViewer extends Component {
         }
     }
 
+    vote(voted) {
+        let {character} = this.props
+
+        if (!voted) {
+            this.setState({
+                voted: this.state.voted + 1
+            })
+        }
+
+        fetch('https://api.bnstree.com/character/vote', {
+            method: 'post',
+            credentials: 'include',
+            headers: postHeaders,
+            body: JSON.stringify({
+                characterName: character.getIn(['general', 'name']),
+                region: character.getIn(['general', 'region'])
+            })
+        })
+            .then(response => response.json())
+            .then(json => {})
+            .catch(e => console.log(e))
+    }
+
+    unvote(voted) {
+        let {character} = this.props
+
+        if (voted) {
+            this.setState({
+                voted: this.state.voted - 1
+            })
+        }
+
+        fetch('https://api.bnstree.com/character/unvote', {
+            method: 'delete',
+            credentials: 'include',
+            headers: postHeaders,
+            body: JSON.stringify({
+                characterName: character.getIn(['general', 'name']),
+                region: character.getIn(['general', 'region'])
+            })
+        })
+            .then(response => response.json())
+            .then(json => {})
+            .catch(e => console.log(e))
+    }
+
     render() {
         const {t, character, characterElement, loading} = this.props
+
+        let voted =
+            (character.get('userVoted', 0) !== 0 && this.state.voted === 0) || this.state.voted > 0
+
+        let like = (
+            <div className="like">
+                <a onClick={voted ? () => this.unvote(voted) : () => this.vote(voted)}>
+                    {voted ? <Icon type="heart" /> : <Icon type="heart-o" />}
+                </a>
+                <span className="like-count">
+                    {character.get('characterVotes', 0) + this.state.voted}
+                </span>
+            </div>
+        )
 
         let content = <LoadingLyn />
         if (!loading) {
@@ -63,7 +135,7 @@ class CharacterViewer extends Component {
                             <CharacterProfile />
                         </Col>
                         <Col sm={20} className="stats-container">
-                            <Tabs defaultActiveKey="1" animated>
+                            <Tabs defaultActiveKey="1" animated tabBarExtraContent={like}>
                                 <TabPane tab={t('info')} key="1">
                                     <Row>
                                         <Col sm={16}>
