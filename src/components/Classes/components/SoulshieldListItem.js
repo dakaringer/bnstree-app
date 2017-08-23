@@ -95,9 +95,17 @@ class SoulshieldListItem extends React.Component {
                 .sort((a, b) => statOrder.indexOf(a) - statOrder.indexOf(b))
                 .forEach(stat => {
                     let mod = stat === 'max_hp' ? 10 : 1
+
+                    let values = subStats.get(
+                        stat === 'max_hp' && subStats.has('healthValues')
+                            ? 'healthValues'
+                            : 'values',
+                        Map()
+                    )
+
                     sub.push(
                         <div key={stat}>
-                            {t(stat)} {subStats.getIn(['values', 0]) * mod}~{subStats.getIn(['values', 1]) * mod}
+                            {t(stat)} {values.get(0) * mod}~{values.get(1) * mod}
                             <span className={`tag rng`}>%</span>
                         </div>
                     )
