@@ -139,7 +139,7 @@ class SoulshieldListItem extends React.Component {
                         </p>
                     </Col>
                     <Col sm={12} className="soulshield-piece-stat">
-                        <div>
+                        <div className="main">
                             <div className="m1">
                                 {t('max_hp')} {piece.getIn(['m1', 0]) + m1Mod[0]}~{piece.getIn(['m1', 1]) + m1Mod[1]}
                             </div>
