@@ -25,7 +25,7 @@ export const classes = [
     ['BD', 'blade-dancer'],
     ['WL', 'warlock'],
     ['SF', 'soul-fighter'],
-    ['SH', 'shooter']
+    ['SH', 'gunslinger']
 ]
 
 const languages = ['en', 'ko']
