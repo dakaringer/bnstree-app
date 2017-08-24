@@ -21,7 +21,7 @@ const postHeaders = {
     'Content-type': 'application/json; charset=UTF-8'
 }
 
-export const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
+const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
 const setView = makeActionCreator(actionType.SKILL_UI_SET_VIEW, 'viewType', 'value')
 export const setFilter = makeActionCreator(actionType.SKILL_UI_SET_FILTER, 'filter')
 export const setSearch = makeActionCreator(actionType.SKILL_UI_SET_SEARCH, 'search')
@@ -36,11 +36,7 @@ export const setElementDmg = makeActionCreator(
 )
 export const setEquip = makeActionCreator(actionType.SKILL_CHAR_SET_EQUIP, 'equipType', 'item')
 
-export const setClassData = makeActionCreator(
-    actionType.SKILL_DATA_SET_CLASS_DATA,
-    'classCode',
-    'data'
-)
+const setClassData = makeActionCreator(actionType.SKILL_DATA_SET_CLASS_DATA, 'classCode', 'data')
 const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
 const setUserBuildList = makeActionCreator(
     actionType.SKILL_DATA_SET_USER_BUILD_LIST,
@@ -74,13 +70,13 @@ export function loadClass(classCode, buildCode, buildId) {
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
         dispatch(setSearch(''))
+
+        dispatch(loadBuildList(1, classCode))
+        if (userSelector(getState())) {
+            dispatch(loadBuildList(1, classCode, null, null, true))
+        }
         if (!dataSelector(getState()).has(classCode)) {
             dispatch(setLoading(true))
-
-            dispatch(loadBuildList(1, classCode))
-            if (userSelector(getState())) {
-                dispatch(loadBuildList(1, classCode, null, null, true))
-            }
 
             dispatch(loadBadges())
             dispatch(loadSoulshields())

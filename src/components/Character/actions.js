@@ -1,9 +1,8 @@
 import * as actionType from './actionTypes'
-import {makeActionCreator, flatten} from '../../helpers'
+import {makeActionCreator} from '../../helpers'
 import {setLoading} from '../../actions'
 
-import {setClassData, setClass, setCharacterMode} from '../Classes/actions'
-import {dataSelector} from '../Classes/selectors'
+import {setCharacterMode, loadClass} from '../Classes/actions'
 
 //Action creators
 const setRegion = makeActionCreator(actionType.SET_CHARACTER_REGION, 'region')
@@ -28,33 +27,8 @@ export function loadCharacter(region, name) {
                     }
 
                     let classCode = json.general.classCode
+                    dispatch(loadClass(classCode))
                     dispatch(setCharacterMode(true))
-                    dispatch(setClass(classCode))
-                    if (!dataSelector(getState()).has(classCode)) {
-                        fetch(`https://api.bnstree.com/classes/${classCode}`, {
-                            method: 'get',
-                            credentials: 'include'
-                        })
-                            .then(response => response.json())
-                            .then(json => {
-                                if (json.success === 0 || !json.data) {
-                                    return
-                                }
-
-                                let elements = json.data.classData.elements
-
-                                let data = json.data
-                                Object.keys(data).forEach(k => {
-                                    if (k !== 'classData') {
-                                        data[k] = flatten(data[k])
-                                    }
-                                })
-                                data.classData = elements
-
-                                dispatch(setClassData(classCode, data))
-                            })
-                            .catch(e => console.log(e))
-                    }
                 })
                 .then(() => dispatch(setLoading(false)))
                 .catch(e => console.log(e))
