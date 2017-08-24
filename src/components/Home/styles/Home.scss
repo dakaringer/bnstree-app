@@ -32,12 +32,12 @@
 
     h4 {
         color: #c6c6c6;
-        padding: 0 1rem;
+        padding: 0 0.5rem;
     }
 
     .more {
         align-self: flex-end;
-        margin: 0 1rem;
+        margin: 0 0.5rem;
     }
 
     .ant-row {
@@ -51,7 +51,7 @@
         flex-direction: column;
 
         h4 {
-            padding: 0 1.5rem;
+            padding: 0 1rem;
         }
 
         .stream-list {
@@ -82,7 +82,7 @@
             font-size: 2rem;
             margin-bottom: 2rem;
             height: auto;
-            border-radius: 0.2rem;
+            border-radius: 0.1rem;
             filter: brightness(85%);
 
             img {
@@ -95,7 +95,7 @@
             }
 
             &.discord {
-                background: #7289da;
+                background: royalblue;
                 border: none;
                 display: flex;
                 justify-content: flex-start;
@@ -106,7 +106,7 @@
                 }
 
                 &.raid {
-                    background: goldenrod;
+                    background: blueviolet;
                 }
             }
 

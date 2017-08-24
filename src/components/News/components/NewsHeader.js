@@ -25,16 +25,16 @@ const NewsHeader = props => {
                 <span>
                     {t('news')}
                 </span>
-                {user && user.get('admin') && location.pathname !== '/news/new'
-                    ? <div className="add-new">
-                          <Link to={'/news/new'}>
-                              <Button ghost type="danger">
-                                  New Article
-                              </Button>
-                          </Link>
-                      </div>
-                    : null}
             </div>
+            {user && user.get('admin') && location.pathname !== '/news/new'
+                ? <div className="add-new">
+                      <Link to={'/news/new'}>
+                          <Button ghost type="danger">
+                              New Article
+                          </Button>
+                      </Link>
+                  </div>
+                : null}
         </div>
     )
 }

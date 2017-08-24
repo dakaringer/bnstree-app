@@ -20,15 +20,15 @@
             .preview-overlay {
                 position: absolute;
                 background: rgba(0, 0, 0, 0.8);
-                padding: 0.3rem 0.8rem;
-                font-size: 1.4rem;
+                padding: 0.1rem 0.8rem;
+                font-size: 1.3rem;
                 border-radius: 0.3rem;
                 color: #aaa;
             }
 
             .viewers {
-                top: 0.5rem;
-                left: 0.5rem;
+                bottom: 3.5rem;
+                right: 0.5rem;
             }
 
             .stream-stat {

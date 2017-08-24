@@ -11,8 +11,8 @@
         margin: 0;
 
         .news-item {
-            width: calc(20% - 2rem);
-            margin: 1rem;
+            width: calc(20% - 0.6rem);
+            margin: 0.3rem;
         }
 
         @media (max-width: 1199px) {
