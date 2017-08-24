@@ -225,26 +225,26 @@
                     overflow: hidden;
 
                     &.hm {
-                        filter: brightness(75%);
+                        filter: brightness(120%);
                     }
                 }
             }
 
             .section-PvE {
                 .percent-bar {
-                    background: #195f9a;
+                    background: rgba(30, 144, 255, 0.8);
                 }
             }
 
             .section-PvP {
                 .percent-bar {
-                    background: goldenrod;
+                    background: rgba(255, 165, 0, 0.8);
                 }
             }
 
             .section-6v6 {
                 .percent-bar {
-                    background: orangered;
+                    background: rgba(255, 69, 0, 0.8);
                 }
             }
         }
