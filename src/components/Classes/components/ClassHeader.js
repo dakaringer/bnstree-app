@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 }
 
 const ClassHeader = props => {
-    const {t, classCode, user, location} = props
+    const {t, classCode, user, location, match} = props
 
     let currentPath = location.pathname.split('/').slice(-1)[0]
 
@@ -27,7 +27,9 @@ const ClassHeader = props => {
     classes.forEach(c => {
         classLinks.push(
             <NavLink
-                to={`/classes/${c[1]}/${currentPath !== c[1] ? currentPath : ''}`}
+                to={`/classes/${c[1]}${currentPath !== match.params.classCode
+                    ? `/${currentPath}`
+                    : ''}`}
                 className="class-link"
                 key={c[0]}>
                 <img alt={c[1]} src={classImages[c[0]]} />
