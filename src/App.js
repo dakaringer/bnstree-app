@@ -113,6 +113,7 @@ class App extends Component {
                             <Route path="/news" component={News} />
 
                             <Redirect exact from="/classes" to="/classes/blade-master" />
+                            <Redirect from="/classes/shooter" to="/classes/gunslinger" />
                             {redirectLinks}
                             <Route path="/classes/:classCode" component={Classes} />
 
