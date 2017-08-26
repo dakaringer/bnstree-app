@@ -42,25 +42,29 @@ const ClassHeader = props => {
 
     let subMenu = (
         <div className="class-menu-popover">
-            <NavLink className="class-menu-item" to={`/classes/${classCode}`} exact>
+            <NavLink className="class-menu-item" to={`/classes/${match.params.classCode}`} exact>
                 {t('skills')}
             </NavLink>
-            <NavLink className="class-menu-item sub" to={`/classes/${classCode}/builds`}>
+            <NavLink
+                className="class-menu-item sub"
+                to={`/classes/${match.params.classCode}/builds`}>
                 {t('userBuilds')}
             </NavLink>
             {user
                 ? <NavLink
                       className="class-menu-item sub"
-                      to={`/classes/${classCode}/my-builds`}
+                      to={`/classes/${match.params.classCode}/my-builds`}
                       exact>
                       {t('myBuilds')}
                   </NavLink>
                 : null}
             <hr />
-            <NavLink className="class-menu-item" to={`/classes/${classCode}/soulshields`}>
+            <NavLink
+                className="class-menu-item"
+                to={`/classes/${match.params.classCode}/soulshields`}>
                 {t('soulshields')}
             </NavLink>
-            <NavLink className="class-menu-item" to={`/classes/${classCode}/badges`}>
+            <NavLink className="class-menu-item" to={`/classes/${match.params.classCode}/badges`}>
                 {t('badges')}
             </NavLink>
         </div>
