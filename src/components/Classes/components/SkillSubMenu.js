@@ -108,7 +108,7 @@ const SkillSubMenu = props => {
                     <div className="filter sub-menu-item">
                         <Popover content={filter} trigger="click" placement="bottomLeft">
                             <a className={currentFilter !== 'ALL' ? 'active' : ''}>
-                                <Icon type="filter" />
+                                <Icon type="filter" /> {t('filter')}
                             </a>
                         </Popover>
                     </div>
