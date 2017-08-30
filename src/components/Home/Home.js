@@ -29,22 +29,24 @@ const Home = props => {
                 <HomeCharacter />
             </div>
             <div className="home-bottom">
-                <HomeNewsList />
-                <div className="slim-container container">
+                <div className="home-container container">
+                    <HomeNewsList />
                     <AdSense
                         data-ad-client="ca-pub-2048637692232915"
                         data-ad-slot="6768736382"
                         data-ad-format="auto"
                     />
-                    <Row>
+                    <Row className="stream-menu-container">
                         <Col md={16} className="home-stream">
-                            <h4>
+                            <h3>
                                 {t('streams')}
-                            </h4>
+                                <small>
+                                    <Link to="/streams" className="more">
+                                        {t('moreStreams')}
+                                    </Link>
+                                </small>
+                            </h3>
                             <StreamList limit={4} />
-                            <Link to="/streams" className="more">
-                                {t('moreStreams')}
-                            </Link>
                         </Col>
                         <Col md={8} className="side-menu">
                             <div>

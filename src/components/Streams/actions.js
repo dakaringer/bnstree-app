@@ -14,7 +14,7 @@ export function loadStreams() {
         })
             .then(response => response.json())
             .then(json => {
-                dispatch(setList(json.streams))
+                dispatch(setList(json.streams ? json.streams : []))
             })
             .then(() => dispatch(setLoading(false)))
             .catch(e => console.log(e))

@@ -4,6 +4,8 @@ import {translate} from 'react-i18next'
 import {List} from 'immutable'
 import {Link} from 'react-router-dom'
 
+import {Row, Col} from 'antd'
+
 import {loadNews} from '../../News/actions'
 import {listSelector} from '../../News/selectors'
 
@@ -29,35 +31,38 @@ class HomeNewsList extends Component {
     render() {
         let {t, list, currentId} = this.props
 
-        let rows = []
+        let items = []
         let count = 0
         list.get('list', List()).forEach((article, i) => {
-            if (count > 4) {
+            if (count > 5) {
                 return false
             }
             count++
 
-            rows.push(
-                <NewsListItem
-                    article={article}
-                    key={i}
-                    selected={currentId === article.get('_id')}
-                    icon
-                />
+            items.push(
+                <Col md={count === 1 ? 16 : count === 2 ? 8 : 6} key={i} span={24}>
+                    <NewsListItem
+                        article={article}
+                        selected={currentId === article.get('_id')}
+                        icon
+                    />
+                </Col>
             )
         })
 
         return (
             <div className="home-news-list-container">
-                <h4>
+                <h3>
                     {t('recentNews')}
-                </h4>
-                <div className="home-news-list listing">
-                    {rows}
-                </div>
-                <Link to="/news" className="more">
-                    {t('moreNews')}
-                </Link>
+                    <small>
+                        <Link to="/news" className="more">
+                            {t('moreNews')}
+                        </Link>
+                    </small>
+                </h3>
+                <Row className="home-news-list listing" gutter={16} type="flex">
+                    {items}
+                </Row>
             </div>
         )
     }

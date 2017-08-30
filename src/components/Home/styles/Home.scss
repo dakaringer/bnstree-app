@@ -30,17 +30,19 @@
         position: relative;
     }
 
-    h4 {
-        color: #c6c6c6;
-        padding: 0 0.5rem;
+    .home-container {
+        border-top: 0.1rem solid rgba(255, 255, 255, 0.2);
+    }
+
+    h3 {
+        color: dodgerblue;
     }
 
     .more {
-        align-self: flex-end;
-        margin: 0 0.5rem;
+        margin: 0 1rem;
     }
 
-    .ant-row {
+    .stream-menu-container {
         margin-top: 3rem;
     }
 
@@ -74,7 +76,8 @@
     }
 
     .side-menu {
-        padding: 3.4rem 2rem;
+        padding-top: 4rem;
+        padding-left: 2rem;
 
         .side-button {
             width: 100%;

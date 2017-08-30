@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import {Icon} from 'antd'
+import {Icon, Row, Col} from 'antd'
 
 import {loadStreams} from '../actions'
 import {listSelector} from '../selectors'
@@ -37,30 +37,30 @@ class StreamList extends Component {
 
                 let title = stream.getIn(['channel', 'status'])
                 streams.push(
-                    <a
-                        className="stream-item"
-                        href={stream.getIn(['channel', 'url'])}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        key={stream.getIn(['channel', 'display_name'])}>
-                        <div className="preview-container">
-                            <img alt={title} src={stream.getIn(['preview', 'medium'])} />
-                            <div className="viewers preview-overlay">
-                                <Icon type="eye-o" /> {stream.get('viewers')}
+                    <Col key={stream.getIn(['channel', 'display_name'])} className="stream-item">
+                        <a
+                            href={stream.getIn(['channel', 'url'])}
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <div className="preview-container">
+                                <img alt={title} src={stream.getIn(['preview', 'large'])} />
+                                <div className="viewers preview-overlay">
+                                    <Icon type="eye-o" /> {stream.get('viewers')}
+                                </div>
+                                <div className="stream-stat preview-overlay">
+                                    {stream.get('video_height')}p @{' '}
+                                    {stream.get('average_fps').toFixed(0)}FPS
+                                </div>
+                                <Icon type="play-circle-o" />
                             </div>
-                            <div className="stream-stat preview-overlay">
-                                {stream.get('video_height')}p @{' '}
-                                {stream.get('average_fps').toFixed(0)}FPS
-                            </div>
-                            <Icon type="play-circle-o" />
-                        </div>
-                        <p className="stream-title">
-                            {title}
-                        </p>
-                        <p className="stream-name">
-                            {stream.getIn(['channel', 'display_name'])}
-                        </p>
-                    </a>
+                            <p className="stream-title">
+                                {title}
+                            </p>
+                            <p className="stream-name">
+                                {stream.getIn(['channel', 'display_name'])}
+                            </p>
+                        </a>
+                    </Col>
                 )
             }
         })
@@ -70,9 +70,9 @@ class StreamList extends Component {
         }
 
         return (
-            <div className="stream-list">
+            <Row className="stream-list" type="flex" gutter={16}>
                 {streams}
-            </div>
+            </Row>
         )
     }
 }
