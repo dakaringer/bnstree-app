@@ -105,6 +105,17 @@ const SkillSubMenu = props => {
                         />
                         {clear}
                     </div>
+                </div>
+                <div className="sub-menu-group">
+                    <div className="skillVisibility sub-menu-item">
+                        <Checkbox
+                            defaultChecked={false}
+                            size="small"
+                            onChange={toggleVisibility}
+                            checked={visibility === 'TRAINABLE'}>
+                            {t('showTrainable')}
+                        </Checkbox>
+                    </div>
                     <div className="filter sub-menu-item">
                         <Popover content={filter} trigger="click" placement="bottomLeft">
                             <a className={currentFilter !== 'ALL' ? 'active' : ''}>
@@ -112,15 +123,6 @@ const SkillSubMenu = props => {
                             </a>
                         </Popover>
                     </div>
-                </div>
-                <div className="skillVisibility sub-menu-item">
-                    <Checkbox
-                        defaultChecked={false}
-                        size="small"
-                        onChange={toggleVisibility}
-                        checked={visibility === 'TRAINABLE'}>
-                        {t('showTrainable')}
-                    </Checkbox>
                 </div>
             </div>
             <div className="sub-menu-right">

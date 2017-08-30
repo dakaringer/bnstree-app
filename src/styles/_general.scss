@@ -104,11 +104,19 @@
     }
 
     .sub-menu-left .sub-menu-item {
-        margin-right: 2rem;
+        margin-right: 1.5rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 
     .sub-menu-right .sub-menu-item {
-        margin-left: 2rem;
+        margin-left: 1.5rem;
+
+        &:first-child {
+            margin-left: 0;
+        }
     }
 
     @media (max-width: 767px) {
