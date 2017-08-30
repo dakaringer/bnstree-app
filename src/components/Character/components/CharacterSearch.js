@@ -45,6 +45,7 @@ class CharacterSearch extends React.Component {
                     onChange={e => this.changeRegion(e.target.value)}>
                     <RadioButton value="na">NA</RadioButton>
                     <RadioButton value="eu">EU</RadioButton>
+                    <RadioButton value="kr">KR</RadioButton>
                 </RadioGroup>
                 <div className="inputGroup">
                     <input

@@ -51,9 +51,7 @@ class CharacterEquips extends Component {
                     <div className="img-container">
                         <img alt={accessory.get('name')} src={accessory.get('icon', blank)} />
                     </div>
-                    <p className={accessory.get('grade')}>
-                        {accessory.get('name')}
-                    </p>
+                    <p className={accessory.get('grade')}>{accessory.get('name')}</p>
                 </div>
             )
         })
@@ -76,12 +74,8 @@ class CharacterEquips extends Component {
         equipData.getIn(['soulshield', 'stats'], List()).forEach((stat, i) => {
             ssStats.push(
                 <tr key={i}>
-                    <td>
-                        {stat.get('stat')}
-                    </td>
-                    <td className="total">
-                        {stat.get('total')}
-                    </td>
+                    <td>{stat.get('stat')}</td>
+                    <td className="total">{stat.get('total')}</td>
                     <td>
                         ({stat.get('base')} + <span className="add">{stat.get('fuse')}</span> +{' '}
                         <span className="add">{stat.get('set')}</span>)
@@ -94,18 +88,18 @@ class CharacterEquips extends Component {
         equipData.getIn(['soulshield', 'effects'], List()).forEach((set, i) => {
             let effects = []
             set.get('effects').forEach((effect, j) => {
+                let txt = document.createElement('textarea')
+                txt.innerHTML = effect
                 effects.push(
                     <p className="effect-description" key={j}>
-                        {effect.replace(/,/g, ', ')}
+                        {txt.value.replace(/,/g, ', ')}
                     </p>
                 )
             })
 
             ssEffects.push(
                 <div className="soulshield-effect" key={i}>
-                    <p className="soulshield-effect-name">
-                        {set.get('name')}
-                    </p>
+                    <p className="soulshield-effect-name">{set.get('name')}</p>
                     {effects}
                 </div>
             )
@@ -120,13 +114,9 @@ class CharacterEquips extends Component {
                     </small>
                 </h3>
                 <table>
-                    <tbody>
-                        {ssStats}
-                    </tbody>
+                    <tbody>{ssStats}</tbody>
                 </table>
-                <div>
-                    {ssEffects}
-                </div>
+                <div>{ssEffects}</div>
             </div>
         )
 
@@ -143,14 +133,10 @@ class CharacterEquips extends Component {
                         <p className={equipData.getIn(['weapon', 'grade'])}>
                             {equipData.getIn(['weapon', 'name'])}
                         </p>
-                        <div className="gems">
-                            {gems}
-                        </div>
+                        <div className="gems">{gems}</div>
                     </div>
                 </div>
-                <div className="accessories">
-                    {accessories}
-                </div>
+                <div className="accessories">{accessories}</div>
                 <div className="soulshield">
                     <div className="imagePreview">
                         <img
@@ -227,9 +213,7 @@ class CharacterEquips extends Component {
                         content={ssTooltip}
                         trigger="click"
                         overlayClassName="soulshield-attributes">
-                        <a className="soulshield-attribute-button">
-                            {t('ssShowAttributes')}
-                        </a>
+                        <a className="soulshield-attribute-button">{t('ssShowAttributes')}</a>
                     </Popover>
                 </div>
             </div>
