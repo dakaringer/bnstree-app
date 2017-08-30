@@ -4,8 +4,6 @@ import {translate} from 'react-i18next'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 
-import {Row, Col} from 'antd'
-
 import AdSense from '../AdSense/AdSense'
 
 import {currentLanguageSelector, loadingSelector, userSelector} from '../../selectors'
@@ -17,7 +15,6 @@ import './styles/Classes.scss'
 import {classes} from '../NavBar/NavBar'
 import LoadingLyn from '../LoadingLyn/LoadingLyn'
 import Header from './components/ClassHeader'
-import ClassMenu from './components/ClassMenu'
 import SkillSubMenu from './components/SkillSubMenu'
 import SkillList from './components/SkillList'
 import SkillGrid from './components/SkillGrid'
@@ -120,62 +117,38 @@ class Skills extends React.Component {
 
         if (!loading) {
             content = (
-                <div className="container">
-                    <Header />
-                    <Row className="skills-content" gutter={16}>
-                        <Col md={4} className="menu-container">
-                            <ClassMenu />
-                        </Col>
-                        <Col md={20} className="main-container">
-                            <Switch>
-                                <Route
-                                    exact
-                                    path="/classes/:classCode"
-                                    render={() => skillComponent}
-                                />
-                                <Route
-                                    exact
-                                    path={`/classes/:classCode/info`}
-                                    render={() => null}
-                                />
-                                <Route
-                                    exact
-                                    path="/classes/:classCode/soulshields"
-                                    component={SoulshieldList}
-                                />
-                                <Route
-                                    exact
-                                    path="/classes/:classCode/badges"
-                                    component={BadgeList}
-                                />
-                                <Route
-                                    exact
-                                    path="/classes/:classCode/builds"
-                                    component={SkillBuildList}
-                                />
-                                {user
-                                    ? <Route
-                                          exact
-                                          path="/classes/:classCode/my-builds"
-                                          render={() => <SkillBuildList user />}
-                                      />
-                                    : <Redirect
-                                          from="/classes/:classCode/my-builds"
-                                          to="/classes/:classCode"
-                                      />}
-                                <Route
-                                    exact
-                                    path="/classes/:classCode/:buildLink"
-                                    render={() => skillComponent}
-                                />
-                            </Switch>
-                            <AdSense
-                                data-ad-client="ca-pub-2048637692232915"
-                                data-ad-slot="2719129989"
-                                data-ad-format="auto"
-                            />
-                        </Col>
-                    </Row>
+                <div className="main-container">
+                    <Switch>
+                        <Route exact path="/classes/:classCode" render={() => skillComponent} />
+                        <Route exact path={`/classes/:classCode/info`} render={() => null} />
+                        <Route
+                            exact
+                            path="/classes/:classCode/soulshields"
+                            component={SoulshieldList}
+                        />
+                        <Route exact path="/classes/:classCode/badges" component={BadgeList} />
+                        <Route exact path="/classes/:classCode/builds" component={SkillBuildList} />
+                        {user
+                            ? <Route
+                                  exact
+                                  path="/classes/:classCode/my-builds"
+                                  render={() => <SkillBuildList user />}
+                              />
+                            : <Redirect
+                                  from="/classes/:classCode/my-builds"
+                                  to="/classes/:classCode"
+                              />}
+                        <Route
+                            exact
+                            path="/classes/:classCode/:buildLink"
+                            render={() => skillComponent}
+                        />
+                    </Switch>
+                    <AdSense
+                        data-ad-client="ca-pub-2048637692232915"
+                        data-ad-slot="2719129989"
+                        data-ad-format="auto"
+                    />
                 </div>
             )
         }
@@ -185,7 +158,10 @@ class Skills extends React.Component {
                 <Helmet>
                     <title>{`${t(getPath(location.pathname))} - ${t(classCode)} | BnSTree`}</title>
                 </Helmet>
-                {content}
+                <div className="container">
+                    <Header />
+                    {content}
+                </div>
             </div>
         )
     }

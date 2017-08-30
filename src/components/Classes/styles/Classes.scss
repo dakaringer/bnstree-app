@@ -1,4 +1,3 @@
-@import 'ClassMenu';
 @import 'SkillSubMenu';
 @import 'SkillList';
 @import 'SkillIconList';
@@ -6,12 +5,6 @@
 @import 'SkillBuildList';
 @import 'ItemList';
 @import 'SoulshieldList';
-
-.skills {
-    .skills-content {
-        margin: 0.5rem 0;
-    }
-}
 
 .skill-name {
     color: aqua;
@@ -36,10 +29,22 @@
 
     .header-right {
         font-size: 2rem;
-        padding: 0 1.8rem;
+        padding: 0 0.5rem;
+
+        .popover-toggle {
+            padding: 0 1rem;
+        }
+
+        @media (max-width: 991px) {
+            & > .class-header-menu {
+                display: none;
+            }
+        }
 
         @media (min-width: 992px) {
-            display: none;
+            .popover-toggle {
+                display: none;
+            }
         }
     }
 }
@@ -82,6 +87,38 @@
 
         &.active {
             color: white;
+        }
+    }
+}
+
+.class-header-menu {
+    .class-menu-item {
+        margin-left: 3rem;
+
+        &.active {
+            color: deepskyblue;
+        }
+
+        &.sub {
+            font-size: 1.4rem;
+            margin-left: 1.5rem;
+        }
+    }
+
+    @media (max-width: 991px) {
+        display: flex;
+        flex-direction: column;
+
+        .class-menu-item {
+            margin: 0.5rem 0;
+            font-size: 1.8rem;
+            padding-right: 3rem;
+
+            &.sub {
+                font-size: 1.4rem;
+                margin-left: 0.5rem;
+                margin-top: 0;
+            }
         }
     }
 }

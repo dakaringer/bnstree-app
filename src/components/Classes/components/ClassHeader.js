@@ -41,7 +41,7 @@ const ClassHeader = props => {
     })
 
     let subMenu = (
-        <div className="class-menu-popover">
+        <div className="class-header-menu">
             <NavLink className="class-menu-item" to={`/classes/${match.params.classCode}`} exact>
                 {t('skills')}
             </NavLink>
@@ -58,7 +58,6 @@ const ClassHeader = props => {
                       {t('myBuilds')}
                   </NavLink>
                 : null}
-            <hr />
             <NavLink
                 className="class-menu-item"
                 to={`/classes/${match.params.classCode}/soulshields`}>
@@ -88,8 +87,9 @@ const ClassHeader = props => {
                 </Popover>
             </div>
             <div className="header-right">
+                {subMenu}
                 <Popover trigger="click" placement="bottomRight" content={subMenu}>
-                    <a>
+                    <a className="popover-toggle">
                         <Icon type="ellipsis" />
                     </a>
                 </Popover>
