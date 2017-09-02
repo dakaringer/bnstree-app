@@ -9,15 +9,13 @@ import CharacterSearch from './CharacterSearch'
 const CharacterHeader = props => {
     const {t, location} = props
 
-    let regex = /^\/character\/?(na|eu)?\/?$/
+    let regex = /^\/character\/?(na|eu|kr)?\/?$/
 
     return (
         <div className="character-header section-header">
             <div className="header-title">
                 <img alt="character" src={icon} />
-                <span>
-                    {t('characterSearch')}
-                </span>
+                <span>{t('characterSearch')}</span>
             </div>
             <div className="header-item">
                 {regex.test(location.pathname) ? null : <CharacterSearch />}
