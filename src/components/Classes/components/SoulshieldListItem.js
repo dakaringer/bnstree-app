@@ -63,28 +63,28 @@ class SoulshieldListItem extends React.Component {
 
             effects.push(
                 <div className="set-effect" key={label}>
-                    <div className="set-label">
-                        {label}
-                    </div>
-                    <div>
-                        {attributes}
-                    </div>
+                    <div className="set-label">{label}</div>
+                    <div>{attributes}</div>
                 </div>
             )
         })
 
+        let legacy = set.get('group') === 'legacy'
+
         let pieces = []
         set.get('stats', List()).forEach((piece, i) => {
-            let m1Mod = [0, 0]
+            let m1Values = piece.get('m1', List()).sort()
+            let m2Values = piece.getIn(['m2', 'values'], List()).sort()
+
             if (piece.getIn(['m2', 'stat']) === 'max_hp') {
-                m1Mod[0] = piece.getIn(['m2', 'values', 0]) * 10
-                m1Mod[1] = piece.getIn(['m2', 'values', 1]) * 10
+                m1Values = m1Values.map((value, i) => value + m2Values.get(i, 0) * 10)
             }
+            let m1 = `${t('max_hp')} ${m1Values.sort().join(legacy ? ', ' : '~')}`
 
             let m2 =
                 piece.has('m2') && piece.getIn(['m2', 'stat']) !== 'max_hp'
                     ? `${t(piece.getIn(['m2', 'stat']))}
-                       ${piece.getIn(['m2', 'values', 0])}~${piece.getIn(['m2', 'values', 1])}`
+                       ${m2Values.join(legacy ? ', ' : '~')}`
                     : null
 
             let sub = []
@@ -96,16 +96,19 @@ class SoulshieldListItem extends React.Component {
                 .forEach(stat => {
                     let mod = stat === 'max_hp' ? 10 : 1
 
-                    let values = subStats.get(
-                        stat === 'max_hp' && subStats.has('healthValues')
-                            ? 'healthValues'
-                            : 'values',
-                        Map()
-                    )
+                    let values = subStats
+                        .get(
+                            stat === 'max_hp' && subStats.has('healthValues')
+                                ? 'healthValues'
+                                : 'values',
+                            Map()
+                        )
+                        .sort()
+                        .map(value => value * mod)
 
                     sub.push(
                         <div key={stat}>
-                            {t(stat)} {values.get(0) * mod}~{values.get(1) * mod}
+                            {t(stat)} {values.join(legacy ? ', ' : '~')}
                             <span className={`tag rng`}>%</span>
                         </div>
                     )
@@ -113,12 +116,8 @@ class SoulshieldListItem extends React.Component {
             if (sub.length > 0) {
                 subDiv = (
                     <div className="sub">
-                        <p>
-                            {t('skills:randomSub', {count: subStats.get('limit', 1)})}
-                        </p>
-                        <div>
-                            {sub}
-                        </div>
+                        <p>{t('skills:randomSub', {count: subStats.get('limit', 1)})}</p>
+                        <div>{sub}</div>
                     </div>
                 )
             }
@@ -140,12 +139,8 @@ class SoulshieldListItem extends React.Component {
                     </Col>
                     <Col sm={12} className="soulshield-piece-stat">
                         <div className="main">
-                            <div className="m1">
-                                {t('max_hp')} {piece.getIn(['m1', 0]) + m1Mod[0]}~{piece.getIn(['m1', 1]) + m1Mod[1]}
-                            </div>
-                            <div className="m2">
-                                {m2}
-                            </div>
+                            <div className="m1">{m1}</div>
+                            <div className="m2">{m2}</div>
                         </div>
                         {subDiv}
                         <div className="maxFuse">
@@ -175,28 +170,20 @@ class SoulshieldListItem extends React.Component {
                                         {set.get('name')}
                                     </h3>
                                     <div className="set-name">
-                                        {t(`skills:${set.get('group')}`)}
+                                        {set.has('group') ? t(`skills:${set.get('group')}`) : ''}
                                     </div>
                                 </div>
                             </div>
                         }>
                         <div className="set-effects">
-                            <h5 className="set-effect-name">
-                                {set.get('setEffect')}
-                            </h5>
+                            <h5 className="set-effect-name">{set.get('setEffect')}</h5>
                             {effects}
                         </div>
                         <Collapse bordered={false}>
                             <Panel
                                 className="soulshield-pieces"
-                                header={
-                                    <div className="item-header">
-                                        {t('skills:stats')}
-                                    </div>
-                                }>
-                                <div>
-                                    {pieces}
-                                </div>
+                                header={<div className="item-header">{t('skills:stats')}</div>}>
+                                <div>{pieces}</div>
                             </Panel>
                         </Collapse>
                     </Panel>

@@ -26,20 +26,19 @@ const SoulshieldList = props => {
         battlegrounds.push(<SoulshieldListItem set={set} itemId={id} key={id} />)
     })
 
+    let heroic = []
+    soulshields.get('heroic', Map()).forEach((set, id) => {
+        heroic.push(<SoulshieldListItem set={set} itemId={id} key={id} />)
+    })
+
     return (
         <div className="item-list-container">
-            <h2>
-                {t('PvE')}
-            </h2>
-            <div className="item-list soulshield-list-pve">
-                {dungeons}
-            </div>
-            <h2>
-                {t('6v6')}
-            </h2>
-            <div className="item-list soulshield-list-pvp">
-                {battlegrounds}
-            </div>
+            <h2>{t('PvE')}</h2>
+            <div className="item-list soulshield-list-pve">{dungeons}</div>
+            <h2>{t('6v6')}</h2>
+            <div className="item-list soulshield-list-pvp">{battlegrounds}</div>
+            <h2>{t('heroic')}</h2>
+            <div className="item-list soulshield-list-heroic">{heroic}</div>
         </div>
     )
 }
