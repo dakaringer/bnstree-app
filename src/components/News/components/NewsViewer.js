@@ -76,26 +76,22 @@ class NewsViewer extends React.Component {
                 })
 
             let thumb =
-                article.get('thumb') !== ''
-                    ? <div className="main-thumb-container">
-                          <img
-                              className="main-thumb"
-                              alt={article.get('thumb')}
-                              src={`https://static.bnstree.com/images/thumbnails/${article.get(
-                                  'thumb'
-                              )}.jpg`}
-                          />
-                      </div>
-                    : null
+                article.get('thumb') !== '' ? (
+                    <div className="main-thumb-container">
+                        <img
+                            className="main-thumb"
+                            alt={article.get('thumb')}
+                            src={`https://static.bnstree.com/images/thumbnails/${article.get(
+                                'thumb'
+                            )}.jpg`}
+                        />
+                    </div>
+                ) : null
 
             content = (
                 <div>
-                    <h1 className="news-title">
-                        {article.get('title')}
-                    </h1>
-                    <p className="news-timestamp">
-                        {timeString}
-                    </p>
+                    <h1 className="news-title">{article.get('title')}</h1>
+                    <p className="news-timestamp">{timeString}</p>
                     <hr />
                     {thumb}
                     <div
@@ -131,11 +127,6 @@ class NewsViewer extends React.Component {
                         <div className="news-article">
                             {content}
                             {editButton}
-                            <AdSense
-                                data-ad-client="ca-pub-2048637692232915"
-                                data-ad-slot="2719129989"
-                                data-ad-format="auto"
-                            />
                         </div>
                     </Col>
                     <Col className="news-list-side" lg={6}>

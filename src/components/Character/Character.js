@@ -48,6 +48,11 @@ class Character extends Component {
                 <Helmet>
                     <title>{`${t('characterSearch')} | BnSTree`}</title>
                 </Helmet>
+                <AdSense
+                    data-ad-client="ca-pub-2048637692232915"
+                    data-ad-slot="6768736382"
+                    data-ad-format="auto"
+                />
                 <div className="container">
                     <Header />
                     <div className="main-container">

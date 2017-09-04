@@ -128,16 +128,18 @@ class Skills extends React.Component {
                         />
                         <Route exact path="/classes/:classCode/badges" component={BadgeList} />
                         <Route exact path="/classes/:classCode/builds" component={SkillBuildList} />
-                        {user
-                            ? <Route
-                                  exact
-                                  path="/classes/:classCode/my-builds"
-                                  render={() => <SkillBuildList user />}
-                              />
-                            : <Redirect
-                                  from="/classes/:classCode/my-builds"
-                                  to="/classes/:classCode"
-                              />}
+                        {user ? (
+                            <Route
+                                exact
+                                path="/classes/:classCode/my-builds"
+                                render={() => <SkillBuildList user />}
+                            />
+                        ) : (
+                            <Redirect
+                                from="/classes/:classCode/my-builds"
+                                to="/classes/:classCode"
+                            />
+                        )}
                         <Route
                             exact
                             path="/classes/:classCode/:buildLink"
@@ -158,6 +160,11 @@ class Skills extends React.Component {
                 <Helmet>
                     <title>{`${t(getPath(location.pathname))} - ${t(classCode)} | BnSTree`}</title>
                 </Helmet>
+                <AdSense
+                    data-ad-client="ca-pub-2048637692232915"
+                    data-ad-slot="6768736382"
+                    data-ad-format="auto"
+                />
                 <div className="container">
                     <Header />
                     {content}

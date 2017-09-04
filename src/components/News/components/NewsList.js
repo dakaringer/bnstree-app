@@ -5,8 +5,6 @@ import {List} from 'immutable'
 
 import {Pagination} from 'antd'
 
-import AdSense from '../../AdSense/AdSense'
-
 import {loadNews} from '../actions'
 import {listSelector} from '../selectors'
 
@@ -30,7 +28,7 @@ class NewsList extends Component {
     }
 
     render() {
-        let {list, loadNews, currentId, ad, icon} = this.props
+        let {list, loadNews, currentId, icon} = this.props
 
         let rows = []
         list.get('list', List()).forEach((article, i) => {
@@ -58,13 +56,6 @@ class NewsList extends Component {
                         onChange={p => loadNews(p)}
                     />
                 </div>
-                {ad
-                    ? <AdSense
-                          data-ad-client="ca-pub-2048637692232915"
-                          data-ad-slot="2719129989"
-                          data-ad-format="auto"
-                      />
-                    : null}
             </div>
         )
     }
