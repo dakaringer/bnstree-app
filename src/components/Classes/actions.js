@@ -13,7 +13,8 @@ import {
     skillNamesSelector,
     buildSelector,
     refSelector,
-    characterModeSelector
+    characterModeSelector,
+    groupedSkillDataSelector
 } from './selectors'
 import {userSelector} from '../../selectors'
 
@@ -269,6 +270,7 @@ export function loadBuild(buildCode, buildId) {
             })
                 .then(response => response.json())
                 .then(json => {
+                    console.log(json)
                     if (
                         json.success === 1 &&
                         json.build &&
@@ -284,8 +286,9 @@ export function loadBuild(buildCode, buildId) {
                     }
                 })
                 .catch(e => console.log(e))
-        } else {
-            let currentElement = elementDataSelector(getState()).get(buildCode[0])
+        } else if (!isNaN(buildCode)) {
+            let elementData = elementDataSelector(getState())
+            let currentElement = elementData.get(buildCode[0], elementData.get(0))
             let buildString = buildCode.substring(1)
             dispatch(setBuildElement(classCode, currentElement.get('element')))
             currentElement.get('buildFormat', Map()).forEach((id, i) => {
@@ -333,8 +336,13 @@ export function learnMove(skill, move) {
         if (!characterModeSelector(getState())) {
             let classCode = classSelector(getState())
             let element = buildElementSelector(getState())
-
-            dispatch(setBuildSkill(classCode, element, skill, move))
+            let skillData = groupedSkillDataSelector(getState()).get(skill, Map())
+            skillData.forEach(s => {
+                if (s.get('move', 1) === move) {
+                    dispatch(setBuildSkill(classCode, element, skill, move))
+                    return false
+                }
+            })
         }
     }
 }

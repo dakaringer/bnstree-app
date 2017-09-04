@@ -396,7 +396,7 @@ const statSkillDataSelector = createSelector(
     }
 )
 
-const groupedSkillDataSelector = createSelector(statSkillDataSelector, data => {
+export const groupedSkillDataSelector = createSelector(statSkillDataSelector, data => {
     data = data.sort((a, b) => {
         if (a.get('move', '') < b.get('move', '')) {
             return -1
@@ -429,7 +429,10 @@ const filteredSkillDataSelector = createSelector(
                 filterOK = filterOK || filterList.includes(filter)
                 searchOK =
                     searchOK ||
-                    skill.get('name', '').toLowerCase().startsWith(search.trim().toLowerCase())
+                    skill
+                        .get('name', '')
+                        .toLowerCase()
+                        .startsWith(search.trim().toLowerCase())
             })
 
             return filterOK && searchOK
