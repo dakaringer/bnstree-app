@@ -23,6 +23,15 @@ class StreamList extends Component {
         this.props.loadStreams()
     }
 
+    componentDidMount() {
+        let intervalId = setInterval(() => this.props.loadStreams(), 300000)
+        this.setState({intervalId: intervalId})
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.intervalId)
+    }
+
     render() {
         let {list, limit} = this.props
 
@@ -53,9 +62,7 @@ class StreamList extends Component {
                                 </div>
                                 <Icon type="play-circle-o" />
                             </div>
-                            <p className="stream-title">
-                                {title}
-                            </p>
+                            <p className="stream-title">{title}</p>
                             <p className="stream-name">
                                 {stream.getIn(['channel', 'display_name'])}
                             </p>
