@@ -11,7 +11,7 @@ function general(
     state = fromJS({
         language: 'en',
         user: null,
-        loading: false,
+        loading: {},
         initialized: false
     }),
     action
@@ -22,7 +22,7 @@ function general(
         case actionType.GENERAL_SET_USER:
             return state.set('user', fromJS(action.user))
         case actionType.GENERAL_SET_LOADING:
-            return state.set('loading', action.loading)
+            return state.setIn(['loading', action.context], action.loading)
         case actionType.GENERAL_SET_INITIALIZED:
             return state.set('initialized', action.initialized)
         default:

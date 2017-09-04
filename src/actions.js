@@ -5,7 +5,7 @@ import {currentLanguageSelector} from './selectors'
 
 const setLanguage = makeActionCreator(actionType.GENERAL_SET_LANGUAGE, 'language')
 const setUser = makeActionCreator(actionType.GENERAL_SET_USER, 'user')
-export const setLoading = makeActionCreator(actionType.GENERAL_SET_LOADING, 'loading')
+export const setLoading = makeActionCreator(actionType.GENERAL_SET_LOADING, 'loading', 'context')
 const setInitialized = makeActionCreator(actionType.GENERAL_SET_INITIALIZED, 'initialized')
 
 export function setUILanguage(lang, initial) {

@@ -10,6 +10,7 @@ const setArticle = makeActionCreator(actionType.SET_NEWS_ARTICLE, 'article')
 
 export function loadNews(page = 1) {
     return dispatch => {
+        dispatch(setLoading(true, 'news'))
         let url = `https://api.bnstree.com/news?page=${page}&limit=10`
 
         fetch(url, {
@@ -22,6 +23,7 @@ export function loadNews(page = 1) {
                     dispatch(setList(json.result))
                 }
             })
+            .then(() => dispatch(setLoading(false, 'news')))
             .catch(e => console.log(e))
     }
 }
@@ -33,7 +35,7 @@ export function loadArticle(id) {
         let article = list.find(a => a.get('_id') === id)
 
         if (!article) {
-            dispatch(setLoading(true))
+            dispatch(setLoading(true, 'news'))
             fetch(`https://api.bnstree.com/news/${id}`, {
                 method: 'get',
                 credentials: 'include'
@@ -44,7 +46,7 @@ export function loadArticle(id) {
                         dispatch(setArticle(json.article))
                     }
                 })
-                .then(() => dispatch(setLoading(false)))
+                .then(() => dispatch(setLoading(false, 'news')))
                 .catch(e => console.log(e))
         } else {
             dispatch(setArticle(article))

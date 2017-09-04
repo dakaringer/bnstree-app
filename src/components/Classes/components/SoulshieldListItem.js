@@ -79,12 +79,12 @@ class SoulshieldListItem extends React.Component {
             if (piece.getIn(['m2', 'stat']) === 'max_hp') {
                 m1Values = m1Values.map((value, i) => value + m2Values.get(i, 0) * 10)
             }
-            let m1 = `${t('max_hp')} ${m1Values.sort().join(legacy ? ', ' : '~')}`
+            let m1 = `${t('max_hp')} ${m1Values.sort().join(legacy ? ', ' : ' ~ ')}`
 
             let m2 =
                 piece.has('m2') && piece.getIn(['m2', 'stat']) !== 'max_hp'
                     ? `${t(piece.getIn(['m2', 'stat']))}
-                       ${m2Values.join(legacy ? ', ' : '~')}`
+                       ${m2Values.join(legacy ? ', ' : ' ~ ')}`
                     : null
 
             let sub = []
@@ -107,17 +107,22 @@ class SoulshieldListItem extends React.Component {
                         .map(value => value * mod)
 
                     sub.push(
-                        <div key={stat}>
-                            {t(stat)} {values.join(legacy ? ', ' : '~')}
-                            <span className={`tag rng`}>%</span>
-                        </div>
+                        <tr key={stat}>
+                            <td className="stat-label">{t(stat)}</td>
+                            <td>
+                                {values.join(legacy ? ', ' : ' ~ ')}
+                                <span className={`tag rng`}>%</span>
+                            </td>
+                        </tr>
                     )
                 })
             if (sub.length > 0) {
                 subDiv = (
                     <div className="sub">
                         <p>{t('skills:randomSub', {count: subStats.get('limit', 1)})}</p>
-                        <div>{sub}</div>
+                        <table>
+                            <tbody>{sub}</tbody>
+                        </table>
                     </div>
                 )
             }

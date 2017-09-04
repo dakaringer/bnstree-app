@@ -7,7 +7,7 @@ const setList = makeActionCreator(actionType.SET_STREAM_LIST, 'list')
 
 export function loadStreams() {
     return dispatch => {
-        dispatch(setLoading(true))
+        dispatch(setLoading(true, 'streams'))
         fetch('https://api.bnstree.com/streams', {
             method: 'get',
             credentials: 'include'
@@ -16,7 +16,7 @@ export function loadStreams() {
             .then(json => {
                 dispatch(setList(json.streams ? json.streams : []))
             })
-            .then(() => dispatch(setLoading(false)))
+            .then(() => dispatch(setLoading(false, 'streams')))
             .catch(e => console.log(e))
     }
 }

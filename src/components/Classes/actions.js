@@ -77,7 +77,7 @@ export function loadClass(classCode, buildCode, buildId) {
             dispatch(loadBuildList(1, classCode, null, null, true))
         }
         if (!dataSelector(getState()).has(classCode)) {
-            dispatch(setLoading(true))
+            dispatch(setLoading(true, 'class'))
 
             dispatch(loadBadges())
             dispatch(loadSoulshields())
@@ -111,7 +111,7 @@ export function loadClass(classCode, buildCode, buildId) {
                         dispatch(loadBuild(buildCode, buildId))
                     }
                 })
-                .then(() => dispatch(setLoading(false)))
+                .then(() => dispatch(setLoading(false, 'class')))
                 .catch(e => console.log(e))
         }
     }

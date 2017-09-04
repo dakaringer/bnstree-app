@@ -13,7 +13,7 @@ const loadCharacterData = makeActionCreator(actionType.SET_CHARACTER_DATA, 'char
 export function loadCharacter(region, name) {
     return (dispatch, getState) => {
         if (name) {
-            dispatch(setLoading(true))
+            dispatch(setLoading(true, 'character'))
             dispatch(setRegion(region))
             fetch(`https://api.bnstree.com/character/${region}/${name}`, {
                 method: 'get',
@@ -30,7 +30,7 @@ export function loadCharacter(region, name) {
                     dispatch(loadClass(classCode))
                     dispatch(setCharacterMode(true))
                 })
-                .then(() => dispatch(setLoading(false)))
+                .then(() => dispatch(setLoading(false, 'character')))
                 .catch(e => console.log(e))
         }
     }
