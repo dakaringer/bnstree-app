@@ -46,8 +46,8 @@
                     line-height: 1.3rem;
                     text-align: center;
                     background: #4f4b04;
-                    border: .1rem solid #b4b41d;
-                    border-radius: .2rem;
+                    border: 0.1rem solid #b4b41d;
+                    border-radius: 0.2rem;
                     font-size: 1.2rem;
                     margin-right: 1rem;
                 }
@@ -103,6 +103,15 @@
                     .sub {
                         font-size: 1.2rem;
                         margin-bottom: 1rem;
+
+                        table {
+                            width: 100%;
+
+                            .stat-label {
+                                width: 10rem;
+                                max-width: 50%;
+                            }
+                        }
 
                         .tag {
                             margin-left: 0.5rem;
