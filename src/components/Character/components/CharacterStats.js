@@ -79,7 +79,8 @@ const classElements = {
     SU: ['attack_attribute_wind_value', 'attack_attribute_earth_value'],
     BD: ['attack_attribute_wind_value', 'attack_attribute_lightning_value'],
     WL: ['attack_attribute_ice_value', 'attack_attribute_void_value'],
-    SF: ['attack_attribute_ice_value', 'attack_attribute_earth_value']
+    SF: ['attack_attribute_ice_value', 'attack_attribute_earth_value'],
+    SH: ['attack_attribute_fire_value', 'attack_attribute_void_value']
 }
 
 const CharacterStats = props => {
@@ -105,9 +106,7 @@ const CharacterStats = props => {
         <div className="characterStats">
             <div className="attack">
                 <div className="mainStat">
-                    <h4>
-                        {t('attack_power_value')}
-                    </h4>
+                    <h4>{t('attack_power_value')}</h4>
                     <h3 className="mainValue">
                         {statData.getIn(['total_ability', 'attack_power_value'], 0)}
                     </h3>
@@ -130,12 +129,8 @@ const CharacterStats = props => {
             </div>
             <div className="defense">
                 <div className="mainStat">
-                    <h4>
-                        {t('max_hp')}
-                    </h4>
-                    <h3 className="mainValue">
-                        {statData.getIn(['total_ability', 'max_hp'], 0)}
-                    </h3>
+                    <h4>{t('max_hp')}</h4>
+                    <h3 className="mainValue">{statData.getIn(['total_ability', 'max_hp'], 0)}</h3>
                     <hr />
                     <Tooltip
                         placement="bottom"
