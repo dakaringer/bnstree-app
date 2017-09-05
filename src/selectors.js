@@ -9,7 +9,9 @@ export const currentLanguageSelector = createSelector(generalSelector, ref =>
 export const userSelector = createSelector(generalSelector, ref => ref.get('user', null))
 export const loadingSelector = createSelector(generalSelector, ref => {
     let loading = false
-    ref.get('loading', Map()).forEach(l => (loading = l || loading))
+    ref.get('loading', Map()).forEach(l => {
+        loading = l || loading
+    })
     return loading
 })
 export const initializedSelector = createSelector(generalSelector, ref =>
