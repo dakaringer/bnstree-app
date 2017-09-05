@@ -6,15 +6,15 @@
     z-index: 0;
 
     .character-profile-image {
-        background: rgba(0, 0, 0, 0.5);
         position: relative;
         margin-bottom: 1rem;
-        min-height: 4.5rem;
+        min-height: 12rem;
 
         .no-image {
+            background: rgba(0, 0, 0, 0.5);
             width: 100%;
             text-align: center;
-            padding: 1rem;
+            padding: 5rem 1rem;
             position: absolute;
             z-index: 1;
         }
@@ -25,13 +25,16 @@
             width: 100%;
         }
     }
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
         display: flex;
         margin-bottom: 1rem;
 
-        .character-profile-image,
+        .character-profile-image {
+            width: 40%;
+        }
+
         .character-profile-container {
-            width: 50%;
+            width: 60%;
         }
 
         .character-profile-image {
@@ -61,7 +64,12 @@
 
             .character-name {
                 font-size: 2.4rem;
+                line-height: 2.6rem;
                 text-overflow: ellipsis;
+            }
+
+            .character-account {
+                cursor: pointer;
             }
         }
     }
@@ -102,5 +110,22 @@
                 }
             }
         }
+    }
+}
+
+.other-characters {
+    .ant-popover-title {
+        color: deepskyblue;
+        border: none;
+        padding: 0 1rem;
+        padding-right: 3rem;
+        font-size: 1.4rem;
+    }
+
+    .ant-popover-inner-content {
+        display: flex;
+        flex-direction: column;
+        font-size: 1.4rem;
+        padding-top: 0;
     }
 }

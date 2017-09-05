@@ -116,11 +116,13 @@ class CharacterViewer extends Component {
         let voted =
             (character.get('userVoted', 0) !== 0 && this.state.voted === 0) || this.state.voted > 0
 
-        let likeButton = user
-            ? <a onClick={voted ? () => this.unvote(voted) : () => this.vote(voted)}>
-                  {voted ? <Icon type="heart" /> : <Icon type="heart-o" />}
-              </a>
-            : <Icon type="heart-o" />
+        let likeButton = user ? (
+            <a onClick={voted ? () => this.unvote(voted) : () => this.vote(voted)}>
+                {voted ? <Icon type="heart" /> : <Icon type="heart-o" />}
+            </a>
+        ) : (
+            <Icon type="heart-o" />
+        )
         let like = (
             <div className="like">
                 {likeButton}
@@ -135,10 +137,10 @@ class CharacterViewer extends Component {
             if (character.has('general')) {
                 content = (
                     <Row className="character-content" gutter={16}>
-                        <Col sm={4} className="profile-container">
+                        <Col md={6} className="profile-container">
                             <CharacterProfile />
                         </Col>
-                        <Col sm={20} className="stats-container">
+                        <Col md={18} className="stats-container">
                             <Tabs defaultActiveKey="1" animated tabBarExtraContent={like}>
                                 <TabPane tab={t('info')} key="1">
                                     <Row>
@@ -167,9 +169,7 @@ class CharacterViewer extends Component {
             } else {
                 content = (
                     <div className="character-not-found">
-                        <p>
-                            {t('noCharacter')}
-                        </p>
+                        <p>{t('noCharacter')}</p>
                     </div>
                 )
             }

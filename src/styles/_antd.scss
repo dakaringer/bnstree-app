@@ -122,6 +122,18 @@
             background-color: deepskyblue;
         }
     }
+
+    .ant-tabs-tab-arrow-show {
+        color: #aaa;
+
+        &:hover {
+            color: white;
+        }
+
+        &.ant-tabs-tab-btn-disabled {
+            color: #555;
+        }
+    }
 }
 
 .ant-message-custom-content {

@@ -1,7 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Map} from 'immutable'
+import {Map, List} from 'immutable'
+import {Link} from 'react-router-dom'
+
+import {Icon, Popover} from 'antd'
 
 import classImg from '../../Classes/images/map_classImg'
 import rankImg from '../images/map_rankImg'
@@ -25,7 +28,8 @@ function getRank(rating) {
 
 const mapStateToProps = state => {
     return {
-        character: characterSelector(state).get('general', Map())
+        character: characterSelector(state).get('general', Map()),
+        otherCharacters: characterSelector(state).get('otherCharacters', Map())
     }
 }
 
@@ -35,7 +39,7 @@ class CharacterProfile extends React.PureComponent {
     }
 
     render() {
-        const {t, character} = this.props
+        const {t, character, otherCharacters} = this.props
 
         let classCode = character.get('classCode', 'BM')
         let hmLevel = null
@@ -52,12 +56,21 @@ class CharacterProfile extends React.PureComponent {
         let soloRating = character.getIn(['arena', 'solo', 'rating'], 1300)
         let tagRating = character.getIn(['arena', 'tag', 'rating'], 1300)
 
+        let others = []
+        if (character.get('account') === otherCharacters.get('account')) {
+            otherCharacters.get('list', List()).forEach(c => {
+                others.push(
+                    <Link to={`/character/${character.get('region')}/${c}`} key={c}>
+                        {c}
+                    </Link>
+                )
+            })
+        }
+
         return (
             <div className="character-profile">
                 <div className="character-profile-image">
-                    <p className="no-image">
-                        {t('noImage')}
-                    </p>
+                    <p className="no-image">{t('noImage')}</p>
                     <img
                         alt={character.get('name')}
                         src={character.get('profileImg')}
@@ -73,11 +86,21 @@ class CharacterProfile extends React.PureComponent {
                                 src={classImg[classCode]}
                             />
                             <div className="character-name-block">
-                                <p className="character-name">
-                                    {character.get('name')}
-                                </p>
-                                <p className="character-class">
-                                    {t(classCode)}
+                                <p className="character-name">{character.get('name')}</p>
+                                <p className="character-account">
+                                    <Popover
+                                        placement="bottomLeft"
+                                        title={t('otherCharacters', {
+                                            account: character.get('account')
+                                        })}
+                                        content={others}
+                                        trigger="click"
+                                        overlayClassName="other-characters">
+                                        {character.get('account')}{' '}
+                                        <small>
+                                            <Icon type="down" />
+                                        </small>
+                                    </Popover>
                                 </p>
                             </div>
                         </div>
@@ -86,15 +109,9 @@ class CharacterProfile extends React.PureComponent {
                             {hmLevel ? ' • ' : ''}
                             {hmLevel}
                         </p>
-                        <p>
-                            {character.get('server')}
-                        </p>
-                        <p>
-                            {character.get('faction')}
-                        </p>
-                        <p>
-                            {character.get('clan')}
-                        </p>
+                        <p>{character.get('server')}</p>
+                        <p>{character.get('faction')}</p>
+                        <p>{character.get('clan')}</p>
                     </div>
                     <hr />
                     <div className="character-arena-info">
@@ -108,14 +125,10 @@ class CharacterProfile extends React.PureComponent {
                             ({character.getIn(['arena', 'stats', 2], 0)}%)
                         </p>
                         <div className="arena-type solo">
-                            <h5>
-                                {t('solo')}
-                            </h5>
+                            <h5>{t('solo')}</h5>
                             <img alt={soloRating} src={rankImg[getRank(soloRating)]} />
                             <div className="arena-type-stats">
-                                <p className="rating">
-                                    {soloRating}
-                                </p>
+                                <p className="rating">{soloRating}</p>
                                 <p>
                                     {t('wins', {
                                         count: character.getIn(['arena', 'solo', 'wins'], 0)
@@ -124,14 +137,10 @@ class CharacterProfile extends React.PureComponent {
                             </div>
                         </div>
                         <div className="arena-type tag">
-                            <h5>
-                                {t('tag')}
-                            </h5>
+                            <h5>{t('tag')}</h5>
                             <img alt={tagRating} src={rankImg[getRank(tagRating)]} />
                             <div className="arena-type-stats">
-                                <p className="rating">
-                                    {tagRating}
-                                </p>
+                                <p className="rating">{tagRating}</p>
                                 <p>
                                     {t('wins', {
                                         count: character.getIn(['arena', 'tag', 'wins'], 0)
