@@ -115,11 +115,15 @@
 
 .other-characters {
     .ant-popover-title {
-        color: deepskyblue;
+        color: white;
         border: none;
         padding: 0 1rem;
         padding-right: 3rem;
         font-size: 1.4rem;
+
+        strong {
+            color: deepskyblue;
+        }
     }
 
     .ant-popover-inner-content {
