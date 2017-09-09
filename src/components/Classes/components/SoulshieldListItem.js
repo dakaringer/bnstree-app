@@ -7,7 +7,7 @@ import parser from '../parser'
 import pieceImages from '../images/map_pieceImg'
 import {skillNamesSelector} from '../selectors'
 
-import {Collapse, Row, Col} from 'antd'
+import {Collapse} from 'antd'
 const Panel = Collapse.Panel
 
 const trigram = ['☵', '☶', '☳', '☴', '☲', '☷', '☱', '☰']
@@ -128,21 +128,15 @@ class SoulshieldListItem extends React.Component {
             }
 
             pieces.push(
-                <Row
-                    className="soulshield-piece"
-                    key={i}
-                    gutter={16}
-                    type="flex"
-                    justify="space-between"
-                    align="center">
-                    <Col sm={12} className="soulshield-piece-name">
+                <div className="soulshield-piece" key={i}>
+                    <div className="soulshield-piece-name">
                         <img alt={i + 1} src={pieceImages[`p${i + 1}`]} />
                         <p className={`grade_${set.get('grade')}`}>
                             {set.get('name')} {trigram[i]}
                             {i + 1}
                         </p>
-                    </Col>
-                    <Col sm={12} className="soulshield-piece-stat">
+                    </div>
+                    <div className="soulshield-piece-stat">
                         <div className="main">
                             <div className="m1">{m1}</div>
                             <div className="m2">{m2}</div>
@@ -151,10 +145,14 @@ class SoulshieldListItem extends React.Component {
                         <div className="maxFuse">
                             {t('skills:maxFuse')}: {piece.get('maxFuse')}
                         </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             )
         })
+
+        for (let i = 0; i < 4; i++) {
+            pieces.push(<div className="soulshield-piece hidden" key={`hidden_${i}`} />)
+        }
 
         return (
             <div className="item-list-item soulshield-item">
@@ -188,7 +186,7 @@ class SoulshieldListItem extends React.Component {
                             <Panel
                                 className="soulshield-pieces"
                                 header={<div className="item-header">{t('skills:stats')}</div>}>
-                                <div>{pieces}</div>
+                                <div className="soulshield-piece-list">{pieces}</div>
                             </Panel>
                         </Collapse>
                     </Panel>

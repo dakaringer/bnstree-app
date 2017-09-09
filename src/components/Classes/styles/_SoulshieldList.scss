@@ -65,14 +65,26 @@
                 padding-left: 1rem;
             }
 
+            .soulshield-piece-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+
             .soulshield-piece {
-                border-bottom: 0.1rem solid rgba(255, 255, 255, 0.2);
                 padding: 1rem 0;
+                width: 26rem;
+                min-width: 25%;
+
+                &.hidden {
+                    padding: 0;
+                }
 
                 .soulshield-piece-name {
                     display: flex;
                     align-items: center;
                     margin-bottom: 1rem;
+                    font-size: 1.6rem;
 
                     img {
                         width: 5rem;
@@ -82,18 +94,9 @@
 
                 .soulshield-piece-stat {
                     margin-bottom: 1rem;
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-between;
 
-                    .stats {
-                        width: 100%;
-                    }
-
-                    .main,
-                    .sub {
-                        width: 50%;
-                        min-width: 20rem;
+                    .m1 {
+                        font-size: 1.6rem;
                     }
 
                     .m2 {
@@ -105,8 +108,6 @@
                         margin-bottom: 1rem;
 
                         table {
-                            width: 100%;
-
                             .stat-label {
                                 width: 10rem;
                                 max-width: 50%;
@@ -126,13 +127,6 @@
                     .maxFuse {
                         color: limegreen;
                         font-size: 1.2rem;
-                    }
-                }
-
-                @media (max-width: 767px) {
-                    .soulshield-piece-name,
-                    .soulshield-piece-stat {
-                        width: 100%;
                     }
                 }
             }
