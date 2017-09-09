@@ -137,10 +137,10 @@ class CharacterViewer extends Component {
             if (character.has('general')) {
                 content = (
                     <Row className="character-content" gutter={16}>
-                        <Col md={6} className="profile-container">
+                        <Col lg={4} className="profile-container">
                             <CharacterProfile />
                         </Col>
-                        <Col md={18} className="stats-container">
+                        <Col lg={20} className="stats-container">
                             <Tabs defaultActiveKey="1" animated tabBarExtraContent={like}>
                                 <TabPane tab={t('info')} key="1">
                                     <Row>
