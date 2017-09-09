@@ -13,7 +13,7 @@
 
 .image {
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 2s;
 }
 .image-loaded {
     opacity: 1;
@@ -47,20 +47,21 @@
     }
 
     .header-right {
+        margin-right: 1rem;
         display: flex;
     }
 
     @media (max-width: 767px) {
         height: auto;
+        padding-bottom: 1rem;
 
         .header-title {
             width: 100%;
-            padding-bottom: 1rem;
         }
 
         .header-item {
-            padding-bottom: 2rem;
             width: 100%;
+            margin: 1rem 0;
         }
     }
 }
@@ -214,4 +215,8 @@
 
 .adBlock {
     width: 100%;
+}
+
+.main-container {
+    margin-bottom: 10rem;
 }
