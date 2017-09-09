@@ -52,7 +52,7 @@ class CharacterSearch extends React.Component {
                         onChange={e => this.enterCharacter(e)}
                         value={this.state.characterName}
                         className="character-input"
-                        placeholder={t('search')}
+                        placeholder={t('searchCharacter')}
                     />
                     <a onClick={e => this.searchCharacter(e)}>
                         <Icon type="search" />
