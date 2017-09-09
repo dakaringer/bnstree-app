@@ -11,7 +11,7 @@ export const setTab = makeActionCreator(actionType.SET_CHARACTER_TAB, 'tab')
 const loadCharacterData = makeActionCreator(actionType.SET_CHARACTER_DATA, 'characterData')
 
 export function loadCharacter(region, name) {
-    return (dispatch, getState) => {
+    return dispatch => {
         if (name) {
             dispatch(setLoading(true, 'character'))
             dispatch(setRegion(region))
