@@ -54,13 +54,16 @@ class CharacterViewer extends Component {
         loadCharacter(match.params.region, match.params.character)
     }
     componentWillReceiveProps(nextProps) {
-        const {match, loadCharacter} = this.props
+        const {match, character, loadCharacter} = this.props
 
         if (
             nextProps.match.params.character !== match.params.character ||
             nextProps.match.params.region !== match.params.region
         ) {
             loadCharacter(nextProps.match.params.region, nextProps.match.params.character)
+            this.setState({
+                voted: character.get('userVoted', 0)
+            })
         }
     }
 
@@ -113,8 +116,7 @@ class CharacterViewer extends Component {
     render() {
         const {t, user, character, characterElement, loading} = this.props
 
-        let voted =
-            (character.get('userVoted', 0) !== 0 && this.state.voted === 0) || this.state.voted > 0
+        let voted = this.state.voted
 
         let likeButton = user ? (
             <a onClick={voted ? () => this.unvote(voted) : () => this.vote(voted)}>
