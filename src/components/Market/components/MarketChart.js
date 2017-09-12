@@ -54,6 +54,7 @@ const MarketChart = props => {
         return <div className="no-data">No Data</div>
     }
 
+    let previous = 0
     let initialData = priceData
         .map(d => {
             let date = d.get(0)
@@ -67,6 +68,18 @@ const MarketChart = props => {
                 low: d.get(6),
                 high: d.get(7)
             }
+
+            if (d.get(2) === 0 && previous) {
+                return {
+                    date: date,
+                    volume: 0,
+                    open: previous,
+                    close: previous,
+                    low: previous,
+                    high: previous
+                }
+            }
+            previous = dataPoint.close
             return dataPoint
         })
         .toJS()
