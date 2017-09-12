@@ -60,7 +60,7 @@ class HomeNewsList extends Component {
                         </Link>
                     </small>
                 </h3>
-                <Row className="home-news-list listing" gutter={16} type="flex">
+                <Row className="home-news-list listing" gutter={10} type="flex">
                     {items}
                 </Row>
             </div>

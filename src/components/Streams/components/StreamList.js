@@ -77,7 +77,7 @@ class StreamList extends Component {
         }
 
         return (
-            <Row className="stream-list" type="flex" gutter={16}>
+            <Row className="stream-list" type="flex" gutter={10}>
                 {streams}
             </Row>
         )
