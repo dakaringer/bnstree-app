@@ -94,7 +94,7 @@ const MarketChart = props => {
     }
 
     const sma20 = sma()
-        .options({windowSize: 20})
+        .options({windowSize: 5})
         .merge((d, c) => {
             d.sma20 = c
         })
@@ -102,13 +102,14 @@ const MarketChart = props => {
         .stroke('lightgreen')
 
     const bb = bollingerBand()
+        .options({windowSize: 5})
         .merge((d, c) => {
             d.bb = c
         })
         .accessor(d => d.bb)
 
     const fullSTO = stochasticOscillator()
-        .options({windowSize: 14, kWindowSize: 3, dWindowSize: 4})
+        .options({windowSize: 5, kWindowSize: 3, dWindowSize: 4})
         .merge((d, c) => {
             d.fullSTO = c
         })
