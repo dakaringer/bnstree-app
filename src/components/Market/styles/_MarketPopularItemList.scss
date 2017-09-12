@@ -1,0 +1,42 @@
+.market-popular-item-list {
+    display: flex;
+    flex-wrap: wrap;
+
+    .market-popular-item-list-item {
+        width: calc(25% - 1rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem 2rem;
+        background: rgba(30, 50, 110, 0.5);
+        margin: 0.5rem;
+
+        &:hover {
+            background: rgba(35, 65, 150, 0.5);
+        }
+
+        @media (max-width: 767px) {
+            width: calc(50% - 1rem);
+        }
+
+        .item-desc {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            p {
+                margin: 0.5rem 0;
+            }
+
+            .item-price {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .price {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

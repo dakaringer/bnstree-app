@@ -1,0 +1,86 @@
+.market-item-viewer {
+    padding: 1rem 0;
+    .market-item {
+        .item-header {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+
+            img {
+                width: 4rem;
+                margin-right: 1rem;
+            }
+
+            .bookmark {
+                display: inline-block;
+                margin-left: 1.5rem;
+                opacity: 0.8;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                &.disabled {
+                    display: none;
+                }
+
+                &.bookmarked {
+                    color: gold;
+                }
+
+                .anticon {
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+
+        .item-price {
+            margin-top: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .item-chart {
+            margin-top: 1rem;
+            overflow: auto;
+
+            .ant-radio-group {
+                margin-right: 2rem;
+            }
+
+            .react-stockchart {
+                min-width: 50rem;
+            }
+
+            .indicator-button {
+                font-size: 1.4rem;
+            }
+
+            .last-update {
+                font-size: 1.2rem;
+                color: #999;
+                float: right;
+            }
+        }
+    }
+
+    .no-data,
+    .item-not-found {
+        height: 30rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 300;
+    }
+}
+
+.graph-indicators {
+    display: flex;
+    flex-direction: column;
+    color: white;
+
+    .ant-checkbox-wrapper {
+        margin: 0.5rem 0;
+    }
+}

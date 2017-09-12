@@ -1,0 +1,74 @@
+.market-search {
+    width: 100%;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+
+    .market-search-input-group,
+    .market-search-input,
+    input {
+        width: 100%;
+    }
+
+    .market-search-input-group {
+        display: flex;
+        align-items: center;
+
+        .market-search-input {
+            position: relative;
+            flex: 1;
+            margin-right: 1rem;
+
+            input {
+                height: 100%;
+                width: 100%;
+                padding-top: 0.3rem;
+                padding-right: 1.5rem;
+                display: inline-block;
+            }
+
+            .clear {
+                position: absolute;
+                right: 0.2rem;
+                top: 35%;
+                cursor: pointer;
+                color: #ccc;
+                transition: color 0.3s;
+                font-size: 1.4rem;
+            }
+        }
+
+        .ant-checkbox-wrapper {
+            font-size: 1.4rem;
+            span {
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .market-search-suggestions {
+        transition: all 1s;
+
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            cursor: pointer;
+
+            &:hover,
+            &.selected {
+                background: rgba(80, 80, 80, 0.5);
+            }
+
+            img {
+                height: 4rem;
+                margin-right: 1rem;
+            }
+
+            span {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+    }
+}

@@ -50,6 +50,10 @@ const Home = props => {
                         data-ad-slot="2719129989"
                         data-ad-format="auto"
                     />
+                    <div className="home-market">
+                        <h3>{t('market')}</h3>
+                        <MarketList />
+                    </div>
                     <Row className="stream-menu-container">
                         <Col md={16} className="home-stream">
                             <h3>

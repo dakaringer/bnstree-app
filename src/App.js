@@ -42,13 +42,22 @@ function asyncComponent(getComponent) {
 }
 
 const Home = asyncComponent(() =>
-    import('./components/Home/Home').then(module => module.default).catch(e => console.log(e))
+    import('./components/Home/Home')
+        .then(module => module.default)
+        .catch(e => console.log(e))
 )
 const News = asyncComponent(() =>
-    import('./components/News/News').then(module => module.default).catch(e => console.log(e))
+    import('./components/News/News')
+        .then(module => module.default)
+        .catch(e => console.log(e))
 )
 const Classes = asyncComponent(() =>
     import('./components/Classes/Classes.js')
+        .then(module => module.default)
+        .catch(e => console.log(e))
+)
+const Market = asyncComponent(() =>
+    import('./components/Market/Market')
         .then(module => module.default)
         .catch(e => console.log(e))
 )
@@ -58,7 +67,9 @@ const Character = asyncComponent(() =>
         .catch(e => console.log(e))
 )
 const Streams = asyncComponent(() =>
-    import('./components/Streams/Streams').then(module => module.default).catch(e => console.log(e))
+    import('./components/Streams/Streams')
+        .then(module => module.default)
+        .catch(e => console.log(e))
 )
 
 const mapStateToProps = state => {
@@ -117,6 +128,7 @@ class App extends Component {
                             {redirectLinks}
                             <Route path="/classes/:classCode" component={Classes} />
 
+                            <Route path="/market" component={Market} />
                             <Route path="/character" component={Character} />
 
                             <Redirect from="/soulshield" to="/classes/blade-master/soulshields" />
@@ -134,9 +146,7 @@ class App extends Component {
                 <Background />
                 <footer>
                     <div className="footer">
-                        <p>
-                            Copyright &copy; {year} BnSTree. All rights reserved.
-                        </p>
+                        <p>Copyright &copy; {year} BnSTree. All rights reserved.</p>
                     </div>
                 </footer>
             </div>

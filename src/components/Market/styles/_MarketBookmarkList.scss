@@ -1,0 +1,22 @@
+.market-bookmark-list {
+    h4 {
+        color: deepskyblue;
+    }
+
+    .market-bookmark-list-item {
+        display: flex;
+        align-items: center;
+        font-size: 1.8rem;
+        padding: 0.5rem;
+        overflow: hidden;
+
+        &:hover {
+            background: rgba(80, 80, 80, 0.5);
+        }
+
+        & > img {
+            width: 4rem;
+            margin-right: 1rem;
+        }
+    }
+}

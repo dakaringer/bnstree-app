@@ -77,9 +77,7 @@ class NavBar extends Component {
         classes.forEach(c => {
             classLinks.push(
                 <Menu.Item key={c[0]}>
-                    <NavLink to={`/classes/${c[1]}`}>
-                        {t(c)}
-                    </NavLink>
+                    <NavLink to={`/classes/${c[1]}`}>{t(c)}</NavLink>
                 </Menu.Item>
             )
         })
@@ -90,12 +88,13 @@ class NavBar extends Component {
         )
 
         /*
-        let itemDropdown = (
+        let gameDropdown = (
             <Menu theme="dark" onClick={() => this.closeMenu()}>
-                <Menu.Item key="soulshield">
-                    <NavLink to="/items/soulshield">
-                        {t('soulshield')}
-                    </NavLink>
+                <Menu.Item>
+                    <NavLink to="/market">{t('market')}</NavLink>
+                </Menu.Item>
+                <Menu.Item>
+                    <NavLink to="/character">{t('character')}</NavLink>
                 </Menu.Item>
             </Menu>
         )
@@ -114,11 +113,7 @@ class NavBar extends Component {
         let languageLinks = []
         languages.forEach(l => {
             if (l !== currentLang) {
-                languageLinks.push(
-                    <Menu.Item key={l}>
-                        {languageNames[l]}
-                    </Menu.Item>
-                )
+                languageLinks.push(<Menu.Item key={l}>{languageNames[l]}</Menu.Item>)
             }
         })
         let languageDropdown = (
@@ -130,20 +125,20 @@ class NavBar extends Component {
         let loginDropdown = (
             <Menu theme="dark" onClick={e => setLanguage(e.key)} selectable={false}>
                 <Menu.Item>
-                    {user
-                        ? <a href="https://api.bnstree.com/user/logout">
-                              {t('logout')}
-                          </a>
-                        : <a
-                              href={`https://api.bnstree.com/user/login?r=${window.location
-                                  .protocol}//${window.location.host + window.location.pathname}`}>
-                              <div className="google-login">
-                                  <span className="img-wrap">
-                                      <img alt="google" src={gLogo} />
-                                  </span>
-                                  <span className="google-text">Sign in with Google</span>
-                              </div>
-                          </a>}
+                    {user ? (
+                        <a href="https://api.bnstree.com/user/logout">{t('logout')}</a>
+                    ) : (
+                        <a
+                            href={`https://api.bnstree.com/user/login?r=${window.location
+                                .protocol}//${window.location.host + window.location.pathname}`}>
+                            <div className="google-login">
+                                <span className="img-wrap">
+                                    <img alt="google" src={gLogo} />
+                                </span>
+                                <span className="google-text">Sign in with Google</span>
+                            </div>
+                        </a>
+                    )}
                 </Menu.Item>
             </Menu>
         )
@@ -166,6 +161,9 @@ class NavBar extends Component {
                                     {t('classes')}
                                 </NavLink>
                             </Dropdown>
+                            <NavLink to={`/market`} className="main-nav-menu-item">
+                                {t('market')}
+                            </NavLink>
                             <NavLink to="/character" className="main-nav-menu-item">
                                 {t('character')}
                             </NavLink>
@@ -180,9 +178,7 @@ class NavBar extends Component {
                                 </a>
                             </Dropdown>
                             <Dropdown overlay={languageDropdown} trigger={['hover', 'click']}>
-                                <a className="main-nav-menu-item">
-                                    {languageNames[currentLang]}
-                                </a>
+                                <a className="main-nav-menu-item">{languageNames[currentLang]}</a>
                             </Dropdown>
                         </div>
                         <span className="nav-toggle">
@@ -208,10 +204,14 @@ class NavBar extends Component {
                             {t('news')}
                         </NavLink>
                         <Collapse bordered={false} className="overlay-nav-menu-item">
-                            <Panel header={t('classes')}>
-                                {classDropdown}
-                            </Panel>
+                            <Panel header={t('classes')}>{classDropdown}</Panel>
                         </Collapse>
+                        <NavLink
+                            to="/market"
+                            className="overlay-nav-menu-item"
+                            onClick={() => this.closeMenu()}>
+                            {t('market')}
+                        </NavLink>
                         <NavLink
                             to="/character"
                             className="overlay-nav-menu-item"
@@ -231,9 +231,7 @@ class NavBar extends Component {
                             </Panel>
                         </Collapse>
                         <Collapse bordered={false} className="language overlay-nav-menu-item">
-                            <Panel header={languageNames[currentLang]}>
-                                {languageDropdown}
-                            </Panel>
+                            <Panel header={languageNames[currentLang]}>{languageDropdown}</Panel>
                         </Collapse>
                     </div>
                 </div>

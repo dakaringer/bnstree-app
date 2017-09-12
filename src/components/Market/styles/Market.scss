@@ -1,0 +1,68 @@
+@import 'MarketSearch';
+@import 'MarketItemViewer';
+@import 'MarketBookmarkList';
+@import 'MarketPopularItemList';
+
+.market {
+    .header-title {
+        width: auto;
+        cursor: pointer;
+    }
+
+    .market-popular-items {
+        h3 {
+            font-size: 2.2rem;
+            color: deepskyblue;
+            margin: 0.5rem;
+            margin-top: 1rem;
+        }
+    }
+}
+
+.item-price {
+    display: flex;
+    align-items: baseline;
+    font-size: 1.4rem;
+    color: #aaa;
+    white-space: nowrap;
+
+    .price {
+        margin-right: 0.5rem;
+
+        span {
+            margin-right: 0.5rem;
+            img {
+                vertical-align: sub;
+                margin-left: -0.2rem;
+                height: 1.2em;
+            }
+        }
+    }
+
+    .price-diff {
+        display: flex;
+        font-size: 1.4rem;
+        color: #aaa;
+
+        &.up {
+            color: coral;
+        }
+
+        &.down {
+            color: dodgerblue;
+        }
+
+        .price {
+            margin-right: 0rem;
+        }
+
+        .anticon {
+            font-size: 0.8em;
+            height: 100%;
+        }
+
+        .anticon-minus {
+            margin-right: 1rem;
+        }
+    }
+}
