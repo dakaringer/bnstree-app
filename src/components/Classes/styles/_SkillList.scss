@@ -115,6 +115,7 @@
             position: relative;
             width: 33%;
             user-select: none;
+            min-width: 7.5rem;
 
             &.filtered h6 {
                 @keyframes glow {
