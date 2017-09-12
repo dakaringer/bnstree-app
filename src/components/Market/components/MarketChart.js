@@ -93,8 +93,7 @@ const MarketChart = props => {
         tickStrokeWidth: 1
     }
 
-    const sma20 = sma()
-        .options({windowSize: 10})
+    const sma10 = sma()
         .merge((d, c) => {
             d.sma20 = c
         })
@@ -114,7 +113,7 @@ const MarketChart = props => {
         })
         .accessor(d => d.fullSTO)
 
-    const calculatedData = sma20(bb(fullSTO(initialData)))
+    const calculatedData = sma10(bb(fullSTO(initialData)))
     const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(d => d.date)
     const {data, xScale, xAccessor, displayXAccessor} = xScaleProvider(calculatedData)
     const xExtents = [xAccessor(last(data)), xAccessor(first(data))]
@@ -130,8 +129,8 @@ const MarketChart = props => {
 
     if (indicators.get('sma')) {
         extras.push(
-            <LineSeries yAccessor={sma20.accessor()} stroke={sma20.stroke()} />,
-            <CurrentCoordinate yAccessor={sma20.accessor()} fill={sma20.stroke()} />
+            <LineSeries yAccessor={sma10.accessor()} stroke={sma10.stroke()} />,
+            <CurrentCoordinate yAccessor={sma10.accessor()} fill={sma10.stroke()} />
         )
     }
 
@@ -152,7 +151,7 @@ const MarketChart = props => {
             xScale={xScale}
             xExtents={xExtents}
             clamp={true}>
-            <Chart id={1} height={400} yExtents={d => [d.high, 0]}>
+            <Chart id={1} height={400} yExtents={d => [d.high + d.high * 0.05, 0]}>
                 <XAxis
                     axisAt="bottom"
                     orient="bottom"
