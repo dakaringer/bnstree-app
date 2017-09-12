@@ -7,8 +7,6 @@
     overflow: hidden;
     z-index: -1;
 
-    filter: brightness(80%);
-
     .character-left,
     .character-right {
         height: 100%;
@@ -17,18 +15,18 @@
     }
 
     .character-left {
-        left: -15rem;
+        left: -5rem;
     }
 
     .character-right {
-        right: -15rem;
+        right: -5rem;
     }
 
-    @media (max-width: 1199px) {
-        filter: brightness(40%);
+    @media (max-width: 991px) {
+        filter: brightness(80%);
     }
 
-    @media (max-width: 576px) {
-        width: 140%;
+    @media (max-width: 767px) {
+        display: none;
     }
 }

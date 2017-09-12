@@ -15,6 +15,7 @@ import HomeClassLinks from './components/HomeClassLinks'
 import HomeNewsList from './components/HomeNewsList'
 import HomeCharacter from './components/HomeCharacter'
 import StreamList from '../Streams/components/StreamList'
+import MarketList from '../Market/components/MarketPopularItemList'
 
 const Home = props => {
     let {t} = props
@@ -24,16 +25,29 @@ const Home = props => {
                 <title>BnSTree</title>
             </Helmet>
             <div className="home-top">
-                <HomeClassLinks />
+                <div className="dummy-container" />
                 <CharacterSearch center />
+                <div className="home-ad-container">
+                    <AdSense
+                        class="adsbygoogle"
+                        style={{
+                            display: 'inline-block',
+                            width: '468px',
+                            height: '60px'
+                        }}
+                        data-ad-client="ca-pub-2048637692232915"
+                        data-ad-slot="1353092581"
+                    />
+                </div>
                 <HomeCharacter />
+                <HomeClassLinks />
             </div>
             <div className="home-bottom">
                 <div className="home-container container">
                     <HomeNewsList />
                     <AdSense
                         data-ad-client="ca-pub-2048637692232915"
-                        data-ad-slot="6768736382"
+                        data-ad-slot="2719129989"
                         data-ad-format="auto"
                     />
                     <Row className="stream-menu-container">
@@ -49,6 +63,7 @@ const Home = props => {
                             <StreamList limit={4} />
                         </Col>
                         <Col md={8} className="side-menu">
+                            <h3>{t('links')}</h3>
                             <div>
                                 <a
                                     href="https://discord.gg/2ZdtPZM"
