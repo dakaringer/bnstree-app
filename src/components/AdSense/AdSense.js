@@ -21,7 +21,7 @@ class GoogleAdUnit extends PureComponent {
             <div style={this.props.wrapperDivStyle} className="adBlock">
                 <ins
                     className="adsbygoogle"
-                    style={{display: 'block', textAlign: 'center'}}
+                    style={{display: 'block', textAlign: 'center', ...this.props.style}}
                     {...this.props}
                 />
             </div>
