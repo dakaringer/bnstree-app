@@ -25,6 +25,21 @@ const setUpdate = makeActionCreator(actionType.SET_MARKET_LAST_UPDATE, 'value')
 
 export const setData = makeActionCreator(actionType.SET_MARKET_DATA, 'itemData')
 
+export function getRegion() {
+    return dispatch => {
+        fetch('https://api.bnstree.com/market/region', {
+            method: 'get',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.success === 0) return
+                dispatch(setRegion(json.region))
+            })
+            .catch(e => console.log(e))
+    }
+}
+
 export function loadPopularItems() {
     return (dispatch, getState) => {
         let region = regionSelector(getState())
@@ -56,6 +71,8 @@ export function loadPopularItems() {
 export function updateRegion(region) {
     return (dispatch, getState) => {
         dispatch(setRegion(region))
+        dispatch(loadPopularItems())
+        dispatch(loadBookmarks())
         fetch('https://api.bnstree.com/user/view', {
             method: 'post',
             credentials: 'include',
