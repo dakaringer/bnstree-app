@@ -29,7 +29,6 @@ const Home = props => {
                 <CharacterSearch center />
                 <div className="home-ad-container">
                     <AdSense
-                        class="adsbygoogle"
                         style={{
                             display: 'inline-block',
                             width: '468px',
