@@ -60,12 +60,15 @@ class CharacterProfile extends React.PureComponent {
         if (character.get('account') === otherCharacters.get('account')) {
             otherCharacters.get('list', List()).forEach(c => {
                 others.push(
-                    <Link to={`/character/${character.get('region')}/${c}`} key={c}>
+                    <Link to={`/character/${character.get('region', 'na')}/${c}`} key={c}>
                         {c}
                     </Link>
                 )
             })
         }
+
+        let re = /http:\/\/.*\/images\/(.*)/
+        let profileImg = re.exec(character.get('profileImg', ''))[1]
 
         return (
             <div className="character-profile">
@@ -73,7 +76,10 @@ class CharacterProfile extends React.PureComponent {
                     <p className="no-image">{t('noImage')}</p>
                     <img
                         alt={character.get('name')}
-                        src={character.get('profileImg')}
+                        src={`https://api.bnstree.com/character/${character.get(
+                            'region',
+                            'na'
+                        )}/profileImg/${profileImg}`}
                         onError={this.profileError}
                     />
                 </div>

@@ -39,7 +39,10 @@ class CharacterEquips extends Component {
                     title={gem.get('name')}
                     placement="bottomLeft"
                     key={i}>
-                    <img alt={gem.get('name')} src={gem.get('icon')} />
+                    <img
+                        alt={gem.get('name')}
+                        src={gem.get('icon', '').replace(/^http:/, 'https:')}
+                    />
                 </Tooltip>
             )
         })
@@ -49,7 +52,10 @@ class CharacterEquips extends Component {
             accessories.push(
                 <div className="equip-item" key={i}>
                     <div className="img-container">
-                        <img alt={accessory.get('name')} src={accessory.get('icon', blank)} />
+                        <img
+                            alt={accessory.get('name')}
+                            src={accessory.get('icon', blank).replace(/^http:/, 'https:')}
+                        />
                     </div>
                     <p className={accessory.get('grade')}>{accessory.get('name')}</p>
                 </div>
@@ -63,7 +69,7 @@ class CharacterEquips extends Component {
                     <img
                         alt={i}
                         className={`soulshield-piece soulshield_${i + 1}`}
-                        src={piece}
+                        src={piece.replace(/^http:/, 'https:')}
                         key={i}
                     />
                 )
@@ -126,7 +132,9 @@ class CharacterEquips extends Component {
                     <div className="img-container">
                         <img
                             alt={equipData.getIn(['weapon', 'name'])}
-                            src={equipData.getIn(['weapon', 'icon'])}
+                            src={equipData
+                                .getIn(['weapon', 'icon'], '')
+                                .replace(/^http:/, 'https:')}
                         />
                     </div>
                     <div>
