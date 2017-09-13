@@ -15,7 +15,7 @@ export function parsePrice(itemData) {
     let latest = List()
     while (!latestFound) {
         latest = dayPrices.get(dayPrices.size - offset, List())
-        if (latest.get(1) !== 0) {
+        if (latest.get(1) !== 0 || dayPrices.size - offset === 0) {
             latestFound = true
         }
         offset++
@@ -27,7 +27,7 @@ export function parsePrice(itemData) {
     let previous = List()
     while (!latestFound) {
         previous = monthPrices.get(monthPrices.size - offset, List())
-        if (previous.get(1) !== 0) {
+        if (previous.get(1) !== 0 || monthPrices.size - offset === 0) {
             latestFound = true
         }
         offset++
