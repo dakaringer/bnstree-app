@@ -45,7 +45,10 @@ class MarketBookmarkList extends PureComponent {
         bookmarks.forEach(bookmark => {
             let item = bookmark.get('item')
             list.push(
-                <a className="market-bookmark-list-item" onClick={() => loadItem(item.get('_id'))}>
+                <a
+                    className="market-bookmark-list-item"
+                    onClick={() => loadItem(item.get('_id'))}
+                    key={item.get('_id')}>
                     <img alt={item.get('name')} src={item.get('icon')} />
                     <div>
                         <p className={`grade_${item.get('grade')}`}>{item.get('name')}</p>

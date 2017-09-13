@@ -43,7 +43,8 @@ class MarketPopularItemList extends PureComponent {
                 <Link
                     to="/market"
                     className="market-popular-item-list-item"
-                    onClick={() => loadItem(item.get('_id'))}>
+                    onClick={() => loadItem(item.get('_id'))}
+                    key={item.get('_id')}>
                     <img alt={item.get('name')} src={item.get('icon')} />
                     <div className="item-desc">
                         <p className={`grade_${item.get('grade')}`}>{item.get('name')}</p>
