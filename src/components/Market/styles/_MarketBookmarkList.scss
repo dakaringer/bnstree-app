@@ -1,4 +1,10 @@
 .market-bookmark-list {
+    @media (max-width: 991px) {
+        margin-bottom: 1.5rem;
+        padding-bottom: 2rem;
+        border-bottom: solid 0.1rem rgba(255, 255, 255, 0.3);
+    }
+
     h4 {
         color: deepskyblue;
     }
