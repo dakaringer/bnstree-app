@@ -5,14 +5,15 @@ import {Map, List} from 'immutable'
 
 import {Popover, Tooltip} from 'antd'
 
-import {characterSelector} from '../selectors'
+import {characterSelector, regionSelector} from '../selectors'
 
 import blank from '../images/blank.gif'
 import bg_gem from '../images/bg_gem.png'
 
 const mapStateToProps = state => {
     return {
-        equipData: characterSelector(state).get('equipData', Map())
+        equipData: characterSelector(state).get('equipData', Map()),
+        region: regionSelector(state)
     }
 }
 
@@ -29,7 +30,7 @@ class CharacterEquips extends Component {
     }
 
     render() {
-        const {t, equipData} = this.props
+        const {t, equipData, region} = this.props
 
         let gems = []
         equipData.getIn(['weapon', 'gems'], List()).forEach((gem, i) => {
@@ -39,10 +40,7 @@ class CharacterEquips extends Component {
                     title={gem.get('name')}
                     placement="bottomLeft"
                     key={i}>
-                    <img
-                        alt={gem.get('name')}
-                        src={gem.get('icon', '').replace(/^http:/, 'https:')}
-                    />
+                    <img alt={gem.get('name')} src={parseIcon(gem.get('icon', blank), region)} />
                 </Tooltip>
             )
         })
@@ -54,7 +52,7 @@ class CharacterEquips extends Component {
                     <div className="img-container">
                         <img
                             alt={accessory.get('name')}
-                            src={accessory.get('icon', blank).replace(/^http:/, 'https:')}
+                            src={parseIcon(accessory.get('icon', blank), region)}
                         />
                     </div>
                     <p className={accessory.get('grade')}>{accessory.get('name')}</p>
@@ -69,7 +67,7 @@ class CharacterEquips extends Component {
                     <img
                         alt={i}
                         className={`soulshield-piece soulshield_${i + 1}`}
-                        src={piece.replace(/^http:/, 'https:')}
+                        src={parseIcon(piece, region)}
                         key={i}
                     />
                 )
@@ -132,9 +130,7 @@ class CharacterEquips extends Component {
                     <div className="img-container">
                         <img
                             alt={equipData.getIn(['weapon', 'name'])}
-                            src={equipData
-                                .getIn(['weapon', 'icon'], '')
-                                .replace(/^http:/, 'https:')}
+                            src={parseIcon(equipData.getIn(['weapon', 'icon'], blank), region)}
                         />
                     </div>
                     <div>
@@ -230,3 +226,15 @@ class CharacterEquips extends Component {
 }
 
 export default connect(mapStateToProps)(translate('character')(CharacterEquips))
+
+function parseIcon(icon, region) {
+    if (icon === blank) {
+        return blank
+    }
+    if (region === 'kr' && icon) {
+        const krRe = /http:\/\/.*\/ui_resource\/(.*)/
+        return `https://api.bnstree.com/character/krImg/${krRe.exec(icon)[1]}`
+    } else {
+        return icon.replace(/^http:/, 'https:')
+    }
+}
