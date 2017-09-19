@@ -1,5 +1,5 @@
 import BMimg from './Job_Img_BladeMaster_40.png'
-import KFimg from './Job_Img_Destroyer_40.png'
+import KFimg from './Job_Img_KungfuFighter_40.png'
 import DEimg from './Job_Img_Destroyer_40.png'
 import FMimg from './Job_Img_ForceMaster_40.png'
 import ASimg from './Job_Img_Assassin_40.png'
