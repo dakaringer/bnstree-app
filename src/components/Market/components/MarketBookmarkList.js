@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import Sortable from 'react-sortablejs'
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class MarketBookmarkList extends PureComponent {
+class MarketBookmarkList extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {

@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map, List} from 'immutable'
@@ -51,7 +51,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class MarketItemViewer extends PureComponent {
+class MarketItemViewer extends React.PureComponent {
     constructor(props) {
         super(props)
 

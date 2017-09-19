@@ -1,10 +1,10 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 import moment from 'moment'
 import {Link} from 'react-router-dom'
 
 const MAX_BG = 33
 
-class NewsListItem extends PureComponent {
+class NewsListItem extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {

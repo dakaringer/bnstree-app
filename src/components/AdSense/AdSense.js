@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 import Delay from 'react-delay'
 
-class GoogleAdUnit extends PureComponent {
+class GoogleAdUnit extends React.PureComponent {
     componentDidMount() {
         try {
             ;(window.adsbygoogle = window.adsbygoogle || []).push({})

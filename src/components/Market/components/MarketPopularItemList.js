@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class MarketPopularItemList extends PureComponent {
+class MarketPopularItemList extends React.PureComponent {
     componentDidMount() {
         this.props.loadPopularItems()
         let intervalId = setInterval(() => this.props.loadPopularItems(), 300000)
