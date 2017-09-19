@@ -2,6 +2,8 @@ import React, {PureComponent} from 'react'
 import moment from 'moment'
 import {Link} from 'react-router-dom'
 
+const MAX_BG = 33
+
 class NewsListItem extends PureComponent {
     constructor(props) {
         super(props)
@@ -13,7 +15,7 @@ class NewsListItem extends PureComponent {
     componentWillMount() {
         let {article} = this.props
         if (article.get('thumb', '') === '') {
-            let i = Math.floor(Math.random() * 17 + 1)
+            let i = Math.floor(Math.random() * MAX_BG + 1)
             this.setState({
                 image: `https://static.bnstree.com/images/backgrounds/${i}_1.jpg`
             })
@@ -62,28 +64,25 @@ class NewsListItem extends PureComponent {
 
         return (
             <Link
-                to={`/news/${id}/${article.get('title', '').replace(/ /g, '-').toLowerCase()}`}
+                to={`/news/${id}/${article
+                    .get('title', '')
+                    .replace(/ /g, '-')
+                    .toLowerCase()}`}
                 className={`news-item list-item ${selected ? 'selected' : ''} ${icon
                     ? 'icon'
                     : ''}`}>
-                <div className="thumb-wrapper">
-                    {thumb}
-                </div>
+                <div className="thumb-wrapper">{thumb}</div>
                 <div className="news-item-content">
                     <div className="news-title">
                         <h3 className="list-item-title">
                             {article.get('title')}
-                            <small>
-                                {n}
-                            </small>
+                            <small>{n}</small>
                         </h3>
                         <h5 className="news-subtitle">
                             {article.get('content', '').split('\n\n')[0]}
                         </h5>
                     </div>
-                    <div className="list-item-timestamp">
-                        {timeString}
-                    </div>
+                    <div className="list-item-timestamp">{timeString}</div>
                 </div>
             </Link>
         )
