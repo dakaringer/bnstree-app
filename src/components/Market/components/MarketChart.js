@@ -85,7 +85,7 @@ class MarketChart extends React.PureComponent {
             })
             .toJS()
 
-        let margin = {left: 40, right: 50, top: 20, bottom: 30}
+        let margin = {left: 40, right: 60, top: 20, bottom: 30}
         let gridWidth = width - margin.left - margin.right
         let yGrid = {
             innerTickSize: -1 * gridWidth,
