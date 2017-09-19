@@ -28,13 +28,15 @@
 
     .price {
         margin-right: 0.5rem;
+        display: flex;
 
         span {
-            margin-right: 0.5rem;
+            display: flex;
+            align-items: center;
+
             img {
-                vertical-align: sub;
                 margin-left: -0.2rem;
-                height: 1.2em;
+                height: 1.6em;
             }
         }
     }
@@ -58,7 +60,8 @@
 
         .anticon {
             font-size: 0.8em;
-            height: 100%;
+            line-height: 1.8em;
+            margin-right: 0.5rem;
         }
 
         .anticon-minus {
