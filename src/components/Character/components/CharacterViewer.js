@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
@@ -40,7 +40,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class CharacterViewer extends Component {
+class CharacterViewer extends React.PureComponent {
     constructor(props) {
         super(props)
 

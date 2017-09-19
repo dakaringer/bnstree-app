@@ -29,7 +29,7 @@ const mapStateToProps = state => {
     }
 }
 
-class SoulshieldListItem extends React.Component {
+class SoulshieldListItem extends React.PureComponent {
     render() {
         const {t, set, skillNames} = this.props
 

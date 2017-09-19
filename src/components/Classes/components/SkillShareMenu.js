@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class SkillShareMenu extends React.Component {
+class SkillShareMenu extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -121,30 +121,18 @@ class SkillShareMenu extends React.Component {
                             disabled={!user}
                         />
                         <div className="typeSelector">
-                            <p>
-                                {t('type')}
-                            </p>
+                            <p>{t('type')}</p>
                             <RadioGroup
                                 size="small"
                                 value={type}
                                 onChange={e => this.setType(e.target.value)}
                                 disabled={!user}>
-                                <RadioButton value="PvE">
-                                    {t('PvE')}
-                                </RadioButton>
-                                <RadioButton value="PvP">
-                                    {t('PvP')}
-                                </RadioButton>
-                                <RadioButton value="6v6">
-                                    {t('6v6')}
-                                </RadioButton>
+                                <RadioButton value="PvE">{t('PvE')}</RadioButton>
+                                <RadioButton value="PvP">{t('PvP')}</RadioButton>
+                                <RadioButton value="6v6">{t('6v6')}</RadioButton>
                             </RadioGroup>
                         </div>
-                        {noTitle
-                            ? <p className="error">
-                                  {t('noTitle')}
-                              </p>
-                            : null}
+                        {noTitle ? <p className="error">{t('noTitle')}</p> : null}
                         <Button
                             className="post"
                             type="primary"

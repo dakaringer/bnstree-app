@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {List} from 'immutable'
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class HomeNewsList extends Component {
+class HomeNewsList extends React.PureComponent {
     componentWillMount() {
         this.props.loadNews(1)
     }

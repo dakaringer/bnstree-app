@@ -38,7 +38,7 @@ const mapDispatchToProps = dispatch => {
 
 const elements = ['flame', 'frost', 'wind', 'earth', 'lightning', 'shadow']
 
-class SkillSettings extends React.Component {
+class SkillSettings extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -61,21 +61,15 @@ class SkillSettings extends React.Component {
             sortDiv = (
                 <tr className="switchGroup">
                     <td>
-                        <p>
-                            {t('sort')}
-                        </p>
+                        <p>{t('sort')}</p>
                     </td>
                     <td>
                         <RadioGroup
                             size="small"
                             value={view.get('order', 'LEVEL')}
                             onChange={e => updateView('order', e.target.value)}>
-                            <RadioButton value="LEVEL">
-                                {t('level')}
-                            </RadioButton>
-                            <RadioButton value="HOTKEY">
-                                {t('hotkey')}
-                            </RadioButton>
+                            <RadioButton value="LEVEL">{t('level')}</RadioButton>
+                            <RadioButton value="HOTKEY">{t('hotkey')}</RadioButton>
                         </RadioGroup>
                     </td>
                 </tr>
@@ -117,16 +111,12 @@ class SkillSettings extends React.Component {
                     onCancel={() => this.toggleModal()}
                     footer={null}
                     wrapClassName="skill-settings">
-                    <h5>
-                        {t('characterStats')}
-                    </h5>
+                    <h5>{t('characterStats')}</h5>
                     <table className="character-stats">
                         <tbody>
                             <tr>
                                 <td>
-                                    <p>
-                                        {t('attackPower')}
-                                    </p>
+                                    <p>{t('attackPower')}</p>
                                 </td>
                                 <td>
                                     <input
@@ -137,9 +127,7 @@ class SkillSettings extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <p>
-                                        {t('attackPowerPet')}
-                                    </p>
+                                    <p>{t('attackPowerPet')}</p>
                                 </td>
                                 <td>
                                     <input
@@ -150,9 +138,7 @@ class SkillSettings extends React.Component {
                             </tr>
                             <tr>
                                 <td>
-                                    <p>
-                                        {t('additionalDamage')}
-                                    </p>
+                                    <p>{t('additionalDamage')}</p>
                                 </td>
                                 <td>
                                     <input
@@ -182,34 +168,24 @@ class SkillSettings extends React.Component {
                         </tbody>
                     </table>
                     <hr />
-                    <h5>
-                        {t('elementDamage')}
-                    </h5>
+                    <h5>{t('elementDamage')}</h5>
                     <table>
-                        <tbody>
-                            {elementDamage}
-                        </tbody>
+                        <tbody>{elementDamage}</tbody>
                     </table>
                     <hr />
                     <table>
                         <tbody>
                             <tr className="switchGroup">
                                 <td>
-                                    <p>
-                                        {t('mode')}
-                                    </p>
+                                    <p>{t('mode')}</p>
                                 </td>
                                 <td>
                                     <RadioGroup
                                         size="small"
                                         value={view.get('mode', 'LIST')}
                                         onChange={e => updateView('mode', e.target.value)}>
-                                        <RadioButton value="LIST">
-                                            {t('list')}
-                                        </RadioButton>
-                                        <RadioButton value="ICON">
-                                            {t('icon')}
-                                        </RadioButton>
+                                        <RadioButton value="LIST">{t('list')}</RadioButton>
+                                        <RadioButton value="ICON">{t('icon')}</RadioButton>
                                     </RadioGroup>
                                 </td>
                             </tr>
@@ -221,9 +197,7 @@ class SkillSettings extends React.Component {
                         <tbody>
                             <tr>
                                 <td>
-                                    <p>
-                                        {t('patch')}
-                                    </p>
+                                    <p>{t('patch')}</p>
                                 </td>
                                 <td>
                                     <a className="patch-selector" disabled>

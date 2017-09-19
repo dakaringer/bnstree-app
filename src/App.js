@@ -7,6 +7,7 @@ import {initializedSelector} from './selectors'
 import NavBar, {classes} from './components/NavBar/NavBar'
 import LoadingLyn from './components/LoadingLyn/LoadingLyn'
 import Background from './components/Background/Background'
+import SoybeanSprite from './components/Sprites/SoybeanSprite/SoybeanSprite'
 
 import './styles/App.scss'
 
@@ -136,6 +137,7 @@ class App extends React.PureComponent {
                             <Route path="/streams" component={Streams} />
                         </Switch>
                     </div>
+                    <SoybeanSprite />
                 </div>
             )
         }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
@@ -40,7 +40,7 @@ const withTracker = WrappedComponent => {
     return HOC
 }
 
-class Root extends Component {
+class Root extends React.PureComponent {
     componentDidMount() {
         let lang = navigator.language.substring(0, 2)
         store.dispatch(setUILanguage(lang, true))

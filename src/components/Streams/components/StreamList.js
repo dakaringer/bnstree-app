@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 
 import {Icon, Row, Col} from 'antd'
@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class StreamList extends Component {
+class StreamList extends React.PureComponent {
     componentWillMount() {
         this.props.loadStreams()
     }

@@ -65,7 +65,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class Skills extends React.Component {
+class Skills extends React.PureComponent {
     componentWillMount() {
         const {location, match, currentLanguage, loadText, loadClass} = this.props
 

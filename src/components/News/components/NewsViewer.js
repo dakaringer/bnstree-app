@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class NewsViewer extends React.Component {
+class NewsViewer extends React.PureComponent {
     componentWillMount() {
         const {loadText, loadArticle, match} = this.props
 

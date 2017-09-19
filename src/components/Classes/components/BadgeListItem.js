@@ -33,7 +33,7 @@ const mapStateToProps = state => {
     }
 }
 
-class BadgeListItem extends React.Component {
+class BadgeListItem extends React.PureComponent {
     constructor(props) {
         super(props)
 
@@ -152,9 +152,11 @@ class BadgeListItem extends React.Component {
                         size="small"
                         ghost={!voted}
                         onClick={
-                            voted
-                                ? () => this.unvote(element, voted)
-                                : () => this.vote(element, voted)
+                            voted ? (
+                                () => this.unvote(element, voted)
+                            ) : (
+                                () => this.vote(element, voted)
+                            )
                         }>
                         <Icon type="arrow-up" />
                     </Button>
@@ -207,25 +209,19 @@ class BadgeListItem extends React.Component {
                                     <h3 className={`grade_${badge.get('grade')}`}>
                                         {badge.get('name')}
                                     </h3>
-                                    <div className="item-votes">
-                                        {votes}
-                                    </div>
+                                    <div className="item-votes">{votes}</div>
                                 </div>
                             </div>
                         }>
-                        <div className="badge-enhance">
-                            {enhance}
-                        </div>
-                        <div className="item-attributes">
-                            {attributes}
-                        </div>
+                        <div className="badge-enhance">{enhance}</div>
+                        <div className="item-attributes">{attributes}</div>
                         {combine}
-                        {user
-                            ? <div className="item-vote-buttons">
-                                  <hr />
-                                  {voteButtons}
-                              </div>
-                            : null}
+                        {user ? (
+                            <div className="item-vote-buttons">
+                                <hr />
+                                {voteButtons}
+                            </div>
+                        ) : null}
                     </Panel>
                 </Collapse>
             </div>

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class Character extends Component {
+class Character extends React.PureComponent {
     componentWillMount() {
         const {currentLanguage, loadText} = this.props
         loadText(currentLanguage)

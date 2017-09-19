@@ -6,7 +6,7 @@ import {Icon, Radio} from 'antd'
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
-class CharacterSearch extends React.Component {
+class CharacterSearch extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Dropdown, Menu} from 'antd'
@@ -47,7 +47,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class NavBar extends Component {
+class NavBar extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
