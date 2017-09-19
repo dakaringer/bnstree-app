@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router-dom'
 
@@ -11,7 +11,7 @@ import Background from './components/Background/Background'
 import './styles/App.scss'
 
 function asyncComponent(getComponent) {
-    return class AsyncComponent extends Component {
+    return class AsyncComponent extends React.PureComponent {
         constructor(props) {
             super(props)
             this.state = {
@@ -78,7 +78,7 @@ const mapStateToProps = state => {
     }
 }
 
-class App extends Component {
+class App extends React.PureComponent {
     render() {
         const {initialized, location} = this.props
 
