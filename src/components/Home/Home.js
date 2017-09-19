@@ -53,7 +53,7 @@ const Home = props => {
                         <h3>{t('market')}</h3>
                         <MarketList />
                     </div>
-                    <Row className="stream-menu-container">
+                    <Row className="stream-menu-container" gutter={16}>
                         <Col md={16} className="home-stream">
                             <h3>
                                 {t('streams')}
