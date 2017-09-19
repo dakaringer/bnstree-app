@@ -18,6 +18,10 @@
         text-shadow: 0.1rem 0.1rem black;
         color: #ddd;
 
+        img {
+            width: 4.8rem;
+        }
+
         &:hover {
             filter: grayscale(0%) brightness(100%);
         }

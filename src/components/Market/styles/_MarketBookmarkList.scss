@@ -20,6 +20,10 @@
             background: rgba(80, 80, 80, 0.5);
         }
 
+        p {
+            white-space: nowrap;
+        }
+
         & > img {
             width: 4rem;
             margin-right: 1rem;

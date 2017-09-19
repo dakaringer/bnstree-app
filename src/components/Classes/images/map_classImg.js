@@ -1,13 +1,13 @@
-import BMimg from './side_active_bm.png'
-import KFimg from './side_active_kf.png'
-import DEimg from './side_active_de.png'
-import FMimg from './side_active_fm.png'
-import ASimg from './side_active_as.png'
-import SUimg from './side_active_su.png'
-import BDimg from './side_active_sm.png'
-import WLimg from './side_active_wl.png'
-import SFimg from './side_active_sf.png'
-import SHimg from './side_active_sh.png'
+import BMimg from './Job_Img_BladeMaster_40.png'
+import KFimg from './Job_Img_Destroyer_40.png'
+import DEimg from './Job_Img_Destroyer_40.png'
+import FMimg from './Job_Img_ForceMaster_40.png'
+import ASimg from './Job_Img_Assassin_40.png'
+import SUimg from './Job_Img_summoner_40.png'
+import BDimg from './Job_Img_SwordMaster_40.png'
+import WLimg from './Job_Img_Warlock_40.png'
+import SFimg from './Job_Img_SoulFighter_40.png'
+import SHimg from './Job_Img_Shooter_40.png'
 
 const classImages = {
     BM: BMimg,
