@@ -54,7 +54,10 @@ class NewsViewer extends React.PureComponent {
 
         let content = null
         if (article.has('title')) {
-            let md = new MarkdownIt()
+            let md = new MarkdownIt('default', {
+                breaks: true,
+                html: true
+            })
 
             let time = moment(article.get('datePosted'))
             let now = moment(new Date())
