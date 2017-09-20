@@ -137,14 +137,17 @@ class Editor extends React.PureComponent {
         let {skillNames} = this.props
         let {id, title, content, thumb, saved} = this.state
 
-        let md = new MarkdownIt()
+        let md = new MarkdownIt('default', {
+            breaks: true,
+            html: true
+        })
 
-        let renderedContent = content.replace(/\[skill]\((\w+-?\w+)\)/g, (match, id) => {
+        let renderedContent = content.replace(/\[skill]\((\w+(-\w+)*)\)/g, (match, id) => {
             let skill = skillNames.get(id, Map())
-            return `![${id}](https://static.bnstree.com/images/skills/${skill.get(
+            return `**![${id}](https://static.bnstree.com/images/skills/${skill.get(
                 'icon',
                 'blank'
-            )}) **${skill.get('name')}**`
+            )}) ${skill.get('name')}**`
         })
 
         return (
@@ -177,13 +180,13 @@ class Editor extends React.PureComponent {
                                 Save
                             </Button>
                         </a>
-                        {id
-                            ? <a onClick={() => this.delete()}>
-                                  <Button ghost type="danger">
-                                      Delete
-                                  </Button>
-                              </a>
-                            : null}
+                        {id ? (
+                            <a onClick={() => this.delete()}>
+                                <Button ghost type="danger">
+                                    Delete
+                                </Button>
+                            </a>
+                        ) : null}
                     </Col>
                     <Col sm={12} className="preview news-content">
                         <div
