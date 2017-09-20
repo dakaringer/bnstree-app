@@ -32,9 +32,9 @@ const News = props => {
 
     let newArticle =
         user && user.get('admin', false) ? (
-            <Route exact path="/news/new/:id" component={NewsEditor} />
+            <Route exact path="/news/new" component={NewsEditor} />
         ) : (
-            <Redirect exact from="/news/new/:id" to="/news" />
+            <Redirect exact from="/news/new" to="/news" />
         )
 
     return (
