@@ -169,7 +169,7 @@ class SoulshieldListItem extends React.PureComponent {
                                         )}`}
                                     />
                                 </div>
-                                <div>
+                                <div className="item-details">
                                     <h3 className={`grade_${set.get('grade')}`}>
                                         {set.get('name')}
                                     </h3>
