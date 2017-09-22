@@ -33,7 +33,7 @@
             width: 100%;
         }
 
-        .ant-collapse-header {
+        .ant-collapse > .ant-collapse-item > .ant-collapse-header {
             padding: 1rem;
             display: flex;
             flex-direction: row-reverse;
