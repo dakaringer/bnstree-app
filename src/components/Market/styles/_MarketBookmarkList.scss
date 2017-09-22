@@ -24,9 +24,14 @@
             white-space: nowrap;
         }
 
-        & > img {
+        .item-icon {
             width: 4rem;
             margin-right: 1rem;
+        }
+
+        .item-details {
+            flex: 1;
+            min-width: 0;
         }
     }
 }

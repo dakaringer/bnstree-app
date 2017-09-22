@@ -11,16 +11,17 @@
             }
 
             .item-header {
-                overflow: hidden;
                 position: relative;
                 height: 8rem;
-                padding-left: 18rem;
 
                 .item-icon {
-                    top: 1rem;
-                    left: 1rem;
-                    position: absolute;
-                    height: 15rem;
+                    padding: 1rem;
+                    overflow: hidden;
+                    height: 100%;
+
+                    img {
+                        height: 15rem;
+                    }
                 }
 
                 .set-name {

@@ -160,14 +160,15 @@ class SoulshieldListItem extends React.PureComponent {
                     <Panel
                         header={
                             <div className="item-header">
-                                <img
-                                    className="item-icon"
-                                    alt={set.get('name')}
-                                    src={`https://static.bnstree.com/images/soulshields/sets/${set.get(
-                                        'icon',
-                                        'blank'
-                                    )}`}
-                                />
+                                <div className="item-icon">
+                                    <img
+                                        alt={set.get('name')}
+                                        src={`https://static.bnstree.com/images/soulshields/sets/${set.get(
+                                            'icon',
+                                            'blank'
+                                        )}`}
+                                    />
+                                </div>
                                 <div>
                                     <h3 className={`grade_${set.get('grade')}`}>
                                         {set.get('name')}

@@ -78,8 +78,8 @@ class MarketBookmarkList extends React.PureComponent {
                         onClick={() => loadItem(item.get('_id'))}
                         key={item.get('_id')}
                         data-id={item.get('_id')}>
-                        <img alt={item.get('name')} src={item.get('icon')} />
-                        <div>
+                        <img className="item-icon" alt={item.get('name')} src={item.get('icon')} />
+                        <div className="item-details">
                             <p className={`grade_${item.get('grade')}`}>{item.get('name')}</p>
                             {parsePrice(bookmark)}
                         </div>
