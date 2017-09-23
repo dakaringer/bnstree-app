@@ -13,7 +13,7 @@ const Streams = props => {
     return (
         <div className="stream">
             <Helmet>
-                <title>{`${t('news')} | BnSTree`}</title>
+                <title>{`${t('streams')} | BnSTree`}</title>
             </Helmet>
             <AdSense
                 data-ad-client="ca-pub-2048637692232915"
