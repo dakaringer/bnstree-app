@@ -9,6 +9,11 @@
         color: deepskyblue;
     }
 
+    .sortable {
+        max-height: 62rem;
+        overflow: auto;
+    }
+
     .market-bookmark-list-item {
         display: flex;
         align-items: center;

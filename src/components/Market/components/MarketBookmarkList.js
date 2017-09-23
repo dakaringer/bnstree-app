@@ -69,7 +69,7 @@ class MarketBookmarkList extends React.PureComponent {
             .map(bookmark =>
                 bookmark.set('index', order.indexOf(bookmark.getIn(['item', '_id'], 0).toString()))
             )
-            .sort((a, b) => a.get('index') > b.get('index'))
+            .sort((a, b) => a.get('index') - b.get('index'))
             .forEach(bookmark => {
                 let item = bookmark.get('item')
                 list.push(
@@ -91,7 +91,9 @@ class MarketBookmarkList extends React.PureComponent {
             <div className="market-bookmark-list">
                 <h4>{t('bookmarks')}</h4>
                 {signIn}
-                <Sortable onChange={order => this.reorder(order)}>{list}</Sortable>
+                <Sortable onChange={order => this.reorder(order)} className="sortable">
+                    {list}
+                </Sortable>
             </div>
         )
     }

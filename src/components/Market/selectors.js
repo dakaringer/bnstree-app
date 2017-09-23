@@ -9,7 +9,19 @@ export const searchSelector = createSelector(uiSelector, state => state.get('sea
 export const suggestionsSelector = createSelector(uiSelector, state =>
     state.get('suggestions', List())
 )
-export const bookmarksSelector = createSelector(uiSelector, state => state.get('bookmarks', List()))
+export const bookmarksSelector = createSelector(uiSelector, state => {
+    let offset = 0
+    return state
+        .get('bookmarks', List())
+        .map(bookmark => {
+            if (!bookmark.hasIn(['item', 'index'])) {
+                bookmark = bookmark.setIn(['item', 'index'], -1 - offset)
+                offset += 1
+            }
+            return bookmark
+        })
+        .sort((a, b) => a.getIn(['item', 'index']) - b.getIn(['item', 'index']))
+})
 export const popularItemsSelector = createSelector(uiSelector, state =>
     state.get('popularItems', List())
 )
