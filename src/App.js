@@ -148,7 +148,19 @@ class App extends React.PureComponent {
                 <Background />
                 <footer>
                     <div className="footer">
-                        <p>Copyright &copy; {year} BnSTree. All rights reserved.</p>
+                        <div className="footer-links">
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://paypal.me/BnSTree">
+                                Tip Jar :)
+                            </a>
+                        </div>
+                        <p>
+                            Copyright &copy; {year} BnSTree. Game content and assets are copyrights
+                            and/or trademarks of NCSOFT Corporation.
+                        </p>
+                        <p>BnSTree is not affiliated with NCSOFT Corporation or Team Bloodlust</p>
                     </div>
                 </footer>
             </div>

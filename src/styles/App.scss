@@ -25,6 +25,17 @@
     padding: 3rem 2rem;
     padding-top: 5rem;
     color: #777;
+    font-size: 1.4rem;
+
+    .footer-links {
+        display: flex;
+        margin-bottom: 2rem;
+        font-size: 1.6rem;
+
+        a {
+            margin-right: 2rem;
+        }
+    }
 
     @media (max-width: 767px) {
         text-align: center;
