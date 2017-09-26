@@ -153,7 +153,10 @@ class App extends React.PureComponent {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 href="https://paypal.me/BnSTree">
-                                Tip Jar :)
+                                Tip Jar{' '}
+                                <span role="img" aria-label="heart">
+                                    💙
+                                </span>
                             </a>
                         </div>
                         <p>
