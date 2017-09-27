@@ -12,14 +12,14 @@
         overflow: auto;
     }
 
-    &[aria-hidden="true"] {
+    &[aria-hidden='true'] {
         transition: opacity 0.5s, z-index 0s 0.5s;
         width: 100vw;
         z-index: -1;
         opacity: 0;
     }
 
-    &[aria-hidden="false"] {
+    &[aria-hidden='false'] {
         transition: opacity 0.5s;
         width: 100%;
         z-index: 2;
@@ -60,6 +60,10 @@
 
         .ant-collapse-content-box {
             padding: 0 1.5rem;
+
+            ul li {
+                margin: 1rem;
+            }
         }
 
         .ant-menu {
@@ -72,26 +76,37 @@
         width: 100%;
         display: block;
         font-size: 1.8rem;
-        margin: 1.5rem 0;
+        margin: 0.5rem 0;
         line-height: 22px;
         padding: 8px 0 8px 32px;
 
         .ant-collapse-item > .ant-collapse-header {
             color: #aaa;
             padding: 0;
+
+            & > span {
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+
+                .ant-avatar {
+                    margin-right: 1rem;
+                }
+            }
+
+            &:hover {
+                color: white;
+            }
         }
 
         .ant-collapse-content,
         .ant-collapse-content-box {
             padding: 0.5rem 0;
+            background: none !important;
         }
 
         &:hover {
             color: white;
-
-            .ant-collapse-item > .ant-collapse-header {
-                color: white;
-            }
         }
     }
 
@@ -99,6 +114,12 @@
     .language {
         .ant-collapse-header {
             font-size: 1.4rem;
+        }
+
+        .ant-collapse-content-box {
+            ul li {
+                font-size: 1.4rem;
+            }
         }
     }
 

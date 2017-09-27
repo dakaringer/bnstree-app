@@ -4,6 +4,22 @@
     justify-content: space-between;
     height: 10rem;
     padding: 0 1rem;
+    position: relative;
+    z-index: 3;
+
+    .dropdown-backdrop {
+        height: 0;
+        background: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        transition: all 0.3s;
+
+        &.active {
+            height: 26rem;
+        }
+    }
 
     @media (min-width: 1200px) {
         padding: 0 4rem;
@@ -30,22 +46,62 @@
         z-index: 5;
 
         .main-nav-menu {
+            display: flex;
             margin-right: 2rem;
 
             .main-nav-menu-item {
                 letter-spacing: 0.1rem;
                 padding: 0.5rem 2rem;
-                &.active {
+
+                a.active {
                     color: deepskyblue;
+                }
+
+                .dropdown-content {
+                    top: 6rem;
+                    opacity: 0;
+                    visibility: hidden;
+                    position: absolute;
+                    transition: all 0.5s;
+                    display: flex;
+                    flex-direction: column;
+                    max-height: 15rem;
+                    flex-wrap: wrap;
+                    font-size: 1.4rem;
+
+                    li {
+                        margin: 0.4rem 0;
+
+                        a.active {
+                            color: deepskyblue;
+                        }
+                    }
+
+                    &.classes li {
+                        margin-right: 3rem;
+                    }
+
+                    &.active {
+                        opacity: 1;
+                        visibility: visible;
+                    }
                 }
             }
         }
 
         .main-nav-submenu {
+            display: flex;
+            align-items: center;
+
             .main-nav-menu-item {
                 padding: 0.5rem 2rem;
-                font-size: 1.4rem;
+                font-size: 1.3rem;
                 color: #888;
+                margin-top: 0.5rem;
+
+                .dropdown-content {
+                    font-size: 1.3rem;
+                }
             }
         }
 
@@ -78,14 +134,15 @@
     }
 }
 
-.google-login {
+.google-login > a {
     display: flex;
     align-items: center;
     height: 3rem;
-    width: 15rem;
+    width: 17rem;
     padding: 0.2rem;
     background: #555;
     border-radius: 0.2rem;
+    color: #ccc;
 
     .img-wrap {
         background: white;
@@ -108,6 +165,8 @@
         text-align: center;
         font-family: 'Roboto';
         font-size: 1.2rem;
+        white-space: nowrap;
+        padding: 0.5rem;
     }
 }
 
