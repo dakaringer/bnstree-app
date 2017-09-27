@@ -202,7 +202,8 @@ export const buildSelector = createSelector(
 export const skillNamesSelector = createSelector(
     refSelector,
     currentLanguageSelector,
-    (state, language) => state.getIn(['skillNames', language], Map())
+    (state, language) =>
+        state.getIn(['skillNames', language], state.getIn(['skillNames', 'en'], Map()))
 )
 export const skillNamesSelectorEN = createSelector(refSelector, state =>
     state.getIn(['skillNames', 'en'], Map())
