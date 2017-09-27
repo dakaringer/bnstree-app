@@ -14,7 +14,7 @@ import AdSense from '../../AdSense/AdSense'
 import NewsList from './NewsList'
 
 import {userSelector} from '../../../selectors'
-import {skillNamesSelector} from '../../Classes/selectors'
+import {skillNamesSelectorEN} from '../../Classes/selectors'
 import {loadTextData} from '../../Classes/actions'
 import {articleSelector} from '../selectors'
 import {loadArticle} from '../actions'
@@ -22,7 +22,7 @@ import {loadArticle} from '../actions'
 const mapStateToProps = state => {
     return {
         user: userSelector(state),
-        skillNames: skillNamesSelector(state),
+        skillNames: skillNamesSelectorEN(state),
         article: articleSelector(state)
     }
 }

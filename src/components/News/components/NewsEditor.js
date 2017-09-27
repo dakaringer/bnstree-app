@@ -4,7 +4,7 @@ import MarkdownIt from 'markdown-it'
 import {translate} from 'react-i18next'
 import {Map} from 'immutable'
 
-import {skillNamesSelector} from '../../Classes/selectors'
+import {skillNamesSelectorEN} from '../../Classes/selectors'
 import {loadTextData} from '../../Classes/actions'
 import {articleSelector} from '../selectors'
 import {loadArticle} from '../actions'
@@ -17,7 +17,7 @@ const postHeaders = {
 
 const mapStateToProps = state => {
     return {
-        skillNames: skillNamesSelector(state),
+        skillNames: skillNamesSelectorEN(state),
         article: articleSelector(state)
     }
 }
