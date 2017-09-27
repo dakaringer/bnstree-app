@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Link} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
@@ -17,8 +18,28 @@ import HomeCharacter from './components/HomeCharacter'
 import StreamList from '../Streams/components/StreamList'
 import MarketList from '../Market/components/MarketPopularItemList'
 
+import {updateRegion} from '../Market/actions'
+import {regionSelector} from '../Market/selectors'
+
+import {Radio} from 'antd'
+const RadioButton = Radio.Button
+const RadioGroup = Radio.Group
+
+const mapStateToProps = state => {
+    return {
+        region: regionSelector(state)
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setRegion: value => dispatch(updateRegion(value))
+    }
+}
+
 const Home = props => {
-    let {t} = props
+    const {t, region, setRegion} = props
+
     return (
         <div className="home">
             <Helmet>
@@ -50,7 +71,19 @@ const Home = props => {
                         data-ad-format="auto"
                     />
                     <div className="home-market">
-                        <h3>{t('market')}</h3>
+                        <h3>
+                            {t('market')}{' '}
+                            <span>
+                                <RadioGroup
+                                    className="regionSelector"
+                                    size="small"
+                                    value={region}
+                                    onChange={e => setRegion(e.target.value)}>
+                                    <RadioButton value="na">NA</RadioButton>
+                                    <RadioButton value="eu">EU</RadioButton>
+                                </RadioGroup>
+                            </span>
+                        </h3>
                         <MarketList />
                     </div>
                     <Row className="stream-menu-container" gutter={16}>
@@ -102,4 +135,4 @@ const Home = props => {
     )
 }
 
-export default translate('general')(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(Home))
