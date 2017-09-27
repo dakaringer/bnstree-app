@@ -11,13 +11,14 @@
 
         .build-item {
             align-items: center;
+            padding: 1rem;
 
             .build-type {
                 height: 2rem;
                 display: flex;
                 width: 12rem;
                 align-items: center;
-                color: #777;
+                color: #999;
                 padding-right: 2rem;
                 font-size: 1.4rem;
 

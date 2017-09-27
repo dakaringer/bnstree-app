@@ -98,18 +98,12 @@ class SkillBuildList extends React.PureComponent {
                         onConfirm={() => this.handleDelete(id)}
                         okText={t('delete')}
                         cancelText={t('cancel')}>
-                        <a className="delete">
-                            {t('delete')}
-                        </a>
+                        <a className="delete">{t('delete')}</a>
                     </Popconfirm>
                 )
             }
 
-            let mobileTimestamp = (
-                <div className="list-item-timestamp mobile">
-                    {timeString}
-                </div>
-            )
+            let mobileTimestamp = <div className="list-item-timestamp mobile">{timeString}</div>
 
             rows.push(
                 <div className="build-item list-item" key={id}>
@@ -125,30 +119,18 @@ class SkillBuildList extends React.PureComponent {
                         to={`/classes/${match.params.classCode}?id=${id}`}
                         onClick={() => loadBuild(id)}>
                         {build.get('title')}
-                        <small>
-                            {n}
-                        </small>
+                        <small>{n}</small>
                     </Link>
-                    <div className="list-item-timestamp">
-                        {timeString}
-                    </div>
+                    <div className="list-item-timestamp">{timeString}</div>
                     {del}
                 </div>
             )
         })
 
-        let elements = [
-            <Menu.Item key="all">
-                {t('all')}
-            </Menu.Item>
-        ]
+        let elements = [<Menu.Item key="all">{t('all')}</Menu.Item>]
         elementData.forEach(e => {
             let element = e.get('element')
-            elements.push(
-                <Menu.Item key={element}>
-                    {t(element)}
-                </Menu.Item>
-            )
+            elements.push(<Menu.Item key={element}>{t(element)}</Menu.Item>)
         })
         let elementFilterDropdown = (
             <Menu theme="dark" onClick={e => this.handleFilter('element', e.key)}>
@@ -158,18 +140,10 @@ class SkillBuildList extends React.PureComponent {
 
         let typeFilterDropdown = (
             <Menu theme="dark" onClick={e => this.handleFilter('type', e.key)}>
-                <Menu.Item key="all">
-                    {t('all')}
-                </Menu.Item>
-                <Menu.Item key="PvE">
-                    {t('PvE')}
-                </Menu.Item>
-                <Menu.Item key="PvP">
-                    {t('PvP')}
-                </Menu.Item>
-                <Menu.Item key="6v6">
-                    {t('6v6')}
-                </Menu.Item>
+                <Menu.Item key="all">{t('all')}</Menu.Item>
+                <Menu.Item key="PvE">{t('PvE')}</Menu.Item>
+                <Menu.Item key="PvP">{t('PvP')}</Menu.Item>
+                <Menu.Item key="6v6">{t('6v6')}</Menu.Item>
             </Menu>
         )
 

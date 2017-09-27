@@ -162,6 +162,12 @@
     .ant-pagination-item-active {
         background-color: dodgerblue !important;
     }
+
+    .ant-pagination-prev .ant-pagination-item-link,
+    .ant-pagination-next .ant-pagination-item-link {
+        border: none;
+        background: none;
+    }
 }
 
 .ant-radio-button-wrapper {
