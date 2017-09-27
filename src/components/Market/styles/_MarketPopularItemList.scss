@@ -8,11 +8,11 @@
         flex-direction: column;
         align-items: center;
         padding: 3rem 2rem;
-        background: rgba(30, 50, 110, 0.5);
+        background: rgba(10, 10, 20, 0.5);
         margin: 0.5rem;
 
         &:hover {
-            background: rgba(35, 65, 150, 0.5);
+            background: rgba(30, 40, 70, 0.5);
         }
 
         @media (max-width: 767px) {
