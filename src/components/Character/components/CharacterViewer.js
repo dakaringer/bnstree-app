@@ -136,7 +136,7 @@ class CharacterViewer extends React.PureComponent {
 
         let content = <LoadingLyn />
         if (!loading) {
-            if (character.has('general')) {
+            if (character.get('general')) {
                 content = (
                     <Row className="character-content" gutter={16}>
                         <Col lg={4} className="profile-container">
