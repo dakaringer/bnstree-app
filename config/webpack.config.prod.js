@@ -375,6 +375,10 @@ module.exports = {
             staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
             runtimeCaching: [
                 {
+                    urlPattern: /^https:\/\/api.bnstree\.com\/languages(.*)initial/,
+                    handler: 'networkFirst'
+                },
+                {
                     urlPattern: /^https:\/\/api.bnstree\.com\/market/,
                     handler: 'networkFirst'
                 },
