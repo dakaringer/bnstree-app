@@ -99,7 +99,6 @@ class NavBar extends React.PureComponent {
         })
 
         let languageDropdown = []
-        console.log(languages)
         languages.forEach(lang => {
             let id = lang.get('_id', 'en')
             if (id !== currentLang) {
