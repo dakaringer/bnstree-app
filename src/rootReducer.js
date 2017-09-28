@@ -26,6 +26,8 @@ function general(
             return state.setIn(['loading', action.context], action.loading)
         case actionType.GENERAL_SET_INITIALIZED:
             return state.set('initialized', action.initialized)
+        case actionType.GENERAL_SET_SUPPORTED_LANGUAGES:
+            return state.set('supportedLanguages', fromJS(action.languages))
         default:
             return state
     }

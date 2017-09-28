@@ -3,7 +3,7 @@ import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Link, NavLink, withRouter} from 'react-router-dom'
 
-import {currentLanguageSelector, userSelector} from '../../selectors'
+import {currentLanguageSelector, userSelector, supportedLanguagesSelector} from '../../selectors'
 import {setUILanguage} from '../../actions'
 
 import './styles/NavBar.scss'
@@ -27,16 +27,11 @@ export const classes = [
     ['SH', 'gunslinger']
 ]
 
-const languages = ['en', 'ko']
-const languageNames = {
-    en: 'English',
-    ko: '한국어'
-}
-
 const mapStateToProps = state => {
     return {
         currentLang: currentLanguageSelector(state),
-        user: userSelector(state)
+        user: userSelector(state),
+        languages: supportedLanguagesSelector(state)
     }
 }
 
@@ -77,7 +72,7 @@ class NavBar extends React.PureComponent {
     }
 
     render() {
-        const {t, currentLang, user, setLanguage} = this.props
+        const {t, currentLang, user, setLanguage, languages} = this.props
 
         /*
         let classLinks = []
@@ -104,11 +99,13 @@ class NavBar extends React.PureComponent {
         })
 
         let languageDropdown = []
-        languages.forEach(l => {
-            if (l !== currentLang) {
+        console.log(languages)
+        languages.forEach(lang => {
+            let id = lang.get('_id', 'en')
+            if (id !== currentLang) {
                 languageDropdown.push(
-                    <li key={l} onClick={() => this.closeMenu()}>
-                        <a onClick={() => setLanguage(l)}>{languageNames[l]}</a>
+                    <li key={id} onClick={() => this.closeMenu()}>
+                        <a onClick={() => setLanguage(id)}>{lang.get('name', 'English')}</a>
                     </li>
                 )
             }
@@ -205,7 +202,11 @@ class NavBar extends React.PureComponent {
                             <li
                                 className="main-nav-menu-item"
                                 onMouseOver={() => this.handleDropdown('language')}>
-                                <a>{languageNames[currentLang]}</a>
+                                <a>
+                                    {languages
+                                        .find(l => l.get('_id', 'en') === currentLang)
+                                        .get('name', 'English')}
+                                </a>
                                 <ul
                                     className={`dropdown-content ${this.state.dropdownStatus ===
                                     'language'
@@ -282,7 +283,10 @@ class NavBar extends React.PureComponent {
                             </Panel>
                         </Collapse>
                         <Collapse bordered={false} className="language overlay-nav-menu-item">
-                            <Panel header={languageNames[currentLang]}>
+                            <Panel
+                                header={languages
+                                    .find(l => l.get('_id', 'en') === currentLang)
+                                    .get('name', 'English')}>
                                 <ul>{languageDropdown}</ul>
                             </Panel>
                         </Collapse>

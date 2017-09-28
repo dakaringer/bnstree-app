@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import {Map} from 'immutable'
+import {Map, List} from 'immutable'
 
 const generalSelector = state => state.getIn(['general'], Map())
 
@@ -16,4 +16,7 @@ export const loadingSelector = createSelector(generalSelector, ref => {
 })
 export const initializedSelector = createSelector(generalSelector, ref =>
     ref.get('initialized', true)
+)
+export const supportedLanguagesSelector = createSelector(generalSelector, ref =>
+    ref.get('supportedLanguages', List())
 )

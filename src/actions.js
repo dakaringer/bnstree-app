@@ -7,6 +7,10 @@ const setLanguage = makeActionCreator(actionType.GENERAL_SET_LANGUAGE, 'language
 const setUser = makeActionCreator(actionType.GENERAL_SET_USER, 'user')
 export const setLoading = makeActionCreator(actionType.GENERAL_SET_LOADING, 'loading', 'context')
 const setInitialized = makeActionCreator(actionType.GENERAL_SET_INITIALIZED, 'initialized')
+const setSupportedLanguages = makeActionCreator(
+    actionType.GENERAL_SET_SUPPORTED_LANGUAGES,
+    'languages'
+)
 
 export function setUILanguage(lang, initial) {
     return (dispatch, getState) => {
@@ -24,6 +28,7 @@ export function setUILanguage(lang, initial) {
 
                     if (initial) {
                         dispatch(setUser(json.user))
+                        dispatch(setSupportedLanguages(json.supportedLanguages))
                     }
                 } else {
                     i18n.changeLanguage(previousLanguage)
