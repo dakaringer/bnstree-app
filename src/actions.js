@@ -11,7 +11,6 @@ const setInitialized = makeActionCreator(actionType.GENERAL_SET_INITIALIZED, 'in
 export function setUILanguage(lang, initial) {
     return (dispatch, getState) => {
         let previousLanguage = currentLanguageSelector(getState())
-        dispatch(setInitialized(false))
 
         fetch(`https://api.bnstree.com/languages/${lang}${initial ? '?initial=true' : ''}`, {
             method: 'post',
