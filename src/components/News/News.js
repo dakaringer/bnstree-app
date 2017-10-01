@@ -38,7 +38,7 @@ const News = props => {
         )
 
     return (
-        <div className="character">
+        <div className="news">
             <Helmet>
                 <title>{`${t('news')} | BnSTree`}</title>
             </Helmet>
