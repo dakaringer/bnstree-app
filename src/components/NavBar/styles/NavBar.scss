@@ -54,6 +54,10 @@
                 letter-spacing: 0.1rem;
                 padding: 0.5rem 2rem;
 
+                &.dropdown-active > a {
+                    color: white;
+                }
+
                 a.active {
                     color: deepskyblue;
                 }

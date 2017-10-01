@@ -73,6 +73,7 @@ class NavBar extends React.PureComponent {
 
     render() {
         const {t, currentLang, user, setLanguage, languages} = this.props
+        const {dropdownStatus, menuOpen} = this.state
 
         /*
         let classLinks = []
@@ -132,9 +133,7 @@ class NavBar extends React.PureComponent {
         return (
             <div>
                 <div className="main-nav" onMouseLeave={() => this.handleDropdown(null)}>
-                    <div
-                        className={`dropdown-backdrop ${this.state.dropdownStatus ? 'active' : ''}`}
-                    />
+                    <div className={`dropdown-backdrop ${dropdownStatus ? 'active' : ''}`} />
                     <div className="main-nav-header">
                         <Link to="/" onClick={() => this.closeMenu()}>
                             <img className="main-nav-logo" src={mainLogo} alt="main" />
@@ -148,12 +147,14 @@ class NavBar extends React.PureComponent {
                                 <NavLink to="/news">{t('news')}</NavLink>
                             </li>
                             <li
-                                className="main-nav-menu-item"
+                                className={`main-nav-menu-item ${dropdownStatus === 'classes'
+                                    ? 'dropdown-active'
+                                    : ''}`}
                                 onMouseOver={() => this.handleDropdown('classes')}>
                                 <NavLink to={`/classes`}>{t('classes')}</NavLink>
                                 <ul
-                                    className={`dropdown-content classes ${this.state
-                                        .dropdownStatus === 'classes'
+                                    className={`dropdown-content classes ${dropdownStatus ===
+                                    'classes'
                                         ? 'active'
                                         : ''}`}>
                                     {classDropdown}
@@ -177,7 +178,9 @@ class NavBar extends React.PureComponent {
                         </ul>
                         <ul className="main-nav-menu main-nav-submenu">
                             <li
-                                className="main-nav-menu-item"
+                                className={`main-nav-menu-item ${dropdownStatus === 'login'
+                                    ? 'dropdown-active'
+                                    : ''}`}
                                 onMouseOver={() => this.handleDropdown('login')}>
                                 <a>
                                     {user ? (
@@ -191,15 +194,16 @@ class NavBar extends React.PureComponent {
                                     )}
                                 </a>
                                 <ul
-                                    className={`dropdown-content ${this.state.dropdownStatus ===
-                                    'login'
+                                    className={`dropdown-content ${dropdownStatus === 'login'
                                         ? 'active'
                                         : ''}`}>
                                     {loginDropdown}
                                 </ul>
                             </li>
                             <li
-                                className="main-nav-menu-item"
+                                className={`main-nav-menu-item ${dropdownStatus === 'language'
+                                    ? 'dropdown-active'
+                                    : ''}`}
                                 onMouseOver={() => this.handleDropdown('language')}>
                                 <a>
                                     {languages
@@ -207,8 +211,7 @@ class NavBar extends React.PureComponent {
                                         .get('name', 'English')}
                                 </a>
                                 <ul
-                                    className={`dropdown-content ${this.state.dropdownStatus ===
-                                    'language'
+                                    className={`dropdown-content ${dropdownStatus === 'language'
                                         ? 'active'
                                         : ''}`}>
                                     {languageDropdown}
@@ -218,7 +221,7 @@ class NavBar extends React.PureComponent {
                         <span className="nav-toggle">
                             <button
                                 onClick={() => this.openCloseMenu()}
-                                className={`hamburger hamburger--squeeze ${this.state.menuOpen
+                                className={`hamburger hamburger--squeeze ${menuOpen
                                     ? 'is-active'
                                     : ''}`}
                                 type="button">
@@ -229,7 +232,7 @@ class NavBar extends React.PureComponent {
                         </span>
                     </div>
                 </div>
-                <div className="overlay-menu" aria-hidden={!this.state.menuOpen}>
+                <div className="overlay-menu" aria-hidden={!menuOpen}>
                     <div className="overlay-menu-container">
                         <NavLink
                             to="/news"
