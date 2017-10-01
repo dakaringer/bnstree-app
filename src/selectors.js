@@ -14,9 +14,13 @@ export const loadingSelector = createSelector(generalSelector, ref => {
     })
     return loading
 })
-export const initializedSelector = createSelector(generalSelector, ref =>
-    ref.get('initialized', true)
-)
+export const loadingAppSelector = createSelector(generalSelector, ref => {
+    let loading = false
+    ref.get('loadingApp', Map()).forEach(l => {
+        loading = l || loading
+    })
+    return loading
+})
 export const supportedLanguagesSelector = createSelector(generalSelector, ref =>
     ref.get('supportedLanguages', List())
 )
