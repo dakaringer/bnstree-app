@@ -50,13 +50,9 @@ const Home = props => {
                 <CharacterSearch center />
                 <div className="home-ad-container">
                     <AdSense
-                        style={{
-                            display: 'inline-block',
-                            width: '468px',
-                            height: '60px'
-                        }}
                         data-ad-client="ca-pub-2048637692232915"
-                        data-ad-slot="1353092581"
+                        data-ad-slot="6768736382"
+                        data-ad-format="auto"
                     />
                 </div>
                 <HomeCharacter />
