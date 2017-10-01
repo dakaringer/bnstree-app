@@ -61,7 +61,8 @@ class NavBar extends React.PureComponent {
     closeMenu() {
         document.body.classList.toggle('noscroll', false)
         this.setState({
-            menuOpen: false
+            menuOpen: false,
+            dropdownStatus: null
         })
     }
 
