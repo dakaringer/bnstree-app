@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Route, Switch, Redirect} from 'react-router-dom'
 
-import {initializedSelector} from './selectors'
+import {loadingAppSelector, userSelector} from './selectors'
 
 import NavBar, {classes} from './components/NavBar/NavBar'
 import LoadingLyn from './components/LoadingLyn/LoadingLyn'
@@ -75,13 +75,14 @@ const Streams = asyncComponent(() =>
 
 const mapStateToProps = state => {
     return {
-        initialized: initializedSelector(state)
+        loading: loadingAppSelector(state),
+        user: userSelector(state)
     }
 }
 
 class App extends React.PureComponent {
     render() {
-        const {initialized, location} = this.props
+        const {loading, location, user} = this.props
 
         let redirectLinks = []
         classes.forEach(c => {
@@ -114,7 +115,7 @@ class App extends React.PureComponent {
                 <LoadingLyn />
             </div>
         )
-        if (initialized) {
+        if (!loading) {
             app = (
                 <div className="App">
                     <NavBar />
