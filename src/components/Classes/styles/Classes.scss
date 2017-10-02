@@ -16,8 +16,9 @@
     flex-wrap: nowrap;
 
     .class-selector {
-        width: auto;
+        width: auto !important;
         cursor: pointer;
+
         span {
             display: flex;
 
