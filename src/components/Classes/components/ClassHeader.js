@@ -67,7 +67,7 @@ const ClassHeader = props => {
                     className="class-menu-item"
                     to={`/classes/${match.params.classCode}`}
                     exact>
-                    {t('classes')} <Icon type="down" />
+                    {t('skills')} <Icon type="down" />
                 </NavLink>
             </Dropdown>
             <NavLink

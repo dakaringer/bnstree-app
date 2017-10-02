@@ -44,7 +44,7 @@ function getPath(link) {
         case 'soulshields':
             return 'soulshields'
         default:
-            return 'classes'
+            return 'skills'
     }
 }
 
