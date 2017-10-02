@@ -44,7 +44,7 @@ function getPath(link) {
         case 'soulshields':
             return 'soulshields'
         default:
-            return 'skills'
+            return 'classes'
     }
 }
 
@@ -175,5 +175,5 @@ class Skills extends React.PureComponent {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    translate(['skills', 'general'])(Skills)
+    translate(['classes', 'general'])(Skills)
 )

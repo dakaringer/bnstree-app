@@ -213,4 +213,4 @@ class SkillSettings extends React.PureComponent {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillSettings))
+export default connect(mapStateToProps, mapDispatchToProps)(translate('classes')(SkillSettings))

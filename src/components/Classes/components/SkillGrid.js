@@ -31,12 +31,8 @@ const SkillGrid = props => {
         let label = t(k)
         let keyGroup = (
             <div key={k} className={`group width_${Math.ceil(skills.length / 4)}`}>
-                <div className="grid">
-                    {skills}
-                </div>
-                <h5 className="groupHeader">
-                    {label}
-                </h5>
+                <div className="grid">{skills}</div>
+                <h5 className="groupHeader">{label}</h5>
             </div>
         )
 
@@ -79,35 +75,23 @@ const SkillGrid = props => {
                 <tbody>
                     <tr className="top">
                         <td className="primary">
-                            <div className="block">
-                                {topLeft}
-                            </div>
+                            <div className="block">{topLeft}</div>
                         </td>
                         <td className="secondary">
                             <div className="secondaryContainer">
-                                <div className="block">
-                                    {topMiddle}
-                                </div>
-                                <div className="block">
-                                    {topRight}
-                                </div>
+                                <div className="block">{topMiddle}</div>
+                                <div className="block">{topRight}</div>
                             </div>
                         </td>
                     </tr>
                     <tr className="bottom">
                         <td className="primary">
-                            <div className="block">
-                                {bottomLeft}
-                            </div>
+                            <div className="block">{bottomLeft}</div>
                         </td>
                         <td className="secondary">
                             <div className="secondaryContainer">
-                                <div className="block">
-                                    {bottomMiddle}
-                                </div>
-                                <div className="block">
-                                    {bottomRight}
-                                </div>
+                                <div className="block">{bottomMiddle}</div>
+                                <div className="block">{bottomRight}</div>
                             </div>
                         </td>
                     </tr>
@@ -117,4 +101,4 @@ const SkillGrid = props => {
     )
 }
 
-export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillGrid))
+export default connect(mapStateToProps)(translate(['classes', 'tooltip'])(SkillGrid))

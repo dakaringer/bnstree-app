@@ -67,7 +67,7 @@ const ClassHeader = props => {
                     className="class-menu-item"
                     to={`/classes/${match.params.classCode}`}
                     exact>
-                    {t('skills')} <Icon type="down" />
+                    {t('classes')} <Icon type="down" />
                 </NavLink>
             </Dropdown>
             <NavLink
@@ -106,4 +106,4 @@ const ClassHeader = props => {
     )
 }
 
-export default withRouter(connect(mapStateToProps)(translate(['skills', 'general'])(ClassHeader)))
+export default withRouter(connect(mapStateToProps)(translate(['classes', 'general'])(ClassHeader)))

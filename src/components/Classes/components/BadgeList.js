@@ -36,4 +36,4 @@ const BadgeList = props => {
     )
 }
 
-export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(BadgeList))
+export default connect(mapStateToProps)(translate(['classes', 'tooltip'])(BadgeList))

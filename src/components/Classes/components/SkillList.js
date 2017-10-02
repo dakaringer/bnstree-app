@@ -33,12 +33,8 @@ const SkillList = props => {
 
         list.push(
             <Element className="skill-group" name={`group_${k}`} key={k}>
-                <h3 className="group-label">
-                    {label}
-                </h3>
-                <div className="group-skills">
-                    {skills}
-                </div>
+                <h3 className="group-label">{label}</h3>
+                <div className="group-skills">{skills}</div>
             </Element>
         )
 
@@ -57,19 +53,18 @@ const SkillList = props => {
 
     return (
         <StickyContainer className="skill-list">
-            <div className="list">
-                {list}
-            </div>
+            <div className="list">{list}</div>
             <div className="hotkey-bar-wrapper">
                 <Sticky bottomOffset={400}>
-                    {({style}) =>
+                    {({style}) => (
                         <div className="hotkey-bar" style={style}>
                             {hotkeyBar}
-                        </div>}
+                        </div>
+                    )}
                 </Sticky>
             </div>
         </StickyContainer>
     )
 }
 
-export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillList))
+export default connect(mapStateToProps)(translate(['classes', 'tooltip'])(SkillList))

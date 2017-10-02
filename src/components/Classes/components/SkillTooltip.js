@@ -33,17 +33,11 @@ const SkillTooltip = props => {
                 <span>
                     {focusHandler(comparisonData.get('focus', 0), t)}
                     <Icon type="caret-right" />
-                    <span className="mod">
-                        {focusTxt}
-                    </span>
+                    <span className="mod">{focusTxt}</span>
                 </span>
             )
         } else {
-            focusTxt = (
-                <span className="mod">
-                    {focusTxt}
-                </span>
-            )
+            focusTxt = <span className="mod">{focusTxt}</span>
         }
     }
 
@@ -71,7 +65,12 @@ const SkillTooltip = props => {
                         .get(1, Map())
                         .delete('element')
                         .keySeq()
-                        .equals(cAttb.get(1, Map()).delete('element').keySeq())
+                        .equals(
+                            cAttb
+                                .get(1, Map())
+                                .delete('element')
+                                .keySeq()
+                        )
                 ) {
                     flag = 'mod'
 
@@ -88,11 +87,7 @@ const SkillTooltip = props => {
 
                 let tag = null
                 if (flag) {
-                    tag = (
-                        <span className={`tag ${flag}`}>
-                            {t(`tag-${flag}`)}
-                        </span>
-                    )
+                    tag = <span className={`tag ${flag}`}>{t(`tag-${flag}`)}</span>
                 }
 
                 if (flag !== 'mod' || deleted) {
@@ -134,19 +129,11 @@ const SkillTooltip = props => {
     comparisonInfo.forEach((i, type) => {
         let div = null
         if (type !== 'area') {
-            let infoText = (
-                <p>
-                    {getInfoText(i, type, t)}
-                </p>
-            )
+            let infoText = <p>{getInfoText(i, type, t)}</p>
 
             let infoText2 = null
             if (info.get(type) !== i) {
-                infoText2 = (
-                    <p className="mod">
-                        {getInfoText(info.get(type, 0), type, t)}
-                    </p>
-                )
+                infoText2 = <p className="mod">{getInfoText(info.get(type, 0), type, t)}</p>
             }
 
             div = (
@@ -165,9 +152,7 @@ const SkillTooltip = props => {
             if (areaType !== areaType2) {
                 div = (
                     <div className="info-data">
-                        <div className={`area_${areaType}`}>
-                            {getInfoText(areaValue, type, t)}
-                        </div>
+                        <div className={`area_${areaType}`}>{getInfoText(areaValue, type, t)}</div>
                         <Icon type="caret-down" />
                         <div className={`mod area_${areaType2}`}>
                             {getInfoText(areaValue2, type, t)}
@@ -177,33 +162,23 @@ const SkillTooltip = props => {
             } else if (areaValue !== areaValue2) {
                 div = (
                     <div className={`info-data area_${areaType}`}>
-                        <div>
-                            {getInfoText(areaValue, type, t)}
-                        </div>
+                        <div>{getInfoText(areaValue, type, t)}</div>
                         <Icon type="caret-down" />
-                        <div className={`mod`}>
-                            {getInfoText(areaValue2, type, t)}
-                        </div>
+                        <div className={`mod`}>{getInfoText(areaValue2, type, t)}</div>
                     </div>
                 )
             } else {
                 div = (
                     <div className={`info-data area_${areaType}`}>
-                        <div>
-                            {getInfoText(areaValue, type, t)}
-                        </div>
+                        <div>{getInfoText(areaValue, type, t)}</div>
                     </div>
                 )
             }
         }
         infoList[type] = (
             <div className="info-box">
-                <div className="info-header">
-                    {t(type)}
-                </div>
-                <div className="info-data">
-                    {div}
-                </div>
+                <div className="info-header">{t(type)}</div>
+                <div className="info-data">{div}</div>
             </div>
         )
     })
@@ -236,7 +211,12 @@ const SkillTooltip = props => {
                             .get(1, Map())
                             .delete('element')
                             .keySeq()
-                            .equals(cAttb.get(1, Map()).delete('element').keySeq())
+                            .equals(
+                                cAttb
+                                    .get(1, Map())
+                                    .delete('element')
+                                    .keySeq()
+                            )
                     ) {
                         flag = 'mod'
                     }
@@ -244,11 +224,7 @@ const SkillTooltip = props => {
 
                 let tag = null
                 if (flag) {
-                    tag = (
-                        <span className={`tag ${flag}`}>
-                            {t(`tag-${flag}`)}
-                        </span>
-                    )
+                    tag = <span className={`tag ${flag}`}>{t(`tag-${flag}`)}</span>
                 }
 
                 let icon = pair.get('icon', 'buff_debuff_icon_08_53')
@@ -272,9 +248,7 @@ const SkillTooltip = props => {
                                 alt={type}
                                 src={`https://static.bnstree.com/images/skills/${icon2}`}
                             />
-                            <span>
-                                {parser(cAttb, element, characterData, skillNames)}
-                            </span>
+                            <span>{parser(cAttb, element, characterData, skillNames)}</span>
                         </p>
                     )
                 }
@@ -293,9 +267,7 @@ const SkillTooltip = props => {
                                 alt={type}
                                 src={`https://static.bnstree.com/images/skills/${icon}`}
                             />
-                            <span>
-                                {parser(attb, element, characterData, skillNames)}
-                            </span>
+                            <span>{parser(attb, element, characterData, skillNames)}</span>
                         </p>
                     )
                 }
@@ -359,12 +331,8 @@ const SkillTooltip = props => {
         buildStat = (
             <div className="skill-build-stat">
                 <hr />
-                <p>
-                    {t('buildStat')}
-                </p>
-                <div className="stat-bars">
-                    {sections}
-                </div>
+                <p>{t('buildStat')}</p>
+                <div className="stat-bars">{sections}</div>
             </div>
         )
     }
@@ -379,9 +347,7 @@ const SkillTooltip = props => {
                 <h2 className="skill-name">
                     {moveData.get('name')} <small>{classification}</small>
                 </h2>
-                <p className="skill-focus">
-                    {focusTxt}
-                </p>
+                <p className="skill-focus">{focusTxt}</p>
             </div>
             <div className="tooltip-main-block">
                 <img
@@ -393,17 +359,11 @@ const SkillTooltip = props => {
                     )}`}
                 />
                 <div>
-                    <div className="tooltip-m1">
-                        {attbList.m1}
-                    </div>
-                    <div className="tooltip-m2">
-                        {attbList.m2}
-                    </div>
+                    <div className="tooltip-m1">{attbList.m1}</div>
+                    <div className="tooltip-m2">{attbList.m2}</div>
                 </div>
             </div>
-            <div className="tooltip-sub-block">
-                {attbList.sub}
-            </div>
+            <div className="tooltip-sub-block">{attbList.sub}</div>
             <div className="tooltip-info-block">
                 {infoList.range}
                 {infoList.area}
@@ -412,27 +372,15 @@ const SkillTooltip = props => {
             </div>
             <div className="tooltip-subAttribute-block">
                 <div className="subAttribute-group condition">
-                    {subAttbList.condition.length > 0
-                        ? <h4>
-                              {t('condition')}
-                          </h4>
-                        : null}
+                    {subAttbList.condition.length > 0 ? <h4>{t('condition')}</h4> : null}
                     {subAttbList.condition}
                 </div>
                 <div className="subAttribute-group stance">
-                    {subAttbList.stanceChange.length > 0
-                        ? <h4>
-                              {t('stanceChange')}
-                          </h4>
-                        : null}
+                    {subAttbList.stanceChange.length > 0 ? <h4>{t('stanceChange')}</h4> : null}
                     {subAttbList.stanceChange}
                 </div>
                 <div className="subAttribute-group unlock">
-                    {subAttbList.unlock.length > 0
-                        ? <h4>
-                              {t('unlock')}
-                          </h4>
-                        : null}
+                    {subAttbList.unlock.length > 0 ? <h4>{t('unlock')}</h4> : null}
                     {subAttbList.unlock}
                 </div>
             </div>
@@ -445,7 +393,7 @@ const SkillTooltip = props => {
     )
 }
 
-export default connect(mapStateToProps)(translate(['skills', 'tooltip'])(SkillTooltip))
+export default connect(mapStateToProps)(translate(['classes', 'tooltip'])(SkillTooltip))
 
 function focusHandler(value, t, health) {
     if (value !== 0) {
@@ -475,7 +423,12 @@ function findAttb(attb, list, element, sub = false) {
                     .get(1, Map())
                     .delete('element')
                     .keySeq()
-                    .equals(c.get(1, Map()).delete('element').keySeq())
+                    .equals(
+                        c
+                            .get(1, Map())
+                            .delete('element')
+                            .keySeq()
+                    )
             let sameStatusCheck = List.isList(attb.getIn([1, 'status']))
                 ? attb.getIn([1, 'status']).equals(c.getIn([1, 'status']))
                 : attb.getIn([1, 'status']) === c.getIn([1, 'status'])

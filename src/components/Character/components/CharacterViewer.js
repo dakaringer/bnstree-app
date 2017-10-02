@@ -154,7 +154,7 @@ class CharacterViewer extends React.PureComponent {
                                         </Col>
                                     </Row>
                                 </TabPane>
-                                <TabPane tab={t('skills')} key="2">
+                                <TabPane tab={t('classes')} key="2">
                                     <div className="character-build-element">
                                         <img
                                             alt={characterElement}

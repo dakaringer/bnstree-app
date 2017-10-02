@@ -197,4 +197,4 @@ class SoulshieldListItem extends React.PureComponent {
     }
 }
 
-export default connect(mapStateToProps)(translate(['character', 'skills'])(SoulshieldListItem))
+export default connect(mapStateToProps)(translate(['character', 'classes'])(SoulshieldListItem))

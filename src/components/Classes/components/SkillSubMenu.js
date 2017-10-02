@@ -58,9 +58,9 @@ const SkillSubMenu = props => {
         setFilter
     } = props
 
-    let clear = search
-        ? <Icon onClick={() => setSearch('')} className="clear" type="close" />
-        : null
+    let clear = search ? (
+        <Icon onClick={() => setSearch('')} className="clear" type="close" />
+    ) : null
 
     const radioStyle = {
         display: 'block',
@@ -134,5 +134,5 @@ const SkillSubMenu = props => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    translate(['skills', 'general'])(SkillSubMenu)
+    translate(['classes', 'general'])(SkillSubMenu)
 )

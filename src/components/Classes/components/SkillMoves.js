@@ -114,9 +114,7 @@ const SkillMoves = props => {
                                 skillId,
                                 currentMove === moveNumber + 3 ? moveNumber + 3 : moveNumber
                             )}>
-                        <h6>
-                            {t(type)}
-                        </h6>
+                        <h6>{t(type)}</h6>
                         <img src={typeImages[types[type]]} alt={types[type]} className="typeImg" />
                     </div>
                 </Tooltip>
@@ -126,13 +124,13 @@ const SkillMoves = props => {
     })
 
     let hotkeyImg =
-        skillData.get('hotkey') !== 'None'
-            ? <img
-                  className="skill-hotkey"
-                  alt={skillData.get('hotkey')}
-                  src={keyImages[skillData.get('hotkey')]}
-              />
-            : null
+        skillData.get('hotkey') !== 'None' ? (
+            <img
+                className="skill-hotkey"
+                alt={skillData.get('hotkey')}
+                src={keyImages[skillData.get('hotkey')]}
+            />
+        ) : null
 
     return (
         <div className="skill-moves-item">
@@ -140,11 +138,9 @@ const SkillMoves = props => {
                 {skillData.getIn(['moves', moveIndex, 'name'])}
                 {hotkeyImg}
             </h4>
-            <div className={`skill-moves ${moves.length === 1 ? 'single' : ''}`}>
-                {moves}
-            </div>
+            <div className={`skill-moves ${moves.length === 1 ? 'single' : ''}`}>{moves}</div>
         </div>
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillMoves))
+export default connect(mapStateToProps, mapDispatchToProps)(translate('classes')(SkillMoves))

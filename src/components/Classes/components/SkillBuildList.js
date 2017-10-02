@@ -185,5 +185,5 @@ class SkillBuildList extends React.PureComponent {
 }
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(translate('skills')(SkillBuildList))
+    connect(mapStateToProps, mapDispatchToProps)(translate('classes')(SkillBuildList))
 )

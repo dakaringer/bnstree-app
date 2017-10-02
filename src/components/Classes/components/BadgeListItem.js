@@ -229,4 +229,4 @@ class BadgeListItem extends React.PureComponent {
     }
 }
 
-export default connect(mapStateToProps)(translate('skills')(BadgeListItem))
+export default connect(mapStateToProps)(translate('classes')(BadgeListItem))

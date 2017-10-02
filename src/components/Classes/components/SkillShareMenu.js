@@ -149,5 +149,5 @@ class SkillShareMenu extends React.PureComponent {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    translate(['skills', 'general'])(SkillShareMenu)
+    translate(['classes', 'general'])(SkillShareMenu)
 )
