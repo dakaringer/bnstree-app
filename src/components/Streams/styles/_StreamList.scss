@@ -6,8 +6,9 @@
     .stream-item {
         padding: 1.2rem 0;
         max-width: 100%;
-        width: 35rem;
+        width: 30rem;
         overflow: hidden;
+        flex: 1 0 auto;
 
         .preview-container {
             position: relative;

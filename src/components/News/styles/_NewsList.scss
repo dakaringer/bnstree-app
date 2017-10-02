@@ -25,7 +25,7 @@
     .thumb-wrapper {
         margin-right: 2rem;
         width: 20%;
-        min-width: 5rem;
+        min-width: 10rem;
 
         img {
             width: 100%;
@@ -48,12 +48,6 @@
     @media (max-width: 767px) {
         .news-subtitle {
             display: none;
-        }
-
-        .news-item-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
         }
     }
 
