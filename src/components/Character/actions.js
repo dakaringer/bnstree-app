@@ -31,7 +31,7 @@ export function loadCharacter(region, name) {
                     dispatch(setCharacterMode(true))
                 })
                 .then(() => dispatch(setLoading(false, 'character')))
-                .catch(e => console.log(e))
+                .catch(e => console.error(e))
         }
     }
 }

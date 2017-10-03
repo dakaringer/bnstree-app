@@ -87,7 +87,7 @@ class CharacterViewer extends React.PureComponent {
         })
             .then(response => response.json())
             .then(json => {})
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 
     unvote(voted) {
@@ -110,7 +110,7 @@ class CharacterViewer extends React.PureComponent {
         })
             .then(response => response.json())
             .then(json => {})
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 
     render() {

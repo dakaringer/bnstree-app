@@ -36,7 +36,7 @@ export function getRegion() {
                 if (json.success === 0) return
                 dispatch(setRegion(json.region))
             })
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 }
 
@@ -62,9 +62,9 @@ export function loadPopularItems() {
 
                         dispatch(setPopularItems(json.list))
                     })
-                    .catch(e => console.log(e))
+                    .catch(e => console.error(e))
             })
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 }
 
@@ -78,7 +78,7 @@ export function updateRegion(region) {
             credentials: 'include',
             headers: postHeaders,
             body: JSON.stringify({marketRegion: region})
-        }).catch(e => console.log(e))
+        }).catch(e => console.error(e))
 
         let item = dataSelector(getState())
         if (item.get('item')) {
@@ -101,7 +101,7 @@ export function search(term) {
 
                     dispatch(setSuggestions(json.data))
                 })
-                .catch(e => console.log(e))
+                .catch(e => console.error(e))
         } else {
             dispatch(setSuggestions([]))
         }
@@ -125,7 +125,7 @@ export function searchItem(term, exact = false) {
                 dispatch(setUpdate(new Date()))
             })
             .then(() => dispatch(setLoading(false, 'market')))
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 }
 
@@ -146,7 +146,7 @@ export function loadItem(item, replace = false) {
                 dispatch(setUpdate(new Date()))
             })
             .then(() => dispatch(setLoading(false, 'market')))
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 }
 
@@ -172,8 +172,8 @@ export function loadBookmarks() {
 
                         dispatch(setBookmarks(json.list))
                     })
-                    .catch(e => console.log(e))
+                    .catch(e => console.error(e))
             })
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 }

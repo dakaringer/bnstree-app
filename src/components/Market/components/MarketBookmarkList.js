@@ -54,7 +54,7 @@ class MarketBookmarkList extends React.PureComponent {
                 'Content-type': 'application/json; charset=UTF-8'
             },
             body: JSON.stringify({order: order})
-        }).catch(e => console.log(e))
+        }).catch(e => console.error(e))
     }
 
     render() {

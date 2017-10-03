@@ -24,7 +24,7 @@ export function loadNews(page = 1) {
                 }
             })
             .then(() => dispatch(setLoading(false, 'news')))
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 }
 
@@ -47,7 +47,7 @@ export function loadArticle(id) {
                     }
                 })
                 .then(() => dispatch(setLoading(false, 'news')))
-                .catch(e => console.log(e))
+                .catch(e => console.error(e))
         } else {
             dispatch(setArticle(article))
         }

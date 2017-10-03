@@ -6,7 +6,7 @@ class GoogleAdUnit extends React.PureComponent {
         try {
             ;(window.adsbygoogle = window.adsbygoogle || []).push({})
         } catch (error) {
-            console.log(error)
+            console.error(error)
         }
     }
 

@@ -105,7 +105,7 @@ class MarketItemViewer extends React.PureComponent {
         })
             .then(response => response.json())
             .then(json => updateBookmarks())
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 
     unbookmark(bookmarked) {
@@ -127,7 +127,7 @@ class MarketItemViewer extends React.PureComponent {
         })
             .then(response => response.json())
             .then(json => updateBookmarks())
-            .catch(e => console.log(e))
+            .catch(e => console.error(e))
     }
 
     render() {
