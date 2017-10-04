@@ -282,7 +282,7 @@ export function loadBuild(buildCode, buildId) {
                             dispatch(learnMove(skill.id, skill.trait))
                         })
 
-                        message.success(i18n.t('skills:buildLoaded'))
+                        message.success(i18n.t('classes:buildLoaded'))
                     }
                 })
                 .catch(e => console.error(e))

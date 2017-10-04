@@ -17,10 +17,10 @@ function getSkill(idString, skillNames, noIcon = false) {
         moves = moves.slice(1)
     }
 
-    moves = moves.map(m => (m > 3 ? i18n.t('skills:HM', {move: m - 3}) : m))
+    moves = moves.map(m => (m > 3 ? i18n.t('classes:HM', {move: m - 3}) : m))
 
     if (moves.length > 0) {
-        affix = `${affix ? `${affix}, ` : ''}${i18n.t('skills:moves', {moves: moves.join(', ')})}`
+        affix = `${affix ? `${affix}, ` : ''}${i18n.t('classes:moves', {moves: moves.join(', ')})}`
     }
 
     affix = affix ? ` (${affix})` : null
@@ -129,19 +129,11 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
                 } else {
                     skillList.push(getSkill(value, skillNames, key.startsWith('skillName')))
                 }
-                value = (
-                    <span>
-                        {skillList}
-                    </span>
-                )
+                value = <span>{skillList}</span>
                 break
             }
             case 'effect': {
-                value = (
-                    <span className="skill">
-                        {i18n.t(`tooltip:${value}`)}
-                    </span>
-                )
+                value = <span className="skill">{i18n.t(`tooltip:${value}`)}</span>
                 break
             }
             default: {
@@ -158,13 +150,15 @@ export default function parser(obj, defaultElement, stats, skillNames, obj2 = Li
                         count: options.get('count', 1)
                     })
                 } else if (key !== 'count' && key.startsWith('count')) {
-                    value = isNaN(value)
-                        ? <Interpolate
-                              i18nKey={`tooltip:${key}`}
-                              count={value}
-                              options={{count: obj.getIn([1, key])}}
-                          />
-                        : i18n.t(`tooltip:${key}`, {count: value})
+                    value = isNaN(value) ? (
+                        <Interpolate
+                            i18nKey={`tooltip:${key}`}
+                            count={value}
+                            options={{count: obj.getIn([1, key])}}
+                        />
+                    ) : (
+                        i18n.t(`tooltip:${key}`, {count: value})
+                    )
                 } else if (isNaN(value)) {
                     if (List.isList(value)) {
                         value = value.map(s => i18n.t(`tooltip:${s}`)).join(', ')
