@@ -23,17 +23,13 @@ const CharacterStatItem = props => {
             if (stat[0] !== 'int_hp_regen') {
                 subValues.push(
                     <div key="base">
-                        <span className="subHeader">
-                            {t('base')}
-                        </span>
+                        <span className="subHeader">{t('base')}</span>
                         <span className="subValue">
                             {statData.getIn(['base_ability', stat[0]], 0)}
                         </span>
                     </div>,
                     <div key="equip">
-                        <span className="subHeader">
-                            {t('equip')}
-                        </span>
+                        <span className="subHeader">{t('equip')}</span>
                         <span className="subValue">
                             {statData.getIn(['equipped_ability', stat[0]], 0)}
                         </span>
@@ -43,9 +39,7 @@ const CharacterStatItem = props => {
             stat[1].forEach(extra => {
                 subValues.push(
                     <div key={extra}>
-                        <span className="subHeader">
-                            {t(extra)}
-                        </span>
+                        <span className="subHeader">{t(extra)}</span>
                         <span className="subValue">
                             {statData.getIn(['total_ability', extra], 0)}
                             {extra.endsWith('rate') ? '%' : ''}
@@ -56,9 +50,7 @@ const CharacterStatItem = props => {
         } else {
             subValues.push(
                 <div key="duration">
-                    <span className="subHeader">
-                        {t(`${type}_stiff_duration_rate`)}
-                    </span>
+                    <span className="subHeader">{t(`${type}_stiff_duration_rate`)}</span>
                     <span className="subValue">
                         {statData.getIn(['total_ability', stat[0]], 0) * 20}%
                     </span>
@@ -70,17 +62,19 @@ const CharacterStatItem = props => {
             <span>
                 {t(stat[0])}
                 <span className="mainValue">
-                    {stat[0] === `${type}_stiff_duration_level` ? `${t('level')} ` : ''}
-                    {statData.getIn(['total_ability', stat[0]], 0)}
+                    {stat[0] === `${type}_stiff_duration_level`
+                        ? `${t('level', {level: statData.getIn(['total_ability', stat[0]], 0)})} `
+                        : ''}
+                    {stat[0] !== `${type}_stiff_duration_level`
+                        ? statData.getIn(['total_ability', stat[0]], 0)
+                        : ''}
                 </span>
             </span>
         )
 
         list.push(
             <Collapse.Panel header={header} className="statItem" bordered={false} key={i}>
-                <div>
-                    {subValues}
-                </div>
+                <div>{subValues}</div>
             </Collapse.Panel>
         )
     })
