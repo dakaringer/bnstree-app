@@ -3,7 +3,7 @@ import {Map, List, fromJS} from 'immutable'
 import * as actionType from './actionTypes'
 
 function ui(
-    state = Map({
+    state = fromJS({
         language: 'en',
         namespace: 'none',
         group: 'none',
@@ -38,7 +38,7 @@ function data(
 ) {
     switch (action.type) {
         case actionType.SET_TRANSLATOR_LANGUAGE_STATUS_DATA:
-            return state.set('languageStatus', fromJS(action.data))
+            return state.set('languageStatus', fromJS(action.data ? action.data : {}))
         case actionType.SET_TRANSLATOR_LANGUAGE_STATUS:
             return state.setIn(['languageStatus', 'enabled'], action.status)
         case actionType.SET_TRANSLATOR_LANGUAGE_NAME:
