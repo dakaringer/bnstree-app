@@ -1,14 +1,22 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {languageStatusSelector} from '../selectors'
+import {
+    languageSelector,
+    languageStatusSelector,
+    loadingSelector,
+    errorSelector
+} from '../selectors'
 import {setLanguageName, setLanguageStatus, saveTranslation} from '../actions'
 
 import {Checkbox, Icon, Tooltip, Button} from 'antd'
 
 const mapStateToProps = state => {
     return {
-        languageStatus: languageStatusSelector(state)
+        language: languageSelector(state),
+        languageStatus: languageStatusSelector(state),
+        loading: loadingSelector(state),
+        error: errorSelector(state)
     }
 }
 
@@ -21,14 +29,26 @@ const mapDispatchToProps = dispatch => {
 }
 
 const TranslatorStatusBar = props => {
-    let {languageStatus, setName, setStatus, save} = props
+    let {language, languageStatus, setName, setStatus, save, loading, error} = props
+
+    let loadingText = ''
+    if (loading.size !== 0) {
+        let loadingStatus = false
+        loading.forEach(l => {
+            loadingStatus = l || loadingStatus
+        })
+
+        loadingText = loadingStatus ? 'Saving' : `Saved ${new Date().toTimeString()}`
+    }
+
+    if (error) {
+        loadingText = 'Error'
+    }
 
     return (
         <div className="translator-status-bar sub-menu">
             <div className="sub-menu-left">
-                <h3 className="language-code sub-menu-item">
-                    {languageStatus.get('_id', '').toUpperCase()}
-                </h3>
+                <h3 className="language-code sub-menu-item">{language.toUpperCase()}</h3>
                 <div className="language-name sub-menu-item">
                     <input
                         value={languageStatus.get('name', '')}
@@ -46,12 +66,13 @@ const TranslatorStatusBar = props => {
                     </Checkbox>
                     <Tooltip
                         placement="bottomLeft"
-                        title="Only you can view your changes on BnSTree when disabled">
+                        title="Only you can view your changes on BnSTree when disabled. Using incongnito mode to disable caching is recommended while testing.">
                         <Icon type="info-circle-o" />
                     </Tooltip>
                 </div>
             </div>
             <div className="sub-menu-right">
+                <p className="language-loading">{loadingText}</p>
                 <Button type="primary" onClick={save}>
                     Save
                 </Button>
