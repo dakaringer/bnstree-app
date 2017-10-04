@@ -42,7 +42,7 @@ export const referenceGroupDataSelector = createSelector(
         data = data.get(namespace, List())
         let index = data.findIndex(g => g.get('_id', '').substr(3) === group.substr(3))
         if (index === -1) return Map()
-        return data.getIn([index, 'data'], Map()).sort()
+        return data.getIn([index, 'data'], Map()).sortBy((value, key) => key)
     }
 )
 
