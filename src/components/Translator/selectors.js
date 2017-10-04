@@ -1,12 +1,15 @@
-import { Map, List } from 'immutable'
-import { createSelector } from 'reselect'
+import {Map, List} from 'immutable'
+import {createSelector} from 'reselect'
 
 const uiSelector = state => state.getIn(['translator', 'ui'], Map())
 const dataSelector = state => state.getIn(['translator', 'data'], Map())
 
 //ui
+export const languageSelector = createSelector(uiSelector, state => state.get('language', ''))
 export const namespaceSelector = createSelector(uiSelector, state => state.get('namespace', null))
 export const groupSelector = createSelector(uiSelector, state => state.get('group', null))
+export const loadingSelector = createSelector(uiSelector, state => state.get('loading', Map()))
+export const errorSelector = createSelector(uiSelector, state => state.get('error', false))
 
 //data
 export const languageStatusSelector = createSelector(dataSelector, data =>
