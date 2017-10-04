@@ -7,6 +7,7 @@ import {
     namespaceSelector,
     groupSelector,
     languageStatusSelector,
+    languageSelector,
     rawLanguageDataSelector
 } from './selectors'
 
@@ -64,7 +65,7 @@ export function editTranslation(key, value) {
         let data = rawLanguageDataSelector(getState())
         let index = data.findIndex(g => g.get('_id', '').substr(3) === group.substr(3))
 
-        let languageCode = languageStatusSelector(getState()).get('_id', '')
+        let languageCode = languageSelector(getState())
 
         let groupData =
             index !== -1
