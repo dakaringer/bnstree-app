@@ -28,6 +28,7 @@ class TranslatorSelector extends React.PureComponent {
             setGroup(selection)
         } else {
             setNamespace(selection)
+            setGroup('none')
         }
     }
 
