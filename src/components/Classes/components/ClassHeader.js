@@ -18,92 +18,112 @@ const mapStateToProps = state => {
     }
 }
 
-const ClassHeader = props => {
-    const {t, classCode, user, location, match} = props
+class ClassHeader extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            popover: false
+        }
+    }
 
-    let currentPath = location.pathname.split('/').slice(-1)[0]
+    handlePopover(state) {
+        this.setState({
+            popover: state
+        })
+    }
 
-    let classLinks = []
-    classes.forEach(c => {
-        classLinks.push(
-            <NavLink
-                to={`/classes/${c[1]}${currentPath !== match.params.classCode
-                    ? `/${currentPath}`
-                    : ''}`}
-                className="class-link"
-                key={c[0]}>
-                <img alt={c[1]} src={classImages[c[0]]} />
-                <p>{t(c[0])}</p>
-            </NavLink>
-        )
-    })
+    render() {
+        const {t, classCode, user, location, match} = this.props
 
-    let builds = (
-        <Menu theme="dark">
-            <Menu.Item>
+        let currentPath = location.pathname.split('/').slice(-1)[0]
+
+        let classLinks = []
+        classes.forEach(c => {
+            classLinks.push(
                 <NavLink
-                    className="class-menu-item sub"
-                    to={`/classes/${match.params.classCode}/builds`}>
-                    {t('userBuilds')}
+                    to={`/classes/${c[1]}${currentPath !== match.params.classCode
+                        ? `/${currentPath}`
+                        : ''}`}
+                    className="class-link"
+                    onClick={() => this.handlePopover(false)}
+                    key={c[0]}>
+                    <img alt={c[1]} src={classImages[c[0]]} />
+                    <p>{t(c[0])}</p>
                 </NavLink>
-            </Menu.Item>
-            <Menu.Item>
-                {user ? (
+            )
+        })
+
+        let builds = (
+            <Menu theme="dark">
+                <Menu.Item>
                     <NavLink
                         className="class-menu-item sub"
-                        to={`/classes/${match.params.classCode}/my-builds`}
-                        exact>
-                        {t('myBuilds')}
+                        to={`/classes/${match.params.classCode}/builds`}>
+                        {t('userBuilds')}
                     </NavLink>
-                ) : null}
-            </Menu.Item>
-        </Menu>
-    )
+                </Menu.Item>
+                <Menu.Item>
+                    {user ? (
+                        <NavLink
+                            className="class-menu-item sub"
+                            to={`/classes/${match.params.classCode}/my-builds`}
+                            exact>
+                            {t('myBuilds')}
+                        </NavLink>
+                    ) : null}
+                </Menu.Item>
+            </Menu>
+        )
 
-    let subMenu = (
-        <div className="class-header-menu">
-            <Dropdown overlay={builds}>
+        let subMenu = (
+            <div className="class-header-menu">
+                <Dropdown overlay={builds}>
+                    <NavLink
+                        className="class-menu-item"
+                        to={`/classes/${match.params.classCode}`}
+                        exact>
+                        {t('skills')} <Icon type="down" />
+                    </NavLink>
+                </Dropdown>
                 <NavLink
                     className="class-menu-item"
-                    to={`/classes/${match.params.classCode}`}
-                    exact>
-                    {t('skills')} <Icon type="down" />
+                    to={`/classes/${match.params.classCode}/soulshields`}>
+                    {t('soulshields')}
                 </NavLink>
-            </Dropdown>
-            <NavLink
-                className="class-menu-item"
-                to={`/classes/${match.params.classCode}/soulshields`}>
-                {t('soulshields')}
-            </NavLink>
-            <NavLink className="class-menu-item" to={`/classes/${match.params.classCode}/badges`}>
-                {t('badges')}
-            </NavLink>
-        </div>
-    )
+                <NavLink
+                    className="class-menu-item"
+                    to={`/classes/${match.params.classCode}/badges`}>
+                    {t('badges')}
+                </NavLink>
+            </div>
+        )
 
-    return (
-        <div className="class-header section-header">
-            <div className="header-title class-selector">
-                <Popover
-                    trigger="click"
-                    placement="bottomLeft"
-                    content={<div className="class-selector-popover">{classLinks}</div>}>
-                    <img alt={classCode} src={classImages[classCode]} />
-                    <div>
-                        {t(classCode)} <Icon type="down" />
-                    </div>
-                </Popover>
+        return (
+            <div className="class-header section-header">
+                <div
+                    className="header-title class-selector"
+                    onClick={() => this.handlePopover(true)}>
+                    <Popover
+                        placement="bottomLeft"
+                        visible={this.state.popover}
+                        content={<div className="class-selector-popover">{classLinks}</div>}>
+                        <img alt={classCode} src={classImages[classCode]} />
+                        <div>
+                            {t(classCode)} <Icon type="down" />
+                        </div>
+                    </Popover>
+                </div>
+                <div className="header-right">
+                    {subMenu}
+                    <Popover trigger="click" placement="bottomRight" content={subMenu}>
+                        <a className="popover-toggle">
+                            <Icon type="ellipsis" />
+                        </a>
+                    </Popover>
+                </div>
             </div>
-            <div className="header-right">
-                {subMenu}
-                <Popover trigger="click" placement="bottomRight" content={subMenu}>
-                    <a className="popover-toggle">
-                        <Icon type="ellipsis" />
-                    </a>
-                </Popover>
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default withRouter(connect(mapStateToProps)(translate(['classes', 'general'])(ClassHeader)))
