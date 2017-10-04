@@ -33,9 +33,8 @@ export function setUILanguage(lang, initial) {
                     i18n.changeLanguage(previousLanguage)
                     dispatch(setLanguage(previousLanguage))
                 }
-
-                dispatch(setLoadingApp(false, 'language'))
             })
+            .then(() => dispatch(setLoadingApp(false, 'language')))
             .catch(() => {
                 i18n.changeLanguage(previousLanguage)
                 dispatch(setLanguage(previousLanguage))
@@ -49,15 +48,10 @@ export function setUILanguage(lang, initial) {
             })
                 .then(response => response.json())
                 .then(json => {
-                    if (json.loggedIn === 1) {
-                        dispatch(setUser(json))
-                    }
-
-                    dispatch(setLoadingApp(false, 'user'))
+                    if (json.loggedIn === 1) dispatch(setUser(json))
                 })
-                .catch(() => {
-                    dispatch(setLoadingApp(false, 'user'))
-                })
+                .then(() => dispatch(setLoadingApp(false, 'user')))
+                .catch(() => dispatch(setLoadingApp(false, 'user')))
         }
     }
 }
