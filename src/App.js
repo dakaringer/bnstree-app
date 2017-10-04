@@ -72,6 +72,11 @@ const Streams = asyncComponent(() =>
         .then(module => module.default)
         .catch(e => console.log(e))
 )
+const Translator = asyncComponent(() =>
+    import('./components/Translator/Translator')
+        .then(module => module.default)
+        .catch(e => console.log(e))
+)
 
 const mapStateToProps = state => {
     return {
@@ -136,6 +141,10 @@ class App extends React.PureComponent {
                             <Redirect from="/soulshield" to="/classes/blade-master/soulshields" />
 
                             <Route path="/streams" component={Streams} />
+
+                            {user && user.has('translator') ? (
+                                <Route path="/translator" component={Translator} />
+                            ) : null}
                         </Switch>
                     </div>
                     <SoybeanSprite />

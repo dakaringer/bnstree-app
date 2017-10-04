@@ -1,0 +1,15 @@
+.translator-status-bar {
+    .language-code {
+        align-self: center;
+        color: white;
+    }
+
+    .language-toggle {
+        .anticon-info-circle-o {
+            vertical-align: middle;
+            font-size: 1.2rem;
+            margin-left: -1rem;
+            cursor: pointer;
+        }
+    }
+}

@@ -115,7 +115,18 @@ class NavBar extends React.PureComponent {
         let loginDropdown = (
             <li>
                 {user ? (
-                    <a href="https://api.bnstree.com/user/logout">{t('logout')}</a>
+                    <ul>
+                        {user.has('translator') ? (
+                            <li onClick={() => this.closeMenu()}>
+                                <NavLink to="/translator">Translator Console</NavLink>
+                            </li>
+                        ) : null}
+                        <li>
+                            <a href="https://api.bnstree.com/user/logout" key="logout">
+                                {t('logout')}
+                            </a>
+                        </li>
+                    </ul>
                 ) : (
                     <div className="google-login">
                         <a

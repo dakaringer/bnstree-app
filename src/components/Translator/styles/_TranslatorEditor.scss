@@ -1,0 +1,33 @@
+.translator-editor {
+    padding: 1rem 0;
+
+    h4 {
+        color: deepskyblue;
+        small {
+            color: grey;
+        }
+    }
+
+    .language-input-group {
+        padding: 1.5rem 0.5rem;
+        border-bottom: 0.1rem solid rgba(255, 255, 255, 0.3);
+
+        &:last-child {
+            border: none;
+        }
+
+        .language-key {
+            color: grey;
+            font-size: 1.2rem;
+            margin-bottom: -0.3rem;
+        }
+
+        .language-input {
+            margin-top: 0.5rem;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            padding: 0.5rem 1rem;
+        }
+    }
+}

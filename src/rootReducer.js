@@ -7,6 +7,7 @@ import classes from './components/Classes/reducer'
 import character from './components/Character/reducer'
 import streams from './components/Streams/reducer'
 import market from './components/Market/reducer'
+import translator from './components/Translator/reducer'
 
 function general(
     state = fromJS({
@@ -36,4 +37,4 @@ function general(
     }
 }
 
-export default combineReducers({general, news, classes, market, character, streams})
+export default combineReducers({general, news, classes, market, character, streams, translator})
