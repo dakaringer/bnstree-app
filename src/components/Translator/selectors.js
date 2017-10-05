@@ -15,6 +15,15 @@ export const errorSelector = createSelector(uiSelector, state => state.get('erro
 export const languageStatusSelector = createSelector(dataSelector, data =>
     data.get('languageStatus', Map())
 )
+export const rawLanguageDataSelector = createSelector(dataSelector, data =>
+    data.get('languageData', List())
+)
+export const rawSkillNameDataSelector = createSelector(dataSelector, data =>
+    data.get('skillNames', List())
+)
+export const rawItemNameDataSelector = createSelector(dataSelector, data =>
+    data.get('itemNames', List())
+)
 
 export const referenceDataSelector = createSelector(dataSelector, data => {
     data = data
@@ -23,16 +32,12 @@ export const referenceDataSelector = createSelector(dataSelector, data => {
         .groupBy(group => group.get('namespace'))
     return data
 })
-export const languageDataSelector = createSelector(dataSelector, data => {
+export const languageDataSelector = createSelector(rawLanguageDataSelector, data => {
     data = data
-        .get('languageData', List())
         .sort((a, b) => (a.get('_id') > b.get('_id') ? 1 : -1))
         .groupBy(group => group.get('namespace'))
     return data
 })
-export const rawLanguageDataSelector = createSelector(dataSelector, data =>
-    data.get('languageData', List())
-)
 
 export const referenceGroupDataSelector = createSelector(
     referenceDataSelector,
@@ -55,5 +60,40 @@ export const languageGroupDataSelector = createSelector(
         let index = data.findIndex(g => g.get('_id', '').substr(3) === group.substr(3))
         if (index === -1) return Map()
         return data.getIn([index, 'data'], Map())
+    }
+)
+
+const classCodes = {
+    BLADE_MASTER: 20,
+    KUNG_FU_MASTER: 21,
+    DESTROYER: 24,
+    FORCE_MASTER: 22,
+    ASSASSIN: 25,
+    SUMMONER: 26,
+    BLADE_DANCER: 27,
+    WARLOCK: 28,
+    SOUL_FIGHTER: '30|35',
+    GUNSLINGER: 23
+}
+
+export const nameDataSelector = createSelector(
+    rawSkillNameDataSelector,
+    rawItemNameDataSelector,
+    namespaceSelector,
+    groupSelector,
+    (skills, items, namespace, group) => {
+        switch (namespace) {
+            case 'skills':
+                let re = new RegExp(`^${classCodes[group]}`)
+                return skills
+                    .filter(skill => re.test(skill.get('_id', '')))
+                    .sort((a, b) => (a.get('_id') > b.get('_id') ? 1 : -1))
+            case 'items':
+                return items
+                    .filter(item => item.get('_id', '').startsWith(group))
+                    .sort((a, b) => (a.get('_id') > b.get('_id') ? 1 : -1))
+            default:
+                return List()
+        }
     }
 )

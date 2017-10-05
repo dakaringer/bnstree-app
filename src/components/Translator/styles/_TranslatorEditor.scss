@@ -12,6 +12,15 @@
         padding: 1.5rem 0.5rem;
         border-bottom: 0.1rem solid rgba(255, 255, 255, 0.3);
 
+        .language-input-header {
+            display: flex;
+
+            img {
+                margin-right: 1rem;
+                height: 4rem;
+            }
+        }
+
         &:last-child {
             border: none;
         }
@@ -28,6 +37,10 @@
             background: rgba(0, 0, 0, 0.5);
             border: none;
             padding: 0.5rem 1rem;
+        }
+
+        .ssEffect {
+            margin-top: 1rem;
         }
     }
 }

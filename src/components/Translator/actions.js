@@ -8,7 +8,9 @@ import {
     groupSelector,
     languageStatusSelector,
     languageSelector,
-    rawLanguageDataSelector
+    rawLanguageDataSelector,
+    rawSkillNameDataSelector,
+    rawItemNameDataSelector
 } from './selectors'
 
 const postHeaders = {
@@ -31,10 +33,14 @@ export const setLanguageStatus = makeActionCreator(
     'status'
 )
 const setStatusData = makeActionCreator(actionType.SET_TRANSLATOR_LANGUAGE_STATUS_DATA, 'data')
-const setDataEN = makeActionCreator(actionType.SET_TRANSLATOR_EN_REFERENCE, 'data')
-const setData = makeActionCreator(actionType.SET_TRANSLATOR_LANGUAGE_DATA, 'data')
-const editData = makeActionCreator(actionType.EDIT_TRANSLATOR_LANGUAGE_DATA, 'index', 'data')
-const pushData = makeActionCreator(actionType.PUSH_TRANSLATOR_LANGUAGE_DATA, 'data')
+const setData = makeActionCreator(actionType.SET_TRANSLATOR_LANGUAGE_DATA, 'context', 'data')
+const editData = makeActionCreator(
+    actionType.EDIT_TRANSLATOR_LANGUAGE_DATA,
+    'context',
+    'index',
+    'data'
+)
+const pushData = makeActionCreator(actionType.PUSH_TRANSLATOR_LANGUAGE_DATA, 'context', 'data')
 
 export function loadLanguageData() {
     return dispatch => {
@@ -48,8 +54,10 @@ export function loadLanguageData() {
                 if (json.success === 1) {
                     dispatch(setLanguage(json.lang))
                     dispatch(setStatusData(json.languageStatus))
-                    dispatch(setData(json.languageData))
-                    dispatch(setDataEN(json.enReference))
+                    dispatch(setData('referenceData', json.enReference))
+                    dispatch(setData('languageData', json.languageData))
+                    dispatch(setData('skillNames', json.skillNames))
+                    dispatch(setData('itemNames', json.itemNames))
                 }
             })
             .then(() => dispatch(setLoading(false, 'language')))
@@ -59,13 +67,12 @@ export function loadLanguageData() {
 
 export function editTranslation(key, value) {
     return (dispatch, getState) => {
+        let languageCode = languageSelector(getState())
         let namespace = namespaceSelector(getState())
         let group = groupSelector(getState())
-
         let data = rawLanguageDataSelector(getState())
-        let index = data.findIndex(g => g.get('_id', '').substr(3) === group.substr(3))
 
-        let languageCode = languageSelector(getState())
+        let index = data.findIndex(g => g.get('_id', '').substr(3) === group.substr(3))
 
         let groupData =
             index !== -1
@@ -83,16 +90,36 @@ export function editTranslation(key, value) {
         }
 
         if (index !== -1) {
-            dispatch(editData(index, groupData))
+            dispatch(editData('languageData', index, groupData))
         } else {
-            dispatch(pushData(groupData))
+            dispatch(pushData('languageData', groupData))
         }
+    }
+}
+
+export function editNameTranslation(key, type, value) {
+    return (dispatch, getState) => {
+        let languageCode = languageSelector(getState())
+        let namespace = namespaceSelector(getState())
+
+        let data =
+            namespace === 'skills'
+                ? rawSkillNameDataSelector(getState())
+                : rawItemNameDataSelector(getState())
+        let index = data.findIndex(g => g.get('_id', '') === key)
+
+        data = data.get(index).setIn([type, languageCode], value)
+
+        let context = namespace === 'skills' ? 'skillNames' : 'itemNames'
+        dispatch(editData(context, index, data))
     }
 }
 
 export function saveTranslation() {
     return (dispatch, getState) => {
-        let data = rawLanguageDataSelector(getState()).toJS()
+        let languageData = rawLanguageDataSelector(getState()).toJS()
+        let skillNames = rawSkillNameDataSelector(getState()).toJS()
+        let itemNames = rawItemNameDataSelector(getState()).toJS()
         let status = languageStatusSelector(getState()).toJS()
 
         dispatch(setError(false))
@@ -102,7 +129,11 @@ export function saveTranslation() {
             method: 'post',
             credentials: 'include',
             headers: postHeaders,
-            body: JSON.stringify({data: data})
+            body: JSON.stringify({
+                languageData: languageData,
+                skillNames: skillNames,
+                itemNames: itemNames
+            })
         })
             .then(response => response.json())
             .then(json => {

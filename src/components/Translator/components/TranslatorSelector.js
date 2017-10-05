@@ -20,6 +20,21 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+const classes = [
+    'BLADE_MASTER',
+    'KUNG_FU_MASTER',
+    'DESTROYER',
+    'FORCE_MASTER',
+    'ASSASSIN',
+    'SUMMONER',
+    'BLADE_DANCER',
+    'WARLOCK',
+    'SOUL_FIGHTER',
+    'GUNSLINGER'
+]
+
+const items = ['BADGE_SOUL', 'BADGE_MYSTIC', 'SOULSHIELD']
+
 class TranslatorSelector extends React.PureComponent {
     select(selection) {
         let {groupMode, setNamespace, setGroup} = this.props
@@ -35,28 +50,43 @@ class TranslatorSelector extends React.PureComponent {
     render() {
         let {referenceData, namespace, group, groupMode} = this.props
 
+        let list = List()
         if (groupMode) {
-            referenceData = namespace !== 'none' ? referenceData.get(namespace, List()) : List()
+            switch (namespace) {
+                case 'skills':
+                    list = List(classes)
+                    break
+                case 'items':
+                    list = List(items)
+                    break
+                default:
+                    list = namespace !== 'none' ? referenceData.get(namespace, List()) : list
+                    list = list.map(group => group.get('_id'))
+            }
+        } else {
+            list = referenceData
+                .keySeq()
+                .toList()
+                .push('skills')
+                .push('items')
         }
 
-        let namespaces = []
-        referenceData.forEach((data, key) => {
-            let selected = key === namespace
-            if (groupMode) {
-                key = data.get('_id')
-                selected = key === group
-            }
-            namespaces.push(
+        let selections = []
+        list.forEach(key => {
+            let selected = key === (groupMode ? group : namespace)
+            selections.push(
                 <a
                     key={key}
                     className={`translator-selector-item ${selected ? 'active' : ''}`}
                     onClick={() => this.select(key)}>
-                    {groupMode ? key.substr(3) : key}
+                    {groupMode && namespace !== 'skills' && namespace !== 'items'
+                        ? key.substr(3)
+                        : key}
                 </a>
             )
         })
 
-        return <div className="translator-selector">{namespaces}</div>
+        return <div className="translator-selector">{selections}</div>
     }
 }
 

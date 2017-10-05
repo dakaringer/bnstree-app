@@ -31,8 +31,10 @@ function ui(
 function data(
     state = Map({
         languageStatus: Map(),
+        referenceData: List(),
         languageData: List(),
-        referenceData: List()
+        skillNames: List(),
+        itemNames: List()
     }),
     action
 ) {
@@ -44,14 +46,12 @@ function data(
         case actionType.SET_TRANSLATOR_LANGUAGE_NAME:
             return state.setIn(['languageStatus', 'name'], action.name)
         case actionType.SET_TRANSLATOR_LANGUAGE_DATA:
-            return state.set('languageData', fromJS(action.data))
-        case actionType.SET_TRANSLATOR_EN_REFERENCE:
-            return state.set('referenceData', fromJS(action.data))
+            return state.set(action.context, fromJS(action.data))
         case actionType.EDIT_TRANSLATOR_LANGUAGE_DATA:
-            return state.setIn(['languageData', action.index], action.data)
+            return state.setIn([action.context, action.index], action.data)
         case actionType.PUSH_TRANSLATOR_LANGUAGE_DATA: {
-            let list = state.get('languageData', List()).push(action.data)
-            return state.set('languageData', list)
+            let list = state.get(action.context, List()).push(action.data)
+            return state.set(action.context, list)
         }
         default:
             return state
