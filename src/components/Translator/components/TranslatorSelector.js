@@ -1,15 +1,23 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {List} from 'immutable'
+import {Map, List} from 'immutable'
 
-import {groupSelector, namespaceSelector, referenceDataSelector} from '../selectors'
+import {Badge} from 'antd'
+
+import {
+    groupSelector,
+    namespaceSelector,
+    referenceDataSelector,
+    dataStatusSelector
+} from '../selectors'
 import {setNamespace, setGroup} from '../actions'
 
 const mapStateToProps = state => {
     return {
         group: groupSelector(state),
         namespace: namespaceSelector(state),
-        referenceData: referenceDataSelector(state)
+        referenceData: referenceDataSelector(state),
+        dataStatus: dataStatusSelector(state)
     }
 }
 
@@ -48,10 +56,11 @@ class TranslatorSelector extends React.PureComponent {
     }
 
     render() {
-        let {referenceData, namespace, group, groupMode} = this.props
+        let {referenceData, dataStatus, namespace, group, groupMode} = this.props
 
         let list = List()
         if (groupMode) {
+            dataStatus = dataStatus.get(namespace, Map())
             switch (namespace) {
                 case 'skills':
                     list = List(classes)
@@ -79,9 +88,14 @@ class TranslatorSelector extends React.PureComponent {
                     key={key}
                     className={`translator-selector-item ${selected ? 'active' : ''}`}
                     onClick={() => this.select(key)}>
-                    {groupMode && namespace !== 'skills' && namespace !== 'items'
-                        ? key.substr(3)
-                        : key}
+                    <Badge
+                        status={dataStatus.getIn([key, 'dataStatus'], 'default')}
+                        text={
+                            groupMode && namespace !== 'skills' && namespace !== 'items'
+                                ? key.substr(3)
+                                : key
+                        }
+                    />
                 </a>
             )
         })

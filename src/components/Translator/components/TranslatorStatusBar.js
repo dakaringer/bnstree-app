@@ -66,7 +66,7 @@ const TranslatorStatusBar = props => {
                     </Checkbox>
                     <Tooltip
                         placement="bottomLeft"
-                        title="Only you can view your changes on BnSTree when disabled. Using incongnito mode to disable caching is recommended while testing.">
+                        title="Only you can view your changes on BnSTree when disabled. Using incongnito mode to disable caching (and refreshing two times) is recommended while testing.">
                         <Icon type="info-circle-o" />
                     </Tooltip>
                 </div>

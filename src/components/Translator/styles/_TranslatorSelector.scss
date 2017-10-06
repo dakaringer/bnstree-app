@@ -4,8 +4,14 @@
     padding: 1rem 0;
 
     .translator-selector-item {
+        .ant-badge-status-text {
+            color: white;
+            font-size: 1.4rem;
+        }
         &.active {
-            color: deepskyblue;
+            .ant-badge-status-text {
+                color: deepskyblue;
+            }
         }
     }
 }

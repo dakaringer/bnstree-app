@@ -34,7 +34,8 @@ function data(
         referenceData: List(),
         languageData: List(),
         skillNames: List(),
-        itemNames: List()
+        itemNames: List(),
+        dataStatus: Map()
     }),
     action
 ) {
@@ -53,6 +54,13 @@ function data(
             let list = state.get(action.context, List()).push(action.data)
             return state.set(action.context, list)
         }
+        case actionType.SET_TRANSLATOR_LANGUAGE_DATA_STATUS:
+            return state.setIn(
+                ['dataStatus', action.namespace, action.group, action.key],
+                action.status
+            )
+        case actionType.SET_TRANSLATOR_LANGUAGE_DATA_STATUS_MAP:
+            return state.set('dataStatus', action.map)
         default:
             return state
     }

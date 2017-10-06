@@ -1,13 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import {Badge} from 'antd'
+
 import {
     namespaceSelector,
     groupSelector,
     referenceGroupDataSelector,
     languageGroupDataSelector,
     nameDataSelector,
-    languageSelector
+    languageSelector,
+    dataStatusSelector
 } from '../selectors'
 import {editTranslation, editNameTranslation} from '../actions'
 
@@ -18,7 +21,8 @@ const mapStateToProps = state => {
         referenceData: referenceGroupDataSelector(state),
         languageData: languageGroupDataSelector(state),
         nameData: nameDataSelector(state),
-        language: languageSelector(state)
+        language: languageSelector(state),
+        dataStatus: dataStatusSelector(state)
     }
 }
 
@@ -30,7 +34,17 @@ const mapDispatchToProps = dispatch => {
 }
 
 const TranslatorEditor = props => {
-    let {namespace, group, referenceData, languageData, nameData, language, edit, editName} = props
+    let {
+        namespace,
+        group,
+        referenceData,
+        languageData,
+        nameData,
+        dataStatus,
+        language,
+        edit,
+        editName
+    } = props
 
     let keys = []
     if (namespace !== 'skills' && namespace !== 'items') {
@@ -38,7 +52,12 @@ const TranslatorEditor = props => {
             if (!key.endsWith('_plural')) {
                 keys.push(
                     <div className="language-input-group" key={key}>
-                        <p className="language-key">{key}</p>
+                        <p className="language-key">
+                            <Badge
+                                status={dataStatus.getIn([namespace, group, key], 'default')}
+                                text={key}
+                            />
+                        </p>
                         <p className="language-reference">{value}</p>
                         <input
                             className="language-input"
@@ -84,8 +103,13 @@ const TranslatorEditor = props => {
                     <div className="language-input-header">
                         <img alt={key} src={`${url}/${data.get('icon', 'blank')}`} />
                         <div>
-                            <p className="language-key">{key}</p>
-                            <p className="language-reference">{data.getIn(['name', 'en'])}</p>
+                            <p className="language-key">
+                                <Badge
+                                    status={dataStatus.getIn([namespace, group, key], 'default')}
+                                    text={key}
+                                />
+                            </p>
+                            <p className="language-reference">{data.getIn(['name', 'en'], '')}</p>
                         </div>
                     </div>
                     <input

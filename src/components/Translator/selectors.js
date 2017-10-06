@@ -63,37 +63,79 @@ export const languageGroupDataSelector = createSelector(
     }
 )
 
-const classCodes = {
-    BLADE_MASTER: 20,
-    KUNG_FU_MASTER: 21,
-    DESTROYER: 24,
-    FORCE_MASTER: 22,
-    ASSASSIN: 25,
-    SUMMONER: 26,
-    BLADE_DANCER: 27,
-    WARLOCK: 28,
-    SOUL_FIGHTER: '30|35',
-    GUNSLINGER: 23
-}
+export const skillNameDataSelector = createSelector(rawSkillNameDataSelector, data => {
+    data = data.sort((a, b) => (a.get('_id') > b.get('_id') ? 1 : -1)).groupBy(skill => {
+        let code = skill.get('_id', '').substr(0, 2)
+        switch (code) {
+            case '20':
+                return 'BLADE_MASTER'
+            case '21':
+                return 'KUNG_FU_MASTER'
+            case '24':
+                return 'DESTROYER'
+            case '22':
+                return 'FORCE_MASTER'
+            case '25':
+                return 'ASSASSIN'
+            case '26':
+                return 'SUMMONER'
+            case '27':
+                return 'BLADE_DANCER'
+            case '28':
+                return 'WARLOCK'
+            case '23':
+                return 'GUNSLINGER'
+            default:
+                return 'SOUL_FIGHTER'
+        }
+    })
+
+    return data
+})
+export const itemNameDataSelector = createSelector(rawItemNameDataSelector, data => {
+    return data.sort((a, b) => (a.get('_id') > b.get('_id') ? 1 : -1)).groupBy(item => {
+        if (item.get('_id', '').startsWith('BADGE_SOUL')) return 'BADGE_SOUL'
+        if (item.get('_id', '').startsWith('BADGE_MYSTIC')) return 'BADGE_MYSTIC'
+        return 'SOULSHIELD'
+    })
+})
 
 export const nameDataSelector = createSelector(
-    rawSkillNameDataSelector,
-    rawItemNameDataSelector,
+    skillNameDataSelector,
+    itemNameDataSelector,
     namespaceSelector,
     groupSelector,
     (skills, items, namespace, group) => {
         switch (namespace) {
             case 'skills':
-                let re = new RegExp(`^${classCodes[group]}`)
-                return skills
-                    .filter(skill => re.test(skill.get('_id', '')))
-                    .sort((a, b) => (a.get('_id') > b.get('_id') ? 1 : -1))
+                return skills.get(group, List())
             case 'items':
-                return items
-                    .filter(item => item.get('_id', '').startsWith(group))
-                    .sort((a, b) => (a.get('_id') > b.get('_id') ? 1 : -1))
+                return items.get(group, List())
             default:
                 return List()
         }
     }
 )
+
+export const dataStatusSelector = createSelector(dataSelector, data => {
+    data = data.get('dataStatus', Map())
+    return data.map(namespace => {
+        let namespaceStatus = 'success'
+        namespace = namespace.map(group => {
+            let groupStatus = 'success'
+            group.forEach(key => {
+                groupStatus = getStatusPriority(groupStatus, key)
+            })
+            namespaceStatus = getStatusPriority(namespaceStatus, groupStatus)
+            return group.set('dataStatus', groupStatus)
+        })
+        return namespace.set('dataStatus', namespaceStatus)
+    })
+})
+
+let priority = ['success', 'warning', 'error']
+
+function getStatusPriority(status, newStatus) {
+    if (priority.indexOf(newStatus) > priority.indexOf(status)) return newStatus
+    return status
+}

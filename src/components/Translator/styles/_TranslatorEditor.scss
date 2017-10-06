@@ -26,9 +26,12 @@
         }
 
         .language-key {
+            margin-bottom: -0.2rem;
             color: grey;
-            font-size: 1.2rem;
-            margin-bottom: -0.3rem;
+            font-size: 1.4rem;
+            .ant-badge-status-text {
+                color: grey;
+            }
         }
 
         .language-input {
