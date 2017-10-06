@@ -45,37 +45,37 @@ function asyncComponent(getComponent) {
 const Home = asyncComponent(() =>
     import('./components/Home/Home')
         .then(module => module.default)
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))
 )
 const News = asyncComponent(() =>
     import('./components/News/News')
         .then(module => module.default)
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))
 )
 const Classes = asyncComponent(() =>
     import('./components/Classes/Classes.js')
         .then(module => module.default)
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))
 )
 const Market = asyncComponent(() =>
     import('./components/Market/Market')
         .then(module => module.default)
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))
 )
 const Character = asyncComponent(() =>
     import('./components/Character/Character')
         .then(module => module.default)
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))
 )
 const Streams = asyncComponent(() =>
     import('./components/Streams/Streams')
         .then(module => module.default)
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))
 )
 const Translator = asyncComponent(() =>
     import('./components/Translator/Translator')
         .then(module => module.default)
-        .catch(e => console.log(e))
+        .catch(e => console.error(e))
 )
 
 const mapStateToProps = state => {
