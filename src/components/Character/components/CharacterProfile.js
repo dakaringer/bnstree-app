@@ -8,6 +8,7 @@ import {Icon, Popover} from 'antd'
 
 import classImg from '../../Classes/images/map_classImg'
 import rankImg from '../images/map_rankImg'
+import noImg from '../images/noImg.png'
 
 import {characterSelector} from '../selectors'
 
@@ -34,8 +35,18 @@ const mapStateToProps = state => {
 }
 
 class CharacterProfile extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            noImg: false
+        }
+    }
+
     profileError(e) {
-        e.target.style.display = 'none'
+        e.target.src = noImg
+        this.setState({
+            noImg: true
+        })
     }
 
     render() {
@@ -73,14 +84,14 @@ class CharacterProfile extends React.PureComponent {
         return (
             <div className="character-profile">
                 <div className="character-profile-image">
-                    <p className="no-image">{t('noImage')}</p>
+                    {this.state.noImg ? <p className="no-image">{t('noImage')}</p> : null}
                     <img
                         alt={character.get('name')}
                         src={`https://api.bnstree.com/character/${character.get(
                             'region',
                             'na'
                         )}/profileImg/${profileImg}`}
-                        onError={this.profileError}
+                        onError={e => this.profileError(e)}
                     />
                 </div>
                 <div className="character-profile-container">
