@@ -9,12 +9,20 @@ import AdSense from '../AdSense/AdSense'
 
 import './styles/Market.scss'
 
+import LoadingLyn from '../LoadingLyn/LoadingLyn'
 import Header from './components/MarketHeader'
 import MarketSearch from './components/MarketSearch'
 import MarketItemViewer from './components/MarketItemViewer'
 import MarketBookmarkList from './components/MarketBookmarkList'
 
+import {loadingSelector} from '../../selectors'
 import {getRegion} from './actions'
+
+const mapStateToProps = state => {
+    return {
+        loading: loadingSelector(state)
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -28,20 +36,12 @@ class Market extends React.PureComponent {
     }
 
     render() {
-        const {t} = this.props
+        const {t, loading} = this.props
 
-        return (
-            <div className="market">
-                <Helmet>
-                    <title>{`${t('market')} | BnSTree`}</title>
-                </Helmet>
-                <AdSense
-                    data-ad-client="ca-pub-2048637692232915"
-                    data-ad-slot="6768736382"
-                    data-ad-format="auto"
-                />
-                <div className="container">
-                    <Header />
+        let content = <LoadingLyn />
+        if (!loading) {
+            content = (
+                <div>
                     <div className="main-container">
                         <Row gutter={10}>
                             <Col md={6}>
@@ -61,9 +61,26 @@ class Market extends React.PureComponent {
                         />
                     </div>
                 </div>
+            )
+        }
+
+        return (
+            <div className="market">
+                <Helmet>
+                    <title>{`${t('market')} | BnSTree`}</title>
+                </Helmet>
+                <AdSense
+                    data-ad-client="ca-pub-2048637692232915"
+                    data-ad-slot="6768736382"
+                    data-ad-format="auto"
+                />
+                <div className="container">
+                    <Header />
+                    {content}
+                </div>
             </div>
         )
     }
 }
 
-export default connect(null, mapDispatchToProps)(translate('general')(Market))
+export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(Market))

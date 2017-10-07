@@ -3,14 +3,15 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map, List} from 'immutable'
 
-import {loadingSelector, userSelector} from '../../../selectors'
+import {userSelector} from '../../../selectors'
 import {
     dataSelector,
     termSelector,
     graphSelector,
     regionSelector,
     indicatorSelector,
-    updateSelector
+    updateSelector,
+    loadingSelector
 } from '../selectors'
 import {setTerm, setGraph, loadItem, loadBookmarks, setIndicator} from '../actions'
 
@@ -147,10 +148,12 @@ class MarketItemViewer extends React.PureComponent {
         } = this.props
         const {bookmarked} = this.state
 
-        let bookmarkButton = user ? bookmarked ? (
-            <Icon type="star" />
-        ) : (
-            <Icon type="star-o" />
+        let bookmarkButton = user ? (
+            bookmarked ? (
+                <Icon type="star" />
+            ) : (
+                <Icon type="star-o" />
+            )
         ) : (
             <Icon type="star-o" />
         )

@@ -26,3 +26,4 @@ export const graphSelector = createSelector(uiSelector, state => state.get('grap
 export const termSelector = createSelector(uiSelector, state => state.get('term', 0))
 export const indicatorSelector = createSelector(uiSelector, state => state.get('indicators', Map()))
 export const updateSelector = createSelector(uiSelector, state => state.get('lastUpdate', null))
+export const loadingSelector = createSelector(uiSelector, state => state.get('loading', false))

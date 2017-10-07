@@ -4,6 +4,7 @@ import * as actionType from './actionTypes'
 
 function ui(
     state = fromJS({
+        region: '',
         search: '',
         suggestions: [],
         bookmarks: [],
@@ -15,7 +16,8 @@ function ui(
             bb: false,
             sto: false
         },
-        lastUpdate: null
+        lastUpdate: null,
+        loading: false
     }),
     action
 ) {
@@ -38,6 +40,8 @@ function ui(
             return state.setIn(['indicators', action.indicator], action.value)
         case actionType.SET_MARKET_LAST_UPDATE:
             return state.set('lastUpdate', action.value)
+        case actionType.SET_MARKET_LOADING:
+            return state.set('loading', action.loading)
         default:
             return state
     }

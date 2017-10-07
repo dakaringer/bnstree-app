@@ -22,20 +22,23 @@ export const setIndicator = makeActionCreator(
     'indicator'
 )
 const setUpdate = makeActionCreator(actionType.SET_MARKET_LAST_UPDATE, 'value')
+const setMarketLoading = makeActionCreator(actionType.SET_MARKET_LOADING, 'loading')
 
 export const setData = makeActionCreator(actionType.SET_MARKET_DATA, 'itemData')
 
 export function getRegion() {
     return dispatch => {
+        dispatch(setLoading(true, 'market'))
         fetch('https://api.bnstree.com/market/region', {
             method: 'get',
             credentials: 'include'
         })
             .then(response => response.json())
             .then(json => {
-                if (json.success === 0) return
+                if (json.success === 0) return dispatch(setRegion('na'))
                 dispatch(setRegion(json.region))
             })
+            .then(() => dispatch(setLoading(false, 'market')))
             .catch(e => console.error(e))
     }
 }
@@ -112,7 +115,7 @@ export function searchItem(term, exact = false) {
     return (dispatch, getState) => {
         let region = regionSelector(getState())
         dispatch(search(''))
-        dispatch(setLoading(true, 'market'))
+        dispatch(setMarketLoading(true))
         fetch(`https://api.bnstree.com/market/${region}/search?q=${term}&exact=${exact ? 1 : 0}`, {
             method: 'get',
             credentials: 'include'
@@ -124,7 +127,7 @@ export function searchItem(term, exact = false) {
                 dispatch(setData(json))
                 dispatch(setUpdate(new Date()))
             })
-            .then(() => dispatch(setLoading(false, 'market')))
+            .then(() => dispatch(setMarketLoading(false)))
             .catch(e => console.error(e))
     }
 }
@@ -133,7 +136,7 @@ export function loadItem(item, replace = false) {
     return (dispatch, getState) => {
         let region = regionSelector(getState())
         dispatch(search(''))
-        if (!replace) dispatch(setLoading(true, 'market'))
+        if (!replace) dispatch(setMarketLoading(true))
         fetch(`https://api.bnstree.com/market/${region}/data/${item}`, {
             method: 'get',
             credentials: 'include'
@@ -145,7 +148,7 @@ export function loadItem(item, replace = false) {
                 dispatch(setData(json))
                 dispatch(setUpdate(new Date()))
             })
-            .then(() => dispatch(setLoading(false, 'market')))
+            .then(() => dispatch(setMarketLoading(false)))
             .catch(e => console.error(e))
     }
 }
