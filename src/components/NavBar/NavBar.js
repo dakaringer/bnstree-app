@@ -163,7 +163,14 @@ class NavBar extends React.PureComponent {
                                     ? 'dropdown-active'
                                     : ''}`}
                                 onMouseOver={() => this.handleDropdown('classes')}>
-                                <NavLink to={`/classes`}>{t('classes')}</NavLink>
+                                <a
+                                    className={
+                                        this.props.location.pathname.startsWith('/classes')
+                                            ? 'active'
+                                            : ''
+                                    }>
+                                    {t('classes')}
+                                </a>
                                 <ul
                                     className={`dropdown-content classes ${dropdownStatus ===
                                     'classes'
