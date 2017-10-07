@@ -100,12 +100,11 @@ class ClassHeader extends React.PureComponent {
 
         return (
             <div className="class-header section-header">
-                <div
-                    className="header-title class-selector"
-                    onClick={() => this.handlePopover(true)}>
+                <div className="header-title class-selector">
                     <Popover
                         placement="bottomLeft"
                         visible={this.state.popover}
+                        onVisibleChange={visible => this.handlePopover(visible)}
                         content={<div className="class-selector-popover">{classLinks}</div>}>
                         <img alt={classCode} src={classImages[classCode]} />
                         <div>
