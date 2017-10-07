@@ -114,7 +114,8 @@ class CharacterEquips extends React.PureComponent {
                 <h3>
                     {t('ssAttributes')}
                     <small>
-                        {t('base')} + <span>{t('fuse')}</span> + <span>{t('set')}</span>
+                        {t('ssStatBase')} + <span>{t('ssStatFuse')}</span> +{' '}
+                        <span>{t('ssStatSet')}</span>
                     </small>
                 </h3>
                 <table>
