@@ -10,7 +10,6 @@ import {
     classSelector,
     buildElementSelector,
     elementDataSelector,
-    skillNamesSelector,
     buildSelector,
     refSelector,
     characterModeSelector,

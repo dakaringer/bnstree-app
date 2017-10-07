@@ -109,7 +109,7 @@ export function loadLanguageData() {
                         namespaceData.forEach((groupData, group) => {
                             groupData.forEach(data => {
                                 let key = data.get('_id', '')
-                                let text = data.getIn(['name', languageCode], '')
+                                let text = data.getIn(['name', languageCode], '') || ''
                                 map.setIn(
                                     [namespace, group, key],
                                     text.trim() !== '' ? 'success' : 'error'
@@ -126,6 +126,7 @@ export function loadLanguageData() {
 
 export function editTranslation(key, value) {
     return (dispatch, getState) => {
+        if (value.length > 256) return
         let languageCode = languageSelector(getState())
         let namespace = namespaceSelector(getState())
         let group = groupSelector(getState())
@@ -161,6 +162,7 @@ export function editTranslation(key, value) {
 
 export function editNameTranslation(key, type, value, reference) {
     return (dispatch, getState) => {
+        if (value.length > 256) return
         let languageCode = languageSelector(getState())
         let namespace = namespaceSelector(getState())
         let group = groupSelector(getState())
