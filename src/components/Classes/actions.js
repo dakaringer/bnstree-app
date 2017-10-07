@@ -119,34 +119,32 @@ export function loadClass(classCode, buildCode, buildId) {
 
 export function loadTextData(lang) {
     return (dispatch, getState) => {
-        if (skillNamesSelector(getState()).equals(Map())) {
-            fetch(`https://api.bnstree.com/classes/names?lang=${lang}`, {
+        fetch(`https://api.bnstree.com/classes/names?lang=${lang}`, {
+            method: 'get',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(json => {
+                if (json.success === 1) {
+                    dispatch(setSkillNames(json.lang, flatten(json.skillNames)))
+                    dispatch(setItemNames(json.lang, flatten(json.itemNames)))
+                }
+            })
+            .catch(e => console.error(e))
+
+        if (lang !== 'en' && !refSelector(getState()).hasIn(['skillNames', 'en'])) {
+            fetch('https://api.bnstree.com/classes/names?lang=en', {
                 method: 'get',
                 credentials: 'include'
             })
                 .then(response => response.json())
                 .then(json => {
                     if (json.success === 1) {
-                        dispatch(setSkillNames(json.lang, flatten(json.skillNames)))
-                        dispatch(setItemNames(json.lang, flatten(json.itemNames)))
+                        dispatch(setSkillNames('en', flatten(json.skillNames)))
+                        dispatch(setItemNames('en', flatten(json.itemNames)))
                     }
                 })
                 .catch(e => console.error(e))
-
-            if (lang !== 'en' && !refSelector(getState()).hasIn(['skillNames', 'en'])) {
-                fetch('https://api.bnstree.com/classes/names?lang=en', {
-                    method: 'get',
-                    credentials: 'include'
-                })
-                    .then(response => response.json())
-                    .then(json => {
-                        if (json.success === 1) {
-                            dispatch(setSkillNames('en', flatten(json.skillNames)))
-                            dispatch(setItemNames('en', flatten(json.itemNames)))
-                        }
-                    })
-                    .catch(e => console.error(e))
-            }
         }
     }
 }
