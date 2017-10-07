@@ -54,7 +54,7 @@ const TranslatorEditor = props => {
                     <div className="language-input-group" key={key}>
                         <p className="language-key">
                             <Badge
-                                status={dataStatus.getIn([namespace, group, key], 'default')}
+                                status={dataStatus.getIn([namespace, group, key], 'error')}
                                 text={key}
                             />
                         </p>
@@ -105,7 +105,7 @@ const TranslatorEditor = props => {
                         <div>
                             <p className="language-key">
                                 <Badge
-                                    status={dataStatus.getIn([namespace, group, key], 'default')}
+                                    status={dataStatus.getIn([namespace, group, key], 'error')}
                                     text={key}
                                 />
                             </p>

@@ -89,7 +89,7 @@ class TranslatorSelector extends React.PureComponent {
                     className={`translator-selector-item ${selected ? 'active' : ''}`}
                     onClick={() => this.select(key)}>
                     <Badge
-                        status={dataStatus.getIn([key, 'dataStatus'], 'default')}
+                        status={dataStatus.getIn([key, 'dataStatus'], 'error')}
                         text={
                             groupMode && namespace !== 'skills' && namespace !== 'items'
                                 ? key.substr(3)
