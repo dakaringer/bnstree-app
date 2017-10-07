@@ -60,8 +60,10 @@ class SkillShareMenu extends React.PureComponent {
     }
 
     changeTitle(e) {
+        let title = e.target.value
+        if (title.length > 100) return
         this.setState({
-            title: e.target.value
+            title: title
         })
     }
 
