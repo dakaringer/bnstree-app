@@ -9,7 +9,6 @@ function fetchData(url, options, callback) {
 }
 
 i18n.use(Fetch).init({
-    whitelist: ['en', 'ko'],
     lng: 'en',
     fallbackLng: 'en',
     ns: 'general',
