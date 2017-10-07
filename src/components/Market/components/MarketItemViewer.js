@@ -184,17 +184,17 @@ class MarketItemViewer extends React.PureComponent {
                         <Checkbox
                             checked={indicators.get('sma', false)}
                             onChange={e => setIndicator(e.target.checked, 'sma')}>
-                            {t('sma')}
+                            {t('indicatorSMA')}
                         </Checkbox>
                         <Checkbox
                             checked={indicators.get('bb', false)}
                             onChange={e => setIndicator(e.target.checked, 'bb')}>
-                            {t('bb')}
+                            {t('indicatorBB')}
                         </Checkbox>
                         <Checkbox
                             checked={indicators.get('sto', false)}
                             onChange={e => setIndicator(e.target.checked, 'sto')}>
-                            {t('sto')}
+                            {t('indicatorSTO')}
                         </Checkbox>
                     </div>
                 )

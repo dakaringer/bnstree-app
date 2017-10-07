@@ -17,10 +17,15 @@ function getSkill(idString, skillNames, noIcon = false) {
         moves = moves.slice(1)
     }
 
-    moves = moves.map(m => (m > 3 ? i18n.t('classes:HM', {move: m - 3}) : m))
+    moves = moves.map(
+        m =>
+            m > 3
+                ? i18n.t('classes:moveTypeHM', {move: m - 3})
+                : i18n.t('classes:moveType', {move: m})
+    )
 
     if (moves.length > 0) {
-        affix = `${affix ? `${affix}, ` : ''}${i18n.t('classes:moves', {moves: moves.join(', ')})}`
+        affix = `${affix ? `${affix}, ` : ''}${moves.join(', ')}`
     }
 
     affix = affix ? ` (${affix})` : null
