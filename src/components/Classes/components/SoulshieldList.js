@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map} from 'immutable'
+import {Fade} from 'react-reveal'
 
 import SoulshieldListItem from './SoulshieldListItem'
 
@@ -32,14 +33,14 @@ const SoulshieldList = props => {
     })
 
     return (
-        <div className="item-list-container">
+        <Fade left wave className="item-list-container">
             <h2>{t('PvE')}</h2>
             <div className="item-list soulshield-list-pve">{dungeons}</div>
             <h2>{t('6v6')}</h2>
             <div className="item-list soulshield-list-pvp">{battlegrounds}</div>
             <h2>{t('heroic')}</h2>
             <div className="item-list soulshield-list-heroic">{heroic}</div>
-        </div>
+        </Fade>
     )
 }
 

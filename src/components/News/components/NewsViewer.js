@@ -6,6 +6,7 @@ import {Map} from 'immutable'
 import {Link} from 'react-router-dom'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
+import {Fade} from 'react-reveal'
 
 import {Row, Col, Button} from 'antd'
 
@@ -117,7 +118,7 @@ class NewsViewer extends React.PureComponent {
         }
 
         return (
-            <div>
+            <Fade>
                 <Helmet>
                     <title>{`${article.get('title')} - ${t('news')} | BnSTree`}</title>
                     <meta
@@ -146,7 +147,7 @@ class NewsViewer extends React.PureComponent {
                         </div>
                     </Col>
                 </Row>
-            </div>
+            </Fade>
         )
     }
 }

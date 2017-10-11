@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {List} from 'immutable'
+import {Fade} from 'react-reveal'
 
 import {Pagination} from 'antd'
 
@@ -43,7 +44,7 @@ class NewsList extends Component {
         })
 
         return (
-            <div className="news-list-container">
+            <Fade className="news-list-container">
                 <div className="news-list-wrapper">
                     <div className="news-list listing">
                         {rows.length > 0 ? rows : <p className="no-data">No Data</p>}
@@ -56,7 +57,7 @@ class NewsList extends Component {
                         onChange={p => loadNews(p)}
                     />
                 </div>
-            </div>
+            </Fade>
         )
     }
 }

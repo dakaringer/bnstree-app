@@ -2,6 +2,7 @@ import React from 'react'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Link, NavLink, withRouter} from 'react-router-dom'
+import {Fade} from 'react-reveal'
 
 import {currentLanguageSelector, userSelector, supportedLanguagesSelector} from '../../selectors'
 import {setUILanguage} from '../../actions'
@@ -143,7 +144,7 @@ class NavBar extends React.PureComponent {
         )
 
         return (
-            <div>
+            <Fade>
                 <div className="main-nav" onMouseLeave={() => this.handleDropdown(null)}>
                     <div className={`dropdown-backdrop ${dropdownStatus ? 'active' : ''}`} />
                     <div className="main-nav-header">
@@ -313,7 +314,7 @@ class NavBar extends React.PureComponent {
                         </Collapse>
                     </div>
                 </div>
-            </div>
+            </Fade>
         )
     }
 }

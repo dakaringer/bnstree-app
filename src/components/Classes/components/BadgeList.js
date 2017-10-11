@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map} from 'immutable'
+import {Fade} from 'react-reveal'
 
 import BadgeListItem from './BadgeListItem'
 
@@ -27,12 +28,12 @@ const BadgeList = props => {
     })
 
     return (
-        <div className="item-list-container">
+        <Fade className="item-list-container">
             <h2>{t('mysticBadge')}</h2>
             <div className="item-list badge-list-mystic">{mystic}</div>
             <h2>{t('soulBadge')}</h2>
             <div className="item-list badge-list-soul">{soul}</div>
-        </div>
+        </Fade>
     )
 }
 

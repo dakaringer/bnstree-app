@@ -1,6 +1,7 @@
 import React from 'react'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
+import {Fade} from 'react-reveal'
 
 import './styles/Stream.scss'
 
@@ -11,7 +12,7 @@ import StreamList from './components/StreamList'
 const Streams = props => {
     const {t} = props
     return (
-        <div className="stream">
+        <Fade className="stream">
             <Helmet>
                 <title>{`${t('streams')} | BnSTree`}</title>
             </Helmet>
@@ -31,7 +32,7 @@ const Streams = props => {
                     />
                 </div>
             </div>
-        </div>
+        </Fade>
     )
 }
 

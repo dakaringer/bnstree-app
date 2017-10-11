@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Link} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
+import {Fade} from 'react-reveal'
 
 import {Row, Col, Button} from 'antd'
 
@@ -41,7 +42,7 @@ const Home = props => {
     const {t, region, setRegion} = props
 
     return (
-        <div className="home">
+        <Fade className="home">
             <Helmet>
                 <title>BnSTree</title>
             </Helmet>
@@ -60,28 +61,32 @@ const Home = props => {
             </div>
             <div className="home-bottom">
                 <div className="home-container container">
-                    <HomeNewsList />
+                    <Fade>
+                        <HomeNewsList />
+                    </Fade>
                     <AdSense
                         data-ad-client="ca-pub-2048637692232915"
                         data-ad-slot="2719129989"
                         data-ad-format="auto"
                     />
-                    <div className="home-market">
-                        <h3>
-                            {t('market')}{' '}
-                            <span>
-                                <RadioGroup
-                                    className="regionSelector"
-                                    size="small"
-                                    value={region}
-                                    onChange={e => setRegion(e.target.value)}>
-                                    <RadioButton value="na">NA</RadioButton>
-                                    <RadioButton value="eu">EU</RadioButton>
-                                </RadioGroup>
-                            </span>
-                        </h3>
-                        <MarketList />
-                    </div>
+                    <Fade>
+                        <div className="home-market">
+                            <h3>
+                                {t('market')}{' '}
+                                <span>
+                                    <RadioGroup
+                                        className="regionSelector"
+                                        size="small"
+                                        value={region}
+                                        onChange={e => setRegion(e.target.value)}>
+                                        <RadioButton value="na">NA</RadioButton>
+                                        <RadioButton value="eu">EU</RadioButton>
+                                    </RadioGroup>
+                                </span>
+                            </h3>
+                            <MarketList />
+                        </div>
+                    </Fade>
                     <Row className="stream-menu-container" gutter={16}>
                         <Col md={16} className="home-stream">
                             <h3>
@@ -127,7 +132,7 @@ const Home = props => {
                     </Row>
                 </div>
             </div>
-        </div>
+        </Fade>
     )
 }
 

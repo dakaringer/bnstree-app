@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
+import {Fade} from 'react-reveal'
 
 import AdSense from '../AdSense/AdSense'
 
@@ -44,7 +45,7 @@ class Character extends React.PureComponent {
         const {t} = this.props
 
         return (
-            <div className="character">
+            <Fade className="character">
                 <Helmet>
                     <title>{`${t('characterSearch')} | BnSTree`}</title>
                 </Helmet>
@@ -78,7 +79,7 @@ class Character extends React.PureComponent {
                         />
                     </div>
                 </div>
-            </div>
+            </Fade>
         )
     }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
+import {Fade} from 'react-reveal'
 
 import {Row, Col} from 'antd'
 
@@ -65,7 +66,7 @@ class Market extends React.PureComponent {
         }
 
         return (
-            <div className="market">
+            <Fade className="market">
                 <Helmet>
                     <title>{`${t('market')} | BnSTree`}</title>
                 </Helmet>
@@ -78,7 +79,7 @@ class Market extends React.PureComponent {
                     <Header />
                     {content}
                 </div>
-            </div>
+            </Fade>
         )
     }
 }
