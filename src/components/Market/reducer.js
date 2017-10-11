@@ -4,7 +4,7 @@ import * as actionType from './actionTypes'
 
 function ui(
     state = fromJS({
-        region: '',
+        region: 'na',
         search: '',
         suggestions: [],
         bookmarks: [],
