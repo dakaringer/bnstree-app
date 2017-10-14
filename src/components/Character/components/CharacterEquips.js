@@ -5,7 +5,8 @@ import {Map, List} from 'immutable'
 
 import {Popover, Tooltip} from 'antd'
 
-import {characterSelector, regionSelector} from '../selectors'
+import {viewSelector} from '../../../selectors'
+import {characterSelector} from '../selectors'
 
 import blank from '../images/blank.gif'
 import bg_gem from '../images/bg_gem.png'
@@ -13,7 +14,7 @@ import bg_gem from '../images/bg_gem.png'
 const mapStateToProps = state => {
     return {
         equipData: characterSelector(state).get('equipData', Map()),
-        region: regionSelector(state)
+        region: viewSelector(state).get('characterRegion', 'na')
     }
 }
 

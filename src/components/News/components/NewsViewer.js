@@ -54,13 +54,14 @@ class NewsViewer extends React.PureComponent {
         const {t, article, skillNames, user} = this.props
 
         let content = null
-        if (article.has('title')) {
+        let editButton = null
+        if (article) {
             let md = new MarkdownIt('default', {
                 breaks: true,
                 html: true
             })
 
-            let time = moment(article.get('datePosted'))
+            let time = moment(new Date(article.get('datePosted')))
             let now = moment(new Date())
             let timeString = ''
             if (now.diff(time, 'days') < 1) {
@@ -104,26 +105,27 @@ class NewsViewer extends React.PureComponent {
                     />
                 </div>
             )
-        }
 
-        let editButton = null
-        if (user && user.get('admin')) {
-            editButton = (
-                <Link to={`/news/edit/${article.get('_id')}`}>
-                    <Button type="primary" ghost>
-                        Edit
-                    </Button>
-                </Link>
-            )
+            if (user && user.getIn(['role', 'type']) === 'admin') {
+                editButton = (
+                    <Link to={`/news/edit/${article.get('_id')}`}>
+                        <Button type="primary" ghost>
+                            Edit
+                        </Button>
+                    </Link>
+                )
+            }
         }
 
         return (
             <Fade>
                 <Helmet>
-                    <title>{`${article.get('title')} - ${t('news')} | BnSTree`}</title>
+                    <title>{`${article ? article.get('title') : 'Not Found'} - ${t(
+                        'news'
+                    )} | BnSTree`}</title>
                     <meta
                         name="description"
-                        content={article.get('content', '').split('\n\n')[0]}
+                        content={article ? article.get('content', '').split('\n\n')[0] : ''}
                     />
                 </Helmet>
                 <Row className="news-viewer" gutter={16}>
@@ -137,7 +139,7 @@ class NewsViewer extends React.PureComponent {
                         <div>
                             <h3>More Articles</h3>
                             <hr />
-                            <NewsList currentId={article.get('_id')} icon />
+                            <NewsList currentId={article ? article.get('_id') : ''} icon />
                             <AdSense
                                 data-ad-format="fluid"
                                 data-ad-layout="in-article"

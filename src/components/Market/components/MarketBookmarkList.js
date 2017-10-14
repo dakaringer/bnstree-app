@@ -5,7 +5,7 @@ import Sortable from 'react-sortablejs'
 
 import {userSelector} from '../../../selectors'
 import {bookmarksSelector} from '../selectors'
-import {loadBookmarks, loadItem} from '../actions'
+import {loadBookmarks, loadItem, updateBookmarkOrder} from '../actions'
 
 import {parsePrice} from '../parser'
 
@@ -47,14 +47,7 @@ class MarketBookmarkList extends React.PureComponent {
         this.setState({
             order: order
         })
-        fetch('https://api.bnstree.com/market/bookmark/reorder', {
-            method: 'post',
-            credentials: 'include',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8'
-            },
-            body: JSON.stringify({order: order})
-        }).catch(e => console.error(e))
+        updateBookmarkOrder(order)
     }
 
     render() {

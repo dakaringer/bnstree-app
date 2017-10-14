@@ -4,7 +4,6 @@ import {Map, List} from 'immutable'
 const uiSelector = state => state.getIn(['market', 'ui'], Map())
 export const dataSelector = state => state.getIn(['market', 'data'], Map())
 
-export const regionSelector = createSelector(uiSelector, state => state.get('region', 'na'))
 export const searchSelector = createSelector(uiSelector, state => state.get('search', ''))
 export const suggestionsSelector = createSelector(uiSelector, state =>
     state.get('suggestions', List())

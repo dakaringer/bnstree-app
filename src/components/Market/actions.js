@@ -1,15 +1,12 @@
 import * as actionType from './actionTypes'
 import {makeActionCreator} from '../../helpers'
-import {setLoading} from '../../actions'
+import apollo, {q} from '../../apollo'
 
-import {regionSelector, dataSelector} from './selectors'
-
-const postHeaders = {
-    'Content-type': 'application/json; charset=UTF-8'
-}
+import {setViewOption} from '../../actions'
+import {viewSelector} from '../../selectors'
+import {dataSelector} from './selectors'
 
 //Action creators
-const setRegion = makeActionCreator(actionType.SET_MARKET_REGION, 'region')
 const setSearch = makeActionCreator(actionType.SET_MARKET_SEARCH, 'search')
 const setSuggestions = makeActionCreator(actionType.SET_MARKET_SUGGESTIONS, 'list')
 const setBookmarks = makeActionCreator(actionType.SET_MARKET_BOOKMARKS, 'list')
@@ -26,46 +23,107 @@ const setMarketLoading = makeActionCreator(actionType.SET_MARKET_LOADING, 'loadi
 
 export const setData = makeActionCreator(actionType.SET_MARKET_DATA, 'itemData')
 
-export function getRegion() {
-    return dispatch => {
-        dispatch(setLoading(true, 'market'))
-        fetch('https://api.bnstree.com/market/region', {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 0) return dispatch(setRegion('na'))
-                dispatch(setRegion(json.region))
-            })
-            .then(() => dispatch(setLoading(false, 'market')))
-            .catch(e => console.error(e))
+const popularItemsQuery = q`query ($region: String!) {
+    Market {
+        popular(region: $region) {
+            item {
+                _id
+                name
+                grade
+                icon
+            }
+            priceData: price {
+                items
+            }
+        }
     }
-}
+}`
+
+const suggestionQuery = q`query ($query: String!) {
+    Market {
+        suggestion(query: $query) {
+            _id
+            name
+            grade
+            icon
+        }
+    }
+}`
+
+const itemQuery = q`query (
+    $query: String,
+    $region: String!,
+    $exact: Boolean
+    $itemId: Int
+) {
+    Market {
+        search(
+            query: $query,
+            region: $region,
+            exact: $exact,
+            itemId: $itemId
+        ) {
+            item {
+                _id
+                name
+                grade
+                icon
+            }
+            priceData: price {
+                items
+            }
+            bookmarked
+        }
+    }
+}`
+
+const bookmarksQuery = q`query ($region: String!) {
+    Market {
+        bookmarks(region: $region) {
+            item {
+                _id
+                name
+                grade
+                icon
+            }
+            priceData: price {
+                items
+            }
+        }
+    }
+}`
+
+const bookmarkOrderMutation = q`mutation ($order: [String]!) {
+    Market {
+        reorderBookmarks (order: $order)
+    }
+}`
+
+const createBookmarkMutation = q`mutation ($itemId: Int!) {
+    Market {
+        createBookmark(itemId: $itemId)
+    }
+}`
+
+const deleteBookmarkMutation = q`mutation ($itemId: Int!) {
+    Market {
+        deleteBookmark(itemId: $itemId)
+    }
+}`
 
 export function loadPopularItems() {
     return (dispatch, getState) => {
-        let region = regionSelector(getState())
-        fetch(`https://api.bnstree.com/market/${region}/popular?fast=true`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
+        let region = viewSelector(getState()).get('marketRegion', 'na')
+
+        apollo
+            .query({
+                query: popularItemsQuery,
+                variables: {
+                    region: region
+                }
+            })
             .then(json => {
-                if (json.success === 0) return
-
-                dispatch(setPopularItems(json.list))
-                fetch(`https://api.bnstree.com/market/${region}/popular`, {
-                    method: 'get',
-                    credentials: 'include'
-                })
-                    .then(response => response.json())
-                    .then(json => {
-                        if (json.success === 0) return
-
-                        dispatch(setPopularItems(json.list))
-                    })
-                    .catch(e => console.error(e))
+                dispatch(setPopularItems(json.data.Market.popular))
             })
             .catch(e => console.error(e))
     }
@@ -73,15 +131,9 @@ export function loadPopularItems() {
 
 export function updateRegion(region) {
     return (dispatch, getState) => {
-        dispatch(setRegion(region))
+        dispatch(setViewOption('marketRegion', region))
         dispatch(loadPopularItems())
         dispatch(loadBookmarks())
-        fetch('https://api.bnstree.com/user/view', {
-            method: 'post',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({marketRegion: region})
-        }).catch(e => console.error(e))
 
         let item = dataSelector(getState())
         if (item.get('item')) {
@@ -94,15 +146,17 @@ export function search(term) {
     return dispatch => {
         dispatch(setSearch(term))
         if (term.length >= 2) {
-            fetch(`https://api.bnstree.com/market/suggest?q=${term}`, {
-                method: 'get',
-                credentials: 'include'
-            })
-                .then(response => response.json())
+            apollo
+                .query({
+                    query: suggestionQuery,
+                    variables: {
+                        query: term
+                    }
+                })
                 .then(json => {
-                    if (json.success === 0) return
-
-                    dispatch(setSuggestions(json.data))
+                    console.log()
+                    let suggestions = json.data.Market.suggestion.filter(n => n)
+                    dispatch(setSuggestions(suggestions))
                 })
                 .catch(e => console.error(e))
         } else {
@@ -113,70 +167,96 @@ export function search(term) {
 
 export function searchItem(term, exact = false) {
     return (dispatch, getState) => {
-        let region = regionSelector(getState())
+        let region = viewSelector(getState()).get('marketRegion', 'na')
         dispatch(search(''))
         dispatch(setMarketLoading(true))
-        fetch(`https://api.bnstree.com/market/${region}/search?q=${term}&exact=${exact ? 1 : 0}`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 0) return
 
-                dispatch(setData(json))
+        apollo
+            .query({
+                query: itemQuery,
+                variables: {
+                    query: term,
+                    region: region,
+                    exact: exact
+                }
+            })
+            .then(json => {
+                dispatch(setData(json.data.Market.search))
                 dispatch(setUpdate(new Date()))
             })
-            .then(() => dispatch(setMarketLoading(false)))
             .catch(e => console.error(e))
+            .then(() => dispatch(setMarketLoading(false)))
     }
 }
 
 export function loadItem(item, replace = false) {
     return (dispatch, getState) => {
-        let region = regionSelector(getState())
+        let region = viewSelector(getState()).get('marketRegion', 'na')
         dispatch(search(''))
-        if (!replace) dispatch(setMarketLoading(true))
-        fetch(`https://api.bnstree.com/market/${region}/data/${item}`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 0) return
 
-                dispatch(setData(json))
+        if (!replace) dispatch(setMarketLoading(true))
+
+        apollo
+            .query({
+                query: itemQuery,
+                variables: {
+                    region: region,
+                    itemId: item
+                }
+            })
+            .then(json => {
+                dispatch(setData(json.data.Market.search))
                 dispatch(setUpdate(new Date()))
             })
-            .then(() => dispatch(setMarketLoading(false)))
             .catch(e => console.error(e))
+            .then(() => dispatch(setMarketLoading(false)))
     }
 }
 
 export function loadBookmarks() {
     return (dispatch, getState) => {
-        let region = regionSelector(getState())
-        fetch(`https://api.bnstree.com/market/${region}/bookmarks?fast=true`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 0) return
-
-                dispatch(setBookmarks(json.list))
-                fetch(`https://api.bnstree.com/market/${region}/bookmarks`, {
-                    method: 'get',
-                    credentials: 'include'
-                })
-                    .then(response => response.json())
-                    .then(json => {
-                        if (json.success === 0) return
-
-                        dispatch(setBookmarks(json.list))
-                    })
-                    .catch(e => console.error(e))
+        let region = viewSelector(getState()).get('marketRegion', 'na')
+        apollo
+            .query({
+                query: bookmarksQuery,
+                variables: {
+                    region: region
+                },
+                fetchPolicy: 'network-only'
             })
+            .then(json => {
+                let bookmarks = json.data.Market.bookmarks
+                dispatch(setBookmarks(bookmarks))
+
+                let order = bookmarks.map(bookmark => bookmark.item._id.toString())
+                updateBookmarkOrder(order)
+            })
+            .catch(e => console.error(e))
+    }
+}
+
+export function updateBookmarkOrder(order) {
+    apollo
+        .mutate({
+            mutation: bookmarkOrderMutation,
+            variables: {
+                order: order
+            }
+        })
+        .catch(e => console.error(e))
+}
+
+export function bookmark(item, add = true) {
+    return dispatch => {
+        let mutation = add ? createBookmarkMutation : deleteBookmarkMutation
+        apollo
+            .mutate({
+                mutation: mutation,
+                variables: {
+                    itemId: item
+                }
+            })
+            .then(() => dispatch(loadBookmarks()))
             .catch(e => console.error(e))
     }
 }

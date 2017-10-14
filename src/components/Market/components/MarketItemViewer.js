@@ -3,17 +3,16 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map, List} from 'immutable'
 
-import {userSelector} from '../../../selectors'
+import {userSelector, viewSelector} from '../../../selectors'
 import {
     dataSelector,
     termSelector,
     graphSelector,
-    regionSelector,
     indicatorSelector,
     updateSelector,
     loadingSelector
 } from '../selectors'
-import {setTerm, setGraph, loadItem, loadBookmarks, setIndicator} from '../actions'
+import {setTerm, setGraph, loadItem, setIndicator, bookmark} from '../actions'
 
 import LoadingLyn from '../../LoadingLyn/LoadingLyn'
 import MarketChart from './MarketChart'
@@ -25,10 +24,6 @@ import {Radio, Icon, Popover, Checkbox} from 'antd'
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
-const postHeaders = {
-    'Content-type': 'application/json; charset=UTF-8'
-}
-
 const mapStateToProps = state => {
     return {
         user: userSelector(state),
@@ -36,7 +31,7 @@ const mapStateToProps = state => {
         itemData: dataSelector(state),
         term: termSelector(state),
         graph: graphSelector(state),
-        region: regionSelector(state),
+        region: viewSelector(state).get('marketRegion', 'na'),
         indicators: indicatorSelector(state),
         lastUpdate: updateSelector(state)
     }
@@ -44,7 +39,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateBookmarks: () => dispatch(loadBookmarks()),
+        bookmark: (item, add) => dispatch(bookmark(item, add)),
         setTerm: value => dispatch(setTerm(value)),
         setGraph: value => dispatch(setGraph(value)),
         loadItem: (id, replace) => dispatch(loadItem(id, replace)),
@@ -64,10 +59,7 @@ class MarketItemViewer extends React.PureComponent {
     componentWillReceiveProps(nextProps) {
         let {itemData, loadItem} = this.props
 
-        if (
-            nextProps.itemData.get('item') &&
-            itemData.getIn(['item', '_id']) !== nextProps.itemData.getIn(['item', '_id'])
-        ) {
+        if (itemData.getIn(['item', '_id']) !== nextProps.itemData.getIn(['item', '_id'])) {
             clearInterval(this.state.intervalId)
             if (nextProps.itemData.get('item')) {
                 let intervalId = setInterval(
@@ -77,7 +69,7 @@ class MarketItemViewer extends React.PureComponent {
 
                 this.setState({
                     intervalId: intervalId,
-                    bookmarked: nextProps.itemData.get('userBookmarked', false)
+                    bookmarked: nextProps.itemData.get('bookmarked', false)
                 })
             }
         }
@@ -88,47 +80,13 @@ class MarketItemViewer extends React.PureComponent {
     }
 
     bookmark(bookmarked) {
-        let {itemData, updateBookmarks} = this.props
+        let {itemData, bookmark} = this.props
 
-        if (!bookmarked) {
-            this.setState({
-                bookmarked: true
-            })
-        }
+        bookmark(itemData.getIn(['item', '_id']), !this.state.bookmarked)
 
-        fetch('https://api.bnstree.com/market/bookmark', {
-            method: 'post',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({
-                item: itemData.getIn(['item', '_id'])
-            })
+        this.setState({
+            bookmarked: !this.state.bookmarked
         })
-            .then(response => response.json())
-            .then(json => updateBookmarks())
-            .catch(e => console.error(e))
-    }
-
-    unbookmark(bookmarked) {
-        let {itemData, updateBookmarks} = this.props
-
-        if (bookmarked) {
-            this.setState({
-                bookmarked: false
-            })
-        }
-
-        fetch('https://api.bnstree.com/market/bookmark', {
-            method: 'delete',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({
-                item: itemData.getIn(['item', '_id'])
-            })
-        })
-            .then(response => response.json())
-            .then(json => updateBookmarks())
-            .catch(e => console.error(e))
     }
 
     render() {
@@ -161,9 +119,7 @@ class MarketItemViewer extends React.PureComponent {
         let bookmark = (
             <a
                 className={`bookmark ${!user ? 'disabled' : ''} ${bookmarked ? 'bookmarked' : ''}`}
-                onClick={
-                    bookmarked ? () => this.unbookmark(bookmarked) : () => this.bookmark(bookmarked)
-                }>
+                onClick={() => this.bookmark()}>
                 {bookmarkButton}
                 {bookmarked ? t('bookmarked') : t('bookmark')}
             </a>

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
 import {updateRegion, setData} from '../actions'
-import {regionSelector} from '../selectors'
+import {viewSelector} from '../../../selectors'
 
 import icon from '../images/GameUI_HeaderIcon_210.png'
 
@@ -13,7 +13,7 @@ const RadioGroup = Radio.Group
 
 const mapStateToProps = state => {
     return {
-        region: regionSelector(state)
+        region: viewSelector(state).get('marketRegion', 'na')
     }
 }
 

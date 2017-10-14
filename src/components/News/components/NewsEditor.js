@@ -6,151 +6,58 @@ import {Map} from 'immutable'
 
 import {skillNamesSelectorEN} from '../../Classes/selectors'
 import {loadTextData} from '../../Classes/actions'
-import {articleSelector} from '../selectors'
-import {loadArticle} from '../actions'
+import {editorArticleSelector, editorSavedSelector} from '../selectors'
+import {loadArticle, updateEditorArticle, saveArticle, deleteArticle} from '../actions'
 
-import {Row, Col, message, Button} from 'antd'
-
-const postHeaders = {
-    'Content-type': 'application/json; charset=UTF-8'
-}
+import {Row, Col, Button} from 'antd'
 
 const mapStateToProps = state => {
     return {
         skillNames: skillNamesSelectorEN(state),
-        article: articleSelector(state)
+        article: editorArticleSelector(state),
+        saved: editorSavedSelector(state)
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         loadText: lang => dispatch(loadTextData(lang)),
-        loadArticle: id => dispatch(loadArticle(id))
+        loadArticle: id => dispatch(loadArticle(id, true)),
+        updateArticle: (context, value) => dispatch(updateEditorArticle(context, value)),
+        saveArticle: () => dispatch(saveArticle()),
+        deleteArticle: () => dispatch(deleteArticle())
     }
 }
 
 class Editor extends React.PureComponent {
-    constructor(props) {
-        super(props)
-        this.state = {
-            id: null,
-            title: '',
-            content: '',
-            tags: '',
-            thumb: '',
-            saved: false
-        }
-    }
-
     componentWillMount() {
         const {loadText, loadArticle, match} = this.props
 
         loadText('en')
-        loadArticle(match.params.id)
-    }
-    componentWillReceiveProps(nextProps) {
-        const {loadArticle, article, match} = this.props
-
-        if (nextProps.match.params.id !== match.params.id) {
-            loadArticle(nextProps.match.params.id)
+        if (match.params.id) {
+            loadArticle(match.params.id)
+        } else {
+            loadArticle(null)
         }
-
-        if (nextProps.match.params.id && nextProps.article.equals(article)) {
-            this.setState({
-                id: nextProps.article.get('_id'),
-                title: nextProps.article.get('title'),
-                content: nextProps.article.get('content'),
-                thumb: nextProps.article.get('thumb')
-            })
-        }
-    }
-
-    save() {
-        let {t} = this.props
-        let {id, title, content, thumb} = this.state
-        if (title.trim() !== '') {
-            this.setState({
-                saved: false
-            })
-            let article = {
-                id: id,
-                title: title,
-                content: content,
-                thumb: thumb
-            }
-
-            fetch('https://api.bnstree.com/news', {
-                method: 'post',
-                credentials: 'include',
-                headers: postHeaders,
-                body: JSON.stringify(article)
-            })
-                .then(response => response.json())
-                .then(json => {
-                    if (json.success === 1) {
-                        this.setState({
-                            id: json.articleId,
-                            saved: true
-                        })
-                        message.success(t('general:postSuccess'))
-                    } else {
-                        message.error(t('general:fail'))
-                    }
-                })
-                .catch(e => console.error(e))
-        }
-    }
-
-    delete() {
-        let {t} = this.props
-        let {id} = this.state
-        if (id) {
-            fetch('https://api.bnstree.com/news', {
-                method: 'delete',
-                credentials: 'include',
-                headers: postHeaders,
-                body: JSON.stringify({id: id})
-            })
-                .then(response => response.json())
-                .then(json => {
-                    if (json.success === 1 && json.result.n === 1) {
-                        this.setState({
-                            id: null
-                        })
-                        message.success(t('general:deleteSuccess'))
-                    } else {
-                        message.error(t('general:fail'))
-                    }
-                })
-                .catch(e => console.error(e))
-        }
-    }
-
-    onChange(e, field) {
-        this.setState({
-            [field]: e.target.value,
-            saved: false
-        })
     }
 
     render() {
-        let {skillNames} = this.props
-        let {id, title, content, thumb, saved} = this.state
+        let {skillNames, article, saved, updateArticle, saveArticle, deleteArticle} = this.props
 
         let md = new MarkdownIt('default', {
             breaks: true,
             html: true
         })
 
-        let renderedContent = content
-            ? content.replace(/\[skill]\((\w+(-\w+)*)\)/g, (match, id) => {
-                  let skill = skillNames.get(id, Map())
-                  return `**![${id}](https://static.bnstree.com/images/skills/${skill.get(
-                      'icon',
-                      'blank'
-                  )}) ${skill.get('name')}**`
-              })
-            : ''
+        let renderedContent = article
+            .get('content', '')
+            .replace(/\[skill]\((\w+(-\w+)*)\)/g, (match, id) => {
+                let skill = skillNames.get(id, Map())
+                return `**![${id}](https://static.bnstree.com/images/skills/${skill.get(
+                    'icon',
+                    'blank'
+                )}) ${skill.get('name')}**`
+            })
 
         return (
             <div className="editor">
@@ -160,30 +67,30 @@ class Editor extends React.PureComponent {
                             <input
                                 className="title"
                                 placeholder="Title"
-                                value={title}
-                                onChange={e => this.onChange(e, 'title')}
+                                value={article.get('title', '')}
+                                onChange={e => updateArticle('title', e.target.value)}
                             />
                             <textarea
                                 className="content"
-                                value={content}
+                                value={article.get('content', '')}
                                 placeholder="Content"
-                                onChange={e => this.onChange(e, 'content')}
+                                onChange={e => updateArticle('content', e.target.value)}
                             />
                             <input
                                 className="bg"
-                                value={thumb}
+                                value={article.get('thumb', '')}
                                 placeholder="Thumbnail"
-                                onChange={e => this.onChange(e, 'thumb')}
+                                onChange={e => updateArticle('thumb', e.target.value)}
                             />
                         </div>
                         {saved ? <p>Saved</p> : null}
-                        <a onClick={() => this.save()}>
+                        <a onClick={() => saveArticle()}>
                             <Button ghost type="primary">
                                 Save
                             </Button>
                         </a>
-                        {id ? (
-                            <a onClick={() => this.delete()}>
+                        {article.get('_id') ? (
+                            <a onClick={() => deleteArticle()}>
                                 <Button ghost type="danger">
                                     Delete
                                 </Button>

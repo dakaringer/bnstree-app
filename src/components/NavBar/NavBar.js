@@ -2,6 +2,7 @@ import React from 'react'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
 import {Link, NavLink, withRouter} from 'react-router-dom'
+import {Map} from 'immutable'
 import {Fade} from 'react-reveal'
 
 import {currentLanguageSelector, userSelector, supportedLanguagesSelector} from '../../selectors'
@@ -117,7 +118,7 @@ class NavBar extends React.PureComponent {
             <li>
                 {user ? (
                     <ul>
-                        {user.has('translator') ? (
+                        {user.getIn(['role', 'translator']) ? (
                             <li onClick={() => this.closeMenu()}>
                                 <NavLink to="/translator">Translator Console</NavLink>
                             </li>
@@ -227,7 +228,7 @@ class NavBar extends React.PureComponent {
                                 onMouseOver={() => this.handleDropdown('language')}>
                                 <a>
                                     {languages
-                                        .find(l => l.get('_id', 'en') === currentLang)
+                                        .find(l => l.get('_id', 'en') === currentLang, null, Map())
                                         .get('name', 'English')}
                                 </a>
                                 <ul
@@ -307,7 +308,7 @@ class NavBar extends React.PureComponent {
                         <Collapse bordered={false} className="language overlay-nav-menu-item">
                             <Panel
                                 header={languages
-                                    .find(l => l.get('_id', 'en') === currentLang)
+                                    .find(l => l.get('_id', 'en') === currentLang, null, Map())
                                     .get('name', 'English')}>
                                 <ul>{languageDropdown}</ul>
                             </Panel>

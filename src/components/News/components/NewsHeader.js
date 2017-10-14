@@ -22,19 +22,19 @@ const NewsHeader = props => {
         <div className="news-header section-header">
             <div className="header-title">
                 <img alt="news" src={icon} />
-                <span>
-                    {t('news')}
-                </span>
+                <span>{t('news')}</span>
             </div>
-            {user && user.get('admin') && location.pathname !== '/news/new'
-                ? <div className="add-new">
-                      <Link to={'/news/new'}>
-                          <Button ghost type="danger">
-                              New Article
-                          </Button>
-                      </Link>
-                  </div>
-                : null}
+            {user &&
+            user.getIn(['role', 'type']) === 'admin' &&
+            (location.pathname !== '/news/new' && !location.pathname.startsWith('/news/edit')) ? (
+                <div className="add-new">
+                    <Link to={'/news/new'}>
+                        <Button ghost type="danger">
+                            New Article
+                        </Button>
+                    </Link>
+                </div>
+            ) : null}
         </div>
     )
 }

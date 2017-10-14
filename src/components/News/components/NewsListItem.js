@@ -32,7 +32,7 @@ class NewsListItem extends React.PureComponent {
         let id = article.get('_id')
 
         let now = moment(new Date())
-        let time = moment(article.get('datePosted'))
+        let time = moment(new Date(article.get('datePosted')))
         let n = null
         let timeString = ''
         if (now.diff(time, 'days') < 1) {

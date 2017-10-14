@@ -19,8 +19,8 @@ import HomeCharacter from './components/HomeCharacter'
 import StreamList from '../Streams/components/StreamList'
 import MarketList from '../Market/components/MarketPopularItemList'
 
+import {viewSelector} from '../../selectors'
 import {updateRegion} from '../Market/actions'
-import {regionSelector} from '../Market/selectors'
 
 import {Radio} from 'antd'
 const RadioButton = Radio.Button
@@ -28,7 +28,7 @@ const RadioGroup = Radio.Group
 
 const mapStateToProps = state => {
     return {
-        region: regionSelector(state)
+        region: viewSelector(state).get('marketRegion', 'na')
     }
 }
 

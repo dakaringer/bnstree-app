@@ -24,14 +24,14 @@ const News = props => {
     const {t, user} = props
 
     let editArticle =
-        user && user.get('admin', false) ? (
+        user && user.getIn(['role', 'type']) === 'admin' ? (
             <Route exact path="/news/edit/:id" component={NewsEditor} />
         ) : (
             <Redirect exact from="/news/edit/:id" to="/news" />
         )
 
     let newArticle =
-        user && user.get('admin', false) ? (
+        user && user.getIn(['role', 'type']) === 'admin' ? (
             <Route exact path="/news/new" component={NewsEditor} />
         ) : (
             <Redirect exact from="/news/new" to="/news" />

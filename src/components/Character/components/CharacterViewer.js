@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
 
-import {loadCharacter} from '../actions'
+import {loadCharacter, vote} from '../actions'
 import {loadingSelector, userSelector} from '../../../selectors'
 import {characterSelector} from '../selectors'
 import {characterElementSelector} from '../../Classes/selectors'
@@ -20,10 +20,6 @@ import elementImages from '../../Classes/images/map_elementImg'
 
 import {Row, Col, Tabs, Icon} from 'antd'
 const TabPane = Tabs.TabPane
-
-const postHeaders = {
-    'Content-type': 'application/json; charset=UTF-8'
-}
 
 const mapStateToProps = state => {
     return {
@@ -43,9 +39,8 @@ const mapDispatchToProps = dispatch => {
 class CharacterViewer extends React.PureComponent {
     constructor(props) {
         super(props)
-
         this.state = {
-            voted: 0
+            voted: false
         }
     }
 
@@ -54,72 +49,40 @@ class CharacterViewer extends React.PureComponent {
         loadCharacter(match.params.region, match.params.character)
     }
     componentWillReceiveProps(nextProps) {
-        const {match, character, loadCharacter} = this.props
+        const {match, loadCharacter} = this.props
 
         if (
             nextProps.match.params.character !== match.params.character ||
             nextProps.match.params.region !== match.params.region
         ) {
             loadCharacter(nextProps.match.params.region, nextProps.match.params.character)
-            this.setState({
-                voted: character.get('userVoted', 0)
-            })
         }
+
+        this.setState({
+            voted: nextProps.character.get('userVoted', false)
+        })
     }
 
-    vote(voted) {
+    vote() {
         let {character} = this.props
 
-        if (!voted) {
-            this.setState({
-                voted: this.state.voted + 1
-            })
-        }
+        vote(
+            character.getIn(['general', 'region']),
+            character.getIn(['general', 'name']),
+            !this.state.voted
+        )
 
-        fetch('https://api.bnstree.com/character/vote', {
-            method: 'post',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({
-                characterName: character.getIn(['general', 'name']),
-                region: character.getIn(['general', 'region'])
-            })
+        this.setState({
+            voted: !this.state.voted
         })
-            .then(response => response.json())
-            .then(json => {})
-            .catch(e => console.error(e))
-    }
-
-    unvote(voted) {
-        let {character} = this.props
-
-        if (voted) {
-            this.setState({
-                voted: this.state.voted - 1
-            })
-        }
-
-        fetch('https://api.bnstree.com/character/unvote', {
-            method: 'delete',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({
-                characterName: character.getIn(['general', 'name']),
-                region: character.getIn(['general', 'region'])
-            })
-        })
-            .then(response => response.json())
-            .then(json => {})
-            .catch(e => console.error(e))
     }
 
     render() {
         const {t, user, character, characterElement, loading} = this.props
-
-        let voted = this.state.voted
+        const {voted} = this.state
 
         let likeButton = user ? (
-            <a onClick={voted ? () => this.unvote(voted) : () => this.vote(voted)}>
+            <a onClick={() => this.vote(voted)}>
                 {voted ? <Icon type="heart" /> : <Icon type="heart-o" />}
             </a>
         ) : (
@@ -129,7 +92,9 @@ class CharacterViewer extends React.PureComponent {
             <div className="like">
                 {likeButton}
                 <span className="like-count">
-                    {character.get('characterVotes', 0) + this.state.voted}
+                    {character.get('characterVotes', 0) +
+                        (character.get('userVoted', false) ? -1 : 0) +
+                        (this.state.voted ? 1 : 0)}
                 </span>
             </div>
         )

@@ -13,11 +13,10 @@ function general(
     state = fromJS({
         language: 'en',
         user: null,
+        view: {},
         loading: {},
-        loadingApp: {
-            language: true,
-            user: true
-        }
+        loadingApp: true,
+        supportedLanguages: []
     }),
     action
 ) {
@@ -26,10 +25,14 @@ function general(
             return state.set('language', fromJS(action.language))
         case actionType.GENERAL_SET_USER:
             return state.set('user', fromJS(action.user))
+        case actionType.GENERAL_SET_VIEW:
+            return state.merge({view: action.view})
+        case actionType.GENERAL_SET_VIEW_CONTEXT:
+            return state.setIn(['view', action.context], action.value)
         case actionType.GENERAL_SET_LOADING:
             return state.setIn(['loading', action.context], action.loading)
         case actionType.GENERAL_SET_LOADING_APP:
-            return state.setIn(['loadingApp', action.context], action.loading)
+            return state.set('loadingApp', action.loading)
         case actionType.GENERAL_SET_SUPPORTED_LANGUAGES:
             return state.set('supportedLanguages', fromJS(action.languages))
         default:

@@ -4,7 +4,6 @@ import * as actionType from './actionTypes'
 
 function ui(
     state = fromJS({
-        region: 'na',
         search: '',
         suggestions: [],
         bookmarks: [],
@@ -22,8 +21,6 @@ function ui(
     action
 ) {
     switch (action.type) {
-        case actionType.SET_MARKET_REGION:
-            return state.set('region', action.region)
         case actionType.SET_MARKET_SEARCH:
             return state.set('search', action.search)
         case actionType.SET_MARKET_SUGGESTIONS:

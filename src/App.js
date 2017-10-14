@@ -142,7 +142,7 @@ class App extends React.PureComponent {
 
                             <Route path="/streams" component={Streams} />
 
-                            {user && user.has('translator') ? (
+                            {user && user.getIn(['role', 'translator']) ? (
                                 <Route path="/translator" component={Translator} />
                             ) : null}
                         </Switch>

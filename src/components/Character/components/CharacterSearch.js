@@ -1,25 +1,33 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {withRouter} from 'react-router'
+
+import {viewSelector} from '../../../selectors'
+import {setViewOption} from '../../../actions'
 
 import {Icon, Radio} from 'antd'
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
+const mapStateToProps = state => {
+    return {
+        region: viewSelector(state).get('characterRegion', 'na')
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setRegion: region => dispatch(setViewOption('characterRegion', region))
+    }
+}
+
 class CharacterSearch extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            characterName: '',
-            region: 'na'
+            characterName: ''
         }
-    }
-    componentDidMount() {
-        this.setState({region: this.props.match.params.region || 'na'})
-    }
-
-    changeRegion(value) {
-        this.setState({region: value})
     }
 
     enterCharacter(e) {
@@ -28,11 +36,11 @@ class CharacterSearch extends React.PureComponent {
 
     searchCharacter(e) {
         e.preventDefault()
-        this.props.history.push(`/character/${this.state.region}/${this.state.characterName}`)
+        this.props.history.push(`/character/${this.props.region}/${this.state.characterName}`)
     }
 
     render() {
-        const {t, center} = this.props
+        const {t, center, region, setRegion} = this.props
 
         return (
             <form
@@ -41,8 +49,8 @@ class CharacterSearch extends React.PureComponent {
                 <RadioGroup
                     className="regionSelector"
                     size="small"
-                    value={this.state.region}
-                    onChange={e => this.changeRegion(e.target.value)}>
+                    value={region}
+                    onChange={e => setRegion(e.target.value)}>
                     <RadioButton value="na">NA</RadioButton>
                     <RadioButton value="eu">EU</RadioButton>
                     <RadioButton value="kr">KR</RadioButton>
@@ -63,4 +71,6 @@ class CharacterSearch extends React.PureComponent {
     }
 }
 
-export default withRouter(translate('general')(CharacterSearch))
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(translate('general')(CharacterSearch))
+)
