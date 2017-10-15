@@ -4,7 +4,7 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import {createStore, applyMiddleware} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
-import {persistStore, autoRehydrate} from 'redux-persist-immutable'
+//import {persistStore, autoRehydrate} from 'redux-persist-immutable'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import {Map} from 'immutable'
@@ -27,9 +27,12 @@ const composeEnhancers = composeWithDevTools({})
 const store = createStore(
     rootReducer,
     Map(),
-    composeEnhancers(applyMiddleware(thunk), autoRehydrate())
+    composeEnhancers(
+        applyMiddleware(thunk)
+        //autoRehydrate()
+    )
 )
-persistStore(store)
+//persistStore(store)
 
 const withTracker = WrappedComponent => {
     const trackPage = page => {

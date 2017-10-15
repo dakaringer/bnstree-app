@@ -14,13 +14,10 @@ import {
     badgeVoteDataSelector,
     userBadgeVoteDataSelector
 } from '../selectors'
+import {vote} from '../actions'
 
 import {Collapse, Button, Icon} from 'antd'
 const Panel = Collapse.Panel
-
-const postHeaders = {
-    'Content-type': 'application/json; charset=UTF-8'
-}
 
 const mapStateToProps = state => {
     return {
@@ -40,58 +37,40 @@ class BadgeListItem extends React.PureComponent {
         let state = {}
         props.elements.forEach(e => {
             let element = e.get('element')
-            state[element] = 0
+            state[element] = false
         })
 
         this.state = state
     }
 
-    vote(element, voted) {
-        let {itemId, classCode} = this.props
+    componentWillMount() {
+        const {userVoteData, itemId, elements} = this.props
 
-        if (!voted) {
-            let state = this.state
-            state[element] = state[element] + 1
-            this.setState(state)
-        }
+        let state = {}
+        elements.forEach(e => {
+            let element = e.get('element')
 
-        fetch('https://api.bnstree.com/items/vote', {
-            method: 'post',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({
-                item: itemId,
-                element: element,
-                classCode: classCode
-            })
+            let userVote = userVoteData
+                ? userVoteData.find(v => v.get('item') === itemId && v.get('element') === element)
+                : null
+
+            if (userVote) {
+                state[element] = true
+            }
         })
-            .then(response => response.json())
-            .then(json => {})
-            .catch(e => console.error(e))
+
+        this.setState(state)
     }
 
-    unvote(element, voted) {
+    vote(element) {
         let {itemId, classCode} = this.props
+        let state = this.state[element]
 
-        if (voted) {
-            let state = this.state
-            state[element] = state[element] - 1
-            this.setState(state)
-        }
+        vote(itemId, element, classCode, !state)
 
-        fetch('https://api.bnstree.com/items/unvote', {
-            method: 'delete',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({
-                item: itemId,
-                element: element,
-                classCode: classCode
-            })
-        })
-            .then(response => response.json())
-            .then(json => {})
-            .catch(e => console.error(e))
+        let newState = {}
+        newState[element] = !state
+        this.setState(newState)
     }
 
     render() {
@@ -135,12 +114,14 @@ class BadgeListItem extends React.PureComponent {
                 ? userVoteData.find(v => v.get('item') === itemId && v.get('element') === element)
                 : null
 
-            let voted = (userVote && this.state[element] === 0) || this.state[element] > 0
+            let voted = this.state[element]
 
             votes.push(
                 <span key={element} className="item-vote-element">
                     <img alt={element} src={elementImages[element]} />{' '}
-                    {voteCounts.get(element, 0) + this.state[element]}
+                    {voteCounts.get(element, 0) +
+                        (userVote ? -1 : 0) +
+                        (this.state[element] ? 1 : 0)}
                 </span>
             )
 
@@ -151,13 +132,7 @@ class BadgeListItem extends React.PureComponent {
                         type="primary"
                         size="small"
                         ghost={!voted}
-                        onClick={
-                            voted ? (
-                                () => this.unvote(element, voted)
-                            ) : (
-                                () => this.vote(element, voted)
-                            )
-                        }>
+                        onClick={() => this.vote(element)}>
                         <Icon type="arrow-up" />
                     </Button>
                 </span>

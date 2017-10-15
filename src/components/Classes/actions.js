@@ -216,6 +216,34 @@ const deleteBuildMutation = q`mutation (
     }
 }`
 
+const voteMutation = q`mutation (
+    $item: String!,
+    $classCode: String!,
+    $element: String!
+) {
+    Items {
+        vote(
+            item: $item,
+            classCode: $classCode,
+            element: $element
+        )
+    }
+}`
+
+const unvoteMutation = q`mutation (
+    $item: String!,
+    $classCode: String!,
+    $element: String!
+) {
+    Items {
+        unvote(
+            item: $item,
+            classCode: $classCode,
+            element: $element
+        )
+    }
+}`
+
 export function loadClass(classCode, buildCode, buildId) {
     return (dispatch, getState) => {
         dispatch(setCharacterMode(false))
@@ -450,4 +478,18 @@ export function learnMove(skill, move) {
             })
         }
     }
+}
+
+export function vote(item, element, classCode, vote = true) {
+    let mutation = vote ? voteMutation : unvoteMutation
+    apollo
+        .mutate({
+            mutation: mutation,
+            variables: {
+                item: item,
+                element: element,
+                classCode: classCode
+            }
+        })
+        .catch(e => console.error(e))
 }
