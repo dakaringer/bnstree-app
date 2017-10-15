@@ -68,11 +68,14 @@ class MarketItemViewer extends React.PureComponent {
                 )
 
                 this.setState({
-                    intervalId: intervalId,
-                    bookmarked: nextProps.itemData.get('bookmarked', false)
+                    intervalId: intervalId
                 })
             }
         }
+
+        this.setState({
+            bookmarked: nextProps.itemData.get('bookmarked', false)
+        })
     }
 
     componentWillUnmount() {
