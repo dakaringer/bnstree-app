@@ -257,31 +257,31 @@ export function loadClass(classCode, buildCode, buildId) {
         }
         if (!dataSelector(getState()).has(classCode)) {
             dispatch(setLoading(true, 'class'))
-            apollo
-                .query({
-                    query: classQuery,
-                    variables: {
-                        classCode: classCode
-                    }
-                })
-                .then(json => {
-                    let data = {
-                        buildCount: flatten(json.data.Classes.buildData.buildCount),
-                        statData: flatten(json.data.Classes.buildData.buildStatistics),
-                        classData: json.data.Classes.elementData.elements,
-                        groupData: flatten(json.data.Classes.skillData.skillGroups),
-                        skillData: flatten(json.data.Classes.skillData.skills),
-                        soulshieldData: flatten(json.data.Items.soulshields),
-                        badgeData: flatten(json.data.Items.badges),
-                        badgeVoteData: flatten(json.data.Items.itemVotes),
-                        userBadgeVoteData: json.data.Items.userVotes
-                    }
-                    dispatch(setClassData(classCode, data))
-                    dispatch(setBuildElement(classCode, data.classData[0].element))
-                })
-                .catch(e => console.error(e))
-                .then(() => dispatch(setLoading(false, 'class')))
         }
+        apollo
+            .query({
+                query: classQuery,
+                variables: {
+                    classCode: classCode
+                }
+            })
+            .then(json => {
+                let data = {
+                    buildCount: flatten(json.data.Classes.buildData.buildCount),
+                    statData: flatten(json.data.Classes.buildData.buildStatistics),
+                    classData: json.data.Classes.elementData.elements,
+                    groupData: flatten(json.data.Classes.skillData.skillGroups),
+                    skillData: flatten(json.data.Classes.skillData.skills),
+                    soulshieldData: flatten(json.data.Items.soulshields),
+                    badgeData: flatten(json.data.Items.badges),
+                    badgeVoteData: flatten(json.data.Items.itemVotes),
+                    userBadgeVoteData: json.data.Items.userVotes
+                }
+                dispatch(setClassData(classCode, data))
+                dispatch(setBuildElement(classCode, data.classData[0].element))
+            })
+            .catch(e => console.error(e))
+            .then(() => dispatch(setLoading(false, 'class')))
     }
 }
 
@@ -489,7 +489,8 @@ export function vote(item, element, classCode, vote = true) {
                 item: item,
                 element: element,
                 classCode: classCode
-            }
+            },
+            fetchPolicy: 'network-only'
         })
         .catch(e => console.error(e))
 }
