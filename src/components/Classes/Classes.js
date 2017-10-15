@@ -186,5 +186,5 @@ class Skills extends React.PureComponent {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    translate(['classes', 'general'])(Skills)
+    translate(['classes', 'general', 'character'])(Skills)
 )
