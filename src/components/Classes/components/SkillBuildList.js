@@ -80,7 +80,7 @@ class SkillBuildList extends React.PureComponent {
             let id = build.get('_id')
             let element = build.get('element')
 
-            let time = moment(build.get('datePosted'))
+            let time = moment(new Date(build.get('datePosted')))
             let n = null
             let timeString = ''
             if (now.diff(time, 'days') < 1) {

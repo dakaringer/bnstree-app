@@ -33,7 +33,7 @@ const SoulshieldList = props => {
     })
 
     return (
-        <Fade left wave className="item-list-container">
+        <Fade className="item-list-container">
             <h2>{t('PvE')}</h2>
             <div className="item-list soulshield-list-pve">{dungeons}</div>
             <h2>{t('6v6')}</h2>

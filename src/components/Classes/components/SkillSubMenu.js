@@ -4,9 +4,10 @@ import {translate} from 'react-i18next'
 
 import elementImages from '../images/map_elementImg'
 
-//import {userSelector} from '../../../selector'
-import {buildElementSelector, searchSelector, viewSelector, filterSelector} from '../selectors'
-import {toggleElement, setSearch, updateView, setFilter} from '../actions'
+import {setViewOption} from '../../../actions'
+import {viewSelector} from '../../../selectors'
+import {buildElementSelector, searchSelector, filterSelector} from '../selectors'
+import {toggleElement, setSearch, setFilter} from '../actions'
 
 import SkillSettings from './SkillSettings'
 import SkillShareMenu from './SkillShareMenu'
@@ -30,7 +31,7 @@ const mapStateToProps = state => {
     return {
         element: buildElementSelector(state),
         search: searchSelector(state),
-        visibility: viewSelector(state).get('visibility', 'ALL'),
+        visibility: viewSelector(state).get('skillVisibility', 'ALL'),
         currentFilter: filterSelector(state)
     }
 }
@@ -40,7 +41,7 @@ const mapDispatchToProps = dispatch => {
         toggleElement: () => dispatch(toggleElement()),
         setSearch: value => dispatch(setSearch(value)),
         toggleVisibility: e =>
-            dispatch(updateView('visibility', e.target.checked ? 'TRAINABLE' : 'ALL')),
+            dispatch(setViewOption('skillVisibility', e.target.checked ? 'TRAINABLE' : 'ALL')),
         setFilter: filter => dispatch(setFilter(filter))
     }
 }

@@ -7,8 +7,8 @@ import {Helmet} from 'react-helmet'
 import AdSense from '../AdSense/AdSense'
 
 import {currentLanguageSelector, loadingSelector, userSelector} from '../../selectors'
-import {viewSelector} from './selectors'
-import {loadTextData, loadClass} from './actions'
+import {viewSelector} from '../../selectors'
+import {loadTextData, loadClass, loadBuild} from './actions'
 
 import './styles/Classes.scss'
 
@@ -60,22 +60,29 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         loadText: lang => dispatch(loadTextData(lang)),
-        loadClass: (classCode, buildCode, buildLink) =>
-            dispatch(loadClass(classCode, buildCode, buildLink))
+        loadClass: classCode => dispatch(loadClass(classCode)),
+        loadBuild: (buildCode, buildId) => dispatch(loadBuild(buildCode, buildId))
     }
 }
 
 class Skills extends React.PureComponent {
     componentWillMount() {
-        const {location, match, currentLanguage, loadText, loadClass} = this.props
+        const {match, currentLanguage, loadText, loadClass} = this.props
 
-        let params = new URLSearchParams(location.search)
         let classCode = getClassCode(match.params.classCode)
         loadText(currentLanguage)
-        loadClass(classCode, params.get('b'), params.get('id'))
+        loadClass(classCode)
     }
     componentWillReceiveProps(nextProps) {
-        const {location, match, currentLanguage, loadText, loadClass} = this.props
+        const {
+            location,
+            match,
+            currentLanguage,
+            loading,
+            loadText,
+            loadClass,
+            loadBuild
+        } = this.props
 
         let params = new URLSearchParams(location.search)
         let nextParams = new URLSearchParams(nextProps.location.search)
@@ -83,11 +90,15 @@ class Skills extends React.PureComponent {
         if (nextProps.currentLanguage !== currentLanguage) {
             loadText(nextProps.currentLanguage)
         }
+        if (classCode !== getClassCode(match.params.classCode)) {
+            loadClass(classCode)
+        }
         if (
-            classCode !== getClassCode(match.params.classCode) ||
+            (nextProps.loading !== loading && loading === false) ||
+            nextParams.get('b') !== params.get('b') ||
             nextParams.get('id') !== params.get('id')
         ) {
-            loadClass(classCode, null, nextParams.get('id'))
+            loadBuild(nextParams.get('b'), nextParams.get('id'))
         }
     }
 
@@ -97,7 +108,7 @@ class Skills extends React.PureComponent {
         let skillComponent = null
         let classCode = getClassCode(match.params.classCode)
 
-        if (view.get('mode') === 'LIST') {
+        if (view.get('skillMode') === 'LIST') {
             skillComponent = (
                 <div>
                     <SkillSubMenu />

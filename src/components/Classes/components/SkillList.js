@@ -7,12 +7,13 @@ import {Link, Element, animateScroll} from 'react-scroll'
 
 import SkillListItem from './SkillListItem'
 
-import {catagorizedSkillDataSelector, viewSelector} from '../selectors'
+import {viewSelector} from '../../../selectors'
+import {catagorizedSkillDataSelector} from '../selectors'
 
 const mapStateToProps = state => {
     return {
         skillData: catagorizedSkillDataSelector(state),
-        order: viewSelector(state).get('order', 'LEVEL')
+        order: viewSelector(state).get('skillOrder', 'LEVEL')
     }
 }
 

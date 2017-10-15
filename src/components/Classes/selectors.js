@@ -1,7 +1,7 @@
 import {createSelector} from 'reselect'
 import {Map, List, fromJS} from 'immutable'
 
-import {currentLanguageSelector} from '../../selectors'
+import {currentLanguageSelector, viewSelector} from '../../selectors'
 import {characterSelector} from '../Character/selectors'
 
 function merger(a, b) {
@@ -133,18 +133,6 @@ export const charSelector = createSelector(
 )
 
 export const classSelector = createSelector(uiSelector, state => state.get('classCode', 'BM'))
-export const viewSelector = createSelector(
-    uiSelector,
-    characterModeSelector,
-    (state, characterMode) =>
-        characterMode
-            ? fromJS({
-                  mode: 'LIST',
-                  order: 'LEVEL',
-                  visibility: 'TRAINABLE'
-              })
-            : state.get('view', Map())
-)
 export const filterSelector = createSelector(uiSelector, state => state.get('filter', 'ALL'))
 export const searchSelector = createSelector(uiSelector, state => state.get('search', ''))
 export const patchSelector = createSelector(uiSelector, state => state.get('patch', 'BASE'))
@@ -333,9 +321,8 @@ const namedSkillDataSelector = createSelector(
     (data, names) => {
         return data.map(skill => {
             let id = skill.get('skillId')
-            let tags = skill
-                .get('tags', List())
-                .sort((a, b) => tagOrder.indexOf(a) - tagOrder.indexOf(b))
+            let tags = skill.get('tags', List()) || List()
+            tags = tags.sort((a, b) => tagOrder.indexOf(a) - tagOrder.indexOf(b))
             return skill
                 .set('name', names.getIn([id, 'name'], ''))
                 .set('icon', names.getIn([id, 'icon'], ''))
@@ -456,11 +443,14 @@ export const catagorizedSkillDataSelector = createSelector(
     (data, view) => {
         data = data.filter(group => group.get('moves', List()).size > 0)
 
-        if (view.get('visibility', 'ALL') !== 'ALL') {
+        if (view.get('skillVisibility', 'ALL') !== 'ALL') {
             data = data.filter(group => group.get('moves', List()).size > 1)
         }
 
-        if (view.get('mode', 'LIST') === 'ICON' || view.get('order', 'LEVEL') === 'HOTKEY') {
+        if (
+            view.get('skillMode', 'LIST') === 'ICON' ||
+            view.get('skillOrder', 'LEVEL') === 'HOTKEY'
+        ) {
             data = data
                 .groupBy(group => group.get('hotkey'))
                 .sortBy((value, key) => key, (a, b) => keyOrder.indexOf(a) - keyOrder.indexOf(b))

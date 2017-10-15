@@ -154,7 +154,6 @@ export function search(term) {
                     }
                 })
                 .then(json => {
-                    console.log()
                     let suggestions = json.data.Market.suggestion.filter(n => n)
                     dispatch(setSuggestions(suggestions))
                 })

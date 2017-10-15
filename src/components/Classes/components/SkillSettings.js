@@ -2,8 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {viewSelector, charSelector} from '../selectors'
-import {updateView, setStat, setElementDmg} from '../actions.js'
+import {charSelector} from '../selectors'
+import {setStat, setElementDmg} from '../actions'
+import {viewSelector} from '../../../selectors'
+import {setViewOption} from '../../../actions'
 
 import elementImages from '../images/map_elementImg'
 
@@ -20,7 +22,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateView: (type, value) => dispatch(updateView(type, value)),
+        updateView: (type, value) => dispatch(setViewOption(type, value)),
         setStat: (stat, value) => {
             const reg = /^(0|[1-9][0-9]*)$/
             if ((!isNaN(value) && reg.test(value)) || value === '') {
@@ -57,7 +59,7 @@ class SkillSettings extends React.PureComponent {
         const {show} = this.state
 
         let sortDiv = null
-        if (view.get('mode', 'LIST') === 'LIST') {
+        if (view.get('skillMode', 'LIST') === 'LIST') {
             sortDiv = (
                 <tr className="switchGroup">
                     <td>
@@ -66,8 +68,8 @@ class SkillSettings extends React.PureComponent {
                     <td>
                         <RadioGroup
                             size="small"
-                            value={view.get('order', 'LEVEL')}
-                            onChange={e => updateView('order', e.target.value)}>
+                            value={view.get('skillOrder', 'LEVEL')}
+                            onChange={e => updateView('skillOrder', e.target.value)}>
                             <RadioButton value="LEVEL">{t('level')}</RadioButton>
                             <RadioButton value="HOTKEY">{t('hotkey')}</RadioButton>
                         </RadioGroup>
@@ -182,8 +184,8 @@ class SkillSettings extends React.PureComponent {
                                 <td>
                                     <RadioGroup
                                         size="small"
-                                        value={view.get('mode', 'LIST')}
-                                        onChange={e => updateView('mode', e.target.value)}>
+                                        value={view.get('skillMode', 'LIST')}
+                                        onChange={e => updateView('skillMode', e.target.value)}>
                                         <RadioButton value="LIST">{t('list')}</RadioButton>
                                         <RadioButton value="ICON">{t('icon')}</RadioButton>
                                     </RadioGroup>

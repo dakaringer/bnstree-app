@@ -5,11 +5,6 @@ import * as actionType from './actionTypes'
 function ui(
     state = fromJS({
         classCode: 'BM',
-        view: {
-            mode: 'LIST',
-            order: 'LEVEL',
-            visibility: 'ALL'
-        },
         filter: 'ALL',
         search: '',
         patch: 'BASE',
@@ -20,8 +15,6 @@ function ui(
     switch (action.type) {
         case actionType.SKILL_UI_SET_CLASS:
             return state.set('classCode', action.classCode)
-        case actionType.SKILL_UI_SET_VIEW:
-            return state.setIn(['view', action.viewType], action.value)
         case actionType.SKILL_UI_SET_FILTER:
             return state.set('filter', action.filter)
         case actionType.SKILL_UI_SET_SEARCH:
@@ -78,7 +71,7 @@ function data(state = Map(), action) {
         case actionType.SKILL_DATA_SET_BUILD_LIST:
         case actionType.SKILL_DATA_SET_USER_BUILD_LIST:
             return state.set(
-                action.classCode,
+                action.classCode ? action.classCode : 'all',
                 classData(state.get(action.classCode, Map()), action)
             )
         default:

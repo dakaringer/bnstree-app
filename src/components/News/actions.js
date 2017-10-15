@@ -79,7 +79,10 @@ export function loadNews(page = 1) {
                 }
             })
             .then(json => {
-                dispatch(setList(json.data.Articles))
+                let result = Object.assign({}, json.data.Articles)
+                result.page = page
+                result.limit = 10
+                dispatch(setList(result))
             })
             .catch(e => console.error(e))
             .then(() => dispatch(setLoading(false, 'news')))

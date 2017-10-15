@@ -1,28 +1,24 @@
 import * as actionType from './actionTypes'
-import {Map} from 'immutable'
+import {Map, List} from 'immutable'
 import i18n from '../../i18n'
 import {message} from 'antd'
+import apollo, {q} from '../../apollo'
 
 import {makeActionCreator, flatten} from '../../helpers'
-import {setLoading} from '../../actions'
+import {setLoading, setViewOption} from '../../actions'
 import {
     dataSelector,
     classSelector,
     buildElementSelector,
     elementDataSelector,
     buildSelector,
-    refSelector,
+    buildListSelector,
     characterModeSelector,
     groupedSkillDataSelector
 } from './selectors'
 import {userSelector} from '../../selectors'
 
-const postHeaders = {
-    'Content-type': 'application/json; charset=UTF-8'
-}
-
 const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
-const setView = makeActionCreator(actionType.SKILL_UI_SET_VIEW, 'viewType', 'value')
 export const setFilter = makeActionCreator(actionType.SKILL_UI_SET_FILTER, 'filter')
 export const setSearch = makeActionCreator(actionType.SKILL_UI_SET_SEARCH, 'search')
 export const setPatch = makeActionCreator(actionType.SKILL_UI_SET_PATCH, 'patch')
@@ -64,6 +60,162 @@ const setSkillNames = makeActionCreator(
 )
 const setItemNames = makeActionCreator(actionType.SKILL_REF_SET_ITEM_NAMES, 'language', 'nameData')
 
+const classQuery = q`query ($classCode: String!) {
+    Classes {
+        elementData(classCode: $classCode) {
+            elements {
+                element
+                additionalFilters
+                buildFormat
+            }
+        }
+        skillData(classCode: $classCode) {
+            skills 
+            skillGroups {
+                _id
+                minLevel
+                hotkey
+            }
+        }
+        buildData(classCode: $classCode) {
+            buildCount {
+                _id
+                count
+            }
+            buildStatistics {
+                _id
+                types
+            }
+        }
+    }
+    Items {
+        badges(classCode: $classCode) 
+        soulshields(classCode: $classCode) 
+        itemVotes(classCode: $classCode) {
+            _id
+            count
+        }
+        userVotes(classCode: $classCode) {
+            element
+            item
+        }
+    }
+}`
+
+const namesQuery = q`query ($language: String!, $en: Boolean!) {
+    Classes {
+        names(language: $language) {
+            skills {
+                _id
+                name
+                icon
+            }
+            items {
+                _id
+                name
+                effect
+                icon
+            }
+        }
+        enNames: names(language: "en") @skip(if: $en) {
+            skills {
+                _id
+                name
+                icon
+            }
+            items {
+                _id
+                name
+                effect
+                icon
+            }
+        }
+    }
+}`
+
+const buildListQuery = q`query (
+    $page: Int,
+    $classCode: String,
+    $element: String,
+    $type: String,
+    $user: Boolean
+) {
+    SkillBuilds {
+        list(
+            limit: 10,
+            page: $page,
+            classCode: $classCode,
+            element: $element,
+            type: $type,
+            user: $user
+        ) {
+            _id
+            title
+            datePosted
+            type
+            classCode
+            element
+            buildObjects {
+                skillId: id
+                trait
+            }
+        }
+        count(
+            limit: 10,
+            page: $page,
+            classCode: $classCode,
+            element: $element,
+            type: $type,
+            user: $user
+        ) 
+    }
+}`
+
+const buildQuery = q`query ($id: ID!) {
+    SkillBuilds {
+        build(id: $id) {
+            _id
+            title
+            datePosted
+            type
+            classCode
+            element
+            buildObjects {
+                skillId: id
+                trait
+            }
+        }
+    }
+}`
+
+const saveBuildMutation = q`mutation (
+    $title: String!,
+    $classCode: String!,
+    $type : String!,
+    $element: String!,
+    $buildObjects: [BuildObjectInput]!
+) {
+    SkillBuilds {
+        createBuild(
+            title: $title,
+            classCode: $classCode,
+            type: $type,
+            element: $element,
+            buildObjects: $buildObjects
+        )
+    }
+}`
+
+const deleteBuildMutation = q`mutation (
+    $id: ID!
+) {
+    SkillBuilds {
+        deleteBuild(
+            id: $id
+        )
+    }
+}`
+
 export function loadClass(classCode, buildCode, buildId) {
     return (dispatch, getState) => {
         dispatch(setCharacterMode(false))
@@ -77,114 +229,131 @@ export function loadClass(classCode, buildCode, buildId) {
         }
         if (!dataSelector(getState()).has(classCode)) {
             dispatch(setLoading(true, 'class'))
-
-            dispatch(loadBadges())
-            dispatch(loadSoulshields())
-
-            fetch(`https://api.bnstree.com/classes/${classCode}`, {
-                method: 'get',
-                credentials: 'include'
-            })
-                .then(response => response.json())
-                .then(json => {
-                    if (json.success === 0 || !json.data) {
-                        return
-                    }
-                    let elements = json.data.classData.elements
-
-                    let data = json.data
-                    Object.keys(data).forEach(k => {
-                        if (k !== 'classData') {
-                            data[k] = flatten(data[k])
-                        }
-                    })
-                    data.classData = elements
-
-                    dispatch(setClassData(classCode, data))
-                    dispatch(setBuildElement(classCode, elements[0].element))
-                    dispatch(setView('mode', json.view.mode))
-                    dispatch(setView('order', json.view.order))
-                    dispatch(setView('visibility', json.view.visibility))
-
-                    if (buildCode || buildId) {
-                        dispatch(loadBuild(buildCode, buildId))
+            apollo
+                .query({
+                    query: classQuery,
+                    variables: {
+                        classCode: classCode
                     }
                 })
-                .then(() => dispatch(setLoading(false, 'class')))
+                .then(json => {
+                    let data = {
+                        buildCount: flatten(json.data.Classes.buildData.buildCount),
+                        statData: flatten(json.data.Classes.buildData.buildStatistics),
+                        classData: json.data.Classes.elementData.elements,
+                        groupData: flatten(json.data.Classes.skillData.skillGroups),
+                        skillData: flatten(json.data.Classes.skillData.skills),
+                        soulshieldData: flatten(json.data.Items.soulshields),
+                        badgeData: flatten(json.data.Items.badges),
+                        badgeVoteData: flatten(json.data.Items.itemVotes),
+                        userBadgeVoteData: json.data.Items.userVotes
+                    }
+                    dispatch(setClassData(classCode, data))
+                    dispatch(setBuildElement(classCode, data.classData[0].element))
+                })
                 .catch(e => console.error(e))
+                .then(() => dispatch(setLoading(false, 'class')))
         }
     }
 }
 
 export function loadTextData(lang) {
     return (dispatch, getState) => {
-        fetch(`https://api.bnstree.com/classes/names?lang=${lang}`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
+        apollo
+            .query({
+                query: namesQuery,
+                variables: {
+                    language: lang,
+                    en: lang === 'en'
+                }
+            })
             .then(json => {
-                if (json.success === 1) {
-                    dispatch(setSkillNames(json.lang, flatten(json.skillNames)))
-                    dispatch(setItemNames(json.lang, flatten(json.itemNames)))
+                dispatch(setSkillNames(lang, flatten(json.data.Classes.names.skills)))
+                dispatch(setItemNames(lang, flatten(json.data.Classes.names.items)))
+
+                if (json.data.Classes.enNames) {
+                    dispatch(setSkillNames('en', flatten(json.data.Classes.enNames.skills)))
+                    dispatch(setItemNames('en', flatten(json.data.Classes.enNames.items)))
                 }
             })
             .catch(e => console.error(e))
-
-        if (lang !== 'en' && !refSelector(getState()).hasIn(['skillNames', 'en'])) {
-            fetch('https://api.bnstree.com/classes/names?lang=en', {
-                method: 'get',
-                credentials: 'include'
-            })
-                .then(response => response.json())
-                .then(json => {
-                    if (json.success === 1) {
-                        dispatch(setSkillNames('en', flatten(json.skillNames)))
-                        dispatch(setItemNames('en', flatten(json.itemNames)))
-                    }
-                })
-                .catch(e => console.error(e))
-        }
     }
 }
 
-export function loadBuildList(
-    page = 1,
-    classCode = null,
-    element = null,
-    type = null,
-    user = null
-) {
+export function loadBuildList(page = 1, classCode, element = null, type = null, user = null) {
     return dispatch => {
-        let url = `https://api.bnstree.com/skill-builds?page=${page}&limit=10`
-        if (classCode) {
-            url += `&classCode=${classCode}`
-        }
-        if (element) {
-            url += `&element=${element}`
-        }
-        if (type) {
-            url += `&type=${type}`
-        }
-        if (user) {
-            url += '&user=true'
-        }
-
-        fetch(url, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
+        apollo
+            .query({
+                query: buildListQuery,
+                variables: {
+                    page: page,
+                    classCode: classCode,
+                    element: element,
+                    type: type,
+                    user: user
+                },
+                fetchPolicy: 'network-only'
+            })
             .then(json => {
-                if (json.success === 1) {
-                    if (user) {
-                        dispatch(setUserBuildList(classCode, json.result))
-                    } else {
-                        dispatch(setBuildList(classCode, json.result))
-                    }
+                if (user) {
+                    dispatch(setUserBuildList(classCode, json.data.SkillBuilds))
+                } else {
+                    dispatch(setBuildList(classCode, json.data.SkillBuilds))
                 }
             })
             .catch(e => console.error(e))
+    }
+}
+
+export function loadBuild(buildCode, buildId) {
+    return (dispatch, getState) => {
+        let classCode = classSelector(getState())
+
+        dispatch(setViewOption('skillVisibility', 'TRAINABLE'))
+        if (buildId) {
+            let buildList = buildListSelector(getState()).get('list', List())
+            let build = buildList.find(build => build.get('_id') === buildId)
+
+            if (build) {
+                dispatch(setBuildElement(classCode, build.get('element')))
+                build.get('buildObjects', List()).forEach(skill => {
+                    dispatch(learnMove(skill.get('skillId'), skill.get('trait')))
+                })
+                message.success(i18n.t('classes:buildLoaded'))
+            } else {
+                apollo
+                    .query({
+                        query: buildQuery,
+                        variables: {
+                            id: buildId
+                        }
+                    })
+                    .then(json => {
+                        let build = json.data.SkillBuilds.build
+                        dispatch(setBuildElement(classCode, build.element))
+                        build.buildObjects.forEach(skill => {
+                            dispatch(learnMove(skill.skillId, skill.trait))
+                        })
+                        message.success(i18n.t('classes:buildLoaded'))
+                    })
+                    .catch(e => {
+                        console.error(e)
+                        message.error(i18n.t('classes:buildLoadedFailed'))
+                    })
+            }
+        } else if (buildCode && !isNaN(buildCode)) {
+            let elementData = elementDataSelector(getState())
+            let currentElement = elementData.get(buildCode[0], elementData.get(0))
+            let buildString = buildCode.substring(1)
+            dispatch(setBuildElement(classCode, currentElement.get('element')))
+            currentElement.get('buildFormat', Map()).forEach((id, i) => {
+                if (buildString[i]) {
+                    let trait = parseInt(buildString[i], 10)
+                    dispatch(learnMove(id, trait))
+                }
+            })
+            message.success(i18n.t('classes:buildLoaded'))
+        }
     }
 }
 
@@ -213,102 +382,41 @@ export function postBuild(title, type) {
             buildObjects: buildObjects
         }
 
-        fetch('https://api.bnstree.com/skill-builds', {
-            method: 'post',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify(buildDoc)
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 1) {
-                    dispatch(loadBuildList(1, classCode))
-                    dispatch(loadBuildList(1, classCode, null, null, true))
-                    message.success(i18n.t('general:postSuccess'))
-                } else {
-                    message.error(i18n.t('general:fail'))
-                }
+        apollo
+            .mutate({
+                mutation: saveBuildMutation,
+                variables: buildDoc
             })
-            .catch(e => console.error(e))
+            .then(json => {
+                dispatch(loadBuildList(1, classCode))
+                dispatch(loadBuildList(1, classCode, null, null, true))
+                message.success(i18n.t('general:postSuccess'))
+            })
+            .catch(e => {
+                console.error(e)
+                message.error(i18n.t('general:fail'))
+            })
     }
 }
 
 export function deleteBuild(id, classCode) {
     return dispatch => {
-        fetch('https://api.bnstree.com/skill-builds', {
-            method: 'delete',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({id: id})
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 1 && json.result.n === 1) {
-                    message.success(i18n.t('general:deleteSuccess'))
-                } else {
-                    message.error(i18n.t('general:fail'))
+        apollo
+            .mutate({
+                mutation: deleteBuildMutation,
+                variables: {
+                    id: id
                 }
+            })
+            .then(json => {
+                message.success(i18n.t('general:deleteSuccess'))
                 dispatch(loadBuildList(1, classCode))
                 dispatch(loadBuildList(1, classCode, null, null, true))
             })
-            .catch(e => console.error(e))
-    }
-}
-
-export function loadBuild(buildCode, buildId) {
-    return (dispatch, getState) => {
-        let classCode = classSelector(getState())
-
-        dispatch(updateView('visibility', 'TRAINABLE'))
-        if (buildId) {
-            fetch(`https://api.bnstree.com/skill-builds/${buildId}`, {
-                method: 'get',
-                credentials: 'include'
+            .catch(e => {
+                console.error(e)
+                message.error(i18n.t('general:fail'))
             })
-                .then(response => response.json())
-                .then(json => {
-                    console.error(json)
-                    if (
-                        json.success === 1 &&
-                        json.build &&
-                        classCode === json.build.classCode &&
-                        json.build.buildObjects
-                    ) {
-                        dispatch(setBuildElement(classCode, json.build.element))
-                        json.build.buildObjects.forEach(skill => {
-                            dispatch(learnMove(skill.id, skill.trait))
-                        })
-
-                        message.success(i18n.t('classes:buildLoaded'))
-                    }
-                })
-                .catch(e => console.error(e))
-        } else if (!isNaN(buildCode)) {
-            let elementData = elementDataSelector(getState())
-            let currentElement = elementData.get(buildCode[0], elementData.get(0))
-            let buildString = buildCode.substring(1)
-            dispatch(setBuildElement(classCode, currentElement.get('element')))
-            currentElement.get('buildFormat', Map()).forEach((id, i) => {
-                if (buildString[i]) {
-                    let trait = parseInt(buildString[i], 10)
-                    dispatch(learnMove(id, trait))
-                }
-            })
-        }
-    }
-}
-
-export function updateView(type, value) {
-    return dispatch => {
-        dispatch(setView(type, value))
-        let obj = {}
-        obj[type] = value
-        fetch('https://api.bnstree.com/user/view', {
-            method: 'post',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify(obj)
-        }).catch(e => console.error(e))
     }
 }
 
@@ -341,66 +449,5 @@ export function learnMove(skill, move) {
                 }
             })
         }
-    }
-}
-
-function loadBadges() {
-    return (dispatch, getState) => {
-        let classCode = classSelector(getState())
-        dispatch(loadUserVotes())
-        fetch(`https://api.bnstree.com/items/badges/${classCode}`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 1) {
-                    let data = json.data
-                    Object.keys(data).forEach(k => {
-                        data[k] = flatten(data[k])
-                    })
-                    dispatch(setClassData(classCode, data))
-                }
-            })
-            .catch(e => console.error(e))
-    }
-}
-
-function loadUserVotes() {
-    return (dispatch, getState) => {
-        let classCode = classSelector(getState())
-        fetch(`https://api.bnstree.com/items/vote/${classCode}`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 1) {
-                    dispatch(setClassData(classCode, {userBadgeVoteData: json.data}))
-                }
-            })
-            .catch(e => console.error(e))
-    }
-}
-
-function loadSoulshields() {
-    return (dispatch, getState) => {
-        let classCode = classSelector(getState())
-        dispatch(loadUserVotes())
-        fetch(`https://api.bnstree.com/items/soulshields/${classCode}`, {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success === 1) {
-                    let data = json.data
-                    Object.keys(data).forEach(k => {
-                        data[k] = flatten(data[k])
-                    })
-                    dispatch(setClassData(classCode, data))
-                }
-            })
-            .catch(e => console.error(e))
     }
 }
