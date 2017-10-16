@@ -196,10 +196,11 @@ export const skillNamesSelector = createSelector(
 export const skillNamesSelectorEN = createSelector(refSelector, state =>
     state.getIn(['skillNames', 'en'], Map())
 )
-export const itemNamesSelector = createSelector(
-    refSelector,
-    currentLanguageSelector,
-    (state, language) => state.getIn(['itemNames', language], Map())
+const itemNamesSelector = createSelector(refSelector, currentLanguageSelector, (state, language) =>
+    state.getIn(['itemNames', language], Map())
+)
+export const itemNamesSelectorEN = createSelector(refSelector, state =>
+    state.getIn(['itemNames', 'en'], Map())
 )
 
 //badgeData
@@ -210,12 +211,12 @@ const badgeDataSelector = createSelector(
 const namedBadgeDataSelector = createSelector(
     badgeDataSelector,
     itemNamesSelector,
-    (data, names) => {
+    itemNamesSelectorEN,
+    (data, names, namesEN) => {
         return data.map(badge => {
             let id = badge.get('name')
-            return badge
-                .set('name', names.getIn([id, 'name'], ''))
-                .set('icon', names.getIn([id, 'icon'], ''))
+            let name = names.getIn([id, 'name']) || namesEN.getIn([id, 'name'])
+            return badge.set('name', name).set('icon', names.getIn([id, 'icon'], ''))
         })
     }
 )
@@ -270,12 +271,15 @@ const soulshieldDataSelector = createSelector(
 const namedSoulshieldDataSelector = createSelector(
     soulshieldDataSelector,
     itemNamesSelector,
-    (data, names) => {
+    itemNamesSelectorEN,
+    (data, names, namesEN) => {
         return data.map(set => {
             let id = set.get('name')
+            let name = names.getIn([id, 'name'], '') || namesEN.getIn([id, 'name'], '')
+            let effect = names.getIn([id, 'effect'], '') || namesEN.getIn([id, 'effect'], '')
             return set
-                .set('name', names.getIn([id, 'name'], ''))
-                .set('setEffect', names.getIn([id, 'effect'], ''))
+                .set('name', name)
+                .set('setEffect', effect)
                 .set('icon', names.getIn([id, 'icon'], ''))
         })
     }
@@ -318,13 +322,15 @@ const skillDataSelector = createSelector(classDataSelector, data => data.get('sk
 const namedSkillDataSelector = createSelector(
     skillDataSelector,
     skillNamesSelector,
-    (data, names) => {
+    skillNamesSelectorEN,
+    (data, names, namesEN) => {
         return data.map(skill => {
             let id = skill.get('skillId')
             let tags = skill.get('tags', List()) || List()
             tags = tags.sort((a, b) => tagOrder.indexOf(a) - tagOrder.indexOf(b))
+            let name = names.getIn([id, 'name']) || namesEN.getIn([id, 'name'])
             return skill
-                .set('name', names.getIn([id, 'name'], ''))
+                .set('name', name)
                 .set('icon', names.getIn([id, 'icon'], ''))
                 .set('tags', tags)
         })
