@@ -34,11 +34,7 @@ class Editor extends React.PureComponent {
         const {loadText, loadArticle, match} = this.props
 
         loadText('en')
-        if (match.params.id) {
-            loadArticle(match.params.id)
-        } else {
-            loadArticle(null)
-        }
+        loadArticle(match.params.id)
     }
 
     render() {

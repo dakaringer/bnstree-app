@@ -91,29 +91,32 @@ export function loadNews(page = 1) {
 
 export function loadArticle(id, editor = false) {
     return (dispatch, getState) => {
-        let list = listSelector(getState()).get('list', List())
+        dispatch(setEditorSaved(false))
+        dispatch(setEditorArticle({}))
 
+        let list = listSelector(getState()).get('list', List())
         let article = list.find(a => a.get('_id') === id)
 
         if (!article) {
             dispatch(setLoading(true, 'news'))
-
-            apollo
-                .query({
-                    query: articleQuery,
-                    variables: {
-                        id: id
-                    }
-                })
-                .then(json => {
-                    if (editor) {
-                        dispatch(setEditorArticle(json.data.Articles.article))
-                    } else {
-                        dispatch(setArticle(json.data.Articles.article))
-                    }
-                })
-                .catch(e => console.error(e))
-                .then(() => dispatch(setLoading(false, 'news')))
+            if (id) {
+                apollo
+                    .query({
+                        query: articleQuery,
+                        variables: {
+                            id: id
+                        }
+                    })
+                    .then(json => {
+                        if (editor) {
+                            dispatch(setEditorArticle(json.data.Articles.article))
+                        } else {
+                            dispatch(setArticle(json.data.Articles.article))
+                        }
+                    })
+                    .catch(e => console.error(e))
+                    .then(() => dispatch(setLoading(false, 'news')))
+            }
         } else {
             if (editor) {
                 dispatch(setEditorArticle(article))
