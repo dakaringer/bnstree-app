@@ -10,7 +10,7 @@ const SoybeanSprite = () => {
             <SpriteAnimator
                 className="soybeanSprite"
                 sprite={soybean}
-                scale={2}
+                scale={3}
                 width={245}
                 height={374}
                 shouldAnimate={true}
