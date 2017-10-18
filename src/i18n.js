@@ -42,7 +42,7 @@ i18n.use(Fetch).init({
     ns: 'general',
     fallbackNS: 'general',
     defaultNS: 'general',
-    debug: process.env.NODE_ENV !== 'production',
+    //debug: process.env.NODE_ENV !== 'production',
     preload: ['en'],
     interpolation: {
         escapeValue: false // not needed for react!!

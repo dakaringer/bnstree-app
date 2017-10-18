@@ -4,6 +4,10 @@
     padding: 1rem 0;
 
     .translator-selector-item {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
         .ant-badge-status-text {
             color: white;
             font-size: 1.4rem;

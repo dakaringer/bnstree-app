@@ -1,12 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {
-    languageSelector,
-    languageStatusSelector,
-    loadingSelector,
-    errorSelector
-} from '../selectors'
+import {languageSelector, languageStatusSelector, savingSelector, errorSelector} from '../selectors'
 import {setLanguageName, setLanguageStatus, saveTranslation} from '../actions'
 
 import {Checkbox, Icon, Tooltip, Button} from 'antd'
@@ -15,7 +10,7 @@ const mapStateToProps = state => {
     return {
         language: languageSelector(state),
         languageStatus: languageStatusSelector(state),
-        loading: loadingSelector(state),
+        saving: savingSelector(state),
         error: errorSelector(state)
     }
 }
@@ -29,16 +24,11 @@ const mapDispatchToProps = dispatch => {
 }
 
 const TranslatorStatusBar = props => {
-    let {language, languageStatus, setName, setStatus, save, loading, error} = props
+    let {language, languageStatus, setName, setStatus, save, saving, error} = props
 
     let loadingText = ''
-    if (loading.size !== 0) {
-        let loadingStatus = false
-        loading.forEach(l => {
-            loadingStatus = l || loadingStatus
-        })
-
-        loadingText = loadingStatus ? 'Saving' : `Saved ${new Date().toTimeString()}`
+    if (saving !== null) {
+        loadingText = saving ? 'Saving' : `Saved ${new Date().toTimeString()}`
     }
 
     if (error) {

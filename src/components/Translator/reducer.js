@@ -7,7 +7,7 @@ function ui(
         language: 'en',
         namespace: 'none',
         group: 'none',
-        loading: {},
+        saving: null,
         error: false
     }),
     action
@@ -19,8 +19,8 @@ function ui(
             return state.set('namespace', action.namespace)
         case actionType.SET_TRANSLATOR_GROUP:
             return state.set('group', action.group)
-        case actionType.SET_TRANSLATOR_LOADING:
-            return state.setIn(['loading', action.context], action.loading)
+        case actionType.SET_TRANSLATOR_SAVING:
+            return state.set('saving', action.saving)
         case actionType.SET_TRANSLATOR_ERROR:
             return state.set('error', action.error)
         default:
@@ -35,7 +35,8 @@ function data(
         languageData: List(),
         skillNames: List(),
         itemNames: List(),
-        dataStatus: Map()
+        dataStatus: Map(),
+        examples: Map()
     }),
     action
 ) {

@@ -8,7 +8,7 @@ const dataSelector = state => state.getIn(['translator', 'data'], Map())
 export const languageSelector = createSelector(uiSelector, state => state.get('language', ''))
 export const namespaceSelector = createSelector(uiSelector, state => state.get('namespace', null))
 export const groupSelector = createSelector(uiSelector, state => state.get('group', null))
-export const loadingSelector = createSelector(uiSelector, state => state.get('loading', Map()))
+export const savingSelector = createSelector(uiSelector, state => state.get('saving', null))
 export const errorSelector = createSelector(uiSelector, state => state.get('error', false))
 
 //data
@@ -24,6 +24,7 @@ export const rawSkillNameDataSelector = createSelector(dataSelector, data =>
 export const rawItemNameDataSelector = createSelector(dataSelector, data =>
     data.get('itemNames', List())
 )
+export const exampleDataSelector = createSelector(dataSelector, data => data.get('examples', Map()))
 
 export const referenceDataSelector = createSelector(dataSelector, data => {
     data = data

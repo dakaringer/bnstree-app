@@ -11,6 +11,7 @@
     .language-input-group {
         padding: 1.5rem 0.5rem;
         border-bottom: 0.1rem solid rgba(255, 255, 255, 0.3);
+        color: white;
 
         .language-input-header {
             display: flex;
@@ -27,10 +28,10 @@
 
         .language-key {
             margin-bottom: -0.2rem;
-            color: grey;
+            color: #aaa;
             font-size: 1.4rem;
             .ant-badge-status-text {
-                color: grey;
+                color: #aaa;
             }
         }
 
@@ -44,6 +45,25 @@
 
         .ssEffect {
             margin-top: 1rem;
+        }
+
+        .translator-example {
+            margin: 0.5rem 0;
+
+            h5 {
+                color: goldenrod;
+            }
+
+            .variable {
+                color: greenyellow;
+            }
+
+            .name {
+                color: aqua;
+                img {
+                    height: 1em;
+                }
+            }
         }
     }
 }

@@ -1,7 +1,8 @@
 import * as actionType from './actionTypes'
 import {Map, List} from 'immutable'
+import apollo, {q} from '../../apollo'
 
-import {makeActionCreator} from '../../helpers'
+import {makeActionCreator, flatten} from '../../helpers'
 import {setLoading} from '../../actions'
 import {
     namespaceSelector,
@@ -17,18 +18,10 @@ import {
     itemNameDataSelector
 } from './selectors'
 
-const postHeaders = {
-    'Content-type': 'application/json; charset=UTF-8'
-}
-
 const setLanguage = makeActionCreator(actionType.SET_TRANSLATOR_LANGUAGE, 'language')
 export const setNamespace = makeActionCreator(actionType.SET_TRANSLATOR_NAMESPACE, 'namespace')
 export const setGroup = makeActionCreator(actionType.SET_TRANSLATOR_GROUP, 'group')
-const setTranslatorLoading = makeActionCreator(
-    actionType.SET_TRANSLATOR_LOADING,
-    'loading',
-    'context'
-)
+const setTranslatorSaving = makeActionCreator(actionType.SET_TRANSLATOR_SAVING, 'saving')
 const setError = makeActionCreator(actionType.SET_TRANSLATOR_ERROR, 'error')
 
 export const setLanguageName = makeActionCreator(actionType.SET_TRANSLATOR_LANGUAGE_NAME, 'name')
@@ -58,23 +51,72 @@ const setLanguageDataStatusMap = makeActionCreator(
     'map'
 )
 
+const dataQuery = q`query {
+    Translator {
+        languageStatus {
+            _id
+            name
+            enabled
+        }
+        languageData {
+            _id
+            language
+            namespace
+            data
+        }
+        referenceData: languageData(reference: true) {
+            _id
+            language
+            namespace
+            data
+        }
+        skillNames
+        itemNames
+        language
+        skillExamples
+        badgeExamples
+        soulshieldExamples
+    }
+}`
+
+const saveMutation = q`mutation (
+    $languageStatus: LanguageStatusInput!,
+    $languageData: [LanguageGroupInput]!,
+    $skillNames: [NameInput]!,
+    $itemNames: [NameInput]!
+) {
+    Translator {
+        updateStatus(data: $languageStatus)
+        updateLanguageData(languageData: $languageData)
+        updateSkillNames(skillNames: $skillNames)
+        updateItemNames(itemNames: $itemNames)
+    }
+}`
+
 export function loadLanguageData() {
     return (dispatch, getState) => {
         dispatch(setLoading(true, 'language'))
-        fetch('https://api.bnstree.com/languages/data', {
-            method: 'get',
-            credentials: 'include'
-        })
-            .then(response => response.json())
+        dispatch(setError(false))
+        dispatch(setTranslatorSaving(null))
+
+        apollo
+            .query({
+                query: dataQuery
+            })
             .then(json => {
-                if (json.success === 1) {
-                    dispatch(setLanguage(json.lang))
-                    dispatch(setStatusData(json.languageStatus))
-                    dispatch(setData('referenceData', json.enReference))
-                    dispatch(setData('languageData', json.languageData))
-                    dispatch(setData('skillNames', json.skillNames))
-                    dispatch(setData('itemNames', json.itemNames))
-                }
+                let data = json.data.Translator
+                dispatch(setLanguage(data.language))
+                dispatch(setStatusData(data.languageStatus))
+                dispatch(setData('referenceData', data.referenceData))
+                dispatch(setData('languageData', data.languageData))
+                dispatch(setData('skillNames', data.skillNames))
+                dispatch(setData('itemNames', data.itemNames))
+
+                let examples = []
+                examples = examples.concat(data.skillExamples)
+                examples = examples.concat(data.badgeExamples)
+                examples = examples.concat(data.soulshieldExamples)
+                dispatch(setData('examples', flatten(examples)))
             })
             .then(() => {
                 dispatch(setLoading(false, 'language'))
@@ -186,43 +228,42 @@ export function editNameTranslation(key, type, value, reference) {
 
 export function saveTranslation() {
     return (dispatch, getState) => {
-        let languageData = rawLanguageDataSelector(getState()).toJS()
-        let skillNames = rawSkillNameDataSelector(getState()).toJS()
-        let itemNames = rawItemNameDataSelector(getState()).toJS()
+        let languageData = rawLanguageDataSelector(getState())
+        let skillNames = rawSkillNameDataSelector(getState())
+        let itemNames = rawItemNameDataSelector(getState())
         let status = languageStatusSelector(getState()).toJS()
 
         dispatch(setError(false))
-        dispatch(setTranslatorLoading(true, 'data'))
-        dispatch(setTranslatorLoading(true, 'status'))
-        fetch('https://api.bnstree.com/languages/data', {
-            method: 'post',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({
-                languageData: languageData,
-                skillNames: skillNames,
-                itemNames: itemNames
-            })
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success !== 1) dispatch(setError(true))
-            })
-            .then(() => dispatch(setTranslatorLoading(false, 'data')))
-            .catch(e => console.error(e))
+        dispatch(setTranslatorSaving(true))
 
-        fetch('https://api.bnstree.com/languages/status', {
-            method: 'post',
-            credentials: 'include',
-            headers: postHeaders,
-            body: JSON.stringify({data: status})
-        })
-            .then(response => response.json())
-            .then(json => {
-                if (json.success !== 1) dispatch(setError(true))
+        apollo
+            .mutate({
+                mutation: saveMutation,
+                variables: {
+                    languageStatus: {
+                        _id: status._id,
+                        name: status.name,
+                        enabled: status.enabled
+                    },
+                    languageData: languageData
+                        .map(data => {
+                            return {
+                                _id: data.get('_id'),
+                                language: data.get('language'),
+                                namespace: data.get('namespace'),
+                                data: data.get('data')
+                            }
+                        })
+                        .toJS(),
+                    skillNames: skillNames.toJS(),
+                    itemNames: itemNames.toJS()
+                }
             })
-            .then(() => dispatch(setTranslatorLoading(false, 'status')))
-            .catch(e => console.error(e))
+            .catch(e => {
+                console.error(e)
+                dispatch(setError(true))
+            })
+            .then(() => dispatch(setTranslatorSaving(false)))
     }
 }
 

@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 
 import {Badge} from 'antd'
 
+import TranslatorExample from './TranslatorExample'
+
 import {
     namespaceSelector,
     groupSelector,
@@ -10,7 +12,8 @@ import {
     languageGroupDataSelector,
     nameDataSelector,
     languageSelector,
-    dataStatusSelector
+    dataStatusSelector,
+    exampleDataSelector
 } from '../selectors'
 import {editTranslation, editNameTranslation} from '../actions'
 
@@ -22,7 +25,8 @@ const mapStateToProps = state => {
         languageData: languageGroupDataSelector(state),
         nameData: nameDataSelector(state),
         language: languageSelector(state),
-        dataStatus: dataStatusSelector(state)
+        dataStatus: dataStatusSelector(state),
+        examples: exampleDataSelector(state)
     }
 }
 
@@ -42,6 +46,7 @@ const TranslatorEditor = props => {
         nameData,
         dataStatus,
         language,
+        examples,
         edit,
         editName
     } = props
@@ -49,6 +54,18 @@ const TranslatorEditor = props => {
     let keys = []
     if (namespace !== 'skills' && namespace !== 'items') {
         referenceData.forEach((value, key) => {
+            let exampleData = examples.get(key, null)
+            let example = null
+            if (exampleData && exampleData.hasIn(['example', 'variables'])) {
+                example = (
+                    <TranslatorExample
+                        example={exampleData.get('example')}
+                        referenceData={value}
+                        languageData={languageData.get(key, '')}
+                    />
+                )
+            }
+
             if (!key.endsWith('_plural')) {
                 keys.push(
                     <div className="language-input-group" key={key}>
@@ -64,6 +81,7 @@ const TranslatorEditor = props => {
                             value={languageData.get(key, '')}
                             onChange={e => edit(key, e.target.value)}
                         />
+                        {example}
                     </div>
                 )
             }
