@@ -6,6 +6,7 @@ import right_4 from './overlay_4_right.png'
 import left_5 from './overlay_5_left.png'
 import right_5 from './overlay_5_right.png'
 import right_6 from './overlay_6_right.png'
+import center_7 from './overlay_7.png'
 
 const overlayImages = {
     set_1: {
@@ -51,6 +52,9 @@ const overlayImages = {
             right: '-10rem',
             height: '95%'
         }
+    },
+    set_7: {
+        center: center_7
     }
 }
 

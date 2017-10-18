@@ -8,6 +8,7 @@
     z-index: -1;
 
     .character-left,
+    .character-center,
     .character-right {
         height: 100%;
         position: absolute;
@@ -20,6 +21,12 @@
 
     .character-right {
         right: -5rem;
+    }
+
+    .character-center {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
     }
 
     @media (max-width: 991px) {
