@@ -7,11 +7,26 @@ const HomeCharacter = () => {
     let setNumber = Math.floor(Math.random() * max) + 1
     let set = overlayImages[`set_${setNumber}`]
 
+    let hidden = null
+    if (set.left && set.right) {
+        hidden = Math.floor(Math.random() * 2) + 1
+    }
+
     let left = set.left ? (
-        <img className="character-left" alt="character" src={set.left} style={set.leftStyle} />
+        <img 
+            className={`character-left ${hidden && hidden === 1 ? 'hidden' : ''}`} 
+            alt="character" 
+            src={set.left} 
+            style={set.leftStyle} 
+        />
     ) : null
     let right = set.right ? (
-        <img className="character-right" alt="character" src={set.right} style={set.rightStyle} />
+        <img 
+            className={`character-right ${hidden && hidden === 2 ? 'hidden' : ''}`} 
+            alt="character" 
+            src={set.right} 
+            style={set.rightStyle} 
+        />
     ) : null
     let center = set.center ? (
         <img
