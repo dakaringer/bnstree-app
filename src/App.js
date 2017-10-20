@@ -77,6 +77,11 @@ const Translator = asyncComponent(() =>
         .then(module => module.default)
         .catch(e => console.error(e))
 )
+const NotFound = asyncComponent(() =>
+    import('./components/Error/NotFound')
+        .then(module => module.default)
+        .catch(e => console.error(e))
+)
 
 const mapStateToProps = state => {
     return {
@@ -145,6 +150,8 @@ class App extends React.PureComponent {
                             {user && user.getIn(['role', 'translator']) ? (
                                 <Route path="/translator" component={Translator} />
                             ) : null}
+
+                            <Route component={NotFound} />
                         </Switch>
                     </div>
                     <SoybeanSprite />

@@ -7,19 +7,17 @@ import './styles/loading.scss'
 
 const LoadingLyn = () => {
     return (
-        <div className="loadingContainer">
-            <Fade>
-                <SpriteAnimator
-                    className="loadingSprite"
-                    sprite={loadingImg}
-                    width={150}
-                    height={64}
-                    shouldAnimate={true}
-                    direction="vertical"
-                    fps={30}
-                />
-            </Fade>
-        </div>
+        <Fade className="loadingContainer">
+            <SpriteAnimator
+                className="loadingSprite"
+                sprite={loadingImg}
+                width={150}
+                height={64}
+                shouldAnimate={true}
+                direction="vertical"
+                fps={30}
+            />
+        </Fade>
     )
 }
 
