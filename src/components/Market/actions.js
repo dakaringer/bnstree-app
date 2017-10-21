@@ -183,7 +183,10 @@ export function searchItem(term, exact = false) {
                 dispatch(setData(json.data.Market.search))
                 dispatch(setUpdate(new Date()))
             })
-            .catch(e => console.error(e))
+            .catch(e => {
+                console.error(e)
+                dispatch(setData({item: null}))
+            })
             .then(() => dispatch(setMarketLoading(false)))
     }
 }
@@ -207,7 +210,10 @@ export function loadItem(item, replace = false) {
                 dispatch(setData(json.data.Market.search))
                 dispatch(setUpdate(new Date()))
             })
-            .catch(e => console.error(e))
+            .catch(e => {
+                console.error(e)
+                dispatch(setData({item: null}))
+            })
             .then(() => dispatch(setMarketLoading(false)))
     }
 }
