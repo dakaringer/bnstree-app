@@ -141,7 +141,7 @@ class NavBar extends React.PureComponent {
         )
 
         return (
-            <Fade>
+            <Fade className="main-nav-wrapper">
                 <div className="main-nav" onMouseLeave={() => this.handleDropdown(null)}>
                     <div className={`dropdown-backdrop ${dropdownStatus ? 'active' : ''}`}>
                         <ul
