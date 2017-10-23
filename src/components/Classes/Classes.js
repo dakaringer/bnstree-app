@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
+import {Fade} from 'react-reveal'
 
 import AdSense from '../AdSense/AdSense'
 
@@ -167,7 +168,7 @@ class Skills extends React.PureComponent {
         }
 
         return (
-            <div className="skills">
+            <Fade className="skills">
                 <Helmet>
                     <title>{`${t(getPath(location.pathname))} - ${t(classCode)} | BnSTree`}</title>
                 </Helmet>
@@ -180,7 +181,7 @@ class Skills extends React.PureComponent {
                     <Header />
                     {content}
                 </div>
-            </div>
+            </Fade>
         )
     }
 }

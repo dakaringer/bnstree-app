@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
+import {Fade} from 'react-reveal'
 
 import './styles/News.scss'
 
@@ -38,7 +39,7 @@ const News = props => {
         )
 
     return (
-        <div className="news">
+        <Fade className="news">
             <Helmet>
                 <title>{`${t('news')} | BnSTree`}</title>
             </Helmet>
@@ -64,7 +65,7 @@ const News = props => {
                     />
                 </div>
             </div>
-        </div>
+        </Fade>
     )
 }
 
