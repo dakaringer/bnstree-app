@@ -23,3 +23,7 @@ export const loadingAppSelector = createSelector(generalSelector, ref =>
 export const supportedLanguagesSelector = createSelector(generalSelector, ref =>
     ref.get('supportedLanguages', List())
 )
+
+export const recentSearchSelector = createSelector(generalSelector, ref =>
+    ref.get('recentSearch', List())
+)

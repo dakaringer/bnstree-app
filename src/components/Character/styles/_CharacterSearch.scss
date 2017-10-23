@@ -38,3 +38,25 @@
         width: 100%;
     }
 }
+
+.character-search-recent {
+    width: 50rem;
+    max-width: 100%;
+    margin: 0 auto;
+
+    h4 {
+        color: deepskyblue;
+        margin-bottom: 0.5rem;
+    }
+
+    .recent-item {
+        padding: 0.5rem 0;
+        display: flex;
+        align-items: center;
+
+        .region {
+            margin-right: 1rem;
+            color: goldenrod;
+        }
+    }
+}

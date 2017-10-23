@@ -61,14 +61,14 @@ class Character extends React.PureComponent {
                             <Route
                                 exact
                                 path={'/character/:region'}
-                                render={() => <CharacterSearch center />}
+                                render={() => <CharacterSearch center recent />}
                             />
                             <Route
                                 exact
                                 path={'/character/:region/:character'}
                                 component={CharacterViewer}
                             />
-                            <Route render={() => <CharacterSearch center />} />
+                            <Route render={() => <CharacterSearch center recent />} />
                         </Switch>
                     </div>
                     <div className="slim-container">

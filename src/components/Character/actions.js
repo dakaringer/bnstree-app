@@ -1,7 +1,7 @@
 import * as actionType from './actionTypes'
 import {Map} from 'immutable'
 import {makeActionCreator} from '../../helpers'
-import {setLoading, setViewOption} from '../../actions'
+import {setLoading, setViewOption, setRecentSearch} from '../../actions'
 import apollo, {q} from '../../apollo'
 
 import {setCharacterMode, loadClass} from '../Classes/actions'
@@ -62,6 +62,15 @@ const unvoteMutation = q`mutation ($region: String!, $name: String!) {
     }
 }`
 
+const recentSearchMutation = q`mutation ($region: String!, $name: String!) {
+    User {
+        addRecentSearch (region: $region, name: $name) {
+            name
+            region
+        }
+    }
+}`
+
 export function loadCharacter(region, name) {
     return dispatch => {
         if (name) {
@@ -83,6 +92,19 @@ export function loadCharacter(region, name) {
                     dispatch(loadCharacterData(data))
                     dispatch(loadClass(classCode))
                     dispatch(setCharacterMode(true))
+
+                    apollo
+                        .mutate({
+                            mutation: recentSearchMutation,
+                            variables: {
+                                region: data.general.region,
+                                name: data.general.name
+                            }
+                        })
+                        .then(json => {
+                            dispatch(setRecentSearch(json.data.User.addRecentSearch))
+                        })
+                        .catch(e => console.error(e))
                 })
                 .catch(e => {
                     console.error(e)

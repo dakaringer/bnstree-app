@@ -12,6 +12,8 @@ const setSupportedLanguages = makeActionCreator(
     actionType.GENERAL_SET_SUPPORTED_LANGUAGES,
     'languages'
 )
+export const setRecentSearch = makeActionCreator(actionType.GENERAL_SET_RECENT_SEARCH, 'list')
+
 export const setLoading = makeActionCreator(actionType.GENERAL_SET_LOADING, 'loading', 'context')
 const setLoadingApp = makeActionCreator(actionType.GENERAL_SET_LOADING_APP, 'loading')
 
@@ -35,6 +37,10 @@ const initialQuery = q`query ($language: String!) {
         }
         loggedIn
         language (language: $language)
+        recentSearch {
+            name
+            region
+        }
     }
     Languages {
         supportedLanguages {
@@ -82,6 +88,7 @@ export function initialize(language) {
                 dispatch(setView(json.data.User.view))
                 dispatch(setLanguage(json.data.User.language))
                 dispatch(setSupportedLanguages(json.data.Languages.supportedLanguages))
+                dispatch(setRecentSearch(json.data.User.recentSearch))
                 i18n.changeLanguage(json.data.User.language)
             })
             .catch(e => console.error(e))

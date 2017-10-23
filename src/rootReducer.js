@@ -16,7 +16,8 @@ function general(
         view: {},
         loading: {},
         loadingApp: true,
-        supportedLanguages: []
+        supportedLanguages: [],
+        recentSearch: []
     }),
     action
 ) {
@@ -35,6 +36,8 @@ function general(
             return state.set('loadingApp', action.loading)
         case actionType.GENERAL_SET_SUPPORTED_LANGUAGES:
             return state.set('supportedLanguages', fromJS(action.languages))
+        case actionType.GENERAL_SET_RECENT_SEARCH:
+            return state.set('recentSearch', fromJS(action.list))
         default:
             return state
     }
