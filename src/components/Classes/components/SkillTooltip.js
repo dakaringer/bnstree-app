@@ -31,7 +31,11 @@ const SkillTooltip = props => {
             }
             focusTxt = (
                 <span>
-                    {focusHandler(comparisonData.get('focus', 0), t)}
+                    {focusHandler(
+                        comparisonData.get('focus', comparisonData.get('health', 0)),
+                        t,
+                        comparisonData.has('health')
+                    )}
                     <Icon type="caret-right" />
                     <span className="mod">{focusTxt}</span>
                 </span>
