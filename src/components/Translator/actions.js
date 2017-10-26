@@ -15,7 +15,10 @@ import {
     referenceDataSelector,
     languageDataSelector,
     skillNameDataSelector,
-    itemNameDataSelector
+    itemNameDataSelector,
+    savingLanguageDataSelector,
+    savingSkillNameDataSelector,
+    savingItemNameDataSelector
 } from './selectors'
 
 const setLanguage = makeActionCreator(actionType.SET_TRANSLATOR_LANGUAGE, 'language')
@@ -173,8 +176,10 @@ export function editTranslation(key, value) {
         let namespace = namespaceSelector(getState())
         let group = groupSelector(getState())
         let data = rawLanguageDataSelector(getState())
+        let savingData = savingLanguageDataSelector(getState())
 
         let index = data.findIndex(g => g.get('_id', '').substr(3) === group.substr(3))
+        let saveIndex = savingData.findIndex(g => g.get('_id', '').substr(3) === group.substr(3))
 
         let groupData =
             index !== -1
@@ -184,11 +189,21 @@ export function editTranslation(key, value) {
                       namespace: namespace,
                       language: languageCode
                   })
+        let savingGroupData =
+            saveIndex !== -1
+                ? data.get(index, Map())
+                : Map({
+                      _id: `${languageCode.toUpperCase()}_${group.substr(3)}`,
+                      namespace: namespace,
+                      language: languageCode
+                  })
 
         if (value.trim() !== '') {
             groupData = groupData.setIn(['data', key], value)
+            savingGroupData = savingGroupData.setIn(['data', key], value)
         } else {
             groupData = groupData.deleteIn(['data', key])
+            savingGroupData = savingGroupData.deleteIn(['data', key])
         }
 
         if (index !== -1) {
@@ -196,6 +211,12 @@ export function editTranslation(key, value) {
         } else {
             dispatch(pushData('languageData', groupData))
         }
+        if (saveIndex !== -1) {
+            dispatch(editData('savingLanguageData', saveIndex, savingGroupData))
+        } else {
+            dispatch(pushData('savingLanguageData', savingGroupData))
+        }
+
         dispatch(
             setLanguageDataStatus(namespace, group, key, verify(namespace, group, key, getState()))
         )
@@ -213,12 +234,24 @@ export function editNameTranslation(key, type, value, reference) {
             namespace === 'skills'
                 ? rawSkillNameDataSelector(getState())
                 : rawItemNameDataSelector(getState())
+        let savingData =
+            namespace === 'skills'
+                ? savingSkillNameDataSelector(getState())
+                : savingItemNameDataSelector(getState())
         let index = data.findIndex(g => g.get('_id', '') === key)
+        let saveIndex = savingData.findIndex(g => g.get('_id', '') === key)
 
         data = data.get(index).setIn([type, languageCode], value)
 
         let context = namespace === 'skills' ? 'skillNames' : 'itemNames'
         dispatch(editData(context, index, data))
+
+        let savingContext = namespace === 'skills' ? 'savingSkillNameData' : 'savingItemNameData'
+        if (saveIndex !== -1) {
+            dispatch(editData(savingContext, saveIndex, data))
+        } else {
+            dispatch(pushData(savingContext, data))
+        }
 
         dispatch(
             setLanguageDataStatus(namespace, group, key, value.trim() !== '' ? 'success' : 'error')
@@ -228,9 +261,9 @@ export function editNameTranslation(key, type, value, reference) {
 
 export function saveTranslation() {
     return (dispatch, getState) => {
-        let languageData = rawLanguageDataSelector(getState())
-        let skillNames = rawSkillNameDataSelector(getState())
-        let itemNames = rawItemNameDataSelector(getState())
+        let languageData = savingLanguageDataSelector(getState())
+        let skillNames = savingSkillNameDataSelector(getState())
+        let itemNames = savingItemNameDataSelector(getState())
         let status = languageStatusSelector(getState()).toJS()
 
         dispatch(setError(false))

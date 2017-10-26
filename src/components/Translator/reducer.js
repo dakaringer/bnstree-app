@@ -36,7 +36,10 @@ function data(
         skillNames: List(),
         itemNames: List(),
         dataStatus: Map(),
-        examples: Map()
+        examples: Map(),
+        savingLanguageData: List(),
+        savingSkillNameData: List(),
+        savingItemNameData: List()
     }),
     action
 ) {

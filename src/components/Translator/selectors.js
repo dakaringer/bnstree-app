@@ -26,6 +26,16 @@ export const rawItemNameDataSelector = createSelector(dataSelector, data =>
 )
 export const exampleDataSelector = createSelector(dataSelector, data => data.get('examples', Map()))
 
+export const savingLanguageDataSelector = createSelector(dataSelector, data =>
+    data.get('savingLanguageData', List())
+)
+export const savingSkillNameDataSelector = createSelector(dataSelector, data =>
+    data.get('savingSkillNameData', List())
+)
+export const savingItemNameDataSelector = createSelector(dataSelector, data =>
+    data.get('savingItemNameData', List())
+)
+
 export const referenceDataSelector = createSelector(dataSelector, data => {
     data = data
         .get('referenceData', List())
