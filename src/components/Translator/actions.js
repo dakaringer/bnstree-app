@@ -102,6 +102,10 @@ export function loadLanguageData() {
         dispatch(setError(false))
         dispatch(setTranslatorSaving(null))
 
+        dispatch(setData('savingLanguageData', []))
+        dispatch(setData('savingSkillNameData', []))
+        dispatch(setData('savingItemNameData', []))
+
         apollo
             .query({
                 query: dataQuery
@@ -291,6 +295,11 @@ export function saveTranslation() {
                     skillNames: skillNames.toJS(),
                     itemNames: itemNames.toJS()
                 }
+            })
+            .then(json => {
+                dispatch(setData('savingLanguageData', []))
+                dispatch(setData('savingSkillNameData', []))
+                dispatch(setData('savingItemNameData', []))
             })
             .catch(e => {
                 console.error(e)
