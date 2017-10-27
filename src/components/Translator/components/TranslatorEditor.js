@@ -56,7 +56,7 @@ const TranslatorEditor = props => {
         referenceData.forEach((value, key) => {
             let exampleData = examples.get(key, null)
             let example = null
-            if (exampleData && exampleData.hasIn(['example', 'variables'])) {
+            if (exampleData) {
                 example = (
                     <TranslatorExample
                         example={exampleData.get('example')}

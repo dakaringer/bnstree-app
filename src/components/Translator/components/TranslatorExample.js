@@ -35,44 +35,46 @@ export default connect(mapStateToProps)(TranslatorExample)
 
 function parse(data, variables, skillNames) {
     let result = data
-    variables = variables.set('additional', 'additional').set('element', 'element')
-    variables.forEach((value, v) => {
-        switch (v) {
-            case 'skill':
-            case 'skill-2':
-            case 'skillName':
-            case 'skillName-2': {
-                let skillList = []
-                if (List.isList(value)) {
-                    value.forEach(idString => {
-                        if (skillList.length !== 0) {
-                            skillList.push(', ')
-                        }
-                        skillList.push(getName(idString, skillNames, v.startsWith('skillName')))
-                    })
-                } else {
-                    skillList.push(getName(value, skillNames, v.startsWith('skillName')))
+    if (variables) {
+        variables = variables.set('additional', 'additional').set('element', 'element')
+        variables.forEach((value, v) => {
+            switch (v) {
+                case 'skill':
+                case 'skill-2':
+                case 'skillName':
+                case 'skillName-2': {
+                    let skillList = []
+                    if (List.isList(value)) {
+                        value.forEach(idString => {
+                            if (skillList.length !== 0) {
+                                skillList.push(', ')
+                            }
+                            skillList.push(getName(idString, skillNames, v.startsWith('skillName')))
+                        })
+                    } else {
+                        skillList.push(getName(value, skillNames, v.startsWith('skillName')))
+                    }
+                    value = <span>{skillList}</span>
+                    break
                 }
-                value = <span>{skillList}</span>
-                break
-            }
-            default: {
-                if (List.isList(value)) {
-                    value = `[${value.join(', ')}]`
+                default: {
+                    if (List.isList(value)) {
+                        value = `[${value.join(', ')}]`
+                    }
                 }
             }
-        }
-        let count = 0
-        let re = new RegExp(`({{${v}}})`, 'g')
-        result = replace(result, re, () => {
-            count++
-            return (
-                <span className="variable" key={v + count}>
-                    {value}
-                </span>
-            )
+            let count = 0
+            let re = new RegExp(`({{${v}}})`, 'g')
+            result = replace(result, re, () => {
+                count++
+                return (
+                    <span className="variable" key={v + count}>
+                        {value}
+                    </span>
+                )
+            })
         })
-    })
+    }
     return result
 }
 
