@@ -297,9 +297,12 @@ export function saveTranslation() {
                 }
             })
             .then(json => {
-                dispatch(setData('savingLanguageData', []))
-                dispatch(setData('savingSkillNameData', []))
-                dispatch(setData('savingItemNameData', []))
+                if (json.data.Translator.updateLanguageData)
+                    dispatch(setData('savingLanguageData', []))
+                if (json.data.Translator.updateSkillNames)
+                    dispatch(setData('savingSkillNameData', []))
+                if (json.data.Translator.updateItemNames)
+                    dispatch(setData('savingItemNameData', []))
             })
             .catch(e => {
                 console.error(e)
