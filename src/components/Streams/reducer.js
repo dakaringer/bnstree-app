@@ -5,7 +5,8 @@ import * as actionType from './actionTypes'
 function list(state = List(), action) {
     switch (action.type) {
         case actionType.SET_STREAM_LIST:
-            return fromJS(action.list)
+            if (action.list) return fromJS(action.list)
+            else return List()
         default:
             return state
     }
