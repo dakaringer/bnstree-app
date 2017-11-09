@@ -375,32 +375,8 @@ module.exports = {
             staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
             runtimeCaching: [
                 {
-                    urlPattern: /^https:\/\/api.bnstree\.com\/languages\/data/,
-                    handler: 'networkOnly'
-                },
-                {
-                    urlPattern: /^https:\/\/api.bnstree\.com\/languages(.*)initial/,
-                    handler: 'networkFirst'
-                },
-                {
-                    urlPattern: /^https:\/\/api.bnstree\.com\/market/,
-                    handler: 'networkFirst'
-                },
-                {
-                    urlPattern: /^https:\/\/api.bnstree\.com\/character/,
-                    handler: 'networkFirst'
-                },
-                {
-                    urlPattern: /^https:\/\/api.bnstree\.com\/streams/,
-                    handler: 'networkFirst'
-                },
-                {
-                    urlPattern: /^https:\/\/api.bnstree\.com\/skill-builds/,
-                    handler: 'networkFirst'
-                },
-                {
                     urlPattern: /^https:\/\/api.bnstree\.com/,
-                    handler: 'fastest'
+                    handler: 'networkFirst'
                 },
                 {
                     urlPattern: /^https:\/\/static.bnstree\.com/,
