@@ -56,7 +56,7 @@ const SkillList = props => {
         <StickyContainer className="skill-list">
             <div className="list">{list}</div>
             <div className="hotkey-bar-wrapper">
-                <Sticky bottomOffset={400}>
+                <Sticky bottomOffset={400} disableCompensation>
                     {({style}) => (
                         <div className="hotkey-bar" style={style}>
                             {hotkeyBar}
