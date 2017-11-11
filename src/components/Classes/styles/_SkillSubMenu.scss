@@ -1,6 +1,10 @@
 .skill-option-bar {
     margin-bottom: 2rem;
 
+    @media (max-width: 767px) {
+        margin-top: 0.75rem;
+    }
+
     .elementToggle {
         font-size: 2rem;
         img {
