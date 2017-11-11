@@ -184,7 +184,9 @@ class BadgeListItem extends React.PureComponent {
                                     <h3 className={`grade_${badge.get('grade')}`}>
                                         {badge.get('name')}
                                     </h3>
-                                    <div className="item-votes">{votes}</div>
+                                    <div className="item-votes">
+                                        <span>{t('recommendations')}:</span> {votes}
+                                    </div>
                                 </div>
                             </div>
                         }>
@@ -194,7 +196,7 @@ class BadgeListItem extends React.PureComponent {
                         {user ? (
                             <div className="item-vote-buttons">
                                 <hr />
-                                {voteButtons}
+                                <span>{t('recommend')}:</span> {voteButtons}
                             </div>
                         ) : null}
                     </Panel>

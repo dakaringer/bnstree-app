@@ -52,6 +52,10 @@
                     color: #aaa;
                     font-size: 1.2rem;
 
+                    span {
+                        margin-right: 1rem;
+                    }
+
                     .item-vote-element {
                         margin-right: 2rem;
                         img {
@@ -109,9 +113,15 @@
             }
 
             img {
-                height: 1.2em;
-                vertical-align: middle;
+                height: 1.8rem;
                 margin-right: 0.8rem;
+                vertical-align: sub;
+            }
+
+            span {
+                margin-right: 1rem;
+                color: #ccc;
+                font-size: 1.2rem;
             }
 
             .item-vote-button {
