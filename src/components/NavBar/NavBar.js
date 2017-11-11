@@ -172,7 +172,7 @@ class NavBar extends React.PureComponent {
                         </Link>
                     </div>
                     <div className="main-nav-right">
-                        <ul className="main-nav-menu">
+                        <Fade down duration={100} cascade tag="ul" className="main-nav-menu">
                             <li
                                 className="main-nav-menu-item"
                                 onMouseOver={() => this.handleDropdown(null)}>
@@ -207,7 +207,7 @@ class NavBar extends React.PureComponent {
                                 onMouseOver={() => this.handleDropdown(null)}>
                                 <NavLink to="/streams">{t('streams')}</NavLink>
                             </li>
-                        </ul>
+                        </Fade>
                         <ul className="main-nav-menu main-nav-submenu">
                             <li
                                 className={`main-nav-menu-item ${dropdownStatus === 'login'

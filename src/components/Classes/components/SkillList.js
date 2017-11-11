@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
+import {Fade} from 'react-reveal'
 
 import {StickyContainer, Sticky} from 'react-sticky'
 import {Link, Element, animateScroll} from 'react-scroll'
@@ -54,8 +55,8 @@ const SkillList = props => {
 
     return (
         <StickyContainer className="skill-list">
-            <div className="list">{list}</div>
-            <div className="hotkey-bar-wrapper">
+            <Fade className="list">{list}</Fade>
+            <Fade className="hotkey-bar-wrapper">
                 <Sticky bottomOffset={400} disableCompensation>
                     {({style}) => (
                         <div className="hotkey-bar" style={style}>
@@ -63,7 +64,7 @@ const SkillList = props => {
                         </div>
                     )}
                 </Sticky>
-            </div>
+            </Fade>
         </StickyContainer>
     )
 }
