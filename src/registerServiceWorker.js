@@ -8,6 +8,7 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 import {notification} from 'antd'
+import i18n from 'i18next'
 
 const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||
@@ -58,8 +59,8 @@ function registerValidSW(swUrl) {
                             // available; please refresh." message in your web app.
                             console.log('New content is available; please refresh.')
                             notification.info({
-                                message: 'New Update',
-                                description: 'New update is available. Please refresh.',
+                                message: i18n.t('general:update'),
+                                description: i18n.t('general:updateAvailable'),
                                 placement: 'bottomRight',
                                 duration: 0
                             })
