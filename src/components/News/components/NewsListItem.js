@@ -42,25 +42,7 @@ class NewsListItem extends React.PureComponent {
             timeString = time.format('ll')
         }
 
-        let thumb = null
-        if (article.get('thumb', '') === '') {
-            let i = Math.floor(Math.random() * 17 + 1)
-            thumb = (
-                <img
-                    alt="thumb"
-                    className="thumb"
-                    src={`https://static.bnstree.com/images/backgrounds/${i}_1.jpg`}
-                />
-            )
-        } else {
-            thumb = (
-                <img
-                    alt="thumb"
-                    className="thumb"
-                    src={`https://static.bnstree.com/images/thumbnails/${article.get('thumb')}.jpg`}
-                />
-            )
-        }
+        let thumb = <img alt="thumb" className="thumb" src={this.state.image} />
 
         return (
             <Link
