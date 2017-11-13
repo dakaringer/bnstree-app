@@ -1,12 +1,14 @@
-import {ApolloClient, createBatchingNetworkInterface, gql} from 'react-apollo'
+import {ApolloClient} from 'apollo-client'
+import {createHttpLink} from 'apollo-link-http'
+import {InMemoryCache} from 'apollo-cache-inmemory'
+import gql from 'graphql-tag'
 
 const client = new ApolloClient({
-    networkInterface: createBatchingNetworkInterface({
+    link: createHttpLink({
         uri: 'https://api.bnstree.com/graphql',
-        opts: {
-            credentials: 'include'
-        }
+        credentials: 'include'
     }),
+    cache: new InMemoryCache(),
     dataIdFromObject: o => {
         if (o.id) {
             return `${o.__typename}:${o.id}`
