@@ -2,21 +2,22 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
+import {viewSelector} from '../../../selectors'
 import {popularItemsSelector} from '../selectors'
-import {loadPopularItems, loadItem} from '../actions'
+import {loadPopularItems} from '../actions'
 
 import {parsePrice} from '../parser'
 
 const mapStateToProps = state => {
     return {
-        popularItems: popularItemsSelector(state)
+        popularItems: popularItemsSelector(state),
+        region: viewSelector(state).get('marketRegion', 'na')
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadPopularItems: () => dispatch(loadPopularItems()),
-        loadItem: id => dispatch(loadItem(id))
+        loadPopularItems: () => dispatch(loadPopularItems())
     }
 }
 
@@ -34,16 +35,15 @@ class MarketPopularItemList extends React.PureComponent {
     }
 
     render() {
-        const {popularItems, loadItem} = this.props
+        const {popularItems, region} = this.props
 
         let list = []
         popularItems.forEach(popularItem => {
             let item = popularItem.get('item')
             list.push(
                 <Link
-                    to="/market"
                     className="market-popular-item-list-item"
-                    onClick={() => loadItem(item.get('_id'))}
+                    to={`/market/${region}/${item.get('_id')}`}
                     key={item.get('_id')}>
                     <img alt={item.get('name')} src={item.get('icon')} />
                     <div className="item-desc">

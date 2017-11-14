@@ -9,7 +9,7 @@ const currency = ['gold', 'silver', 'copper']
 export function parsePrice(itemData) {
     let priceData = itemData.get('priceData', List())
 
-    let dayPrices = priceData.getIn([0, 'items'], List())
+    let dayPrices = priceData.getIn([0, 'items'], List()) || List()
     let offset = 1
     let latestFound = false
     let latest = List()

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Map, List} from 'immutable'
+import {List} from 'immutable'
 
 import {userSelector, viewSelector} from '../../../selectors'
 import {
@@ -16,7 +16,6 @@ import {setTerm, setGraph, loadItem, setIndicator, bookmark} from '../actions'
 
 import LoadingLyn from '../../LoadingLyn/LoadingLyn'
 import MarketChart from './MarketChart'
-import MarketPopularItemList from './MarketPopularItemList'
 
 import {parsePrice} from '../parser'
 
@@ -56,8 +55,13 @@ class MarketItemViewer extends React.PureComponent {
         }
     }
 
+    componentWillMount() {
+        const {match, loadItem} = this.props
+        loadItem(match.params.itemId, false, match.params.region)
+    }
+
     componentWillReceiveProps(nextProps) {
-        let {itemData, loadItem} = this.props
+        let {match, itemData, loadItem} = this.props
 
         if (itemData.getIn(['item', '_id']) !== nextProps.itemData.getIn(['item', '_id'])) {
             clearInterval(this.state.intervalId)
@@ -71,6 +75,13 @@ class MarketItemViewer extends React.PureComponent {
                     intervalId: intervalId
                 })
             }
+        }
+
+        if (
+            nextProps.match.params.itemId !== match.params.itemId ||
+            nextProps.match.params.region !== match.params.region
+        ) {
+            loadItem(nextProps.match.params.itemId, false, nextProps.match.params.region)
         }
 
         this.setState({
@@ -130,14 +141,7 @@ class MarketItemViewer extends React.PureComponent {
 
         let content = <LoadingLyn />
         if (!loading) {
-            if (itemData.equals(Map())) {
-                content = (
-                    <div className="market-popular-items">
-                        <h3>Popular Items</h3>
-                        <MarketPopularItemList />
-                    </div>
-                )
-            } else if (itemData.get('item')) {
+            if (itemData.get('item')) {
                 let indicatorCheckboxes = (
                     <div className="graph-indicators">
                         <Checkbox

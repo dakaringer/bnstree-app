@@ -51,7 +51,7 @@ class MarketChart extends React.PureComponent {
     render() {
         let {priceData, width, ratio, type, region, indicators} = this.props
 
-        if (priceData.size === 0) {
+        if (!priceData || priceData.size === 0) {
             return <div className="no-data">No Data</div>
         }
 

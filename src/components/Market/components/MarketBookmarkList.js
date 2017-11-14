@@ -2,24 +2,25 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import Sortable from 'react-sortablejs'
+import {Link} from 'react-router-dom'
 
-import {userSelector} from '../../../selectors'
+import {userSelector, viewSelector} from '../../../selectors'
 import {bookmarksSelector} from '../selectors'
-import {loadBookmarks, loadItem, updateBookmarkOrder} from '../actions'
+import {loadBookmarks, updateBookmarkOrder} from '../actions'
 
 import {parsePrice} from '../parser'
 
 const mapStateToProps = state => {
     return {
         user: userSelector(state),
-        bookmarks: bookmarksSelector(state)
+        bookmarks: bookmarksSelector(state),
+        region: viewSelector(state).get('marketRegion', 'na')
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadBookmarks: () => dispatch(loadBookmarks()),
-        loadItem: id => dispatch(loadItem(id))
+        loadBookmarks: () => dispatch(loadBookmarks())
     }
 }
 
@@ -51,7 +52,7 @@ class MarketBookmarkList extends React.PureComponent {
     }
 
     render() {
-        const {t, user, bookmarks, loadItem} = this.props
+        const {t, user, bookmarks, region} = this.props
         const {order} = this.state
 
         let signIn = null
@@ -66,9 +67,9 @@ class MarketBookmarkList extends React.PureComponent {
             .forEach(bookmark => {
                 let item = bookmark.get('item')
                 list.push(
-                    <a
+                    <Link
                         className="market-bookmark-list-item"
-                        onClick={() => loadItem(item.get('_id'))}
+                        to={`/market/${region}/${item.get('_id')}`}
                         key={item.get('_id')}
                         data-id={item.get('_id')}>
                         <img className="item-icon" alt={item.get('name')} src={item.get('icon')} />
@@ -76,7 +77,7 @@ class MarketBookmarkList extends React.PureComponent {
                             <p className={`grade_${item.get('grade')}`}>{item.get('name')}</p>
                             {parsePrice(bookmark)}
                         </div>
-                    </a>
+                    </Link>
                 )
             })
 

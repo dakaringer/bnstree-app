@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
+import {Link} from 'react-router-dom'
 
-import {updateRegion, setData} from '../actions'
+import {updateRegion} from '../actions'
 import {viewSelector} from '../../../selectors'
 
 import icon from '../images/GameUI_HeaderIcon_210.png'
@@ -19,20 +20,19 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setRegion: value => dispatch(updateRegion(value)),
-        reset: () => dispatch(setData({}))
+        setRegion: value => dispatch(updateRegion(value))
     }
 }
 
 const MarketHeader = props => {
-    const {t, region, setRegion, reset} = props
+    const {t, region, setRegion} = props
 
     return (
         <div className="market-header section-header">
-            <div className="header-title" onClick={() => reset()}>
+            <Link className="header-title" to="/market">
                 <img alt="market" src={icon} />
                 {t('market')}
-            </div>
+            </Link>
             <div className="header-right">
                 <RadioGroup
                     className="regionSelector"

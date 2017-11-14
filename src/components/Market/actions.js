@@ -164,11 +164,13 @@ export function search(term) {
     }
 }
 
-export function searchItem(term, exact = false) {
+export function searchItem(term, history, exact = false) {
     return (dispatch, getState) => {
         let region = viewSelector(getState()).get('marketRegion', 'na')
         dispatch(search(''))
         dispatch(setMarketLoading(true))
+
+        history.push(`/market/${region}/search`)
 
         apollo
             .query({
@@ -182,6 +184,7 @@ export function searchItem(term, exact = false) {
             .then(json => {
                 dispatch(setData(json.data.Market.search))
                 dispatch(setUpdate(new Date()))
+                history.replace(`/market/${region}/${json.data.Market.search.item._id}`)
             })
             .catch(e => {
                 console.error(e)
@@ -191,30 +194,35 @@ export function searchItem(term, exact = false) {
     }
 }
 
-export function loadItem(item, replace = false) {
+export function loadItem(item, replace = false, region) {
     return (dispatch, getState) => {
-        let region = viewSelector(getState()).get('marketRegion', 'na')
-        dispatch(search(''))
+        if (item !== 'search') {
+            if (!region) {
+                region = viewSelector(getState()).get('marketRegion', 'na')
+            }
 
-        if (!replace) dispatch(setMarketLoading(true))
+            if (!replace) dispatch(setMarketLoading(true))
 
-        apollo
-            .query({
-                query: itemQuery,
-                variables: {
-                    region: region,
-                    itemId: item
-                }
-            })
-            .then(json => {
-                dispatch(setData(json.data.Market.search))
-                dispatch(setUpdate(new Date()))
-            })
-            .catch(e => {
-                console.error(e)
-                dispatch(setData({item: null}))
-            })
-            .then(() => dispatch(setMarketLoading(false)))
+            apollo
+                .query({
+                    query: itemQuery,
+                    variables: {
+                        region: region,
+                        itemId: item
+                    }
+                })
+                .then(json => {
+                    dispatch(setData(json.data.Market.search))
+                    dispatch(setUpdate(new Date()))
+                })
+                .catch(e => {
+                    console.error(e)
+                    dispatch(setData({item: null}))
+                })
+                .then(() => dispatch(setMarketLoading(false)))
+        } else {
+            dispatch(setMarketLoading(false))
+        }
     }
 }
 

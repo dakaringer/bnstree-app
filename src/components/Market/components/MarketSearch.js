@@ -1,7 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
+import {withRouter} from 'react-router'
+import {Link} from 'react-router-dom'
 
+import {viewSelector} from '../../../selectors'
 import {search, loadItem, searchItem} from '../actions'
 import {searchSelector, suggestionsSelector} from '../selectors'
 
@@ -10,7 +13,8 @@ import {Icon, Checkbox} from 'antd'
 const mapStateToProps = state => {
     return {
         search: searchSelector(state),
-        suggestions: suggestionsSelector(state)
+        suggestions: suggestionsSelector(state),
+        region: viewSelector(state).get('marketRegion', 'na')
     }
 }
 
@@ -18,7 +22,7 @@ const mapDispatchToProps = dispatch => {
     return {
         setSearch: value => dispatch(search(value)),
         loadItem: id => dispatch(loadItem(id)),
-        searchItem: (search, exact) => dispatch(searchItem(search, exact))
+        searchItem: (search, history, exact) => dispatch(searchItem(search, history, exact))
     }
 }
 
@@ -32,7 +36,7 @@ class MarketSearch extends React.PureComponent {
     }
 
     handleKey(e) {
-        const {search, suggestions, loadItem, searchItem} = this.props
+        const {region, search, suggestions, history, searchItem} = this.props
         let size = suggestions.size
         let index = this.state.index
         switch (e.key) {
@@ -48,10 +52,10 @@ class MarketSearch extends React.PureComponent {
                 e.preventDefault()
                 if (search.trim() !== '') {
                     if (index === 0) {
-                        searchItem(search, this.state.exact)
+                        searchItem(search, history, this.state.exact)
                     } else {
                         let id = suggestions.getIn([index - 1, '_id'], null)
-                        if (id) loadItem(id)
+                        if (id) history.push(`/market/${region}/${id}`)
                     }
                 }
                 break
@@ -81,7 +85,7 @@ class MarketSearch extends React.PureComponent {
     }
 
     render() {
-        const {t, search, suggestions, loadItem, searchItem} = this.props
+        const {t, search, suggestions, region, history, searchItem} = this.props
 
         let suggestionList = []
         if (search.trim() !== '') {
@@ -89,20 +93,20 @@ class MarketSearch extends React.PureComponent {
                 <div
                     className={`suggestion-item ${this.state.index === 0 ? 'selected' : ''}`}
                     key="search"
-                    onClick={() => searchItem(search)}>
+                    onClick={() => searchItem(search, history)}>
                     <span>{search}</span>
                 </div>
             )
         }
         suggestions.forEach((item, i) => {
             suggestionList.push(
-                <div
+                <Link
                     className={`suggestion-item ${this.state.index === i + 1 ? 'selected' : ''}`}
                     key={item.get('_id')}
-                    onClick={() => loadItem(item.get('_id'))}>
+                    to={`/market/${region}/${item.get('_id')}`}>
                     <img alt={item.get('name')} src={item.get('icon')} />
                     <span className={`grade_${item.get('grade')}`}>{item.get('name')}</span>
-                </div>
+                </Link>
             )
         })
 
@@ -136,4 +140,6 @@ class MarketSearch extends React.PureComponent {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('market')(MarketSearch))
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(translate('market')(MarketSearch))
+)

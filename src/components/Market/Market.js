@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
+import {Route, Switch} from 'react-router-dom'
 
 import {Row, Col} from 'antd'
 
@@ -15,6 +16,7 @@ import Header from './components/MarketHeader'
 import MarketSearch from './components/MarketSearch'
 import MarketItemViewer from './components/MarketItemViewer'
 import MarketBookmarkList from './components/MarketBookmarkList'
+import MarketPopularItemList from './components/MarketPopularItemList'
 
 import {loadingSelector} from '../../selectors'
 
@@ -38,7 +40,14 @@ const Market = props => {
                             <MarketBookmarkList />
                         </Col>
                         <Col md={18}>
-                            <MarketItemViewer />
+                            <Switch>
+                                <Route
+                                    exact
+                                    path={'/market/:region/:itemId'}
+                                    component={MarketItemViewer}
+                                />
+                                <Route component={MarketPopularItemList} />
+                            </Switch>
                         </Col>
                     </Row>
                 </div>
