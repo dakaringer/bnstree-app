@@ -46,7 +46,7 @@ const Home = props => {
             <Helmet>
                 <title>BnSTree</title>
             </Helmet>
-            <div className="home-top">
+            <Fade className="home-top">
                 <div className="dummy-container" />
                 <CharacterSearch center />
                 <div className="home-ad-container">
@@ -58,7 +58,7 @@ const Home = props => {
                 </div>
                 <HomeCharacter />
                 <HomeClassLinks />
-            </div>
+            </Fade>
             <div className="home-bottom">
                 <div className="home-container container">
                     <Fade>

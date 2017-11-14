@@ -12,18 +12,12 @@ const HomeClassLinks = props => {
         links.push(
             <Link to={`/classes/${c[1]}`} className="class-link" key={c[0]}>
                 <img alt={c[1]} src={classImages[c[0]]} />
-                <p>
-                    {t(c[0])}
-                </p>
+                <p>{t(c[0])}</p>
             </Link>
         )
     })
 
-    return (
-        <div className="home-class-links">
-            {links}
-        </div>
-    )
+    return <div className="home-class-links">{links}</div>
 }
 
 export default translate('general')(HomeClassLinks)

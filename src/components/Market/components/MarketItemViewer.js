@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {List} from 'immutable'
+import {Fade} from 'react-reveal'
 
 import {userSelector, viewSelector} from '../../../selectors'
 import {
@@ -226,7 +227,7 @@ class MarketItemViewer extends React.PureComponent {
             }
         }
 
-        return <div className="market-item-viewer">{content}</div>
+        return <Fade className="market-item-viewer">{content}</Fade>
     }
 }
 
