@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 
 import {viewSelector, recentSearchSelector} from '../../../selectors'
 import {setViewOption} from '../../../actions'
+import {loadCharacter} from '../actions'
 
 import {Icon, Radio} from 'antd'
 const RadioButton = Radio.Button
@@ -20,7 +21,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setRegion: region => dispatch(setViewOption('characterRegion', region))
+        setRegion: region => dispatch(setViewOption('characterRegion', region)),
+        loadCharacter: (region, name, history) => dispatch(loadCharacter(region, name, history))
     }
 }
 
@@ -45,7 +47,8 @@ class CharacterSearch extends React.PureComponent {
 
     searchCharacter(e) {
         e.preventDefault()
-        this.props.history.push(`/character/${this.props.region}/${this.state.characterName}`)
+        let {history, region, loadCharacter} = this.props
+        loadCharacter(region, this.state.characterName, history)
     }
 
     render() {

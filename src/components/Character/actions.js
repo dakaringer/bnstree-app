@@ -71,11 +71,15 @@ const recentSearchMutation = q`mutation ($region: String!, $name: String!) {
     }
 }`
 
-export function loadCharacter(region, name) {
+export function loadCharacter(region, name, history) {
     return dispatch => {
         if (name) {
             dispatch(setLoading(true, 'character'))
             dispatch(setViewOption('characterRegion', region))
+
+            if (history) {
+                history.push(`/character/${region}/${name}`)
+            }
 
             apollo
                 .query({
