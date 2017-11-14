@@ -65,12 +65,17 @@ class CharacterEquips extends React.PureComponent {
         equipData.getIn(['soulshield', 'pieces'], List()).forEach((piece, i) => {
             if (piece) {
                 ssPieces.push(
-                    <img
-                        alt={i}
-                        className={`soulshield-piece soulshield_${i + 1}`}
-                        src={parseIcon(piece, region)}
+                    <Tooltip
                         key={i}
-                    />
+                        placement="right"
+                        title={`${equipData.getIn(['soulshield', 'pieceNames', i])} ${i + 1}`}
+                        visible={`soulshield_${i + 1}` === this.state.hover}>
+                        <img
+                            alt={i}
+                            className={`soulshield-piece soulshield_${i + 1}`}
+                            src={parseIcon(piece, region)}
+                        />
+                    </Tooltip>
                 )
             }
         })
