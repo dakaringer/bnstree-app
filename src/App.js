@@ -4,11 +4,12 @@ import {Route, Switch, Redirect} from 'react-router-dom'
 
 import {loadingAppSelector, userSelector} from './selectors'
 
-import NavBar, {classes} from './components/NavBar/NavBar'
+import NavBar from './components/NavBar/NavBar'
 import LoadingLyn from './components/LoadingLyn/LoadingLyn'
 import Background from './components/Background/Background'
 import SoybeanSprite from './components/Sprites/SoybeanSprite/SoybeanSprite'
 
+import classes from './components/NavBar/classes'
 import './styles/App.scss'
 
 function asyncComponent(getComponent) {
@@ -54,6 +55,11 @@ const News = asyncComponent(() =>
 )
 const Skills = asyncComponent(() =>
     import('./components/Skills/Skills')
+        .then(module => module.default)
+        .catch(e => console.error(e))
+)
+const Items = asyncComponent(() =>
+    import('./components/Items/Items')
         .then(module => module.default)
         .catch(e => console.error(e))
 )
@@ -164,6 +170,7 @@ class App extends React.PureComponent {
 
                             <Route path="/news" component={News} />
                             <Route path="/skills/:classCode" component={Skills} />
+                            <Route path="/items/:type" component={Items} />
                             <Route path="/market" component={Market} />
                             <Route path="/character" component={Character} />
                             <Route path="/streams" component={Streams} />

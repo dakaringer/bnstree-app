@@ -12,22 +12,10 @@ import './styles/NavBar.scss'
 
 import mainLogo from './images/logo.png'
 import gLogo from './images/g-logo.png'
+import classes from './classes'
 
 import {Collapse, Avatar} from 'antd'
 const Panel = Collapse.Panel
-
-export const classes = [
-    ['BM', 'blade-master'],
-    ['KF', 'kung-fu-master'],
-    ['DE', 'destroyer'],
-    ['FM', 'force-master'],
-    ['AS', 'assassin'],
-    ['SU', 'summoner'],
-    ['BD', 'blade-dancer'],
-    ['WL', 'warlock'],
-    ['SF', 'soul-fighter'],
-    ['SH', 'gunslinger']
-]
 
 const mapStateToProps = state => {
     return {

@@ -12,7 +12,7 @@ import {loadTextData, loadSkills, loadBuild} from './actions'
 
 import './styles/Skills.scss'
 
-import {classes} from '../NavBar/NavBar'
+import classes from '../NavBar/classes'
 import LoadingLyn from '../LoadingLyn/LoadingLyn'
 import Header from './components/SkillHeader'
 import SkillSubMenu from './components/SkillSubMenu'
