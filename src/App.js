@@ -58,11 +58,6 @@ const Skills = asyncComponent(() =>
         .then(module => module.default)
         .catch(e => console.error(e))
 )
-const Items = asyncComponent(() =>
-    import('./components/Items/Items')
-        .then(module => module.default)
-        .catch(e => console.error(e))
-)
 const Market = asyncComponent(() =>
     import('./components/Market/Market')
         .then(module => module.default)
