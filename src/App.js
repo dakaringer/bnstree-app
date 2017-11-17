@@ -98,16 +98,7 @@ class App extends React.PureComponent {
         classes.forEach(c => {
             redirectLinks.push(
                 <Redirect
-                    key={`${c[0]}-0`}
-                    exact
-                    from={`/classes/${c[1]}`}
-                    to={{
-                        search: location.search,
-                        pathname: `/skills/${c[1]}`
-                    }}
-                />,
-                <Redirect
-                    key={`${c[0]}-1`}
+                    key={`${c[0]}-skill`}
                     exact
                     from={`/skill/${c[0]}`}
                     to={{
@@ -116,24 +107,53 @@ class App extends React.PureComponent {
                     }}
                 />,
                 <Redirect
-                    key={`${c[0]}-2`}
+                    key={`${c[0]}-skill-id`}
                     exact
                     from={`/skill/${c[0]}/:id`}
                     to={{
                         search: `?id=${location.pathname.split('/').slice(-1)[0]}`,
                         pathname: `/skills/${c[1]}`
                     }}
+                />,
+                <Redirect
+                    key={`${c[0]}-classes`}
+                    exact
+                    from={`/classes/${c[1]}`}
+                    to={{
+                        search: location.search,
+                        pathname: `/skills/${c[1]}`
+                    }}
+                />,
+                <Redirect
+                    key={`${c[0]}-classes-my-builds`}
+                    exact
+                    from={`/classes/${c[1]}/builds`}
+                    to={`/skills/${c[1]}/builds`}
+                />,
+                <Redirect
+                    key={`${c[0]}-classes-my-builds`}
+                    exact
+                    from={`/classes/${c[1]}/my-builds`}
+                    to={`/skills/${c[1]}/my-builds`}
+                />,
+                <Redirect
+                    key={`${c[0]}-classes-badges`}
+                    exact
+                    from={`/classes/${c[1]}/badges`}
+                    to={`/skills/${c[1]}/badges`}
+                />,
+                <Redirect
+                    key={`${c[0]}-classes-soulshields`}
+                    exact
+                    from={`/classes/${c[1]}/soulshields`}
+                    to={`/skills/${c[1]}/soulshields`}
                 />
             )
         })
 
         let year = new Date().getFullYear()
 
-        let app = (
-            <div className="App">
-                <LoadingLyn />
-            </div>
-        )
+        let app = null
         if (!loading) {
             app = (
                 <div className="App">
@@ -143,17 +163,9 @@ class App extends React.PureComponent {
                             <Route exact path="/" component={Home} />
 
                             <Route path="/news" component={News} />
-
-                            <Redirect exact from="/classes" to="/skills/blade-master" />
-                            <Redirect from="/classes/shooter" to="/skills/gunslinger" />
-                            {redirectLinks}
                             <Route path="/skills/:classCode" component={Skills} />
-
                             <Route path="/market" component={Market} />
                             <Route path="/character" component={Character} />
-
-                            <Redirect from="/soulshield" to="/classes/blade-master/soulshields" />
-
                             <Route path="/streams" component={Streams} />
 
                             {user && user.getIn(['role', 'translator']) ? (
@@ -161,9 +173,19 @@ class App extends React.PureComponent {
                             ) : null}
 
                             <Route component={NotFound} />
+                            <Redirect exact from="/classes" to="/skills/blade-master" />
+                            <Redirect from="/classes/shooter" to="/skills/gunslinger" />
+                            <Redirect from="/soulshield" to="/classes/blade-master/soulshields" />
+                            {redirectLinks}
                         </Switch>
                     </div>
                     <SoybeanSprite />
+                </div>
+            )
+        } else {
+            app = (
+                <div className="App">
+                    <LoadingLyn />
                 </div>
             )
         }
