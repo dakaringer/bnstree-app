@@ -173,11 +173,11 @@ class App extends React.PureComponent {
                                 <Route path="/translator" component={Translator} />
                             ) : null}
 
-                            <Route component={NotFound} />
                             <Redirect exact from="/classes" to="/skills/blade-master" />
                             <Redirect from="/classes/shooter" to="/skills/gunslinger" />
                             <Redirect from="/soulshield" to="/classes/blade-master/soulshields" />
                             {redirectLinks}
+                            <Route component={NotFound} />
                         </Switch>
                     </div>
                     <SoybeanSprite />
