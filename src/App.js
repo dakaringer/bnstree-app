@@ -165,7 +165,6 @@ class App extends React.PureComponent {
 
                             <Route path="/news" component={News} />
                             <Route path="/skills/:classCode" component={Skills} />
-                            <Route path="/items/:type" component={Items} />
                             <Route path="/market" component={Market} />
                             <Route path="/character" component={Character} />
                             <Route path="/streams" component={Streams} />
