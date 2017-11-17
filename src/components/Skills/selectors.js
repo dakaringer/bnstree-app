@@ -424,12 +424,14 @@ const filteredSkillDataSelector = createSelector(
                 }
 
                 filterOK = filterOK || filterList.includes(filter)
-                searchOK =
-                    searchOK ||
-                    skill
-                        .get('name', '')
-                        .toLowerCase()
-                        .startsWith(search.trim().toLowerCase())
+                if (skill.get('name')) {
+                    searchOK =
+                        searchOK ||
+                        skill
+                            .get('name', '')
+                            .toLowerCase()
+                            .startsWith(search.trim().toLowerCase())
+                }
             })
 
             return filterOK && searchOK
