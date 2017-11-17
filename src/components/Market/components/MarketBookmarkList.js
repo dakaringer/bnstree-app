@@ -85,7 +85,12 @@ class MarketBookmarkList extends React.PureComponent {
             <div className="market-bookmark-list">
                 <h4>{t('bookmarks')}</h4>
                 {signIn}
-                <Sortable onChange={order => this.reorder(order)} className="sortable">
+                <Sortable
+                    onChange={order => this.reorder(order)}
+                    className="sortable"
+                    options={{
+                        delay: 150
+                    }}>
                     {list}
                 </Sortable>
             </div>
