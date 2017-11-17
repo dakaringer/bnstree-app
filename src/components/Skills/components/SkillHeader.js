@@ -5,7 +5,7 @@ import {NavLink, withRouter} from 'react-router-dom'
 
 import {Icon, Popover, Menu, Dropdown} from 'antd'
 
-import {classes} from '../../NavBar/NavBar'
+import classes from '../../NavBar/classes'
 import classImages from '../images/map_classImg'
 
 import {userSelector} from '../../../selectors'
@@ -18,7 +18,7 @@ const mapStateToProps = state => {
     }
 }
 
-class ClassHeader extends React.PureComponent {
+class SkillHeader extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -125,4 +125,4 @@ class ClassHeader extends React.PureComponent {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(translate(['classes', 'general'])(ClassHeader)))
+export default withRouter(connect(mapStateToProps)(translate(['classes', 'general'])(SkillHeader)))

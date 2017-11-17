@@ -14,7 +14,7 @@ import './styles/Skills.scss'
 
 import {classes} from '../NavBar/NavBar'
 import LoadingLyn from '../LoadingLyn/LoadingLyn'
-import Header from './components/ClassHeader'
+import Header from './components/SkillHeader'
 import SkillSubMenu from './components/SkillSubMenu'
 import SkillList from './components/SkillList'
 import SkillGrid from './components/SkillGrid'
