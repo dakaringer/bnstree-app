@@ -15,6 +15,7 @@ const Streams = props => {
         <Fade className="stream">
             <Helmet>
                 <title>{`${t('streams')} | BnSTree`}</title>
+                <meta name="description" content="Live streams of Blade & Soul on Twitch.tv!" />
             </Helmet>
             <AdSense
                 data-ad-client="ca-pub-2048637692232915"

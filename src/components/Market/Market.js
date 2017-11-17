@@ -66,6 +66,10 @@ const Market = props => {
         <Fade className="market">
             <Helmet>
                 <title>{`${t('market')} | BnSTree`}</title>
+                <meta
+                    name="description"
+                    content="Blade & Soul marketplace search for NA and EU servers."
+                />
             </Helmet>
             <AdSense
                 data-ad-client="ca-pub-2048637692232915"

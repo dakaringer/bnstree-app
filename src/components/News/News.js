@@ -42,6 +42,7 @@ const News = props => {
         <Fade className="news">
             <Helmet>
                 <title>{`${t('news')} | BnSTree`}</title>
+                <meta name="description" content="Latest news on Blade & Soul!" />
             </Helmet>
 
             <AdSense

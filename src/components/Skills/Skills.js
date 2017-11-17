@@ -168,6 +168,7 @@ class Skills extends React.PureComponent {
             <Fade className="skills">
                 <Helmet>
                     <title>{`${t(getPath(location.pathname))} - ${t(classCode)} | BnSTree`}</title>
+                    <meta name="description" content="Skill information and builds" />
                 </Helmet>
                 <AdSense
                     data-ad-client="ca-pub-2048637692232915"

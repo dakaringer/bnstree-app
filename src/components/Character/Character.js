@@ -48,6 +48,10 @@ class Character extends React.PureComponent {
             <Fade className="character">
                 <Helmet>
                     <title>{`${t('characterSearch')} | BnSTree`}</title>
+                    <meta
+                        name="description"
+                        content="Blade & Soul character profile search for NA and EU servers."
+                    />
                 </Helmet>
                 <AdSense
                     data-ad-client="ca-pub-2048637692232915"
