@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 
 import {Icon, Popover} from 'antd'
 
-import classImg from '../../Classes/images/map_classImg'
+import classImg from '../../Skills/images/map_classImg'
 import rankImg from '../images/map_rankImg'
 import noImg from '../images/noImg.png'
 

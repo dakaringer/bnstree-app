@@ -4,7 +4,7 @@ import {makeActionCreator} from '../../helpers'
 import {setLoading, setViewOption, setRecentSearch} from '../../actions'
 import apollo, {q} from '../../apollo'
 
-import {setCharacterMode, loadClass} from '../Classes/actions'
+import {setCharacterMode, loadSkills} from '../Skills/actions'
 
 //Action creators
 export const setTab = makeActionCreator(actionType.SET_CHARACTER_TAB, 'tab')
@@ -94,7 +94,7 @@ export function loadCharacter(region, name, history) {
                     let classCode = data.general.classCode
 
                     dispatch(loadCharacterData(data))
-                    dispatch(loadClass(classCode))
+                    dispatch(loadSkills(classCode))
                     dispatch(setCharacterMode(true))
 
                     apollo

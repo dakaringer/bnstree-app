@@ -4,8 +4,8 @@ import MarkdownIt from 'markdown-it'
 import {translate} from 'react-i18next'
 import {Map} from 'immutable'
 
-import {skillNamesSelectorEN} from '../../Classes/selectors'
-import {loadTextData} from '../../Classes/actions'
+import {skillNamesSelectorEN} from '../../Skills/selectors'
+import {loadTextData} from '../../Skills/actions'
 import {editorArticleSelector, editorSavedSelector} from '../selectors'
 import {loadArticle, updateEditorArticle, saveArticle, deleteArticle} from '../actions'
 

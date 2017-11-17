@@ -41,7 +41,7 @@ class ClassHeader extends React.PureComponent {
         classes.forEach(c => {
             classLinks.push(
                 <NavLink
-                    to={`/classes/${c[1]}${currentPath !== match.params.classCode
+                    to={`/skills/${c[1]}${currentPath !== match.params.classCode
                         ? `/${currentPath}`
                         : ''}`}
                     className="class-link"
@@ -58,7 +58,7 @@ class ClassHeader extends React.PureComponent {
                 <Menu.Item>
                     <NavLink
                         className="class-menu-item sub"
-                        to={`/classes/${match.params.classCode}/builds`}>
+                        to={`/skills/${match.params.classCode}/builds`}>
                         {t('userBuilds')}
                     </NavLink>
                 </Menu.Item>
@@ -66,7 +66,7 @@ class ClassHeader extends React.PureComponent {
                     {user ? (
                         <NavLink
                             className="class-menu-item sub"
-                            to={`/classes/${match.params.classCode}/my-builds`}
+                            to={`/skills/${match.params.classCode}/my-builds`}
                             exact>
                             {t('myBuilds')}
                         </NavLink>
@@ -80,19 +80,19 @@ class ClassHeader extends React.PureComponent {
                 <Dropdown overlay={builds}>
                     <NavLink
                         className="class-menu-item"
-                        to={`/classes/${match.params.classCode}`}
+                        to={`/skills/${match.params.classCode}`}
                         exact>
                         {t('skills')} <Icon type="down" />
                     </NavLink>
                 </Dropdown>
                 <NavLink
                     className="class-menu-item"
-                    to={`/classes/${match.params.classCode}/soulshields`}>
+                    to={`/skills/${match.params.classCode}/soulshields`}>
                     {t('soulshields')}
                 </NavLink>
                 <NavLink
                     className="class-menu-item"
-                    to={`/classes/${match.params.classCode}/badges`}>
+                    to={`/skills/${match.params.classCode}/badges`}>
                     {t('badges')}
                 </NavLink>
             </div>

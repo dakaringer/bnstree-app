@@ -61,7 +61,7 @@ const setSkillNames = makeActionCreator(
 const setItemNames = makeActionCreator(actionType.SKILL_REF_SET_ITEM_NAMES, 'language', 'nameData')
 
 const classQuery = q`query ($classCode: String!) {
-    Classes {
+    Skills {
         elementData(classCode: $classCode) {
             elements {
                 element
@@ -103,7 +103,7 @@ const classQuery = q`query ($classCode: String!) {
 }`
 
 const namesQuery = q`query ($language: String!, $en: Boolean!) {
-    Classes {
+    Skills {
         names(language: $language) {
             skills {
                 _id
@@ -244,7 +244,7 @@ const unvoteMutation = q`mutation (
     }
 }`
 
-export function loadClass(classCode, buildCode, buildId) {
+export function loadSkills(classCode, buildCode, buildId) {
     return (dispatch, getState) => {
         dispatch(setCharacterMode(false))
         dispatch(setClass(classCode))
@@ -267,11 +267,11 @@ export function loadClass(classCode, buildCode, buildId) {
             })
             .then(json => {
                 let data = {
-                    buildCount: flatten(json.data.Classes.buildData.buildCount),
-                    statData: flatten(json.data.Classes.buildData.buildStatistics),
-                    classData: json.data.Classes.elementData.elements,
-                    groupData: flatten(json.data.Classes.skillData.skillGroups),
-                    skillData: flatten(json.data.Classes.skillData.skills),
+                    buildCount: flatten(json.data.Skills.buildData.buildCount),
+                    statData: flatten(json.data.Skills.buildData.buildStatistics),
+                    classData: json.data.Skills.elementData.elements,
+                    groupData: flatten(json.data.Skills.skillData.skillGroups),
+                    skillData: flatten(json.data.Skills.skillData.skills),
                     soulshieldData: flatten(json.data.Items.soulshields),
                     badgeData: flatten(json.data.Items.badges),
                     badgeVoteData: flatten(json.data.Items.itemVotes),
@@ -296,12 +296,12 @@ export function loadTextData(lang) {
                 }
             })
             .then(json => {
-                dispatch(setSkillNames(lang, flatten(json.data.Classes.names.skills)))
-                dispatch(setItemNames(lang, flatten(json.data.Classes.names.items)))
+                dispatch(setSkillNames(lang, flatten(json.data.Skills.names.skills)))
+                dispatch(setItemNames(lang, flatten(json.data.Skills.names.items)))
 
-                if (json.data.Classes.enNames) {
-                    dispatch(setSkillNames('en', flatten(json.data.Classes.enNames.skills)))
-                    dispatch(setItemNames('en', flatten(json.data.Classes.enNames.items)))
+                if (json.data.Skills.enNames) {
+                    dispatch(setSkillNames('en', flatten(json.data.Skills.enNames.skills)))
+                    dispatch(setItemNames('en', flatten(json.data.Skills.enNames.items)))
                 }
             })
             .catch(e => console.error(e))

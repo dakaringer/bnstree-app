@@ -52,8 +52,8 @@ const News = asyncComponent(() =>
         .then(module => module.default)
         .catch(e => console.error(e))
 )
-const Classes = asyncComponent(() =>
-    import('./components/Classes/Classes.js')
+const Skills = asyncComponent(() =>
+    import('./components/Skills/Skills')
         .then(module => module.default)
         .catch(e => console.error(e))
 )
@@ -98,12 +98,21 @@ class App extends React.PureComponent {
         classes.forEach(c => {
             redirectLinks.push(
                 <Redirect
-                    key={c[0]}
+                    key={`${c[0]}-0`}
+                    exact
+                    from={`/classes/${c[1]}`}
+                    to={{
+                        search: location.search,
+                        pathname: `/skills/${c[1]}`
+                    }}
+                />,
+                <Redirect
+                    key={`${c[0]}-1`}
                     exact
                     from={`/skill/${c[0]}`}
                     to={{
                         search: location.search,
-                        pathname: `/classes/${c[1]}`
+                        pathname: `/skills/${c[1]}`
                     }}
                 />,
                 <Redirect
@@ -112,7 +121,7 @@ class App extends React.PureComponent {
                     from={`/skill/${c[0]}/:id`}
                     to={{
                         search: `?id=${location.pathname.split('/').slice(-1)[0]}`,
-                        pathname: `/classes/${c[1]}`
+                        pathname: `/skills/${c[1]}`
                     }}
                 />
             )
@@ -135,10 +144,10 @@ class App extends React.PureComponent {
 
                             <Route path="/news" component={News} />
 
-                            <Redirect exact from="/classes" to="/classes/blade-master" />
-                            <Redirect from="/classes/shooter" to="/classes/gunslinger" />
+                            <Redirect exact from="/classes" to="/skills/blade-master" />
+                            <Redirect from="/classes/shooter" to="/skills/gunslinger" />
                             {redirectLinks}
-                            <Route path="/classes/:classCode" component={Classes} />
+                            <Route path="/skills/:classCode" component={Skills} />
 
                             <Route path="/market" component={Market} />
                             <Route path="/character" component={Character} />

@@ -6,17 +6,17 @@ import {Helmet} from 'react-helmet'
 import {loadCharacter, vote} from '../actions'
 import {loadingSelector, userSelector} from '../../../selectors'
 import {characterSelector} from '../selectors'
-import {characterElementSelector} from '../../Classes/selectors'
+import {characterElementSelector} from '../../Skills/selectors'
 
 import LoadingLyn from '../../LoadingLyn/LoadingLyn'
 import CharacterProfile from './CharacterProfile'
 import CharacterStats from './CharacterStats'
 import CharacterEquips from './CharacterEquips'
 
-import SkillList from '../../Classes/components/SkillList'
+import SkillList from '../../Skills/components/SkillList'
 
-import '../../Classes/styles/Classes.scss'
-import elementImages from '../../Classes/images/map_elementImg'
+import '../../Skills/styles/Skills.scss'
+import elementImages from '../../Skills/images/map_elementImg'
 
 import {Row, Col, Tabs, Icon} from 'antd'
 const TabPane = Tabs.TabPane

@@ -9,9 +9,9 @@ import AdSense from '../AdSense/AdSense'
 
 import {currentLanguageSelector, loadingSelector, userSelector} from '../../selectors'
 import {viewSelector} from '../../selectors'
-import {loadTextData, loadClass, loadBuild} from './actions'
+import {loadTextData, loadSkills, loadBuild} from './actions'
 
-import './styles/Classes.scss'
+import './styles/Skills.scss'
 
 import {classes} from '../NavBar/NavBar'
 import LoadingLyn from '../LoadingLyn/LoadingLyn'
@@ -61,18 +61,18 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         loadText: lang => dispatch(loadTextData(lang)),
-        loadClass: classCode => dispatch(loadClass(classCode)),
+        loadSkills: classCode => dispatch(loadSkills(classCode)),
         loadBuild: (buildCode, buildId) => dispatch(loadBuild(buildCode, buildId))
     }
 }
 
 class Skills extends React.PureComponent {
     componentWillMount() {
-        const {match, currentLanguage, loadText, loadClass} = this.props
+        const {match, currentLanguage, loadText, loadSkills} = this.props
 
         let classCode = getClassCode(match.params.classCode)
         loadText(currentLanguage)
-        loadClass(classCode)
+        loadSkills(classCode)
     }
     componentWillReceiveProps(nextProps) {
         const {
@@ -81,7 +81,7 @@ class Skills extends React.PureComponent {
             currentLanguage,
             loading,
             loadText,
-            loadClass,
+            loadSkills,
             loadBuild
         } = this.props
 
@@ -92,7 +92,7 @@ class Skills extends React.PureComponent {
             loadText(nextProps.currentLanguage)
         }
         if (classCode !== getClassCode(match.params.classCode)) {
-            loadClass(classCode)
+            loadSkills(classCode)
         }
         if (
             (nextProps.loading !== loading && loading === false) ||
@@ -131,30 +131,27 @@ class Skills extends React.PureComponent {
             content = (
                 <div className="main-container">
                     <Switch>
-                        <Route exact path="/classes/:classCode" render={() => skillComponent} />
-                        <Route exact path={`/classes/:classCode/info`} render={() => null} />
+                        <Route exact path="/skills/:classCode" render={() => skillComponent} />
+                        <Route exact path={`/skills/:classCode/info`} render={() => null} />
                         <Route
                             exact
-                            path="/classes/:classCode/soulshields"
+                            path="/skills/:classCode/soulshields"
                             component={SoulshieldList}
                         />
-                        <Route exact path="/classes/:classCode/badges" component={BadgeList} />
-                        <Route exact path="/classes/:classCode/builds" component={SkillBuildList} />
+                        <Route exact path="/skills/:classCode/badges" component={BadgeList} />
+                        <Route exact path="/skills/:classCode/builds" component={SkillBuildList} />
                         {user ? (
                             <Route
                                 exact
-                                path="/classes/:classCode/my-builds"
+                                path="/skills/:classCode/my-builds"
                                 render={() => <SkillBuildList user />}
                             />
                         ) : (
-                            <Redirect
-                                from="/classes/:classCode/my-builds"
-                                to="/classes/:classCode"
-                            />
+                            <Redirect from="/skills/:classCode/my-builds" to="/skills/:classCode" />
                         )}
                         <Route
                             exact
-                            path="/classes/:classCode/:buildLink"
+                            path="/skills/:classCode/:buildLink"
                             render={() => skillComponent}
                         />
                     </Switch>

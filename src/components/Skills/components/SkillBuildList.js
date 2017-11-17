@@ -116,7 +116,7 @@ class SkillBuildList extends React.PureComponent {
                     </div>
                     <Link
                         className="build-title list-item-title"
-                        to={`/classes/${match.params.classCode}?id=${id}`}
+                        to={`/skills/${match.params.classCode}?id=${id}`}
                         onClick={() => loadBuild(id)}>
                         {build.get('title')}
                         <small>{n}</small>

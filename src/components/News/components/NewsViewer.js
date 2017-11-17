@@ -16,8 +16,8 @@ import NotFound from '../../Error/NotFound'
 import NewsList from './NewsList'
 
 import {userSelector} from '../../../selectors'
-import {skillNamesSelectorEN} from '../../Classes/selectors'
-import {loadTextData} from '../../Classes/actions'
+import {skillNamesSelectorEN} from '../../Skills/selectors'
+import {loadTextData} from '../../Skills/actions'
 import {articleSelector} from '../selectors'
 import {loadArticle} from '../actions'
 

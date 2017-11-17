@@ -93,10 +93,23 @@ class NavBar extends React.PureComponent {
         classes.forEach(c => {
             classDropdown.push(
                 <li key={c[0]} onClick={() => this.closeMenu()}>
-                    <NavLink to={`/classes/${c[1]}`}>{t(c)}</NavLink>
+                    <NavLink to={`/skills/${c[1]}`}>{t(c)}</NavLink>
                 </li>
             )
         })
+
+        let searchDropdown = (
+            <li>
+                <ul>
+                    <li>
+                        <NavLink to="/market">{t('market')}</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/character">{t('character')}</NavLink>
+                    </li>
+                </ul>
+            </li>
+        )
 
         let languageDropdown = []
         languages.forEach(lang => {
@@ -145,11 +158,18 @@ class NavBar extends React.PureComponent {
                 <div className="main-nav" onMouseLeave={() => this.handleDropdown(null)}>
                     <div className={`dropdown-backdrop ${dropdownStatus ? 'active' : ''}`}>
                         <ul
-                            className={`dropdown-content classes ${dropdownStatus === 'classes'
+                            className={`dropdown-content double ${dropdownStatus === 'skills'
                                 ? 'active'
                                 : ''}`}
-                            style={{left: this.state.dropdownPosition.classes}}>
+                            style={{left: this.state.dropdownPosition.skills}}>
                             {classDropdown}
+                        </ul>
+                        <ul
+                            className={`dropdown-content ${dropdownStatus === 'search'
+                                ? 'active'
+                                : ''}`}
+                            style={{left: this.state.dropdownPosition.search}}>
+                            {searchDropdown}
                         </ul>
                         <ul
                             className={`dropdown-content ${dropdownStatus === 'login'
@@ -179,28 +199,33 @@ class NavBar extends React.PureComponent {
                                 <NavLink to="/news">{t('news')}</NavLink>
                             </li>
                             <li
-                                className={`main-nav-menu-item ${dropdownStatus === 'classes'
+                                className={`main-nav-menu-item ${dropdownStatus === 'skills'
                                     ? 'dropdown-active'
                                     : ''}`}
-                                onMouseOver={e => this.handleDropdown('classes', e)}>
+                                onMouseOver={e => this.handleDropdown('skills', e)}>
                                 <a
                                     className={
-                                        this.props.location.pathname.startsWith('/classes')
+                                        this.props.location.pathname.startsWith('/skills')
                                             ? 'active'
                                             : ''
                                     }>
-                                    {t('classes')}
+                                    {t('skills')}
                                 </a>
                             </li>
                             <li
-                                className="main-nav-menu-item"
-                                onMouseOver={() => this.handleDropdown(null)}>
-                                <NavLink to="/market">{t('market')}</NavLink>
-                            </li>
-                            <li
-                                className="main-nav-menu-item"
-                                onMouseOver={() => this.handleDropdown(null)}>
-                                <NavLink to="/character">{t('character')}</NavLink>
+                                className={`main-nav-menu-item ${dropdownStatus === 'search'
+                                    ? 'dropdown-active'
+                                    : ''}`}
+                                onMouseOver={e => this.handleDropdown('search', e)}>
+                                <a
+                                    className={
+                                        this.props.location.pathname.startsWith('/market') ||
+                                        this.props.location.pathname.startsWith('/character')
+                                            ? 'active'
+                                            : ''
+                                    }>
+                                    {t('search')}
+                                </a>
                             </li>
                             <li
                                 className="main-nav-menu-item"
@@ -219,7 +244,7 @@ class NavBar extends React.PureComponent {
                                         <Avatar
                                             style={{backgroundColor: 'deepskyblue'}}
                                             src={user.get('profilePic')}>
-                                            U
+                                            {user.get('displayName', 'U').charAt(0)}
                                         </Avatar>
                                     ) : (
                                         t('login')
@@ -261,22 +286,15 @@ class NavBar extends React.PureComponent {
                             {t('news')}
                         </NavLink>
                         <Collapse bordered={false} className="overlay-nav-menu-item">
-                            <Panel header={t('classes')}>
+                            <Panel header={t('skills')}>
                                 <ul>{classDropdown}</ul>
                             </Panel>
                         </Collapse>
-                        <NavLink
-                            to="/market"
-                            className="overlay-nav-menu-item"
-                            onClick={() => this.closeMenu()}>
-                            {t('market')}
-                        </NavLink>
-                        <NavLink
-                            to="/character"
-                            className="overlay-nav-menu-item"
-                            onClick={() => this.closeMenu()}>
-                            {t('character')}
-                        </NavLink>
+                        <Collapse bordered={false} className="overlay-nav-menu-item">
+                            <Panel header={t('search')}>
+                                <ul>{searchDropdown}</ul>
+                            </Panel>
+                        </Collapse>
                         <NavLink
                             to="/streams"
                             className="overlay-nav-menu-item"

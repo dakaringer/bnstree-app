@@ -14,7 +14,7 @@ import CharacterSearch from './components/CharacterSearch'
 import CharacterViewer from './components/CharacterViewer'
 
 import {currentLanguageSelector} from '../../selectors'
-import {loadTextData} from '../Classes/actions'
+import {loadTextData} from '../Skills/actions'
 
 const mapStateToProps = state => {
     return {
