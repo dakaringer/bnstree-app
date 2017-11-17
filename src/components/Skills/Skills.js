@@ -94,7 +94,7 @@ class Skills extends React.PureComponent {
             loadSkills(classCode)
         }
         if (
-            (nextProps.loading !== loading && loading === false) ||
+            (nextProps.loading !== loading && nextProps.loading === false) ||
             nextParams.get('b') !== params.get('b') ||
             nextParams.get('id') !== params.get('id')
         ) {
@@ -105,28 +105,27 @@ class Skills extends React.PureComponent {
     render() {
         const {t, loading, view, user, location, match} = this.props
 
-        let skillComponent = null
         let classCode = getClassCode(match.params.classCode)
 
-        if (view.get('skillMode') === 'LIST') {
-            skillComponent = (
-                <div>
-                    <SkillSubMenu />
-                    <SkillList />
-                </div>
-            )
-        } else {
-            skillComponent = (
-                <div>
-                    <SkillSubMenu />
-                    <SkillGrid />
-                </div>
-            )
-        }
-
-        let content = <LoadingLyn />
-
+        let content = null
         if (!loading) {
+            let skillComponent = null
+            if (view.get('skillMode') === 'LIST') {
+                skillComponent = (
+                    <div>
+                        <SkillSubMenu />
+                        <SkillList />
+                    </div>
+                )
+            } else {
+                skillComponent = (
+                    <div>
+                        <SkillSubMenu />
+                        <SkillGrid />
+                    </div>
+                )
+            }
+
             content = (
                 <div className="main-container">
                     <Switch>
@@ -161,6 +160,8 @@ class Skills extends React.PureComponent {
                     />
                 </div>
             )
+        } else {
+            content = <LoadingLyn />
         }
 
         return (

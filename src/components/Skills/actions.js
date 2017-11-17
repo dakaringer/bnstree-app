@@ -7,7 +7,6 @@ import apollo, {q} from '../../apollo'
 import {makeActionCreator, flatten} from '../../helpers'
 import {setLoading, setViewOption} from '../../actions'
 import {
-    dataSelector,
     classSelector,
     buildElementSelector,
     elementDataSelector,
@@ -255,9 +254,7 @@ export function loadSkills(classCode, buildCode, buildId) {
         if (userSelector(getState())) {
             dispatch(loadBuildList(1, classCode, null, null, true))
         }
-        if (!dataSelector(getState()).has(classCode)) {
-            dispatch(setLoading(true, 'class'))
-        }
+        dispatch(setLoading(true, 'skills'))
         apollo
             .query({
                 query: classQuery,
@@ -281,7 +278,7 @@ export function loadSkills(classCode, buildCode, buildId) {
                 dispatch(setBuildElement(classCode, data.classData[0].element))
             })
             .catch(e => console.error(e))
-            .then(() => dispatch(setLoading(false, 'class')))
+            .then(() => dispatch(setLoading(false, 'skills')))
     }
 }
 
@@ -347,8 +344,8 @@ export function loadBuild(buildCode, buildId) {
                 build.get('buildObjects', List()).forEach(skill => {
                     dispatch(learnMove(skill.get('skillId'), skill.get('trait')))
                 })
-                message.success(i18n.t('classes:buildLoaded'))
             } else {
+                dispatch(setLoading(true, 'skills'))
                 apollo
                     .query({
                         query: buildQuery,
@@ -360,14 +357,14 @@ export function loadBuild(buildCode, buildId) {
                         let build = json.data.SkillBuilds.build
                         dispatch(setBuildElement(classCode, build.element))
                         build.buildObjects.forEach(skill => {
+                            console.log(skill)
                             dispatch(learnMove(skill.skillId, skill.trait))
                         })
-                        message.success(i18n.t('classes:buildLoaded'))
                     })
                     .catch(e => {
                         console.error(e)
-                        message.error(i18n.t('classes:buildLoadedFailed'))
                     })
+                    .then(() => dispatch(setLoading(false, 'skills')))
             }
         } else if (buildCode && !isNaN(buildCode)) {
             let elementData = elementDataSelector(getState())
@@ -380,7 +377,6 @@ export function loadBuild(buildCode, buildId) {
                     dispatch(learnMove(id, trait))
                 }
             })
-            message.success(i18n.t('classes:buildLoaded'))
         }
     }
 }
