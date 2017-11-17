@@ -7,8 +7,7 @@ import {Fade} from 'react-reveal'
 
 import AdSense from '../AdSense/AdSense'
 
-import {currentLanguageSelector, loadingSelector, userSelector} from '../../selectors'
-import {viewSelector} from '../../selectors'
+import {currentLanguageSelector, loadingSelector, viewSelector, userSelector} from '../../selectors'
 import {loadTextData, loadSkills, loadBuild} from './actions'
 
 import './styles/Skills.scss'
