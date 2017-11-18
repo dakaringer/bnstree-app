@@ -6,9 +6,9 @@ export function pair(json, field) {
     return result
 }
 
-export function flatten(arr) {
+export function flatten(arr, key = '_id') {
     let result = arr.reduce((map, obj) => {
-        map[obj._id] = obj
+        map[obj[key]] = obj
         return map
     }, {})
     return result
