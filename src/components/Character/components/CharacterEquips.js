@@ -155,8 +155,8 @@ class CharacterEquips extends React.PureComponent {
                             className="blankImg"
                             src={blank}
                             useMap="#map"
-                            width="240"
-                            height="240"
+                            width="130"
+                            height="130"
                         />
                         <map name="map">
                             <area

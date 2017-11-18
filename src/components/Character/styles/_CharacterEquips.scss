@@ -52,20 +52,22 @@
 
     .soulshield {
         display: flex;
-        align-items: baseline;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 1rem;
 
         area {
             cursor: default;
         }
 
         .imagePreview {
-            width: 25.5rem;
-            height: 25.5rem;
+            width: 12.5rem;
+            height: 12.5rem;
             position: relative;
             transform-origin: center;
-            transform: scale(0.7);
             margin-top: 0rem;
             user-select: none;
+            margin: 1rem;
 
             .blankImg {
                 position: relative;
@@ -75,7 +77,7 @@
             .soulshield-piece {
                 position: absolute;
                 z-index: 1;
-                width: 13.5rem;
+                width: 6.7rem;
 
                 &.soulshield_8,
                 &.soulshield_1,
@@ -85,13 +87,13 @@
 
                 &.soulshield_7,
                 &.soulshield_3 {
-                    top: 6rem;
+                    top: 3rem;
                 }
 
                 &.soulshield_6,
                 &.soulshield_5,
                 &.soulshield_4 {
-                    top: 12rem;
+                    top: 6rem;
                 }
 
                 &.soulshield_8,
@@ -102,13 +104,13 @@
 
                 &.soulshield_1,
                 &.soulshield_5 {
-                    left: 6rem;
+                    left: 3rem;
                 }
 
                 &.soulshield_2,
                 &.soulshield_3,
                 &.soulshield_4 {
-                    left: 12rem;
+                    left: 6rem;
                 }
             }
 
@@ -124,11 +126,11 @@
         }
 
         .soulshield-attribute-button {
-            position: absolute;
             bottom: 0;
             right: 0;
             color: #ccc;
             font-weight: 300;
+            margin: 1rem;
 
             &:hover {
                 color: white;
