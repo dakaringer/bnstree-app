@@ -15,7 +15,7 @@ import {
     characterModeSelector,
     groupedSkillDataSelector
 } from './selectors'
-import {userSelector} from '../../selectors'
+import {userSelector, viewSelector} from '../../selectors'
 
 const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
 export const setFilter = makeActionCreator(actionType.SKILL_UI_SET_FILTER, 'filter')
@@ -275,7 +275,13 @@ export function loadSkills(classCode, buildCode, buildId) {
                     userBadgeVoteData: json.data.Items.userVotes
                 }
                 dispatch(setClassData(classCode, data))
-                dispatch(setBuildElement(classCode, data.classData[0].element))
+
+                let view = viewSelector(getState())
+                let element = view
+                    .get('classElements', List())
+                    .find(c => c.get('classCode') === classCode)
+                element = element ? element.get('element') : data.classData[0].element
+                dispatch(setBuildElement(classCode, element))
             })
             .catch(e => console.error(e))
             .then(() => dispatch(setLoading(false, 'skills')))
@@ -457,6 +463,12 @@ export function toggleElement() {
 
         dispatch(setFilter('ALL'))
         dispatch(setBuildElement(classCode, otherElement))
+        dispatch(
+            setViewOption('classElement', {
+                classCode: classCode,
+                element: otherElement
+            })
+        )
     }
 }
 

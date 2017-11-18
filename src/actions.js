@@ -34,6 +34,10 @@ const initialQuery = q`query ($language: String!) {
             skillVisibility
             marketRegion
             characterRegion
+            classElements {
+                classCode
+                element
+            }
         }
         loggedIn
         language (language: $language)
@@ -62,6 +66,7 @@ const viewMutation = q`mutation (
     $skillVisibility: String
     $marketRegion: String
     $characterRegion: String
+    $classElement: ClassElementInput
 ) {
     User {
         setView(
@@ -70,6 +75,7 @@ const viewMutation = q`mutation (
             skillVisibility: $skillVisibility
             marketRegion: $marketRegion
             characterRegion: $characterRegion
+            classElement: $classElement
         )
     }
 }`
