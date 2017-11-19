@@ -340,49 +340,51 @@ export function loadBuild(buildCode, buildId) {
     return (dispatch, getState) => {
         let classCode = classSelector(getState())
 
-        dispatch(setViewOption('skillVisibility', 'TRAINABLE'))
-        if (buildId) {
-            let buildList = buildListSelector(getState()).get('list', List())
-            let build = buildList.find(build => build.get('_id') === buildId)
+        if (buildCode || buildId) {
+            dispatch(setViewOption('skillVisibility', 'TRAINABLE'))
+            if (buildId) {
+                let buildList = buildListSelector(getState()).get('list', List())
+                let build = buildList.find(build => build.get('_id') === buildId)
 
-            if (build) {
-                dispatch(setBuildElement(classCode, build.get('element')))
-                build.get('buildObjects', List()).forEach(skill => {
-                    dispatch(learnMove(skill.get('skillId'), skill.get('trait')))
-                })
-            } else {
-                dispatch(setLoading(true, 'skills'))
-                apollo
-                    .query({
-                        query: buildQuery,
-                        variables: {
-                            id: buildId
-                        }
+                if (build) {
+                    dispatch(setBuildElement(classCode, build.get('element')))
+                    build.get('buildObjects', List()).forEach(skill => {
+                        dispatch(learnMove(skill.get('skillId'), skill.get('trait')))
                     })
-                    .then(json => {
-                        let build = json.data.SkillBuilds.build
-                        dispatch(setBuildElement(classCode, build.element))
-                        build.buildObjects.forEach(skill => {
-                            console.log(skill)
-                            dispatch(learnMove(skill.skillId, skill.trait))
+                } else {
+                    dispatch(setLoading(true, 'skills'))
+                    apollo
+                        .query({
+                            query: buildQuery,
+                            variables: {
+                                id: buildId
+                            }
                         })
-                    })
-                    .catch(e => {
-                        console.error(e)
-                    })
-                    .then(() => dispatch(setLoading(false, 'skills')))
-            }
-        } else if (buildCode && !isNaN(buildCode)) {
-            let elementData = elementDataSelector(getState())
-            let currentElement = elementData.get(buildCode[0], elementData.get(0))
-            let buildString = buildCode.substring(1)
-            dispatch(setBuildElement(classCode, currentElement.get('element')))
-            currentElement.get('buildFormat', Map()).forEach((id, i) => {
-                if (buildString[i]) {
-                    let trait = parseInt(buildString[i], 10)
-                    dispatch(learnMove(id, trait))
+                        .then(json => {
+                            let build = json.data.SkillBuilds.build
+                            dispatch(setBuildElement(classCode, build.element))
+                            build.buildObjects.forEach(skill => {
+                                console.log(skill)
+                                dispatch(learnMove(skill.skillId, skill.trait))
+                            })
+                        })
+                        .catch(e => {
+                            console.error(e)
+                        })
+                        .then(() => dispatch(setLoading(false, 'skills')))
                 }
-            })
+            } else if (buildCode && !isNaN(buildCode)) {
+                let elementData = elementDataSelector(getState())
+                let currentElement = elementData.get(buildCode[0], elementData.get(0))
+                let buildString = buildCode.substring(1)
+                dispatch(setBuildElement(classCode, currentElement.get('element')))
+                currentElement.get('buildFormat', Map()).forEach((id, i) => {
+                    if (buildString[i]) {
+                        let trait = parseInt(buildString[i], 10)
+                        dispatch(learnMove(id, trait))
+                    }
+                })
+            }
         }
     }
 }
