@@ -91,6 +91,7 @@ class CharacterSearch extends React.PureComponent {
                     <RadioButton value="na">NA</RadioButton>
                     <RadioButton value="eu">EU</RadioButton>
                     <RadioButton value="kr">KR</RadioButton>
+                    <RadioButton value="tw">TW</RadioButton>
                 </RadioGroup>
                 <div className="inputGroup">
                     <input
