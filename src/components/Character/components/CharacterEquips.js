@@ -5,7 +5,6 @@ import {Map, List} from 'immutable'
 
 import {Popover, Tooltip} from 'antd'
 
-import {viewSelector} from '../../../selectors'
 import {characterSelector} from '../selectors'
 
 import blank from '../images/blank.gif'
@@ -13,8 +12,7 @@ import bg_gem from '../images/bg_gem.png'
 
 const mapStateToProps = state => {
     return {
-        equipData: characterSelector(state).get('equipData', Map()),
-        region: viewSelector(state).get('characterRegion', 'na')
+        character: characterSelector(state)
     }
 }
 
@@ -31,7 +29,10 @@ class CharacterEquips extends React.PureComponent {
     }
 
     render() {
-        const {t, equipData, region} = this.props
+        const {t, character} = this.props
+
+        let region = character.getIn(['general', 'region'], 'na')
+        let equipData = character.get('equipData', Map())
 
         let gems = []
         equipData.getIn(['weapon', 'gems'], List()).forEach((gem, i) => {
