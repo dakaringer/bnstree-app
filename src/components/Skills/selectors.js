@@ -448,10 +448,11 @@ const filteredSkillDataSelector = createSelector(
 export const catagorizedSkillDataSelector = createSelector(
     filteredSkillDataSelector,
     viewSelector,
-    (data, view) => {
+    characterModeSelector,
+    (data, view, characterMode) => {
         data = data.filter(group => group.get('moves', List()).size > 0)
 
-        if (view.get('skillVisibility', 'ALL') !== 'ALL') {
+        if (view.get('skillVisibility', 'ALL') !== 'ALL' || characterMode) {
             data = data.filter(group => group.get('moves', List()).size > 1)
         }
 
