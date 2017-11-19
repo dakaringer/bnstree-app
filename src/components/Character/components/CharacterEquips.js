@@ -163,56 +163,56 @@ class CharacterEquips extends React.PureComponent {
                             <area
                                 alt="1"
                                 shape="poly"
-                                coords="120,120,70,0,170,0"
+                                coords="60,60,35,0,85,0"
                                 onMouseOver={() => this.hover('soulshield_1')}
                                 onMouseOut={() => this.hover(null)}
                             />
                             <area
                                 alt="2"
                                 shape="poly"
-                                coords="120,120,170,0,240,70"
+                                coords="60,60,85,0,120,35"
                                 onMouseOver={() => this.hover('soulshield_2')}
                                 onMouseOut={() => this.hover(null)}
                             />
                             <area
                                 alt="3"
                                 shape="poly"
-                                coords="120,120,240,70,240,170"
+                                coords="60,60,120,35,120,85"
                                 onMouseOver={() => this.hover('soulshield_3')}
                                 onMouseOut={() => this.hover(null)}
                             />
                             <area
                                 alt="4"
                                 shape="poly"
-                                coords="120,120,240,170,170,240"
+                                coords="60,60,120,85,85,120"
                                 onMouseOver={() => this.hover('soulshield_4')}
                                 onMouseOut={() => this.hover(null)}
                             />
                             <area
                                 alt="5"
                                 shape="poly"
-                                coords="120,120,170,240,70,240"
+                                coords="60,60,85,120,35,120"
                                 onMouseOver={() => this.hover('soulshield_5')}
                                 onMouseOut={() => this.hover(null)}
                             />
                             <area
                                 alt="6"
                                 shape="poly"
-                                coords="120,120,70,240,0,170"
+                                coords="60,60,35,120,0,85"
                                 onMouseOver={() => this.hover('soulshield_6')}
                                 onMouseOut={() => this.hover(null)}
                             />
                             <area
                                 alt="7"
                                 shape="poly"
-                                coords="120,120,0,170,0,70"
+                                coords="60,60,0,85,0,35"
                                 onMouseOver={() => this.hover('soulshield_7')}
                                 onMouseOut={() => this.hover(null)}
                             />
                             <area
                                 alt="8"
                                 shape="poly"
-                                coords="120,120,0,70,70,0"
+                                coords="60,60,0,35,35,0"
                                 onMouseOver={() => this.hover('soulshield_8')}
                                 onMouseOut={() => this.hover(null)}
                             />
