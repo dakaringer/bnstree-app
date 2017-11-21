@@ -4,6 +4,7 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import {createStore, applyMiddleware} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
+import localForage from 'localforage'
 import {persistStore, autoRehydrate} from 'redux-persist-immutable'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
@@ -29,7 +30,7 @@ const store = createStore(
     Map(),
     composeEnhancers(applyMiddleware(thunk), autoRehydrate())
 )
-persistStore(store)
+persistStore(store, {storage: localForage})
 
 const withTracker = WrappedComponent => {
     const trackPage = page => {
