@@ -89,11 +89,11 @@ class NavBar extends React.PureComponent {
         let searchDropdown = (
             <li>
                 <ul>
-                    <li>
-                        <NavLink to="/market">{t('market')}</NavLink>
-                    </li>
-                    <li>
+                    <li onClick={() => this.closeMenu()}>
                         <NavLink to="/character">{t('character')}</NavLink>
+                    </li>
+                    <li onClick={() => this.closeMenu()}>
+                        <NavLink to="/market">{t('market')}</NavLink>
                     </li>
                 </ul>
             </li>
