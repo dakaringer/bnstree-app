@@ -9,9 +9,11 @@
     }
 
     .language-input-group {
-        padding: 1.5rem 0.5rem;
-        border-bottom: 0.1rem solid rgba(255, 255, 255, 0.3);
+        padding: 2rem;
+        //border-bottom: 0.1rem solid rgba(255, 255, 255, 0.3);
         color: white;
+        background: rgba(0, 0, 0, 0.3);
+        margin: 1.5rem 0;
 
         .language-input-header {
             display: flex;
@@ -36,10 +38,9 @@
         }
 
         .language-input {
-            margin-top: 0.5rem;
+            margin-top: 1rem;
             width: 100%;
             background: rgba(0, 0, 0, 0.5);
-            border: none;
             padding: 0.5rem 1rem;
         }
 
@@ -48,10 +49,15 @@
         }
 
         .translator-example {
-            margin: 0.5rem 0;
+            padding: 2rem 1rem 0 0;
 
             h5 {
                 color: goldenrod;
+            }
+
+            p {
+                font-size: 1.4rem;
+                color: #ccc;
             }
 
             .variable {
