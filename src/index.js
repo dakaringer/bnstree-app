@@ -30,7 +30,7 @@ const store = createStore(
     Map(),
     composeEnhancers(applyMiddleware(thunk), autoRehydrate())
 )
-persistStore(store, {storage: localForage})
+persistStore(store, {storage: localForage, blacklist: ['general', 'streams']})
 
 const withTracker = WrappedComponent => {
     const trackPage = page => {
