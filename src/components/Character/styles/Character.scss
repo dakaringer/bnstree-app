@@ -58,6 +58,19 @@
                 padding: 0 1rem;
             }
         }
+
+        .character-info-small {
+            display: none;
+        }
+
+        @media (max-width: 767px) {
+            .character-info-large {
+                display: none;
+            }
+            .character-info-small {
+                display: block;
+            }
+        }
     }
 
     .slim-container {

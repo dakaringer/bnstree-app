@@ -33,21 +33,32 @@
 
         .character-profile-image {
             width: 35%;
-            max-width: 30rem;
-            min-width: 23rem;
+            max-width: 15rem;
+            min-width: 10rem;
         }
 
         .character-profile-container {
             flex: 1;
             min-width: 20rem;
+            display: flex;
+
+            .character-profile-info {
+                width: 50%;
+            }
+
+            hr {
+                display: none;
+            }
         }
 
         .character-profile-image {
-            margin-right: 1rem;
+            margin-right: 2rem;
         }
+    }
 
-        .character-profile-container {
-            margin-left: 1rem;
+    @media (max-width: 500px) {
+        .character-profile-image {
+            display: none;
         }
     }
 
@@ -106,7 +117,7 @@
             }
 
             img {
-                height: 6rem;
+                height: 5rem;
                 margin-right: 1rem;
                 vertical-align: top;
             }

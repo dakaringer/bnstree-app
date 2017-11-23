@@ -98,7 +98,7 @@ class CharacterSearch extends React.PureComponent {
                         onChange={e => this.enterCharacter(e)}
                         value={this.state.characterName}
                         className="character-input"
-                        placeholder={t('searchCharacter')}
+                        placeholder={center ? t('searchCharacter') : t('search')}
                     />
                     <a onClick={e => this.searchCharacter(e)}>
                         <Icon type="search" />

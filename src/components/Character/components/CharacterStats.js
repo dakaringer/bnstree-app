@@ -84,69 +84,54 @@ const classElements = {
 }
 
 const CharacterStats = props => {
-    let {t, classCode, statData} = props
+    let {t, classCode, statData, attack} = props
 
-    let a = attackStats.filter(stat => {
-        return (
-            !stat[0].startsWith('attack_attribute') ||
-            (classElements[classCode][0] === stat[0] || classElements[classCode][1] === stat[0])
-        )
-    })
+    let stats = null
+    let point = 0
+    let pointMenu = null
+    if (attack) {
+        let a = attackStats.filter(stat => {
+            return (
+                !stat[0].startsWith('attack_attribute') ||
+                (classElements[classCode][0] === stat[0] || classElements[classCode][1] === stat[0])
+            )
+        })
 
-    let attack = <CharacterStatList stats={a} type="attack" />
-    let defense = <CharacterStatList stats={defenseStats} type="defend" />
+        stats = <CharacterStatList stats={a} type="attack" />
 
-    let hmAttack = statData.getIn(['point_ability', 'offense_point'], 0)
-    let attackPointMenu = <CharacterPointMenu points={hmAttack} type="attack" />
+        point = statData.getIn(['point_ability', 'offense_point'], 0)
+        pointMenu = <CharacterPointMenu points={point} type="attack" />
+    } else {
+        stats = <CharacterStatList stats={defenseStats} type="defend" />
 
-    let hmDefense = statData.getIn(['point_ability', 'defense_point'], 0)
-    let defensePointMenu = <CharacterPointMenu points={hmDefense} type="defense" />
+        point = statData.getIn(['point_ability', 'defense_point'], 0)
+        pointMenu = <CharacterPointMenu points={point} type="defense" />
+    }
 
     return (
-        <div className="characterStats">
-            <div className="attack">
-                <div className="mainStat">
-                    <h4>{t('attack_power_value')}</h4>
-                    <h3 className="mainValue">
-                        {statData.getIn(['total_ability', 'attack_power_value'], 0)}
-                    </h3>
-                    <hr />
-                    <Tooltip
-                        placement="bottom"
-                        title={attackPointMenu}
-                        trigger="click"
-                        overlayClassName="hmPointMenu">
-                        <p>
-                            {t('attackPoints')} {hmAttack}P
-                        </p>
-                    </Tooltip>
-                </div>
-                <div className="subStatsContainer">
-                    <Collapse className="subStats" bordered={false}>
-                        {attack}
-                    </Collapse>
-                </div>
+        <div className={`character-stats ${attack ? 'attack' : 'defense'}`}>
+            <div className="mainStat">
+                <h4>{attack ? t('attack_power_value') : t('max_hp')}</h4>
+                <h3 className="mainValue">
+                    {attack
+                        ? statData.getIn(['total_ability', 'attack_power_value'], 0)
+                        : statData.getIn(['total_ability', 'max_hp'], 0)}
+                </h3>
+                <hr />
+                <Tooltip
+                    placement="bottom"
+                    title={pointMenu}
+                    trigger="click"
+                    overlayClassName="hmPointMenu">
+                    <p>
+                        {attack ? t('attackPoints') : t('defensePoints')} {point}P
+                    </p>
+                </Tooltip>
             </div>
-            <div className="defense">
-                <div className="mainStat">
-                    <h4>{t('max_hp')}</h4>
-                    <h3 className="mainValue">{statData.getIn(['total_ability', 'max_hp'], 0)}</h3>
-                    <hr />
-                    <Tooltip
-                        placement="bottom"
-                        title={defensePointMenu}
-                        trigger="click"
-                        overlayClassName="hmPointMenu">
-                        <p>
-                            {t('defensePoints')} {hmDefense}P
-                        </p>
-                    </Tooltip>
-                </div>
-                <div className="subStatsContainer">
-                    <Collapse className="subStats" bordered={false}>
-                        {defense}
-                    </Collapse>
-                </div>
+            <div className="subStatsContainer">
+                <Collapse className="subStats" bordered={false}>
+                    {stats}
+                </Collapse>
             </div>
         </div>
     )

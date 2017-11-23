@@ -107,19 +107,36 @@ class CharacterViewer extends React.PureComponent {
                         <Col lg={4} className="profile-container">
                             <CharacterProfile />
                         </Col>
-                        <Col lg={20} className="stats-container">
-                            <Tabs defaultActiveKey="1" animated tabBarExtraContent={like}>
-                                <TabPane tab={t('info')} key="1">
-                                    <Row>
+                        <Col lg={20}>
+                            <Tabs defaultActiveKey="info" animated tabBarExtraContent={like}>
+                                <TabPane tab={t('info')} key="info">
+                                    <Row className="character-info-large">
                                         <Col sm={16}>
-                                            <CharacterStats />
+                                            <div className="character-stats-container">
+                                                <CharacterStats attack />
+                                                <CharacterStats />
+                                            </div>
                                         </Col>
                                         <Col sm={8}>
                                             <CharacterEquips />
                                         </Col>
                                     </Row>
+                                    <Tabs
+                                        defaultActiveKey="equip"
+                                        animated
+                                        className="character-info-small">
+                                        <TabPane tab={t('equipment')} key="equip">
+                                            <CharacterEquips />
+                                        </TabPane>
+                                        <TabPane tab={t('statAttack')} key="attack">
+                                            <CharacterStats attack />
+                                        </TabPane>
+                                        <TabPane tab={t('statDefense')} key="defense">
+                                            <CharacterStats />
+                                        </TabPane>
+                                    </Tabs>
                                 </TabPane>
-                                <TabPane tab={t('skills')} key="2">
+                                <TabPane tab={t('skills')} key="skills">
                                     <div className="character-build-element">
                                         <img
                                             alt={characterElement}
@@ -145,9 +162,11 @@ class CharacterViewer extends React.PureComponent {
         return (
             <div>
                 <Helmet>
-                    <title>{`${character.has('general')
-                        ? character.getIn(['general', 'name'])
-                        : t('general:characterSearch')} | BnSTree`}</title>
+                    <title>{`${
+                        character.has('general')
+                            ? character.getIn(['general', 'name'])
+                            : t('general:characterSearch')
+                    } | BnSTree`}</title>
                 </Helmet>
                 {content}
             </div>

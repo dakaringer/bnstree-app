@@ -1,26 +1,23 @@
-.characterStats {
+.character-stats-container {
     display: flex;
-    position: relative;
+}
+
+.character-stats {
     font-size: 1.4rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-right: 1rem;
 
-    .attack,
-    .defense {
-        height: 100%;
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        padding-right: 1rem;
-
-        @media (max-width: 767px) {
-            padding: 0;
-        }
+    @media (max-width: 767px) {
+        padding: 0;
     }
 
-    .attack .mainStat {
+    &.attack .mainStat {
         background: linear-gradient(to top, rgba(200, 60, 60, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     }
 
-    .defense .mainStat {
+    &.defense .mainStat {
         background: linear-gradient(to top, rgba(80, 125, 181, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
     }
 
@@ -109,25 +106,6 @@
                 float: right;
                 color: #eee;
             }
-        }
-    }
-
-    @media (max-width: 767px) {
-        height: auto;
-        min-height: inherit;
-        max-height: none;
-        flex-direction: column;
-        border-bottom: 0.1rem solid #777;
-
-        .attack,
-        .defense {
-            border: none;
-        }
-
-        .attack,
-        .defense {
-            height: auto;
-            width: 100%;
         }
     }
 }
