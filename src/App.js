@@ -173,6 +173,7 @@ class App extends React.PureComponent {
                                 <Route path="/translator" component={Translator} />
                             ) : null}
 
+                            <Redirect exact from="/index.html" to="/" />
                             <Redirect exact from="/classes" to="/skills/blade-master" />
                             <Redirect from="/classes/shooter" to="/skills/gunslinger" />
                             <Redirect from="/soulshield" to="/classes/blade-master/soulshields" />
