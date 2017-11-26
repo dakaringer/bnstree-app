@@ -22,14 +22,15 @@ class SkillHeader extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            popover: false
+            popover: false,
+            popover2: false
         }
     }
 
-    handlePopover(state) {
-        this.setState({
-            popover: state
-        })
+    handlePopover(type, open) {
+        let state = {}
+        state[type] = open
+        this.setState(state)
     }
 
     render() {
@@ -41,11 +42,11 @@ class SkillHeader extends React.PureComponent {
         classes.forEach(c => {
             classLinks.push(
                 <NavLink
-                    to={`/skills/${c[1]}${currentPath !== match.params.classCode
-                        ? `/${currentPath}`
-                        : ''}`}
+                    to={`/skills/${c[1]}${
+                        currentPath !== match.params.classCode ? `/${currentPath}` : ''
+                    }`}
                     className="class-link"
-                    onClick={() => this.handlePopover(false)}
+                    onClick={() => this.handlePopover('popover', false)}
                     key={c[0]}>
                     <img alt={c[1]} src={classImages[c[0]]} />
                     <p>{t(c[0])}</p>
@@ -81,6 +82,7 @@ class SkillHeader extends React.PureComponent {
                     <NavLink
                         className="class-menu-item"
                         to={`/skills/${match.params.classCode}`}
+                        onClick={() => this.handlePopover('popover2', false)}
                         exact>
                         {t('skills')} <Icon type="down" />
                     </NavLink>
@@ -104,7 +106,7 @@ class SkillHeader extends React.PureComponent {
                     <Popover
                         placement="bottomLeft"
                         visible={this.state.popover}
-                        onVisibleChange={visible => this.handlePopover(visible)}
+                        onVisibleChange={visible => this.handlePopover('popover', visible)}
                         content={<div className="class-selector-popover">{classLinks}</div>}>
                         <img alt={classCode} src={classImages[classCode]} />
                         <div>
@@ -114,7 +116,11 @@ class SkillHeader extends React.PureComponent {
                 </div>
                 <div className="header-right">
                     {subMenu}
-                    <Popover trigger="click" placement="bottomRight" content={subMenu}>
+                    <Popover
+                        placement="bottomRight"
+                        visible={this.state.popover2}
+                        onVisibleChange={visible => this.handlePopover('popover2', visible)}
+                        content={subMenu}>
                         <a className="popover-toggle">
                             <Icon type="ellipsis" />
                         </a>

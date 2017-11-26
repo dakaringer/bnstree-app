@@ -364,7 +364,6 @@ export function loadBuild(buildCode, buildId) {
                             let build = json.data.SkillBuilds.build
                             dispatch(setBuildElement(classCode, build.element))
                             build.buildObjects.forEach(skill => {
-                                console.log(skill)
                                 dispatch(learnMove(skill.skillId, skill.trait))
                             })
                         })

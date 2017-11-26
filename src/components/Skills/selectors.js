@@ -199,7 +199,7 @@ export const skillNamesSelectorEN = createSelector(refSelector, state =>
 const itemNamesSelector = createSelector(refSelector, currentLanguageSelector, (state, language) =>
     state.getIn(['itemNames', language], Map())
 )
-export const itemNamesSelectorEN = createSelector(refSelector, state =>
+const itemNamesSelectorEN = createSelector(refSelector, state =>
     state.getIn(['itemNames', 'en'], Map())
 )
 

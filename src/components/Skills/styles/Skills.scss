@@ -19,12 +19,8 @@
         width: auto !important;
         cursor: pointer;
 
-        span {
-            display: flex;
-
-            .anticon {
-                font-size: 1.6rem;
-            }
+        .anticon {
+            font-size: 1.6rem;
         }
     }
 
