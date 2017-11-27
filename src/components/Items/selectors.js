@@ -100,7 +100,21 @@ const filteredItemDataSelector = createSelector(
     processedItemDataSelector,
     viewSelector,
     searchSelector,
-    (data, itemType, search) => {
+    (data, view, search) => {
+        let filter = view.get('itemFilter', Map())
+        let checked = false
+        filter.forEach(check => {
+            checked = check || checked
+        })
+        if (checked) {
+            data = data.filter(item => {
+                let classCode = item.get('classCode', 'ALL')
+                return classCode === 'ALL' || filter.get(classCode, false)
+            })
+        }
+        if (search.trim() !== '') {
+            data = data.filter(item => item.get('name', '').startsWith(search))
+        }
         return data
     }
 )
