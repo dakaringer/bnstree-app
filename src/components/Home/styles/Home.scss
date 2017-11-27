@@ -66,13 +66,12 @@
         margin: 0 1rem;
     }
 
-    .stream-menu-container {
+    .section-container {
         margin-top: 3rem;
     }
 
     .home-stream {
         padding: 0 0.5rem;
-        padding-bottom: 5rem;
         display: flex;
         flex-direction: column;
 
@@ -82,10 +81,10 @@
 
         .stream-list {
             .stream-item {
-                width: 50%;
+                width: 25%;
 
                 @media (max-width: 767px) {
-                    width: 100%;
+                    width: 50%;
                 }
             }
 

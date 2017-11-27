@@ -10,38 +10,23 @@
         img {
             width: 2.5rem;
         }
-    }
 
-    .skillSearch {
-        font-size: 1.5rem;
-        position: relative;
+        a {
+            color: #ddd;
 
-        input {
-            height: 100%;
-            width: 100%;
-            padding-top: 0.3rem;
-            padding-right: 1.5rem;
-            display: inline-block;
-
-            &:not(:last-child) {
-                padding-right: 2rem;
+            &:hover {
+                color: white;
             }
-        }
-
-        .clear {
-            position: absolute;
-            right: 0.2rem;
-            top: 35%;
-            cursor: pointer;
-            color: #ccc;
-            transition: color 0.3s;
-            font-size: 1.2rem;
         }
     }
 
     .skillVisibility {
         margin-left: 1.5rem;
         margin-right: 0.7rem !important;
+        transition: color 0.3s;
+        &:hover {
+            color: white;
+        }
 
         .ant-checkbox-wrapper {
             font-size: 1.5rem;

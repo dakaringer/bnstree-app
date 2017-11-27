@@ -15,21 +15,10 @@
     flex-wrap: wrap;
 
     .item-list-item {
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
         margin: 0.5rem 1rem;
         width: calc(50% - 2rem);
-        animation: fadeIn 1s ease forwards;
-        opacity: 0;
 
-        @media (max-width: 1199px) {
+        @media (max-width: 991px) {
             width: 100%;
         }
 
@@ -47,28 +36,14 @@
                     height: 5rem;
                     margin-right: 1rem;
                 }
-
-                .item-votes {
-                    color: #aaa;
-                    font-size: 1.2rem;
-
-                    span {
-                        margin-right: 1rem;
-                    }
-
-                    .item-vote-element {
-                        margin-right: 2rem;
-                        img {
-                            height: 1.4em;
-                            vertical-align: sub;
-                        }
-                    }
-                }
             }
 
-            .item-details {
-                flex: 1;
-                min-width: 0;
+            .title {
+                margin-top: -0.5rem;
+                .subtitle {
+                    font-size: 1.4rem;
+                    color: #999;
+                }
             }
 
             .arrow {
@@ -107,14 +82,13 @@
             }
         }
 
-        .item-vote-buttons {
+        .item-vote {
             hr {
                 margin: 2rem 0 0.8rem 0;
             }
 
             img {
                 height: 1.8rem;
-                margin-right: 0.8rem;
                 vertical-align: sub;
             }
 
@@ -124,33 +98,28 @@
                 font-size: 1.2rem;
             }
 
-            .item-vote-button {
-                margin-right: 2rem;
+            .item-vote-group {
+                margin-right: 1.5rem;
 
                 .ant-btn-sm {
                     height: 1.6rem;
+                    margin: 0 1rem;
                 }
             }
         }
 
-        .badge-combine {
+        .extra {
             font-size: 1.2rem;
             color: white;
+
+            hr {
+                margin-bottom: 1.4rem;
+            }
 
             img {
                 width: 1.2em;
                 margin-right: 0.5rem;
                 vertical-align: middle;
-            }
-        }
-
-        .soulshield-pieces {
-            .ant-collapse-header {
-                height: 5rem;
-
-                .arrow {
-                    margin: 0;
-                }
             }
         }
     }

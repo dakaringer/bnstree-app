@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {NavLink, withRouter} from 'react-router-dom'
 
-import {Icon, Popover, Menu, Dropdown} from 'antd'
+import {Icon, Popover} from 'antd'
 
 import classes from '../../NavBar/classes'
 import classImages from '../images/map_classImg'
@@ -54,49 +54,31 @@ class SkillHeader extends React.PureComponent {
             )
         })
 
-        let builds = (
-            <Menu theme="dark">
-                <Menu.Item>
-                    <NavLink
-                        className="class-menu-item sub"
-                        to={`/skills/${match.params.classCode}/builds`}>
-                        {t('userBuilds')}
-                    </NavLink>
-                </Menu.Item>
-                <Menu.Item>
-                    {user ? (
-                        <NavLink
-                            className="class-menu-item sub"
-                            to={`/skills/${match.params.classCode}/my-builds`}
-                            exact>
-                            {t('myBuilds')}
-                        </NavLink>
-                    ) : null}
-                </Menu.Item>
-            </Menu>
-        )
-
         let subMenu = (
             <div className="class-header-menu">
-                <Dropdown overlay={builds}>
+                <NavLink
+                    className="class-menu-item"
+                    to={`/skills/${match.params.classCode}`}
+                    onClick={() => this.handlePopover('popover2', false)}
+                    exact>
+                    {t('skills')}
+                </NavLink>
+                <NavLink
+                    className="class-menu-item"
+                    to={`/skills/${match.params.classCode}/builds`}
+                    onClick={() => this.handlePopover('popover2', false)}
+                    exact>
+                    {t('userBuilds')}
+                </NavLink>
+                {user ? (
                     <NavLink
                         className="class-menu-item"
-                        to={`/skills/${match.params.classCode}`}
+                        to={`/skills/${match.params.classCode}/my-builds`}
                         onClick={() => this.handlePopover('popover2', false)}
                         exact>
-                        {t('skills')} <Icon type="down" />
+                        {t('myBuilds')}
                     </NavLink>
-                </Dropdown>
-                <NavLink
-                    className="class-menu-item"
-                    to={`/skills/${match.params.classCode}/soulshields`}>
-                    {t('soulshields')}
-                </NavLink>
-                <NavLink
-                    className="class-menu-item"
-                    to={`/skills/${match.params.classCode}/badges`}>
-                    {t('badges')}
-                </NavLink>
+                ) : null}
             </div>
         )
 

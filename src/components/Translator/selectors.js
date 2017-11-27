@@ -118,9 +118,9 @@ export const nameDataSelector = createSelector(
     groupSelector,
     (skills, items, namespace, group) => {
         switch (namespace) {
-            case 'skills':
+            case 'skillNames':
                 return skills.get(group, List())
-            case 'items':
+            case 'itemNames':
                 return items.get(group, List())
             default:
                 return List()

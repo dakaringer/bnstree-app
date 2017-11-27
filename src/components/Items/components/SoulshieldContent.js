@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {Map, List} from 'immutable'
-import parser from '../parser'
+import parser from '../../Skills/parser'
 
 import pieceImages from '../images/map_pieceImg'
 import {skillNamesSelector} from '../selectors'
@@ -29,11 +29,11 @@ const mapStateToProps = state => {
     }
 }
 
-const SoulshieldListItem = props => {
-    const {t, set, skillNames} = props
+const SoulshieldContent = props => {
+    const {t, item, skillNames} = props
 
     let effects = []
-    set.get('effects', List()).forEach((set, i) => {
+    item.get('effects', List()).forEach((set, i) => {
         let label = 3 * (i + 1) - (i !== 0 ? 1 : 0)
         let attributes = []
         set.forEach((attribute, j) => {
@@ -43,10 +43,9 @@ const SoulshieldListItem = props => {
                     .get(1)
                     .map(
                         stat =>
-                            `${t(stat.get(0))} ${stat.get(1)}${stat.get(0) ===
-                            'attack_critical_damage_value'
-                                ? '%'
-                                : ''}`
+                            `${t(stat.get(0))} ${stat.get(1)}${
+                                stat.get(0) === 'attack_critical_damage_value' ? '%' : ''
+                            }`
                     )
                     .join(', ')
             } else {
@@ -68,10 +67,10 @@ const SoulshieldListItem = props => {
         )
     })
 
-    let legacy = set.get('group') === 'legacy'
+    let legacy = item.get('group') === 'legacy'
 
     let pieces = []
-    set.get('stats', List()).forEach((piece, i) => {
+    item.get('stats', List()).forEach((piece, i) => {
         let m1Values = piece.get('m1', List()).sort()
         let m2Values = piece.getIn(['m2', 'values'], List()).sort()
 
@@ -118,7 +117,7 @@ const SoulshieldListItem = props => {
         if (sub.length > 0) {
             subDiv = (
                 <div className="sub">
-                    <p>{t('classes:randomSub', {count: subStats.get('limit', 1)})}</p>
+                    <p>{t('items:randomSub', {count: subStats.get('limit', 1)})}</p>
                     <table>
                         <tbody>{sub}</tbody>
                     </table>
@@ -130,8 +129,8 @@ const SoulshieldListItem = props => {
             <div className="soulshield-piece" key={i}>
                 <div className="soulshield-piece-name">
                     <img alt={i + 1} src={pieceImages[`p${i + 1}`]} />
-                    <p className={`grade_${set.get('grade')}`}>
-                        {set.get('name')} {trigram[i]}
+                    <p className={`grade_${item.get('grade')}`}>
+                        {item.get('name')} {trigram[i]}
                         {i + 1}
                     </p>
                 </div>
@@ -142,7 +141,7 @@ const SoulshieldListItem = props => {
                     </div>
                     {subDiv}
                     <div className="maxFuse">
-                        {t('classes:maxFuse')}: {piece.get('maxFuse')}
+                        {t('items:maxFuse')}: {piece.get('maxFuse')}
                     </div>
                 </div>
             </div>
@@ -153,44 +152,36 @@ const SoulshieldListItem = props => {
         pieces.push(<div className="soulshield-piece hidden" key={`hidden_${i}`} />)
     }
 
+    let extra = []
+    if (item.get('classCode', 'all') !== 'all') {
+        extra.push(
+            <p key="class-restriction">
+                {t('items:classRestriction', {className: t(item.get('classCode'))})}
+            </p>
+        )
+    }
+
     return (
-        <div className="item-list-item soulshield-item">
+        <div className="item-content">
+            <div className="set-effects">
+                <h5 className="set-effect-name">{item.get('setEffect')}</h5>
+                {effects}
+            </div>
             <Collapse bordered={false}>
                 <Panel
-                    header={
-                        <div className="item-header">
-                            <div className="item-icon">
-                                <img
-                                    alt={set.get('name')}
-                                    src={`https://static.bnstree.com/images/soulshields/sets/${set.get(
-                                        'icon',
-                                        'blank'
-                                    )}`}
-                                />
-                            </div>
-                            <div className="item-details">
-                                <h3 className={`grade_${set.get('grade')}`}>{set.get('name')}</h3>
-                                <div className="set-name">
-                                    {set.has('group') ? t(`classes:${set.get('group')}`) : ''}
-                                </div>
-                            </div>
-                        </div>
-                    }>
-                    <div className="set-effects">
-                        <h5 className="set-effect-name">{set.get('setEffect')}</h5>
-                        {effects}
-                    </div>
-                    <Collapse bordered={false}>
-                        <Panel
-                            className="soulshield-pieces"
-                            header={<div className="item-header">{t('classes:stats')}</div>}>
-                            <div className="soulshield-piece-list">{pieces}</div>
-                        </Panel>
-                    </Collapse>
+                    className="soulshield-pieces"
+                    header={<div className="item-header">{t('items:stats')}</div>}>
+                    <div className="soulshield-piece-list">{pieces}</div>
                 </Panel>
             </Collapse>
+            {extra.length > 0 ? (
+                <div className="extra">
+                    <hr />
+                    {extra}
+                </div>
+            ) : null}
         </div>
     )
 }
 
-export default connect(mapStateToProps)(translate(['character', 'classes'])(SoulshieldListItem))
+export default connect(mapStateToProps)(translate(['character', 'items'])(SoulshieldContent))

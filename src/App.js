@@ -58,6 +58,11 @@ const Skills = asyncComponent(() =>
         .then(module => module.default)
         .catch(e => console.error(e))
 )
+const Items = asyncComponent(() =>
+    import('./components/Items/Items')
+        .then(module => module.default)
+        .catch(e => console.error(e))
+)
 const Market = asyncComponent(() =>
     import('./components/Market/Market')
         .then(module => module.default)
@@ -141,13 +146,25 @@ class App extends React.PureComponent {
                     key={`${c[0]}-classes-badges`}
                     exact
                     from={`/classes/${c[1]}/badges`}
-                    to={`/skills/${c[1]}/badges`}
+                    to={`/items/badges`}
                 />,
                 <Redirect
                     key={`${c[0]}-classes-soulshields`}
                     exact
                     from={`/classes/${c[1]}/soulshields`}
-                    to={`/skills/${c[1]}/soulshields`}
+                    to={`/items/soulshields`}
+                />,
+                <Redirect
+                    key={`${c[0]}-skills-badges`}
+                    exact
+                    from={`/skills/${c[1]}/badges`}
+                    to={`/items/badges`}
+                />,
+                <Redirect
+                    key={`${c[0]}-skills-soulshields`}
+                    exact
+                    from={`/skills/${c[1]}/soulshields`}
+                    to={`/items/soulshields`}
                 />
             )
         })
@@ -161,10 +178,17 @@ class App extends React.PureComponent {
                     <NavBar />
                     <div className="app-content">
                         <Switch>
+                            <Redirect exact from="/index.html" to="/" />
+                            <Redirect exact from="/classes" to="/skills/blade-master" />
+                            <Redirect from="/classes/shooter" to="/skills/gunslinger" />
+                            <Redirect from="/soulshield" to="//soulshields" />
+                            {redirectLinks}
+
                             <Route exact path="/" component={Home} />
 
                             <Route path="/news" component={News} />
                             <Route path="/skills/:classCode" component={Skills} />
+                            <Route path="/items/:type" component={Items} />
                             <Route path="/market" component={Market} />
                             <Route path="/character" component={Character} />
                             <Route path="/streams" component={Streams} />
@@ -173,11 +197,6 @@ class App extends React.PureComponent {
                                 <Route path="/translator" component={Translator} />
                             ) : null}
 
-                            <Redirect exact from="/index.html" to="/" />
-                            <Redirect exact from="/classes" to="/skills/blade-master" />
-                            <Redirect from="/classes/shooter" to="/skills/gunslinger" />
-                            <Redirect from="/soulshield" to="/classes/blade-master/soulshields" />
-                            {redirectLinks}
                             <Route component={NotFound} />
                         </Switch>
                     </div>

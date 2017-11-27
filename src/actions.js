@@ -34,10 +34,8 @@ const initialQuery = q`query ($language: String!) {
             skillVisibility
             marketRegion
             characterRegion
-            classElements {
-                classCode
-                element
-            }
+            classElement: classElements
+            itemFilter: itemFilters
         }
         loggedIn
         language (language: $language)
@@ -67,6 +65,7 @@ const viewMutation = q`mutation (
     $marketRegion: String
     $characterRegion: String
     $classElement: ClassElementInput
+    $itemFilter: ItemFilterInput
 ) {
     User {
         setView(
@@ -76,6 +75,7 @@ const viewMutation = q`mutation (
             marketRegion: $marketRegion
             characterRegion: $characterRegion
             classElement: $classElement
+            itemFilter: $itemFilter
         )
     }
 }`
@@ -124,12 +124,27 @@ export function setUILanguage(language) {
     }
 }
 
-export function setViewOption(option, value) {
+export function setViewOption(option, payload) {
     return (dispatch, getState) => {
-        dispatch(setViewContext(option, value))
+        let context = null
+        let value = null
+        switch (option) {
+            case 'classElement':
+                context = [option, payload.classCode]
+                value = payload.element
+                break
+            case 'itemFilter':
+                context = [option, payload.classCode]
+                value = payload.filter
+                break
+            default:
+                context = option
+                value = payload
+        }
+        dispatch(setViewContext(context, value))
 
         let variables = {}
-        variables[option] = value
+        variables[option] = payload
         apollo
             .mutate({
                 mutation: viewMutation,

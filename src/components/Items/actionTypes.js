@@ -1,0 +1,11 @@
+//ui
+export const ITEM_UI_SET_TYPE = 'ITEM_UI_SET_TYPE'
+export const ITEM_UI_SET_SEARCH = 'ITEM_UI_SET_SEARCH'
+export const ITEM_UI_SET_PATCH = 'ITEM_UI_SET_PATCH'
+
+//data
+export const ITEM_DATA_SET_DATA = 'ITEM_DATA_SET_DATA'
+
+//ref
+export const ITEM_REF_SET_SKILL_NAMES = 'ITEM_REF_SET_SKILL_NAMES'
+export const ITEM_REF_SET_ITEM_NAMES = 'ITEM_REF_SET_ITEM_NAMES'

@@ -4,6 +4,7 @@ import * as actionType from './actionTypes'
 
 import news from './components/News/reducer'
 import skills from './components/Skills/reducer'
+import items from './components/Items/reducer'
 import character from './components/Character/reducer'
 import streams from './components/Streams/reducer'
 import market from './components/Market/reducer'
@@ -29,7 +30,9 @@ function general(
         case actionType.GENERAL_SET_VIEW:
             return state.merge({view: action.view})
         case actionType.GENERAL_SET_VIEW_CONTEXT:
-            return state.setIn(['view', action.context], action.value)
+            let pathArray = ['view']
+            console.log(pathArray.concat(action.context))
+            return state.setIn(pathArray.concat(action.context), action.value)
         case actionType.GENERAL_SET_LOADING:
             return state.setIn(['loading', action.context], action.loading)
         case actionType.GENERAL_SET_LOADING_APP:
@@ -43,4 +46,13 @@ function general(
     }
 }
 
-export default combineReducers({general, news, skills, market, character, streams, translator})
+export default combineReducers({
+    general,
+    news,
+    skills,
+    items,
+    market,
+    character,
+    streams,
+    translator
+})

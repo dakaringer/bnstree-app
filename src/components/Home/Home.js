@@ -69,37 +69,35 @@ const Home = props => {
                         data-ad-slot="2719129989"
                         data-ad-format="auto"
                     />
-                    <Fade>
-                        <div className="home-market">
-                            <h3>
-                                {t('market')}{' '}
-                                <span>
-                                    <RadioGroup
-                                        className="regionSelector"
-                                        size="small"
-                                        value={region}
-                                        onChange={e => setRegion(e.target.value)}>
-                                        <RadioButton value="na">NA</RadioButton>
-                                        <RadioButton value="eu">EU</RadioButton>
-                                    </RadioGroup>
-                                </span>
-                            </h3>
-                            <MarketList />
-                        </div>
+                    <Fade className="home-market">
+                        <h3>
+                            {t('market')}{' '}
+                            <span>
+                                <RadioGroup
+                                    className="regionSelector"
+                                    size="small"
+                                    value={region}
+                                    onChange={e => setRegion(e.target.value)}>
+                                    <RadioButton value="na">NA</RadioButton>
+                                    <RadioButton value="eu">EU</RadioButton>
+                                </RadioGroup>
+                            </span>
+                        </h3>
+                        <MarketList />
+                    </Fade>
+                    <Fade className="section-container home-stream">
+                        <h3>
+                            {t('streams')}
+                            <small>
+                                <Link to="/streams" className="more">
+                                    {t('moreStreams')}
+                                </Link>
+                            </small>
+                        </h3>
+                        <StreamList limit={4} />
                     </Fade>
                     <Fade>
-                        <Row className="stream-menu-container" gutter={16}>
-                            <Col md={16} className="home-stream">
-                                <h3>
-                                    {t('streams')}
-                                    <small>
-                                        <Link to="/streams" className="more">
-                                            {t('moreStreams')}
-                                        </Link>
-                                    </small>
-                                </h3>
-                                <StreamList limit={4} />
-                            </Col>
+                        <Row className="section-container" gutter={16}>
                             <Col md={8} className="side-menu">
                                 <h3>{t('links')}</h3>
                                 <div>
@@ -121,14 +119,14 @@ const Home = props => {
                                             Raid Recruitment Discord
                                         </Button>
                                     </a>
-                                    <AdSense
-                                        data-ad-format="fluid"
-                                        data-ad-layout="image-top"
-                                        data-ad-layout-key="-8c+2n-ep+50+yc"
-                                        data-ad-client="ca-pub-2048637692232915"
-                                        data-ad-slot="5100203858"
-                                    />
                                 </div>
+                                <AdSense
+                                    data-ad-format="fluid"
+                                    data-ad-layout="image-top"
+                                    data-ad-layout-key="-8c+2n-ep+50+yc"
+                                    data-ad-client="ca-pub-2048637692232915"
+                                    data-ad-slot="5100203858"
+                                />
                             </Col>
                         </Row>
                     </Fade>

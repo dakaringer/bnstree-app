@@ -19,8 +19,6 @@ import SkillSubMenu from './components/SkillSubMenu'
 import SkillList from './components/SkillList'
 import SkillGrid from './components/SkillGrid'
 import SkillBuildList from './components/SkillBuildList'
-import BadgeList from './components/BadgeList'
-import SoulshieldList from './components/SoulshieldList'
 
 function getClassCode(link) {
     let classCode = 'BM'
@@ -131,12 +129,6 @@ class Skills extends React.PureComponent {
                     <Switch>
                         <Route exact path="/skills/:classCode" render={() => skillComponent} />
                         <Route exact path={`/skills/:classCode/info`} render={() => null} />
-                        <Route
-                            exact
-                            path="/skills/:classCode/soulshields"
-                            component={SoulshieldList}
-                        />
-                        <Route exact path="/skills/:classCode/badges" component={BadgeList} />
                         <Route exact path="/skills/:classCode/builds" component={SkillBuildList} />
                         {user ? (
                             <Route

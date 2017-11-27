@@ -52,7 +52,7 @@ const TranslatorEditor = props => {
     } = props
 
     let keys = []
-    if (namespace !== 'skills' && namespace !== 'items') {
+    if (namespace !== 'skillNames' && namespace !== 'itemNames') {
         referenceData.forEach((value, key) => {
             let exampleData = examples.get(key, null)
             let example = null
@@ -91,7 +91,7 @@ const TranslatorEditor = props => {
             let key = data.get('_id')
 
             let url = ''
-            if (namespace === 'skills') {
+            if (namespace === 'skillNames') {
                 url = 'https://static.bnstree.com/images/skills'
             } else {
                 if (group.startsWith('SOULSHIELD')) {
@@ -132,7 +132,7 @@ const TranslatorEditor = props => {
                     </div>
                     <input
                         className="language-input"
-                        value={data.getIn(['name', language], '')}
+                        value={data.getIn(['name', language], '') || ''}
                         onChange={e => editName(key, 'name', e.target.value)}
                     />
                     {ssEffect}
@@ -145,7 +145,9 @@ const TranslatorEditor = props => {
         <div className="translator-editor">
             {group !== 'none' ? (
                 <h4>
-                    {namespace !== 'skills' && namespace !== 'items' ? group.substr(3) : group}{' '}
+                    {namespace !== 'skillNames' && namespace !== 'itemNames'
+                        ? group.substr(3)
+                        : group}{' '}
                     <small>{namespace}</small>
                 </h4>
             ) : null}

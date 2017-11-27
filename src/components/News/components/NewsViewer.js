@@ -132,13 +132,13 @@ class NewsViewer extends React.PureComponent {
                     />
                 </Helmet>
                 <Row className="news-viewer" gutter={16}>
-                    <Col lg={18}>
+                    <Col md={18}>
                         <div className="news-article">
                             {content}
                             {editButton}
                         </div>
                     </Col>
-                    <Col className="news-list-side" lg={6}>
+                    <Col className="news-list-side" md={6}>
                         <div>
                             <h3>More Articles</h3>
                             <hr />

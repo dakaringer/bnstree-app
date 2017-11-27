@@ -110,8 +110,6 @@ function ref(state = fromJS({skillNames: {}}), action) {
     switch (action.type) {
         case actionType.SKILL_REF_SET_SKILL_NAMES:
             return state.mergeDeepIn(['skillNames', action.language], action.nameData)
-        case actionType.SKILL_REF_SET_ITEM_NAMES:
-            return state.mergeDeepIn(['itemNames', action.language], action.nameData)
         default:
             return state
     }

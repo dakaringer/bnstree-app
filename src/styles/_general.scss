@@ -67,7 +67,8 @@
 }
 
 .sub-menu {
-    height: 4rem;
+    min-height: 4rem;
+    height: auto;
     display: flex;
     align-items: center;
     font-size: 1.8rem;
@@ -75,6 +76,11 @@
     justify-content: space-between;
     font-size: 1.5rem;
     flex-wrap: wrap;
+    margin-bottom: 2rem;
+
+    @media (max-width: 767px) {
+        margin-top: 0.75rem;
+    }
 
     .sub-menu-left,
     .sub-menu-right {
@@ -120,9 +126,36 @@
         }
     }
 
+    .search {
+        font-size: 1.5rem;
+        position: relative;
+        flex: 1;
+
+        input {
+            height: 100%;
+            width: 100%;
+            padding-top: 0.3rem;
+            padding-right: 1.5rem;
+            display: inline-block;
+
+            &:not(:last-child) {
+                padding-right: 2rem;
+            }
+        }
+
+        .clear {
+            position: absolute;
+            right: 0.2rem;
+            top: 35%;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.3s;
+            font-size: 1.2rem;
+        }
+    }
+
     @media (max-width: 767px) {
         display: block;
-        height: auto;
         .sub-menu-item {
             margin-bottom: 2rem;
         }

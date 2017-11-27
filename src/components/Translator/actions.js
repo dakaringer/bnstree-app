@@ -151,7 +151,7 @@ export function loadLanguageData() {
                 let itemNameData = itemNameDataSelector(getState())
                 let nameData = Map()
                 nameData = nameData.withMutations(map => {
-                    map.set('skills', skillNameData).set('items', itemNameData)
+                    map.set('skillNames', skillNameData).set('itemNames', itemNameData)
                 })
                 dataStatus = dataStatus.withMutations(map => {
                     nameData.forEach((namespaceData, namespace) => {
@@ -235,11 +235,11 @@ export function editNameTranslation(key, type, value, reference) {
         let group = groupSelector(getState())
 
         let data =
-            namespace === 'skills'
+            namespace === 'skillNames'
                 ? rawSkillNameDataSelector(getState())
                 : rawItemNameDataSelector(getState())
         let savingData =
-            namespace === 'skills'
+            namespace === 'skillNames'
                 ? savingSkillNameDataSelector(getState())
                 : savingItemNameDataSelector(getState())
         let index = data.findIndex(g => g.get('_id', '') === key)
@@ -247,10 +247,10 @@ export function editNameTranslation(key, type, value, reference) {
 
         data = data.get(index).setIn([type, languageCode], value)
 
-        let context = namespace === 'skills' ? 'skillNames' : 'itemNames'
-        dispatch(editData(context, index, data))
+        dispatch(editData(namespace, index, data))
 
-        let savingContext = namespace === 'skills' ? 'savingSkillNameData' : 'savingItemNameData'
+        let savingContext =
+            namespace === 'skillNames' ? 'savingSkillNameData' : 'savingItemNameData'
         if (saveIndex !== -1) {
             dispatch(editData(savingContext, saveIndex, data))
         } else {

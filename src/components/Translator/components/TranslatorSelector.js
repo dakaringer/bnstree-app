@@ -62,10 +62,10 @@ class TranslatorSelector extends React.PureComponent {
         if (groupMode) {
             dataStatus = dataStatus.get(namespace, Map())
             switch (namespace) {
-                case 'skills':
+                case 'skillNames':
                     list = List(classes)
                     break
-                case 'items':
+                case 'itemNames':
                     list = List(items)
                     break
                 default:
@@ -76,8 +76,8 @@ class TranslatorSelector extends React.PureComponent {
             list = referenceData
                 .keySeq()
                 .toList()
-                .push('skills')
-                .push('items')
+                .push('skillNames')
+                .push('itemNames')
         }
 
         let selections = []
@@ -91,7 +91,7 @@ class TranslatorSelector extends React.PureComponent {
                     <Badge
                         status={dataStatus.getIn([key, 'dataStatus'], 'error')}
                         text={
-                            groupMode && namespace !== 'skills' && namespace !== 'items'
+                            groupMode && namespace !== 'skillNames' && namespace !== 'itemNames'
                                 ? key.substr(3)
                                 : key
                         }

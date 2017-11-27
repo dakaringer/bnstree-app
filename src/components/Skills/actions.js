@@ -57,7 +57,6 @@ const setSkillNames = makeActionCreator(
     'language',
     'nameData'
 )
-const setItemNames = makeActionCreator(actionType.SKILL_REF_SET_ITEM_NAMES, 'language', 'nameData')
 
 const classQuery = q`query ($classCode: String!) {
     Skills {
@@ -87,18 +86,6 @@ const classQuery = q`query ($classCode: String!) {
             }
         }
     }
-    Items {
-        badges(classCode: $classCode) 
-        soulshields(classCode: $classCode) 
-        itemVotes(classCode: $classCode) {
-            _id
-            count
-        }
-        userVotes(classCode: $classCode) {
-            element
-            item
-        }
-    }
 }`
 
 const namesQuery = q`query ($language: String!, $en: Boolean!) {
@@ -109,23 +96,11 @@ const namesQuery = q`query ($language: String!, $en: Boolean!) {
                 name
                 icon
             }
-            items {
-                _id
-                name
-                effect
-                icon
-            }
         }
         enNames: names(language: "en") @skip(if: $en) {
             skills {
                 _id
                 name
-                icon
-            }
-            items {
-                _id
-                name
-                effect
                 icon
             }
         }
@@ -215,34 +190,6 @@ const deleteBuildMutation = q`mutation (
     }
 }`
 
-const voteMutation = q`mutation (
-    $item: String!,
-    $classCode: String!,
-    $element: String!
-) {
-    Items {
-        vote(
-            item: $item,
-            classCode: $classCode,
-            element: $element
-        )
-    }
-}`
-
-const unvoteMutation = q`mutation (
-    $item: String!,
-    $classCode: String!,
-    $element: String!
-) {
-    Items {
-        unvote(
-            item: $item,
-            classCode: $classCode,
-            element: $element
-        )
-    }
-}`
-
 export function loadSkills(classCode, buildCode, buildId) {
     return (dispatch, getState) => {
         dispatch(setCharacterMode(false))
@@ -268,19 +215,13 @@ export function loadSkills(classCode, buildCode, buildId) {
                     statData: flatten(json.data.Skills.buildData.buildStatistics),
                     classData: json.data.Skills.elementData.elements,
                     groupData: flatten(json.data.Skills.skillData.skillGroups),
-                    skillData: flatten(json.data.Skills.skillData.skills),
-                    soulshieldData: flatten(json.data.Items.soulshields),
-                    badgeData: flatten(json.data.Items.badges),
-                    badgeVoteData: flatten(json.data.Items.itemVotes),
-                    userBadgeVoteData: json.data.Items.userVotes
+                    skillData: flatten(json.data.Skills.skillData.skills)
                 }
                 dispatch(setClassData(classCode, data))
 
                 let view = viewSelector(getState())
-                let element = view
-                    .get('classElements', List())
-                    .find(c => c.get('classCode') === classCode)
-                element = element ? element.get('element') : data.classData[0].element
+                let element = view.getIn(['classElements', classCode], null)
+                element = element ? element : data.classData[0].element
                 dispatch(setBuildElement(classCode, element))
             })
             .catch(e => console.error(e))
@@ -300,11 +241,9 @@ export function loadTextData(lang) {
             })
             .then(json => {
                 dispatch(setSkillNames(lang, flatten(json.data.Skills.names.skills)))
-                dispatch(setItemNames(lang, flatten(json.data.Skills.names.items)))
 
                 if (json.data.Skills.enNames) {
                     dispatch(setSkillNames('en', flatten(json.data.Skills.enNames.skills)))
-                    dispatch(setItemNames('en', flatten(json.data.Skills.enNames.items)))
                 }
             })
             .catch(e => console.error(e))
@@ -487,19 +426,4 @@ export function learnMove(skill, move) {
             })
         }
     }
-}
-
-export function vote(item, element, classCode, vote = true) {
-    let mutation = vote ? voteMutation : unvoteMutation
-    apollo
-        .mutate({
-            mutation: mutation,
-            variables: {
-                item: item,
-                element: element,
-                classCode: classCode
-            },
-            fetchPolicy: 'network-only'
-        })
-        .catch(e => console.error(e))
 }

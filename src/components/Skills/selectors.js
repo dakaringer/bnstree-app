@@ -91,9 +91,6 @@ const tagOrder = [
     'WINDWALK'
 ]
 
-const soulBadgeOrder = ['legendary', 'lime', 'orange', 'purple', 'blue', 'green', 'red', 'yellow']
-const mysticBadgeOrder = ['legendary', 'yellow', 'red']
-
 const uiSelector = state => state.getIn(['skills', 'ui'], Map())
 
 const charDataSelector = state => state.getIn(['skills', 'character'], Map())
@@ -150,12 +147,6 @@ export const buildListSelector = createSelector(classDataSelector, state =>
 export const userBuildListSelector = createSelector(classDataSelector, state =>
     state.get('userBuildList', Map())
 )
-export const badgeVoteDataSelector = createSelector(classDataSelector, state =>
-    state.get('badgeVoteData', List())
-)
-export const userBadgeVoteDataSelector = createSelector(classDataSelector, state =>
-    state.get('userBadgeVoteData', List())
-)
 
 //build
 export const characterElementSelector = createSelector(
@@ -196,100 +187,6 @@ export const skillNamesSelector = createSelector(
 export const skillNamesSelectorEN = createSelector(refSelector, state =>
     state.getIn(['skillNames', 'en'], Map())
 )
-const itemNamesSelector = createSelector(refSelector, currentLanguageSelector, (state, language) =>
-    state.getIn(['itemNames', language], Map())
-)
-const itemNamesSelectorEN = createSelector(refSelector, state =>
-    state.getIn(['itemNames', 'en'], Map())
-)
-
-//badgeData
-const badgeDataSelector = createSelector(
-    classDataSelector,
-    data => (data = data.get('badgeData', Map()))
-)
-const namedBadgeDataSelector = createSelector(
-    badgeDataSelector,
-    itemNamesSelector,
-    itemNamesSelectorEN,
-    (data, names, namesEN) => {
-        return data.map(badge => {
-            let id = badge.get('name')
-            let name = names.getIn([id, 'name']) || namesEN.getIn([id, 'name'])
-            return badge.set('name', name).set('icon', names.getIn([id, 'icon'], ''))
-        })
-    }
-)
-const combinedBadgeDataSelector = createSelector(namedBadgeDataSelector, data => {
-    data = data.map(badge => {
-        if (badge.has('combine')) {
-            let enhance = List()
-            let attributes = List()
-            let combine = List()
-            badge.get('combine').forEach(badgeId => {
-                let badgeOther = data.get(badgeId, Map())
-                attributes = attributes.concat(badgeOther.get('attributes'))
-                enhance = enhance.concat(badgeOther.get('enhance'))
-                combine = combine.push(
-                    Map({
-                        icon: badgeOther.get('icon'),
-                        name: badgeOther.get('name')
-                    })
-                )
-            })
-
-            return badge
-                .set('enhance', enhance)
-                .set('attributes', attributes)
-                .set('combine', combine)
-        }
-        return badge
-    })
-
-    return data
-})
-export const sortedBadgeDataSelector = createSelector(combinedBadgeDataSelector, data => {
-    data = data.groupBy(b => b.get('type')).map((badgeType, type) =>
-        badgeType.sort((a, b) => {
-            if (a.get('group') === b.get('group')) {
-                return b.get('index') - a.get('index')
-            } else {
-                let badgeOrder = type === 'soul' ? soulBadgeOrder : mysticBadgeOrder
-                return badgeOrder.indexOf(a.get('group')) - badgeOrder.indexOf(b.get('group'))
-            }
-        })
-    )
-
-    return data
-})
-
-//soulshieldData
-const soulshieldDataSelector = createSelector(
-    classDataSelector,
-    data => (data = data.get('soulshieldData', Map()))
-)
-const namedSoulshieldDataSelector = createSelector(
-    soulshieldDataSelector,
-    itemNamesSelector,
-    itemNamesSelectorEN,
-    (data, names, namesEN) => {
-        return data.map(set => {
-            let id = set.get('name')
-            let name = names.getIn([id, 'name'], '') || namesEN.getIn([id, 'name'], '')
-            let effect = names.getIn([id, 'effect'], '') || namesEN.getIn([id, 'effect'], '')
-            return set
-                .set('name', name)
-                .set('setEffect', effect)
-                .set('icon', names.getIn([id, 'icon'], ''))
-        })
-    }
-)
-export const sortedSoulshieldDataSelector = createSelector(namedSoulshieldDataSelector, data => {
-    data = data
-        .groupBy(b => b.get('type'))
-        .map((setType, type) => setType.sort((a, b) => b.get('index') - a.get('index')))
-    return data
-})
 
 //skillData
 const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))
