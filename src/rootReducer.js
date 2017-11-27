@@ -31,7 +31,6 @@ function general(
             return state.merge({view: action.view})
         case actionType.GENERAL_SET_VIEW_CONTEXT:
             let pathArray = ['view']
-            console.log(pathArray.concat(action.context))
             return state.setIn(pathArray.concat(action.context), action.value)
         case actionType.GENERAL_SET_LOADING:
             return state.setIn(['loading', action.context], action.loading)
