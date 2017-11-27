@@ -76,6 +76,7 @@ hr {
 img {
     opacity: 0;
     animation: fadeIn 1s ease forwards;
+    text-indent: -100%;
 }
 
 *::-webkit-scrollbar {
