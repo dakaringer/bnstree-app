@@ -127,7 +127,7 @@ class MarketSearch extends React.PureComponent {
                         {clear}
                     </div>
                     <Checkbox
-                        value={this.state.exact}
+                        checked={this.state.exact}
                         onChange={e => this.handleExact(e.target.checked)}>
                         {t('exact')}
                     </Checkbox>

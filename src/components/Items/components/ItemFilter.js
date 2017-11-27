@@ -38,7 +38,7 @@ const ItemFilter = props => {
         filters.push(
             <span className="class-filter" key={c[0]}>
                 <Checkbox
-                    value={filter.get(c[0], false)}
+                    checked={filter.get(c[0], false)}
                     onChange={e => setFilter(c[0], e.target.checked)}>
                     <img alt={c[1]} src={classImages[c[0]]} />
                 </Checkbox>
