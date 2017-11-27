@@ -81,8 +81,10 @@ class NavBar extends React.PureComponent {
         let classDropdown = []
         classes.forEach(c => {
             classDropdown.push(
-                <li key={c[0]} onClick={() => this.closeMenu()}>
-                    <NavLink to={`/skills/${c[1]}`}>{t(c)}</NavLink>
+                <li key={c[0]}>
+                    <NavLink to={`/skills/${c[1]}`} onClick={() => this.closeMenu()}>
+                        {t(c)}
+                    </NavLink>
                 </li>
             )
         })
@@ -90,8 +92,10 @@ class NavBar extends React.PureComponent {
         let itemDropdown = []
         items.forEach(i => {
             itemDropdown.push(
-                <li key={i[0]} onClick={() => this.closeMenu()}>
-                    <NavLink to={`/items/${i[1]}`}>{t(i)}</NavLink>
+                <li key={i[0]}>
+                    <NavLink to={`/items/${i[1]}`} onClick={() => this.closeMenu()}>
+                        {t(i)}
+                    </NavLink>
                 </li>
             )
         })
@@ -99,11 +103,15 @@ class NavBar extends React.PureComponent {
         let searchDropdown = (
             <li>
                 <ul>
-                    <li onClick={() => this.closeMenu()}>
-                        <NavLink to="/character">{t('character')}</NavLink>
+                    <li>
+                        <NavLink to="/character" onClick={() => this.closeMenu()}>
+                            {t('character')}
+                        </NavLink>
                     </li>
-                    <li onClick={() => this.closeMenu()}>
-                        <NavLink to="/market">{t('market')}</NavLink>
+                    <li>
+                        <NavLink to="/market" onClick={() => this.closeMenu()}>
+                            {t('market')}
+                        </NavLink>
                     </li>
                 </ul>
             </li>
@@ -114,8 +122,14 @@ class NavBar extends React.PureComponent {
             let id = lang.get('_id', 'en')
             if (id !== currentLang) {
                 languageDropdown.push(
-                    <li key={id} onClick={() => this.closeMenu()}>
-                        <a onClick={() => setLanguage(id)}>{lang.get('name', 'English')}</a>
+                    <li key={id}>
+                        <a
+                            onClick={() => {
+                                this.closeMenu()
+                                setLanguage(id)
+                            }}>
+                            {lang.get('name', 'English')}
+                        </a>
                     </li>
                 )
             }
@@ -126,8 +140,10 @@ class NavBar extends React.PureComponent {
                 {user ? (
                     <ul>
                         {user.getIn(['role', 'translator']) ? (
-                            <li onClick={() => this.closeMenu()}>
-                                <NavLink to="/translator">Translator Console</NavLink>
+                            <li>
+                                <NavLink to="/translator" onClick={() => this.closeMenu()}>
+                                    Translator Console
+                                </NavLink>
                             </li>
                         ) : null}
                         <li>
@@ -298,7 +314,7 @@ class NavBar extends React.PureComponent {
                     </div>
                 </div>
                 <div className="overlay-menu" aria-hidden={!menuOpen}>
-                    <div className="overlay-menu-container">
+                    <ul className="overlay-menu-container">
                         <NavLink
                             to="/news"
                             className="overlay-nav-menu-item"
@@ -355,7 +371,7 @@ class NavBar extends React.PureComponent {
                                 <ul>{languageDropdown}</ul>
                             </Panel>
                         </Collapse>
-                    </div>
+                    </ul>
                 </div>
             </Fade>
         )
