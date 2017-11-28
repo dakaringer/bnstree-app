@@ -21,6 +21,11 @@ import {loadTextData} from '../../Skills/actions'
 import {articleSelector} from '../selectors'
 import {loadArticle} from '../actions'
 
+const md = new MarkdownIt('default', {
+    breaks: true,
+    html: true
+})
+
 const mapStateToProps = state => {
     return {
         user: userSelector(state),
@@ -57,11 +62,6 @@ class NewsViewer extends React.PureComponent {
         let content = null
         let editButton = null
         if (article) {
-            let md = new MarkdownIt('default', {
-                breaks: true,
-                html: true
-            })
-
             let time = moment(new Date(article.get('datePosted')))
             let now = moment(new Date())
             let timeString = ''
