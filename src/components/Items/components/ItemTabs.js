@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Fade} from 'react-reveal'
 
 import ItemFilter from './ItemFilter'
 import ItemListItem from './ItemListItem'
@@ -32,10 +31,10 @@ const BadgeList = props => {
     })
 
     return (
-        <Fade className="item-list-container">
+        <div className="item-list-container">
             <ItemFilter />
             <Tabs animated>{tabs}</Tabs>
-        </Fade>
+        </div>
     )
 }
 
