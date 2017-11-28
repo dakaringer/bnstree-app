@@ -2,7 +2,7 @@ import React from 'react'
 import {translate} from 'react-i18next'
 import {withRouter} from 'react-router'
 
-import icon from '../images/GameUI_HeaderIcon_160.png'
+import icon from '../images/GameUI_HeaderIcon_117.png'
 
 import CharacterSearch from './CharacterSearch'
 
