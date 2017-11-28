@@ -48,11 +48,11 @@ const HomeTwitterItem = props => {
                     </span>
                 </a>
             </div>
-            <p className="tweet-timestamp">{timeString}</p>
             {image}
             <div className="tweet-text">
                 <p dangerouslySetInnerHTML={{__html: md.render(text)}} />
                 <small>
+                    <span className="tweet-timestamp">{timeString} • </span>
                     <a
                         alt={id}
                         href={`https://twitter.com/${user.get('screen_name')}/status/${id}`}

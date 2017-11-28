@@ -46,16 +46,6 @@
             filter: brightness(75%) opacity(75%);
         }
 
-        .tweet-timestamp {
-            position: absolute;
-            color: #aaa;
-            z-index: 1;
-            top: 0;
-            right: 0;
-            font-size: 1.4rem;
-            margin: 1.5rem;
-        }
-
         .tweet-text {
             color: #ddd;
             background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 15%, transparent 100%);
@@ -65,6 +55,7 @@
 
             p {
                 margin-bottom: 0.5rem;
+
                 a {
                     color: #108ee9;
 
@@ -72,6 +63,10 @@
                         color: deepskyblue;
                     }
                 }
+            }
+
+            .tweet-timestamp {
+                color: #aaa;
             }
         }
     }
