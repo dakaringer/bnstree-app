@@ -1,0 +1,78 @@
+.home-twitter {
+    margin-top: 1.2rem;
+    .tweet {
+        background: rgba(25, 25, 25, 0.5);
+        overflow: hidden;
+        position: relative;
+        min-height: 25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+
+        .tweet-user {
+            position: relative;
+            z-index: 2;
+
+            a {
+                display: inline-flex;
+                align-items: center;
+                margin: 1.5rem;
+
+                .tweet-user-name {
+                    margin-top: 0.1rem;
+                    margin-left: 1rem;
+                    color: white;
+                    line-height: 1.2em;
+
+                    small {
+                        color: #aaa;
+                    }
+                }
+
+                &:hover {
+                    .tweet-user-name {
+                        color: goldenrod;
+                    }
+                }
+            }
+        }
+
+        .tweet-background {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            filter: brightness(75%) opacity(75%);
+        }
+
+        .tweet-timestamp {
+            position: absolute;
+            color: #aaa;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            font-size: 1.4rem;
+            margin: 1.5rem;
+        }
+
+        .tweet-text {
+            color: #ddd;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 15%, transparent 100%);
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+
+            p {
+                margin-bottom: 0.5rem;
+                a {
+                    color: #108ee9;
+
+                    &:hover {
+                        color: deepskyblue;
+                    }
+                }
+            }
+        }
+    }
+}
