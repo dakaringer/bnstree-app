@@ -39,7 +39,7 @@ class NewsListItem extends React.PureComponent {
             n = <span className="new">N</span>
             timeString = time.fromNow()
         } else {
-            timeString = time.format('ll')
+            timeString = time.format('MMM D')
         }
 
         let thumb = <img alt="thumb" className="thumb" src={this.state.image} />
@@ -50,9 +50,9 @@ class NewsListItem extends React.PureComponent {
                     .get('title', '')
                     .replace(/ /g, '-')
                     .toLowerCase()}`}
-                className={`news-item list-item ${selected ? 'selected' : ''} ${icon
-                    ? 'icon'
-                    : ''}`}>
+                className={`news-item list-item ${selected ? 'selected' : ''} ${
+                    icon ? 'icon' : ''
+                }`}>
                 <div className="thumb-wrapper">{thumb}</div>
                 <div className="news-item-content">
                     <div className="news-title">

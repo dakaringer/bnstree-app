@@ -87,7 +87,7 @@ class SkillBuildList extends React.PureComponent {
                 n = <span className="new">N</span>
                 timeString = time.fromNow()
             } else {
-                timeString = time.format('ll')
+                timeString = time.format('MMM D')
             }
 
             let del = null
