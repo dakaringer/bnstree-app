@@ -113,7 +113,12 @@ const filteredItemDataSelector = createSelector(
             })
         }
         if (search.trim() !== '') {
-            data = data.filter(item => item.get('name', '').startsWith(search))
+            data = data.filter(item =>
+                item
+                    .get('name', '')
+                    .toLowerCase()
+                    .startsWith(search.toLowerCase())
+            )
         }
         return data
     }
