@@ -106,10 +106,10 @@ class Home extends React.PureComponent {
                         </Fade>
                         <Fade>
                             <Row className="section-container" gutter={16}>
-                                <Col md={16}>
+                                <Col sm={16}>
                                     <HomeTwitter />
                                 </Col>
-                                <Col md={8} className="side-menu">
+                                <Col sm={8} className="side-menu">
                                     <h3>{t('links')}</h3>
                                     <div>
                                         <a
