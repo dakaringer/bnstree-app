@@ -11,6 +11,7 @@ import left_8 from './overlay_8_left.png'
 import left_9 from './overlay_9_left.png'
 import right_9 from './overlay_9_right.png'
 import left_10 from './overlay_10_left.png'
+import right_11 from './overlay_11_right.png'
 
 const overlayImages = [
     {
@@ -78,6 +79,12 @@ const overlayImages = [
     },
     {
         left: left_10
+    },
+    {
+        right: right_11,
+        rightStyle: {
+            right: '-12rem'
+        }
     }
 ]
 
