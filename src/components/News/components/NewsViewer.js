@@ -11,7 +11,7 @@ import {Fade} from 'react-reveal'
 import {Row, Col, Button} from 'antd'
 
 import AdSense from '../../AdSense/AdSense'
-import NotFound from '../../Error/NotFound'
+import ErrorMessage from '../../Error/ErrorMessage'
 
 import NewsList from './NewsList'
 
@@ -117,7 +117,7 @@ class NewsViewer extends React.PureComponent {
                 )
             }
         } else {
-            content = <NotFound />
+            content = <ErrorMessage />
         }
 
         return (

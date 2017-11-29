@@ -83,8 +83,8 @@ const Translator = asyncComponent(() =>
         .then(module => module.default)
         .catch(e => console.error(e))
 )
-const NotFound = asyncComponent(() =>
-    import('./components/Error/NotFound')
+const ErrorMessage = asyncComponent(() =>
+    import('./components/Error/ErrorMessage')
         .then(module => module.default)
         .catch(e => console.error(e))
 )
@@ -97,6 +97,17 @@ const mapStateToProps = state => {
 }
 
 class App extends React.PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            hasError: false
+        }
+    }
+
+    componentDidCatch(error, info) {
+        this.setState({hasError: true})
+    }
+
     render() {
         const {loading, location, user} = this.props
 
@@ -172,7 +183,15 @@ class App extends React.PureComponent {
         let year = new Date().getFullYear()
 
         let app = null
-        if (!loading) {
+        if (this.state.hasError) {
+            app = (
+                <div className="App">
+                    <div className="app-content">
+                        <ErrorMessage error />
+                    </div>
+                </div>
+            )
+        } else if (!loading) {
             app = (
                 <div className="App">
                     <NavBar />
@@ -181,7 +200,7 @@ class App extends React.PureComponent {
                             <Redirect exact from="/index.html" to="/" />
                             <Redirect exact from="/classes" to="/skills/blade-master" />
                             <Redirect from="/classes/shooter" to="/skills/gunslinger" />
-                            <Redirect from="/soulshield" to="//soulshields" />
+                            <Redirect from="/soulshield" to="/soulshields" />
                             {redirectLinks}
 
                             <Route exact path="/" component={Home} />
@@ -197,7 +216,7 @@ class App extends React.PureComponent {
                                 <Route path="/translator" component={Translator} />
                             ) : null}
 
-                            <Route component={NotFound} />
+                            <Route component={ErrorMessage} />
                         </Switch>
                     </div>
                     <SoybeanSprite />
