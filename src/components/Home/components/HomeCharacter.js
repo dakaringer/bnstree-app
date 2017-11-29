@@ -3,6 +3,10 @@ import {Fade} from 'react-reveal'
 
 import overlayImages from '../images/map_overlayImg'
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 class HomeCharacter extends React.PureComponent {
     constructor(props) {
         super(props)
@@ -13,13 +17,13 @@ class HomeCharacter extends React.PureComponent {
     }
 
     componentWillMount() {
-        let max = Object.keys(overlayImages).length
-        let setNumber = Math.floor(Math.random() * max) + 1
-        let set = overlayImages[`set_${setNumber}`]
+        let max = overlayImages.length - 1
+        let setNumber = getRandomInt(0, max)
+        let set = overlayImages[setNumber]
 
         let hidden = null
         if (set.left && set.right) {
-            hidden = Math.floor(Math.random() * 2) + 1
+            hidden = getRandomInt(0, 2)
         }
 
         this.setState({
