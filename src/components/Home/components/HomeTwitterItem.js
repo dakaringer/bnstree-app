@@ -22,9 +22,10 @@ const HomeTwitterItem = props => {
     let user = tweet.get('user', Map())
     tweet = tweet.get('extended_tweet', tweet)
 
-    let text = tweet
-        .get('full_text', tweet.get('text'))
-        .substr(0, tweet.getIn(['display_text_range', 1], 0))
+    let text = tweet.get('full_text', tweet.get('text'))
+    if (tweet.hasIn(['display_text_range', 1])) {
+        text = text.substr(0, tweet.getIn(['display_text_range', 1], 0))
+    }
     let image = null
     if (tweet.hasIn(['entities', 'media', 0, 'media_url_https'])) {
         image = (
