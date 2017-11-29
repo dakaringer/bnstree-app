@@ -94,5 +94,5 @@ class Items extends React.PureComponent {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-    translate(['items', 'general', 'character', 'tooltip'])(Items)
+    translate(['items', 'general', 'character', 'classes', 'tooltip'])(Items)
 )
