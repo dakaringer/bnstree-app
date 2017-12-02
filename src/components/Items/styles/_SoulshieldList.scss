@@ -19,6 +19,10 @@
                         align-self: flex-start;
                     }
                 }
+
+                .arrow {
+                    margin-top: 1.5rem !important;
+                }
             }
 
             & > .ant-collapse-item-active > .ant-collapse-header {
@@ -130,10 +134,10 @@
             }
 
             .ant-collapse-header {
-                height: 5rem;
+                height: 4rem;
 
                 .arrow {
-                    margin: 0;
+                    margin: 0 !important;
                 }
             }
         }
