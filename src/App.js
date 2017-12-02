@@ -9,7 +9,7 @@ import LoadingLyn from './components/LoadingLyn/LoadingLyn'
 import Background from './components/Background/Background'
 import SoybeanSprite from './components/Sprites/SoybeanSprite/SoybeanSprite'
 
-import classes from './components/NavBar/classes'
+import getRedirects from './redirects'
 import './styles/App.scss'
 
 function asyncComponent(getComponent) {
@@ -111,75 +111,6 @@ class App extends React.PureComponent {
     render() {
         const {loading, location, user} = this.props
 
-        let redirectLinks = []
-        classes.forEach(c => {
-            redirectLinks.push(
-                <Redirect
-                    key={`${c[0]}-skill`}
-                    exact
-                    from={`/skill/${c[0]}`}
-                    to={{
-                        search: location.search,
-                        pathname: `/skills/${c[1]}`
-                    }}
-                />,
-                <Redirect
-                    key={`${c[0]}-skill-id`}
-                    exact
-                    from={`/skill/${c[0]}/:id`}
-                    to={{
-                        search: `?id=${location.pathname.split('/').slice(-1)[0]}`,
-                        pathname: `/skills/${c[1]}`
-                    }}
-                />,
-                <Redirect
-                    key={`${c[0]}-classes`}
-                    exact
-                    from={`/classes/${c[1]}`}
-                    to={{
-                        search: location.search,
-                        pathname: `/skills/${c[1]}`
-                    }}
-                />,
-                <Redirect
-                    key={`${c[0]}-classes-my-builds`}
-                    exact
-                    from={`/classes/${c[1]}/builds`}
-                    to={`/skills/${c[1]}/builds`}
-                />,
-                <Redirect
-                    key={`${c[0]}-classes-my-builds`}
-                    exact
-                    from={`/classes/${c[1]}/my-builds`}
-                    to={`/skills/${c[1]}/my-builds`}
-                />,
-                <Redirect
-                    key={`${c[0]}-classes-badges`}
-                    exact
-                    from={`/classes/${c[1]}/badges`}
-                    to={`/items/badges`}
-                />,
-                <Redirect
-                    key={`${c[0]}-classes-soulshields`}
-                    exact
-                    from={`/classes/${c[1]}/soulshields`}
-                    to={`/items/soulshields`}
-                />,
-                <Redirect
-                    key={`${c[0]}-skills-badges`}
-                    exact
-                    from={`/skills/${c[1]}/badges`}
-                    to={`/items/badges`}
-                />,
-                <Redirect
-                    key={`${c[0]}-skills-soulshields`}
-                    exact
-                    from={`/skills/${c[1]}/soulshields`}
-                    to={`/items/soulshields`}
-                />
-            )
-        })
-
         let year = new Date().getFullYear()
 
         let app = null
@@ -192,6 +123,8 @@ class App extends React.PureComponent {
                 </div>
             )
         } else if (!loading) {
+            let redirectLinks = getRedirects(location)
+
             app = (
                 <div className="App">
                     <NavBar />
