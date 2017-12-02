@@ -4,17 +4,26 @@
             width: 100%;
         }
 
-        & > .ant-collapse > .ant-collapse-item > .ant-collapse-header {
-            .item-header {
-                height: 8rem;
-                overflow: hidden;
-                display: flex;
-                margin-bottom: -1rem;
+        & > .ant-collapse {
+            & > .ant-collapse-item > .ant-collapse-header {
+                .item-header {
+                    height: 8rem;
+                    overflow: hidden;
+                    display: flex;
+                    margin-bottom: -1rem;
+                    transition: all 0.2s;
 
-                .item-icon {
-                    padding: 0 1rem;
-                    height: 15rem;
-                    align-self: flex-start;
+                    .item-icon {
+                        padding: 0 1rem;
+                        height: 15rem;
+                        align-self: flex-start;
+                    }
+                }
+            }
+
+            & > .ant-collapse-item-active > .ant-collapse-header {
+                .item-header {
+                    height: 16rem;
                 }
             }
         }
