@@ -44,7 +44,7 @@ const SoulshieldContent = props => {
                     .map(
                         stat =>
                             `${t(stat.get(0))} ${stat.get(1)}${
-                                stat.get(0) === 'attack_critical_damage_value' ? '%' : ''
+                                stat.get(0) === 'attack_critical_damage_rate' ? '%' : ''
                             }`
                     )
                     .join(', ')
