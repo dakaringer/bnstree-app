@@ -109,7 +109,7 @@ const SoulshieldContent = props => {
                         <td className="stat-label">{t(stat)}</td>
                         <td>
                             {values.join(legacy ? ', ' : ' ~ ')}
-                            <span className={`tag rng`}>%</span>
+                            {subStats.size > 1 ? <span className={`tag rng`}>%</span> : null}
                         </td>
                     </tr>
                 )
@@ -117,7 +117,9 @@ const SoulshieldContent = props => {
         if (sub.length > 0) {
             subDiv = (
                 <div className="sub">
-                    <p>{t('items:randomSub', {count: subStats.get('limit', 1)})}</p>
+                    {sub.length > 1 ? (
+                        <p>{t('items:randomSub', {count: subStats.get('limit', 1)})}</p>
+                    ) : null}
                     <table>
                         <tbody>{sub}</tbody>
                     </table>
