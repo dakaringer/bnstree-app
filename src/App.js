@@ -130,10 +130,6 @@ class App extends React.PureComponent {
                     <NavBar />
                     <div className="app-content">
                         <Switch>
-                            <Redirect exact from="/index.html" to="/" />
-                            <Redirect exact from="/classes" to="/skills/blade-master" />
-                            <Redirect from="/classes/shooter" to="/skills/gunslinger" />
-                            <Redirect from="/soulshield" to="/soulshields" />
                             {redirectLinks}
 
                             <Route exact path="/" component={Home} />

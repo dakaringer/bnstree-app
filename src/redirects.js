@@ -3,7 +3,12 @@ import {Redirect} from 'react-router-dom'
 import classes from './components/NavBar/classes'
 
 export default function getRedirects(location) {
-    let redirectLinks = []
+    let redirectLinks = [
+        <Redirect exact from="/index.html" to="/" />,
+        <Redirect exact from="/classes" to="/skills/blade-master" />,
+        <Redirect from="/classes/shooter" to="/skills/gunslinger" />,
+        <Redirect from="/soulshield" to="/soulshields" />
+    ]
     classes.forEach(c => {
         redirectLinks.push(
             <Redirect
