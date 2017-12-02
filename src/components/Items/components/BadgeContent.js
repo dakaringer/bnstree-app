@@ -133,7 +133,7 @@ class BadgeContent extends React.PureComponent {
             )
         }
 
-        if (item.get('classCode', 'all') !== 'all') {
+        if (item.get('classCode', 'ALL') !== 'ALL') {
             extra.push(
                 <p key="class-restriction">
                     {t('classRestriction', {className: t(item.get('classCode'))})}
