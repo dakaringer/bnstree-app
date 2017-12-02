@@ -153,7 +153,7 @@ const SoulshieldContent = props => {
     }
 
     let extra = []
-    if (item.get('classCode', 'all') !== 'all') {
+    if (item.get('classCode', 'ALL') !== 'ALL') {
         extra.push(
             <p key="class-restriction">
                 {t('items:classRestriction', {className: t(item.get('classCode'))})}
