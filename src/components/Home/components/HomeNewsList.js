@@ -40,7 +40,7 @@ class HomeNewsList extends React.PureComponent {
             count++
 
             items.push(
-                <Col md={count === 1 ? 16 : count === 2 ? 8 : 6} key={i} span={24}>
+                <Col md={count === 1 ? 16 : count === 2 ? 8 : 6} xs={12} key={i} span={24}>
                     <NewsListItem
                         article={article}
                         selected={currentId === article.get('_id')}
