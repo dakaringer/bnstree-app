@@ -109,6 +109,7 @@ const namesQuery = q`query ($language: String!, $en: Boolean!) {
 
 const buildListQuery = q`query (
     $page: Int,
+    $limit: Int,
     $classCode: String,
     $element: String,
     $type: String,
@@ -116,7 +117,7 @@ const buildListQuery = q`query (
 ) {
     SkillBuilds {
         list(
-            limit: 10,
+            limit: $limit,
             page: $page,
             classCode: $classCode,
             element: $element,
@@ -252,11 +253,14 @@ export function loadTextData(lang) {
 
 export function loadBuildList(page = 1, classCode, element = null, type = null, user = null) {
     return dispatch => {
+        let limit = 10
+
         apollo
             .query({
                 query: buildListQuery,
                 variables: {
                     page: page,
+                    limit: limit,
                     classCode: classCode,
                     element: element,
                     type: type,
@@ -265,10 +269,17 @@ export function loadBuildList(page = 1, classCode, element = null, type = null, 
                 fetchPolicy: 'network-only'
             })
             .then(json => {
+                let builds = Object.assign(
+                    {
+                        page: page,
+                        limit: limit
+                    },
+                    json.data.SkillBuilds
+                )
                 if (user) {
-                    dispatch(setUserBuildList(classCode, json.data.SkillBuilds))
+                    dispatch(setUserBuildList(classCode, builds))
                 } else {
-                    dispatch(setBuildList(classCode, json.data.SkillBuilds))
+                    dispatch(setBuildList(classCode, builds))
                 }
             })
             .catch(e => console.error(e))
