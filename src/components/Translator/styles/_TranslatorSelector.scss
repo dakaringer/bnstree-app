@@ -3,18 +3,39 @@
     flex-direction: column;
     padding: 1rem 0;
 
-    .translator-selector-item {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    .translator-selector-group {
+        margin-bottom: 1rem;
+
+        h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
 
         .ant-badge-status-text {
             color: white;
             font-size: 1.4rem;
         }
-        &.active {
+
+        .ant-collapse-header {
+            padding-left: 1rem;
+        }
+
+        .ant-collapse-content-box {
+            padding: 0.5rem;
+        }
+
+        .translator-selector-item {
+            white-space: nowrap;
+
             .ant-badge-status-text {
-                color: deepskyblue;
+                color: #ddd;
+                font-size: 1.2rem;
+            }
+
+            &.active {
+                .ant-badge-status-text {
+                    color: deepskyblue;
+                }
             }
         }
     }

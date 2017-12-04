@@ -143,7 +143,7 @@ const TranslatorEditor = props => {
 
     return (
         <div className="translator-editor">
-            {group !== 'none' ? (
+            {group && group !== 'none' ? (
                 <h4>
                     {namespace !== 'skillNames' && namespace !== 'itemNames'
                         ? group.substr(3)

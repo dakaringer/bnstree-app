@@ -22,8 +22,7 @@ import {
 } from './selectors'
 
 const setLanguage = makeActionCreator(actionType.SET_TRANSLATOR_LANGUAGE, 'language')
-export const setNamespace = makeActionCreator(actionType.SET_TRANSLATOR_NAMESPACE, 'namespace')
-export const setGroup = makeActionCreator(actionType.SET_TRANSLATOR_GROUP, 'group')
+export const setGroup = makeActionCreator(actionType.SET_TRANSLATOR_GROUP, 'namespace', 'group')
 const setTranslatorSaving = makeActionCreator(actionType.SET_TRANSLATOR_SAVING, 'saving')
 const setError = makeActionCreator(actionType.SET_TRANSLATOR_ERROR, 'error')
 

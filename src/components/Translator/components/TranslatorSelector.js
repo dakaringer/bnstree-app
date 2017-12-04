@@ -2,33 +2,17 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Map, List} from 'immutable'
 
-import {Badge} from 'antd'
+import TranslatorSelectorItem from './TranslatorSelectorItem'
 
-import {
-    groupSelector,
-    namespaceSelector,
-    referenceDataSelector,
-    dataStatusSelector
-} from '../selectors'
-import {setNamespace, setGroup} from '../actions'
+import {referenceDataSelector} from '../selectors'
 
 const mapStateToProps = state => {
     return {
-        group: groupSelector(state),
-        namespace: namespaceSelector(state),
-        referenceData: referenceDataSelector(state),
-        dataStatus: dataStatusSelector(state)
+        referenceData: referenceDataSelector(state)
     }
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setNamespace: namespace => dispatch(setNamespace(namespace)),
-        setGroup: group => dispatch(setGroup(group))
-    }
-}
-
-const classes = [
+const classes = List([
     'BLADE_MASTER',
     'KUNG_FU_MASTER',
     'DESTROYER',
@@ -39,69 +23,30 @@ const classes = [
     'WARLOCK',
     'SOUL_FIGHTER',
     'GUNSLINGER'
-]
+])
 
-const items = ['BADGE_SOUL', 'BADGE_MYSTIC', 'SOULSHIELD']
+const items = List(['BADGE_SOUL', 'BADGE_MYSTIC', 'SOULSHIELD'])
 
-class TranslatorSelector extends React.PureComponent {
-    select(selection) {
-        let {groupMode, setNamespace, setGroup} = this.props
+const names = Map({
+    skillNames: classes.map(group => Map({_id: group})),
+    itemNames: items.map(group => Map({_id: group}))
+})
 
-        if (groupMode) {
-            setGroup(selection)
-        } else {
-            setNamespace(selection)
-            setGroup('none')
-        }
-    }
+const TranslatorSelector = props => {
+    let {referenceData} = props
 
-    render() {
-        let {referenceData, dataStatus, namespace, group, groupMode} = this.props
-
-        let list = List()
-        if (groupMode) {
-            dataStatus = dataStatus.get(namespace, Map())
-            switch (namespace) {
-                case 'skillNames':
-                    list = List(classes)
-                    break
-                case 'itemNames':
-                    list = List(items)
-                    break
-                default:
-                    list = namespace !== 'none' ? referenceData.get(namespace, List()) : list
-                    list = list.map(group => group.get('_id'))
-            }
-        } else {
-            list = referenceData
-                .keySeq()
-                .toList()
-                .push('skillNames')
-                .push('itemNames')
-        }
-
-        let selections = []
-        list.forEach(key => {
-            let selected = key === (groupMode ? group : namespace)
-            selections.push(
-                <a
-                    key={key}
-                    className={`translator-selector-item ${selected ? 'active' : ''}`}
-                    onClick={() => this.select(key)}>
-                    <Badge
-                        status={dataStatus.getIn([key, 'dataStatus'], 'error')}
-                        text={
-                            groupMode && namespace !== 'skillNames' && namespace !== 'itemNames'
-                                ? key.substr(3)
-                                : key
-                        }
-                    />
-                </a>
-            )
-        })
-
-        return <div className="translator-selector">{selections}</div>
-    }
+    return (
+        <div className="translator-selector">
+            <div className="translator-selector-group">
+                <h4>UI</h4>
+                <TranslatorSelectorItem items={referenceData} />
+            </div>
+            <div className="translator-selector-group">
+                <h4>Names</h4>
+                <TranslatorSelectorItem items={names} names />
+            </div>
+        </div>
+    )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TranslatorSelector)
+export default connect(mapStateToProps)(TranslatorSelector)

@@ -39,13 +39,10 @@ class Translator extends React.PureComponent {
                 <div>
                     <TranslatorStatusBar />
                     <Row gutter={16}>
-                        <Col sm={4}>
+                        <Col sm={6}>
                             <TranslatorSelector />
                         </Col>
-                        <Col sm={6}>
-                            <TranslatorSelector groupMode={true} />
-                        </Col>
-                        <Col sm={14}>
+                        <Col sm={18}>
                             <TranslatorEditor />
                         </Col>
                     </Row>

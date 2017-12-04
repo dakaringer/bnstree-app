@@ -15,10 +15,8 @@ function ui(
     switch (action.type) {
         case actionType.SET_TRANSLATOR_LANGUAGE:
             return state.set('language', action.language)
-        case actionType.SET_TRANSLATOR_NAMESPACE:
-            return state.set('namespace', action.namespace)
         case actionType.SET_TRANSLATOR_GROUP:
-            return state.set('group', action.group)
+            return state.set('group', action.group).set('namespace', action.namespace)
         case actionType.SET_TRANSLATOR_SAVING:
             return state.set('saving', action.saving)
         case actionType.SET_TRANSLATOR_ERROR:
