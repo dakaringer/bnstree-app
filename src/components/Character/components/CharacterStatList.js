@@ -2,9 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {Collapse} from 'antd'
-
 import {characterSelector} from '../selectors'
+
+import {Collapse} from 'antd'
+const Panel = Collapse.Panel
 
 const mapStateToProps = state => {
     return {
@@ -59,8 +60,8 @@ const CharacterStatItem = props => {
         }
 
         let header = (
-            <span>
-                {t(stat[0])}
+            <div className="stat-header">
+                <span>{t(stat[0])}</span>
                 <span className="mainValue">
                     {stat[0] === `${type}_stiff_duration_level`
                         ? `${t('level', {level: statData.getIn(['total_ability', stat[0]], 0)})} `
@@ -69,13 +70,13 @@ const CharacterStatItem = props => {
                         ? statData.getIn(['total_ability', stat[0]], 0)
                         : ''}
                 </span>
-            </span>
+            </div>
         )
 
         list.push(
-            <Collapse.Panel header={header} className="statItem" bordered={false} key={i}>
+            <Panel header={header} className="statItem" bordered={false} key={i}>
                 <div>{subValues}</div>
-            </Collapse.Panel>
+            </Panel>
         )
     })
 

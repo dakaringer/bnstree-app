@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Collapse, Tooltip} from 'antd'
+import {Tooltip} from 'antd'
 
 import {characterSelector} from '../selectors'
 
@@ -128,11 +128,7 @@ const CharacterStats = props => {
                     </p>
                 </Tooltip>
             </div>
-            <div className="subStatsContainer">
-                <Collapse className="subStats" bordered={false}>
-                    {stats}
-                </Collapse>
-            </div>
+            <div className="subStatsContainer">{stats}</div>
         </div>
     )
 }

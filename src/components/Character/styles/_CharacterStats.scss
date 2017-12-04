@@ -80,31 +80,22 @@
                     line-height: 3.8rem;
                 }
             }
-            .ant-collapse-header {
-                height: 100%;
-                padding-right: 2.5rem;
 
-                .arrow {
-                    float: right;
-                    color: white;
-                }
+            .stat-header {
+                justify-content: space-between;
+
                 .mainValue {
-                    float: right;
                     color: aqua;
                 }
             }
 
             .ant-collapse-content-box {
-                padding-left: 2rem;
-                padding-right: 1rem;
-            }
+                color: #ddd;
 
-            .subHeader {
-                color: #ccc;
-            }
-            .subValue {
-                float: right;
-                color: #eee;
+                .subValue {
+                    padding-right: 1.75rem;
+                    float: right;
+                }
             }
         }
     }

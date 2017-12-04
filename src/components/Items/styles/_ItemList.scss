@@ -24,9 +24,6 @@
 
         .ant-collapse > .ant-collapse-item > .ant-collapse-header {
             padding: 1rem;
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: space-between;
 
             .item-header {
                 display: flex;
@@ -39,7 +36,7 @@
             }
 
             .title {
-                margin-top: -0.5rem;
+                align-self: flex-start;
                 .subtitle {
                     font-size: 1.4rem;
                     color: #999;
@@ -47,14 +44,7 @@
             }
 
             .arrow {
-                position: relative;
-                color: white;
-                left: -1rem;
-                transform-origin: 50% 50%;
                 display: flex;
-                align-items: center;
-                height: 100%;
-                margin-top: 0.5rem;
             }
         }
 
