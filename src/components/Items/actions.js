@@ -21,7 +21,7 @@ const itemsQuery = q`query ($type: String!) {
             _id
             count
         }
-        userVotes: userVotes2(type: $type) {
+        userVotes: userVotes(type: $type) {
             _id
             count
         }
