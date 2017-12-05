@@ -18,27 +18,6 @@
             font-size: 1.6rem;
         }
     }
-
-    .header-right {
-        font-size: 2rem;
-        padding: 0 0.5rem;
-
-        .popover-toggle {
-            padding: 0 1rem;
-        }
-
-        @media (max-width: 991px) {
-            & > .item-header-menu {
-                display: none;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .popover-toggle {
-                display: none;
-            }
-        }
-    }
 }
 
 .item-selector-popover {
