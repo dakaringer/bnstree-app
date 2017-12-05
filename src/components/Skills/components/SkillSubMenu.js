@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import elementImages from '../images/map_elementImg'
+import elementImages from '../images/map_elementImg2'
 
 import {setViewOption} from '../../../actions'
 import {viewSelector} from '../../../selectors'
