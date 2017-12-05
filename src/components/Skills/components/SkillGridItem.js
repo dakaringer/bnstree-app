@@ -29,7 +29,7 @@ const SkillGridItem = props => {
     })
 
     return (
-        <div className="skill-icon-list-item">
+        <div className="skill-grid-item">
             <Popover
                 placement="bottomLeft"
                 align={{overflow: {adjustY: false, adjustX: true}}}

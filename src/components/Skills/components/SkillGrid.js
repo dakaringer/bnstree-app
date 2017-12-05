@@ -70,7 +70,7 @@ const SkillGrid = props => {
     })
 
     return (
-        <div className="skill-icon-list">
+        <div className="skill-grid">
             <table>
                 <tbody>
                     <tr className="top">
