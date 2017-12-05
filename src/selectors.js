@@ -21,7 +21,11 @@ export const loadingAppSelector = createSelector(generalSelector, ref =>
 )
 
 export const supportedLanguagesSelector = createSelector(generalSelector, ref =>
-    ref.get('supportedLanguages', List())
+    ref.get('supportedLanguages', List()).sort((a, b) => {
+        if (a.get('name') < b.get('name')) return -1
+        if (a.get('name') > b.get('name')) return 1
+        return 0
+    })
 )
 
 export const recentSearchSelector = createSelector(generalSelector, ref =>
