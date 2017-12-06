@@ -5,15 +5,14 @@
         border-radius: 0.1rem;
         background: rgba(0, 0, 0, 0.8);
 
-        .ant-dropdown-menu-item {
-            & > a.active {
-                color: deepskyblue;
-            }
+        .ant-dropdown-menu-item > a.active {
+            color: deepskyblue;
         }
 
         .ant-dropdown-menu-item-selected,
         .ant-dropdown-menu-item-selected > a {
-            background: none;
+            background: none !important;
+            color: deepskyblue;
         }
     }
 }
@@ -98,7 +97,6 @@
 }
 
 .ant-tabs {
-    font-family: inherit !important;
     .ant-tabs-bar {
         border-color: rgba(255, 255, 255, 0.35) !important;
         .ant-tabs-nav {
@@ -167,6 +165,7 @@
 .ant-radio-button-wrapper {
     background: none !important;
     color: white !important;
+    padding: 0 1rem !important;
 
     &.ant-radio-button-wrapper-checked {
         color: dodgerblue !important;
@@ -191,7 +190,6 @@
 }
 
 .ant-collapse {
-    font-family: inherit;
     border-radius: 0;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0) 110%);
 
@@ -200,6 +198,7 @@
         border: none;
 
         .ant-collapse-header {
+            overflow: hidden;
             color: white;
             user-select: none;
             padding: 0 0.5rem;
