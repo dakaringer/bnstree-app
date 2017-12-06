@@ -10,7 +10,6 @@ import Background from './components/Background/Background'
 import SoybeanSprite from './components/Sprites/SoybeanSprite/SoybeanSprite'
 
 import getRedirects from './redirects'
-import './styles/App.scss'
 
 function asyncComponent(getComponent) {
     return class AsyncComponent extends React.PureComponent {
