@@ -278,6 +278,7 @@ class NavBar extends React.PureComponent {
                                 <a>
                                     {user ? (
                                         <Avatar
+                                            shape="square"
                                             style={{backgroundColor: 'deepskyblue'}}
                                             src={user.get('profilePic')}>
                                             {user.get('displayName', 'U').charAt(0)}
@@ -349,6 +350,7 @@ class NavBar extends React.PureComponent {
                                     user ? (
                                         <span>
                                             <Avatar
+                                                shape="square"
                                                 size="small"
                                                 style={{backgroundColor: 'deepskyblue'}}
                                                 src={user.get('profilePic')}>
