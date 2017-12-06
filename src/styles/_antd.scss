@@ -24,11 +24,7 @@
     }
 
     .ant-tooltip-arrow {
-        border-bottom-color: rgba(10, 10, 10, 0.9);
-
-        @media (max-width: 767px) {
-            display: none;
-        }
+        display: none;
     }
 
     .ant-tooltip-inner {
@@ -44,13 +40,8 @@
 
 .ant-popover {
     .ant-popover-arrow {
-        border-bottom-color: rgba(30, 30, 30, 0.9) !important;
-        border-top-color: rgba(30, 30, 30, 0.9) !important;
-
-        &::after {
-            border-bottom-color: #111 !important;
-            border-top-color: #111 !important;
-        }
+        background: rgba(10, 10, 10, 0.9) !important;
+        background: none;
     }
 
     .ant-popover-inner {
