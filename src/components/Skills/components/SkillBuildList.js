@@ -7,7 +7,7 @@ import {Link, withRouter} from 'react-router-dom'
 
 import {Pagination, Icon, Dropdown, Menu, Popconfirm} from 'antd'
 
-import elementImages from '../images/map_elementImg'
+import elementImages from '../images/map_elementImg2'
 
 import {
     classSelector,
@@ -44,13 +44,19 @@ class SkillBuildList extends React.PureComponent {
         }
     }
 
-    handleFilter(field, value) {
-        const {classCode, user} = this.props
+    handleFilter(element, type) {
+        const {classCode, user, loadBuildList} = this.props
         const {elementFilter, typeFilter} = this.state
-        this.props.loadBuildList(1, classCode, elementFilter, typeFilter, user)
+
+        element = element || elementFilter
+        type = type || typeFilter
+
         this.setState({
-            [field]: value
+            elementFilter: element,
+            typeFilter: type
         })
+
+        loadBuildList(1, classCode, element, type, user)
     }
 
     handleDelete(id) {
@@ -133,13 +139,13 @@ class SkillBuildList extends React.PureComponent {
             elements.push(<Menu.Item key={element}>{t(element)}</Menu.Item>)
         })
         let elementFilterDropdown = (
-            <Menu theme="dark" onClick={e => this.handleFilter('element', e.key)}>
+            <Menu theme="dark" onClick={e => this.handleFilter(e.key, null)}>
                 {elements}
             </Menu>
         )
 
         let typeFilterDropdown = (
-            <Menu theme="dark" onClick={e => this.handleFilter('type', e.key)}>
+            <Menu theme="dark" onClick={e => this.handleFilter(null, e.key)}>
                 <Menu.Item key="all">{t('all')}</Menu.Item>
                 <Menu.Item key="PvE">{t('PvE')}</Menu.Item>
                 <Menu.Item key="PvP">{t('PvP')}</Menu.Item>
