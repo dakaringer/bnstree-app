@@ -91,6 +91,7 @@
 
             .ant-collapse-content-box {
                 color: #ddd;
+                padding: 1rem 0;
 
                 .subValue {
                     padding-right: 1.75rem;
@@ -103,8 +104,14 @@
 
 .hmPointMenu {
     .ant-tooltip-inner {
-        max-width: 30rem;
-        width: 30rem;
+        max-width: 35rem;
+        width: 35rem;
+        padding: 2rem;
+    }
+
+    h4 {
+        color: white;
+        margin-bottom: 1rem;
     }
 
     p {
@@ -116,11 +123,12 @@
     .mainHmStat {
         display: flex;
         align-items: center;
-        margin-top: 1.2rem;
+        margin-top: 0.5rem;
         padding: 0 0.5rem;
 
         img {
-            height: 2.5rem;
+            height: 4rem;
+            margin: -0.5rem;
             margin-right: 1rem;
             opacity: 0.9;
         }
@@ -129,6 +137,7 @@
             margin: 0;
             flex: 1 0;
             font-size: 1.4rem;
+            padding-right: 1rem;
 
             span {
                 float: right;
@@ -152,20 +161,15 @@
             margin-bottom: 0.5rem;
         }
 
-        tr {
-            border-bottom: solid 0.1rem #555;
-        }
-
-        tr:last-child {
-            border-bottom: none;
-        }
-
         td {
             padding: 1rem 0;
+            font-size: 1.2rem;
         }
 
         th {
-            padding-right: 1rem;
+            font-weight: 400;
+            padding-right: 1.5rem;
+            text-align: center;
         }
 
         .active {

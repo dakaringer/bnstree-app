@@ -26,61 +26,61 @@ const CharacterPointMenu = props => {
 
     return (
         <div>
-            <p>
+            <h4>
                 {t(`${type}Points`)} <span>{points}P</span>
-            </p>
+            </h4>
             <div className="mainHmStat">
                 <img alt="stat1" src={stats.m1[0]} />
                 <p>
                     {t(stats.statTypes[0])}
-                    <span>
-                        {stats.m1[1](points)}
-                    </span>
+                    <span>{stats.m1[1](points)}</span>
                 </p>
             </div>
             <div className="mainHmStat">
                 <img alt="stat2" src={stats.m2[0]} />
                 <p>
                     {t(stats.statTypes[1])}
-                    <span>
-                        {stats.m2[1](points)}
-                    </span>
+                    <span>{stats.m2[1](points)}</span>
                 </p>
             </div>
             <hr />
-            <p>
-                {t('additionalEffects')}
-            </p>
+            <h4>{t('additionalEffects')}</h4>
             <table className="additionalEffects">
                 <tbody>
                     <tr className={points >= 10 ? 'active' : ''}>
                         <th>10</th>
                         <td>
-                            {t(stats.statTypes[0])} +{stats.sub[0][0]}, {t(stats.statTypes[1])} +{stats.sub[0][1]}
+                            {t(stats.statTypes[0])} +{stats.sub[0][0]}, {t(stats.statTypes[1])} +{
+                                stats.sub[0][1]
+                            }
                         </td>
                     </tr>
                     <tr className={points >= 20 ? 'active' : ''}>
                         <th>20</th>
                         <td>
-                            {t(stats.statTypes[0])} +{stats.sub[1][0]}, {t(stats.statTypes[1])} +{stats.sub[1][1]}
+                            {t(stats.statTypes[0])} +{stats.sub[1][0]}, {t(stats.statTypes[1])} +{
+                                stats.sub[1][1]
+                            }
                         </td>
                     </tr>
                     <tr className={points >= 50 ? 'active' : ''}>
                         <th>50</th>
-                        <td>
-                            {t(`${type}50Effect`)}
-                        </td>
+                        <td>{t(`${type}50Effect`)}</td>
                     </tr>
                     <tr className={points >= 80 ? 'active' : ''}>
                         <th>80</th>
                         <td>
-                            {t(stats.statTypes[0])} +{stats.sub[2][0]}, {t(stats.statTypes[1])} +{stats.sub[2][1]}
+                            {t(stats.statTypes[0])} +{stats.sub[2][0]}, {t(stats.statTypes[1])} +{
+                                stats.sub[2][1]
+                            }
                         </td>
                     </tr>
                     <tr className={points >= 100 ? 'active' : ''}>
                         <th>100</th>
                         <td>
-                            {t(stats.statTypes[0])} +{stats.sub[3][0]}, {t(stats.statTypes[1])} +{stats.sub[3][1]}
+                            {t(stats.statTypes[0])} +{stats.sub[3][0]}, {t(stats.statTypes[1])} +{
+                                stats.sub[3][1]
+                            }
                         </td>
                     </tr>
                 </tbody>
