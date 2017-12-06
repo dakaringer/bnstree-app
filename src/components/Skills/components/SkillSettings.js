@@ -170,7 +170,7 @@ class SkillSettings extends React.PureComponent {
                         </tbody>
                     </table>
                     <hr />
-                    <h5>{t('elementDamage')}</h5>
+                    <h5>{t('elementDamage')} (%)</h5>
                     <table>
                         <tbody>{elementDamage}</tbody>
                     </table>
