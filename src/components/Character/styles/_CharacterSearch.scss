@@ -1,5 +1,5 @@
 .character-search {
-    width: 40rem;
+    width: 35rem;
     display: flex;
 
     .inputGroup {
@@ -8,7 +8,10 @@
 
         input {
             flex: 1;
-            margin-right: 1rem;
+        }
+
+        .anticon-search {
+            margin: 0 1rem;
         }
     }
 
@@ -19,7 +22,6 @@
     &.center {
         width: 50rem;
         max-width: 100%;
-        flex-direction: column-reverse;
         align-items: center;
         font-size: 1.8rem;
         margin: 0 auto;
@@ -27,10 +29,6 @@
         .inputGroup {
             width: 100%;
             margin: 2rem 0;
-        }
-
-        .regionSelector {
-            margin-right: 0;
         }
     }
 

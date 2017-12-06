@@ -8,9 +8,7 @@ import {viewSelector, recentSearchSelector} from '../../../selectors'
 import {setViewOption} from '../../../actions'
 import {loadCharacter} from '../actions'
 
-import {Icon, Radio} from 'antd'
-const RadioButton = Radio.Button
-const RadioGroup = Radio.Group
+import {Menu, Dropdown, Icon} from 'antd'
 
 const mapStateToProps = state => {
     return {
@@ -78,21 +76,25 @@ class CharacterSearch extends React.PureComponent {
             )
         }
 
+        let regions = (
+            <Menu theme="dark" onClick={e => setRegion(e.key)} selectedKeys={[region]}>
+                <Menu.Item key="na">NA</Menu.Item>
+                <Menu.Item key="eu">EU</Menu.Item>
+                <Menu.Item key="tw">TW</Menu.Item>
+                <Menu.Item key="kr">KR</Menu.Item>
+            </Menu>
+        )
+
         return [
             <form
                 key="form"
                 className={`character-search ${center ? 'center' : ''}`}
                 onSubmit={e => this.searchCharacter(e)}>
-                <RadioGroup
-                    className="regionSelector"
-                    size="small"
-                    value={region}
-                    onChange={e => setRegion(e.target.value)}>
-                    <RadioButton value="na">NA</RadioButton>
-                    <RadioButton value="eu">EU</RadioButton>
-                    <RadioButton value="kr">KR</RadioButton>
-                    <RadioButton value="tw">TW</RadioButton>
-                </RadioGroup>
+                <Dropdown overlay={regions} trigger={['click']}>
+                    <a className="regionSelector">
+                        {region.toUpperCase()} <Icon type="down" />
+                    </a>
+                </Dropdown>
                 <div className="inputGroup">
                     <input
                         onChange={e => this.enterCharacter(e)}
