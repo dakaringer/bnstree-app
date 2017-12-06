@@ -7,7 +7,7 @@ import {setStat, setElementDmg} from '../actions'
 import {viewSelector} from '../../../selectors'
 import {setViewOption} from '../../../actions'
 
-import elementImages from '../images/map_elementImg'
+import elementImages from '../images/map_elementImg2'
 
 import {Modal, Icon, Tooltip, Radio} from 'antd'
 const RadioButton = Radio.Button
