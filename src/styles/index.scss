@@ -47,6 +47,7 @@ a {
 ::-webkit-input-placeholder {
     color: #aaa;
 }
+
 input {
     color: white;
     background: none;
@@ -98,6 +99,12 @@ body::-webkit-scrollbar {
 ::-webkit-scrollbar-corner,
 ::-webkit-resizer {
     background-color: black;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 @import 'antd';
