@@ -154,6 +154,9 @@ class BadgeContent extends React.PureComponent {
             votes.push(
                 <span key={element} className="item-vote-group">
                     <img alt={element} src={elementImages[element]} />
+                    {voteCounts.get(element, 0) +
+                        (userVote ? -1 : 0) +
+                        (this.state[element] ? 1 : 0)}
                     {user ? (
                         <Button
                             type="primary"
@@ -163,9 +166,6 @@ class BadgeContent extends React.PureComponent {
                             <Icon type="arrow-up" />
                         </Button>
                     ) : null}
-                    {voteCounts.get(element, 0) +
-                        (userVote ? -1 : 0) +
-                        (this.state[element] ? 1 : 0)}
                 </span>
             )
         })
