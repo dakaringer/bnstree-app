@@ -9,7 +9,7 @@ import {skillNamesSelector, userVoteDataSelector} from '../selectors'
 import {vote} from '../actions'
 import parser from '../../Skills/parser'
 
-import elementImages from '../images/map_elementImg'
+import elementImages from '../images/map_elementImg2'
 
 const classElements = {
     BM: ['flame', 'lightning'],

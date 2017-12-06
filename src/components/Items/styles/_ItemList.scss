@@ -80,6 +80,7 @@
             img {
                 height: 1.8rem;
                 vertical-align: sub;
+                margin-right: 0.5rem;
             }
 
             span {
@@ -89,11 +90,12 @@
             }
 
             .item-vote-group {
-                margin-right: 1.5rem;
+                margin-right: 0.5rem;
 
                 .ant-btn-sm {
                     height: 1.6rem;
                     margin: 0 1rem;
+                    vertical-align: middle;
                 }
             }
         }
