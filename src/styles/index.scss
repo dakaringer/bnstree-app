@@ -21,10 +21,13 @@ html {
     }
 }
 
+* {
+    font-family: 'Open Sans', 'Nanum Gothic', sans-serif !important;
+}
+
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Open Sans', 'Nanum Gothic', sans-serif;
 
     background: #222;
     color: #c6c6c6;
