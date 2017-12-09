@@ -3,7 +3,7 @@ import {Map, List, fromJS} from 'immutable'
 import * as actionType from './actionTypes'
 
 function ui(
-    state = fromJS({
+    state = Map({
         language: 'en',
         namespace: 'none',
         group: 'none',
