@@ -7,11 +7,11 @@ import {articleSelector} from './selectors'
 
 import {message} from 'antd'
 
-const setStatus = makeActionCreator(actionType.SET_EDITOR_STATUS, 'type', 'value')
+const setStatus = makeActionCreator(actionType.SET_EDITOR_STATUS, 'context', 'value')
 export const setScrollPosition = makeActionCreator(actionType.SET_EDITOR_SCROLL_POSITION, 'value')
 
 const setArticle = makeActionCreator(actionType.SET_EDITOR_ARTICLE, 'article')
-export const updateArticle = makeActionCreator(actionType.UPDATE_EDITOR_ARTICLE, 'context', 'value')
+const editArticle = makeActionCreator(actionType.UPDATE_EDITOR_ARTICLE, 'context', 'value')
 
 const articleQuery = q`query ($id: ID!) {
     Articles {
@@ -58,14 +58,23 @@ export function loadArticle(id) {
                     query: articleQuery,
                     variables: {
                         id: id
-                    }
+                    },
+                    fetchPolicy: 'network-only'
                 })
                 .then(json => {
+                    console.log(json)
                     dispatch(setArticle(json.data.Articles.article))
                 })
                 .catch(e => console.error(e))
                 .then(() => dispatch(setLoading(false, 'editor')))
         }
+    }
+}
+
+export function updateArticle(context, value) {
+    return dispatch => {
+        dispatch(editArticle(context, value))
+        dispatch(setStatus('saving', null))
     }
 }
 

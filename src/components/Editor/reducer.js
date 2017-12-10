@@ -14,7 +14,7 @@ function ui(
 ) {
     switch (action.type) {
         case actionType.SET_EDITOR_STATUS:
-            return state.setIn(['status', action.type], action.value)
+            return state.setIn(['status', action.context], action.value)
         case actionType.SET_EDITOR_SCROLL_POSITION:
             return state.set('scrollPosition', action.value)
         default:
