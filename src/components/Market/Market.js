@@ -4,6 +4,7 @@ import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
 import {Route, Switch} from 'react-router-dom'
+import {animateScroll} from 'react-scroll'
 
 import {Row, Col} from 'antd'
 
@@ -26,62 +27,68 @@ const mapStateToProps = state => {
     }
 }
 
-const Market = props => {
-    const {t, loading} = props
-
-    let content = <LoadingLyn />
-    if (!loading) {
-        content = (
-            <div>
-                <div className="main-container">
-                    <Row gutter={10}>
-                        <Col md={6}>
-                            <MarketSearch />
-                            <MarketBookmarkList />
-                        </Col>
-                        <Col md={18}>
-                            <Switch>
-                                <Route
-                                    exact
-                                    path={'/market/:region/:itemId'}
-                                    component={MarketItemViewer}
-                                />
-                                <Route component={MarketPopularItemList} />
-                            </Switch>
-                        </Col>
-                    </Row>
-                </div>
-                <div className="slim-container">
-                    <AdSense
-                        data-ad-client="ca-pub-2048637692232915"
-                        data-ad-slot="2719129989"
-                        data-ad-format="auto"
-                    />
-                </div>
-            </div>
-        )
+class Market extends React.PureComponent {
+    componentDidMount() {
+        animateScroll.scrollToTop()
     }
 
-    return (
-        <Fade className="market">
-            <Helmet>
-                <title>{`${t('market')} | BnSTree`}</title>
-                <meta
-                    name="description"
-                    content="Blade & Soul marketplace search for NA and EU servers."
+    render() {
+        const {t, loading} = this.props
+
+        let content = <LoadingLyn />
+        if (!loading) {
+            content = (
+                <div>
+                    <div className="main-container">
+                        <Row gutter={10}>
+                            <Col md={6}>
+                                <MarketSearch />
+                                <MarketBookmarkList />
+                            </Col>
+                            <Col md={18}>
+                                <Switch>
+                                    <Route
+                                        exact
+                                        path={'/market/:region/:itemId'}
+                                        component={MarketItemViewer}
+                                    />
+                                    <Route component={MarketPopularItemList} />
+                                </Switch>
+                            </Col>
+                        </Row>
+                    </div>
+                    <div className="slim-container">
+                        <AdSense
+                            data-ad-client="ca-pub-2048637692232915"
+                            data-ad-slot="2719129989"
+                            data-ad-format="auto"
+                        />
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <Fade className="market">
+                <Helmet>
+                    <title>{`${t('market')} | BnSTree`}</title>
+                    <meta
+                        name="description"
+                        content="Blade & Soul marketplace search for NA and EU servers."
+                    />
+                </Helmet>
+                <AdSense
+                    data-ad-client="ca-pub-2048637692232915"
+                    data-ad-slot="6768736382"
+                    data-ad-format="auto"
                 />
-            </Helmet>
-            <AdSense
-                data-ad-client="ca-pub-2048637692232915"
-                data-ad-slot="6768736382"
-                data-ad-format="auto"
-            />
-            <div className="container">
-                <Header />
-                {content}
-            </div>
-        </Fade>
-    )
+                <div className="container">
+                    <Header />
+                    {content}
+                </div>
+            </Fade>
+        )
+    }
 }
 
 export default connect(mapStateToProps)(translate('general')(Market))

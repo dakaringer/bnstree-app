@@ -4,6 +4,7 @@ import {translate} from 'react-i18next'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
+import {animateScroll} from 'react-scroll'
 
 import AdSense from '../AdSense/AdSense'
 
@@ -71,6 +72,11 @@ class Skills extends React.PureComponent {
         loadText(currentLanguage)
         loadSkills(classCode)
     }
+
+    componentDidMount() {
+        animateScroll.scrollToTop()
+    }
+
     componentWillReceiveProps(nextProps) {
         const {
             location,

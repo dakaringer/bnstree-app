@@ -4,6 +4,7 @@ import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
+import {animateScroll} from 'react-scroll'
 
 import AdSense from '../AdSense/AdSense'
 
@@ -43,6 +44,11 @@ class Items extends React.PureComponent {
         loadItems(match.params.type)
         loadText(currentLanguage)
     }
+
+    componentDidMount() {
+        animateScroll.scrollToTop()
+    }
+
     componentWillReceiveProps(nextProps) {
         const {match, currentLanguage, loadItems, loadText} = this.props
 

@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Fade} from 'react-reveal'
 import {ScrollSync, ScrollSyncPane} from 'react-scroll-sync'
+import {animateScroll} from 'react-scroll'
 
 import './styles/Editor.scss'
 
@@ -33,6 +34,10 @@ class Editor extends React.PureComponent {
 
         loadText('en')
         loadArticle(match.params.id)
+    }
+
+    componentDidMount() {
+        animateScroll.scrollToTop()
     }
 
     render() {

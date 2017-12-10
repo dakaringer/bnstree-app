@@ -4,6 +4,7 @@ import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
+import {animateScroll} from 'react-scroll'
 
 import AdSense from '../AdSense/AdSense'
 
@@ -33,6 +34,11 @@ class Character extends React.PureComponent {
         const {currentLanguage, loadText} = this.props
         loadText(currentLanguage)
     }
+
+    componentDidMount() {
+        animateScroll.scrollToTop()
+    }
+
     componentWillReceiveProps(nextProps) {
         const {currentLanguage, loadText} = this.props
 

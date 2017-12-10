@@ -4,6 +4,7 @@ import {translate} from 'react-i18next'
 import {Link} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
+import {animateScroll} from 'react-scroll'
 
 import {Row, Col, Button} from 'antd'
 
@@ -44,6 +45,10 @@ const mapDispatchToProps = dispatch => {
 class Home extends React.PureComponent {
     componentWillMount() {
         this.props.loadTwitter()
+    }
+
+    componentDidMount() {
+        animateScroll.scrollToTop()
     }
 
     render() {
