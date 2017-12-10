@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
+import {animateScroll} from 'react-scroll'
 
 import {Row, Col, Button} from 'antd'
 
@@ -41,6 +42,11 @@ class NewsViewer extends React.PureComponent {
         loadText('en')
         loadArticle(match.params.id)
     }
+
+    componentDidMount() {
+        animateScroll.scrollToTop()
+    }
+
     componentWillReceiveProps(nextProps) {
         const {loadArticle, match} = this.props
 
