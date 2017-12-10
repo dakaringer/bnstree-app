@@ -62,8 +62,8 @@ const TranslatorStatusBar = props => {
                 </div>
             </div>
             <div className="sub-menu-right">
-                <p className="language-loading">{loadingText}</p>
-                <Button type="primary" onClick={save}>
+                <p className="status">{loadingText}</p>
+                <Button ghost size="small" type="primary" onClick={save}>
                     Save
                 </Button>
             </div>
