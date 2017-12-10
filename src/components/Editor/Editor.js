@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
 import {ScrollSync, ScrollSyncPane} from 'react-scroll-sync'
 import {animateScroll} from 'react-scroll'
@@ -41,19 +42,24 @@ class Editor extends React.PureComponent {
     }
 
     render() {
+        let {article} = this.props
+
         return (
             <Fade className="editor container">
+                <Helmet>
+                    <title>Editor | BnSTree</title>
+                </Helmet>
                 <Header />
                 <div className="main-container">
                     <EditorStatusBar />
                     <ScrollSync>
                         <div className="editor-main">
                             <ScrollSyncPane>
-                                <EditorTextArea article={this.props.article} />
+                                <EditorTextArea article={article} />
                             </ScrollSyncPane>
 
                             <ScrollSyncPane>
-                                <Preview article={this.props.article} />
+                                <Preview article={article} />
                             </ScrollSyncPane>
                         </div>
                     </ScrollSync>
