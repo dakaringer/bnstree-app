@@ -9,6 +9,7 @@ import items from './components/Items/reducer'
 import character from './components/Character/reducer'
 import streams from './components/Streams/reducer'
 import market from './components/Market/reducer'
+import editor from './components/Editor/reducer'
 import translator from './components/Translator/reducer'
 
 function general(
@@ -55,5 +56,6 @@ export default combineReducers({
     market,
     character,
     streams,
+    editor,
     translator
 })

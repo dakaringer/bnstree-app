@@ -77,6 +77,11 @@ const Streams = asyncComponent(() =>
         .then(module => module.default)
         .catch(e => console.error(e))
 )
+const Editor = asyncComponent(() =>
+    import('./components/Editor/Editor')
+        .then(module => module.default)
+        .catch(e => console.error(e))
+)
 const Translator = asyncComponent(() =>
     import('./components/Translator/Translator')
         .then(module => module.default)
@@ -139,6 +144,18 @@ class App extends React.PureComponent {
                             <Route path="/market" component={Market} />
                             <Route path="/character" component={Character} />
                             <Route path="/streams" component={Streams} />
+
+                            {user && user.getIn(['role', 'type']) === 'admin'
+                                ? [
+                                      <Route exact key="new" path="/editor" component={Editor} />,
+                                      <Route
+                                          key="edit"
+                                          exact
+                                          path="/editor/:id"
+                                          component={Editor}
+                                      />
+                                  ]
+                                : null}
 
                             {user && user.getIn(['role', 'translator']) ? (
                                 <Route path="/translator" component={Translator} />

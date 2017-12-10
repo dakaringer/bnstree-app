@@ -1,0 +1,55 @@
+.article {
+    margin-bottom: 5rem;
+    padding: 2rem 1rem;
+    font-size: 1.4rem;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 2rem;
+        color: white;
+    }
+
+    ul {
+        list-style: disc;
+        padding: 0 2rem;
+    }
+
+    p,
+    ul {
+        margin-bottom: 1rem;
+    }
+
+    mark {
+        color: aqua;
+        background: none;
+        img {
+            vertical-align: sub;
+            height: 1.2em;
+        }
+    }
+
+    hr {
+        margin: 3rem 0;
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 2rem;
+        td {
+            border-top: 0.1rem solid #aaa;
+            padding: 0.5rem;
+        }
+    }
+
+    a {
+        color: #108ee9;
+
+        &:hover {
+            color: deepskyblue;
+        }
+    }
+}

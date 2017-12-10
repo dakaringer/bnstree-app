@@ -1,7 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Route, Switch, Redirect} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
 
@@ -11,32 +10,9 @@ import AdSense from '../AdSense/AdSense'
 import Header from './components/NewsHeader'
 import NewsList from './components/NewsList'
 import NewsViewer from './components/NewsViewer'
-import NewsEditor from './components/NewsEditor'
-
-import {userSelector} from '../../selectors'
-
-const mapStateToProps = state => {
-    return {
-        user: userSelector(state)
-    }
-}
 
 const News = props => {
-    const {t, user} = props
-
-    let editArticle =
-        user && user.getIn(['role', 'type']) === 'admin' ? (
-            <Route exact path="/news/edit/:id" component={NewsEditor} />
-        ) : (
-            <Redirect exact from="/news/edit/:id" to="/news" />
-        )
-
-    let newArticle =
-        user && user.getIn(['role', 'type']) === 'admin' ? (
-            <Route exact path="/news/new" component={NewsEditor} />
-        ) : (
-            <Redirect exact from="/news/new" to="/news" />
-        )
+    const {t} = props
 
     return (
         <Fade className="news">
@@ -55,8 +31,6 @@ const News = props => {
                 <div className="main-container">
                     <Switch>
                         <Route exact path="/news" render={() => <NewsList />} />
-                        {newArticle}
-                        {editArticle}
                         <Route path="/news/:id" component={NewsViewer} />
                     </Switch>
                     <AdSense
@@ -70,4 +44,4 @@ const News = props => {
     )
 }
 
-export default connect(mapStateToProps)(translate('general')(News))
+export default translate('general')(News)

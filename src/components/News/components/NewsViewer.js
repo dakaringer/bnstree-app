@@ -1,8 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
-import MarkdownIt from 'markdown-it'
-import {Map} from 'immutable'
 import {Link} from 'react-router-dom'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
@@ -12,7 +10,7 @@ import {Row, Col, Button} from 'antd'
 
 import AdSense from '../../AdSense/AdSense'
 import ErrorMessage from '../../Error/ErrorMessage'
-
+import Article from '../../Editor/components/Article'
 import NewsList from './NewsList'
 
 import {userSelector} from '../../../selectors'
@@ -20,11 +18,6 @@ import {skillNamesSelectorEN} from '../../Skills/selectors'
 import {loadTextData} from '../../Skills/actions'
 import {articleSelector} from '../selectors'
 import {loadArticle} from '../actions'
-
-const md = new MarkdownIt('default', {
-    breaks: true,
-    html: true
-})
 
 const mapStateToProps = state => {
     return {
@@ -57,7 +50,7 @@ class NewsViewer extends React.PureComponent {
     }
 
     render() {
-        const {t, article, skillNames, user} = this.props
+        const {t, article, user} = this.props
 
         let content = null
         let editButton = null
@@ -70,16 +63,6 @@ class NewsViewer extends React.PureComponent {
             } else {
                 timeString = time.format('LL')
             }
-
-            let renderedContent = article
-                .get('content', '')
-                .replace(/\[skill]\((\w+(-\w+)*)\)/g, (match, id) => {
-                    let skill = skillNames.get(id, Map())
-                    return `**![${id}](https://static.bnstree.com/images/skills/${skill.get(
-                        'icon',
-                        'blank'
-                    )}) ${skill.get('name')}**`
-                })
 
             let thumb =
                 article.get('thumb') !== '' ? (
@@ -100,16 +83,13 @@ class NewsViewer extends React.PureComponent {
                     <p className="news-timestamp">{timeString}</p>
                     <hr />
                     {thumb}
-                    <div
-                        className="news-content"
-                        dangerouslySetInnerHTML={{__html: md.render(renderedContent)}}
-                    />
+                    <Article article={article} />
                 </div>
             )
 
             if (user && user.getIn(['role', 'type']) === 'admin') {
                 editButton = (
-                    <Link to={`/news/edit/${article.get('_id')}`}>
+                    <Link to={`/editor/${article.get('_id')}`}>
                         <Button type="primary" ghost>
                             Edit
                         </Button>

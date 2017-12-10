@@ -29,6 +29,7 @@ const store = createStore(
     composeEnhancers(applyMiddleware(thunk), autoRehydrate())
 )
 persistStore(store, {storage: localForage, blacklist: ['general', 'streams']})
+//persistor.purge()
 
 const withTracker = WrappedComponent => {
     const trackPage = page => {

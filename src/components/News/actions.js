@@ -4,20 +4,10 @@ import apollo, {q} from '../../apollo'
 
 import {makeActionCreator} from '../../helpers'
 import {setLoading} from '../../actions'
-import {listSelector, editorArticleSelector} from './selectors'
-
-import {message} from 'antd'
+import {listSelector} from './selectors'
 
 const setList = makeActionCreator(actionType.SET_NEWS_LIST, 'list')
 const setArticle = makeActionCreator(actionType.SET_NEWS_ARTICLE, 'article')
-
-const setEditorArticle = makeActionCreator(actionType.SET_EDITOR_ARTICLE, 'article')
-export const updateEditorArticle = makeActionCreator(
-    actionType.UPDATE_EDITOR_ARTICLE,
-    'context',
-    'value'
-)
-const setEditorSaved = makeActionCreator(actionType.SET_EDITOR_SAVED, 'saved')
 
 const articleListQuery = q`query ($page: Int, $limit: Int) {
     Articles {
@@ -44,28 +34,6 @@ const articleQuery = q`query ($id: ID!) {
     }
 }`
 
-const saveArticleMutation = q`mutation (
-    $_id: ID, 
-    $title: String!,
-    $content: String,
-    $thumb: String
-) {
-    Articles {
-        updateArticle(
-            _id: $_id,
-            title: $title,
-            content: $content,
-            thumb: $thumb
-        )
-    }
-}`
-
-const deleteArticleMutation = q`mutation ($_id: ID!) {
-    Articles {
-        deleteArticle(_id: $_id)
-    }
-}`
-
 export function loadNews(page = 1) {
     return dispatch => {
         dispatch(setLoading(true, 'news'))
@@ -89,11 +57,8 @@ export function loadNews(page = 1) {
     }
 }
 
-export function loadArticle(id, editor = false) {
+export function loadArticle(id) {
     return (dispatch, getState) => {
-        dispatch(setEditorSaved(false))
-        dispatch(setEditorArticle({}))
-
         let list = listSelector(getState()).get('list', List())
         let article = list.find(a => a.get('_id') === id)
 
@@ -108,73 +73,13 @@ export function loadArticle(id, editor = false) {
                         }
                     })
                     .then(json => {
-                        if (editor) {
-                            dispatch(setEditorArticle(json.data.Articles.article))
-                        } else {
-                            dispatch(setArticle(json.data.Articles.article))
-                        }
+                        dispatch(setArticle(json.data.Articles.article))
                     })
                     .catch(e => console.error(e))
                     .then(() => dispatch(setLoading(false, 'news')))
             }
         } else {
-            if (editor) {
-                dispatch(setEditorArticle(article))
-            } else {
-                dispatch(setArticle(article))
-            }
+            dispatch(setArticle(article))
         }
-    }
-}
-
-export function saveArticle() {
-    return (dispatch, getState) => {
-        dispatch(setEditorSaved(false))
-
-        let article = editorArticleSelector(getState())
-        let savingArticle = {
-            _id: article.get('_id', null),
-            title: article.get('title', ''),
-            content: article.get('content', ''),
-            thumb: article.get('thumb', '')
-        }
-
-        apollo
-            .mutate({
-                mutation: saveArticleMutation,
-                variables: savingArticle
-            })
-            .then(json => {
-                dispatch(setEditorSaved(false))
-                dispatch(updateEditorArticle('_id', json.data.Articles.updateArticle))
-                message.success('Success')
-            })
-            .catch(e => {
-                message.error('Failed')
-                console.error(e)
-            })
-    }
-}
-
-export function deleteArticle() {
-    return (dispatch, getState) => {
-        dispatch(setEditorSaved(false))
-
-        let article = editorArticleSelector(getState())
-
-        apollo
-            .mutate({
-                mutation: deleteArticleMutation,
-                variables: {_id: article.get('_id')}
-            })
-            .then(json => {
-                dispatch(setEditorSaved(false))
-                dispatch(updateEditorArticle('_id', null))
-                message.success('Success')
-            })
-            .catch(e => {
-                message.error('Failed')
-                console.error(e)
-            })
     }
 }

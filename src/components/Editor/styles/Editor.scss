@@ -1,0 +1,39 @@
+@import 'ArticleStyle';
+
+.editor {
+    .editor-status-bar {
+        .ant-btn {
+            margin-left: 1rem;
+        }
+    }
+
+    .main-container {
+        margin: 0;
+
+        .editor-main {
+            display: flex;
+
+            .editor-content,
+            .editor-preview {
+                width: 50%;
+                padding: 2rem 3rem;
+                height: 80vh;
+                overflow: auto;
+            }
+
+            .editor-content {
+                background: rgba(0, 0, 0, 0.3);
+                border: none;
+                resize: none;
+                outline: none;
+            }
+
+            .editor-preview {
+                img {
+                    animation: none;
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

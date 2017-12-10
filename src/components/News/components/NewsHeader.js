@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import {Button} from 'antd'
 
@@ -16,7 +16,7 @@ const mapStateToProps = state => {
 }
 
 const NewsHeader = props => {
-    const {t, user, location} = props
+    const {t, user} = props
 
     return (
         <div className="news-header section-header">
@@ -24,11 +24,9 @@ const NewsHeader = props => {
                 <img alt="news" src={icon} />
                 <span>{t('news')}</span>
             </div>
-            {user &&
-            user.getIn(['role', 'type']) === 'admin' &&
-            (location.pathname !== '/news/new' && !location.pathname.startsWith('/news/edit')) ? (
+            {user && user.getIn(['role', 'type']) === 'admin' ? (
                 <div className="add-new">
-                    <Link to={'/news/new'}>
+                    <Link to={'/editor'}>
                         <Button ghost type="danger">
                             New Article
                         </Button>
@@ -39,4 +37,4 @@ const NewsHeader = props => {
     )
 }
 
-export default withRouter(connect(mapStateToProps)(translate('general')(NewsHeader)))
+export default connect(mapStateToProps)(translate('general')(NewsHeader))

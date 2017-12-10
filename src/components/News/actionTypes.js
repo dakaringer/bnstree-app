@@ -1,8 +1,3 @@
 //data
 export const SET_NEWS_LIST = 'SET_NEWS_LIST'
 export const SET_NEWS_ARTICLE = 'SET_NEWS_ARTICLE'
-
-//editor
-export const SET_EDITOR_ARTICLE = 'SET_EDITOR_ARTICLE'
-export const UPDATE_EDITOR_ARTICLE = 'UPDATE_EDITOR_ARTICLE'
-export const SET_EDITOR_SAVED = 'SET_EDITOR_SAVED'
