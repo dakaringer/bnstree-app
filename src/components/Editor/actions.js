@@ -21,6 +21,7 @@ const articleQuery = q`query ($id: ID!) {
             datePosted
             content
             thumb
+            published
         }
     }
 }`
@@ -29,14 +30,16 @@ const saveArticleMutation = q`mutation (
     $_id: ID, 
     $title: String!,
     $content: String,
-    $thumb: String
+    $thumb: String,
+    $published: Boolean!
 ) {
     Articles {
-        updateArticle(
+        saveArticle(
             _id: $_id,
             title: $title,
             content: $content,
-            thumb: $thumb
+            thumb: $thumb,
+            published: $published
         )
     }
 }`
@@ -88,7 +91,8 @@ export function saveArticle() {
             _id: article.get('_id', null),
             title: article.get('title', ''),
             content: article.get('content', ''),
-            thumb: article.get('thumb', '')
+            thumb: article.get('thumb', ''),
+            published: article.get('published', false)
         }
 
         apollo
