@@ -3,6 +3,7 @@ import {translate} from 'react-i18next'
 import {Route, Switch} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
+import {animateScroll} from 'react-scroll'
 
 import './styles/News.scss'
 
@@ -11,37 +12,43 @@ import Header from './components/NewsHeader'
 import NewsList from './components/NewsList'
 import NewsViewer from './components/NewsViewer'
 
-const News = props => {
-    const {t} = props
+class News extends React.PureComponent {
+    componentDidMount() {
+        animateScroll.scrollToTop()
+    }
 
-    return (
-        <Fade className="news">
-            <Helmet>
-                <title>{`${t('news')} | BnSTree`}</title>
-                <meta name="description" content="Latest news on Blade & Soul!" />
-            </Helmet>
+    render() {
+        const {t} = this.props
 
-            <AdSense
-                data-ad-client="ca-pub-2048637692232915"
-                data-ad-slot="6768736382"
-                data-ad-format="auto"
-            />
-            <div className="container">
-                <Header />
-                <div className="main-container">
-                    <Switch>
-                        <Route exact path="/news" render={() => <NewsList />} />
-                        <Route path="/news/:id" component={NewsViewer} />
-                    </Switch>
-                    <AdSense
-                        data-ad-client="ca-pub-2048637692232915"
-                        data-ad-slot="2719129989"
-                        data-ad-format="auto"
-                    />
+        return (
+            <Fade className="news">
+                <Helmet>
+                    <title>{`${t('news')} | BnSTree`}</title>
+                    <meta name="description" content="Latest news on Blade & Soul!" />
+                </Helmet>
+
+                <AdSense
+                    data-ad-client="ca-pub-2048637692232915"
+                    data-ad-slot="6768736382"
+                    data-ad-format="auto"
+                />
+                <div className="container">
+                    <Header />
+                    <div className="main-container">
+                        <Switch>
+                            <Route exact path="/news" render={() => <NewsList />} />
+                            <Route path="/news/:id" component={NewsViewer} />
+                        </Switch>
+                        <AdSense
+                            data-ad-client="ca-pub-2048637692232915"
+                            data-ad-slot="2719129989"
+                            data-ad-format="auto"
+                        />
+                    </div>
                 </div>
-            </div>
-        </Fade>
-    )
+            </Fade>
+        )
+    }
 }
 
 export default translate('general')(News)
