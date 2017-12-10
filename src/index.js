@@ -21,16 +21,6 @@ import './styles/index.scss'
 
 import ReactGA from 'react-ga'
 ReactGA.initialize('UA-61749626-5')
-
-const composeEnhancers = composeWithDevTools({})
-const store = createStore(
-    rootReducer,
-    Map(),
-    composeEnhancers(applyMiddleware(thunk), autoRehydrate())
-)
-persistStore(store, {storage: localForage, blacklist: ['general', 'streams']})
-//persistor.purge()
-
 const withTracker = WrappedComponent => {
     const trackPage = page => {
         ReactGA.set({page})
@@ -46,6 +36,15 @@ const withTracker = WrappedComponent => {
 
     return HOC
 }
+
+const composeEnhancers = composeWithDevTools({})
+const store = createStore(
+    rootReducer,
+    Map(),
+    composeEnhancers(applyMiddleware(thunk), autoRehydrate())
+)
+persistStore(store, {storage: localForage, blacklist: ['general', 'streams']})
+//persistor.purge()
 
 class Root extends React.PureComponent {
     componentDidMount() {
