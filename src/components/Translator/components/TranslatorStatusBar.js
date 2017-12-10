@@ -26,13 +26,13 @@ const mapDispatchToProps = dispatch => {
 const TranslatorStatusBar = props => {
     let {language, languageStatus, setName, setStatus, save, saving, error} = props
 
-    let loadingText = ''
+    let statusText = ''
     if (saving !== null) {
-        loadingText = saving ? 'Saving' : `Saved ${new Date().toTimeString()}`
+        statusText = saving ? 'Saving' : `Saved ${new Date().toTimeString()}`
     }
 
     if (error) {
-        loadingText = 'Error'
+        statusText = 'Error'
     }
 
     return (
@@ -62,7 +62,7 @@ const TranslatorStatusBar = props => {
                 </div>
             </div>
             <div className="sub-menu-right">
-                <p className="status">{loadingText}</p>
+                <p className="status">{statusText}</p>
                 <Button ghost size="small" type="primary" onClick={save}>
                     Save
                 </Button>
