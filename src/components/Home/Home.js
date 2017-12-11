@@ -131,6 +131,17 @@ class Home extends React.PureComponent {
                                                 Raid Recruitment Discord
                                             </Button>
                                         </a>
+                                        <a
+                                            href="https://discord.gg/zU8vTm4"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            <Button
+                                                type="primary"
+                                                className="side-button discord academy">
+                                                <img alt="discord" src={discordLogo} />
+                                                BnS Academy Discord
+                                            </Button>
+                                        </a>
                                     </div>
                                     <AdSense
                                         data-ad-format="fluid"
