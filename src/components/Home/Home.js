@@ -23,7 +23,6 @@ import MarketList from '../Market/components/MarketPopularItemList'
 
 import {viewSelector} from '../../selectors'
 import {updateRegion} from '../Market/actions'
-import {loadTwitter} from './actions'
 
 import {Radio} from 'antd'
 const RadioButton = Radio.Button
@@ -37,16 +36,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setRegion: value => dispatch(updateRegion(value)),
-        loadTwitter: () => dispatch(loadTwitter())
+        setRegion: value => dispatch(updateRegion(value))
     }
 }
 
 class Home extends React.PureComponent {
-    componentWillMount() {
-        this.props.loadTwitter()
-    }
-
     componentDidMount() {
         animateScroll.scrollToTop()
     }
