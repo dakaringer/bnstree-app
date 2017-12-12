@@ -48,7 +48,7 @@ class Character extends React.PureComponent {
     }
 
     render() {
-        const {t} = this.props
+        const {t, location, match} = this.props
 
         return (
             <Fade className="character">
@@ -65,20 +65,20 @@ class Character extends React.PureComponent {
                     data-ad-format="auto"
                 />
                 <div className="container">
-                    <Header />
+                    <Header location={location} match={match} />
                     <div className="main-container">
                         <Switch>
                             <Route
                                 exact
                                 path={'/character/:region'}
-                                render={() => <CharacterSearch center recent />}
+                                render={() => <CharacterSearch center recent match={match} />}
                             />
                             <Route
                                 exact
                                 path={'/character/:region/:character'}
                                 component={CharacterViewer}
                             />
-                            <Route render={() => <CharacterSearch center recent />} />
+                            <Route render={() => <CharacterSearch center recent match={match} />} />
                         </Switch>
                     </div>
                     <div className="slim-container">
