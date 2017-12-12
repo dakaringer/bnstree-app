@@ -1,6 +1,6 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
-import classes from './components/NavBar/classes'
+import classes from './components/NavBar/linkmap_skills'
 
 export default function getRedirects(location) {
     let redirectLinks = [<Redirect key="index" exact from="/index.html" to="/" />]

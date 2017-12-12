@@ -4,7 +4,7 @@ import {NavLink, withRouter} from 'react-router-dom'
 
 import {Icon, Popover} from 'antd'
 
-import items from '../../NavBar/items'
+import items from '../../NavBar/linkmap_items'
 import icon from '../images/GameUI_HeaderIcon_207.png'
 
 class ItemHeader extends React.PureComponent {

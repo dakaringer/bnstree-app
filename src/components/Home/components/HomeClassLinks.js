@@ -3,7 +3,7 @@ import {translate} from 'react-i18next'
 import {Link} from 'react-router-dom'
 
 import classImages from '../../Skills/images/map_classImg'
-import classes from '../../NavBar/classes'
+import classes from '../../NavBar/linkmap_skills'
 
 const HomeClassLinks = props => {
     const {t} = props

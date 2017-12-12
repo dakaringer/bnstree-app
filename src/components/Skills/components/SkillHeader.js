@@ -5,7 +5,7 @@ import {NavLink, withRouter} from 'react-router-dom'
 
 import {Icon, Popover} from 'antd'
 
-import classes from '../../NavBar/classes'
+import classes from '../../NavBar/linkmap_skills'
 import classImages from '../images/map_classImg'
 
 import {userSelector} from '../../../selectors'

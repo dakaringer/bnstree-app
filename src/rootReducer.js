@@ -2,6 +2,7 @@ import {combineReducers} from 'redux-immutable'
 import {fromJS} from 'immutable'
 import * as actionType from './actionTypes'
 
+import navbar from './components/NavBar/reducer'
 import home from './components/Home/reducer'
 import news from './components/News/reducer'
 import skills from './components/Skills/reducer'
@@ -48,6 +49,7 @@ function general(
 }
 
 export default combineReducers({
+    navbar,
     general,
     home,
     news,

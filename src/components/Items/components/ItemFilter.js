@@ -4,7 +4,7 @@ import {Map} from 'immutable'
 import {translate} from 'react-i18next'
 
 import classImages from '../images/map_classImg'
-import classes from '../../NavBar/classes'
+import classes from '../../NavBar/linkmap_skills'
 
 import {viewSelector} from '../../../selectors'
 import {searchSelector} from '../selectors'
