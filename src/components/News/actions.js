@@ -17,6 +17,7 @@ const articleListQuery = q`query ($page: Int, $limit: Int) {
             datePosted
             content
             thumb
+            published
         }
         count(page: $page, limit: $limit)
     }
