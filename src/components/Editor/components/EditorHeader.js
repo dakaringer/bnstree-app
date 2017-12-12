@@ -6,7 +6,7 @@ const EditorHeader = props => {
     return (
         <div className="editor-header section-header">
             <div className="header-title">
-                <img alt="edit" src={icon} />
+                <img alt="editor" src={icon} />
                 <span>Editor</span>
             </div>
         </div>
