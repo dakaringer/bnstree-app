@@ -6,7 +6,7 @@ import icon from '../images/GameUI_HeaderIcon_117.png'
 import CharacterSearch from './CharacterSearch'
 
 const CharacterHeader = props => {
-    const {t, location, match} = props
+    const {t, location, match, history} = props
 
     let regex = /^\/character\/?(na|eu|kr)?\/?$/
 
@@ -17,7 +17,9 @@ const CharacterHeader = props => {
                 <span>{t('characterSearch')}</span>
             </div>
             <div className="header-item">
-                {regex.test(location.pathname) ? null : <CharacterSearch match={match} />}
+                {regex.test(location.pathname) ? null : (
+                    <CharacterSearch match={match} history={history} />
+                )}
             </div>
         </div>
     )

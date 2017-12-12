@@ -48,7 +48,7 @@ class Character extends React.PureComponent {
     }
 
     render() {
-        const {t, location, match} = this.props
+        const {t, location, match, history} = this.props
 
         return (
             <Fade className="character">
@@ -65,20 +65,36 @@ class Character extends React.PureComponent {
                     data-ad-format="auto"
                 />
                 <div className="container">
-                    <Header location={location} match={match} />
+                    <Header location={location} match={match} history={history} />
                     <div className="main-container">
                         <Switch>
                             <Route
                                 exact
                                 path={'/character/:region'}
-                                render={() => <CharacterSearch center recent match={match} />}
+                                render={() => (
+                                    <CharacterSearch
+                                        center
+                                        recent
+                                        match={match}
+                                        history={history}
+                                    />
+                                )}
                             />
                             <Route
                                 exact
                                 path={'/character/:region/:character'}
                                 component={CharacterViewer}
                             />
-                            <Route render={() => <CharacterSearch center recent match={match} />} />
+                            <Route
+                                render={() => (
+                                    <CharacterSearch
+                                        center
+                                        recent
+                                        match={match}
+                                        history={history}
+                                    />
+                                )}
+                            />
                         </Switch>
                     </div>
                     <div className="slim-container">

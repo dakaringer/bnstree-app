@@ -46,7 +46,7 @@ class Home extends React.PureComponent {
     }
 
     render() {
-        const {t, region, match, setRegion} = this.props
+        const {t, region, match, history, setRegion} = this.props
 
         return (
             <Fade className="home">
@@ -55,7 +55,7 @@ class Home extends React.PureComponent {
                 </Helmet>
                 <Fade className="home-top">
                     <div className="dummy-container" />
-                    <CharacterSearch center match={match} />
+                    <CharacterSearch center match={match} history={history} />
                     <div className="home-ad-container">
                         <AdSense
                             data-ad-client="ca-pub-2048637692232915"
