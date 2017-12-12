@@ -33,6 +33,7 @@ class Translator extends React.PureComponent {
 
     render() {
         const {loading} = this.props
+
         let content = <LoadingLyn />
         if (!loading) {
             content = (
