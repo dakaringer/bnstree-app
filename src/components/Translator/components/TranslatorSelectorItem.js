@@ -31,16 +31,17 @@ const TranslatorSelectorItem = props => {
             let groupStatus = dataStatus.get(namespace, Map())
             let key = group.get('_id', '')
             groups.push(
-                <li
+                <a
                     key={i}
-                    className={`translator-selector-item ${key === currentGroup ? 'active' : ''}`}>
-                    <a onClick={() => setGroup(namespace, key)}>
+                    className={`translator-selector-item ${key === currentGroup ? 'active' : ''}`}
+                    onClick={() => setGroup(namespace, key)}>
+                    <li>
                         <Badge
                             status={groupStatus.getIn([key, 'dataStatus'], 'error')}
                             text={names ? key : key.substr(3)}
                         />
-                    </a>
-                </li>
+                    </li>
+                </a>
             )
         })
 

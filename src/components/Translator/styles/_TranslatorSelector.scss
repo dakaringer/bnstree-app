@@ -27,9 +27,20 @@
         .translator-selector-item {
             white-space: nowrap;
 
+            li {
+                margin: 0.5rem 0;
+            }
+
             .ant-badge-status-text {
                 color: #ddd;
                 font-size: 1.2rem;
+                transition: all 0.3s;
+            }
+
+            &:hover {
+                .ant-badge-status-text {
+                    color: white;
+                }
             }
 
             &.active {
