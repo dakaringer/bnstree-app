@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {List} from 'immutable'
 import moment from 'moment'
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import {Pagination, Icon, Dropdown, Menu, Popconfirm} from 'antd'
 
@@ -190,6 +190,4 @@ class SkillBuildList extends React.PureComponent {
     }
 }
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(translate('classes')(SkillBuildList))
-)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('classes')(SkillBuildList))

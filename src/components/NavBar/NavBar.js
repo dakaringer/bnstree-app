@@ -44,7 +44,8 @@ const NavBar = props => {
         menuStatus,
         toggleMenu,
         closeMenu,
-        closeDropdown
+        closeDropdown,
+        location
     } = props
 
     return (
@@ -61,13 +62,22 @@ const NavBar = props => {
                         <li className="main-nav-menu-item" onMouseOver={() => closeDropdown(null)}>
                             <NavLink to="/news">{t('news')}</NavLink>
                         </li>
-                        <NavBarDropdownLink dropdown="skills" pathname={['/skills']}>
+                        <NavBarDropdownLink
+                            dropdown="skills"
+                            pathname={['/skills']}
+                            location={location}>
                             {t('skills')}
                         </NavBarDropdownLink>
-                        <NavBarDropdownLink dropdown="items" pathname={['/items']}>
+                        <NavBarDropdownLink
+                            dropdown="items"
+                            pathname={['/items']}
+                            location={location}>
                             {t('items')}
                         </NavBarDropdownLink>
-                        <NavBarDropdownLink dropdown="search" pathname={['/character', '/market']}>
+                        <NavBarDropdownLink
+                            dropdown="search"
+                            pathname={['/character', '/market']}
+                            location={location}>
                             {t('search')}
                         </NavBarDropdownLink>
                         <li className="main-nav-menu-item" onMouseOver={() => closeDropdown(null)}>
@@ -75,7 +85,7 @@ const NavBar = props => {
                         </li>
                     </ul>
                     <ul className="main-nav-menu main-nav-submenu">
-                        <NavBarDropdownLink dropdown="user">
+                        <NavBarDropdownLink dropdown="user" location={location}>
                             {user ? (
                                 <Avatar
                                     shape="square"
@@ -87,7 +97,7 @@ const NavBar = props => {
                                 t('login')
                             )}
                         </NavBarDropdownLink>
-                        <NavBarDropdownLink dropdown="language">
+                        <NavBarDropdownLink dropdown="language" location={location}>
                             {languages
                                 .find(l => l.get('_id', 'en') === currentLang, null, Map())
                                 .get('name', 'English')}

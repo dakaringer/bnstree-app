@@ -174,7 +174,7 @@ class Skills extends React.PureComponent {
                     data-ad-format="auto"
                 />
                 <div className="container">
-                    <Header />
+                    <Header location={location} match={match} />
                     {content}
                 </div>
             </Fade>

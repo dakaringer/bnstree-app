@@ -61,7 +61,7 @@ class Items extends React.PureComponent {
     }
 
     render() {
-        const {t, loading, location} = this.props
+        const {t, loading, location, match} = this.props
 
         let content = <LoadingLyn />
 
@@ -91,7 +91,7 @@ class Items extends React.PureComponent {
                     data-ad-format="auto"
                 />
                 <div className="container">
-                    <Header />
+                    <Header match={match} />
                     {content}
                 </div>
             </Fade>

@@ -33,7 +33,7 @@ class Market extends React.PureComponent {
     }
 
     render() {
-        const {t, loading} = this.props
+        const {t, loading, history} = this.props
 
         let content = <LoadingLyn />
         if (!loading) {
@@ -42,7 +42,7 @@ class Market extends React.PureComponent {
                     <div className="main-container">
                         <Row gutter={10}>
                             <Col md={6}>
-                                <MarketSearch />
+                                <MarketSearch history={history} />
                                 <MarketBookmarkList />
                             </Col>
                             <Col md={18}>

@@ -1,13 +1,12 @@
 import React from 'react'
 import {translate} from 'react-i18next'
-import {withRouter} from 'react-router'
 
 import icon from '../images/GameUI_HeaderIcon_117.png'
 
 import CharacterSearch from './CharacterSearch'
 
 const CharacterHeader = props => {
-    const {t, location} = props
+    const {t, location, match} = props
 
     let regex = /^\/character\/?(na|eu|kr)?\/?$/
 
@@ -18,10 +17,10 @@ const CharacterHeader = props => {
                 <span>{t('characterSearch')}</span>
             </div>
             <div className="header-item">
-                {regex.test(location.pathname) ? null : <CharacterSearch />}
+                {regex.test(location.pathname) ? null : <CharacterSearch match={match} />}
             </div>
         </div>
     )
 }
 
-export default withRouter(translate('general')(CharacterHeader))
+export default translate('general')(CharacterHeader)

@@ -1,6 +1,6 @@
 import React from 'react'
 import {translate} from 'react-i18next'
-import {NavLink, withRouter} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 import {Icon, Popover} from 'antd'
 
@@ -61,4 +61,4 @@ class ItemHeader extends React.PureComponent {
     }
 }
 
-export default withRouter(translate('items')(ItemHeader))
+export default translate('items')(ItemHeader)

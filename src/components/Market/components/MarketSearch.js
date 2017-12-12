@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {withRouter} from 'react-router'
 import {Link} from 'react-router-dom'
 
 import {viewSelector} from '../../../selectors'
@@ -140,6 +139,4 @@ class MarketSearch extends React.PureComponent {
     }
 }
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(translate('market')(MarketSearch))
-)
+export default connect(mapStateToProps, mapDispatchToProps)(translate('market')(MarketSearch))

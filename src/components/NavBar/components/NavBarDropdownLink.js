@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
 
 import {dropdownStatusSelector} from '../selectors'
 import {handleDropdown} from '../actions'
@@ -36,4 +35,4 @@ const NavBarDropdownLink = props => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NavBarDropdownLink))
+export default connect(mapStateToProps, mapDispatchToProps)(NavBarDropdownLink)

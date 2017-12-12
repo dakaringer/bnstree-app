@@ -83,6 +83,7 @@
 
             .stat-header {
                 justify-content: space-between;
+                padding-left: 0.5rem;
 
                 .mainValue {
                     color: aqua;
@@ -94,7 +95,7 @@
                 padding: 1rem 0;
 
                 .subValue {
-                    padding-right: 1.75rem;
+                    padding-right: 1.5rem;
                     float: right;
                 }
             }

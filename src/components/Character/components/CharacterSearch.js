@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {withRouter} from 'react-router'
 import {Link} from 'react-router-dom'
 
 import {viewSelector, recentSearchSelector} from '../../../selectors'
@@ -112,8 +111,6 @@ class CharacterSearch extends React.PureComponent {
     }
 }
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(
-        translate(['general', 'character'])(CharacterSearch)
-    )
+export default connect(mapStateToProps, mapDispatchToProps)(
+    translate(['general', 'character'])(CharacterSearch)
 )
