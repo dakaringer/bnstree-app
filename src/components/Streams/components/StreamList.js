@@ -52,7 +52,7 @@ class StreamList extends React.PureComponent {
                             target="_blank"
                             rel="noopener noreferrer">
                             <div className="preview-container">
-                                <img alt={title} src={stream.getIn(['preview', 'large'])} />
+                                <img alt={title} src={stream.getIn(['preview', 'medium'])} />
                                 <div className="viewers preview-overlay">
                                     <Icon type="eye-o" /> {stream.get('viewers')}
                                 </div>

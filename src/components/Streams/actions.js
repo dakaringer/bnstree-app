@@ -15,7 +15,7 @@ const streamsQuery = q`query {
             average_fps
             stream_type
             preview {
-                large
+                medium
             }
             channel {
                 url
