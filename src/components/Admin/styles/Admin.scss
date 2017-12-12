@@ -1,0 +1,21 @@
+.admin {
+    .main-container {
+        padding-top: 2rem;
+    }
+}
+
+.admin-side-menu {
+    .flush-cache {
+        width: 100%;
+    }
+
+    .admin-side-menu-item {
+        li {
+            margin: 0.5rem 0;
+        }
+
+        &.active {
+            color: deepskyblue;
+        }
+    }
+}

@@ -77,16 +77,22 @@ const Streams = asyncComponent(() =>
         .then(module => module.default)
         .catch(e => console.error(e))
 )
-const Editor = asyncComponent(() =>
-    import('./components/Editor/Editor')
-        .then(module => module.default)
-        .catch(e => console.error(e))
-)
 const Translator = asyncComponent(() =>
     import('./components/Translator/Translator')
         .then(module => module.default)
         .catch(e => console.error(e))
 )
+const Editor = asyncComponent(() =>
+    import('./components/Editor/Editor')
+        .then(module => module.default)
+        .catch(e => console.error(e))
+)
+const Admin = asyncComponent(() =>
+    import('./components/Admin/Admin')
+        .then(module => module.default)
+        .catch(e => console.error(e))
+)
+
 const ErrorMessage = asyncComponent(() =>
     import('./components/Error/ErrorMessage')
         .then(module => module.default)
@@ -147,9 +153,15 @@ class App extends React.PureComponent {
 
                             {user && user.getIn(['role', 'type']) === 'admin'
                                 ? [
-                                      <Route exact key="new" path="/editor" component={Editor} />,
+                                      <Route exact key="admin" path="/admin" component={Admin} />,
                                       <Route
-                                          key="edit"
+                                          exact
+                                          key="editor-new"
+                                          path="/editor"
+                                          component={Editor}
+                                      />,
+                                      <Route
+                                          key="editor-edit"
                                           exact
                                           path="/editor/:id"
                                           component={Editor}

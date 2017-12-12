@@ -1,0 +1,1 @@
+export const SET_ADMIN_VIEW = 'SET_ADMIN_VIEW'
