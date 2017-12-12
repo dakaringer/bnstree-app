@@ -42,7 +42,7 @@ class Editor extends React.PureComponent {
     }
 
     render() {
-        let {article} = this.props
+        let {article, history} = this.props
 
         return (
             <Fade className="editor container">
@@ -51,7 +51,7 @@ class Editor extends React.PureComponent {
                 </Helmet>
                 <Header />
                 <div className="main-container">
-                    <EditorStatusBar />
+                    <EditorStatusBar history={history} />
                     <ScrollSync>
                         <div className="editor-main">
                             <ScrollSyncPane>
