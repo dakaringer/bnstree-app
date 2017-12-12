@@ -80,7 +80,7 @@ export function updateArticle(context, value) {
     }
 }
 
-export function saveArticle() {
+export function saveArticle(history) {
     return (dispatch, getState) => {
         dispatch(setStatus('saving', true))
         dispatch(setStatus('error', false))
@@ -100,7 +100,9 @@ export function saveArticle() {
                 variables: savingArticle
             })
             .then(json => {
-                dispatch(updateArticle('_id', json.data.Articles.updateArticle))
+                let id = json.data.Articles.saveArticle
+                dispatch(updateArticle('_id', id))
+                history.replace(`/editor/${id}`)
             })
             .catch(e => {
                 dispatch(setStatus('error', true))
@@ -112,7 +114,7 @@ export function saveArticle() {
     }
 }
 
-export function deleteArticle() {
+export function deleteArticle(history) {
     return (dispatch, getState) => {
         let article = articleSelector(getState())
 
@@ -123,6 +125,7 @@ export function deleteArticle() {
             })
             .then(json => {
                 dispatch(updateArticle('_id', null))
+                history.replace('/editor')
                 message.success('Deleted')
             })
             .catch(e => {

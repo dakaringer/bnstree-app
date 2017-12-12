@@ -16,13 +16,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         updateArticle: (context, value) => dispatch(updateArticle(context, value)),
-        saveArticle: () => dispatch(saveArticle()),
-        deleteArticle: () => dispatch(deleteArticle())
+        saveArticle: history => dispatch(saveArticle(history)),
+        deleteArticle: history => dispatch(deleteArticle(history))
     }
 }
 
 const EditorStatusBar = props => {
-    let {article, status, updateArticle, saveArticle, deleteArticle} = props
+    let {article, status, updateArticle, saveArticle, deleteArticle, history} = props
 
     let statusText = ''
     if (status.get('saving') !== null) {
@@ -60,7 +60,7 @@ const EditorStatusBar = props => {
             </div>
             <div className="sub-menu-right">
                 <p className="status">{statusText}</p>
-                <Button type="primary" ghost size="small" onClick={() => saveArticle()}>
+                <Button type="primary" ghost size="small" onClick={() => saveArticle(history)}>
                     Save
                 </Button>
                 {article.get('_id') ? (
