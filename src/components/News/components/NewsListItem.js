@@ -44,6 +44,10 @@ class NewsListItem extends React.PureComponent {
 
         let thumb = <img alt="thumb" className="thumb" src={this.state.image} />
 
+        let notPublished = !article.get('published') ? (
+            <p className="not-published">Unpublished</p>
+        ) : null
+
         return (
             <Link
                 to={`/news/${id}/${article
@@ -64,7 +68,8 @@ class NewsListItem extends React.PureComponent {
                             {article.get('content', '').split('\n\n')[0]}
                         </h5>
                     </div>
-                    <div className="list-item-timestamp">{timeString}</div>
+                    <p className="list-item-timestamp">{timeString}</p>
+                    {notPublished}
                 </div>
             </Link>
         )
