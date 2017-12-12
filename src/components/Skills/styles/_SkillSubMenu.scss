@@ -8,23 +8,12 @@
         img {
             width: 2.5rem;
         }
-
-        a {
-            color: #ddd;
-
-            &:hover {
-                color: white;
-            }
-        }
     }
 
     .skillVisibility {
         margin-left: 1.5rem;
         margin-right: 0.7rem !important;
         transition: color 0.3s;
-        &:hover {
-            color: white;
-        }
 
         .ant-checkbox-wrapper {
             font-size: 1.5rem;

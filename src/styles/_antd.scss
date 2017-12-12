@@ -195,7 +195,7 @@
 
     .ant-collapse-item {
         border-radius: 0;
-        border: none !important;
+        border: none;
 
         .ant-collapse-header {
             overflow: hidden;
@@ -210,7 +210,6 @@
                 position: relative;
                 color: white;
                 left: -0.5rem;
-                line-height: 4rem;
             }
 
             & > div,
