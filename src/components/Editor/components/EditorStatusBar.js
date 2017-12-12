@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {Button, Checkbox} from 'antd'
+import {Button, Checkbox, Popconfirm} from 'antd'
 
 import {articleSelector, statusSelector} from '../selectors'
 import {updateArticle, saveArticle, deleteArticle} from '../actions'
@@ -64,9 +64,15 @@ const EditorStatusBar = props => {
                     Save
                 </Button>
                 {article.get('_id') ? (
-                    <Button type="danger" ghost size="small" onClick={() => deleteArticle()}>
-                        Delete
-                    </Button>
+                    <Popconfirm
+                        title="Delete?"
+                        okText="Delete"
+                        okType="danger"
+                        onConfirm={() => deleteArticle(history)}>
+                        <Button type="danger" ghost size="small">
+                            Delete
+                        </Button>
+                    </Popconfirm>
                 ) : null}
             </div>
         </div>
