@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {NavLink, withRouter} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 
 import {closeMenu} from '../actions'
 
@@ -32,6 +32,4 @@ const NavBarDropdownList = props => {
     )
 }
 
-export default connect(null, mapDispatchToProps)(
-    translate('general')(withRouter(NavBarDropdownList))
-)
+export default connect(null, mapDispatchToProps)(translate('general')(NavBarDropdownList))

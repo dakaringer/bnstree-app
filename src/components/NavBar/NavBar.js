@@ -1,7 +1,7 @@
 import React from 'react'
 import {translate} from 'react-i18next'
 import {connect} from 'react-redux'
-import {Link, NavLink} from 'react-router-dom'
+import {Link, NavLink, withRouter} from 'react-router-dom'
 import {Map} from 'immutable'
 import {Fade} from 'react-reveal'
 import {Avatar} from 'antd'
@@ -112,4 +112,6 @@ const NavBar = props => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBar))
+)
