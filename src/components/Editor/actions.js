@@ -65,7 +65,6 @@ export function loadArticle(id) {
                     fetchPolicy: 'network-only'
                 })
                 .then(json => {
-                    console.log(json)
                     dispatch(setArticle(json.data.Articles.article))
                 })
                 .catch(e => console.error(e))
