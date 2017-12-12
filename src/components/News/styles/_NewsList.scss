@@ -19,11 +19,13 @@
 }
 
 .news-item {
-    padding: 1rem 0.5rem;
+    padding: 0.5rem;
     border: none;
+    background: rgba(0, 0, 0, 0.3);
+    margin: 1rem 0;
 
     .thumb-wrapper {
-        margin-right: 2rem;
+        margin-right: 1.5rem;
         width: 20%;
         min-width: 10rem;
 
@@ -34,6 +36,7 @@
 
     .news-item-content {
         flex: 1;
+        padding: 0.5rem 0;
     }
 
     .news-title {
