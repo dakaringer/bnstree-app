@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import MarkdownIt from 'markdown-it'
 import MarkdownItMark from 'markdown-it-mark'
+import MarkdownItAnchor from 'markdown-it-anchor'
+import MarkdownItToC from 'markdown-it-table-of-contents'
 import {Map} from 'immutable'
 
 import {skillNamesSelectorEN} from '../../Skills/selectors'
@@ -15,7 +17,12 @@ const mapStateToProps = state => {
 let md = new MarkdownIt('default', {
     breaks: true,
     html: true
-}).use(MarkdownItMark)
+})
+    .use(MarkdownItMark)
+    .use(MarkdownItAnchor)
+    .use(MarkdownItToC, {
+        includeLevel: [3]
+    })
 
 class EditorPreview extends React.PureComponent {
     parseSkill(match, id) {
