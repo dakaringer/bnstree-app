@@ -135,12 +135,16 @@ class Skills extends React.PureComponent {
                     <Switch>
                         <Route exact path="/skills/:classCode" render={() => skillComponent} />
                         <Route exact path={`/skills/:classCode/info`} render={() => null} />
-                        <Route exact path="/skills/:classCode/builds" component={SkillBuildList} />
+                        <Route
+                            exact
+                            path="/skills/:classCode/builds"
+                            render={() => <SkillBuildList match={match} />}
+                        />
                         {user ? (
                             <Route
                                 exact
                                 path="/skills/:classCode/my-builds"
-                                render={() => <SkillBuildList user />}
+                                render={() => <SkillBuildList user match={match} />}
                             />
                         ) : (
                             <Redirect from="/skills/:classCode/my-builds" to="/skills/:classCode" />
