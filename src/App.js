@@ -116,6 +116,7 @@ class App extends React.PureComponent {
 
     componentDidCatch(error, info) {
         this.setState({hasError: true})
+        this.props.persistor.purge()
     }
 
     render() {

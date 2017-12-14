@@ -43,7 +43,11 @@ const store = createStore(
     Map(),
     composeEnhancers(applyMiddleware(thunk), autoRehydrate())
 )
-persistStore(store, {storage: localForage, blacklist: ['general', 'streams']})
+let persistor = persistStore(store, {storage: localForage, blacklist: ['general', 'streams']})
+const withPersistor = WrappedComponent => {
+    const HOC = props => <WrappedComponent {...props} persistor={persistor} />
+    return HOC
+}
 //persistor.purge()
 
 class Root extends React.PureComponent {
@@ -57,7 +61,7 @@ class Root extends React.PureComponent {
             <Provider store={store}>
                 <I18nextProvider i18n={i18n}>
                     <BrowserRouter>
-                        <Route component={withTracker(App)} />
+                        <Route component={withPersistor(withTracker(App))} />
                     </BrowserRouter>
                 </I18nextProvider>
             </Provider>
