@@ -83,16 +83,6 @@ const classQuery = q`query ($classCode: String!) {
                 hotkey
             }
         }
-        buildData(classCode: $classCode) {
-            buildCount {
-                _id
-                count
-            }
-            buildStatistics {
-                _id
-                types
-            }
-        }
     }
     SkillBuilds {
         skillBuildStatistics(classCode: $classCode) {
