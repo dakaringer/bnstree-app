@@ -62,6 +62,10 @@
 }
 
 .ant-modal {
+    .ant-modal-body {
+        padding-top: 0;
+    }
+
     .ant-modal-close {
         outline: none;
         color: white;
