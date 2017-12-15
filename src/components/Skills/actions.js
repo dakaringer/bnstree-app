@@ -221,7 +221,7 @@ export function loadSkills(classCode, buildCode, buildId) {
                 dispatch(setClassData(classCode, data))
 
                 let view = viewSelector(getState())
-                let element = view.getIn(['classElements', classCode], null)
+                let element = view.getIn(['classElement', classCode], null)
                 element = element ? element : data.classData[0].element
                 dispatch(setBuildElement(classCode, element))
             })
