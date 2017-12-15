@@ -94,6 +94,18 @@ const classQuery = q`query ($classCode: String!) {
             }
         }
     }
+    SkillBuilds {
+        skillBuildStatistics(classCode: $classCode) {
+            buildCount {
+                _id
+                count
+            }
+            buildStatistics {
+                _id
+                types
+            }
+        }
+    }
 }`
 
 const namesQuery = q`query ($language: String!, $en: Boolean!) {
@@ -241,8 +253,8 @@ export function loadSkills(classCode, buildCode, buildId) {
             })
             .then(json => {
                 let data = {
-                    buildCount: flatten(json.data.Skills.buildData.buildCount),
-                    statData: flatten(json.data.Skills.buildData.buildStatistics),
+                    buildCount: flatten(json.data.SkillBuilds.skillBuildStatistics.buildCount),
+                    statData: flatten(json.data.SkillBuilds.skillBuildStatistics.buildStatistics),
                     classData: json.data.Skills.elementData.elements,
                     groupData: flatten(json.data.Skills.skillData.skillGroups),
                     skillData: flatten(json.data.Skills.skillData.skills)
