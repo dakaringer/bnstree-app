@@ -4,7 +4,13 @@ import {translate} from 'react-i18next'
 import {Map} from 'immutable'
 
 import {userSelector} from '../../../selectors'
-import {buildElementSelector, buildSelector, elementDataSelector} from '../selectors'
+import {
+    buildElementSelector,
+    buildSelector,
+    elementDataSelector,
+    basePatchSelector,
+    patchSelector
+} from '../selectors'
 import {postBuild} from '../actions'
 
 import {Icon, Modal, Button, Radio} from 'antd'
@@ -22,11 +28,13 @@ function generateLink(element, build, elementData) {
 }
 
 const mapStateToProps = state => {
+    let base = basePatchSelector(state)
     return {
         user: userSelector(state),
         element: buildElementSelector(state),
         buildData: buildSelector(state),
-        elementData: elementDataSelector(state)
+        elementData: elementDataSelector(state),
+        isBase: base.get('_id') === patchSelector(state)
     }
 }
 
@@ -68,29 +76,40 @@ class SkillShareMenu extends React.PureComponent {
     }
 
     post(buildCode) {
+        let {isBase, postBuild} = this.props
         let {title, type} = this.state
 
-        if (title.trim() === '') {
-            this.setState({
-                noTitle: true
-            })
-        } else {
-            this.props.postBuild(title, type, buildCode)
+        if (isBase) {
+            if (title.trim() === '') {
+                this.setState({
+                    noTitle: true
+                })
+            } else {
+                postBuild(title, type, buildCode)
 
-            this.setState({
-                title: '',
-                type: 'PvE',
-                show: false,
-                noTitle: false
-            })
+                this.setState({
+                    title: '',
+                    type: 'PvE',
+                    show: false,
+                    noTitle: false
+                })
+            }
         }
     }
 
     render() {
-        const {t, user, element, buildData, elementData} = this.props
+        const {t, user, element, buildData, elementData, isBase} = this.props
         const {show, title, type, noTitle} = this.state
 
         let buildCode = generateLink(element, buildData, elementData)
+
+        let errorMsg = null
+        if (noTitle) {
+            errorMsg = <span className="error">{t('noTitle')}</span>
+        }
+        if (!isBase) {
+            errorMsg = <span className="error">{t('notBasePatch')}</span>
+        }
 
         return (
             <div className="share sub-menu-item">
@@ -134,15 +153,15 @@ class SkillShareMenu extends React.PureComponent {
                                 <RadioButton value="6v6">{t('6v6')}</RadioButton>
                             </RadioGroup>
                         </div>
-                        {noTitle ? <p className="error">{t('noTitle')}</p> : null}
                         <Button
                             className="post"
                             type="primary"
                             onClick={() => this.post(buildCode)}
-                            disabled={!user}
+                            disabled={!user || !isBase}
                             ghost>
                             {t('post')}
                         </Button>
+                        {errorMsg}
                     </div>
                 </Modal>
             </div>

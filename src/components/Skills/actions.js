@@ -13,7 +13,8 @@ import {
     buildSelector,
     buildListSelector,
     characterModeSelector,
-    groupedSkillDataSelector
+    groupedSkillDataSelector,
+    patchSelector
 } from './selectors'
 import {userSelector, viewSelector} from '../../selectors'
 
@@ -199,15 +200,17 @@ const saveBuildMutation = q`mutation (
     $classCode: String!,
     $type : String!,
     $element: String!,
-    $buildObjects: [BuildObjectInput]!
+    $buildObjects: [BuildObjectInput]!,
+    $patch: Int!
 ) {
     SkillBuilds {
-        createBuild(
+        saveBuild(
             title: $title,
             classCode: $classCode,
             type: $type,
             element: $element,
             buildObjects: $buildObjects
+            patch: $patch
         )
     }
 }`
@@ -392,6 +395,7 @@ export function postBuild(title, type) {
 
         let classCode = classSelector(getState())
         let build = buildSelector(getState())
+        let patch = patchSelector(getState())
 
         let buildObjects = []
         classElements.getIn([elementIndex, 'buildFormat'], Map()).forEach(id => {
@@ -406,7 +410,8 @@ export function postBuild(title, type) {
             type: type,
             classCode: classCode,
             element: element,
-            buildObjects: buildObjects
+            buildObjects: buildObjects,
+            patch: patch
         }
 
         apollo

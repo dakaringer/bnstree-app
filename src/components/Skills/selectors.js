@@ -146,6 +146,9 @@ export const patchSelector = createSelector(uiSelector, patchListSelector, (stat
     }
     return currentPatch
 })
+export const basePatchSelector = createSelector(patchSelector, patchListSelector, (patch, list) =>
+    list.find(p => p.get('base'), null, Map())
+)
 
 //data
 const classDataSelector = createSelector(dataSelector, classSelector, (state, classCode) =>
@@ -203,9 +206,7 @@ const patchDataSelector = createSelector(classDataSelector, patchSelector, (data
                 list = list.set(id, p)
             }
         })
-    list = list.map(p => p.get('data'))
-
-    return list
+    return list.map(p => p.get('data'))
 })
 
 //skillData
