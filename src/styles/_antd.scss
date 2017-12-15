@@ -245,5 +245,6 @@
 }
 
 .ant-btn-background-ghost.ant-btn-primary[disabled] {
-    color: #777;
+    color: #777 !important;
+    border-color: #777 !important;
 }
