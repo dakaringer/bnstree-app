@@ -9,7 +9,7 @@ import {animateScroll} from 'react-scroll'
 import AdSense from '../AdSense/AdSense'
 
 import {currentLanguageSelector, loadingSelector, viewSelector, userSelector} from '../../selectors'
-import {loadTextData, loadSkills, loadBuild} from './actions'
+import {loadTextData, loadSkills, loadBuild, loadPatchList} from './actions'
 
 import './styles/Skills.scss'
 
@@ -60,16 +60,18 @@ const mapDispatchToProps = dispatch => {
     return {
         loadText: lang => dispatch(loadTextData(lang)),
         loadSkills: classCode => dispatch(loadSkills(classCode)),
-        loadBuild: (buildCode, buildId) => dispatch(loadBuild(buildCode, buildId))
+        loadBuild: (buildCode, buildId) => dispatch(loadBuild(buildCode, buildId)),
+        loadPatchList: () => dispatch(loadPatchList())
     }
 }
 
 class Skills extends React.PureComponent {
     componentWillMount() {
-        const {match, currentLanguage, loadText, loadSkills} = this.props
+        const {match, currentLanguage, loadText, loadPatchList, loadSkills} = this.props
 
         let classCode = getClassCode(match.params.classCode)
         loadText(currentLanguage)
+        loadPatchList()
         loadSkills(classCode)
     }
 

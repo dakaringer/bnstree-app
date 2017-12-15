@@ -2,21 +2,23 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {charSelector} from '../selectors'
-import {setStat, setElementDmg} from '../actions'
+import {charSelector, patchListSelector, patchSelector} from '../selectors'
+import {setStat, setElementDmg, selectPatch} from '../actions'
 import {viewSelector} from '../../../selectors'
 import {setViewOption} from '../../../actions'
 
 import elementImages from '../images/map_elementImg2'
 
-import {Modal, Icon, Tooltip, Radio} from 'antd'
+import {Modal, Icon, Tooltip, Radio, Menu, Dropdown} from 'antd'
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
 const mapStateToProps = state => {
     return {
         view: viewSelector(state),
-        character: charSelector(state)
+        character: charSelector(state),
+        currentPatch: patchSelector(state),
+        patchList: patchListSelector(state)
     }
 }
 
@@ -34,7 +36,8 @@ const mapDispatchToProps = dispatch => {
             if ((!isNaN(value) && reg.test(value)) || value === '') {
                 dispatch(setElementDmg(e, value))
             }
-        }
+        },
+        selectPatch: patch => dispatch(selectPatch(patch))
     }
 }
 
@@ -55,7 +58,17 @@ class SkillSettings extends React.PureComponent {
     }
 
     render() {
-        const {t, view, character, updateView, setStat, setElementDmg} = this.props
+        const {
+            t,
+            view,
+            character,
+            currentPatch,
+            patchList,
+            updateView,
+            setStat,
+            setElementDmg,
+            selectPatch
+        } = this.props
         const {show} = this.state
 
         let sortDiv = null
@@ -101,6 +114,33 @@ class SkillSettings extends React.PureComponent {
                 </tr>
             )
         })
+
+        let patches = []
+        let currentName = ''
+        patchList.forEach(p => {
+            let id = p.get('_id')
+            let name = <span>{p.get('name', '')}</span>
+            if (p.get('base')) {
+                name = (
+                    <span>
+                        {p.get('name', '')} <small key="current">(NA/EU)</small>
+                    </span>
+                )
+            }
+            patches.push(<Menu.Item key={id}>{name}</Menu.Item>)
+
+            if (currentPatch === id || (currentPatch === 'BASE' && p.get('base'))) {
+                currentName = name
+            }
+        })
+        let patchOverlay = (
+            <Menu
+                theme="dark"
+                onClick={e => selectPatch(e.key)}
+                selectedKeys={[currentPatch.toString()]}>
+                {patches}
+            </Menu>
+        )
 
         return (
             <div className="settings sub-menu-item">
@@ -202,9 +242,11 @@ class SkillSettings extends React.PureComponent {
                                     <p>{t('patch')}</p>
                                 </td>
                                 <td>
-                                    <a className="patch-selector" disabled>
-                                        KR 7.19 <Icon type="down" />
-                                    </a>
+                                    <Dropdown overlay={patchOverlay} trigger={['click']}>
+                                        <a className="patch-selector" disabled>
+                                            {currentName} <Icon type="down" />
+                                        </a>
+                                    </Dropdown>
                                 </td>
                             </tr>
                         </tbody>

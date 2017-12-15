@@ -68,6 +68,7 @@ function character(
 function data(state = Map(), action) {
     switch (action.type) {
         case actionType.SKILL_DATA_SET_CLASS_DATA:
+        case actionType.SKILL_DATA_SET_SKILL_PATCH_DATA:
         case actionType.SKILL_DATA_SET_BUILD_LIST:
         case actionType.SKILL_DATA_SET_USER_BUILD_LIST:
             return state.set(
@@ -83,6 +84,8 @@ function classData(state = Map(), action) {
     switch (action.type) {
         case actionType.SKILL_DATA_SET_CLASS_DATA:
             return state.merge(action.data)
+        case actionType.SKILL_DATA_SET_SKILL_PATCH_DATA:
+            return state.setIn(['skillPatches', action.patch], fromJS(action.data))
         case actionType.SKILL_DATA_SET_BUILD_LIST:
             return state.merge({buildList: action.list})
         case actionType.SKILL_DATA_SET_USER_BUILD_LIST:
@@ -106,10 +109,18 @@ function build(state = Map(), action) {
     }
 }
 
-function ref(state = fromJS({skillNames: {}}), action) {
+function ref(
+    state = fromJS({
+        skillNames: {},
+        patchList: []
+    }),
+    action
+) {
     switch (action.type) {
         case actionType.SKILL_REF_SET_SKILL_NAMES:
             return state.mergeDeepIn(['skillNames', action.language], action.nameData)
+        case actionType.SKILL_REF_SET_PATCH_LIST:
+            return state.set('patchList', fromJS(action.list))
         default:
             return state
     }

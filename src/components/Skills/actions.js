@@ -20,7 +20,7 @@ import {userSelector, viewSelector} from '../../selectors'
 const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
 export const setFilter = makeActionCreator(actionType.SKILL_UI_SET_FILTER, 'filter')
 export const setSearch = makeActionCreator(actionType.SKILL_UI_SET_SEARCH, 'search')
-export const setPatch = makeActionCreator(actionType.SKILL_UI_SET_PATCH, 'patch')
+const setPatch = makeActionCreator(actionType.SKILL_UI_SET_PATCH, 'patch')
 export const setCharacterMode = makeActionCreator(actionType.SKILL_UI_SET_CHARACTER_MODE, 'mode')
 
 export const setStat = makeActionCreator(actionType.SKILL_CHAR_SET_STAT, 'stat', 'value')
@@ -32,6 +32,12 @@ export const setElementDmg = makeActionCreator(
 export const setEquip = makeActionCreator(actionType.SKILL_CHAR_SET_EQUIP, 'equipType', 'item')
 
 const setClassData = makeActionCreator(actionType.SKILL_DATA_SET_CLASS_DATA, 'classCode', 'data')
+const setSkillPatchData = makeActionCreator(
+    actionType.SKILL_DATA_SET_SKILL_PATCH_DATA,
+    'classCode',
+    'patch',
+    'data'
+)
 const setBuildList = makeActionCreator(actionType.SKILL_DATA_SET_BUILD_LIST, 'classCode', 'list')
 const setUserBuildList = makeActionCreator(
     actionType.SKILL_DATA_SET_USER_BUILD_LIST,
@@ -57,6 +63,8 @@ const setSkillNames = makeActionCreator(
     'language',
     'nameData'
 )
+
+const setPatchList = makeActionCreator(actionType.SKILL_REF_SET_PATCH_LIST, 'list')
 
 const classQuery = q`query ($classCode: String!) {
     Skills {
@@ -103,6 +111,16 @@ const namesQuery = q`query ($language: String!, $en: Boolean!) {
                 name
                 icon
             }
+        }
+    }
+}`
+
+const patchListQuery = q`query {
+    Skills {
+        patchList {
+            _id
+            name
+            base
         }
     }
 }`
@@ -163,6 +181,17 @@ const buildQuery = q`query ($id: ID!) {
     }
 }`
 
+const skillPatchQuery = q`query ($patch: Int!) {
+    Skills {
+        skillData {
+            skillPatches(patch: $patch) {
+                patch
+                data
+            }
+        }
+    }
+}`
+
 const saveBuildMutation = q`mutation (
     $title: String!,
     $classCode: String!,
@@ -218,6 +247,7 @@ export function loadSkills(classCode, buildCode, buildId) {
                     groupData: flatten(json.data.Skills.skillData.skillGroups),
                     skillData: flatten(json.data.Skills.skillData.skills)
                 }
+
                 dispatch(setClassData(classCode, data))
 
                 let view = viewSelector(getState())
@@ -246,6 +276,20 @@ export function loadTextData(lang) {
                 if (json.data.Skills.enNames) {
                     dispatch(setSkillNames('en', flatten(json.data.Skills.enNames.skills)))
                 }
+            })
+            .catch(e => console.error(e))
+    }
+}
+
+export function loadPatchList() {
+    return dispatch => {
+        dispatch(setPatch('BASE'))
+        apollo
+            .query({
+                query: patchListQuery
+            })
+            .then(json => {
+                dispatch(setPatchList(json.data.Skills.patchList))
             })
             .catch(e => console.error(e))
     }
@@ -436,5 +480,25 @@ export function learnMove(skill, move) {
                 }
             })
         }
+    }
+}
+
+export function selectPatch(patch) {
+    return (dispatch, getState) => {
+        dispatch(setPatch(parseInt(patch, 10)))
+        apollo
+            .query({
+                query: skillPatchQuery,
+                variables: {
+                    patch: patch
+                }
+            })
+            .then(json => {
+                let classCode = classSelector(getState())
+                dispatch(
+                    setSkillPatchData(classCode, patch, json.data.Skills.skillData.skillPatches)
+                )
+            })
+            .catch(e => console.error(e))
     }
 }

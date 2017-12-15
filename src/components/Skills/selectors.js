@@ -4,13 +4,6 @@ import {Map, List, fromJS} from 'immutable'
 import {currentLanguageSelector, viewSelector} from '../../selectors'
 import {characterSelector} from '../Character/selectors'
 
-function merger(a, b) {
-    if (a && a.mergeWith && !List.isList(a) && !List.isList(b)) {
-        return a.mergeWith(merger, b)
-    }
-    return b
-}
-
 const keyOrder = [
     'LB',
     'RB',
@@ -100,6 +93,20 @@ export const refSelector = state => state.getIn(['skills', 'ref'], Map())
 
 const characterBuildDataSelector = state => state.getIn(['character', 'data', 'skillData'], Map())
 
+//ref
+export const skillNamesSelector = createSelector(
+    refSelector,
+    currentLanguageSelector,
+    (state, language) =>
+        state.getIn(['skillNames', language], state.getIn(['skillNames', 'en'], Map()))
+)
+export const skillNamesSelectorEN = createSelector(refSelector, state =>
+    state.getIn(['skillNames', 'en'], Map())
+)
+export const patchListSelector = createSelector(refSelector, state =>
+    state.get('patchList', List()).sort((a, b) => a.get('_id') > b.get('_id'))
+)
+
 //ui
 export const characterModeSelector = createSelector(uiSelector, state =>
     state.get('characterMode', false)
@@ -132,7 +139,13 @@ export const charSelector = createSelector(
 export const classSelector = createSelector(uiSelector, state => state.get('classCode', 'BM'))
 export const filterSelector = createSelector(uiSelector, state => state.get('filter', 'ALL'))
 export const searchSelector = createSelector(uiSelector, state => state.get('search', ''))
-export const patchSelector = createSelector(uiSelector, state => state.get('patch', 'BASE'))
+export const patchSelector = createSelector(uiSelector, patchListSelector, (state, list) => {
+    let currentPatch = state.get('patch', 'BASE')
+    if (currentPatch === 'BASE') {
+        currentPatch = list.find(p => p.get('base'), null, Map()).get('_id', '')
+    }
+    return currentPatch
+})
 
 //data
 const classDataSelector = createSelector(dataSelector, classSelector, (state, classCode) =>
@@ -177,47 +190,47 @@ export const buildSelector = createSelector(
             : state.getIn([classCode, 'build', element], Map())
 )
 
-//ref
-export const skillNamesSelector = createSelector(
-    refSelector,
-    currentLanguageSelector,
-    (state, language) =>
-        state.getIn(['skillNames', language], state.getIn(['skillNames', 'en'], Map()))
-)
-export const skillNamesSelectorEN = createSelector(refSelector, state =>
-    state.getIn(['skillNames', 'en'], Map())
-)
+//patchData
+const patchDataSelector = createSelector(classDataSelector, patchSelector, (data, patch) => {
+    let list = Map()
+    data = data
+        .get('skillPatches', Map())
+        .get(patch.toString(), List())
+        .forEach(p => {
+            let id = p.getIn(['data', '_id'])
+            let patch = list.getIn([id, 'patch'], p.get('patch'))
+            if (patch <= p.get('patch')) {
+                list = list.set(id, p)
+            }
+        })
+    list = list.map(p => p.get('data'))
+
+    return list
+})
 
 //skillData
 const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))
 
-const patchDataSelector = createSelector(classDataSelector, data => data.get('patchData', Map()))
-export const mergedPatchDataSelector = createSelector(
+const skillDataSelector = createSelector(classDataSelector, data => data.get('skillData', Map()))
+
+const patchedSkillDataSelector = createSelector(
+    skillDataSelector,
     patchDataSelector,
-    patchSelector,
-    (data, patchDate) => {
-        let result = Map()
-        if (patchDate !== 'BASE') {
-            data.forEach((patches, id) => {
-                patches = patches.filter(skill => {
-                    return skill.get('patch') <= patchDate
-                })
-
-                let changes = Map()
-                patches.forEach(patch => {
-                    changes = changes.mergeWith(merger, patch)
-                })
-
-                result.set(id, changes)
-            })
-        }
-        return result
+    (data, patchData) => {
+        patchData.forEach(p => {
+            let id = p.get('_id')
+            if (p.size <= 2) {
+                data = data.delete(id)
+            } else {
+                data = data.set(id, p)
+            }
+        })
+        return data
     }
 )
 
-const skillDataSelector = createSelector(classDataSelector, data => data.get('skillData', Map()))
 const namedSkillDataSelector = createSelector(
-    skillDataSelector,
+    patchedSkillDataSelector,
     skillNamesSelector,
     skillNamesSelectorEN,
     (data, names, namesEN) => {
@@ -234,15 +247,8 @@ const namedSkillDataSelector = createSelector(
     }
 )
 
-const patchedSkillDataSelector = createSelector(
-    namedSkillDataSelector,
-    mergedPatchDataSelector,
-    (data, patch) => {
-        return data.mergeWith(merger, patch).filter(skill => !skill.get('deleted', false))
-    }
-)
 const elementSkillDataSelector = createSelector(
-    patchedSkillDataSelector,
+    namedSkillDataSelector,
     buildElementSelector,
     (data, element) => {
         return data.filter(skill => skill.get('elementSpec', element) === element)
