@@ -194,20 +194,25 @@ export const buildSelector = createSelector(
 )
 
 //patchData
-const patchDataSelector = createSelector(classDataSelector, patchSelector, (data, patch) => {
-    let list = Map()
-    data = data
-        .get('skillPatches', Map())
-        .get(patch.toString(), List())
-        .forEach(p => {
-            let id = p.getIn(['data', '_id'])
-            let patch = list.getIn([id, 'patch'], p.get('patch'))
-            if (patch <= p.get('patch')) {
-                list = list.set(id, p)
-            }
-        })
-    return list.map(p => p.get('data'))
-})
+const patchDataSelector = createSelector(
+    classSelector,
+    classDataSelector,
+    patchSelector,
+    (classCode, data, patch) => {
+        let list = Map()
+        data = data
+            .get('skillPatches', Map())
+            .get(patch.toString(), List())
+            .forEach(p => {
+                let id = p.getIn(['data', '_id'])
+                let patch = list.getIn([id, 'patch'], p.get('patch'))
+                if (patch <= p.get('patch')) {
+                    list = list.set(id, p)
+                }
+            })
+        return list.map(p => p.get('data')).filter(skill => skill.get('classCode') === classCode)
+    }
+)
 
 export const namedPatchDataSelector = createSelector(
     patchDataSelector,
