@@ -18,7 +18,11 @@ const mapStateToProps = state => {
 }
 
 const SkillTooltip = props => {
-    const {t, moveData, comparisonData, characterData, skillNames, element} = props
+    let {t, moveData, comparisonData, characterData, skillNames, element, elementOverride} = props
+
+    if (elementOverride) {
+        element = elementOverride
+    }
 
     //focus
     let focus = moveData.get('focus', moveData.get('health', 0))
@@ -59,6 +63,7 @@ const SkillTooltip = props => {
                 let search = findAttb(attb, comparisonAttributes, element)
                 let cAttb = search[0]
                 comparisonAttributes = search[1]
+
                 let flag = null
                 let deleted = null
                 if (!cAttb) {

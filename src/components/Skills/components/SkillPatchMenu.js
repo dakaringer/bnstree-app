@@ -1,12 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
+import {Map} from 'immutable'
 
 import {
     patchListSelector,
     patchSelector,
     namedPatchDataSelector,
-    namedSkillDataSelector
+    namedSkillDataSelector,
+    classElementDataSelector
 } from '../selectors'
 import {selectPatch} from '../actions'
 
@@ -19,7 +21,8 @@ const mapStateToProps = state => {
         currentPatch: patchSelector(state),
         patchList: patchListSelector(state),
         patchData: namedPatchDataSelector(state),
-        baseData: namedSkillDataSelector(state)
+        baseData: namedSkillDataSelector(state),
+        classElements: classElementDataSelector(state)
     }
 }
 
@@ -44,7 +47,15 @@ class SkillPatchMenu extends React.PureComponent {
     }
 
     render() {
-        const {t, currentPatch, patchList, patchData, baseData, selectPatch} = this.props
+        const {
+            t,
+            currentPatch,
+            patchList,
+            patchData,
+            baseData,
+            classElements,
+            selectPatch
+        } = this.props
         const {show} = this.state
 
         let patches = []
@@ -76,40 +87,77 @@ class SkillPatchMenu extends React.PureComponent {
             let move = patch.get('move')
             let classification =
                 move > 3 ? t('moveTypeHM', {move: move - 3}) : t('moveType', {move: move})
+            classification = move ? ` ${classification}` : ''
             let element = null
             if (patch.has('elementSpec')) {
                 element = ` (${t(patch.get('elementSpec'))})`
             }
+
             if (patch.size > 6) {
+                let split = false
                 let tooltip = <SkillTooltip moveData={patch} comparisonData={base || patch} />
 
-                changelog.push(
-                    <Tooltip
-                        placement="bottomLeft"
-                        title={tooltip}
-                        align={{overflow: {adjustY: false, adjustX: true}}}
-                        overlayClassName="skill-tooltip-wrap"
-                        trigger={['click']}
-                        key={id}>
-                        <div className="patch-item">
-                            <img
-                                className="skill-icon"
-                                alt={patch.get('skillId')}
-                                src={`https://static.bnstree.com/images/skills/${patch.get(
-                                    'icon',
-                                    'blank'
-                                )}`}
-                            />
-                            <p className="skill-name">
-                                {patch.get('name')}
-                                <small>
-                                    {move ? ` ${classification}` : ''}
-                                    {element}
-                                </small>
-                            </p>
-                        </div>
-                    </Tooltip>
-                )
+                if (!patch.has('elementSpec')) {
+                    let element1 = classElements.getIn([0, 'element'])
+                    let patch1 = filterElement(patch, element1)
+                    let base1 = filterElement(base, element1)
+                    let element2 = classElements.getIn([1, 'element'])
+                    let patch2 = filterElement(patch, element2)
+                    let base2 = filterElement(base, element2)
+
+                    if (!patch1.equals(patch2)) {
+                        split = true
+                        if (!base1.equals(patch1)) {
+                            tooltip = (
+                                <SkillTooltip
+                                    moveData={patch}
+                                    comparisonData={base || patch}
+                                    elementOverride={element1}
+                                />
+                            )
+                            changelog.push(
+                                <PatchItem
+                                    tooltip={tooltip}
+                                    patch={patch}
+                                    classification={classification}
+                                    element={` (${t(element1)})`}
+                                    key={`${id}-${element1}`}
+                                />
+                            )
+                        }
+
+                        if (!base2.equals(patch2)) {
+                            tooltip = (
+                                <SkillTooltip
+                                    moveData={patch}
+                                    comparisonData={base || patch}
+                                    elementOverride={element2}
+                                />
+                            )
+                            changelog.push(
+                                <PatchItem
+                                    tooltip={tooltip}
+                                    patch={patch}
+                                    classification={classification}
+                                    element={` (${t(element2)})`}
+                                    key={`${id}-${element2}`}
+                                />
+                            )
+                        }
+                    }
+                }
+
+                if (!split) {
+                    changelog.push(
+                        <PatchItem
+                            tooltip={tooltip}
+                            patch={patch}
+                            classification={classification}
+                            element={element}
+                            key={id}
+                        />
+                    )
+                }
             } else {
                 changelog.push(
                     <div className="patch-item removed" key={id}>
@@ -171,3 +219,45 @@ class SkillPatchMenu extends React.PureComponent {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(translate('classes')(SkillPatchMenu))
+
+function filterElement(patch, element) {
+    let attributes = patch.get('attributes', Map())
+    attributes = attributes.map((group, type) => {
+        return group.filter(attb => attb.get(2, element) === element)
+    })
+
+    let subAttributes = patch.get('subAttributes', Map())
+    subAttributes = subAttributes.map((group, type) => {
+        return group.filter(attb => attb.get(2, element) === element)
+    })
+
+    return patch.set('attributes', attributes).set('subAttributes', subAttributes)
+}
+
+const PatchItem = props => {
+    const {tooltip, patch, classification, element} = props
+
+    return (
+        <Tooltip
+            placement="bottomLeft"
+            title={tooltip}
+            align={{overflow: {adjustY: false, adjustX: true}}}
+            overlayClassName="skill-tooltip-wrap"
+            trigger={['click']}>
+            <div className="patch-item">
+                <img
+                    className="skill-icon"
+                    alt={patch.get('skillId')}
+                    src={`https://static.bnstree.com/images/skills/${patch.get('icon', 'blank')}`}
+                />
+                <p className="skill-name">
+                    {patch.get('name')}
+                    <small>
+                        {classification}
+                        {element}
+                    </small>
+                </p>
+            </div>
+        </Tooltip>
+    )
+}
