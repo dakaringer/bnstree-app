@@ -155,6 +155,7 @@ const buildListQuery = q`query (
                 skillId: id
                 trait
             }
+            patch
         }
         count(
             limit: 10,
@@ -180,6 +181,7 @@ const buildQuery = q`query ($id: ID!) {
                 skillId: id
                 trait
             }
+            patch
         }
     }
 }`
@@ -289,6 +291,7 @@ export function loadTextData(lang) {
 export function loadPatchList() {
     return dispatch => {
         dispatch(setPatch('BASE'))
+
         apollo
             .query({
                 query: patchListQuery
@@ -347,6 +350,7 @@ export function loadBuild(buildCode, buildId) {
 
                 if (build) {
                     dispatch(setBuildElement(classCode, build.get('element')))
+                    dispatch(setPatch(build.get('patch', 'BASE')))
                     build.get('buildObjects', List()).forEach(skill => {
                         dispatch(learnMove(skill.get('skillId'), skill.get('trait')))
                     })
@@ -361,6 +365,7 @@ export function loadBuild(buildCode, buildId) {
                         })
                         .then(json => {
                             let build = json.data.SkillBuilds.build
+                            dispatch(setPatch(build.patch))
                             dispatch(setBuildElement(classCode, build.element))
                             build.buildObjects.forEach(skill => {
                                 dispatch(learnMove(skill.skillId, skill.trait))
@@ -375,6 +380,8 @@ export function loadBuild(buildCode, buildId) {
                 let classElements = classElementDataSelector(getState())
                 let currentElement = classElements.get(buildCode[0], classElements.get(0))
                 let buildString = buildCode.substring(1)
+
+                dispatch(setPatch('BASE'))
                 dispatch(setBuildElement(classCode, currentElement.get('element')))
 
                 let buildFormat = buildFormatSelector(getState())
