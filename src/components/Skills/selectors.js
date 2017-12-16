@@ -229,7 +229,7 @@ export const namedPatchDataSelector = createSelector(
                 .set('icon', names.getIn([id, 'icon'], ''))
                 .set('tags', tags)
         })
-        return data
+        return data.sort((a, b) => (a.get('_id') < b.get('_id') ? -1 : 1))
     }
 )
 
@@ -281,13 +281,7 @@ const elementSkillDataSelector = createSelector(
 )
 
 export const groupedSkillDataSelector = createSelector(elementSkillDataSelector, data => {
-    data = data.sort((a, b) => {
-        if (a.get('move', '') < b.get('move', '')) {
-            return -1
-        } else {
-            return 1
-        }
-    })
+    data = data.sort((a, b) => a.get('move', 1) - b.get('move', 1))
     return data.groupBy(skill => skill.get('groupId'))
 })
 
