@@ -1,5 +1,5 @@
 .skill-option-bar {
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
         margin-top: 0.75rem;
     }
 
@@ -36,7 +36,7 @@
         flex-wrap: wrap;
         align-items: center;
 
-        @media (max-width: 767px) {
+        @media (max-width: 991px) {
             &.searchGroup {
                 flex: 1;
                 min-width: 15rem;
@@ -113,5 +113,62 @@
     .error {
         margin-left: 2rem;
         color: #f04134;
+    }
+}
+
+.patch-menu {
+    .patch-list {
+        background: none;
+        padding: 0.5rem;
+
+        .ant-menu-item {
+            margin: 0 !important;
+            padding: 0.3rem 0;
+            height: auto;
+            line-height: normal;
+
+            &.ant-menu-item-selected {
+                background: none;
+                color: deepskyblue;
+                margin: 0;
+            }
+        }
+    }
+
+    .changelog {
+        padding: 0 0.5rem;
+
+        .patch-item {
+            display: flex;
+            margin: 0.5rem 0;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+
+            .skill-icon {
+                width: 2rem;
+                height: 2rem;
+                margin-right: 0.5rem;
+            }
+
+            &.removed {
+                .skill-name {
+                    color: #aaa;
+                    text-decoration: line-through;
+                }
+
+                .removed-text {
+                    color: red;
+                    margin-left: 1rem;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        .no-change {
+            padding: 0.8rem;
+            color: #aaa;
+            text-align: center;
+        }
     }
 }

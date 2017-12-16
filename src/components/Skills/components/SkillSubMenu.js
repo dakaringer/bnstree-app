@@ -9,6 +9,7 @@ import {viewSelector} from '../../../selectors'
 import {buildElementSelector, searchSelector, filterSelector} from '../selectors'
 import {toggleElement, setSearch, setFilter} from '../actions'
 
+import SkillPatchMenu from './SkillPatchMenu'
 import SkillSettings from './SkillSettings'
 import SkillShareMenu from './SkillShareMenu'
 
@@ -127,6 +128,7 @@ const SkillSubMenu = props => {
                 </div>
             </div>
             <div className="sub-menu-right">
+                <SkillPatchMenu />
                 <SkillSettings />
                 <SkillShareMenu />
             </div>

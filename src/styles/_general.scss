@@ -126,14 +126,13 @@
     flex-wrap: wrap;
     margin-bottom: 1rem;
 
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
         margin-top: 1rem;
     }
 
     .sub-menu-left,
     .sub-menu-right {
         display: flex;
-        align-items: baseline;
         flex-wrap: wrap;
     }
 
@@ -202,7 +201,7 @@
         }
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 991px) {
         display: block;
         .sub-menu-item {
             margin-bottom: 2rem;
