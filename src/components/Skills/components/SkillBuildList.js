@@ -12,7 +12,7 @@ import elementImages from '../images/map_elementImg2'
 import {
     classSelector,
     buildListSelector,
-    elementDataSelector,
+    classElementDataSelector,
     userBuildListSelector
 } from '../selectors'
 import {loadBuildList, loadBuild, deleteBuild} from '../actions'
@@ -22,7 +22,7 @@ const mapStateToProps = state => {
         classCode: classSelector(state),
         buildList: buildListSelector(state),
         userBuildList: userBuildListSelector(state),
-        elementData: elementDataSelector(state)
+        elementData: classElementDataSelector(state)
     }
 }
 

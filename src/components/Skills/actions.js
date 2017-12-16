@@ -9,12 +9,13 @@ import {setLoading, setViewOption} from '../../actions'
 import {
     classSelector,
     buildElementSelector,
-    elementDataSelector,
+    classElementDataSelector,
     buildSelector,
     buildListSelector,
     characterModeSelector,
     groupedSkillDataSelector,
-    patchSelector
+    patchSelector,
+    buildFormatSelector
 } from './selectors'
 import {userSelector, viewSelector} from '../../selectors'
 
@@ -73,7 +74,6 @@ const classQuery = q`query ($classCode: String!) {
             elements {
                 element
                 additionalFilters
-                buildFormat
             }
         }
         skillData(classCode: $classCode) {
@@ -372,11 +372,13 @@ export function loadBuild(buildCode, buildId) {
                         .then(() => dispatch(setLoading(false, 'skills')))
                 }
             } else if (buildCode && !isNaN(buildCode)) {
-                let elementData = elementDataSelector(getState())
-                let currentElement = elementData.get(buildCode[0], elementData.get(0))
+                let classElements = classElementDataSelector(getState())
+                let currentElement = classElements.get(buildCode[0], classElements.get(0))
                 let buildString = buildCode.substring(1)
                 dispatch(setBuildElement(classCode, currentElement.get('element')))
-                currentElement.get('buildFormat', Map()).forEach((id, i) => {
+
+                let buildFormat = buildFormatSelector(getState())
+                buildFormat.forEach((id, i) => {
                     if (buildString[i]) {
                         let trait = parseInt(buildString[i], 10)
                         dispatch(learnMove(id, trait))
@@ -390,15 +392,14 @@ export function loadBuild(buildCode, buildId) {
 export function postBuild(title, type) {
     return (dispatch, getState) => {
         let element = buildElementSelector(getState())
-        let classElements = elementDataSelector(getState())
-        let elementIndex = classElements.findIndex(a => a.get('element') === element)
+        let buildFormat = buildFormatSelector(getState())
 
         let classCode = classSelector(getState())
         let build = buildSelector(getState())
         let patch = patchSelector(getState())
 
         let buildObjects = []
-        classElements.getIn([elementIndex, 'buildFormat'], Map()).forEach(id => {
+        buildFormat.forEach(id => {
             buildObjects.push({
                 id: id,
                 trait: build.get(id, 1)
@@ -455,7 +456,7 @@ export function deleteBuild(id, classCode) {
 export function toggleElement() {
     return (dispatch, getState) => {
         let classCode = classSelector(getState())
-        let classElements = elementDataSelector(getState())
+        let classElements = classElementDataSelector(getState())
         let currentElement = buildElementSelector(getState())
 
         let otherElement =

@@ -1,15 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Map} from 'immutable'
 
 import {userSelector} from '../../../selectors'
 import {
     buildElementSelector,
     buildSelector,
-    elementDataSelector,
+    classElementDataSelector,
     basePatchSelector,
-    patchSelector
+    patchSelector,
+    buildFormatSelector
 } from '../selectors'
 import {postBuild} from '../actions'
 
@@ -17,10 +17,10 @@ import {Icon, Modal, Button, Radio} from 'antd'
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
-function generateLink(element, build, elementData) {
+function generateLink(element, build, buildFormat, elementData) {
     let elementIndex = elementData.findIndex(a => a.get('element') === element)
     let buildString = ''
-    elementData.getIn([elementIndex, 'buildFormat'], Map()).forEach(id => {
+    buildFormat.forEach(id => {
         let trait = build.get(id, '1')
         buildString += parseInt(trait, 10)
     })
@@ -33,7 +33,8 @@ const mapStateToProps = state => {
         user: userSelector(state),
         element: buildElementSelector(state),
         buildData: buildSelector(state),
-        elementData: elementDataSelector(state),
+        buildFormat: buildFormatSelector(state),
+        elementData: classElementDataSelector(state),
         isBase: base.get('_id') === patchSelector(state)
     }
 }
@@ -98,10 +99,10 @@ class SkillShareMenu extends React.PureComponent {
     }
 
     render() {
-        const {t, user, element, buildData, elementData, isBase} = this.props
+        const {t, user, element, buildData, buildFormat, elementData, isBase} = this.props
         const {show, title, type, noTitle} = this.state
 
-        let buildCode = generateLink(element, buildData, elementData)
+        let buildCode = generateLink(element, buildData, buildFormat, elementData)
 
         let errorMsg = null
         if (noTitle) {
