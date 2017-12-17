@@ -15,7 +15,8 @@ import {
     characterModeSelector,
     groupedSkillDataSelector,
     patchSelector,
-    buildFormatSelector
+    buildFormatSelector,
+    patchListSelector
 } from './selectors'
 import {userSelector, viewSelector} from '../../selectors'
 
@@ -290,14 +291,20 @@ export function loadTextData(lang) {
     }
 }
 
-export function loadPatchList() {
-    return dispatch => {
+export function loadPatchList(setKr) {
+    return (dispatch, getState) => {
         apollo
             .query({
                 query: patchListQuery
             })
             .then(json => {
                 dispatch(setPatchList(json.data.Skills.patchList))
+                if (setKr) {
+                    let patch = patchListSelector(getState())
+                        .last()
+                        .get('_id')
+                    dispatch(selectPatch(patch))
+                }
             })
             .catch(e => console.error(e))
     }
