@@ -93,7 +93,7 @@ class SkillPatchMenu extends React.PureComponent {
                 element = ` (${t(patch.get('elementSpec'))})`
             }
 
-            if (patch.size > 6) {
+            if (patch.size > 7) {
                 let split = false
                 let tooltip = <SkillTooltip moveData={patch} comparisonData={base || patch} />
 

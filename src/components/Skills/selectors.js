@@ -298,7 +298,7 @@ const patchedSkillDataSelector = createSelector(
     (data, patchData) => {
         patchData.forEach(p => {
             let id = p.get('_id')
-            if (p.size <= 6) {
+            if (p.size <= 7) {
                 data = data.delete(id)
             } else {
                 data = data.set(id, p)
