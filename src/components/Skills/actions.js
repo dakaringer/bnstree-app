@@ -232,6 +232,7 @@ export function loadSkills(classCode, buildCode, buildId) {
         dispatch(setCharacterMode(false))
         dispatch(setClass(classCode))
         dispatch(setFilter('ALL'))
+        dispatch(setPatch('BASE'))
         dispatch(setSearch(''))
 
         dispatch(loadBuildList(1, classCode))
@@ -290,8 +291,6 @@ export function loadTextData(lang) {
 
 export function loadPatchList() {
     return dispatch => {
-        dispatch(setPatch('BASE'))
-
         apollo
             .query({
                 query: patchListQuery
