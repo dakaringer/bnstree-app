@@ -226,12 +226,18 @@ function filterElement(patch, element) {
         return group.filter(attb => attb.get(2, element) === element)
     })
 
+    let info = patch.get('info', Map())
+    info = info.get(element, info)
+
     let subAttributes = patch.get('subAttributes', Map())
     subAttributes = subAttributes.map((group, type) => {
-        return group.filter(attb => attb.get(2, element) === element)
+        return group.filter(attb => attb.getIn(['text', 2], element) === element)
     })
 
-    return patch.set('attributes', attributes).set('subAttributes', subAttributes)
+    return patch
+        .set('attributes', attributes)
+        .set('info', info)
+        .set('subAttributes', subAttributes)
 }
 
 const PatchItem = props => {
