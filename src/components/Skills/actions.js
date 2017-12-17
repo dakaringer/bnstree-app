@@ -191,7 +191,8 @@ const skillPatchQuery = q`query ($patch: Int!) {
         skillData {
             skillPatches(patch: $patch) {
                 patch
-                data
+                skill
+                skillGroup
             }
         }
     }

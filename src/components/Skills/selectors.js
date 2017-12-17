@@ -194,28 +194,52 @@ export const buildSelector = createSelector(
 )
 
 //patchData
-const patchDataSelector = createSelector(
-    classSelector,
+const skillDataPatchSelector = createSelector(
     classDataSelector,
     patchSelector,
-    (classCode, data, patch) => {
+    classSelector,
+    (data, patch, classCode) => {
         let list = Map()
         data = data
             .get('skillPatches', Map())
             .get(patch.toString(), List())
             .forEach(p => {
-                let id = p.getIn(['data', '_id'])
+                let id = p.getIn(['skill', '_id'])
                 let patch = list.getIn([id, 'patch'], p.get('patch'))
                 if (patch <= p.get('patch')) {
                     list = list.set(id, p)
                 }
             })
-        return list.map(p => p.get('data')).filter(skill => skill.get('classCode') === classCode)
+        return list
+            .map(p => p.get('skill'))
+            .filter(skill => skill && skill.get('classCode') === classCode)
+    }
+)
+
+const groupDataPatchSelector = createSelector(
+    classDataSelector,
+    patchSelector,
+    classSelector,
+    (data, patch, classCode) => {
+        let list = Map()
+        data = data
+            .get('skillPatches', Map())
+            .get(patch.toString(), List())
+            .forEach(p => {
+                let id = p.getIn(['skillGroup', '_id'])
+                let patch = list.getIn([id, 'patch'], p.get('patch'))
+                if (patch <= p.get('patch')) {
+                    list = list.set(id, p)
+                }
+            })
+        return list
+            .map(p => p.get('skillGroup'))
+            .filter(group => group && group.get('classCode') === classCode)
     }
 )
 
 export const namedPatchDataSelector = createSelector(
-    patchDataSelector,
+    skillDataPatchSelector,
     skillNamesSelector,
     skillNamesSelectorEN,
     (data, names, namesEN) => {
@@ -235,6 +259,18 @@ export const namedPatchDataSelector = createSelector(
 
 //skillData
 const groupDataSelector = createSelector(classDataSelector, data => data.get('groupData', Map()))
+
+const patchedGroupDataSelector = createSelector(
+    groupDataSelector,
+    groupDataPatchSelector,
+    (data, patchData) => {
+        patchData.forEach(p => {
+            let id = p.get('_id')
+            data = data.set(id, p)
+        })
+        return data
+    }
+)
 
 const skillDataSelector = createSelector(classDataSelector, data => data.get('skillData', Map()))
 
@@ -287,7 +323,7 @@ export const groupedSkillDataSelector = createSelector(elementSkillDataSelector,
 
 export const buildFormatSelector = createSelector(
     groupedSkillDataSelector,
-    groupDataSelector,
+    patchedGroupDataSelector,
     (data, groupData) => {
         data = groupData
             .map((group, id) => {
@@ -359,7 +395,7 @@ const statSkillDataSelector = createSelector(
 
 const filteredSkillDataSelector = createSelector(
     statSkillDataSelector,
-    groupDataSelector,
+    patchedGroupDataSelector,
     filterSelector,
     searchSelector,
     buildElementSelector,
