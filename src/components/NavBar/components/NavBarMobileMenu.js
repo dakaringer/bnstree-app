@@ -17,6 +17,8 @@ import search from '../linkmap_search'
 import {currentLanguageSelector, supportedLanguagesSelector, userSelector} from '../../../selectors'
 import {menuStatusSelector} from '../selectors'
 
+import {closeMenu} from '../actions'
+
 const mapStateToProps = state => {
     return {
         menuStatus: menuStatusSelector(state),
@@ -26,16 +28,19 @@ const mapStateToProps = state => {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        closeMenu: () => dispatch(closeMenu())
+    }
+}
+
 const NavBarMobileMenu = props => {
-    let {t, menuStatus, user, languages, currentLanguage} = props
+    let {t, menuStatus, user, languages, currentLanguage, closeMenu} = props
 
     return (
         <div className="overlay-menu" aria-hidden={!menuStatus}>
             <ul className="overlay-menu-container">
-                <NavLink
-                    to="/news"
-                    className="overlay-nav-menu-item"
-                    onClick={() => this.closeMenu()}>
+                <NavLink to="/news" className="overlay-nav-menu-item" onClick={() => closeMenu()}>
                     {t('news')}
                 </NavLink>
                 <Collapse bordered={false} className="overlay-nav-menu-item">
@@ -56,7 +61,7 @@ const NavBarMobileMenu = props => {
                 <NavLink
                     to="/streams"
                     className="overlay-nav-menu-item"
-                    onClick={() => this.closeMenu()}>
+                    onClick={() => closeMenu()}>
                     {t('streams')}
                 </NavLink>
                 <hr />
@@ -94,4 +99,4 @@ const NavBarMobileMenu = props => {
     )
 }
 
-export default connect(mapStateToProps)(translate('general')(NavBarMobileMenu))
+export default connect(mapStateToProps, mapDispatchToProps)(translate('general')(NavBarMobileMenu))
