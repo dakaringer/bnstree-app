@@ -49,10 +49,10 @@ function parse(data, variables, skillNames) {
                             if (skillList.length !== 0) {
                                 skillList.push(', ')
                             }
-                            skillList.push(getName(idString, skillNames, v.startsWith('skillName')))
+                            skillList.push(getName(idString, skillNames))
                         })
                     } else {
-                        skillList.push(getName(value, skillNames, v.startsWith('skillName')))
+                        skillList.push(getName(value, skillNames))
                     }
                     value = <span>{skillList}</span>
                     break
