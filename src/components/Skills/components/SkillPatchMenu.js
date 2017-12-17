@@ -245,9 +245,8 @@ const PatchItem = props => {
 
     return (
         <Tooltip
-            placement="bottomLeft"
+            placement="topLeft"
             title={tooltip}
-            align={{overflow: {adjustY: false, adjustX: true}}}
             overlayClassName="skill-tooltip-wrap"
             trigger={['click']}>
             <div className="patch-item">
