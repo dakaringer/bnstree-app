@@ -3,7 +3,7 @@ import {Fade} from 'react-reveal'
 
 import './styles/Background.scss'
 
-const MAX_BG = 33
+const MAX_BG = 45
 
 class Background extends React.PureComponent {
     constructor(props) {

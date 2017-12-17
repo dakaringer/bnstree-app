@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import {Link} from 'react-router-dom'
 
-const MAX_BG = 33
+const MAX_BG = 45
 
 class NewsListItem extends React.PureComponent {
     constructor(props) {
