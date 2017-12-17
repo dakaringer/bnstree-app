@@ -187,7 +187,7 @@ class SkillPatchMenu extends React.PureComponent {
         return (
             <div className="patch sub-menu-item">
                 <a onClick={() => this.toggleModal()}>
-                    {t('patch')} <Icon type="calendar" />
+                    <Icon type="calendar" /> {t('patch')}
                 </a>
                 <Modal
                     title={t('patch')}

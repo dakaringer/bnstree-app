@@ -115,7 +115,7 @@ class SkillShareMenu extends React.PureComponent {
         return (
             <div className="share sub-menu-item">
                 <a onClick={() => this.toggleModal()}>
-                    {t('general:share')} <Icon type="share-alt" />
+                    <Icon type="share-alt" /> {t('general:share')}
                 </a>
                 <Modal
                     title={t('general:share')}
@@ -134,7 +134,7 @@ class SkillShareMenu extends React.PureComponent {
                     </div>
                     <hr />
                     <div>
-                        <h4>Post on BnSTree</h4>
+                        <h4>{t('postBuild')}</h4>
                         <input
                             className="build-title"
                             placeholder={user ? t('title') : t('loginRequired')}

@@ -105,7 +105,7 @@ class SkillSettings extends React.PureComponent {
         return (
             <div className="settings sub-menu-item">
                 <a onClick={() => this.toggleModal()}>
-                    {t('settings')} <Icon type="setting" />
+                    <Icon type="setting" /> {t('settings')}
                 </a>
                 <Modal
                     title={t('settings')}
