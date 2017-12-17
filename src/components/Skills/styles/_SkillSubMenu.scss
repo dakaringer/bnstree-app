@@ -141,7 +141,6 @@
             display: flex;
             margin: 0.5rem 0;
             align-items: center;
-            cursor: pointer;
             user-select: none;
             font-size: 1.2rem;
 
@@ -156,12 +155,22 @@
                     color: #aaa;
                     text-decoration: line-through;
                 }
+            }
 
-                .removed-text {
-                    color: red;
-                    margin-left: 1rem;
-                    font-size: 1.2rem;
-                }
+            .removed-text {
+                color: red;
+                margin-left: 0.5rem;
+                font-size: 1.2rem;
+            }
+
+            .added-text {
+                color: lime;
+                margin-left: 0.5rem;
+                font-size: 1.2rem;
+            }
+
+            &:not(.removed) {
+                cursor: pointer;
             }
         }
 

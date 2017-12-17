@@ -97,7 +97,7 @@ class SkillPatchMenu extends React.PureComponent {
                 let split = false
                 let tooltip = <SkillTooltip moveData={patch} comparisonData={base || patch} />
 
-                if (!patch.has('elementSpec')) {
+                if (!patch.has('elementSpec') && base) {
                     let element1 = classElements.getIn([0, 'element'])
                     let patch1 = filterElement(patch, element1)
                     let base1 = filterElement(base, element1)
@@ -155,6 +155,7 @@ class SkillPatchMenu extends React.PureComponent {
                             classification={classification}
                             element={element}
                             key={id}
+                            added={!base ? t('patchAdded') : false}
                         />
                     )
                 }
@@ -241,7 +242,9 @@ function filterElement(patch, element) {
 }
 
 const PatchItem = props => {
-    const {tooltip, patch, classification, element} = props
+    const {tooltip, patch, classification, element, added} = props
+
+    let addText = added ? <span className="added-text">{added}</span> : null
 
     return (
         <Tooltip
@@ -262,6 +265,7 @@ const PatchItem = props => {
                         {element}
                     </small>
                 </p>
+                {addText}
             </div>
         </Tooltip>
     )
