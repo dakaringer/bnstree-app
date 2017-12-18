@@ -11,9 +11,6 @@ export const setPatch = makeActionCreator(actionType.ITEM_UI_SET_PATCH, 'patch')
 
 const setItemData = makeActionCreator(actionType.ITEM_DATA_SET_DATA, 'itemType', 'data')
 
-const setSkillNames = makeActionCreator(actionType.ITEM_REF_SET_SKILL_NAMES, 'language', 'nameData')
-const setItemNames = makeActionCreator(actionType.ITEM_REF_SET_ITEM_NAMES, 'language', 'nameData')
-
 const itemsQuery = q`query ($type: String!) {
     Items {
         itemData (type: $type)
@@ -24,37 +21,6 @@ const itemsQuery = q`query ($type: String!) {
         userVotes: userVotes(type: $type) {
             _id
             count
-        }
-    }
-}`
-
-const namesQuery = q`query ($language: String!, $en: Boolean!) {
-    Skills {
-        names(language: $language) {
-            skills {
-                _id
-                name
-                icon
-            }
-            items {
-                _id
-                name
-                effect
-                icon
-            }
-        }
-        enNames: names(language: "en") @skip(if: $en) {
-            skills {
-                _id
-                name
-                icon
-            }
-            items {
-                _id
-                name
-                effect
-                icon
-            }
         }
     }
 }`
@@ -114,29 +80,6 @@ export function loadItems(type) {
             })
             .catch(e => console.error(e))
             .then(() => dispatch(setLoading(false, 'items')))
-    }
-}
-
-export function loadTextData(lang) {
-    return (dispatch, getState) => {
-        apollo
-            .query({
-                query: namesQuery,
-                variables: {
-                    language: lang,
-                    en: lang === 'en'
-                }
-            })
-            .then(json => {
-                dispatch(setSkillNames(lang, flatten(json.data.Skills.names.skills)))
-                dispatch(setItemNames(lang, flatten(json.data.Skills.names.items)))
-
-                if (json.data.Skills.enNames) {
-                    dispatch(setSkillNames('en', flatten(json.data.Skills.enNames.skills)))
-                    dispatch(setItemNames('en', flatten(json.data.Skills.enNames.items)))
-                }
-            })
-            .catch(e => console.error(e))
     }
 }
 

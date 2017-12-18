@@ -33,15 +33,4 @@ function data(state = Map(), action) {
     }
 }
 
-function ref(state = fromJS({skillNames: {}}), action) {
-    switch (action.type) {
-        case actionType.ITEM_REF_SET_SKILL_NAMES:
-            return state.mergeDeepIn(['skillNames', action.language], action.nameData)
-        case actionType.ITEM_REF_SET_ITEM_NAMES:
-            return state.mergeDeepIn(['itemNames', action.language], action.nameData)
-        default:
-            return state
-    }
-}
-
-export default combineReducers({ui, data, ref})
+export default combineReducers({ui, data})

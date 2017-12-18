@@ -5,7 +5,7 @@ import {Map, List} from 'immutable'
 import parser from '../../Skills/parser'
 
 import pieceImages from '../images/map_pieceImg'
-import {skillNamesSelector} from '../selectors'
+import {skillNamesSelector} from '../../References/selectors'
 
 import {Collapse} from 'antd'
 const Panel = Collapse.Panel

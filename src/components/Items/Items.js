@@ -9,7 +9,8 @@ import {animateScroll} from 'react-scroll'
 import AdSense from '../AdSense/AdSense'
 
 import {currentLanguageSelector, loadingSelector} from '../../selectors'
-import {loadItems, loadTextData} from './actions'
+import {loadItems} from './actions'
+import {loadNameData} from '../References/actions'
 
 import './styles/Items.scss'
 
@@ -33,16 +34,16 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         loadItems: type => dispatch(loadItems(type)),
-        loadText: lang => dispatch(loadTextData(lang))
+        loadNames: lang => dispatch(loadNameData(lang))
     }
 }
 
 class Items extends React.PureComponent {
     componentWillMount() {
-        const {match, currentLanguage, loadItems, loadText} = this.props
+        const {match, currentLanguage, loadItems, loadNames} = this.props
 
         loadItems(match.params.type)
-        loadText(currentLanguage)
+        loadNames(currentLanguage)
     }
 
     componentDidMount() {
@@ -50,13 +51,13 @@ class Items extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {match, currentLanguage, loadItems, loadText} = this.props
+        const {match, currentLanguage, loadItems, loadNames} = this.props
 
         if (nextProps.match.params.type !== match.params.type) {
             loadItems(nextProps.match.params.type)
         }
         if (nextProps.currentLanguage !== currentLanguage) {
-            loadText(nextProps.currentLanguage)
+            loadNames(nextProps.currentLanguage)
         }
     }
 

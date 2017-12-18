@@ -15,7 +15,7 @@ import CharacterSearch from './components/CharacterSearch'
 import CharacterViewer from './components/CharacterViewer'
 
 import {currentLanguageSelector} from '../../selectors'
-import {loadTextData} from '../Skills/actions'
+import {loadNameData, loadPatchList} from '../References/actions'
 
 const mapStateToProps = state => {
     return {
@@ -25,14 +25,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadText: lang => dispatch(loadTextData(lang))
+        loadNames: lang => dispatch(loadNameData(lang)),
+        loadPatchList: () => dispatch(loadPatchList())
     }
 }
 
 class Character extends React.PureComponent {
     componentWillMount() {
-        const {currentLanguage, loadText} = this.props
-        loadText(currentLanguage)
+        const {currentLanguage, loadNames, loadPatchList} = this.props
+        loadNames(currentLanguage)
+        loadPatchList()
     }
 
     componentDidMount() {
@@ -40,10 +42,10 @@ class Character extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {currentLanguage, loadText} = this.props
+        const {currentLanguage, loadNames} = this.props
 
         if (nextProps.currentLanguage !== currentLanguage) {
-            loadText(nextProps.currentLanguage)
+            loadNames(nextProps.currentLanguage)
         }
     }
 

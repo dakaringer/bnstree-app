@@ -4,12 +4,12 @@ import {translate} from 'react-i18next'
 import {Map} from 'immutable'
 
 import {
-    patchListSelector,
     patchSelector,
     namedPatchDataSelector,
     namedSkillDataSelector,
     classElementDataSelector
 } from '../selectors'
+import {patchListSelector} from '../../References/selectors'
 import {selectPatch} from '../actions'
 
 import SkillTooltip from './SkillTooltip'

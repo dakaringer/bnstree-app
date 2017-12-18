@@ -13,6 +13,7 @@ import market from './components/Market/reducer'
 import editor from './components/Editor/reducer'
 import admin from './components/Admin/reducer'
 import translator from './components/Translator/reducer'
+import references from './components/References/reducer'
 
 function general(
     state = fromJS({
@@ -61,5 +62,6 @@ export default combineReducers({
     streams,
     editor,
     admin,
-    translator
+    translator,
+    references
 })

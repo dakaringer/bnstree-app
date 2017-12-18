@@ -12,7 +12,7 @@ import EditorStatusBar from './components/EditorStatusBar'
 import EditorTextArea from './components/EditorTextArea'
 import Preview from './components/Article'
 
-import {loadTextData} from '../Skills/actions'
+import {loadNameData} from '../References/actions'
 import {loadArticle} from './actions'
 import {articleSelector} from './selectors'
 
@@ -24,16 +24,16 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadText: lang => dispatch(loadTextData(lang)),
+        loadNames: lang => dispatch(loadNameData(lang)),
         loadArticle: id => dispatch(loadArticle(id, true))
     }
 }
 
 class Editor extends React.PureComponent {
     componentWillMount() {
-        const {loadText, loadArticle, match} = this.props
+        const {loadNames, loadArticle, match} = this.props
 
-        loadText('en')
+        loadNames('en')
         loadArticle(match.params.id)
     }
 

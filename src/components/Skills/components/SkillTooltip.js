@@ -7,7 +7,8 @@ import parser from '../parser'
 
 import {Icon} from 'antd'
 
-import {charSelector, skillNamesSelector, buildElementSelector} from '../selectors'
+import {charSelector, buildElementSelector} from '../selectors'
+import {skillNamesSelector} from '../../References/selectors'
 
 const mapStateToProps = state => {
     return {

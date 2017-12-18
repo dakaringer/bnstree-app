@@ -1,7 +1,8 @@
 import {createSelector} from 'reselect'
 import {Map, List} from 'immutable'
 
-import {currentLanguageSelector, viewSelector} from '../../selectors'
+import {viewSelector} from '../../selectors'
+import {itemNamesSelector, itemNamesSelectorEN} from '../References/selectors'
 
 const classOrder = ['BM', 'KF', 'DE', 'FM', 'AS', 'SU', 'BD', 'WL', 'SF', 'SH']
 
@@ -13,29 +14,11 @@ const mysticBadgeOrder = ['legendary', 'yellow', 'red']
 
 const uiSelector = state => state.getIn(['items', 'ui'], Map())
 export const dataSelector = state => state.getIn(['items', 'data'], Map())
-export const refSelector = state => state.getIn(['items', 'ref'], Map())
 
 //ui
 export const typeSelector = createSelector(uiSelector, state => state.get('type', 'badges'))
 export const searchSelector = createSelector(uiSelector, state => state.get('search', ''))
 export const patchSelector = createSelector(uiSelector, state => state.get('patch', 'BASE'))
-
-//ref
-export const skillNamesSelector = createSelector(
-    refSelector,
-    currentLanguageSelector,
-    (state, language) =>
-        state.getIn(['skillNames', language], state.getIn(['skillNames', 'en'], Map()))
-)
-export const skillNamesSelectorEN = createSelector(refSelector, state =>
-    state.getIn(['skillNames', 'en'], Map())
-)
-const itemNamesSelector = createSelector(refSelector, currentLanguageSelector, (state, language) =>
-    state.getIn(['itemNames', language], Map())
-)
-const itemNamesSelectorEN = createSelector(refSelector, state =>
-    state.getIn(['itemNames', 'en'], Map())
-)
 
 //data
 const itemDataSelector = createSelector(dataSelector, typeSelector, (state, type) =>

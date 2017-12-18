@@ -109,21 +109,4 @@ function build(state = Map(), action) {
     }
 }
 
-function ref(
-    state = fromJS({
-        skillNames: {},
-        patchList: []
-    }),
-    action
-) {
-    switch (action.type) {
-        case actionType.SKILL_REF_SET_SKILL_NAMES:
-            return state.mergeDeepIn(['skillNames', action.language], action.nameData)
-        case actionType.SKILL_REF_SET_PATCH_LIST:
-            return state.set('patchList', fromJS(action.list))
-        default:
-            return state
-    }
-}
-
-export default combineReducers({ui, character, data, build, ref})
+export default combineReducers({ui, character, data, build})

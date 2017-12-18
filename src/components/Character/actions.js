@@ -4,7 +4,8 @@ import {makeActionCreator} from '../../helpers'
 import {setLoading, setViewOption, setRecentSearch} from '../../actions'
 import apollo, {q} from '../../apollo'
 
-import {setCharacterMode, loadSkills, loadPatchList} from '../Skills/actions'
+import {setCharacterMode, loadSkills, selectPatch} from '../Skills/actions'
+import {patchListSelector} from '../References/selectors'
 
 //Action creators
 export const setTab = makeActionCreator(actionType.SET_CHARACTER_TAB, 'tab')
@@ -72,7 +73,7 @@ const recentSearchMutation = q`mutation ($region: String!, $name: String!) {
 }`
 
 export function loadCharacter(region, name, history) {
-    return dispatch => {
+    return (dispatch, getState) => {
         if (name) {
             dispatch(setLoading(true, 'character'))
             dispatch(setViewOption('characterRegion', region))
@@ -95,8 +96,13 @@ export function loadCharacter(region, name, history) {
 
                     dispatch(loadCharacterData(data))
                     dispatch(loadSkills(classCode))
-                    dispatch(loadPatchList(region === 'kr'))
                     dispatch(setCharacterMode(true))
+                    if (region === 'kr') {
+                        let krPatch = patchListSelector(getState())
+                            .last()
+                            .get('_id')
+                        dispatch(selectPatch(krPatch.toString()))
+                    }
 
                     apollo
                         .mutate({

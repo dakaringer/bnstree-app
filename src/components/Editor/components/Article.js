@@ -6,7 +6,7 @@ import MarkdownItAnchor from 'markdown-it-anchor'
 import MarkdownItToC from 'markdown-it-table-of-contents'
 import {Map} from 'immutable'
 
-import {skillNamesSelectorEN} from '../../Skills/selectors'
+import {skillNamesSelectorEN} from '../../References/selectors'
 
 const mapStateToProps = state => {
     return {

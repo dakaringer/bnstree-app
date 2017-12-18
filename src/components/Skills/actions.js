@@ -15,8 +15,7 @@ import {
     characterModeSelector,
     groupedSkillDataSelector,
     patchSelector,
-    buildFormatSelector,
-    patchListSelector
+    buildFormatSelector
 } from './selectors'
 import {userSelector, viewSelector} from '../../selectors'
 
@@ -61,14 +60,6 @@ const setBuildSkill = makeActionCreator(
     'move'
 )
 
-const setSkillNames = makeActionCreator(
-    actionType.SKILL_REF_SET_SKILL_NAMES,
-    'language',
-    'nameData'
-)
-
-const setPatchList = makeActionCreator(actionType.SKILL_REF_SET_PATCH_LIST, 'list')
-
 const classQuery = q`query ($classCode: String!) {
     Skills {
         elementData(classCode: $classCode) {
@@ -96,35 +87,6 @@ const classQuery = q`query ($classCode: String!) {
                 _id
                 types
             }
-        }
-    }
-}`
-
-const namesQuery = q`query ($language: String!, $en: Boolean!) {
-    Skills {
-        names(language: $language) {
-            skills {
-                _id
-                name
-                icon
-            }
-        }
-        enNames: names(language: "en") @skip(if: $en) {
-            skills {
-                _id
-                name
-                icon
-            }
-        }
-    }
-}`
-
-const patchListQuery = q`query {
-    Skills {
-        patchList {
-            _id
-            name
-            base
         }
     }
 }`
@@ -267,46 +229,6 @@ export function loadSkills(classCode, buildCode, buildId) {
             })
             .catch(e => console.error(e))
             .then(() => dispatch(setLoading(false, 'skills')))
-    }
-}
-
-export function loadTextData(lang) {
-    return (dispatch, getState) => {
-        apollo
-            .query({
-                query: namesQuery,
-                variables: {
-                    language: lang,
-                    en: lang === 'en'
-                }
-            })
-            .then(json => {
-                dispatch(setSkillNames(lang, flatten(json.data.Skills.names.skills)))
-
-                if (json.data.Skills.enNames) {
-                    dispatch(setSkillNames('en', flatten(json.data.Skills.enNames.skills)))
-                }
-            })
-            .catch(e => console.error(e))
-    }
-}
-
-export function loadPatchList(setKr) {
-    return (dispatch, getState) => {
-        apollo
-            .query({
-                query: patchListQuery
-            })
-            .then(json => {
-                dispatch(setPatchList(json.data.Skills.patchList))
-                if (setKr) {
-                    let patch = patchListSelector(getState())
-                        .last()
-                        .get('_id')
-                    dispatch(selectPatch(patch))
-                }
-            })
-            .catch(e => console.error(e))
     }
 }
 

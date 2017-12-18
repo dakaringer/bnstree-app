@@ -5,7 +5,8 @@ import {Map, List, fromJS} from 'immutable'
 import {Button, Icon} from 'antd'
 
 import {userSelector} from '../../../selectors'
-import {skillNamesSelector, userVoteDataSelector} from '../selectors'
+import {userVoteDataSelector} from '../selectors'
+import {skillNamesSelector} from '../../References/selectors'
 import {vote} from '../actions'
 import parser from '../../Skills/parser'
 

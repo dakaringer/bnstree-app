@@ -1,7 +1,8 @@
 import {createSelector} from 'reselect'
 import {Map, List, fromJS} from 'immutable'
 
-import {currentLanguageSelector, viewSelector} from '../../selectors'
+import {viewSelector} from '../../selectors'
+import {patchListSelector, skillNamesSelector, skillNamesSelectorEN} from '../References/selectors'
 import {characterSelector} from '../Character/selectors'
 
 const keyOrder = [
@@ -89,23 +90,8 @@ const uiSelector = state => state.getIn(['skills', 'ui'], Map())
 const charDataSelector = state => state.getIn(['skills', 'character'], Map())
 export const dataSelector = state => state.getIn(['skills', 'data'], Map())
 const buildDataSelector = state => state.getIn(['skills', 'build'], Map())
-export const refSelector = state => state.getIn(['skills', 'ref'], Map())
 
 const characterBuildDataSelector = state => state.getIn(['character', 'data', 'skillData'], Map())
-
-//ref
-export const skillNamesSelector = createSelector(
-    refSelector,
-    currentLanguageSelector,
-    (state, language) =>
-        state.getIn(['skillNames', language], state.getIn(['skillNames', 'en'], Map()))
-)
-export const skillNamesSelectorEN = createSelector(refSelector, state =>
-    state.getIn(['skillNames', 'en'], Map())
-)
-export const patchListSelector = createSelector(refSelector, state =>
-    state.get('patchList', List()).sort((a, b) => a.get('_id') > b.get('_id'))
-)
 
 //ui
 export const characterModeSelector = createSelector(uiSelector, state =>
@@ -200,7 +186,7 @@ const skillDataPatchSelector = createSelector(
     classSelector,
     (data, patch, classCode) => {
         let list = Map()
-        data = data
+        data
             .get('skillPatches', Map())
             .get(patch.toString(), List())
             .forEach(p => {

@@ -14,31 +14,29 @@ import Article from '../../Editor/components/Article'
 import NewsList from './NewsList'
 
 import {userSelector} from '../../../selectors'
-import {skillNamesSelectorEN} from '../../Skills/selectors'
-import {loadTextData} from '../../Skills/actions'
+import {loadNameData} from '../../References/actions'
 import {articleSelector} from '../selectors'
 import {loadArticle} from '../actions'
 
 const mapStateToProps = state => {
     return {
         user: userSelector(state),
-        skillNames: skillNamesSelectorEN(state),
         article: articleSelector(state)
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadText: lang => dispatch(loadTextData(lang)),
+        loadNames: lang => dispatch(loadNameData(lang)),
         loadArticle: id => dispatch(loadArticle(id))
     }
 }
 
 class NewsViewer extends React.PureComponent {
     componentWillMount() {
-        const {loadText, loadArticle, match} = this.props
+        const {loadNames, loadArticle, match} = this.props
 
-        loadText('en')
+        loadNames('en')
         loadArticle(match.params.id)
     }
 
