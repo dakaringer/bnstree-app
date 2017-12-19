@@ -116,24 +116,6 @@
 }
 
 .patch-menu {
-    .patch-list {
-        margin-top: 0.3rem;
-        background: none;
-
-        .ant-menu-item {
-            margin: 0.5rem 0 !important;
-            padding: 0;
-            height: auto;
-            line-height: normal;
-            font-size: 1.2rem;
-
-            &.ant-menu-item-selected {
-                background: none;
-                color: deepskyblue;
-            }
-        }
-    }
-
     .changelog {
         margin-top: 1rem;
 

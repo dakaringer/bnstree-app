@@ -108,13 +108,19 @@
     }
 
     .class-filters {
-        margin-left: 1rem;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-left: 2rem;
 
         .class-filter {
-            margin: 0.5rem;
             img {
                 width: 2rem;
             }
+        }
+
+        @media (max-width: 991px) {
+            margin-left: 0;
         }
     }
 }
