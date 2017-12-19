@@ -227,12 +227,12 @@ export const namedPatchDataSelector = createSelector(
     (data, names, namesEN) => {
         data = data.map(skill => {
             let id = skill.get('skillId')
-            let tags = skill.get('tags', List()) || List()
+            let tags = skill.get('tags', List())
             tags = tags.sort((a, b) => tagOrder.indexOf(a) - tagOrder.indexOf(b))
-            let name = names.getIn([id, 'name']) || namesEN.getIn([id, 'name'])
+            let name = names.get(id, namesEN.get(id, Map()))
             return skill
-                .set('name', name)
-                .set('icon', names.getIn([id, 'icon'], ''))
+                .set('name', name.get('name', ''))
+                .set('icon', name.get('icon', ''))
                 .set('tags', tags)
         })
         return data.sort((a, b) => (a.get('_id') < b.get('_id') ? -1 : 1))
