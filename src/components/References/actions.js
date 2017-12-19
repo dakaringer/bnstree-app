@@ -50,7 +50,6 @@ const patchListQuery = q`query {
 
 export function loadNameData(lang) {
     return (dispatch, getState) => {
-        dispatch(setLoading(true, 'reference'))
         apollo
             .query({
                 query: namesQuery,
@@ -69,7 +68,6 @@ export function loadNameData(lang) {
                 }
             })
             .catch(e => console.error(e))
-            .then(() => dispatch(setLoading(false, 'reference')))
     }
 }
 
