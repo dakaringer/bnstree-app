@@ -196,9 +196,7 @@ const skillDataPatchSelector = createSelector(
                     list = list.set(id, p)
                 }
             })
-        return list
-            .map(p => p.get('skill'))
-            .filter(skill => skill && skill.get('classCode') === classCode)
+        return list.map(p => p.get('skill')).filter(skill => skill)
     }
 )
 
@@ -218,9 +216,7 @@ const groupDataPatchSelector = createSelector(
                     list = list.set(id, p)
                 }
             })
-        return list
-            .map(p => p.get('skillGroup'))
-            .filter(group => group && group.get('classCode') === classCode)
+        return list.map(p => p.get('skillGroup')).filter(group => group)
     }
 )
 

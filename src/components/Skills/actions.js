@@ -149,9 +149,9 @@ const buildQuery = q`query ($id: ID!) {
     }
 }`
 
-const skillPatchQuery = q`query ($patch: Int!) {
+const skillPatchQuery = q`query ($patch: Int!, $classCode: String!) {
     Skills {
-        skillData {
+        skillData(classCode: $classCode) {
             skillPatches(patch: $patch) {
                 patch
                 skill
@@ -429,16 +429,17 @@ export function learnMove(skill, move) {
 
 export function selectPatch(patch) {
     return (dispatch, getState) => {
+        let classCode = classSelector(getState())
         dispatch(setPatch(parseInt(patch, 10)))
         apollo
             .query({
                 query: skillPatchQuery,
                 variables: {
-                    patch: patch
+                    patch: patch,
+                    classCode: classCode
                 }
             })
             .then(json => {
-                let classCode = classSelector(getState())
                 dispatch(
                     setSkillPatchData(classCode, patch, json.data.Skills.skillData.skillPatches)
                 )
