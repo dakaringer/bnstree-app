@@ -86,7 +86,7 @@ class Skills extends React.PureComponent {
             match,
             currentLanguage,
             loading,
-            loadText,
+            loadNames,
             loadSkills,
             loadBuild
         } = this.props
@@ -95,7 +95,7 @@ class Skills extends React.PureComponent {
         let nextParams = new URLSearchParams(nextProps.location.search)
         let classCode = getClassCode(nextProps.match.params.classCode)
         if (nextProps.currentLanguage !== currentLanguage) {
-            loadText(nextProps.currentLanguage)
+            loadNames(nextProps.currentLanguage)
         }
         if (classCode !== getClassCode(match.params.classCode)) {
             loadSkills(classCode)
