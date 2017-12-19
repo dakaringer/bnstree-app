@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import ItemFilter from './ItemFilter'
+import ItemSubMenu from './ItemSubMenu'
 import ItemListItem from './ItemListItem'
 
 import {sortedItemDataSelector} from '../selectors'
@@ -32,7 +32,7 @@ const BadgeList = props => {
 
     return (
         <div className="item-list-container">
-            <ItemFilter />
+            <ItemSubMenu />
             <Tabs animated>{tabs}</Tabs>
         </div>
     )

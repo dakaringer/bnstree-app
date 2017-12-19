@@ -10,6 +10,8 @@ import {viewSelector} from '../../../selectors'
 import {searchSelector} from '../selectors'
 import {setSearch, setFilter} from '../actions'
 
+import ItemPatchMenu from './ItemPatchMenu'
+
 import {Icon, Checkbox} from 'antd'
 
 const mapStateToProps = state => {
@@ -26,7 +28,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-const ItemFilter = props => {
+const ItemSubMenu = props => {
     const {t, search, filter, setSearch, setFilter} = props
 
     let clear = search ? (
@@ -36,7 +38,7 @@ const ItemFilter = props => {
     let filters = []
     classes.forEach(c => {
         filters.push(
-            <span className="class-filter" key={c[0]}>
+            <span className="class-filter sub-menu-item" key={c[0]}>
                 <Checkbox
                     checked={filter.get(c[0], false)}
                     onChange={e => setFilter(c[0], e.target.checked)}>
@@ -61,8 +63,11 @@ const ItemFilter = props => {
                 </div>
                 <div className="class-filters sub-menu-group">{filters}</div>
             </div>
+            <div className="sub-menu-right">
+                <ItemPatchMenu />
+            </div>
         </div>
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('items')(ItemFilter))
+export default connect(mapStateToProps, mapDispatchToProps)(translate('items')(ItemSubMenu))
