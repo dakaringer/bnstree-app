@@ -28,6 +28,8 @@ function data(state = Map(), action) {
             let data = {}
             data[action.itemType] = action.data
             return state.merge(data)
+        case actionType.ITEM_DATA_SET_ITEM_PATCH_DATA:
+            return state.setIn([action.itemType, 'patchData', action.patch], fromJS(action.list))
         default:
             return state
     }

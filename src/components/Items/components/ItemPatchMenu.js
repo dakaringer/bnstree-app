@@ -2,13 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 
-import {
-    patchListSelector,
-    patchSelector,
-    namedPatchDataSelector,
-    namedSkillDataSelector,
-    classElementDataSelector
-} from '../selectors'
+import {patchSelector, namedPatchDataSelector, typeSelector} from '../selectors'
+import {patchListSelector} from '../../References/selectors'
 import {selectPatch} from '../actions'
 
 import {Modal, Icon, Menu, Row, Col} from 'antd'
@@ -18,8 +13,7 @@ const mapStateToProps = state => {
         currentPatch: patchSelector(state),
         patchList: patchListSelector(state),
         patchData: namedPatchDataSelector(state),
-        baseData: namedSkillDataSelector(state),
-        classElements: classElementDataSelector(state)
+        type: typeSelector(state)
     }
 }
 
@@ -29,7 +23,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class SkillPatchMenu extends React.PureComponent {
+class ItemPatchMenu extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -44,7 +38,7 @@ class SkillPatchMenu extends React.PureComponent {
     }
 
     render() {
-        const {t, currentPatch, patchList, selectPatch} = this.props
+        const {t, type, currentPatch, patchList, patchData, selectPatch} = this.props
         const {show} = this.state
 
         let patches = []
@@ -70,6 +64,30 @@ class SkillPatchMenu extends React.PureComponent {
             </Menu>
         )
 
+        let affectedItems = []
+        patchData.forEach((patch, id) => {
+            let imgUrl = `https://static.bnstree.com/images/${type}`
+            let className = null
+            if (patch.has('classCode')) {
+                className = ` ${t(patch.get('classCode'))}`
+            }
+            affectedItems.push(
+                <div className="patch-item" key={id}>
+                    <img
+                        className="item-icon"
+                        alt={patch.get('name')}
+                        src={`${imgUrl}/${patch.get('icon')}`}
+                    />
+                    <div>
+                        <span className={`grade_${patch.get('grade')}`}>
+                            {patch.get('name')}
+                            <small>{className}</small>
+                        </span>
+                    </div>
+                </div>
+            )
+        })
+
         return (
             <div className="patch sub-menu-item">
                 <a onClick={() => this.toggleModal()}>
@@ -81,7 +99,7 @@ class SkillPatchMenu extends React.PureComponent {
                     onCancel={() => this.toggleModal()}
                     footer={null}
                     width={600}
-                    wrapClassName="patch-menu">
+                    wrapClassName="item-patch-menu">
                     <Row>
                         <Col sm={6}>
                             <h5>{t('patchList')}</h5>
@@ -89,7 +107,13 @@ class SkillPatchMenu extends React.PureComponent {
                         </Col>
                         <Col sm={18}>
                             <h5>{t('patchChangelog')}</h5>
-                            <div className="changelog" />
+                            <div className="changelog">
+                                {affectedItems.length > 0 ? (
+                                    affectedItems
+                                ) : (
+                                    <p className="no-change">{t('patchNoChange')}</p>
+                                )}
+                            </div>
                         </Col>
                     </Row>
                 </Modal>
@@ -98,4 +122,4 @@ class SkillPatchMenu extends React.PureComponent {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate('items')(SkillPatchMenu))
+export default connect(mapStateToProps, mapDispatchToProps)(translate('items')(ItemPatchMenu))

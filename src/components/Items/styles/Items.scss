@@ -124,3 +124,52 @@
         }
     }
 }
+
+.item-patch-menu {
+    .changelog {
+        margin-top: 1rem;
+
+        .patch-item {
+            display: flex;
+            margin: 0.5rem 0;
+            align-items: center;
+            user-select: none;
+            font-size: 1.2rem;
+
+            .item-icon {
+                width: 1.8rem;
+                height: 1.8rem;
+                margin-right: 0.5rem;
+            }
+
+            small {
+                color: #aaa;
+            }
+
+            &.removed {
+                .skill-name {
+                    color: #aaa;
+                    text-decoration: line-through;
+                }
+            }
+
+            .removed-text {
+                color: red;
+                margin-left: 0.5rem;
+                font-size: 1.2rem;
+            }
+
+            .added-text {
+                color: lime;
+                margin-left: 0.5rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        .no-change {
+            padding: 0.8rem;
+            color: #aaa;
+            text-align: center;
+        }
+    }
+}

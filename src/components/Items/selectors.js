@@ -2,7 +2,7 @@ import {createSelector} from 'reselect'
 import {Map, List} from 'immutable'
 
 import {viewSelector} from '../../selectors'
-import {itemNamesSelector, itemNamesSelectorEN} from '../References/selectors'
+import {itemNamesSelector, itemNamesSelectorEN, patchListSelector} from '../References/selectors'
 
 const classOrder = ['BM', 'KF', 'DE', 'FM', 'AS', 'SU', 'BD', 'WL', 'SF', 'SH']
 
@@ -18,11 +18,46 @@ export const dataSelector = state => state.getIn(['items', 'data'], Map())
 //ui
 export const typeSelector = createSelector(uiSelector, state => state.get('type', 'badges'))
 export const searchSelector = createSelector(uiSelector, state => state.get('search', ''))
-export const patchSelector = createSelector(uiSelector, state => state.get('patch', 'BASE'))
+export const patchSelector = createSelector(uiSelector, patchListSelector, (state, list) => {
+    let currentPatch = state.get('patch', 'BASE')
+    if (currentPatch === 'BASE') {
+        currentPatch = list.find(p => p.get('base'), null, Map()).get('_id', '')
+    }
+    return currentPatch
+})
 
 //data
 const itemDataSelector = createSelector(dataSelector, typeSelector, (state, type) =>
     state.get(type, Map())
+)
+
+const itemDataPatchSelector = createSelector(itemDataSelector, patchSelector, (data, patch) => {
+    let list = Map()
+    data
+        .get('patchData', Map())
+        .get(patch.toString(), List())
+        .forEach(p => {
+            let id = p.getIn(['data', '_id'])
+            let patch = list.getIn([id, 'patch'], p.get('patch'))
+            if (patch <= p.get('patch')) {
+                list = list.set(id, p)
+            }
+        })
+    return list.map(p => p.get('data'))
+})
+
+export const namedPatchDataSelector = createSelector(
+    itemDataPatchSelector,
+    itemNamesSelector,
+    itemNamesSelectorEN,
+    (data, names, namesEN) => {
+        data = data.map(item => {
+            let id = item.get('name')
+            let name = names.get(id, namesEN.get(id, Map()))
+            return item.set('name', name.get('name', '')).set('icon', name.get('icon', ''))
+        })
+        return data.sort((a, b) => (a.get('_id') < b.get('_id') ? -1 : 1))
+    }
 )
 
 const namedItemDataSelector = createSelector(
@@ -45,8 +80,20 @@ const namedItemDataSelector = createSelector(
     }
 )
 
-const processedItemDataSelector = createSelector(
+const patchedItemDataSelector = createSelector(
     namedItemDataSelector,
+    namedPatchDataSelector,
+    (data, patchData) => {
+        patchData.forEach(p => {
+            let id = p.get('_id')
+            data = data.set(id, p)
+        })
+        return data
+    }
+)
+
+const processedItemDataSelector = createSelector(
+    patchedItemDataSelector,
     itemNamesSelector,
     itemNamesSelectorEN,
     (data, names, namesEn) => {

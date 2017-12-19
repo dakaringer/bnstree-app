@@ -10,14 +10,12 @@ import AdSense from '../AdSense/AdSense'
 
 import {currentLanguageSelector, loadingSelector} from '../../selectors'
 import {loadItems} from './actions'
-import {loadNameData} from '../References/actions'
+import {loadNameData, loadPatchList} from '../References/actions'
 
 import './styles/Items.scss'
 
 import LoadingLyn from '../LoadingLyn/LoadingLyn'
 import Header from './components/ItemHeader'
-//import BadgeList from './components/BadgeList'
-//import SoulshieldList from './components/SoulshieldList'
 import ItemTabs from './components/ItemTabs'
 
 function getPath(link) {
@@ -34,16 +32,18 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         loadItems: type => dispatch(loadItems(type)),
-        loadNames: lang => dispatch(loadNameData(lang))
+        loadNames: lang => dispatch(loadNameData(lang)),
+        loadPatchList: () => dispatch(loadPatchList())
     }
 }
 
 class Items extends React.PureComponent {
     componentWillMount() {
-        const {match, currentLanguage, loadItems, loadNames} = this.props
+        const {match, currentLanguage, loadItems, loadNames, loadPatchList} = this.props
 
         loadItems(match.params.type)
         loadNames(currentLanguage)
+        loadPatchList()
     }
 
     componentDidMount() {

@@ -3,13 +3,19 @@ import apollo, {q} from '../../apollo'
 
 import {makeActionCreator, flatten} from '../../helpers'
 import {setLoading, setViewOption} from '../../actions'
-import {dataSelector} from './selectors'
+import {dataSelector, typeSelector} from './selectors'
 
 const setType = makeActionCreator(actionType.ITEM_UI_SET_TYPE, 'itemType')
 export const setSearch = makeActionCreator(actionType.ITEM_UI_SET_SEARCH, 'search')
 export const setPatch = makeActionCreator(actionType.ITEM_UI_SET_PATCH, 'patch')
 
 const setItemData = makeActionCreator(actionType.ITEM_DATA_SET_DATA, 'itemType', 'data')
+const setItemPatchData = makeActionCreator(
+    actionType.ITEM_DATA_SET_ITEM_PATCH_DATA,
+    'itemType',
+    'patch',
+    'list'
+)
 
 const itemsQuery = q`query ($type: String!) {
     Items {
@@ -21,6 +27,18 @@ const itemsQuery = q`query ($type: String!) {
         userVotes: userVotes(type: $type) {
             _id
             count
+        }
+    }
+}`
+
+const itemPatchQuery = q`query (
+    $patch: Int!,
+    $type: String!
+) {
+    Items {
+        itemPatches(patch: $patch, type: $type) {
+            patch
+            data
         }
     }
 }`
@@ -57,6 +75,7 @@ export function loadItems(type) {
     return (dispatch, getState) => {
         dispatch(setType(type))
         dispatch(setSearch(''))
+        dispatch(setPatch('BASE'))
 
         if (!dataSelector(getState()).has(type)) {
             dispatch(setLoading(true, 'items'))
@@ -106,5 +125,24 @@ export function setFilter(classCode, filter) {
                 filter: filter
             })
         )
+    }
+}
+
+export function selectPatch(patch) {
+    return (dispatch, getState) => {
+        let type = typeSelector(getState())
+        dispatch(setPatch(parseInt(patch, 10)))
+        apollo
+            .query({
+                query: itemPatchQuery,
+                variables: {
+                    patch: patch,
+                    type: type
+                }
+            })
+            .then(json => {
+                dispatch(setItemPatchData(type, patch, json.data.Items.itemPatches))
+            })
+            .catch(e => console.error(e))
     }
 }
