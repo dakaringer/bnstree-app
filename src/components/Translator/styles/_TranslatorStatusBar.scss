@@ -1,4 +1,7 @@
 .translator-status-bar {
+    display: flex !important;
+    margin-top: 0 !important;
+
     .language-code {
         align-self: center;
         color: white;
