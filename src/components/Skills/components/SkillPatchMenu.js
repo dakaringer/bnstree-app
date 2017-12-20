@@ -254,7 +254,7 @@ const PatchItem = props => {
             placement="topLeft"
             title={tooltip}
             overlayClassName="skill-tooltip-wrap"
-            trigger={['click']}>
+            trigger="click">
             <div className="patch-item">
                 <img
                     className="skill-icon"

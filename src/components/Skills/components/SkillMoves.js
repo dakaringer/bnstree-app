@@ -76,15 +76,15 @@ const SkillMoves = props => {
                         placement="bottomLeft"
                         title={hmTooltip}
                         align={{overflow: {adjustY: false, adjustX: true}}}
-                        overlayClassName="skill-tooltip-wrap"
-                        trigger={['hover', 'click']}>
+                        overlayClassName="skill-tooltip-wrap">
                         <div
                             className={`hmButton ${currentMove === moveNumber + 3 ? 'active' : ''}`}
                             onClick={() =>
                                 learnMove(
                                     skillId,
                                     currentMove === moveNumber + 3 ? moveNumber : moveNumber + 3
-                                )}
+                                )
+                            }
                         />
                     </Tooltip>
                 )
@@ -95,25 +95,26 @@ const SkillMoves = props => {
         moves.push(
             <div
                 key={moveNumber}
-                className={`skill-move-wrapper ${move.get('filter', List()).includes(filter)
-                    ? 'filtered'
-                    : ''}`}>
+                className={`skill-move-wrapper ${
+                    move.get('filter', List()).includes(filter) ? 'filtered' : ''
+                }`}>
                 <Tooltip
                     placement="bottomLeft"
                     title={tooltip}
                     align={{overflow: {adjustY: false, adjustX: true}}}
-                    overlayClassName="skill-tooltip-wrap"
-                    trigger={['hover', 'click']}>
+                    overlayClassName="skill-tooltip-wrap">
                     <div
-                        className={`skill-move ${currentMove === moveNumber ||
-                        currentMove === moveNumber + 3
-                            ? 'current'
-                            : ''}`}
+                        className={`skill-move ${
+                            currentMove === moveNumber || currentMove === moveNumber + 3
+                                ? 'current'
+                                : ''
+                        }`}
                         onClick={() =>
                             learnMove(
                                 skillId,
                                 currentMove === moveNumber + 3 ? moveNumber + 3 : moveNumber
-                            )}>
+                            )
+                        }>
                         <h6>{t(type)}</h6>
                         <img src={typeImages[types[type]]} alt={types[type]} className="typeImg" />
                     </div>
