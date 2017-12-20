@@ -39,7 +39,7 @@ const namesQuery = q`query ($language: String!, $en: Boolean!) {
 }`
 
 const patchListQuery = q`query {
-    Skills {
+    Patches {
         patchList {
             _id
             name
@@ -79,7 +79,7 @@ export function loadPatchList() {
                 query: patchListQuery
             })
             .then(json => {
-                dispatch(setPatchList(json.data.Skills.patchList))
+                dispatch(setPatchList(json.data.Patches.patchList))
             })
             .catch(e => console.error(e))
             .then(() => dispatch(setLoading(false, 'reference')))
