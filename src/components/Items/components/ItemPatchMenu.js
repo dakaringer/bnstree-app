@@ -38,8 +38,8 @@ class ItemPatchMenu extends React.PureComponent {
     }
 
     render() {
-        const {t, type, currentPatch, patchList, patchData, selectPatch} = this.props
-        const {show} = this.state
+        let {t, type, currentPatch, patchList, patchData, selectPatch} = this.props
+        let {show} = this.state
 
         let patches = []
         patchList.forEach(p => {
@@ -66,26 +66,29 @@ class ItemPatchMenu extends React.PureComponent {
 
         let affectedItems = []
         patchData.forEach((patch, id) => {
-            let imgUrl = `https://static.bnstree.com/images/${type}`
-            let className = null
-            if (patch.has('classCode')) {
-                className = ` ${t(patch.get('classCode'))}`
-            }
-            affectedItems.push(
-                <div className="patch-item" key={id}>
-                    <img
-                        className="item-icon"
-                        alt={patch.get('name')}
-                        src={`${imgUrl}/${patch.get('icon')}`}
-                    />
-                    <div>
-                        <span className={`grade_${patch.get('grade')}`}>
-                            {patch.get('name')}
-                            <small>{className}</small>
-                        </span>
+            if (patch.get('patch') === currentPatch) {
+                let item = patch.get('data')
+                let imgUrl = `https://static.bnstree.com/images/${type}`
+                let className = null
+                if (item.has('classCode')) {
+                    className = ` ${t(item.get('classCode'))}`
+                }
+                affectedItems.push(
+                    <div className="patch-item" key={id}>
+                        <img
+                            className="item-icon"
+                            alt={item.get('name')}
+                            src={`${imgUrl}/${item.get('icon')}`}
+                        />
+                        <div>
+                            <span className={`grade_${item.get('grade')}`}>
+                                {item.get('name')}
+                                <small>{className}</small>
+                            </span>
+                        </div>
                     </div>
-                </div>
-            )
+                )
+            }
         })
 
         return (

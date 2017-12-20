@@ -43,7 +43,7 @@ const itemDataPatchSelector = createSelector(itemDataSelector, patchSelector, (d
                 list = list.set(id, p)
             }
         })
-    return list.map(p => p.get('data'))
+    return list
 })
 
 export const namedPatchDataSelector = createSelector(
@@ -51,12 +51,14 @@ export const namedPatchDataSelector = createSelector(
     itemNamesSelector,
     itemNamesSelectorEN,
     (data, names, namesEN) => {
-        data = data.map(item => {
+        data = data.map(patch => {
+            let item = patch.get('data')
             let id = item.get('name')
             let name = names.get(id, namesEN.get(id, Map()))
-            return item.set('name', name.get('name', '')).set('icon', name.get('icon', ''))
+            item = item.set('name', name.get('name', '')).set('icon', name.get('icon', ''))
+            return patch.set('data', item)
         })
-        return data.sort((a, b) => (a.get('_id') < b.get('_id') ? -1 : 1))
+        return data.sort((a, b) => (a.getIn(['data', '_id']) < b.getIn(['data', '_id']) ? -1 : 1))
     }
 )
 
@@ -84,9 +86,10 @@ const patchedItemDataSelector = createSelector(
     namedItemDataSelector,
     namedPatchDataSelector,
     (data, patchData) => {
-        patchData.forEach(p => {
-            let id = p.get('_id')
-            data = data.set(id, p)
+        patchData.forEach(patch => {
+            let item = patch.get('data')
+            let id = item.get('_id')
+            data = data.set(id, item)
         })
         return data
     }
