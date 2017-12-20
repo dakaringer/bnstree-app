@@ -94,6 +94,14 @@
         width: 100%;
     }
 
+    .share-link-wrapper {
+        position: relative;
+        .copy-to-clipboard {
+            position: absolute;
+            right: 0.2rem;
+        }
+    }
+
     .build-title,
     .post,
     .error {

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
+import {CopyToClipboard} from 'react-copy-to-clipboard'
 
 import {userSelector} from '../../../selectors'
 import {
@@ -13,7 +14,7 @@ import {
 } from '../selectors'
 import {postBuild} from '../actions'
 
-import {Icon, Modal, Button, Radio} from 'antd'
+import {Icon, Modal, Button, Radio, Tooltip} from 'antd'
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
@@ -112,6 +113,9 @@ class SkillShareMenu extends React.PureComponent {
             errorMsg = <span className="error">{t('notBasePatch')}</span>
         }
 
+        let link = `${window.location.protocol}//${window.location.host +
+            window.location.pathname}?b=${buildCode}`
+
         return (
             <div className="share sub-menu-item">
                 <a onClick={() => this.toggleModal()}>
@@ -123,14 +127,15 @@ class SkillShareMenu extends React.PureComponent {
                     onCancel={() => this.toggleModal()}
                     footer={null}
                     wrapClassName="skill-share-menu">
-                    <div>
-                        <input
-                            className="share-link"
-                            readOnly
-                            value={`${window.location.protocol}//${window.location.host +
-                                window.location.pathname}?b=${buildCode}`}
-                            onClick={e => e.target.select()}
-                        />
+                    <div className="share-link-wrapper">
+                        <input className="share-link" readOnly value={link} />
+                        <CopyToClipboard text={link}>
+                            <Tooltip placement="bottom" title="Copied" trigger="click">
+                                <a className="copy-to-clipboard">
+                                    <Icon type="copy" />
+                                </a>
+                            </Tooltip>
+                        </CopyToClipboard>
                     </div>
                     <hr />
                     <div>
