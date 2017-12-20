@@ -83,105 +83,108 @@ class SkillPatchMenu extends React.PureComponent {
 
         let changelog = []
         patchData.forEach((patch, id) => {
-            let base = baseData.get(id)
-            let move = patch.get('move')
-            let classification =
-                move > 3 ? t('moveTypeHM', {move: move - 3}) : t('moveType', {move: move})
-            classification = move ? ` ${classification}` : ''
-            let element = null
-            if (patch.has('elementSpec')) {
-                element = ` (${t(patch.get('elementSpec'))})`
-            }
+            if (patch.get('patch') === currentPatch) {
+                let skill = patch.get('skill')
+                let base = baseData.get(id)
+                let move = skill.get('move')
+                let classification =
+                    move > 3 ? t('moveTypeHM', {move: move - 3}) : t('moveType', {move: move})
+                classification = move ? ` ${classification}` : ''
+                let element = null
+                if (skill.has('elementSpec')) {
+                    element = ` (${t(skill.get('elementSpec'))})`
+                }
 
-            if (patch.size > 7) {
-                let split = false
-                let tooltip = <SkillTooltip moveData={patch} comparisonData={base || patch} />
+                if (skill.size > 7) {
+                    let split = false
+                    let tooltip = <SkillTooltip moveData={skill} comparisonData={base || skill} />
 
-                if (!patch.has('elementSpec') && base) {
-                    let element1 = classElements.getIn([0, 'element'])
-                    let patch1 = filterElement(patch, element1)
-                    let base1 = filterElement(base, element1)
-                    let element2 = classElements.getIn([1, 'element'])
-                    let patch2 = filterElement(patch, element2)
-                    let base2 = filterElement(base, element2)
+                    if (!skill.has('elementSpec') && base) {
+                        let element1 = classElements.getIn([0, 'element'])
+                        let patch1 = filterElement(skill, element1)
+                        let base1 = filterElement(base, element1)
+                        let element2 = classElements.getIn([1, 'element'])
+                        let patch2 = filterElement(skill, element2)
+                        let base2 = filterElement(base, element2)
 
-                    if (!patch1.equals(patch2)) {
-                        split = true
-                        if (!base1.equals(patch1)) {
-                            tooltip = (
-                                <SkillTooltip
-                                    moveData={patch}
-                                    comparisonData={base || patch}
-                                    elementOverride={element1}
-                                />
-                            )
-                            changelog.push(
-                                <PatchItem
-                                    tooltip={tooltip}
-                                    patch={patch}
-                                    classification={classification}
-                                    element={` (${t(element1)})`}
-                                    key={`${id}-${element1}`}
-                                />
-                            )
-                        }
+                        if (!patch1.equals(patch2)) {
+                            split = true
+                            if (!base1.equals(patch1)) {
+                                tooltip = (
+                                    <SkillTooltip
+                                        moveData={skill}
+                                        comparisonData={base || skill}
+                                        elementOverride={element1}
+                                    />
+                                )
+                                changelog.push(
+                                    <PatchItem
+                                        tooltip={tooltip}
+                                        patch={skill}
+                                        classification={classification}
+                                        element={` (${t(element1)})`}
+                                        key={`${id}-${element1}`}
+                                    />
+                                )
+                            }
 
-                        if (!base2.equals(patch2)) {
-                            tooltip = (
-                                <SkillTooltip
-                                    moveData={patch}
-                                    comparisonData={base || patch}
-                                    elementOverride={element2}
-                                />
-                            )
-                            changelog.push(
-                                <PatchItem
-                                    tooltip={tooltip}
-                                    patch={patch}
-                                    classification={classification}
-                                    element={` (${t(element2)})`}
-                                    key={`${id}-${element2}`}
-                                />
-                            )
+                            if (!base2.equals(patch2)) {
+                                tooltip = (
+                                    <SkillTooltip
+                                        moveData={skill}
+                                        comparisonData={base || skill}
+                                        elementOverride={element2}
+                                    />
+                                )
+                                changelog.push(
+                                    <PatchItem
+                                        tooltip={tooltip}
+                                        patch={skill}
+                                        classification={classification}
+                                        element={` (${t(element2)})`}
+                                        key={`${id}-${element2}`}
+                                    />
+                                )
+                            }
                         }
                     }
-                }
 
-                if (!split) {
+                    if (!split) {
+                        changelog.push(
+                            <PatchItem
+                                tooltip={tooltip}
+                                patch={skill}
+                                classification={classification}
+                                element={element}
+                                key={id}
+                                added={!base ? t('patchAdded') : false}
+                            />
+                        )
+                    }
+                } else {
                     changelog.push(
-                        <PatchItem
-                            tooltip={tooltip}
-                            patch={patch}
-                            classification={classification}
-                            element={element}
-                            key={id}
-                            added={!base ? t('patchAdded') : false}
-                        />
+                        <div className="patch-item removed" key={id}>
+                            <img
+                                className="skill-icon"
+                                alt={skill.get('skillId')}
+                                src={`https://static.bnstree.com/images/skills/${skill.get(
+                                    'icon',
+                                    'blank'
+                                )}`}
+                            />
+                            <div>
+                                <span className="skill-name">
+                                    {skill.get('name')}
+                                    <small>
+                                        {move ? ` ${classification}` : ''}
+                                        {element}
+                                    </small>
+                                </span>
+                                <span className="removed-text">{t('patchRemoved')}</span>
+                            </div>
+                        </div>
                     )
                 }
-            } else {
-                changelog.push(
-                    <div className="patch-item removed" key={id}>
-                        <img
-                            className="skill-icon"
-                            alt={patch.get('skillId')}
-                            src={`https://static.bnstree.com/images/skills/${patch.get(
-                                'icon',
-                                'blank'
-                            )}`}
-                        />
-                        <div>
-                            <span className="skill-name">
-                                {patch.get('name')}
-                                <small>
-                                    {move ? ` ${classification}` : ''}
-                                    {element}
-                                </small>
-                            </span>
-                            <span className="removed-text">{t('patchRemoved')}</span>
-                        </div>
-                    </div>
-                )
             }
         })
 

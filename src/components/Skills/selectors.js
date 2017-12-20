@@ -196,7 +196,8 @@ const skillDataPatchSelector = createSelector(
                     list = list.set(id, p)
                 }
             })
-        return list.map(p => p.get('skill')).filter(skill => skill)
+        //return list.map(p => p.get('skill')).filter(skill => skill)
+        return list
     }
 )
 
@@ -216,7 +217,8 @@ const groupDataPatchSelector = createSelector(
                     list = list.set(id, p)
                 }
             })
-        return list.map(p => p.get('skillGroup')).filter(group => group)
+        //return list.map(p => p.get('skillGroup')).filter(group => group)
+        return list
     }
 )
 
@@ -225,17 +227,19 @@ export const namedPatchDataSelector = createSelector(
     skillNamesSelector,
     skillNamesSelectorEN,
     (data, names, namesEN) => {
-        data = data.map(skill => {
+        data = data.map(patch => {
+            let skill = patch.get('skill')
             let id = skill.get('skillId')
             let tags = skill.get('tags', List())
             tags = tags.sort((a, b) => tagOrder.indexOf(a) - tagOrder.indexOf(b))
             let name = names.get(id, namesEN.get(id, Map()))
-            return skill
+            skill = skill
                 .set('name', name.get('name', ''))
                 .set('icon', name.get('icon', ''))
                 .set('tags', tags)
+            return patch.set('skill', skill)
         })
-        return data.sort((a, b) => (a.get('_id') < b.get('_id') ? -1 : 1))
+        return data.sort((a, b) => (a.getIn(['skill', '_id']) < b.getIn(['skill', '_id']) ? -1 : 1))
     }
 )
 
@@ -246,9 +250,12 @@ const patchedGroupDataSelector = createSelector(
     groupDataSelector,
     groupDataPatchSelector,
     (data, patchData) => {
-        patchData.forEach(p => {
-            let id = p.get('_id')
-            data = data.set(id, p)
+        patchData.forEach(patch => {
+            let group = patch.get('skillGroup')
+            if (group) {
+                let id = group.get('_id')
+                data = data.set(id, group)
+            }
         })
         return data
     }
@@ -278,12 +285,15 @@ const patchedSkillDataSelector = createSelector(
     namedSkillDataSelector,
     namedPatchDataSelector,
     (data, patchData) => {
-        patchData.forEach(p => {
-            let id = p.get('_id')
-            if (p.size <= 7) {
-                data = data.delete(id)
-            } else {
-                data = data.set(id, p)
+        patchData.forEach(patch => {
+            let skill = patch.get('skill')
+            if (skill) {
+                let id = skill.get('_id')
+                if (skill.size <= 7) {
+                    data = data.delete(id)
+                } else {
+                    data = data.set(id, skill)
+                }
             }
         })
         return data
