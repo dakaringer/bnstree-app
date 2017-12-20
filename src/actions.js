@@ -23,10 +23,7 @@ const initialQuery = q`query ($language: String!) {
 			displayName
 			profilePic
             displayName
-            role {
-                type
-                translator
-            }
+            role
         }
         view {
             skillMode
