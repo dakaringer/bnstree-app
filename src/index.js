@@ -43,7 +43,10 @@ const store = createStore(
     Map(),
     composeEnhancers(applyMiddleware(thunk), autoRehydrate())
 )
-let persistor = persistStore(store, {storage: localForage, blacklist: ['general', 'streams']})
+let persistor = persistStore(store, {
+    storage: localForage,
+    blacklist: ['general', 'streams', 'navbar']
+})
 const withPersistor = WrappedComponent => {
     const HOC = props => <WrappedComponent {...props} persistor={persistor} />
     return HOC
