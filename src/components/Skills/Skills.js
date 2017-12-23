@@ -117,7 +117,7 @@ class Skills extends React.PureComponent {
         let content = null
         if (!loading) {
             let skillComponent = null
-            if (view.get('skillMode') === 'LIST') {
+            if (view.get('skillMode', 'LIST') === 'LIST') {
                 skillComponent = (
                     <div>
                         <SkillSubMenu />
