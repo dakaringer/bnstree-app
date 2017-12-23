@@ -1,22 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
-import {Link} from 'react-router-dom'
-
-import {Button} from 'antd'
-
-import {userSelector} from '../../../selectors'
 
 import icon from '../images/GameUI_HeaderIcon_230.png'
 
-const mapStateToProps = state => {
-    return {
-        user: userSelector(state)
-    }
-}
-
 const NewsHeader = props => {
-    const {t, user} = props
+    const {t} = props
 
     return (
         <div className="news-header section-header">
@@ -24,17 +12,8 @@ const NewsHeader = props => {
                 <img alt="news" src={icon} />
                 <span>{t('news')}</span>
             </div>
-            {user && user.getIn(['role', 'type']) === 'admin' ? (
-                <div className="add-new">
-                    <Link to={'/editor'}>
-                        <Button ghost type="danger">
-                            New Article
-                        </Button>
-                    </Link>
-                </div>
-            ) : null}
         </div>
     )
 }
 
-export default connect(mapStateToProps)(translate('general')(NewsHeader))
+export default translate('general')(NewsHeader)

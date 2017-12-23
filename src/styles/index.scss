@@ -117,7 +117,9 @@ h4,
 h5,
 h6,
 p {
+    color: #ccc;
     margin: 0;
+    font-weight: 300;
 }
 
 @import 'antd';

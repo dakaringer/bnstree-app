@@ -3,11 +3,6 @@
     margin: 0 auto;
     padding-top: 1rem;
 
-    .news-list-wrapper {
-        margin: 1rem 0;
-        margin-bottom: 3rem;
-    }
-
     .news-list {
         margin-bottom: 2rem;
 
@@ -43,7 +38,9 @@
         overflow: hidden;
 
         .news-subtitle {
-            font-size: 1.6rem;
+            margin: 0.5rem 0;
+            font-size: 1.4rem;
+            line-height: normal;
             color: #999;
         }
     }
@@ -126,9 +123,5 @@
                 filter: brightness(80%);
             }
         }
-    }
-
-    .not-published {
-        color: red;
     }
 }

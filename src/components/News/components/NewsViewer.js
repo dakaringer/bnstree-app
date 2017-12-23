@@ -1,26 +1,23 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
-import {Link} from 'react-router-dom'
 import {translate} from 'react-i18next'
 import {Helmet} from 'react-helmet'
 import {Fade} from 'react-reveal'
 
-import {Row, Col, Button} from 'antd'
+import {Row, Col} from 'antd'
 
 import AdSense from '../../AdSense/AdSense'
 import ErrorMessage from '../../Error/ErrorMessage'
 import Article from '../../Editor/components/Article'
 import NewsList from './NewsList'
 
-import {userSelector} from '../../../selectors'
 import {loadNameData} from '../../References/actions'
 import {articleSelector} from '../selectors'
 import {loadArticle} from '../actions'
 
 const mapStateToProps = state => {
     return {
-        user: userSelector(state),
         article: articleSelector(state)
     }
 }
@@ -49,10 +46,9 @@ class NewsViewer extends React.PureComponent {
     }
 
     render() {
-        const {t, article, user} = this.props
+        const {t, article} = this.props
 
         let content = null
-        let editButton = null
         if (article) {
             let time = moment(new Date(article.get('datePosted')))
             let now = moment(new Date())
@@ -85,16 +81,6 @@ class NewsViewer extends React.PureComponent {
                     <Article article={article} />
                 </div>
             )
-
-            if (user && user.getIn(['role', 'type']) === 'admin') {
-                editButton = (
-                    <Link to={`/editor/${article.get('_id')}`}>
-                        <Button type="primary" ghost>
-                            Edit
-                        </Button>
-                    </Link>
-                )
-            }
         } else {
             content = <ErrorMessage />
         }
@@ -112,10 +98,7 @@ class NewsViewer extends React.PureComponent {
                 </Helmet>
                 <Row className="news-viewer" gutter={16}>
                     <Col md={18}>
-                        <div className="news-article">
-                            {content}
-                            {editButton}
-                        </div>
+                        <div className="news-article">{content}</div>
                     </Col>
                     <Col className="news-list-side" md={6}>
                         <div>

@@ -1,3 +1,5 @@
+@import 'AdminNewsList';
+
 .admin {
     .main-container {
         padding-top: 2rem;
@@ -10,11 +12,9 @@
     }
 
     .admin-side-menu-item {
-        li {
-            margin: 0.5rem 0;
-        }
+        margin: 0.5rem 0;
 
-        &.active {
+        &.active a {
             color: deepskyblue;
         }
     }

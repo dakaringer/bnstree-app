@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {translate} from 'react-i18next'
 import {List} from 'immutable'
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-class NewsList extends Component {
+class NewsList extends React.PureComponent {
     componentWillMount() {
         this.props.loadNews(1)
     }
@@ -45,18 +45,16 @@ class NewsList extends Component {
 
         return (
             <Fade className="news-list-container">
-                <div className="news-list-wrapper">
-                    <div className="news-list listing">
-                        {rows.length > 0 ? rows : <p className="no-data">No Data</p>}
-                    </div>
-                    <Pagination
-                        size="small"
-                        total={list.get('count', 0)}
-                        current={list.get('page', 1)}
-                        pageSize={list.get('limit', 10)}
-                        onChange={p => loadNews(p)}
-                    />
+                <div className="news-list listing">
+                    {rows.length > 0 ? rows : <p className="no-data">No Data</p>}
                 </div>
+                <Pagination
+                    size="small"
+                    total={list.get('count', 0)}
+                    current={list.get('page', 1)}
+                    pageSize={list.get('limit', 10)}
+                    onChange={p => loadNews(p)}
+                />
             </Fade>
         )
     }

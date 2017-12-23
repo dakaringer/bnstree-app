@@ -4,8 +4,7 @@ import {connect} from 'react-redux'
 import {flushCache, setView} from '../actions'
 import {viewSelector} from '../selectors'
 
-import {Button, Collapse} from 'antd'
-const Panel = Collapse.Panel
+import {Button} from 'antd'
 
 const mapStateToProps = state => {
     return {
@@ -24,22 +23,14 @@ const AdminSideMenu = props => {
     let {view, setView, flushCache} = props
     return (
         <div className="admin-side-menu">
-            <Collapse bordered={false} defaultActiveKey="articles">
-                <Panel header={<div>Articles</div>} key="articles">
-                    <ul>
-                        <a
-                            className={`admin-side-menu-item ${view === 'news' ? 'active' : ''}`}
-                            onClick={() => setView('news')}>
-                            <li>News</li>
-                        </a>
-                        <a
-                            className={`admin-side-menu-item ${view === 'guides' ? 'active' : ''}`}
-                            onClick={() => setView('guides')}>
-                            <li>Guides</li>
-                        </a>
-                    </ul>
-                </Panel>
-            </Collapse>
+            <ul>
+                <li className={`admin-side-menu-item ${view === 'news' ? 'active' : ''}`}>
+                    <a onClick={() => setView('news')}>News</a>
+                </li>
+                <li className={`admin-side-menu-item ${view === 'guides' ? 'active' : ''}`}>
+                    <a onClick={() => setView('guides')}>Guides</a>
+                </li>
+            </ul>
             <hr />
             <Button className="flush-cache" type="danger" onClick={() => flushCache()}>
                 Flush Cache

@@ -53,8 +53,9 @@ const deleteArticleMutation = q`mutation ($_id: ID!) {
 export function loadArticle(id) {
     return (dispatch, getState) => {
         dispatch(setArticle({}))
-
         dispatch(setLoading(true, 'editor'))
+        dispatch(setStatus('saving', null))
+
         if (id) {
             apollo
                 .query({
