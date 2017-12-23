@@ -133,6 +133,20 @@
             }
         }
     }
+
+    .character-achievements {
+        margin: 2rem 0;
+
+        .achievement {
+            display: flex;
+            font-weight: normal;
+            img {
+                width: 2rem;
+                height: 2rem;
+                margin-right: 0.8rem;
+            }
+        }
+    }
 }
 
 .other-characters {

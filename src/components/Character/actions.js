@@ -47,7 +47,12 @@ const characterQuery = q`query ($name: String!, $region: String!) {
         }
         equipData: equipment
         characterVotes: votes
-        userVoted
+        userVoted,
+        achievements {
+            icon
+            title
+            grade
+        }
     }
 }`
 

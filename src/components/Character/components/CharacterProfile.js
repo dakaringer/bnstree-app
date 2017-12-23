@@ -29,8 +29,7 @@ function getRank(rating) {
 
 const mapStateToProps = state => {
     return {
-        character: characterSelector(state).get('general', Map()),
-        otherCharacters: characterSelector(state).get('otherCharacters', Map())
+        characterData: characterSelector(state)
     }
 }
 
@@ -50,7 +49,10 @@ class CharacterProfile extends React.PureComponent {
     }
 
     render() {
-        const {t, character, otherCharacters} = this.props
+        const {t, characterData} = this.props
+        let character = characterData.get('general', Map())
+        let otherCharacters = characterData.get('otherCharacters', Map())
+        let characterAchievements = characterData.get('achievements', List())
 
         let classCode = character.get('classCode', 'BM')
         let hmLevel = null
@@ -80,6 +82,19 @@ class CharacterProfile extends React.PureComponent {
 
         let re = /http:\/\/.*\/images\/(.*)/
         let profileImg = re.exec(character.get('profileImg', ''))[1]
+
+        let achievements = []
+        characterAchievements.forEach((a, i) => {
+            achievements.push(
+                <div className="achievement" key={i}>
+                    <img
+                        src={`https://static.bnstree.com/images/nameplates/${a.get('icon', '')}`}
+                        alt={a.get('title', '')}
+                    />
+                    <p className={`grade_${a.get('grade', '')}`}>{a.get('title', '')}</p>
+                </div>
+            )
+        })
 
         return (
             <div className="character-profile">
@@ -134,6 +149,9 @@ class CharacterProfile extends React.PureComponent {
                         <p>{character.get('server')}</p>
                         <p>{character.get('faction')}</p>
                         <p>{character.get('clan')}</p>
+                        {achievements.length > 0 ? (
+                            <div className="character-achievements">{achievements}</div>
+                        ) : null}
                     </div>
                     <hr />
                     <div className="character-arena-info">
