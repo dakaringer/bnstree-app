@@ -57,10 +57,11 @@
         }
 
         .ant-collapse-content-box {
-            padding: 0 1.5rem;
+            padding: 0 !important;
 
             ul li {
                 margin: 1rem;
+                font-size: 1.4rem;
             }
         }
 
