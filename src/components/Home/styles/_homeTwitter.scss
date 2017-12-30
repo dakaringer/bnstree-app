@@ -1,7 +1,7 @@
 .home-twitter {
     margin-top: 1.2rem;
     .tweet {
-        background: rgba(25, 25, 25, 0.5);
+        background: rgba(20, 20, 20, 0.5);
         overflow: hidden;
         position: relative;
         min-height: 25rem;
@@ -48,7 +48,7 @@
 
         .tweet-text {
             color: #ddd;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 15%, transparent 100%);
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.8) 15%, transparent 100%);
             padding: 1.5rem;
             position: relative;
             z-index: 2;
