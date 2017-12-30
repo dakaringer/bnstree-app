@@ -8,7 +8,7 @@
     & > .loadingContainer {
         height: 100vh;
     }
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(5, 5, 5, 0.65);
 
     .app-content {
         flex: 1;
@@ -19,13 +19,16 @@
 }
 
 .footer {
-    background: rgba(15, 15, 15, 1);
+    background: rgba(20, 22, 25, 0.9);
     position: relative;
     z-index: 2;
     padding: 3rem 2rem;
     padding-top: 5rem;
-    color: #777;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+
+    p {
+        color: #999;
+    }
 
     .footer-links {
         display: flex;
