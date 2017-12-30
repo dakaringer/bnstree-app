@@ -12,6 +12,7 @@ import AdSense from '../AdSense/AdSense'
 
 import './styles/Home.scss'
 import discordLogo from './images/discord.png'
+import redditLogo from './images/reddit.png'
 
 import CharacterSearch from '../Character/components/CharacterSearch'
 import HomeClassLinks from './components/HomeClassLinks'
@@ -140,6 +141,15 @@ class Home extends React.PureComponent {
                                                 className="side-button discord academy">
                                                 <img alt="discord" src={discordLogo} />
                                                 BnS Academy Discord
+                                            </Button>
+                                        </a>
+                                        <a
+                                            href="https://www.reddit.com/r/bladeandsoul/"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            <Button type="primary" className="side-button reddit">
+                                                <img alt="discord" src={redditLogo} />
+                                                B&S Subreddit
                                             </Button>
                                         </a>
                                     </div>
