@@ -119,7 +119,7 @@ class Home extends React.PureComponent {
                                             rel="noopener noreferrer">
                                             <Button type="primary" className="side-button bns">
                                                 <img alt="bns" src={bnsLogo} />
-                                                Official Site
+                                                B&S Official Site
                                             </Button>
                                         </a>
                                         <a
