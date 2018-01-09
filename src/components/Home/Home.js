@@ -13,6 +13,7 @@ import AdSense from '../AdSense/AdSense'
 import './styles/Home.scss'
 import discordLogo from './images/discord.png'
 import redditLogo from './images/reddit.png'
+import bnsLogo from './images/bns.png'
 
 import CharacterSearch from '../Character/components/CharacterSearch'
 import HomeClassLinks from './components/HomeClassLinks'
@@ -113,6 +114,24 @@ class Home extends React.PureComponent {
                                     <h3>{t('links')}</h3>
                                     <div>
                                         <a
+                                            href="https://www.bladeandsoul.com"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            <Button type="primary" className="side-button bns">
+                                                <img alt="bns" src={bnsLogo} />
+                                                Official Site
+                                            </Button>
+                                        </a>
+                                        <a
+                                            href="https://www.reddit.com/r/bladeandsoul/"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
+                                            <Button type="primary" className="side-button reddit">
+                                                <img alt="discord" src={redditLogo} />
+                                                B&S Subreddit
+                                            </Button>
+                                        </a>
+                                        <a
                                             href="https://discord.gg/2ZdtPZM"
                                             target="_blank"
                                             rel="noopener noreferrer">
@@ -141,15 +160,6 @@ class Home extends React.PureComponent {
                                                 className="side-button discord academy">
                                                 <img alt="discord" src={discordLogo} />
                                                 BnS Academy Discord
-                                            </Button>
-                                        </a>
-                                        <a
-                                            href="https://www.reddit.com/r/bladeandsoul/"
-                                            target="_blank"
-                                            rel="noopener noreferrer">
-                                            <Button type="primary" className="side-button reddit">
-                                                <img alt="discord" src={redditLogo} />
-                                                B&S Subreddit
                                             </Button>
                                         </a>
                                     </div>

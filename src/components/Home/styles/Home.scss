@@ -116,8 +116,8 @@
         .side-button {
             width: 100%;
             padding: 0.5rem;
-            font-size: 2rem;
-            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
             height: auto;
             border-radius: 0.1rem;
             border: none;
@@ -127,7 +127,7 @@
             filter: brightness(85%);
 
             img {
-                height: 5rem;
+                height: 3.5rem;
                 vertical-align: middle;
                 margin-right: 1rem;
             }
@@ -136,12 +136,16 @@
                 vertical-align: middle;
             }
 
-            &.discord {
-                background: royalblue;
+            &.bns {
+                background: maroon;
             }
 
             &.reddit {
-                background: darkmagenta;
+                background: darkorange;
+            }
+
+            &.discord {
+                background: royalblue;
             }
 
             &:hover {
