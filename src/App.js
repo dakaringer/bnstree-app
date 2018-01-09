@@ -137,7 +137,7 @@ class App extends React.PureComponent {
             let redirectLinks = getRedirects(location)
 
             app = (
-                <div className="App">
+                <div className="App" id="app-root">
                     <NavBar />
                     <div className="app-content">
                         <Switch>

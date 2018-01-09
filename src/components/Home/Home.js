@@ -55,6 +55,7 @@ class Home extends React.PureComponent {
                 <Helmet>
                     <title>BnSTree</title>
                 </Helmet>
+                <HomeCharacter />
                 <Fade className="home-top">
                     <div className="dummy-container" />
                     <CharacterSearch center match={match} history={history} />
@@ -65,7 +66,6 @@ class Home extends React.PureComponent {
                             data-ad-format="auto"
                         />
                     </div>
-                    <HomeCharacter />
                 </Fade>
                 <div className="home-bottom">
                     <HomeClassLinks />

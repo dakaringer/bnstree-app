@@ -1,7 +1,10 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import {Fade} from 'react-reveal'
 
 import overlayImages from '../images/map_overlayImg'
+
+const appRoot = document.getElementById('app-root')
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
@@ -14,6 +17,7 @@ class HomeCharacter extends React.PureComponent {
             set: {},
             hidden: null
         }
+        this.el = document.createElement('div')
     }
 
     componentWillMount() {
@@ -30,6 +34,14 @@ class HomeCharacter extends React.PureComponent {
             set: set,
             hidden: hidden
         })
+    }
+
+    componentDidMount() {
+        appRoot.appendChild(this.el)
+    }
+
+    componentWillUnmount() {
+        appRoot.removeChild(this.el)
     }
 
     render() {
@@ -60,12 +72,13 @@ class HomeCharacter extends React.PureComponent {
             />
         ) : null
 
-        return (
+        return ReactDOM.createPortal(
             <Fade className="home-character">
                 {left}
                 {center}
                 {right}
-            </Fade>
+            </Fade>,
+            this.el
         )
     }
 }
