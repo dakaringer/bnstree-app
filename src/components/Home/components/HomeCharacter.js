@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Fade} from 'react-reveal'
 
 import overlayImages from '../images/map_overlayImg'
 
@@ -73,11 +72,11 @@ class HomeCharacter extends React.PureComponent {
         ) : null
 
         return ReactDOM.createPortal(
-            <Fade className="home-character">
+            <div className="home-character">
                 {left}
                 {center}
                 {right}
-            </Fade>,
+            </div>,
             this.el
         )
     }
