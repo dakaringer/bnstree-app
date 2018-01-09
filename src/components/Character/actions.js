@@ -13,29 +13,7 @@ const loadCharacterData = makeActionCreator(actionType.SET_CHARACTER_DATA, 'char
 
 const characterQuery = q`query ($name: String!, $region: String!) {
     Character(name: $name, region: $region)  {
-        general {
-            account
-            region
-            name
-            profileImg
-            className
-            classCode
-            level
-            server
-            faction
-            clan
-            arena {
-                stats
-                solo {
-                    rating
-                    wins
-                }
-                tag {
-                    rating
-                    wins
-                }
-            }
-        }
+        general
         statData: stats
         skillData: skills {
             elementIndex
