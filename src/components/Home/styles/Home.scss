@@ -18,9 +18,16 @@
 
     .home-bottom {
         flex: 1;
-        background: rgba(5, 7, 10, 0.7);
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(5, 7, 10, 0.8) 10rem,
+            rgba(5, 7, 10, 0.9) 100%
+        );
         margin: 0 -1rem;
+        padding-top: 10rem;
         padding-bottom: 20rem;
+        position: relative;
 
         .home-container {
             max-width: 140rem;
@@ -29,7 +36,6 @@
     }
 
     .home-top {
-        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;

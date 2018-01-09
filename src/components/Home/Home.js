@@ -66,9 +66,9 @@ class Home extends React.PureComponent {
                         />
                     </div>
                     <HomeCharacter />
-                    <HomeClassLinks />
                 </Fade>
                 <div className="home-bottom">
+                    <HomeClassLinks />
                     <div className="home-container container">
                         <Fade>
                             <HomeNewsList />
