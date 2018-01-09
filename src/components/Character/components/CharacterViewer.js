@@ -99,9 +99,11 @@ class CharacterViewer extends React.PureComponent {
             </div>
         )
 
+        let exists = character.get('general') && !character.getIn(['general', 'notFound'], false)
+
         let content = <LoadingLyn />
         if (!loading) {
-            if (character.get('general') && !character.getIn(['general', 'notFound'], false)) {
+            if (exists) {
                 content = (
                     <Row className="character-content" gutter={16}>
                         <Col lg={4} className="profile-container">
@@ -171,9 +173,7 @@ class CharacterViewer extends React.PureComponent {
             <div>
                 <Helmet>
                     <title>{`${
-                        character.has('general')
-                            ? character.getIn(['general', 'name'])
-                            : t('general:characterSearch')
+                        exists ? character.getIn(['general', 'name']) : t('general:characterSearch')
                     } | BnSTree`}</title>
                 </Helmet>
                 {content}
