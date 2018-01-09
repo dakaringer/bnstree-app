@@ -14,15 +14,14 @@
     }
 
     &.attack .mainStat {
-        background: linear-gradient(to top, rgba(200, 60, 60, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
+        background: linear-gradient(to top, rgba(200, 60, 60, 0.5) 20%, rgba(0, 0, 0, 0) 100%);
     }
 
     &.defense .mainStat {
-        background: linear-gradient(to top, rgba(80, 125, 181, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
+        background: linear-gradient(to top, rgba(80, 125, 181, 0.5) 20%, rgba(0, 0, 0, 0) 100%);
     }
 
     .mainStat {
-        color: white;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -39,15 +38,15 @@
 
         h4 {
             color: white;
-            margin-top: 1.5rem;
-            font-size: 2rem;
+            margin-top: 1rem;
+            font-size: 1.8rem;
             font-weight: 300;
         }
 
         hr {
             width: 90%;
             opacity: 0.5;
-            margin: 1.5rem 0;
+            margin: 0.5rem 0;
             margin-bottom: 0;
         }
 
@@ -55,8 +54,8 @@
             width: 100%;
             text-align: center;
             margin: 0;
-            height: 4rem;
-            line-height: 4rem;
+            height: 3.5rem;
+            line-height: 3.5rem;
             opacity: 0.75;
             cursor: pointer;
         }
