@@ -71,34 +71,38 @@ export function loadCharacter(region, name, history) {
                     variables: {
                         region: region,
                         name: name
-                    }
+                    },
+                    errorPolicy: 'ignore'
                 })
                 .then(json => {
                     let data = json.data.Character
                     let classCode = data.general.classCode
 
                     dispatch(loadCharacterData(data))
-                    dispatch(loadSkills(classCode))
-                    dispatch(setCharacterMode(true))
-                    if (region === 'kr') {
-                        let krPatch = patchListSelector(getState())
-                            .last()
-                            .get('_id')
-                        dispatch(selectPatch(krPatch.toString()))
-                    }
 
-                    apollo
-                        .mutate({
-                            mutation: recentSearchMutation,
-                            variables: {
-                                region: data.general.region,
-                                name: data.general.name
-                            }
-                        })
-                        .then(json => {
-                            dispatch(setRecentSearch(json.data.User.addRecentSearch))
-                        })
-                        .catch(e => console.error(e))
+                    if (!data.general.notFound) {
+                        dispatch(loadSkills(classCode))
+                        dispatch(setCharacterMode(true))
+                        if (region === 'kr') {
+                            let krPatch = patchListSelector(getState())
+                                .last()
+                                .get('_id')
+                            dispatch(selectPatch(krPatch.toString()))
+                        }
+
+                        apollo
+                            .mutate({
+                                mutation: recentSearchMutation,
+                                variables: {
+                                    region: data.general.region,
+                                    name: data.general.name
+                                }
+                            })
+                            .then(json => {
+                                dispatch(setRecentSearch(json.data.User.addRecentSearch))
+                            })
+                            .catch(e => console.error(e))
+                    }
                 })
                 .catch(e => {
                     console.error(e)

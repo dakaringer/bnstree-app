@@ -101,7 +101,7 @@ class CharacterViewer extends React.PureComponent {
 
         let content = <LoadingLyn />
         if (!loading) {
-            if (character.get('general')) {
+            if (!character.getIn(['general', 'notFound'], false)) {
                 content = (
                     <Row className="character-content" gutter={16}>
                         <Col lg={4} className="profile-container">
@@ -151,9 +151,17 @@ class CharacterViewer extends React.PureComponent {
                     </Row>
                 )
             } else {
+                let message = t('noCharacter')
+                if (character.getIn(['general', 'nameChanged'], false)) {
+                    message = t('nameChanged')
+                }
+                if (character.getIn(['general', 'unavailable'], false)) {
+                    message = t('serverUnavailable')
+                }
+
                 content = (
                     <div className="character-not-found">
-                        <p>{t('noCharacter')}</p>
+                        <p>{message}</p>
                     </div>
                 )
             }

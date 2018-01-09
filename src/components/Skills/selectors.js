@@ -155,7 +155,7 @@ export const characterElementSelector = createSelector(
     characterBuildDataSelector,
     classElementDataSelector,
     (characterBuild, elementData) => {
-        let index = characterBuild.get('elementIndex', 0)
+        let index = characterBuild ? characterBuild.get('elementIndex', 0) : 0
         return elementData.getIn([index, 'element'])
     }
 )
