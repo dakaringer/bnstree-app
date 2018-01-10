@@ -125,7 +125,10 @@ export function loadPopularItems() {
             .then(json => {
                 dispatch(setPopularItems(json.data.Market.popular))
             })
-            .catch(e => console.error(e))
+            .catch(e => {
+                console.error(e)
+                dispatch(setPopularItems([]))
+            })
     }
 }
 

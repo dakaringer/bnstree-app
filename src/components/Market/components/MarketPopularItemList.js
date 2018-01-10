@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {translate} from 'react-i18next'
 
 import {viewSelector} from '../../../selectors'
 import {popularItemsSelector} from '../selectors'
@@ -35,7 +36,7 @@ class MarketPopularItemList extends React.PureComponent {
     }
 
     render() {
-        const {popularItems, region} = this.props
+        const {t, popularItems, region} = this.props
 
         let list = []
         popularItems.forEach(popularItem => {
@@ -54,8 +55,18 @@ class MarketPopularItemList extends React.PureComponent {
             )
         })
 
-        return <div className="market-popular-item-list">{list}</div>
+        return (
+            <div className="market-popular-item-list">
+                {list.length > 0 ? (
+                    list
+                ) : (
+                    <div className="market-popular-unavailable">{t('serverUnavailable')}</div>
+                )}
+            </div>
+        )
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MarketPopularItemList)
+export default connect(mapStateToProps, mapDispatchToProps)(
+    translate('general')(MarketPopularItemList)
+)
