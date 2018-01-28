@@ -1,10 +1,10 @@
 import React from 'react'
-import {Fade} from 'react-reveal'
+
 
 import './styles/ErrorMessage.scss'
 
 const ErrorMessage = props => {
-    let {error} = props
+    let { error } = props
 
     let message = <h1>404 Not Found</h1>
     if (error) {
@@ -16,7 +16,7 @@ const ErrorMessage = props => {
         )
     }
 
-    return <Fade className="error-message">{message}</Fade>
+    return <div className="error-message">{message}</div>
 }
 
 export default ErrorMessage

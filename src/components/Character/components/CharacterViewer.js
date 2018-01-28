@@ -1,12 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Helmet} from 'react-helmet'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Helmet } from 'react-helmet'
+import Fade from 'react-reveal/Fade'
 
-import {loadCharacter, vote} from '../actions'
-import {loadingSelector, userSelector} from '../../../selectors'
-import {characterSelector} from '../selectors'
-import {characterElementSelector} from '../../Skills/selectors'
+import { loadCharacter, vote } from '../actions'
+import { loadingSelector, userSelector } from '../../../selectors'
+import { characterSelector } from '../selectors'
+import { characterElementSelector } from '../../Skills/selectors'
 
 import LoadingLyn from '../../LoadingLyn/LoadingLyn'
 import CharacterProfile from './CharacterProfile'
@@ -18,7 +19,7 @@ import SkillList from '../../Skills/components/SkillList'
 import '../../Skills/styles/Skills.scss'
 import elementImages from '../../Skills/images/map_elementImg'
 
-import {Row, Col, Tabs, Icon} from 'antd'
+import { Row, Col, Tabs, Icon } from 'antd'
 const TabPane = Tabs.TabPane
 
 const mapStateToProps = state => {
@@ -45,11 +46,11 @@ class CharacterViewer extends React.PureComponent {
     }
 
     componentWillMount() {
-        const {match, loadCharacter} = this.props
+        const { match, loadCharacter } = this.props
         loadCharacter(match.params.region, match.params.character)
     }
     componentWillReceiveProps(nextProps) {
-        const {match, loadCharacter} = this.props
+        const { match, loadCharacter } = this.props
 
         if (
             nextProps.match.params.character !== match.params.character ||
@@ -64,7 +65,7 @@ class CharacterViewer extends React.PureComponent {
     }
 
     vote() {
-        let {character} = this.props
+        let { character } = this.props
 
         vote(
             character.getIn(['general', 'region']),
@@ -78,16 +79,16 @@ class CharacterViewer extends React.PureComponent {
     }
 
     render() {
-        const {t, user, character, characterElement, loading} = this.props
-        const {voted} = this.state
+        const { t, user, character, characterElement, loading } = this.props
+        const { voted } = this.state
 
         let likeButton = user ? (
             <a onClick={() => this.vote(voted)}>
                 {voted ? <Icon type="heart" /> : <Icon type="heart-o" />}
             </a>
         ) : (
-            <Icon type="heart-o" />
-        )
+                <Icon type="heart-o" />
+            )
         let like = (
             <div className="like">
                 {likeButton}
@@ -174,9 +175,13 @@ class CharacterViewer extends React.PureComponent {
                 <Helmet>
                     <title>{`${
                         exists ? character.getIn(['general', 'name']) : t('general:characterSearch')
-                    } | BnSTree`}</title>
+                        } | BnSTree`}</title>
                 </Helmet>
-                {content}
+                <Fade>
+                    <div>
+                        {content}
+                    </div>
+                </Fade>
             </div>
         )
     }

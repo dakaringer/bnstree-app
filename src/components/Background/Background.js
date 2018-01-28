@@ -1,5 +1,5 @@
 import React from 'react'
-import {Fade} from 'react-reveal'
+
 
 import './styles/Background.scss'
 
@@ -16,7 +16,7 @@ class Background extends React.PureComponent {
 
     componentWillMount() {
         window.addEventListener('scroll', e => this.handleScroll(e, this))
-        this.setState({i: Math.floor(Math.random() * MAX_BG + 1)})
+        this.setState({ i: Math.floor(Math.random() * MAX_BG + 1) })
     }
 
     componentWillUnmount() {
@@ -41,13 +41,13 @@ class Background extends React.PureComponent {
         }
 
         return (
-            <Fade className="background" style={transform}>
+            <div className="background" style={transform}>
                 <img
                     src={`https://static.bnstree.com/images/backgrounds/${this.state.i}.jpg`}
                     alt="background"
                 />
                 <div className="cover" />
-            </Fade>
+            </div>
         )
     }
 }

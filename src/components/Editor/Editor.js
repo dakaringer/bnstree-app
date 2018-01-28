@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Helmet} from 'react-helmet'
-import {Fade} from 'react-reveal'
-import {ScrollSync, ScrollSyncPane} from 'react-scroll-sync'
-import {animateScroll} from 'react-scroll'
+import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
+
+import { ScrollSync, ScrollSyncPane } from 'react-scroll-sync'
+import { animateScroll } from 'react-scroll'
 
 import './styles/Editor.scss'
 
@@ -12,9 +12,9 @@ import EditorStatusBar from './components/EditorStatusBar'
 import EditorTextArea from './components/EditorTextArea'
 import Preview from './components/Article'
 
-import {loadNameData} from '../References/actions'
-import {loadArticle} from './actions'
-import {articleSelector} from './selectors'
+import { loadNameData } from '../References/actions'
+import { loadArticle } from './actions'
+import { articleSelector } from './selectors'
 
 const mapStateToProps = state => {
     return {
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => {
 
 class Editor extends React.PureComponent {
     componentWillMount() {
-        const {loadNames, loadArticle, match} = this.props
+        const { loadNames, loadArticle, match } = this.props
 
         loadNames('en')
         loadArticle(match.params.id)
@@ -42,10 +42,10 @@ class Editor extends React.PureComponent {
     }
 
     render() {
-        let {article, history} = this.props
+        let { article, history } = this.props
 
         return (
-            <Fade className="editor container">
+            <div className="editor container">
                 <Helmet>
                     <title>Editor | BnSTree</title>
                 </Helmet>
@@ -64,7 +64,7 @@ class Editor extends React.PureComponent {
                         </div>
                     </ScrollSync>
                 </div>
-            </Fade>
+            </div>
         )
     }
 }

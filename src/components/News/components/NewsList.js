@@ -1,13 +1,12 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {List} from 'immutable'
-import {Fade} from 'react-reveal'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { List } from 'immutable'
 
-import {Pagination} from 'antd'
+import { Pagination } from 'antd'
 
-import {loadNews} from '../actions'
-import {listSelector} from '../selectors'
+import { loadNews } from '../actions'
+import { listSelector } from '../selectors'
 
 import NewsListItem from './NewsListItem'
 
@@ -29,7 +28,7 @@ class NewsList extends React.PureComponent {
     }
 
     render() {
-        let {list, loadNews, currentId, icon} = this.props
+        let { list, loadNews, currentId, icon } = this.props
 
         let rows = []
         list.get('list', List()).forEach((article, i) => {
@@ -44,7 +43,7 @@ class NewsList extends React.PureComponent {
         })
 
         return (
-            <Fade className="news-list-container">
+            <div className="news-list-container">
                 <div className="news-list listing">
                     {rows.length > 0 ? rows : <p className="no-data">No Data</p>}
                 </div>
@@ -55,7 +54,7 @@ class NewsList extends React.PureComponent {
                     pageSize={list.get('limit', 10)}
                     onChange={p => loadNews(p)}
                 />
-            </Fade>
+            </div>
         )
     }
 }

@@ -1,14 +1,13 @@
 import React from 'react'
-import {translate} from 'react-i18next'
-import {connect} from 'react-redux'
-import {Link, NavLink, withRouter} from 'react-router-dom'
-import {Map} from 'immutable'
-import {Fade} from 'react-reveal'
-import {Avatar} from 'antd'
+import { translate } from 'react-i18next'
+import { connect } from 'react-redux'
+import { Link, NavLink, withRouter } from 'react-router-dom'
+import { Map } from 'immutable'
+import { Avatar } from 'antd'
 
-import {currentLanguageSelector, userSelector, supportedLanguagesSelector} from '../../selectors'
-import {closeMenu, handleDropdown, toggleMenu} from './actions'
-import {menuStatusSelector} from './selectors'
+import { currentLanguageSelector, userSelector, supportedLanguagesSelector } from '../../selectors'
+import { closeMenu, handleDropdown, toggleMenu } from './actions'
+import { menuStatusSelector } from './selectors'
 
 import './styles/NavBar.scss'
 
@@ -49,7 +48,7 @@ const NavBar = props => {
     } = props
 
     return (
-        <Fade className="main-nav-wrapper">
+        <div className="main-nav-wrapper">
             <div className="main-nav" onMouseLeave={() => closeDropdown(null)}>
                 <NavBarDropdown />
                 <div className="main-nav-header">
@@ -89,13 +88,13 @@ const NavBar = props => {
                             {user ? (
                                 <Avatar
                                     shape="square"
-                                    style={{backgroundColor: 'deepskyblue'}}
+                                    style={{ backgroundColor: 'deepskyblue' }}
                                     src={user.get('profilePic')}>
                                     {user.get('displayName', 'U').charAt(0)}
                                 </Avatar>
                             ) : (
-                                t('login')
-                            )}
+                                    t('login')
+                                )}
                         </NavBarDropdownLink>
                         <NavBarDropdownLink dropdown="language" location={location}>
                             {languages
@@ -108,7 +107,7 @@ const NavBar = props => {
                             onClick={() => toggleMenu()}
                             className={`hamburger hamburger--squeeze ${
                                 menuStatus ? 'is-active' : ''
-                            }`}
+                                }`}
                             type="button">
                             <span className="hamburger-box">
                                 <span className="hamburger-inner" />
@@ -118,7 +117,7 @@ const NavBar = props => {
                 </div>
             </div>
             <NavBarMobileMenu />
-        </Fade>
+        </div>
     )
 }
 

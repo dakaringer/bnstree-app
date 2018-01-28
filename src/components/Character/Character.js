@@ -1,10 +1,11 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Route, Switch} from 'react-router-dom'
-import {Helmet} from 'react-helmet'
-import {Fade} from 'react-reveal'
-import {animateScroll} from 'react-scroll'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Route, Switch } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
+import Fade from 'react-reveal/Fade'
+
+import { animateScroll } from 'react-scroll'
 
 import AdSense from '../AdSense/AdSense'
 
@@ -14,8 +15,8 @@ import Header from './components/CharacterHeader'
 import CharacterSearch from './components/CharacterSearch'
 import CharacterViewer from './components/CharacterViewer'
 
-import {currentLanguageSelector} from '../../selectors'
-import {loadNameData, loadPatchList} from '../References/actions'
+import { currentLanguageSelector } from '../../selectors'
+import { loadNameData, loadPatchList } from '../References/actions'
 
 const mapStateToProps = state => {
     return {
@@ -32,7 +33,7 @@ const mapDispatchToProps = dispatch => {
 
 class Character extends React.PureComponent {
     componentWillMount() {
-        const {currentLanguage, loadNames, loadPatchList} = this.props
+        const { currentLanguage, loadNames, loadPatchList } = this.props
         loadNames(currentLanguage)
         loadPatchList()
     }
@@ -42,7 +43,7 @@ class Character extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {currentLanguage, loadNames} = this.props
+        const { currentLanguage, loadNames } = this.props
 
         if (nextProps.currentLanguage !== currentLanguage) {
             loadNames(nextProps.currentLanguage)
@@ -50,10 +51,10 @@ class Character extends React.PureComponent {
     }
 
     render() {
-        const {t, location, match, history} = this.props
+        const { t, location, match, history } = this.props
 
         return (
-            <Fade className="character">
+            <div className="character">
                 <Helmet>
                     <title>{`${t('characterSearch')} | BnSTree`}</title>
                     <meta
@@ -66,48 +67,50 @@ class Character extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <div className="container">
-                    <Header location={location} match={match} history={history} />
-                    <div className="main-container">
-                        <Switch>
-                            <Route
-                                exact
-                                path={'/character/:region'}
-                                render={() => (
-                                    <CharacterSearch
-                                        center
-                                        recent
-                                        match={match}
-                                        history={history}
-                                    />
-                                )}
+                <Fade>
+                    <div className="container">
+                        <Header location={location} match={match} history={history} />
+                        <div className="main-container">
+                            <Switch>
+                                <Route
+                                    exact
+                                    path={'/character/:region'}
+                                    render={() => (
+                                        <CharacterSearch
+                                            center
+                                            recent
+                                            match={match}
+                                            history={history}
+                                        />
+                                    )}
+                                />
+                                <Route
+                                    exact
+                                    path={'/character/:region/:character'}
+                                    component={CharacterViewer}
+                                />
+                                <Route
+                                    render={() => (
+                                        <CharacterSearch
+                                            center
+                                            recent
+                                            match={match}
+                                            history={history}
+                                        />
+                                    )}
+                                />
+                            </Switch>
+                        </div>
+                        <div className="slim-container">
+                            <AdSense
+                                data-ad-client="ca-pub-2048637692232915"
+                                data-ad-slot="2719129989"
+                                data-ad-format="auto"
                             />
-                            <Route
-                                exact
-                                path={'/character/:region/:character'}
-                                component={CharacterViewer}
-                            />
-                            <Route
-                                render={() => (
-                                    <CharacterSearch
-                                        center
-                                        recent
-                                        match={match}
-                                        history={history}
-                                    />
-                                )}
-                            />
-                        </Switch>
+                        </div>
                     </div>
-                    <div className="slim-container">
-                        <AdSense
-                            data-ad-client="ca-pub-2048637692232915"
-                            data-ad-slot="2719129989"
-                            data-ad-format="auto"
-                        />
-                    </div>
-                </div>
-            </Fade>
+                </Fade>
+            </div>
         )
     }
 }

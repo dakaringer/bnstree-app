@@ -1,10 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {List} from 'immutable'
-import {Fade} from 'react-reveal'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { List } from 'immutable'
+import Fade from 'react-reveal/Fade'
 
-import {userSelector, viewSelector} from '../../../selectors'
+import { userSelector, viewSelector } from '../../../selectors'
 import {
     dataSelector,
     termSelector,
@@ -13,14 +13,14 @@ import {
     updateSelector,
     loadingSelector
 } from '../selectors'
-import {setTerm, setGraph, loadItem, setIndicator, bookmark} from '../actions'
+import { setTerm, setGraph, loadItem, setIndicator, bookmark } from '../actions'
 
 import LoadingLyn from '../../LoadingLyn/LoadingLyn'
 import MarketChart from './MarketChart'
 
-import {parsePrice} from '../parser'
+import { parsePrice } from '../parser'
 
-import {Radio, Icon, Popover, Checkbox} from 'antd'
+import { Radio, Icon, Popover, Checkbox } from 'antd'
 const RadioButton = Radio.Button
 const RadioGroup = Radio.Group
 
@@ -57,12 +57,12 @@ class MarketItemViewer extends React.PureComponent {
     }
 
     componentWillMount() {
-        const {match, loadItem} = this.props
+        const { match, loadItem } = this.props
         loadItem(match.params.itemId, false, match.params.region)
     }
 
     componentWillReceiveProps(nextProps) {
-        let {match, itemData, loadItem} = this.props
+        let { match, itemData, loadItem } = this.props
 
         if (itemData.getIn(['item', '_id']) !== nextProps.itemData.getIn(['item', '_id'])) {
             clearInterval(this.state.intervalId)
@@ -95,7 +95,7 @@ class MarketItemViewer extends React.PureComponent {
     }
 
     bookmark(bookmarked) {
-        let {itemData, bookmark} = this.props
+        let { itemData, bookmark } = this.props
 
         bookmark(itemData.getIn(['item', '_id']), !this.state.bookmarked)
 
@@ -119,17 +119,17 @@ class MarketItemViewer extends React.PureComponent {
             setGraph,
             setIndicator
         } = this.props
-        const {bookmarked} = this.state
+        const { bookmarked } = this.state
 
         let bookmarkButton = user ? (
             bookmarked ? (
                 <Icon type="star" />
             ) : (
+                    <Icon type="star-o" />
+                )
+        ) : (
                 <Icon type="star-o" />
             )
-        ) : (
-            <Icon type="star-o" />
-        )
 
         let bookmark = (
             <a
@@ -176,46 +176,48 @@ class MarketItemViewer extends React.PureComponent {
                             </h3>
                         </div>
                         {parsePrice(itemData)}
-                        <div className="item-chart">
-                            <div>
-                                <RadioGroup
-                                    className="term-selector"
-                                    size="small"
-                                    value={term}
-                                    onChange={e => setTerm(e.target.value)}>
-                                    <RadioButton value={0}>1D</RadioButton>
-                                    <RadioButton value={1}>1W</RadioButton>
-                                    <RadioButton value={2}>1M</RadioButton>
-                                </RadioGroup>
-                                <RadioGroup
-                                    className="graph-selector"
-                                    size="small"
-                                    value={graph}
-                                    onChange={e => setGraph(e.target.value)}>
-                                    <RadioButton value="candlestick">
-                                        <Icon type="bar-chart" />
-                                    </RadioButton>
-                                    <RadioButton value="area">
-                                        <Icon type="area-chart" />
-                                    </RadioButton>
-                                </RadioGroup>
-                                <Popover
-                                    content={indicatorCheckboxes}
-                                    trigger="click"
-                                    placement="bottomLeft">
-                                    <a className="indicator-button">{t('indicators')}</a>
-                                </Popover>
-                                <div className="last-update">
-                                    {t('lastUpdate')} {lastUpdate.toTimeString()}
+                        <Fade>
+                            <div className="item-chart">
+                                <div>
+                                    <RadioGroup
+                                        className="term-selector"
+                                        size="small"
+                                        value={term}
+                                        onChange={e => setTerm(e.target.value)}>
+                                        <RadioButton value={0}>1D</RadioButton>
+                                        <RadioButton value={1}>1W</RadioButton>
+                                        <RadioButton value={2}>1M</RadioButton>
+                                    </RadioGroup>
+                                    <RadioGroup
+                                        className="graph-selector"
+                                        size="small"
+                                        value={graph}
+                                        onChange={e => setGraph(e.target.value)}>
+                                        <RadioButton value="candlestick">
+                                            <Icon type="bar-chart" />
+                                        </RadioButton>
+                                        <RadioButton value="area">
+                                            <Icon type="area-chart" />
+                                        </RadioButton>
+                                    </RadioGroup>
+                                    <Popover
+                                        content={indicatorCheckboxes}
+                                        trigger="click"
+                                        placement="bottomLeft">
+                                        <a className="indicator-button">{t('indicators')}</a>
+                                    </Popover>
+                                    <div className="last-update">
+                                        {t('lastUpdate')} {lastUpdate.toTimeString()}
+                                    </div>
                                 </div>
+                                <MarketChart
+                                    priceData={itemData.getIn(['priceData', term, 'items'], List())}
+                                    type={graph}
+                                    region={region}
+                                    indicators={indicators}
+                                />
                             </div>
-                            <MarketChart
-                                priceData={itemData.getIn(['priceData', term, 'items'], List())}
-                                type={graph}
-                                region={region}
-                                indicators={indicators}
-                            />
-                        </div>
+                        </Fade>
                     </div>
                 )
             } else {
@@ -227,7 +229,7 @@ class MarketItemViewer extends React.PureComponent {
             }
         }
 
-        return <Fade className="market-item-viewer">{content}</Fade>
+        return <div className="market-item-viewer">{content}</div>
     }
 }
 

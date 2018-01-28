@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import Fade from 'react-reveal/Fade'
 
 import overlayImages from '../images/map_overlayImg'
 
@@ -14,7 +15,8 @@ class HomeCharacter extends React.PureComponent {
         super(props)
         this.state = {
             set: {},
-            hidden: null
+            hidden: null,
+            show: false
         }
         this.el = document.createElement('div')
     }
@@ -26,7 +28,7 @@ class HomeCharacter extends React.PureComponent {
 
         let hidden = null
         if (set.left && set.right) {
-            hidden = getRandomInt(0, 2)
+            hidden = getRandomInt(0, 1)
         }
 
         this.setState({
@@ -37,18 +39,25 @@ class HomeCharacter extends React.PureComponent {
 
     componentDidMount() {
         appRoot.appendChild(this.el)
+
+        this.timeout = window.setTimeout(
+            () => this.setState({ show: true }), 500
+        )
     }
 
     componentWillUnmount() {
         appRoot.removeChild(this.el)
+
+        if (this.timeout)
+            this.timeout = window.clearTimeout(this.timeout)
     }
 
     render() {
-        let {set, hidden} = this.state
+        let { set, hidden } = this.state
 
         let left = set.left ? (
             <img
-                className={`character-left ${hidden && hidden === 1 ? 'hidden' : ''}`}
+                className={`character-left ${hidden && hidden === 0 ? 'hidden' : ''}`}
                 alt="character"
                 src={set.left}
                 style={set.leftStyle}
@@ -56,7 +65,7 @@ class HomeCharacter extends React.PureComponent {
         ) : null
         let right = set.right ? (
             <img
-                className={`character-right ${hidden && hidden === 2 ? 'hidden' : ''}`}
+                className={`character-right ${hidden && hidden === 1 ? 'hidden' : ''}`}
                 alt="character"
                 src={set.right}
                 style={set.rightStyle}
@@ -72,11 +81,13 @@ class HomeCharacter extends React.PureComponent {
         ) : null
 
         return ReactDOM.createPortal(
-            <div className="home-character">
-                {left}
-                {center}
-                {right}
-            </div>,
+            <Fade duration={2000} when={this.state.show}>
+                <div className="home-character">
+                    {left}
+                    {center}
+                    {right}
+                </div>
+            </Fade>,
             this.el
         )
     }

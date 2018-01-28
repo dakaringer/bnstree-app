@@ -1,13 +1,14 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import Fade from 'react-reveal/Fade'
 
-import {typeSelector} from '../selectors'
+import { typeSelector } from '../selectors'
 
 import BadgeContent from './BadgeContent'
 import SoulshieldContent from './SoulshieldContent'
 
-import {Collapse} from 'antd'
+import { Collapse } from 'antd'
 const Panel = Collapse.Panel
 
 const mapStateToProps = state => {
@@ -17,7 +18,7 @@ const mapStateToProps = state => {
 }
 
 const BadgeListItem = props => {
-    const {t, type, item, itemId} = props
+    const { t, type, item, itemId } = props
 
     let subtitle = []
     let content = null
@@ -40,29 +41,31 @@ const BadgeListItem = props => {
     }
 
     return (
-        <div className={`item-list-item ${type}`}>
-            <Collapse bordered={false}>
-                <Panel
-                    header={
-                        <div className="item-header">
-                            <img
-                                className="item-icon"
-                                alt={item.get('name')}
-                                src={`https://static.bnstree.com/images/${type}/${item.get(
-                                    'icon',
-                                    'blank'
-                                )}`}
-                            />
-                            <div className="title">
-                                <h3 className={`grade_${item.get('grade')}`}>{item.get('name')}</h3>
-                                <div className="subtitle">{subtitle}</div>
+        <Fade>
+            <div className={`item-list-item ${type}`}>
+                <Collapse bordered={false}>
+                    <Panel
+                        header={
+                            <div className="item-header">
+                                <img
+                                    className="item-icon"
+                                    alt={item.get('name')}
+                                    src={`https://static.bnstree.com/images/${type}/${item.get(
+                                        'icon',
+                                        'blank'
+                                    )}`}
+                                />
+                                <div className="title">
+                                    <h3 className={`grade_${item.get('grade')}`}>{item.get('name')}</h3>
+                                    <div className="subtitle">{subtitle}</div>
+                                </div>
                             </div>
-                        </div>
-                    }>
-                    {content}
-                </Panel>
-            </Collapse>
-        </div>
+                        }>
+                        {content}
+                    </Panel>
+                </Collapse>
+            </div>
+        </Fade>
     )
 }
 

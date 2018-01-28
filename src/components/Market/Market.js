@@ -1,12 +1,12 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Helmet} from 'react-helmet'
-import {Fade} from 'react-reveal'
-import {Route, Switch} from 'react-router-dom'
-import {animateScroll} from 'react-scroll'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Helmet } from 'react-helmet'
+import { Route, Switch } from 'react-router-dom'
+import { animateScroll } from 'react-scroll'
+import Fade from 'react-reveal/Fade'
 
-import {Row, Col} from 'antd'
+import { Row, Col } from 'antd'
 
 import AdSense from '../AdSense/AdSense'
 
@@ -19,7 +19,7 @@ import MarketItemViewer from './components/MarketItemViewer'
 import MarketBookmarkList from './components/MarketBookmarkList'
 import MarketPopularItemList from './components/MarketPopularItemList'
 
-import {loadingSelector} from '../../selectors'
+import { loadingSelector } from '../../selectors'
 
 const mapStateToProps = state => {
     return {
@@ -33,7 +33,7 @@ class Market extends React.PureComponent {
     }
 
     render() {
-        const {t, loading, history} = this.props
+        const { t, loading, history } = this.props
 
         let content = <LoadingLyn />
         if (!loading) {
@@ -69,7 +69,7 @@ class Market extends React.PureComponent {
         }
 
         return (
-            <Fade className="market">
+            <div className="market">
                 <Helmet>
                     <title>{`${t('market')} | BnSTree`}</title>
                     <meta
@@ -82,11 +82,13 @@ class Market extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <div className="container">
-                    <Header />
-                    {content}
-                </div>
-            </Fade>
+                <Fade>
+                    <div className="container">
+                        <Header />
+                        {content}
+                    </div>
+                </Fade>
+            </div>
         )
     }
 }

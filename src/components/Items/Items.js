@@ -1,16 +1,17 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Route, Switch} from 'react-router-dom'
-import {Helmet} from 'react-helmet'
-import {Fade} from 'react-reveal'
-import {animateScroll} from 'react-scroll'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Route, Switch } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
+import Fade from 'react-reveal/Fade'
+
+import { animateScroll } from 'react-scroll'
 
 import AdSense from '../AdSense/AdSense'
 
-import {currentLanguageSelector, loadingSelector} from '../../selectors'
-import {loadItems} from './actions'
-import {loadNameData, loadPatchList} from '../References/actions'
+import { currentLanguageSelector, loadingSelector } from '../../selectors'
+import { loadItems } from './actions'
+import { loadNameData, loadPatchList } from '../References/actions'
 
 import './styles/Items.scss'
 
@@ -39,7 +40,7 @@ const mapDispatchToProps = dispatch => {
 
 class Items extends React.PureComponent {
     componentWillMount() {
-        const {match, currentLanguage, loadItems, loadNames, loadPatchList} = this.props
+        const { match, currentLanguage, loadItems, loadNames, loadPatchList } = this.props
 
         loadItems(match.params.type)
         loadNames(currentLanguage)
@@ -51,7 +52,7 @@ class Items extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {match, currentLanguage, loadItems, loadNames} = this.props
+        const { match, currentLanguage, loadItems, loadNames } = this.props
 
         if (nextProps.match.params.type !== match.params.type) {
             loadItems(nextProps.match.params.type)
@@ -62,7 +63,7 @@ class Items extends React.PureComponent {
     }
 
     render() {
-        const {t, loading, location, match} = this.props
+        const { t, loading, location, match } = this.props
 
         let content = <LoadingLyn />
 
@@ -82,7 +83,7 @@ class Items extends React.PureComponent {
         }
 
         return (
-            <Fade className="items">
+            <div className="items">
                 <Helmet>
                     <title>{`${t(getPath(location.pathname))} | BnSTree`}</title>
                 </Helmet>
@@ -91,11 +92,13 @@ class Items extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <div className="container">
-                    <Header match={match} />
-                    {content}
-                </div>
-            </Fade>
+                <Fade>
+                    <div className="container">
+                        <Header match={match} />
+                        {content}
+                    </div>
+                </Fade>
+            </div>
         )
     }
 }

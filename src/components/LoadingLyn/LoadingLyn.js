@@ -1,13 +1,13 @@
 import SpriteAnimator from 'react-sprite-animator'
 import loadingImg from './images/loading.png'
 import React from 'react'
-import {Fade} from 'react-reveal'
+
 
 import './styles/loading.scss'
 
 const LoadingLyn = () => {
     return (
-        <Fade className="loadingContainer">
+        <div className="loadingContainer">
             <SpriteAnimator
                 className="loadingSprite"
                 sprite={loadingImg}
@@ -17,7 +17,7 @@ const LoadingLyn = () => {
                 direction="vertical"
                 fps={30}
             />
-        </Fade>
+        </div>
     )
 }
 

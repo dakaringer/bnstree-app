@@ -1,16 +1,16 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Route, Switch, Redirect} from 'react-router-dom'
-import {Helmet} from 'react-helmet'
-import {Fade} from 'react-reveal'
-import {animateScroll} from 'react-scroll'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
+import { animateScroll } from 'react-scroll'
+import Fade from 'react-reveal/Fade'
 
 import AdSense from '../AdSense/AdSense'
 
-import {currentLanguageSelector, loadingSelector, viewSelector, userSelector} from '../../selectors'
-import {loadSkills, loadBuild} from './actions'
-import {loadNameData, loadPatchList} from '../References/actions'
+import { currentLanguageSelector, loadingSelector, viewSelector, userSelector } from '../../selectors'
+import { loadSkills, loadBuild } from './actions'
+import { loadNameData, loadPatchList } from '../References/actions'
 
 import './styles/Skills.scss'
 
@@ -68,7 +68,7 @@ const mapDispatchToProps = dispatch => {
 
 class Skills extends React.PureComponent {
     componentWillMount() {
-        const {match, currentLanguage, loadNames, loadPatchList, loadSkills} = this.props
+        const { match, currentLanguage, loadNames, loadPatchList, loadSkills } = this.props
 
         let classCode = getClassCode(match.params.classCode)
         loadNames(currentLanguage)
@@ -110,7 +110,7 @@ class Skills extends React.PureComponent {
     }
 
     render() {
-        const {t, loading, view, user, location, match} = this.props
+        const { t, loading, view, user, location, match } = this.props
 
         let classCode = getClassCode(match.params.classCode)
 
@@ -150,8 +150,8 @@ class Skills extends React.PureComponent {
                                 render={() => <SkillBuildList user match={match} />}
                             />
                         ) : (
-                            <Redirect from="/skills/:classCode/my-builds" to="/skills/:classCode" />
-                        )}
+                                <Redirect from="/skills/:classCode/my-builds" to="/skills/:classCode" />
+                            )}
                         <Route
                             exact
                             path="/skills/:classCode/:buildLink"
@@ -170,7 +170,7 @@ class Skills extends React.PureComponent {
         }
 
         return (
-            <Fade className="skills">
+            <div className="skills">
                 <Helmet>
                     <title>{`${t(getPath(location.pathname))} - ${t(classCode)} | BnSTree`}</title>
                     <meta name="description" content="Skill information and builds" />
@@ -180,11 +180,13 @@ class Skills extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <div className="container">
-                    <Header location={location} match={match} />
-                    {content}
-                </div>
-            </Fade>
+                <Fade>
+                    <div className="container">
+                        <Header location={location} match={match} />
+                        {content}
+                    </div>
+                </Fade>
+            </div>
         )
     }
 }

@@ -1,13 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 
 import ItemSubMenu from './ItemSubMenu'
 import ItemListItem from './ItemListItem'
 
-import {sortedItemDataSelector} from '../selectors'
+import { sortedItemDataSelector } from '../selectors'
 
-import {Tabs} from 'antd'
+import { Tabs } from 'antd'
 const TabPane = Tabs.TabPane
 
 const mapStateToProps = state => {
@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 }
 
 const BadgeList = props => {
-    const {t, data} = props
+    const { t, data } = props
 
     let tabs = []
     data.forEach((group, key) => {

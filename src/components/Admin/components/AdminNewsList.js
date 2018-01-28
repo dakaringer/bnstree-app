@@ -1,13 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {List} from 'immutable'
-import {Fade} from 'react-reveal'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { List } from 'immutable'
 
-import {Pagination, Button} from 'antd'
+import { Link } from 'react-router-dom'
 
-import {loadNews} from '../../News/actions'
-import {listSelector} from '../../News/selectors'
+import { Pagination, Button } from 'antd'
+
+import { loadNews } from '../../News/actions'
+import { listSelector } from '../../News/selectors'
 
 const mapStateToProps = state => {
     return {
@@ -27,7 +27,7 @@ class AdminNewsList extends React.PureComponent {
     }
 
     render() {
-        let {list, loadNews} = this.props
+        let { list, loadNews } = this.props
 
         let rows = []
         list.get('list', List()).forEach((article, i) => {
@@ -47,7 +47,7 @@ class AdminNewsList extends React.PureComponent {
         })
 
         return (
-            <Fade className="admin-news-list">
+            <div className="admin-news-list">
                 <div className="admin-news-submenu">
                     <Button ghost type="primary" size="small">
                         <Link to={'/editor'}>New Article</Link>
@@ -63,7 +63,7 @@ class AdminNewsList extends React.PureComponent {
                     pageSize={list.get('limit', 10)}
                     onChange={p => loadNews(p)}
                 />
-            </Fade>
+            </div>
         )
     }
 }

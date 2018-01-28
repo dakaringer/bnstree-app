@@ -1,20 +1,21 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import moment from 'moment'
-import {translate} from 'react-i18next'
-import {Helmet} from 'react-helmet'
-import {Fade} from 'react-reveal'
+import { translate } from 'react-i18next'
+import { Helmet } from 'react-helmet'
+import { animateScroll } from 'react-scroll'
+import Fade from 'react-reveal/Fade'
 
-import {Row, Col} from 'antd'
+import { Row, Col } from 'antd'
 
 import AdSense from '../../AdSense/AdSense'
 import ErrorMessage from '../../Error/ErrorMessage'
 import Article from '../../Editor/components/Article'
 import NewsList from './NewsList'
 
-import {loadNameData} from '../../References/actions'
-import {articleSelector} from '../selectors'
-import {loadArticle} from '../actions'
+import { loadNameData } from '../../References/actions'
+import { articleSelector } from '../selectors'
+import { loadArticle } from '../actions'
 
 const mapStateToProps = state => {
     return {
@@ -31,14 +32,15 @@ const mapDispatchToProps = dispatch => {
 
 class NewsViewer extends React.PureComponent {
     componentWillMount() {
-        const {loadNames, loadArticle, match} = this.props
+        const { loadNames, loadArticle, match } = this.props
 
         loadNames('en')
         loadArticle(match.params.id)
     }
 
     componentWillReceiveProps(nextProps) {
-        const {loadArticle, match} = this.props
+        const { loadArticle, match } = this.props
+        animateScroll.scrollToTop()
 
         if (nextProps.match.params.id !== match.params.id) {
             loadArticle(nextProps.match.params.id)
@@ -46,7 +48,7 @@ class NewsViewer extends React.PureComponent {
     }
 
     render() {
-        const {t, article} = this.props
+        const { t, article } = this.props
 
         let content = null
         if (article) {
@@ -86,7 +88,7 @@ class NewsViewer extends React.PureComponent {
         }
 
         return (
-            <Fade>
+            <div>
                 <Helmet>
                     <title>{`${article ? article.get('title') : 'Not Found'} - ${t(
                         'news'
@@ -98,7 +100,9 @@ class NewsViewer extends React.PureComponent {
                 </Helmet>
                 <Row className="news-viewer" gutter={16}>
                     <Col md={18}>
-                        <div className="news-article">{content}</div>
+                        <Fade>
+                            <div className="news-article">{content}</div>
+                        </Fade>
                     </Col>
                     <Col className="news-list-side" md={6}>
                         <div>
@@ -114,7 +118,7 @@ class NewsViewer extends React.PureComponent {
                         </div>
                     </Col>
                 </Row>
-            </Fade>
+            </div>
         )
     }
 }

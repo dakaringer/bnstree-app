@@ -1,8 +1,9 @@
 import React from 'react'
-import {Helmet} from 'react-helmet'
-import {Fade} from 'react-reveal'
-import {animateScroll} from 'react-scroll'
-import {Row, Col} from 'antd'
+import { Helmet } from 'react-helmet'
+import Fade from 'react-reveal/Fade'
+
+import { animateScroll } from 'react-scroll'
+import { Row, Col } from 'antd'
 
 import './styles/Admin.scss'
 
@@ -17,22 +18,24 @@ class Admin extends React.PureComponent {
 
     render() {
         return (
-            <Fade className="admin container">
+            <div className="admin container">
                 <Helmet>
                     <title>Admin | BnSTree</title>
                 </Helmet>
                 <Header />
-                <div className="main-container">
-                    <Row gutter={16}>
-                        <Col sm={6}>
-                            <AdminSideMenu />
-                        </Col>
-                        <Col sm={18}>
-                            <AdminMainMenu />
-                        </Col>
-                    </Row>
-                </div>
-            </Fade>
+                <Fade>
+                    <div className="main-container">
+                        <Row gutter={16}>
+                            <Col sm={6}>
+                                <AdminSideMenu />
+                            </Col>
+                            <Col sm={18}>
+                                <AdminMainMenu />
+                            </Col>
+                        </Row>
+                    </div>
+                </Fade>
+            </div>
         )
     }
 }

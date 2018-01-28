@@ -1,11 +1,11 @@
 import React from 'react'
 import Delay from 'react-delay'
-import {Fade} from 'react-reveal'
+
 
 class GoogleAdUnit extends React.PureComponent {
     componentDidMount() {
         try {
-            ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+            ; (window.adsbygoogle = window.adsbygoogle || []).push({})
         } catch (error) {
             console.error(error)
         }
@@ -19,13 +19,13 @@ class GoogleAdUnit extends React.PureComponent {
 
     render() {
         return (
-            <Fade style={this.props.wrapperDivStyle} className="adBlock">
+            <div style={this.props.wrapperDivStyle} className="adBlock">
                 <ins
                     className="adsbygoogle"
-                    style={{display: 'block', textAlign: 'center', ...this.props.style}}
+                    style={{ display: 'block', textAlign: 'center', ...this.props.style }}
                     {...this.props}
                 />
-            </Fade>
+            </div>
         )
     }
 }

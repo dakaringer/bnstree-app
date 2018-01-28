@@ -1,8 +1,7 @@
 import React from 'react'
-import {translate} from 'react-i18next'
-import {Helmet} from 'react-helmet'
-import {Fade} from 'react-reveal'
-import {animateScroll} from 'react-scroll'
+import { translate } from 'react-i18next'
+import { Helmet } from 'react-helmet'
+import { animateScroll } from 'react-scroll'
 
 import './styles/Stream.scss'
 
@@ -16,10 +15,10 @@ class Streams extends React.PureComponent {
     }
 
     render() {
-        const {t} = this.props
+        const { t } = this.props
 
         return (
-            <Fade className="stream">
+            <div className="stream">
                 <Helmet>
                     <title>{`${t('streams')} | BnSTree`}</title>
                     <meta name="description" content="Live streams of Blade & Soul on Twitch.tv!" />
@@ -40,7 +39,7 @@ class Streams extends React.PureComponent {
                         />
                     </div>
                 </div>
-            </Fade>
+            </div>
         )
     }
 }
