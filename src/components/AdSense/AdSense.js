@@ -1,6 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Delay from 'react-delay'
 
+import { userSelector } from '../../selectors'
+
+const mapStateToProps = state => {
+    return {
+        user: userSelector(state)
+    }
+}
 
 class GoogleAdUnit extends React.PureComponent {
     componentDidMount() {
@@ -31,11 +39,17 @@ class GoogleAdUnit extends React.PureComponent {
 }
 
 const GoogleAd = props => {
+    const { user, dispatch, ...ad } = props
+
+    if (user && user.getIn(['role', 'adminLevel'], 0) > 4) {
+        return null
+    }
+
     return (
         <Delay wait={1000}>
-            <GoogleAdUnit {...props} />
+            <GoogleAdUnit {...ad} />
         </Delay>
     )
 }
 
-export default GoogleAd
+export default connect(mapStateToProps)(GoogleAd)
