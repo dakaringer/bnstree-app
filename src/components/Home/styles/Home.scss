@@ -127,6 +127,7 @@
             height: auto;
             border-radius: 0.1rem;
             border: none;
+            background: rgba(50, 50, 50, 0.8);
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -142,16 +143,12 @@
                 vertical-align: middle;
             }
 
-            &.bns {
-                background: maroon;
-            }
-
-            &.reddit {
-                background: darkorange;
+            &.reddit, &.bns {
+                color: darkorange;
             }
 
             &.discord {
-                background: royalblue;
+                color: deepskyblue;
             }
 
             &:hover {
