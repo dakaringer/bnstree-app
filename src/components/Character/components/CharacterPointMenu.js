@@ -1,28 +1,50 @@
 import React from 'react'
-import {translate} from 'react-i18next'
+import { translate } from 'react-i18next'
 
 import attackImg from '../images/hm_attack.png'
 import healthImg from '../images/hm_health.png'
 import defenseImg from '../images/hm_defense.png'
 
+const steps = [10, 20, 50, 80, 100, 115, 125]
+
 const attack = {
     statTypes: ['attack_power_value', 'elementDamage'],
     m1: [attackImg, v => v],
     m2: [attackImg, v => v * 2],
-    sub: [[60, 60], [40, 50], [20, 30], [10, 20]]
+    sub: [[60, 60], [40, 50], 'attack50Effect', [20, 30], [15, 20], [10, 15], 'attack125Effect']
 }
 
 const defense = {
     statTypes: ['max_hp', 'defend_power_value'],
     m1: [healthImg, v => v * 250],
     m2: [defenseImg, v => v * 5],
-    sub: [[20000, 105], [15000, 85], [10000, 45], [5000, 30]]
+    sub: [[20000, 150], [15000, 120], 'defense50Effect', [10000, 90], [6000, 60], [4000, 45], 'defense125Effect']
 }
 
 const CharacterPointMenu = props => {
-    const {t, points, type} = props
+    const { t, points, type } = props
 
     let stats = type === 'attack' ? attack : defense
+
+    let additionalEffects = []
+    steps.forEach((step, i) => {
+        let effect = null
+        if (typeof stats.sub[i] === 'string') {
+            effect = t(stats.sub[i])
+        }
+        else {
+            effect = `${t(stats.statTypes[0])} +${stats.sub[i][0]}, ${t(stats.statTypes[1])} +${stats.sub[i][1]}`
+        }
+
+        additionalEffects.push(
+            <tr className={points >= step ? 'active' : ''} key={step}>
+                <th>{step}</th>
+                <td>
+                    {effect}
+                </td>
+            </tr>
+        )
+    })
 
     return (
         <div>
@@ -47,42 +69,7 @@ const CharacterPointMenu = props => {
             <h4>{t('additionalEffects')}</h4>
             <table className="additionalEffects">
                 <tbody>
-                    <tr className={points >= 10 ? 'active' : ''}>
-                        <th>10</th>
-                        <td>
-                            {t(stats.statTypes[0])} +{stats.sub[0][0]}, {t(stats.statTypes[1])} +{
-                                stats.sub[0][1]
-                            }
-                        </td>
-                    </tr>
-                    <tr className={points >= 20 ? 'active' : ''}>
-                        <th>20</th>
-                        <td>
-                            {t(stats.statTypes[0])} +{stats.sub[1][0]}, {t(stats.statTypes[1])} +{
-                                stats.sub[1][1]
-                            }
-                        </td>
-                    </tr>
-                    <tr className={points >= 50 ? 'active' : ''}>
-                        <th>50</th>
-                        <td>{t(`${type}50Effect`)}</td>
-                    </tr>
-                    <tr className={points >= 80 ? 'active' : ''}>
-                        <th>80</th>
-                        <td>
-                            {t(stats.statTypes[0])} +{stats.sub[2][0]}, {t(stats.statTypes[1])} +{
-                                stats.sub[2][1]
-                            }
-                        </td>
-                    </tr>
-                    <tr className={points >= 100 ? 'active' : ''}>
-                        <th>100</th>
-                        <td>
-                            {t(stats.statTypes[0])} +{stats.sub[3][0]}, {t(stats.statTypes[1])} +{
-                                stats.sub[3][1]
-                            }
-                        </td>
-                    </tr>
+                    {additionalEffects}
                 </tbody>
             </table>
         </div>
