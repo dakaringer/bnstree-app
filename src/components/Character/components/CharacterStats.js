@@ -95,6 +95,7 @@ const CharacterStats = props => {
     let hmPoint = 0
     let hmPointMenu = null
     let hmPointExtra = []
+    let extraEffects = []
 
     if (type === 'attack') {
         let a = attackStats.filter(stat => {
@@ -105,14 +106,16 @@ const CharacterStats = props => {
         })
 
         stats = <CharacterStatList stats={a} type="attack" />
-
         hmPoint = statData.getIn(['point_ability', 'offense_point'], 0)
-        hmPointMenu = <CharacterPointMenu points={hmPoint} type="attack" />
 
         hmPointAttackExtra.forEach(e => {
             let [t, i] = e
             let p = statData.getIn(['point_ability', 'picks', i, 'point'], 0)
 
+            if (p !== 0) {
+                extraEffects.push(t)
+            }
+
             hmPointExtra.push(
                 <div className={`hmPoint-item ${p === 0 ? 'disabled' : ''}`} key={t}>
                     <img src={hmPointImages[t]} alt={`hmPoint-${t}`} />
@@ -121,16 +124,19 @@ const CharacterStats = props => {
             )
         })
 
+        hmPointMenu = <CharacterPointMenu points={hmPoint} extraEffects={extraEffects} type="attack" />
     } else {
         stats = <CharacterStatList stats={defenseStats} type="defend" />
-
         hmPoint = statData.getIn(['point_ability', 'defense_point'], 0)
-        hmPointMenu = <CharacterPointMenu points={hmPoint} type="defense" />
 
         hmPointDefenseExtra.forEach(e => {
             let [t, i] = e
             let p = statData.getIn(['point_ability', 'picks', i, 'point'], 0)
 
+            if (p !== 0) {
+                extraEffects.push(t)
+            }
+
             hmPointExtra.push(
                 <div className={`hmPoint-item ${p === 0 ? 'disabled' : ''}`} key={t}>
                     <img src={hmPointImages[t]} alt={`hmPoint-${t}`} />
@@ -138,6 +144,8 @@ const CharacterStats = props => {
                 </div>
             )
         })
+
+        hmPointMenu = <CharacterPointMenu points={hmPoint} extraEffects={extraEffects} type="defense" />
     }
 
     return (
