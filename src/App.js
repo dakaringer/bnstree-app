@@ -1,8 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Route, Switch} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Route, Switch } from 'react-router-dom'
+import Fade from 'react-reveal/Fade'
 
-import {loadingAppSelector, userSelector} from './selectors'
+import { loadingAppSelector, userSelector } from './selectors'
 
 import NavBar from './components/NavBar/NavBar'
 import LoadingLyn from './components/LoadingLyn/LoadingLyn'
@@ -24,12 +25,12 @@ function asyncComponent(getComponent) {
             if (!this.state.Component) {
                 getComponent().then(Component => {
                     AsyncComponent.Component = Component
-                    this.setState({Component})
+                    this.setState({ Component })
                 })
             }
         }
         render() {
-            const {Component} = this.state
+            const { Component } = this.state
             if (Component) {
                 return <Component {...this.props} />
             }
@@ -115,12 +116,12 @@ class App extends React.PureComponent {
     }
 
     componentDidCatch(error, info) {
-        this.setState({hasError: true})
+        this.setState({ hasError: true })
         this.props.persistor.purge()
     }
 
     render() {
-        const {loading, location, user} = this.props
+        const { loading, location, user } = this.props
 
         let year = new Date().getFullYear()
 
@@ -138,46 +139,50 @@ class App extends React.PureComponent {
 
             app = (
                 <div className="App" id="app-root">
-                    <NavBar />
-                    <div className="app-content">
-                        <Switch>
-                            {redirectLinks}
+                    <Fade delay={500} duration={1500}>
+                        <div>
+                            <NavBar />
+                            <div className="app-content">
+                                <Switch>
+                                    {redirectLinks}
 
-                            <Route exact path="/" component={Home} />
+                                    <Route exact path="/" component={Home} />
 
-                            <Route path="/news" component={News} />
-                            <Route path="/skills/:classCode" component={Skills} />
-                            <Route path="/items/:type" component={Items} />
-                            <Route path="/market" component={Market} />
-                            <Route path="/character" component={Character} />
-                            <Route path="/streams" component={Streams} />
+                                    <Route path="/news" component={News} />
+                                    <Route path="/skills/:classCode" component={Skills} />
+                                    <Route path="/items/:type" component={Items} />
+                                    <Route path="/market" component={Market} />
+                                    <Route path="/character" component={Character} />
+                                    <Route path="/streams" component={Streams} />
 
-                            {user && user.getIn(['role', 'type']) === 'admin'
-                                ? [
-                                      <Route exact key="admin" path="/admin" component={Admin} />,
-                                      <Route
-                                          exact
-                                          key="editor-new"
-                                          path="/editor"
-                                          component={Editor}
-                                      />,
-                                      <Route
-                                          key="editor-edit"
-                                          exact
-                                          path="/editor/:id"
-                                          component={Editor}
-                                      />
-                                  ]
-                                : null}
+                                    {user && user.getIn(['role', 'type']) === 'admin'
+                                        ? [
+                                            <Route exact key="admin" path="/admin" component={Admin} />,
+                                            <Route
+                                                exact
+                                                key="editor-new"
+                                                path="/editor"
+                                                component={Editor}
+                                            />,
+                                            <Route
+                                                key="editor-edit"
+                                                exact
+                                                path="/editor/:id"
+                                                component={Editor}
+                                            />
+                                        ]
+                                        : null}
 
-                            {user && user.getIn(['role', 'translator']) ? (
-                                <Route path="/translator" component={Translator} />
-                            ) : null}
+                                    {user && user.getIn(['role', 'translator']) ? (
+                                        <Route path="/translator" component={Translator} />
+                                    ) : null}
 
-                            <Route component={ErrorMessage} />
-                        </Switch>
-                    </div>
-                    <SoybeanSprite />
+                                    <Route component={ErrorMessage} />
+                                </Switch>
+                            </div>
+                            <SoybeanSprite />
+                        </div>
+                    </Fade>
                 </div>
             )
         } else {
