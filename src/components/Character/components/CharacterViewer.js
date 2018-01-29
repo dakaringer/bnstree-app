@@ -116,8 +116,8 @@ class CharacterViewer extends React.PureComponent {
                                     <Row className="character-info-large">
                                         <Col sm={16}>
                                             <div className="character-stats-container">
-                                                <CharacterStats attack />
-                                                <CharacterStats />
+                                                <CharacterStats type='attack' />
+                                                <CharacterStats type='defense' />
                                             </div>
                                         </Col>
                                         <Col sm={8}>
@@ -132,10 +132,10 @@ class CharacterViewer extends React.PureComponent {
                                             <CharacterEquips />
                                         </TabPane>
                                         <TabPane tab={t('statAttack')} key="attack">
-                                            <CharacterStats attack />
+                                            <CharacterStats type='attack' />
                                         </TabPane>
                                         <TabPane tab={t('statDefense')} key="defense">
-                                            <CharacterStats />
+                                            <CharacterStats type='defense' />
                                         </TabPane>
                                     </Tabs>
                                 </TabPane>

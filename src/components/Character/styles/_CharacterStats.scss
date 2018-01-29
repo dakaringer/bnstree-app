@@ -38,9 +38,11 @@
 
         h4 {
             color: white;
-            margin-top: 1rem;
-            font-size: 1.8rem;
+            margin-top: 1.5rem;
+            font-size: 1.5rem;
             font-weight: 300;
+            padding: 0 1rem;
+            border-radius: 1rem;
         }
 
         hr {
@@ -50,14 +52,37 @@
             margin-bottom: 0;
         }
 
-        p {
-            width: 100%;
-            text-align: center;
-            margin: 0;
-            height: 3.5rem;
-            line-height: 3.5rem;
-            opacity: 0.75;
+        .hmPoint {
             cursor: pointer;
+            display: flex;
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            justify-content: space-between;
+            color: white;
+            background: rgba(0, 0, 0, 0.2);
+
+            .hmPoint-item {
+                img {
+                    margin-right: 0.2rem;
+                }
+
+                &.disabled {
+                    filter: brightness(80%);
+                }
+            }
+
+            .hmPoint-extra {
+                display: flex;
+
+                .hmPoint-item {
+                    margin-left: 0.5rem;
+                }
+            }
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.1);
+            }
         }
     }
 
@@ -115,9 +140,14 @@
         padding: 2rem;
     }
 
+    hr {
+        margin: 1.5rem 0;
+    }
+
     h4 {
         color: white;
         margin-bottom: 1rem;
+        font-size: 1.2rem;
     }
 
     p {
@@ -133,16 +163,16 @@
         padding: 0 0.5rem;
 
         img {
-            height: 4rem;
+            height: 3rem;
             margin: -0.5rem;
-            margin-right: 1rem;
+            margin-right: 0.5rem;
             opacity: 0.9;
         }
 
         p {
             margin: 0;
             flex: 1 0;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             padding-right: 1rem;
 
             span {
@@ -162,13 +192,8 @@
         line-height: 1.4rem;
         padding: 0 0.5rem;
 
-        h5 {
-            color: white;
-            margin-bottom: 0.5rem;
-        }
-
         td {
-            padding: 1rem 0;
+            padding: 0.7rem 0;
             font-size: 1.2rem;
         }
 

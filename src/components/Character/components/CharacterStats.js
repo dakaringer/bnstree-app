@@ -1,12 +1,14 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Tooltip} from 'antd'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Tooltip } from 'antd'
 
-import {characterSelector} from '../selectors'
+import { characterSelector } from '../selectors'
 
 import CharacterStatList from './CharacterStatList'
 import CharacterPointMenu from './CharacterPointMenu'
+
+import hmPointImages from '../images/map_hmPointImg'
 
 const mapStateToProps = state => {
     return {
@@ -83,13 +85,18 @@ const classElements = {
     SH: ['attack_attribute_fire_value', 'attack_attribute_void_value']
 }
 
+const hmPointAttackExtra = [['threat', 0], ['energy', 3]]
+const hmPointDefenseExtra = [['regen', 1], ['speed', 2], ['status', 4]]
+
 const CharacterStats = props => {
-    let {t, classCode, statData, attack} = props
+    let { t, classCode, statData, type } = props
 
     let stats = null
-    let point = 0
-    let pointMenu = null
-    if (attack) {
+    let hmPoint = 0
+    let hmPointMenu = null
+    let hmPointExtra = []
+
+    if (type === 'attack') {
         let a = attackStats.filter(stat => {
             return (
                 !stat[0].startsWith('attack_attribute') ||
@@ -99,33 +106,63 @@ const CharacterStats = props => {
 
         stats = <CharacterStatList stats={a} type="attack" />
 
-        point = statData.getIn(['point_ability', 'offense_point'], 0)
-        pointMenu = <CharacterPointMenu points={point} type="attack" />
+        hmPoint = statData.getIn(['point_ability', 'offense_point'], 0)
+        hmPointMenu = <CharacterPointMenu points={hmPoint} type="attack" />
+
+        hmPointAttackExtra.forEach(e => {
+            let [t, i] = e
+            let p = statData.getIn(['point_ability', 'picks', i, 'point'], 0)
+
+            hmPointExtra.push(
+                <div className={`hmPoint-item ${p === 0 ? 'disabled' : ''}`} key={t}>
+                    <img src={hmPointImages[t]} alt={`hmPoint-${t}`} />
+                    {p}P
+                </div>
+            )
+        })
+
     } else {
         stats = <CharacterStatList stats={defenseStats} type="defend" />
 
-        point = statData.getIn(['point_ability', 'defense_point'], 0)
-        pointMenu = <CharacterPointMenu points={point} type="defense" />
+        hmPoint = statData.getIn(['point_ability', 'defense_point'], 0)
+        hmPointMenu = <CharacterPointMenu points={hmPoint} type="defense" />
+
+        hmPointDefenseExtra.forEach(e => {
+            let [t, i] = e
+            let p = statData.getIn(['point_ability', 'picks', i, 'point'], 0)
+
+            hmPointExtra.push(
+                <div className={`hmPoint-item ${p === 0 ? 'disabled' : ''}`} key={t}>
+                    <img src={hmPointImages[t]} alt={`hmPoint-${t}`} />
+                    {p}P
+                </div>
+            )
+        })
     }
 
     return (
-        <div className={`character-stats ${attack ? 'attack' : 'defense'}`}>
+        <div className={`character-stats ${type}`}>
             <div className="mainStat">
-                <h4>{attack ? t('attack_power_value') : t('max_hp')}</h4>
+                <h4>{type === 'attack' ? t('attack_power_value') : t('max_hp')}</h4>
                 <h3 className="mainValue">
-                    {attack
+                    {type === 'attack'
                         ? statData.getIn(['total_ability', 'attack_power_value'], 0)
                         : statData.getIn(['total_ability', 'max_hp'], 0)}
                 </h3>
-                <hr />
                 <Tooltip
                     placement="bottom"
-                    title={pointMenu}
+                    title={hmPointMenu}
                     trigger="click"
                     overlayClassName="hmPointMenu">
-                    <p>
-                        {attack ? t('attackPoints') : t('defensePoints')} {point}P
-                    </p>
+                    <div className="hmPoint">
+                        <div className="hmPoint-main hmPoint-item">
+                            <img src={hmPointImages[type]} alt='hmPoint-attack' />
+                            {hmPoint}P
+                        </div>
+                        <div className="hmPoint-extra">
+                            {hmPointExtra}
+                        </div>
+                    </div>
                 </Tooltip>
             </div>
             <div className="subStatsContainer">{stats}</div>
