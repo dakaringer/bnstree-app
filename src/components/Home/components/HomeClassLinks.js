@@ -1,12 +1,13 @@
 import React from 'react'
-import {translate} from 'react-i18next'
-import {Link} from 'react-router-dom'
+import { translate } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import Fade from 'react-reveal/Fade'
 
 import classImages from '../../Skills/images/map_classImg'
 import classes from '../../NavBar/linkmap_skills'
 
 const HomeClassLinks = props => {
-    const {t} = props
+    const { t } = props
     let links = []
     classes.forEach(c => {
         links.push(
@@ -17,7 +18,13 @@ const HomeClassLinks = props => {
         )
     })
 
-    return <div className="home-class-links">{links}</div>
+    return (
+        <Fade up cascade>
+            <div className="home-class-links">
+                {links}
+            </div>
+        </Fade>
+    )
 }
 
 export default translate('general')(HomeClassLinks)

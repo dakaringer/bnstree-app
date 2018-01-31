@@ -55,7 +55,7 @@ const SkillList = props => {
 
     return (
         <StickyContainer className="skill-list">
-            <Fade>
+            <Fade cascade>
                 <div className="list">{list}</div>
             </Fade>
             <div className="hotkey-bar-wrapper">
