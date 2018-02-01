@@ -19,7 +19,7 @@ const HomeClassLinks = props => {
     })
 
     return (
-        <Fade up cascade>
+        <Fade cascade>
             <div className="home-class-links">
                 {links}
             </div>
