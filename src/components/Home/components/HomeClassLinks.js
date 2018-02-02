@@ -19,7 +19,7 @@ const HomeClassLinks = props => {
     })
 
     return (
-        <Fade cascade>
+        <Fade cascade duration={2000}>
             <div className="home-class-links">
                 {links}
             </div>

@@ -73,7 +73,7 @@ class Home extends React.PureComponent {
                 <div className="home-bottom">
                     <HomeClassLinks />
                     <div className="home-container container">
-                        <Fade delay={500} duration={500}>
+                        <Fade duration={1500}>
                             <div>
                                 <HomeNewsList />
                             </div>
@@ -83,7 +83,7 @@ class Home extends React.PureComponent {
                             data-ad-slot="2719129989"
                             data-ad-format="auto"
                         />
-                        <Fade delay={500} duration={500}>
+                        <Fade duration={1500}>
                             <div className="home-market">
                                 <h3>
                                     {t('market')}{' '}
@@ -101,7 +101,7 @@ class Home extends React.PureComponent {
                                 <MarketList />
                             </div>
                         </Fade>
-                        <Fade delay={500} duration={500}>
+                        <Fade duration={1500}>
                             <div className="section-container home-stream">
                                 <h3>
                                     {t('streams')}
@@ -114,7 +114,7 @@ class Home extends React.PureComponent {
                                 <StreamList limit={4} />
                             </div>
                         </Fade>
-                        <Fade delay={500} duration={500}>
+                        <Fade duration={1500}>
                             <div>
                                 <Row className="section-container" gutter={16}>
                                     <Col sm={16}>
