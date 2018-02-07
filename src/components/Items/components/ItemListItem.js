@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import Fade from 'react-reveal/Fade'
 
 import { typeSelector } from '../selectors'
 
@@ -41,31 +40,29 @@ const BadgeListItem = props => {
     }
 
     return (
-        <Fade>
-            <div className={`item-list-item ${type}`}>
-                <Collapse bordered={false}>
-                    <Panel
-                        header={
-                            <div className="item-header">
-                                <img
-                                    className="item-icon"
-                                    alt={item.get('name')}
-                                    src={`https://static.bnstree.com/images/${type}/${item.get(
-                                        'icon',
-                                        'blank'
-                                    )}`}
-                                />
-                                <div className="title">
-                                    <h3 className={`grade_${item.get('grade')}`}>{item.get('name')}</h3>
-                                    <div className="subtitle">{subtitle}</div>
-                                </div>
+        <div className={`item-list-item ${type}`}>
+            <Collapse bordered={false}>
+                <Panel
+                    header={
+                        <div className="item-header">
+                            <img
+                                className="item-icon"
+                                alt={item.get('name')}
+                                src={`https://static.bnstree.com/images/${type}/${item.get(
+                                    'icon',
+                                    'blank'
+                                )}`}
+                            />
+                            <div className="title">
+                                <h3 className={`grade_${item.get('grade')}`}>{item.get('name')}</h3>
+                                <div className="subtitle">{subtitle}</div>
                             </div>
-                        }>
-                        {content}
-                    </Panel>
-                </Collapse>
-            </div>
-        </Fade>
+                        </div>
+                    }>
+                    {content}
+                </Panel>
+            </Collapse>
+        </div>
     )
 }
 
