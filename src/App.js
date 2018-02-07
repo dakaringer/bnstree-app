@@ -8,7 +8,6 @@ import { loadingAppSelector, userSelector } from './selectors'
 import NavBar from './components/NavBar/NavBar'
 import LoadingLyn from './components/LoadingLyn/LoadingLyn'
 import Background from './components/Background/Background'
-import SoybeanSprite from './components/Sprites/SoybeanSprite/SoybeanSprite'
 
 import getRedirects from './redirects'
 
@@ -180,7 +179,6 @@ class App extends React.PureComponent {
                                     <Route component={ErrorMessage} />
                                 </Switch>
                             </div>
-                            <SoybeanSprite />
                         </div>
                     </Fade>
                 </div>
