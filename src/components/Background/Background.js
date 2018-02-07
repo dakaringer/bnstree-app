@@ -3,7 +3,7 @@ import React from 'react'
 
 import './styles/Background.scss'
 
-const MAX_BG = 45
+const MAX_BG = 51
 
 class Background extends React.PureComponent {
     constructor(props) {
