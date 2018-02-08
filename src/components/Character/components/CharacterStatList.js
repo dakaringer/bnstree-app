@@ -1,10 +1,11 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Map } from 'immutable'
 
-import {characterSelector} from '../selectors'
+import { characterSelector } from '../selectors'
 
-import {Collapse} from 'antd'
+import { Collapse } from 'antd'
 const Panel = Collapse.Panel
 
 const mapStateToProps = state => {
@@ -14,7 +15,8 @@ const mapStateToProps = state => {
 }
 
 const CharacterStatItem = props => {
-    const {t, statData, stats, type} = props
+    let { t, statData, stats, type } = props
+    statData = statData || Map()
 
     let list = []
 
@@ -64,7 +66,7 @@ const CharacterStatItem = props => {
                 <span>{t(stat[0])}</span>
                 <span className="mainValue">
                     {stat[0] === `${type}_stiff_duration_level`
-                        ? `${t('level', {level: statData.getIn(['total_ability', stat[0]], 0)})} `
+                        ? `${t('level', { level: statData.getIn(['total_ability', stat[0]], 0) })} `
                         : ''}
                     {stat[0] !== `${type}_stiff_duration_level`
                         ? statData.getIn(['total_ability', stat[0]], 0)

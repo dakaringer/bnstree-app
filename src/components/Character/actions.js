@@ -1,11 +1,11 @@
 import * as actionType from './actionTypes'
-import {Map} from 'immutable'
-import {makeActionCreator} from '../../helpers'
-import {setLoading, setViewOption, setRecentSearch} from '../../actions'
-import apollo, {q} from '../../apollo'
+import { Map } from 'immutable'
+import { makeActionCreator } from '../../helpers'
+import { setLoading, setViewOption, setRecentSearch } from '../../actions'
+import apollo, { q } from '../../apollo'
 
-import {setCharacterMode, loadSkills, selectPatch} from '../Skills/actions'
-import {patchListSelector} from '../References/selectors'
+import { setCharacterMode, loadSkills, selectPatch } from '../Skills/actions'
+import { patchListSelector } from '../References/selectors'
 
 //Action creators
 export const setTab = makeActionCreator(actionType.SET_CHARACTER_TAB, 'tab')

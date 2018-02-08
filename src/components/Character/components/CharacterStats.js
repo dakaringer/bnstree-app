@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { Tooltip } from 'antd'
+import { Map } from 'immutable'
 
 import { characterSelector } from '../selectors'
 
@@ -90,6 +91,7 @@ const hmPointDefenseExtra = [['regen', 1], ['speed', 2], ['status', 4]]
 
 const CharacterStats = props => {
     let { t, classCode, statData, type } = props
+    statData = statData || Map()
 
     let stats = null
     let hmPoint = 0
