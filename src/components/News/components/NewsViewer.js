@@ -4,7 +4,6 @@ import moment from 'moment'
 import { translate } from 'react-i18next'
 import { Helmet } from 'react-helmet'
 import { animateScroll } from 'react-scroll'
-import Fade from 'react-reveal/Fade'
 
 import { Row, Col } from 'antd'
 
@@ -100,9 +99,7 @@ class NewsViewer extends React.PureComponent {
                 </Helmet>
                 <Row className="news-viewer" gutter={16}>
                     <Col md={18}>
-                        <Fade>
-                            <div className="news-article">{content}</div>
-                        </Fade>
+                        <div className="news-article">{content}</div>
                     </Col>
                     <Col className="news-list-side" md={6}>
                         <div>
