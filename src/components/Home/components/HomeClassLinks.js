@@ -1,7 +1,6 @@
 import React from 'react'
 import { translate } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import Fade from 'react-reveal/Fade'
 
 import classImages from '../../Skills/images/map_classImg'
 import classes from '../../NavBar/linkmap_skills'
@@ -19,11 +18,9 @@ const HomeClassLinks = props => {
     })
 
     return (
-        <Fade cascade duration={2000}>
-            <div className="home-class-links">
-                {links}
-            </div>
-        </Fade>
+        <div className="home-class-links">
+            {links}
+        </div>
     )
 }
 

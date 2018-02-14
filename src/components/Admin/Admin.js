@@ -1,6 +1,5 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
-import Fade from 'react-reveal/Fade'
 
 import { animateScroll } from 'react-scroll'
 import { Row, Col } from 'antd'
@@ -23,18 +22,16 @@ class Admin extends React.PureComponent {
                     <title>Admin | BnSTree</title>
                 </Helmet>
                 <Header />
-                <Fade>
-                    <div className="main-container">
-                        <Row gutter={16}>
-                            <Col sm={6}>
-                                <AdminSideMenu />
-                            </Col>
-                            <Col sm={18}>
-                                <AdminMainMenu />
-                            </Col>
-                        </Row>
-                    </div>
-                </Fade>
+                <div className="main-container">
+                    <Row gutter={16}>
+                        <Col sm={6}>
+                            <AdminSideMenu />
+                        </Col>
+                        <Col sm={18}>
+                            <AdminMainMenu />
+                        </Col>
+                    </Row>
+                </div>
             </div>
         )
     }

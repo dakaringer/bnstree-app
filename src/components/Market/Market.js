@@ -4,7 +4,6 @@ import { translate } from 'react-i18next'
 import { Helmet } from 'react-helmet'
 import { Route, Switch } from 'react-router-dom'
 import { animateScroll } from 'react-scroll'
-import Fade from 'react-reveal/Fade'
 
 import { Row, Col } from 'antd'
 
@@ -82,12 +81,10 @@ class Market extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <Fade>
-                    <div className="container">
-                        <Header />
-                        {content}
-                    </div>
-                </Fade>
+                <div className="container">
+                    <Header />
+                    {content}
+                </div>
             </div>
         )
     }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
+import Fade from 'react-reveal/Fade'
 
 import ItemSubMenu from './ItemSubMenu'
 import ItemListItem from './ItemListItem'
@@ -24,8 +25,12 @@ const BadgeList = props => {
         let items = []
         group.forEach((item, id) => items.push(<ItemListItem item={item} itemId={id} key={id} />))
         tabs.push(
-            <TabPane tab={t(key)} key={key} className="item-list">
-                {items}
+            <TabPane tab={t(key)} key={key}>
+                <Fade>
+                    <div className="item-list">
+                        {items}
+                    </div>
+                </Fade>
             </TabPane>
         )
     })

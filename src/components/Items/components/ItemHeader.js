@@ -1,8 +1,8 @@
 import React from 'react'
-import {translate} from 'react-i18next'
-import {NavLink} from 'react-router-dom'
+import { translate } from 'react-i18next'
+import { NavLink } from 'react-router-dom'
 
-import {Icon, Popover} from 'antd'
+import { Icon, Popover } from 'antd'
 
 import items from '../../NavBar/linkmap_items'
 import icon from '../images/GameUI_HeaderIcon_207.png'
@@ -22,7 +22,7 @@ class ItemHeader extends React.PureComponent {
     }
 
     render() {
-        const {t, match} = this.props
+        const { t, match } = this.props
 
         let type = match.params.type || 'items'
 

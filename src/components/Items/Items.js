@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { Route, Switch } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import Fade from 'react-reveal/Fade'
 
 import { animateScroll } from 'react-scroll'
 
@@ -92,12 +91,10 @@ class Items extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <Fade>
-                    <div className="container">
-                        <Header match={match} />
-                        {content}
-                    </div>
-                </Fade>
+                <div className="container">
+                    <Header match={match} />
+                    {content}
+                </div>
             </div>
         )
     }

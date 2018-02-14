@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 import { Route, Switch } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-import Fade from 'react-reveal/Fade'
 
 import { animateScroll } from 'react-scroll'
 
@@ -67,49 +66,47 @@ class Character extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <Fade>
-                    <div className="container">
-                        <Header location={location} match={match} history={history} />
-                        <div className="main-container">
-                            <Switch>
-                                <Route
-                                    exact
-                                    path={'/character/:region'}
-                                    render={() => (
-                                        <CharacterSearch
-                                            center
-                                            recent
-                                            match={match}
-                                            history={history}
-                                        />
-                                    )}
-                                />
-                                <Route
-                                    exact
-                                    path={'/character/:region/:character'}
-                                    component={CharacterViewer}
-                                />
-                                <Route
-                                    render={() => (
-                                        <CharacterSearch
-                                            center
-                                            recent
-                                            match={match}
-                                            history={history}
-                                        />
-                                    )}
-                                />
-                            </Switch>
-                        </div>
-                        <div className="slim-container">
-                            <AdSense
-                                data-ad-client="ca-pub-2048637692232915"
-                                data-ad-slot="2719129989"
-                                data-ad-format="auto"
+                <div className="container">
+                    <Header location={location} match={match} history={history} />
+                    <div className="main-container">
+                        <Switch>
+                            <Route
+                                exact
+                                path={'/character/:region'}
+                                render={() => (
+                                    <CharacterSearch
+                                        center
+                                        recent
+                                        match={match}
+                                        history={history}
+                                    />
+                                )}
                             />
-                        </div>
+                            <Route
+                                exact
+                                path={'/character/:region/:character'}
+                                component={CharacterViewer}
+                            />
+                            <Route
+                                render={() => (
+                                    <CharacterSearch
+                                        center
+                                        recent
+                                        match={match}
+                                        history={history}
+                                    />
+                                )}
+                            />
+                        </Switch>
                     </div>
-                </Fade>
+                    <div className="slim-container">
+                        <AdSense
+                            data-ad-client="ca-pub-2048637692232915"
+                            data-ad-slot="2719129989"
+                            data-ad-format="auto"
+                        />
+                    </div>
+                </div>
             </div>
         )
     }

@@ -3,7 +3,6 @@ import { translate } from 'react-i18next'
 import { Route, Switch } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { animateScroll } from 'react-scroll'
-import Fade from 'react-reveal/Fade'
 
 import './styles/News.scss'
 
@@ -32,22 +31,20 @@ class News extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <Fade>
-                    <div className="container">
-                        <Header />
-                        <div className="main-container">
-                            <Switch>
-                                <Route exact path="/news" render={() => <NewsList />} />
-                                <Route path="/news/:id" component={NewsViewer} />
-                            </Switch>
-                            <AdSense
-                                data-ad-client="ca-pub-2048637692232915"
-                                data-ad-slot="2719129989"
-                                data-ad-format="auto"
-                            />
-                        </div>
+                <div className="container">
+                    <Header />
+                    <div className="main-container">
+                        <Switch>
+                            <Route exact path="/news" render={() => <NewsList />} />
+                            <Route path="/news/:id" component={NewsViewer} />
+                        </Switch>
+                        <AdSense
+                            data-ad-client="ca-pub-2048637692232915"
+                            data-ad-slot="2719129989"
+                            data-ad-format="auto"
+                        />
                     </div>
-                </Fade>
+                </div>
             </div>
         )
     }

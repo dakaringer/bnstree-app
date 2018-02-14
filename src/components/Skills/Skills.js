@@ -4,7 +4,6 @@ import { translate } from 'react-i18next'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import { animateScroll } from 'react-scroll'
-import Fade from 'react-reveal/Fade'
 
 import AdSense from '../AdSense/AdSense'
 
@@ -180,12 +179,10 @@ class Skills extends React.PureComponent {
                     data-ad-slot="6768736382"
                     data-ad-format="auto"
                 />
-                <Fade>
-                    <div className="container">
-                        <Header location={location} match={match} />
-                        {content}
-                    </div>
-                </Fade>
+                <div className="container">
+                    <Header location={location} match={match} />
+                    {content}
+                </div>
             </div>
         )
     }
