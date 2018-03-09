@@ -35,6 +35,7 @@ export default async (req, res, next) => {
                     let desc = ''
                     desc += `Class: ${character.general.className} | `
                     desc += `Level: ${character.general.level[0]}${character.general.level[1] ? ` • HM Level ${character.general.level[1]}` : ''} | `
+                    desc += `Region: ${character.general.region.toUpperCase()} | `
                     desc += `Server: ${character.general.server}`
                     resolve(
                         `
