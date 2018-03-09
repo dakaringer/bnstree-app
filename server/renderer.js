@@ -13,6 +13,28 @@ const characterQuery = gql`
     }
 `
 
+const classElements = {
+    BM: ['attack_attribute_fire_value', 'attack_attribute_lightning_value'],
+    KF: ['attack_attribute_fire_value', 'attack_attribute_wind_value'],
+    DE: ['attack_attribute_earth_value', 'attack_attribute_void_value'],
+    FM: ['attack_attribute_fire_value', 'attack_attribute_ice_value'],
+    AS: ['attack_attribute_lightning_value', 'attack_attribute_void_value'],
+    SU: ['attack_attribute_wind_value', 'attack_attribute_earth_value'],
+    BD: ['attack_attribute_wind_value', 'attack_attribute_lightning_value'],
+    WL: ['attack_attribute_ice_value', 'attack_attribute_void_value'],
+    SF: ['attack_attribute_ice_value', 'attack_attribute_earth_value'],
+    SH: ['attack_attribute_fire_value', 'attack_attribute_void_value']
+}
+
+const elements = {
+    attack_attribute_fire_value: 'Flame DMG',
+    attack_attribute_ice_value: 'Frost DMG',
+    attack_attribute_wind_value: 'Wind DMG',
+    attack_attribute_earth_value: 'Earth DMG',
+    attack_attribute_lightning_value: 'Lightning DMG',
+    attack_attribute_void_value: 'Shadow DMG'
+}
+
 export default async (req, res, next) => {
     let name = req.params.name
     let region = req.params.region
@@ -33,15 +55,21 @@ export default async (req, res, next) => {
                 let character = json.data.Character
                 if (!character.notFound) {
                     let desc = ''
-                    desc += `Class: ${character.general.className} | `
-                    desc += `Level: ${character.general.level[0]}${character.general.level[1] ? ` • HM Level ${character.general.level[1]}` : ''} | `
-                    desc += `Region: ${character.general.region.toUpperCase()} | `
-                    desc += `Server: ${character.general.server}`
+                    desc += `Level: ${character.general.level[0]}${character.general.level[1] ? ` • HM ${character.general.level[1]}` : ''} | `
+                    desc += `AP: ${character.statData.total_ability.attack_power_value} | `
+                    desc += `CHR: ${character.statData.total_ability.attack_critical_rate}% | `
+                    desc += `CHD: ${character.statData.total_ability.attack_critical_damage_rate}% | `
+
+                    classElements[character.classCode].forEach(e => {
+                        let rate = character.statData.total_ability[e.substr(0, e.length - 5) + 'rate']
+                        desc += `${elements[e]} ${rate}% | `
+                    })
+
                     resolve(
                         `
                         <meta property="og:site_name" content="BnSTree">
-                        <meta property="og:title" content="${character.general.name}" />
-                        <meta property="og:image" content="${character.general.profileImg}" />
+                        <meta property="og:title" content="${character.general.name} | ${character.general.className} | ${character.general.region.toUpperCase()}-${character.general.server}" />
+                        <meta property="og:image" content="https://static.bnstree.com/images/class/${character.general.classCode}.png" />
                         <meta property="og:description" content="${desc}" />
                         `
                     )
