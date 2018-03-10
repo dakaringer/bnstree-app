@@ -60,7 +60,7 @@ export default async (req, res, next) => {
                     desc += `CHR: ${character.statData.total_ability.attack_critical_rate}% | `
                     desc += `CHD: ${character.statData.total_ability.attack_critical_damage_rate}% | `
 
-                    classElements[character.classCode].forEach(e => {
+                    classElements[character.general.classCode].forEach(e => {
                         let rate = character.statData.total_ability[e.substr(0, e.length - 5) + 'rate']
                         desc += `${elements[e]} ${rate}% | `
                     })
