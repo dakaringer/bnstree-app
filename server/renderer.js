@@ -27,12 +27,12 @@ const classElements = {
 }
 
 const elements = {
-    attack_attribute_fire_value: 'Flame DMG',
-    attack_attribute_ice_value: 'Frost DMG',
-    attack_attribute_wind_value: 'Wind DMG',
-    attack_attribute_earth_value: 'Earth DMG',
-    attack_attribute_lightning_value: 'Lightning DMG',
-    attack_attribute_void_value: 'Shadow DMG'
+    attack_attribute_fire_value: 'Flame Damage',
+    attack_attribute_ice_value: 'Frost Damage',
+    attack_attribute_wind_value: 'Wind Damage',
+    attack_attribute_earth_value: 'Earth Damage',
+    attack_attribute_lightning_value: 'Lightning Damage',
+    attack_attribute_void_value: 'Shadow Damage'
 }
 
 export default async (req, res, next) => {
@@ -55,7 +55,6 @@ export default async (req, res, next) => {
                 let character = json.data.Character
                 if (!character.notFound) {
                     let desc = ''
-                    desc += `Level: ${character.general.level[0]}${character.general.level[1] ? ` • HM ${character.general.level[1]}` : ''} | `
                     desc += `AP: ${character.statData.total_ability.attack_power_value} | `
                     desc += `CHR: ${character.statData.total_ability.attack_critical_rate}% | `
                     desc += `CHD: ${character.statData.total_ability.attack_critical_damage_rate}% | `
@@ -64,11 +63,12 @@ export default async (req, res, next) => {
                         let rate = character.statData.total_ability[e.substr(0, e.length - 5) + 'rate']
                         desc += `${elements[e]} ${rate}% | `
                     })
+                    desc = desc.slice(0, -3)
 
                     resolve(
                         `
                         <meta property="og:site_name" content="BnSTree">
-                        <meta property="og:title" content="${character.general.name} | ${character.general.className} | ${character.general.region.toUpperCase()}-${character.general.server}" />
+                        <meta property="og:title" content="${character.general.name} | Level ${character.general.level[0]}${character.general.level[1] ? ` • HM ${character.general.level[1]}` : ''} ${character.general.className} | ${character.general.region.toUpperCase()}-${character.general.server}" />
                         <meta property="og:image" content="https://static.bnstree.com/images/class/${character.general.classCode}.png" />
                         <meta property="og:description" content="${desc}" />
                         `
