@@ -2,6 +2,7 @@ import serverRenderer from './renderer'
 
 const express = require('express')
 const path = require('path')
+const fs = require("fs")
 const helmet = require('helmet')
 const compression = require('compression')
 
@@ -10,10 +11,28 @@ const router = express.Router()
 app.use(helmet())
 app.use(compression())
 
-app.get('/character/:region/:name', serverRenderer)
+let buildPath = process.env.NODE_ENV === 'production' ? 'build_final' : 'build'
 
-let buildPath = process.env.NODE_ENV === 'production' ? './build_final' : './build'
-app.use(express.static(path.join(__dirname, '..', buildPath)))
+app.use(express.static(
+    path.resolve(__dirname, '..', buildPath),
+    { maxAge: '30d' }
+))
+
+app.get('/character/:region/:name', serverRenderer)
+app.get('*', (req, res, next) => {
+    const filePath = path.resolve(__dirname, '..', buildPath, 'index.html')
+
+    fs.readFile(filePath, 'utf8', (err, htmlData) => {
+        if (err) {
+            console.error('err', err);
+            return res.status(404).end()
+        }
+
+        return res.send(
+            htmlData
+        )
+    })
+})
 
 app.use(router)
 

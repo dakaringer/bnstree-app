@@ -42,7 +42,6 @@ export default async (req, res, next) => {
     let buildPath = process.env.NODE_ENV === 'production' ? 'build_final' : 'build'
     const filePath = path.resolve(__dirname, '..', buildPath, 'index.html')
 
-
     let metadata = await new Promise((resolve, reject) => {
         gqlClient
             .query({
