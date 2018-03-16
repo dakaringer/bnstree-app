@@ -1,4 +1,5 @@
-import serverRenderer from './renderer'
+import characterRenderer from './characterRenderer'
+import articleRenderer from './articleRenderer'
 
 const express = require('express')
 const path = require('path')
@@ -18,7 +19,8 @@ app.use(express.static(
     { maxAge: '30d' }
 ))
 
-app.get('/character/:region/:name', serverRenderer)
+app.get('/character/:region/:name', characterRenderer)
+app.get('/news/:id/*', articleRenderer)
 app.get('*', (req, res, next) => {
     const filePath = path.resolve(__dirname, '..', buildPath, 'index.html')
 
