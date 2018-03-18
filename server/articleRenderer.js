@@ -30,7 +30,6 @@ export default async (req, res, next) => {
                 }
             }).then(json => {
                 let article = json.data.Articles.article
-                console.log(article)
                 if (article) {
                     resolve(
                         `
