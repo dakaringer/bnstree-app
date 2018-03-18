@@ -21,6 +21,10 @@
             display: flex;
             align-items: center;
             flex-direction: column;
+
+            .description {
+                font-size: 1.8rem;
+            }
         }
 
         .character-build-element {

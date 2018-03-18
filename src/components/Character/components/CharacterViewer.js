@@ -155,8 +155,9 @@ class CharacterViewer extends React.PureComponent {
                 )
             } else {
                 let message = t('noCharacter')
+                let desc = null
                 if (character.getIn(['general', 'nameChanged'], false)) {
-                    message = t('nameChanged')
+                    desc = t('nameChanged')
                 }
                 if (character.getIn(['general', 'unavailable'], false)) {
                     message = t('serverUnavailable')
@@ -164,7 +165,8 @@ class CharacterViewer extends React.PureComponent {
 
                 content = (
                     <div className="character-not-found">
-                        <p>{message}</p>
+                        <p className="message">{message}</p>
+                        <p className="description">{desc}</p>
                     </div>
                 )
             }
