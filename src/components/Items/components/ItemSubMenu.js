@@ -1,35 +1,35 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Map} from 'immutable'
-import {translate} from 'react-i18next'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 
 import classImages from '../images/map_classImg'
 import classes from '../../NavBar/linkmap_skills'
 
-import {viewSelector} from '../../../selectors'
-import {searchSelector} from '../selectors'
-import {setSearch, setFilter} from '../actions'
+import { viewSelector } from '../../../selectors'
+import { searchSelector } from '../selectors'
+import { setSearch, setFilter } from '../actions'
 
 import ItemPatchMenu from './ItemPatchMenu'
 
-import {Icon, Checkbox} from 'antd'
+import { Icon, Radio } from 'antd'
+const RadioGroup = Radio.Group
 
 const mapStateToProps = state => {
     return {
         search: searchSelector(state),
-        filter: viewSelector(state).get('itemFilter', Map())
+        filter: viewSelector(state).get('itemFilter', 'ALL')
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         setSearch: value => dispatch(setSearch(value)),
-        setFilter: (classCode, value) => dispatch(setFilter(classCode, value))
+        setFilter: (value) => dispatch(setFilter(value))
     }
 }
 
 const ItemSubMenu = props => {
-    const {t, search, filter, setSearch, setFilter} = props
+    const { t, search, filter, setSearch, setFilter } = props
 
     let clear = search ? (
         <Icon onClick={() => setSearch('')} className="clear" type="close" />
@@ -38,13 +38,12 @@ const ItemSubMenu = props => {
     let filters = []
     classes.forEach(c => {
         filters.push(
-            <span className="class-filter sub-menu-item" key={c[0]}>
-                <Checkbox
-                    checked={filter.get(c[0], false)}
-                    onChange={e => setFilter(c[0], e.target.checked)}>
-                    <img alt={c[1]} src={classImages[c[0]]} />
-                </Checkbox>
-            </span>
+            <Radio
+                value={c[0]}
+                className="class-filter sub-menu-item"
+                key={c[0]}>
+                <img alt={c[1]} src={classImages[c[0]]} />
+            </Radio>
         )
     })
 
@@ -61,7 +60,18 @@ const ItemSubMenu = props => {
                         {clear}
                     </div>
                 </div>
-                <div className="class-filters sub-menu-group">{filters}</div>
+                <RadioGroup
+                    className="class-filters sub-menu-group"
+                    onChange={e => setFilter(e.target.value)}
+                    value={filter}>
+                    <Radio
+                        value="ALL"
+                        className="class-filter sub-menu-item"
+                        key="ALL">
+                        {t('all')}
+                    </Radio>
+                    {filters}
+                </RadioGroup>
             </div>
             <div className="sub-menu-right">
                 <ItemPatchMenu />

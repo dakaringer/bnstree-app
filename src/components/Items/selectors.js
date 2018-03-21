@@ -1,8 +1,8 @@
-import {createSelector} from 'reselect'
-import {Map, List} from 'immutable'
+import { createSelector } from 'reselect'
+import { Map, List } from 'immutable'
 
-import {viewSelector} from '../../selectors'
-import {itemNamesSelector, itemNamesSelectorEN, patchListSelector} from '../References/selectors'
+import { viewSelector } from '../../selectors'
+import { itemNamesSelector, itemNamesSelectorEN, patchListSelector } from '../References/selectors'
 
 const classOrder = ['BM', 'KF', 'DE', 'FM', 'AS', 'SU', 'BD', 'WL', 'SF', 'SH']
 
@@ -134,15 +134,11 @@ const filteredItemDataSelector = createSelector(
     viewSelector,
     searchSelector,
     (data, view, search) => {
-        let filter = view.get('itemFilter', Map())
-        let checked = false
-        filter.forEach(check => {
-            checked = check || checked
-        })
-        if (checked) {
+        let filter = view.get('itemFilter', 'ALL')
+        if (filter !== 'ALL') {
             data = data.filter(item => {
                 let classCode = item.get('classCode', 'ALL')
-                return classCode === 'ALL' || filter.get(classCode, false)
+                return classCode === 'ALL' || classCode === filter
             })
         }
         if (search.trim() !== '') {

@@ -1,8 +1,8 @@
 import * as actionType from './actionTypes'
-import {makeActionCreator} from './helpers'
+import { makeActionCreator } from './helpers'
 import i18n from './i18n'
-import {currentLanguageSelector} from './selectors'
-import apollo, {q} from './apollo'
+import { currentLanguageSelector } from './selectors'
+import apollo, { q } from './apollo'
 
 const setLanguage = makeActionCreator(actionType.GENERAL_SET_LANGUAGE, 'language')
 const setUser = makeActionCreator(actionType.GENERAL_SET_USER, 'user')
@@ -32,7 +32,7 @@ const initialQuery = q`query ($language: String!) {
             marketRegion
             characterRegion
             classElement: classElements
-            itemFilter: itemFilters
+            itemFilter: itemFilter
         }
         loggedIn
         language (language: $language)
@@ -62,7 +62,7 @@ const viewMutation = q`mutation (
     $marketRegion: String
     $characterRegion: String
     $classElement: ClassElementInput
-    $itemFilter: ItemFilterInput
+    $itemFilter: String
 ) {
     User {
         setView(
@@ -107,7 +107,7 @@ export function setUILanguage(language) {
         apollo
             .mutate({
                 mutation: languageMutation,
-                variables: {language: language}
+                variables: { language: language }
             })
             .then(json => {
                 i18n.changeLanguage(json.data.User.setLanguage)
@@ -129,10 +129,6 @@ export function setViewOption(option, payload) {
             case 'classElement':
                 context = [option, payload.classCode]
                 value = payload.element
-                break
-            case 'itemFilter':
-                context = [option, payload.classCode]
-                value = payload.filter
                 break
             default:
                 context = option
