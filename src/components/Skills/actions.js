@@ -1,11 +1,11 @@
 import * as actionType from './actionTypes'
-import {Map, List} from 'immutable'
+import { Map, List } from 'immutable'
 import i18n from '../../i18n'
-import {message} from 'antd'
-import apollo, {q} from '../../apollo'
+import { message } from 'antd'
+import apollo, { q } from '../../apollo'
 
-import {makeActionCreator, flatten} from '../../helpers'
-import {setLoading, setViewOption} from '../../actions'
+import { makeActionCreator, flatten } from '../../helpers'
+import { setLoading, setViewOption } from '../../actions'
 import {
     classSelector,
     buildElementSelector,
@@ -17,7 +17,7 @@ import {
     patchSelector,
     buildFormatSelector
 } from './selectors'
-import {userSelector, viewSelector} from '../../selectors'
+import { userSelector, viewSelector } from '../../selectors'
 
 const setClass = makeActionCreator(actionType.SKILL_UI_SET_CLASS, 'classCode')
 export const setFilter = makeActionCreator(actionType.SKILL_UI_SET_FILTER, 'filter')
@@ -154,8 +154,8 @@ const skillPatchQuery = q`query ($patch: Int!, $classCode: String!) {
         skillData(classCode: $classCode) {
             skillPatches(patch: $patch) {
                 patch
-                skill
-                skillGroup
+                type
+                data
             }
         }
     }

@@ -1,9 +1,9 @@
-import {createSelector} from 'reselect'
-import {Map, List, fromJS} from 'immutable'
+import { createSelector } from 'reselect'
+import { Map, List, fromJS } from 'immutable'
 
-import {viewSelector} from '../../selectors'
-import {patchListSelector, skillNamesSelector, skillNamesSelectorEN} from '../References/selectors'
-import {characterSelector} from '../Character/selectors'
+import { viewSelector } from '../../selectors'
+import { patchListSelector, skillNamesSelector, skillNamesSelectorEN } from '../References/selectors'
+import { characterSelector } from '../Character/selectors'
 
 const keyOrder = [
     'LB',
@@ -189,9 +189,9 @@ const skillDataPatchSelector = createSelector(
         data
             .get('skillPatches', Map())
             .get(patch.toString(), List())
-            .filter(patch => patch.get('skill'))
+            .filter(patch => patch.get('type') === 'skill')
             .forEach(p => {
-                let id = p.getIn(['skill', '_id'])
+                let id = p.getIn(['data', '_id'])
                 let patch = list.getIn([id, 'patch'], p.get('patch'))
                 if (patch <= p.get('patch')) {
                     list = list.set(id, p)
@@ -210,9 +210,9 @@ const groupDataPatchSelector = createSelector(
         data = data
             .get('skillPatches', Map())
             .get(patch.toString(), List())
-            .filter(patch => patch.get('skillGroup'))
+            .filter(patch => patch.get('type') === 'skillGroup')
             .forEach(p => {
-                let id = p.getIn(['skillGroup', '_id'])
+                let id = p.getIn(['data', '_id'])
                 let patch = list.getIn([id, 'patch'], p.get('patch'))
                 if (patch <= p.get('patch')) {
                     list = list.set(id, p)
@@ -228,7 +228,7 @@ export const namedPatchDataSelector = createSelector(
     skillNamesSelectorEN,
     (data, names, namesEN) => {
         data = data.map(patch => {
-            let skill = patch.get('skill')
+            let skill = patch.get('data')
             let id = skill.get('skillId')
             let tags = skill.get('tags', List())
             tags = tags.sort((a, b) => tagOrder.indexOf(a) - tagOrder.indexOf(b))
@@ -251,11 +251,9 @@ const patchedGroupDataSelector = createSelector(
     groupDataPatchSelector,
     (data, patchData) => {
         patchData.forEach(patch => {
-            let group = patch.get('skillGroup')
-            if (group) {
-                let id = group.get('_id')
-                data = data.set(id, group)
-            }
+            let group = patch.get('data')
+            let id = group.get('_id')
+            data = data.set(id, group)
         })
         return data
     }
