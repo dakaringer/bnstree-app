@@ -1,19 +1,18 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 
 import elementImages from '../images/map_elementImg2'
 
-import {setViewOption} from '../../../actions'
-import {viewSelector} from '../../../selectors'
-import {buildElementSelector, searchSelector, filterSelector} from '../selectors'
-import {toggleElement, setSearch, setFilter} from '../actions'
+import { setViewOption } from '../../../actions'
+import { viewSelector } from '../../../selectors'
+import { buildElementSelector, searchSelector, filterSelector } from '../selectors'
+import { toggleElement, setSearch, setFilter } from '../actions'
 
-import SkillPatchMenu from './SkillPatchMenu'
 import SkillSettings from './SkillSettings'
 import SkillShareMenu from './SkillShareMenu'
 
-import {Icon, Checkbox, Popover, Radio} from 'antd'
+import { Icon, Checkbox, Popover, Radio } from 'antd'
 const RadioGroup = Radio.Group
 
 const filterList = [
@@ -128,7 +127,6 @@ const SkillSubMenu = props => {
                 </div>
             </div>
             <div className="sub-menu-right">
-                <SkillPatchMenu />
                 <SkillSettings />
                 <SkillShareMenu />
             </div>

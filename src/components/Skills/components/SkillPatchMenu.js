@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Map} from 'immutable'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Map } from 'immutable'
 
 import {
     patchSelector,
@@ -9,12 +9,12 @@ import {
     namedSkillDataSelector,
     classElementDataSelector
 } from '../selectors'
-import {patchListSelector} from '../../References/selectors'
-import {selectPatch} from '../actions'
+import { patchListSelector } from '../../References/selectors'
+import { selectPatch } from '../actions'
 
 import SkillTooltip from './SkillTooltip'
 
-import {Modal, Icon, Menu, Row, Col, Tooltip} from 'antd'
+import { Modal, Icon, Menu, Row, Col, Tooltip } from 'antd'
 
 const mapStateToProps = state => {
     return {
@@ -56,7 +56,7 @@ class SkillPatchMenu extends React.PureComponent {
             classElements,
             selectPatch
         } = this.props
-        const {show} = this.state
+        const { show } = this.state
 
         let patches = []
         patchList.forEach(p => {
@@ -88,14 +88,14 @@ class SkillPatchMenu extends React.PureComponent {
                 let base = baseData.get(id)
                 let move = skill.get('move')
                 let classification =
-                    move > 3 ? t('moveTypeHM', {move: move - 3}) : t('moveType', {move: move})
+                    move > 3 ? t('moveTypeHM', { move: move - 3 }) : t('moveType', { move: move })
                 classification = move ? ` ${classification}` : ''
                 let element = null
                 if (skill.has('elementSpec')) {
                     element = ` (${t(skill.get('elementSpec'))})`
                 }
 
-                if (skill.size > 7) {
+                if (!skill.has('removed')) {
                     let split = false
                     let tooltip = <SkillTooltip moveData={skill} comparisonData={base || skill} />
 
@@ -211,8 +211,8 @@ class SkillPatchMenu extends React.PureComponent {
                                 {changelog.length > 0 ? (
                                     changelog
                                 ) : (
-                                    <p className="no-change">{t('patchNoChange')}</p>
-                                )}
+                                        <p className="no-change">{t('patchNoChange')}</p>
+                                    )}
                             </div>
                         </Col>
                     </Row>
@@ -245,7 +245,7 @@ function filterElement(patch, element) {
 }
 
 const PatchItem = props => {
-    const {tooltip, patch, classification, element, added} = props
+    const { tooltip, patch, classification, element, added } = props
 
     let addText = added ? <span className="added-text">{added}</span> : null
 
