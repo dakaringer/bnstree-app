@@ -1,8 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-import {dropdownStatusSelector} from '../selectors'
-import {handleDropdown} from '../actions'
+import { dropdownStatusSelector } from '../selectors'
+import { handleDropdown } from '../actions'
 
 const mapStateToProps = state => {
     return {
@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const NavBarDropdownLink = props => {
-    let {pathname, dropdown, dropdownStatus, location, handleDropdown} = props
+    let { pathname, dropdown, dropdownStatus, location, handleDropdown } = props
 
     let active = false
     if (pathname) {
@@ -27,10 +27,8 @@ const NavBarDropdownLink = props => {
     }
 
     return (
-        <li
-            className={`main-nav-menu-item ${dropdownStatus === pathname ? 'dropdown-active' : ''}`}
-            onMouseOver={e => handleDropdown(dropdown, e)}>
-            <a className={active ? 'active' : ''}>{props.children}</a>
+        <li className={`main-nav-menu-item ${dropdownStatus === pathname ? 'dropdown-active' : ''}`}>
+            <a className={active ? 'active' : ''} onMouseOver={e => handleDropdown(dropdown, e)}>{props.children}</a>
         </li>
     )
 }
