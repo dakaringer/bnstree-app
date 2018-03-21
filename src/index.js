@@ -2,20 +2,20 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
-import {createStore, applyMiddleware} from 'redux'
-import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly'
-import localForage from 'localforage'
-import {persistStore, autoRehydrate} from 'redux-persist-immutable'
-import {Provider} from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
+//import localForage from 'localforage'
+//import { persistStore } from 'redux-persist'
+import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import {Map} from 'immutable'
-import {BrowserRouter, Route} from 'react-router-dom'
+import { Map } from 'immutable'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 import i18n from './i18n'
-import {I18nextProvider} from 'react-i18next'
+import { I18nextProvider } from 'react-i18next'
 
 import rootReducer from './rootReducer'
-import {initialize} from './actions'
+import { initialize } from './actions'
 
 import './styles/index.scss'
 
@@ -23,7 +23,7 @@ import ReactGA from 'react-ga'
 ReactGA.initialize('UA-61749626-5')
 const withTracker = WrappedComponent => {
     const trackPage = page => {
-        ReactGA.set({page})
+        ReactGA.set({ page })
         ReactGA.pageview(page)
     }
 
@@ -41,17 +41,8 @@ const composeEnhancers = composeWithDevTools({})
 const store = createStore(
     rootReducer,
     Map(),
-    composeEnhancers(applyMiddleware(thunk), autoRehydrate())
+    composeEnhancers(applyMiddleware(thunk))
 )
-let persistor = persistStore(store, {
-    storage: localForage,
-    blacklist: ['general', 'streams', 'navbar']
-})
-const withPersistor = WrappedComponent => {
-    const HOC = props => <WrappedComponent {...props} persistor={persistor} />
-    return HOC
-}
-//persistor.purge()
 
 class Root extends React.PureComponent {
     componentDidMount() {
@@ -64,7 +55,7 @@ class Root extends React.PureComponent {
             <Provider store={store}>
                 <I18nextProvider i18n={i18n}>
                     <BrowserRouter>
-                        <Route component={withPersistor(withTracker(App))} />
+                        <Route component={withTracker(App)} />
                     </BrowserRouter>
                 </I18nextProvider>
             </Provider>
