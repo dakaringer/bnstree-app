@@ -1,7 +1,7 @@
 import * as actionType from './actionTypes'
-import {makeActionCreator} from '../../helpers'
+import { makeActionCreator } from '../../helpers'
 
-import {menuStatusSelector, dropdownPositionSelector} from './selectors'
+import { menuStatusSelector, dropdownPositionSelector } from './selectors'
 
 const setMenuStatus = makeActionCreator(actionType.SET_NAVBAR_MENU_STATUS, 'status')
 const setDropdownStatus = makeActionCreator(actionType.SET_NAVBAR_DROPDOWN_STATUS, 'status')
@@ -28,14 +28,11 @@ export function handleDropdown(dropdown, e) {
         let dropdownPosition = dropdownPositionSelector(getState())
 
         if (e) {
-            let target = e.target.getElementsByTagName('a')[0]
-
-            if (target) {
-                dropdownPosition = dropdownPosition.set(
-                    dropdown,
-                    target.getBoundingClientRect().left
-                )
-            }
+            let position = e.target.getBoundingClientRect().left
+            dropdownPosition = dropdownPosition.set(
+                dropdown,
+                position
+            )
         }
 
         dispatch(setDropdownStatus(dropdown))
