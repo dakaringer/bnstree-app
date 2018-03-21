@@ -9,7 +9,7 @@ import { viewSelector } from '../../../selectors'
 import { searchSelector } from '../selectors'
 import { setSearch, setFilter } from '../actions'
 
-import ItemPatchMenu from './ItemPatchMenu'
+//import ItemPatchMenu from './ItemPatchMenu'
 
 import { Icon, Radio } from 'antd'
 const RadioGroup = Radio.Group
@@ -74,7 +74,6 @@ const ItemSubMenu = props => {
                 </RadioGroup>
             </div>
             <div className="sub-menu-right">
-                <ItemPatchMenu />
             </div>
         </div>
     )
