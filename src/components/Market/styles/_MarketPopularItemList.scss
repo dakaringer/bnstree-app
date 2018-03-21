@@ -8,12 +8,12 @@
         flex-direction: column;
         align-items: center;
         padding: 3rem 2rem;
-        background: rgba(0, 5, 5, 0.7);
+        background: rgba(0, 0, 0, 0.8);
         margin: 0.5rem;
         transition: all 0.3s;
 
         &:hover {
-            background: rgba(30, 35, 35, 0.7);
+            background: rgba(5, 5, 5, 0.7);
         }
 
         @media (max-width: 767px) {

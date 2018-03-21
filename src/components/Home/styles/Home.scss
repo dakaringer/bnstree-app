@@ -25,7 +25,7 @@
             rgba(5, 7, 10, 0.9) 100%
         );
         margin: 0 -1rem;
-        padding-top: 10rem;
+        padding-top: 12rem;
         padding-bottom: 20rem;
         position: relative;
 
@@ -124,13 +124,13 @@
 
         .side-button {
             width: 100%;
-            padding: 0.5rem;
+            padding: 1rem;
             font-size: 1.6rem;
             margin-bottom: 1rem;
             height: auto;
             border-radius: 0.1rem;
             border: none;
-            background: rgba(50, 50, 50, 0.8);
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: flex-start;
             align-items: center;
@@ -155,7 +155,7 @@
             }
 
             &:hover {
-                filter: brightness(100%);
+                background: rgba(5, 5, 5, 0.7);
             }
         }
     }

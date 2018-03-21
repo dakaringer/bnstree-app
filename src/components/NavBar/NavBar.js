@@ -88,6 +88,7 @@ const NavBar = props => {
                             {user ? (
                                 <Avatar
                                     shape="square"
+                                    size="small"
                                     style={{ backgroundColor: 'deepskyblue' }}
                                     src={user.get('profilePic')}>
                                     {user.get('displayName', 'U').charAt(0)}

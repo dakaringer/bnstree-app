@@ -2,8 +2,10 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0 -1rem;
+    margin: 0 auto;
+    padding: 0 3rem;
     min-height: 10rem;
+    max-width: 140rem;
 
     .class-link {
         display: flex;

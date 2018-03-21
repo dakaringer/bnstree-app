@@ -108,7 +108,7 @@ class Home extends React.PureComponent {
                                 <StreamList limit={4} />
                             </div>
                             <div>
-                                <Row className="section-container" gutter={16}>
+                                <Row className="section-container" gutter={32}>
                                     <Col sm={16}>
                                         <HomeTwitter />
                                     </Col>
