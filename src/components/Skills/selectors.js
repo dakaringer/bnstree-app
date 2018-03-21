@@ -286,11 +286,10 @@ const patchedSkillDataSelector = createSelector(
         patchData.forEach(patch => {
             let skill = patch.get('skill')
             let id = skill.get('_id')
-            if (skill.size <= 7) {
-                data = data.delete(id)
-            } else {
-                data = data.set(id, skill)
-            }
+            data = data.set(id, skill)
+        })
+        data = data.filter(skill => {
+            return skill.size > 7 && !skill.has('removed')
         })
         return data
     }
