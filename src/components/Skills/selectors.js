@@ -289,7 +289,7 @@ const patchedSkillDataSelector = createSelector(
             data = data.set(id, skill)
         })
         data = data.filter(skill => {
-            return skill.size > 7 && !skill.has('removed')
+            return !skill.has('removed')
         })
         return data
     }
