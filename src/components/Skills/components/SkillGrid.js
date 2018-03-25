@@ -1,10 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 
 import SkillGridItem from './SkillGridItem'
 
-import {catagorizedSkillDataSelector} from '../selectors'
+import { catagorizedSkillDataSelector } from '../selectors'
 
 const mapStateToProps = state => {
     return {
@@ -13,7 +13,7 @@ const mapStateToProps = state => {
 }
 
 const SkillGrid = props => {
-    const {t, skillData} = props
+    const { t, skillData } = props
 
     let topLeft = []
     let topMiddle = []
@@ -60,9 +60,11 @@ const SkillGrid = props => {
             case 'X':
             case 'C':
             case 'V':
+                bottomMiddle.push(keyGroup)
+                break
             case 'G':
             case 'B':
-                bottomMiddle.push(keyGroup)
+                bottomRight.push(keyGroup)
                 break
             default:
                 topRight.push(keyGroup)
