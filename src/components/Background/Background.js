@@ -3,7 +3,7 @@ import React from 'react'
 
 import './styles/Background.scss'
 
-const MAX_BG = 51
+const MAX_BG = 52
 
 class Background extends React.PureComponent {
     constructor(props) {
@@ -17,6 +17,7 @@ class Background extends React.PureComponent {
     componentWillMount() {
         window.addEventListener('scroll', e => this.handleScroll(e, this))
         this.setState({ i: Math.floor(Math.random() * MAX_BG + 1) })
+        //this.setState({ i: MAX_BG })
     }
 
     componentWillUnmount() {
