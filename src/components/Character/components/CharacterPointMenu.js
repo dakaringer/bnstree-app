@@ -4,6 +4,7 @@ import { translate } from 'react-i18next'
 import attackImg from '../images/hm_attack.png'
 import healthImg from '../images/hm_health.png'
 import defenseImg from '../images/hm_defense.png'
+import hmPointImages from '../images/map_hmPointImg'
 
 const steps = [10, 20, 50, 80, 100, 115, 125]
 
@@ -22,7 +23,7 @@ const defense = {
 }
 
 const CharacterPointMenu = props => {
-    const { t, points, type } = props
+    const { t, points, extraEffects, type } = props
 
     let stats = type === 'attack' ? attack : defense
 
@@ -39,39 +40,67 @@ const CharacterPointMenu = props => {
         additionalEffects.push(
             <tr className={points >= step ? 'active' : ''} key={step}>
                 <th>{step}</th>
+                <td>{effect}</td>
+            </tr>
+        )
+    })
+
+    let additionalBuffs = []
+    extraEffects.forEach((buff) => {
+        additionalBuffs.push(
+            <tr className='buff' key={buff}>
+                <th><img src={hmPointImages[buff]} alt='' /></th>
                 <td>
-                    {effect}
+                    <p className="buff-name">{t(buff)}</p>
+                    <p className="buff-desc">{t(`${buff}Desc`)}</p>
                 </td>
             </tr>
         )
     })
+    let buffs = null
+    if (additionalBuffs.length > 0) {
+        buffs = <div>
+            <hr />
+            <h4>{t('additionalBuffs')}</h4>
+            <table className="additionalEffects">
+                <tbody>
+                    {additionalBuffs}
+                </tbody>
+            </table>
+        </div>
+    }
 
     return (
         <div>
             <h4>
                 {t(`${type}Points`)} <span>{points}P</span>
             </h4>
-            <div className="mainHmStat">
-                <img alt="stat1" src={stats.m1[0]} />
-                <p>
-                    {t(stats.statTypes[0])}
-                    <span>{stats.m1[1](points)}</span>
-                </p>
+            <div>
+                <div className="mainHmStat">
+                    <img alt="stat1" src={stats.m1[0]} />
+                    <p>
+                        {t(stats.statTypes[0])}
+                        <span>{stats.m1[1](points)}</span>
+                    </p>
+                </div>
+                <div className="mainHmStat">
+                    <img alt="stat2" src={stats.m2[0]} />
+                    <p>
+                        {t(stats.statTypes[1])}
+                        <span>{stats.m2[1](points)}</span>
+                    </p>
+                </div>
             </div>
-            <div className="mainHmStat">
-                <img alt="stat2" src={stats.m2[0]} />
-                <p>
-                    {t(stats.statTypes[1])}
-                    <span>{stats.m2[1](points)}</span>
-                </p>
+            <div>
+                <hr />
+                <h4>{t('additionalEffects')}</h4>
+                <table className="additionalEffects">
+                    <tbody>
+                        {additionalEffects}
+                    </tbody>
+                </table>
             </div>
-            <hr />
-            <h4>{t('additionalEffects')}</h4>
-            <table className="additionalEffects">
-                <tbody>
-                    {additionalEffects}
-                </tbody>
-            </table>
+            {buffs}
         </div>
     )
 }
