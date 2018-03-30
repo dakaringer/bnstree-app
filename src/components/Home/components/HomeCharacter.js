@@ -21,7 +21,7 @@ class HomeCharacter extends React.PureComponent {
         this.el = document.createElement('div')
     }
 
-    componentWillMount() {
+    componentDidMount() {
         let max = overlayImages.length - 1
         let setNumber = getRandomInt(0, max)
         let set = overlayImages[setNumber]
@@ -35,9 +35,7 @@ class HomeCharacter extends React.PureComponent {
             set: set,
             hidden: hidden
         })
-    }
 
-    componentDidMount() {
         appRoot.appendChild(this.el)
 
         this.timeout = window.setTimeout(

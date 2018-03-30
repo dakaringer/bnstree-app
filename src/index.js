@@ -55,7 +55,9 @@ class Root extends React.PureComponent {
             <Provider store={store}>
                 <I18nextProvider i18n={i18n}>
                     <BrowserRouter>
-                        <Route component={withTracker(App)} />
+                        <React.StrictMode>
+                            <Route component={withTracker(App)} />
+                        </React.StrictMode>
                     </BrowserRouter>
                 </I18nextProvider>
             </Provider>

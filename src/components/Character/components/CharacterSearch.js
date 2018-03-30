@@ -1,13 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
-import {viewSelector, recentSearchSelector} from '../../../selectors'
-import {setViewOption} from '../../../actions'
-import {loadCharacter} from '../actions'
+import { viewSelector, recentSearchSelector } from '../../../selectors'
+import { setViewOption } from '../../../actions'
+import { loadCharacter } from '../actions'
 
-import {Menu, Dropdown, Icon} from 'antd'
+import { Menu, Dropdown, Icon } from 'antd'
 
 const mapStateToProps = state => {
     return {
@@ -31,7 +31,7 @@ class CharacterSearch extends React.PureComponent {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         let region = this.props.match.params.region
         if (region) {
             this.props.setRegion(region)
@@ -39,17 +39,17 @@ class CharacterSearch extends React.PureComponent {
     }
 
     enterCharacter(e) {
-        this.setState({characterName: e.target.value})
+        this.setState({ characterName: e.target.value })
     }
 
     searchCharacter(e) {
         e.preventDefault()
-        let {history, region, loadCharacter} = this.props
+        let { history, region, loadCharacter } = this.props
         loadCharacter(region, this.state.characterName, history)
     }
 
     render() {
-        const {t, center, recent, region, setRegion, recentSearch} = this.props
+        const { t, center, recent, region, setRegion, recentSearch } = this.props
 
         let recentDiv = null
         if (recent) {

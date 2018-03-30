@@ -31,13 +31,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 class Character extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         const { currentLanguage, loadNames, loadPatchList } = this.props
         loadNames(currentLanguage)
         loadPatchList()
-    }
-
-    componentDidMount() {
         animateScroll.scrollToTop()
     }
 

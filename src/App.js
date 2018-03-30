@@ -20,7 +20,7 @@ function asyncComponent(getComponent) {
             }
         }
 
-        componentWillMount() {
+        componentDidMount() {
             if (!this.state.Component) {
                 getComponent().then(Component => {
                     AsyncComponent.Component = Component

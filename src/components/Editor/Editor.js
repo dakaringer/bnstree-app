@@ -30,14 +30,11 @@ const mapDispatchToProps = dispatch => {
 }
 
 class Editor extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         const { loadNames, loadArticle, match } = this.props
 
         loadNames('en')
         loadArticle(match.params.id)
-    }
-
-    componentDidMount() {
         animateScroll.scrollToTop()
     }
 

@@ -1,13 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {List} from 'immutable'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { List } from 'immutable'
+import { Link } from 'react-router-dom'
 
-import {Row, Col} from 'antd'
+import { Row, Col } from 'antd'
 
-import {loadNews} from '../../News/actions'
-import {listSelector} from '../../News/selectors'
+import { loadNews } from '../../News/actions'
+import { listSelector } from '../../News/selectors'
 
 import NewsListItem from '../../News/components/NewsListItem'
 
@@ -24,12 +24,12 @@ const mapDispatchToProps = dispatch => {
 }
 
 class HomeNewsList extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         this.props.loadNews(1)
     }
 
     render() {
-        let {t, list, currentId} = this.props
+        let { t, list, currentId } = this.props
 
         let items = []
         let count = 0

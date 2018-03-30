@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
 
-import {listSelector} from '../selectors'
-import {loadTwitter} from '../actions'
+import { listSelector } from '../selectors'
+import { loadTwitter } from '../actions'
 
 import HomeTwitterItem from './HomeTwitterItem'
 
@@ -20,12 +20,12 @@ const mapDispatchToProps = dispatch => {
 }
 
 class HomeTwitter extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         this.props.loadTwitter()
     }
 
     render() {
-        let {t, list} = this.props
+        let { t, list } = this.props
 
         let tweets = []
         list.forEach(tweet => tweets.push(<HomeTwitterItem tweet={tweet} key={tweet.get('_id')} />))

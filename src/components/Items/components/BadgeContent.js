@@ -1,13 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {translate} from 'react-i18next'
-import {Map, List, fromJS} from 'immutable'
-import {Button, Icon} from 'antd'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import { Map, List, fromJS } from 'immutable'
+import { Button, Icon } from 'antd'
 
-import {userSelector} from '../../../selectors'
-import {userVoteDataSelector} from '../selectors'
-import {skillNamesSelector} from '../../References/selectors'
-import {vote} from '../actions'
+import { userSelector } from '../../../selectors'
+import { userVoteDataSelector } from '../selectors'
+import { skillNamesSelector } from '../../References/selectors'
+import { vote } from '../actions'
 import parser from '../../Skills/parser'
 
 import elementImages from '../images/map_elementImg2'
@@ -46,8 +46,8 @@ class BadgeContent extends React.PureComponent {
         this.state = state
     }
 
-    componentWillMount() {
-        const {userVoteData, item, itemId} = this.props
+    componentDidMount() {
+        const { userVoteData, item, itemId } = this.props
 
         let state = {}
         let classCode = item.get('classCode')
@@ -65,7 +65,7 @@ class BadgeContent extends React.PureComponent {
     }
 
     handleVote(element) {
-        let {item, itemId} = this.props
+        let { item, itemId } = this.props
         let classCode = item.get('classCode')
 
         let state = this.state[element]
@@ -78,7 +78,7 @@ class BadgeContent extends React.PureComponent {
     }
 
     render() {
-        const {t, item, itemId, skillNames, userVoteData, user} = this.props
+        const { t, item, itemId, skillNames, userVoteData, user } = this.props
 
         let skill = item.get('enhance', List())
 
@@ -87,14 +87,14 @@ class BadgeContent extends React.PureComponent {
             skill.forEach((s, i) => {
                 enhance.push(
                     <p className="attribute" key={i}>
-                        {parser(fromJS(['enhanceSkill', {skill: s}]), null, null, skillNames)}
+                        {parser(fromJS(['enhanceSkill', { skill: s }]), null, null, skillNames)}
                     </p>
                 )
             })
         } else {
             enhance.push(
                 <p className="attribute" key={skill}>
-                    {parser(fromJS(['enhanceSkill', {skill: skill}]), null, null, skillNames)}
+                    {parser(fromJS(['enhanceSkill', { skill: skill }]), null, null, skillNames)}
                 </p>
             )
         }
@@ -137,7 +137,7 @@ class BadgeContent extends React.PureComponent {
         if (item.get('classCode', 'ALL') !== 'ALL') {
             extra.push(
                 <p key="class-restriction">
-                    {t('classRestriction', {className: t(item.get('classCode'))})}
+                    {t('classRestriction', { className: t(item.get('classCode')) })}
                 </p>
             )
         }

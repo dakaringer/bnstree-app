@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 class AdminNewsList extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         this.props.loadNews(1)
     }
 

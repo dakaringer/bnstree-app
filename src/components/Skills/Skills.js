@@ -66,16 +66,13 @@ const mapDispatchToProps = dispatch => {
 }
 
 class Skills extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         const { match, currentLanguage, loadNames, loadPatchList, loadSkills } = this.props
 
         let classCode = getClassCode(match.params.classCode)
         loadNames(currentLanguage)
         loadPatchList()
         loadSkills(classCode)
-    }
-
-    componentDidMount() {
         animateScroll.scrollToTop()
     }
 

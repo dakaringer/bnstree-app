@@ -1,7 +1,7 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Row, Col} from 'antd'
-import {Helmet} from 'react-helmet'
+import { connect } from 'react-redux'
+import { Row, Col } from 'antd'
+import { Helmet } from 'react-helmet'
 
 import './styles/Translator.scss'
 
@@ -11,8 +11,8 @@ import TranslatorStatusBar from './components/TranslatorStatusBar'
 import TranslatorSelector from './components/TranslatorSelector'
 import TranslatorEditor from './components/TranslatorEditor'
 
-import {loadingSelector} from '../../selectors'
-import {loadLanguageData} from './actions'
+import { loadingSelector } from '../../selectors'
+import { loadLanguageData } from './actions'
 
 const mapStateToProps = state => {
     return {
@@ -27,12 +27,12 @@ const mapDispatchToProps = dispatch => {
 }
 
 class Translator extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         this.props.loadLanguageData()
     }
 
     render() {
-        const {loading} = this.props
+        const { loading } = this.props
 
         let content = <LoadingLyn />
         if (!loading) {

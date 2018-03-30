@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 class NewsViewer extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         const { loadNames, loadArticle, match } = this.props
 
         loadNames('en')

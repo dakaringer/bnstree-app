@@ -56,7 +56,7 @@ class MarketItemViewer extends React.PureComponent {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { match, loadItem } = this.props
         loadItem(match.params.itemId, false, match.params.region)
     }

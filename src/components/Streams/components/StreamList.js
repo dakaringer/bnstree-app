@@ -1,10 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-import {Icon, Row, Col} from 'antd'
+import { Icon, Row, Col } from 'antd'
 
-import {loadStreams} from '../actions'
-import {listSelector} from '../selectors'
+import { loadStreams } from '../actions'
+import { listSelector } from '../selectors'
 
 const mapStateToProps = state => {
     return {
@@ -19,13 +19,10 @@ const mapDispatchToProps = dispatch => {
 }
 
 class StreamList extends React.PureComponent {
-    componentWillMount() {
-        this.props.loadStreams()
-    }
-
     componentDidMount() {
+        this.props.loadStreams()
         let intervalId = setInterval(() => this.props.loadStreams(), 300000)
-        this.setState({intervalId: intervalId})
+        this.setState({ intervalId: intervalId })
     }
 
     componentWillUnmount() {
@@ -33,7 +30,7 @@ class StreamList extends React.PureComponent {
     }
 
     render() {
-        let {list, limit} = this.props
+        let { list, limit } = this.props
 
         let streams = []
         let count = 0

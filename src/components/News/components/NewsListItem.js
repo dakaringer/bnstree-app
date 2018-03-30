@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const MAX_BG = 45
 
@@ -12,8 +12,8 @@ class NewsListItem extends React.PureComponent {
         }
     }
 
-    componentWillMount() {
-        let {article} = this.props
+    componentDidMount() {
+        let { article } = this.props
         if (article.get('thumb', '') === '') {
             let i = Math.floor(Math.random() * MAX_BG + 1)
             this.setState({
@@ -27,7 +27,7 @@ class NewsListItem extends React.PureComponent {
     }
 
     render() {
-        let {article, selected, icon} = this.props
+        let { article, selected, icon } = this.props
 
         let id = article.get('_id')
 
@@ -52,7 +52,7 @@ class NewsListItem extends React.PureComponent {
                     .toLowerCase()}`}
                 className={`news-item list-item ${selected ? 'selected' : ''} ${
                     icon ? 'icon' : ''
-                }`}>
+                    }`}>
                 <div className="thumb-wrapper">{thumb}</div>
                 <div className="news-item-content">
                     <div className="news-title">

@@ -45,7 +45,7 @@ class CharacterViewer extends React.PureComponent {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { match, loadCharacter } = this.props
         loadCharacter(match.params.region, match.params.character)
     }

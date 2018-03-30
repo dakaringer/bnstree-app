@@ -14,7 +14,7 @@ class Background extends React.PureComponent {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         window.addEventListener('scroll', e => this.handleScroll(e, this))
         this.setState({ i: Math.floor(Math.random() * MAX_BG + 1) })
         //this.setState({ i: MAX_BG })

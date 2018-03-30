@@ -38,15 +38,12 @@ const mapDispatchToProps = dispatch => {
 }
 
 class Items extends React.PureComponent {
-    componentWillMount() {
+    componentDidMount() {
         const { match, currentLanguage, loadItems, loadNames, loadPatchList } = this.props
 
         loadItems(match.params.type)
         loadNames(currentLanguage)
         loadPatchList()
-    }
-
-    componentDidMount() {
         animateScroll.scrollToTop()
     }
 
