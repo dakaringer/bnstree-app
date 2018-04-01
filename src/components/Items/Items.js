@@ -1,16 +1,16 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
-import { Route, Switch } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
+import {connect} from 'react-redux'
+import {translate} from 'react-i18next'
+import {Route, Switch} from 'react-router-dom'
+import {Helmet} from 'react-helmet'
 
-import { animateScroll } from 'react-scroll'
+import {animateScroll} from 'react-scroll'
 
 import AdSense from '../AdSense/AdSense'
 
-import { currentLanguageSelector, loadingSelector } from '../../selectors'
-import { loadItems } from './actions'
-import { loadNameData, loadPatchList } from '../References/actions'
+import {currentLanguageSelector, loadingSelector} from '../../selectors'
+import {loadItems} from './actions'
+import {loadNameData, loadPatchList} from '../References/actions'
 
 import './styles/Items.scss'
 
@@ -39,7 +39,7 @@ const mapDispatchToProps = dispatch => {
 
 class Items extends React.PureComponent {
     componentDidMount() {
-        const { match, currentLanguage, loadItems, loadNames, loadPatchList } = this.props
+        const {match, currentLanguage, loadItems, loadNames, loadPatchList} = this.props
 
         loadItems(match.params.type)
         loadNames(currentLanguage)
@@ -48,7 +48,7 @@ class Items extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { match, currentLanguage, loadItems, loadNames } = this.props
+        const {match, currentLanguage, loadItems, loadNames} = this.props
 
         if (nextProps.match.params.type !== match.params.type) {
             loadItems(nextProps.match.params.type)
@@ -59,24 +59,22 @@ class Items extends React.PureComponent {
     }
 
     render() {
-        const { t, loading, location, match } = this.props
+        const {t, loading, location, match} = this.props
 
-        let content = <LoadingLyn />
-
-        if (!loading) {
-            content = (
-                <div className="main-container">
-                    <Switch>
-                        <Route exact path="/items/:type" component={ItemTabs} />
-                    </Switch>
-                    <AdSense
-                        data-ad-client="ca-pub-2048637692232915"
-                        data-ad-slot="2719129989"
-                        data-ad-format="auto"
-                    />
-                </div>
-            )
-        }
+        let content = loading ? (
+            <LoadingLyn />
+        ) : (
+            <div className="main-container">
+                <Switch>
+                    <Route exact path="/items/:type" component={ItemTabs} />
+                </Switch>
+                <AdSense
+                    data-ad-client="ca-pub-2048637692232915"
+                    data-ad-slot="2719129989"
+                    data-ad-format="auto"
+                />
+            </div>
+        )
 
         return (
             <div className="items">
