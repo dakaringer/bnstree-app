@@ -1,1 +1,1 @@
-export default [['badges', 'badges'], ['soulshields', 'soulshields']]
+export default [['badge', 'badge'], ['soulshield', 'soulshield']]

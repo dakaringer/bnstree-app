@@ -1,8 +1,8 @@
-import { createSelector } from 'reselect'
-import { Map, List } from 'immutable'
+import {createSelector} from 'reselect'
+import {Map, List} from 'immutable'
 
-import { viewSelector } from '../../selectors'
-import { itemNamesSelector, itemNamesSelectorEN, patchListSelector } from '../References/selectors'
+import {viewSelector} from '../../selectors'
+import {itemNamesSelector, itemNamesSelectorEN, patchListSelector} from '../References/selectors'
 
 const classOrder = ['BM', 'KF', 'DE', 'FM', 'AS', 'SU', 'BD', 'WL', 'SF', 'SH']
 
@@ -16,7 +16,7 @@ const uiSelector = state => state.getIn(['items', 'ui'], Map())
 export const dataSelector = state => state.getIn(['items', 'data'], Map())
 
 //ui
-export const typeSelector = createSelector(uiSelector, state => state.get('type', 'badges'))
+export const typeSelector = createSelector(uiSelector, state => state.get('type', 'badge'))
 export const searchSelector = createSelector(uiSelector, state => state.get('search', ''))
 export const patchSelector = createSelector(uiSelector, patchListSelector, (state, list) => {
     let currentPatch = state.get('patch', 'BASE')
@@ -159,10 +159,10 @@ export const sortedItemDataSelector = createSelector(
     (data, itemType) => {
         let typeOrder = []
         switch (itemType) {
-            case 'badges':
+            case 'badge':
                 typeOrder = badgeTypeOrder
                 break
-            case 'soulshields':
+            case 'soulshield':
                 typeOrder = soulshieldTypeOrder
                 break
             default:
@@ -174,7 +174,7 @@ export const sortedItemDataSelector = createSelector(
             .map((type, key) =>
                 type.sort((a, b) => {
                     let groupOrder = []
-                    if (itemType === 'badges') {
+                    if (itemType === 'badge') {
                         groupOrder = key === 'soul' ? soulBadgeOrder : mysticBadgeOrder
                     }
 

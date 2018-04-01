@@ -4,7 +4,7 @@ import * as actionType from './actionTypes'
 
 function ui(
     state = fromJS({
-        type: 'badges',
+        type: 'badge',
         search: '',
         patch: 'BASE'
     }),

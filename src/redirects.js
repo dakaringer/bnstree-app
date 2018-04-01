@@ -68,25 +68,32 @@ export default function getRedirects(location) {
                 key={`${c[0]}-classes-badges`}
                 exact
                 from={`/classes/${c[1]}/badges`}
-                to={`/items/badges`}
+                to={`/items/badge`}
             />,
             <Redirect
                 key={`${c[0]}-classes-soulshields`}
                 exact
                 from={`/classes/${c[1]}/soulshields`}
-                to={`/items/soulshields`}
+                to={`/items/soulshield`}
             />,
             <Redirect
                 key={`${c[0]}-skills-badges`}
                 exact
                 from={`/skills/${c[1]}/badges`}
-                to={`/items/badges`}
+                to={`/items/badge`}
             />,
             <Redirect
                 key={`${c[0]}-skills-soulshields`}
                 exact
                 from={`/skills/${c[1]}/soulshields`}
-                to={`/items/soulshields`}
+                to={`/items/soulshield`}
+            />,
+            <Redirect key={`$items-badges`} exact from={`/items/badges`} to={`/items/badge`} />,
+            <Redirect
+                key={`$items-soulshields`}
+                exact
+                from={`/items/soulshields`}
+                to={`/items/badge`}
             />
         )
     })

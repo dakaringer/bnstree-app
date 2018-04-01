@@ -1,13 +1,13 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
+import {connect} from 'react-redux'
+import {translate} from 'react-i18next'
 
-import { typeSelector } from '../selectors'
+import {typeSelector} from '../selectors'
 
 import BadgeContent from './BadgeContent'
 import SoulshieldContent from './SoulshieldContent'
 
-import { Collapse } from 'antd'
+import {Collapse} from 'antd'
 const Panel = Collapse.Panel
 
 const mapStateToProps = state => {
@@ -17,15 +17,15 @@ const mapStateToProps = state => {
 }
 
 const BadgeListItem = props => {
-    const { t, type, item, itemId } = props
+    const {t, type, item, itemId} = props
 
     let subtitle = []
     let content = null
     switch (type) {
-        case 'badges':
+        case 'badge':
             content = <BadgeContent item={item} itemId={itemId} />
             break
-        case 'soulshields':
+        case 'soulshield':
             if (item.get('group')) {
                 subtitle.push(<p key="group">{t(item.get('group'))}</p>)
             }
@@ -48,7 +48,7 @@ const BadgeListItem = props => {
                             <img
                                 className="item-icon"
                                 alt={item.get('name')}
-                                src={`https://static.bnstree.com/images/${type}/${item.get(
+                                src={`https://static.bnstree.com/images/${type}s/${item.get(
                                     'icon',
                                     'blank'
                                 )}`}

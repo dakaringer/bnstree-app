@@ -1,9 +1,9 @@
 import * as actionType from './actionTypes'
-import apollo, { q } from '../../apollo'
+import apollo, {q} from '../../apollo'
 
-import { makeActionCreator, flatten } from '../../helpers'
-import { setLoading, setViewOption } from '../../actions'
-import { dataSelector, typeSelector } from './selectors'
+import {makeActionCreator, flatten} from '../../helpers'
+import {setLoading, setViewOption} from '../../actions'
+import {dataSelector, typeSelector} from './selectors'
 
 const setType = makeActionCreator(actionType.ITEM_UI_SET_TYPE, 'itemType')
 export const setSearch = makeActionCreator(actionType.ITEM_UI_SET_SEARCH, 'search')
@@ -119,9 +119,7 @@ export function vote(item, element, classCode, vote = true) {
 
 export function setFilter(filter) {
     return dispatch => {
-        dispatch(
-            setViewOption('itemFilter', filter)
-        )
+        dispatch(setViewOption('itemFilter', filter))
     }
 }
 
