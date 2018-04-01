@@ -1,4 +1,4 @@
-.item-list-container {
+.item-container {
     margin-bottom: 5rem;
 
     h2 {
@@ -10,17 +10,8 @@
 }
 
 .item-list {
-    padding: 1rem 0;
-    display: flex;
-    flex-wrap: wrap;
-
     .item-list-item {
-        margin: 0.5rem 1rem;
-        width: calc(50% - 2rem);
-
-        @media (max-width: 991px) {
-            width: 100%;
-        }
+        margin: 1rem 1rem;
 
         .ant-collapse > .ant-collapse-item > .ant-collapse-header {
             padding: 1rem;
@@ -109,6 +100,24 @@
                 margin-right: 0.5rem;
                 vertical-align: middle;
             }
+        }
+    }
+}
+
+.item-list-container {
+    display: flex;
+
+    .item-list-single {
+        width: 100%;
+        @media (min-width: 992px) {
+            display: none;
+        }
+    }
+
+    .item-list-column {
+        width: 50%;
+        @media (max-width: 991px) {
+            display: none;
         }
     }
 }
