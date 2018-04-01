@@ -1,15 +1,15 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
-import { animateScroll } from 'react-scroll'
+import {connect} from 'react-redux'
+import {translate} from 'react-i18next'
+import {Route, Switch, Redirect} from 'react-router-dom'
+import {Helmet} from 'react-helmet'
+import {animateScroll} from 'react-scroll'
 
 import AdSense from '../AdSense/AdSense'
 
-import { currentLanguageSelector, loadingSelector, viewSelector, userSelector } from '../../selectors'
-import { loadSkills, loadBuild } from './actions'
-import { loadNameData, loadPatchList } from '../References/actions'
+import {currentLanguageSelector, loadingSelector, viewSelector, userSelector} from '../../selectors'
+import {loadSkills, loadBuild} from './actions'
+import {loadNameData, loadPatchList} from '../References/actions'
 
 import './styles/Skills.scss'
 
@@ -38,10 +38,6 @@ function getPath(link) {
             return 'userBuilds'
         case 'my-builds':
             return 'myBuilds'
-        case 'badges':
-            return 'badges'
-        case 'soulshields':
-            return 'soulshields'
         default:
             return 'skills'
     }
@@ -67,7 +63,7 @@ const mapDispatchToProps = dispatch => {
 
 class Skills extends React.PureComponent {
     componentDidMount() {
-        const { match, currentLanguage, loadNames, loadPatchList, loadSkills } = this.props
+        const {match, currentLanguage, loadNames, loadPatchList, loadSkills} = this.props
 
         let classCode = getClassCode(match.params.classCode)
         loadNames(currentLanguage)
@@ -106,7 +102,7 @@ class Skills extends React.PureComponent {
     }
 
     render() {
-        const { t, loading, view, user, location, match } = this.props
+        const {t, loading, view, user, location, match} = this.props
 
         let classCode = getClassCode(match.params.classCode)
 
@@ -146,8 +142,8 @@ class Skills extends React.PureComponent {
                                 render={() => <SkillBuildList user match={match} />}
                             />
                         ) : (
-                                <Redirect from="/skills/:classCode/my-builds" to="/skills/:classCode" />
-                            )}
+                            <Redirect from="/skills/:classCode/my-builds" to="/skills/:classCode" />
+                        )}
                         <Route
                             exact
                             path="/skills/:classCode/:buildLink"
