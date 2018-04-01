@@ -55,7 +55,7 @@
         "react": "^16.3.0",
         "react-copy-to-clipboard": "^5.0.1",
         "react-delay": "^0.1.0",
-        "react-dev-utils": "^5.0.0",
+        "react-dev-utils": "^6.0.0-next.b2fd8db8",
         "react-dom": "^16.3.0",
         "react-ga": "^2.4.1",
         "react-helmet": "^5.2.0",
