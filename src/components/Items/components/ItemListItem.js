@@ -10,13 +10,18 @@ import SoulshieldContent from './SoulshieldContent'
 import {Collapse} from 'antd'
 const Panel = Collapse.Panel
 
+const itemImagePaths = {
+    badge: 'https://static.bnstree.com/images/badges/',
+    soulshield: 'https://static.bnstree.com/images/soulshields/'
+}
+
 const mapStateToProps = state => {
     return {
         type: typeSelector(state)
     }
 }
 
-const BadgeListItem = props => {
+const ItemListItem = props => {
     const {t, type, item, itemId} = props
 
     let subtitle = []
@@ -48,10 +53,7 @@ const BadgeListItem = props => {
                             <img
                                 className="item-icon"
                                 alt={item.get('name')}
-                                src={`https://static.bnstree.com/images/${type}s/${item.get(
-                                    'icon',
-                                    'blank'
-                                )}`}
+                                src={itemImagePaths[type] + item.get('icon', 'blank')}
                             />
                             <div className="title">
                                 <h3 className={`grade_${item.get('grade')}`}>{item.get('name')}</h3>
@@ -66,4 +68,4 @@ const BadgeListItem = props => {
     )
 }
 
-export default connect(mapStateToProps)(translate('items')(BadgeListItem))
+export default connect(mapStateToProps)(translate('items')(ItemListItem))
