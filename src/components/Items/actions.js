@@ -111,8 +111,7 @@ export function vote(item, element, classCode, vote = true) {
                 item: item,
                 element: element,
                 classCode: classCode
-            },
-            fetchPolicy: 'network-only'
+            }
         })
         .catch(e => console.error(e))
 }
