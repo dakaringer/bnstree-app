@@ -268,3 +268,42 @@
         }
     }
 }
+
+.ant-select {
+    .ant-select-selection,
+    .ant-select-selection--single {
+        background: none;
+
+        input.ant-input {
+            color: white;
+            border: none;
+            border-radius: 0;
+            box-shadow: none !important;
+            height: 2.5rem;
+            border-bottom: 0.1rem solid #777;
+
+            &:hover,
+            &:active,
+            &:focus {
+                box-shadow: none;
+                border-color: deepskyblue;
+            }
+        }
+    }
+}
+
+.ant-select-dropdown {
+    background: rgba(0, 0, 0, 0.8) !important;
+    border-radius: 0 !important;
+
+    .ant-select-dropdown-menu-item {
+        color: #ccc !important;
+        border-radius: 0 !important;
+
+        &.ant-select-dropdown-menu-item-selected,
+        &.ant-select-dropdown-menu-item-active,
+        &:hover {
+            background: rgba(50, 50, 50, 0.8);
+        }
+    }
+}

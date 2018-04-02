@@ -1,13 +1,18 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import {connect} from 'react-redux'
+import {translate} from 'react-i18next'
+import {Link} from 'react-router-dom'
 
-import { viewSelector, recentSearchSelector } from '../../../selectors'
-import { setViewOption } from '../../../actions'
-import { loadCharacter } from '../actions'
+import {viewSelector, recentSearchSelector} from '../../../selectors'
+import {setViewOption} from '../../../actions'
+import {loadCharacter} from '../actions'
+import apollo, {q} from '../../../apollo'
 
-import { Menu, Dropdown, Icon } from 'antd'
+import {Menu, Dropdown, Icon, AutoComplete} from 'antd'
+
+const characterSuggestQuery = q`query ($query: String!, $region: String!) {
+    CharacterSuggest(query: $query, region: $region)
+}`
 
 const mapStateToProps = state => {
     return {
@@ -27,7 +32,9 @@ class CharacterSearch extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            characterName: ''
+            characterName: '',
+            suggestions: [],
+            mounted: true
         }
     }
 
@@ -38,18 +45,49 @@ class CharacterSearch extends React.PureComponent {
         }
     }
 
-    enterCharacter(e) {
-        this.setState({ characterName: e.target.value })
+    componentWillUnmount() {
+        this.setState({
+            mounted: false
+        })
+    }
+
+    enterCharacter(query) {
+        const {region} = this.props
+        this.setState({characterName: query})
+        apollo
+            .query({
+                query: characterSuggestQuery,
+                variables: {
+                    query: query,
+                    region: region
+                },
+                errorPolicy: 'ignore'
+            })
+            .then(json => {
+                if (this.state.mounted) {
+                    this.setState({
+                        suggestions: json.data.CharacterSuggest
+                    })
+                }
+            })
     }
 
     searchCharacter(e) {
         e.preventDefault()
-        let { history, region, loadCharacter } = this.props
+        let {history, region, loadCharacter} = this.props
         loadCharacter(region, this.state.characterName, history)
     }
 
+    selectCharacter(character) {
+        let {history, region, loadCharacter} = this.props
+        this.setState({
+            characterName: character
+        })
+        loadCharacter(region, character, history)
+    }
+
     render() {
-        const { t, center, recent, region, setRegion, recentSearch } = this.props
+        const {t, center, recent, region, setRegion, recentSearch} = this.props
 
         let recentDiv = null
         if (recent) {
@@ -95,11 +133,13 @@ class CharacterSearch extends React.PureComponent {
                     </a>
                 </Dropdown>
                 <div className="inputGroup">
-                    <input
-                        onChange={e => this.enterCharacter(e)}
+                    <AutoComplete
+                        dataSource={this.state.suggestions}
                         value={this.state.characterName}
                         className="character-input"
                         placeholder={center ? t('searchCharacter') : t('search')}
+                        onSearch={e => this.enterCharacter(e)}
+                        onSelect={e => this.selectCharacter(e)}
                     />
                     <a onClick={e => this.searchCharacter(e)}>
                         <Icon type="search" />

@@ -5,8 +5,10 @@
     .inputGroup {
         display: flex;
         flex: 1;
+        align-items: center;
 
-        input {
+        input,
+        .ant-select {
             flex: 1;
         }
 
@@ -17,6 +19,8 @@
 
     .regionSelector {
         margin-right: 1rem;
+        line-height: 3rem;
+        font-size: 1.5rem;
     }
 
     &.center {
