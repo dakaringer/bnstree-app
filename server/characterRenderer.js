@@ -39,7 +39,8 @@ export default async (req, res, next) => {
 	let name = req.params.name
 	let region = req.params.region
 
-	let buildPath = process.env.NODE_ENV === 'production' ? 'build_final' : 'build'
+	let buildPath =
+		process.env.NODE_ENV === 'production' ? 'build_final' : 'build'
 	const filePath = path.resolve(__dirname, '..', buildPath, 'index.html')
 
 	let metadata = await new Promise((resolve, reject) => {
@@ -49,19 +50,32 @@ export default async (req, res, next) => {
 				variables: {
 					name: name,
 					region: region
-				}
+				},
+				fetchPolicy: 'network-only'
 			})
 			.then(json => {
 				let character = json.data.Character
 				if (!character.notFound) {
 					let desc = ''
-					desc += `AP: ${character.statData.total_ability.attack_power_value} | `
-					desc += `CHR: ${character.statData.total_ability.attack_critical_rate}% | `
-					desc += `CHD: ${character.statData.total_ability.attack_critical_damage_rate}% | `
-					desc += `Accuracy: ${character.statData.total_ability.attack_hit_rate}% | `
+					desc += `AP: ${
+						character.statData.total_ability.attack_power_value
+					} | `
+					desc += `CHR: ${
+						character.statData.total_ability.attack_critical_rate
+					}% | `
+					desc += `CHD: ${
+						character.statData.total_ability
+							.attack_critical_damage_rate
+					}% | `
+					desc += `Accuracy: ${
+						character.statData.total_ability.attack_hit_rate
+					}% | `
 
 					classElements[character.general.classCode].forEach(e => {
-						let rate = character.statData.total_ability[e.substr(0, e.length - 5) + 'rate']
+						let rate =
+							character.statData.total_ability[
+								e.substr(0, e.length - 5) + 'rate'
+							]
 						desc += `${elements[e]} ${rate}% | `
 					})
 					desc = desc.slice(0, -3)
@@ -69,10 +83,20 @@ export default async (req, res, next) => {
 					resolve(
 						`
                         <meta property="og:site_name" content="BnSTree">
-                        <meta property="og:title" content="${character.general.name} | Level ${character.general.level[0]}${
-							character.general.level[1] ? ` • HM ${character.general.level[1]}` : ''
-						} ${character.general.className} | ${character.general.region.toUpperCase()}-${character.general.server}" />
-                        <meta property="og:image" content="https://static.bnstree.com/images/class/${character.general.classCode}.png" />
+                        <meta property="og:title" content="${
+							character.general.name
+						} | Level ${character.general.level[0]}${
+							character.general.level[1]
+								? ` • HM ${character.general.level[1]}`
+								: ''
+						} ${
+							character.general.className
+						} | ${character.general.region.toUpperCase()}-${
+							character.general.server
+						}" />
+                        <meta property="og:image" content="https://static.bnstree.com/images/class/${
+							character.general.classCode
+						}.png" />
                         <meta property="og:description" content="${desc}" />
                         `
 					)
@@ -89,6 +113,11 @@ export default async (req, res, next) => {
 		}
 		//const html = ReactDOMServer.renderToString(<App />)
 
-		return res.send(htmlData.replace('<meta property="og:site_name" content="BnSTree">', metadata))
+		return res.send(
+			htmlData.replace(
+				'<meta property="og:site_name" content="BnSTree">',
+				metadata
+			)
+		)
 	})
 }
