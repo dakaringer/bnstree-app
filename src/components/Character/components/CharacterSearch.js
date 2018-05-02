@@ -141,7 +141,6 @@ class CharacterSearch extends React.PureComponent {
 		if (this.state.characterName !== '') {
 			suggestions.unshift(this.state.characterName)
 		}
-		console.log(suggestions, this.state.suggestions)
 
 		return [
 			<form
@@ -155,7 +154,7 @@ class CharacterSearch extends React.PureComponent {
 				</Dropdown>
 				<div className="inputGroup">
 					<AutoComplete
-						dataSource={this.state.suggestions}
+						dataSource={suggestions}
 						value={this.state.characterName}
 						className="character-input"
 						placeholder={
