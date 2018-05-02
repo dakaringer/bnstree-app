@@ -96,6 +96,7 @@ class CharacterSearch extends React.PureComponent {
 			setRegion,
 			recentSearch
 		} = this.props
+		const { characterName, suggestions } = this.state
 
 		let recentDiv = null
 		if (recent) {
@@ -137,9 +138,13 @@ class CharacterSearch extends React.PureComponent {
 			</Menu>
 		)
 
-		let suggestions = this.state.suggestions.slice(0)
-		if (this.state.characterName !== '') {
-			suggestions.unshift(this.state.characterName)
+		let suggestionList = suggestions.slice(0)
+		let i = suggestionList.indexOf(characterName)
+		if (i > -1) {
+			suggestionList.splice(i, 1)
+		}
+		if (characterName !== '') {
+			suggestionList.unshift(characterName)
 		}
 
 		return [
@@ -154,8 +159,8 @@ class CharacterSearch extends React.PureComponent {
 				</Dropdown>
 				<div className="inputGroup">
 					<AutoComplete
-						dataSource={suggestions}
-						value={this.state.characterName}
+						dataSource={suggestionList}
+						value={characterName}
 						className="character-input"
 						placeholder={
 							center ? t('searchCharacter') : t('search')
