@@ -143,7 +143,7 @@ class Home extends React.PureComponent {
                                                 </Button>
                                             </a>
                                             <a
-                                                href="https://discord.gg/TUFzGba"
+                                                href="https://discord.gg/bnsrecruitment"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
                                                 <Button
