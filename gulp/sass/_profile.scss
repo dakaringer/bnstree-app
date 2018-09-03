@@ -1,0 +1,41 @@
+.profile-info {
+    height: 550px;
+    width: 100%;
+    transform: translateZ(0);
+    
+    background: rgba(0,0,0,0.25);
+    color: white;
+    
+    @media (min-width: 1200px) {
+        position: fixed;
+    }
+    
+    @media (min-width: 768px) {
+        input {
+            margin: 0 10px;
+        }
+    }
+    
+    form {
+        width: 27em;
+        margin: 150px auto 0 auto;
+        @media (min-width: 1200px) {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)
+        }
+    }
+    
+    #confirm {
+        margin-top: 10px;
+        color: lawngreen;
+    }
+    
+    #taken, #error {
+        margin-top: 10px;
+        color: red;
+    }
+}

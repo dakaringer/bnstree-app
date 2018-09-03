@@ -1,0 +1,12 @@
+if !loggedin
+    #login.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.close(type='button' data-dismiss="modal" aria-label="Close")
+                        span(aria-hidden="true") &times;
+                    h3.modal-title Login/SignUp
+                .modal-body.container-fluid
+                    p Start creating your builds and share them with the rest of the community! 
+                    p Log in, or sign up with Google.
+                    a.google-login.btn.btn-danger(href='/auth/google') Google

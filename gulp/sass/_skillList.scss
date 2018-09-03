@@ -1,0 +1,341 @@
+@keyframes expand { from { max-height:0; } to { max-height:15rem; } }
+
+.listFilter {
+    z-index: 10;
+    background: rgba(0,0,0,0.85);
+    height: 40px;
+    position: absolute;
+    width: 33.33%;
+    border-right: solid 1px rgba(184, 134, 11, 0.75);
+    border-bottom: solid 1px black;
+    
+    opacity:0; 
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+    
+    @media (max-width: 1199px) {
+        width: 100%;
+        position: relative;
+        border-right: none;
+        padding: 1px;
+    }
+    
+    @media (max-width: 767px) {
+        height: auto;
+        padding: 0 10px;
+        
+        form {
+            margin: 0;
+        }
+    }    
+    
+    .glyphicon-remove {
+        position: absolute;
+        color: #555;
+        cursor: pointer;
+        margin-left: -2.1rem;
+        margin-top: 1.3rem;
+        
+        @media (max-width: 767px) {
+            right: 3.3rem;
+            margin-top: 1.6rem;
+        }
+    }
+    
+    .form-group {
+        width: calc(100% - 175px);
+        margin-right: 10px;
+        
+        @media (max-width: 767px) {
+            width: 100%;
+        }
+        
+        input {
+            background: #000;
+            border: none;
+            padding: 0 5px;
+            color: white;
+            width: 100%;
+            height: 25px;
+        }
+    }
+    
+    .checkbox {
+        color: #9d9d9d;
+        margin: 0 10px;
+        
+        span {
+            margin-left: 5px;
+        }
+        
+        @media (max-width: 767px) {
+            display: inline-block;
+        }
+    }
+}
+
+.skillList {
+    position:relative;
+    transform: translateZ(0);
+    will-change: transform;
+    margin-top: 40px;
+    height: 760px;
+    overflow-y: auto;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.25);
+    padding: 0;
+    border-right: solid 1px rgba(184, 134, 11, 0.75);
+    
+    opacity:0; 
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+    
+    .buffer {
+        height: 100px;
+    }
+    
+    @media (max-width: 1199px) {
+        margin: 0;
+        height: 300px;
+        border-bottom: solid 1px rgba(184, 134, 11, 0.75);
+        border-right: none;
+        padding: 0;
+        
+        .buffer {
+            display: none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        height: 12em;
+    }
+
+    dl {
+        margin: 0;
+        color: #fff;
+
+        dt {
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            border-bottom: solid 1px #000;
+            
+            background: linear-gradient(to right,  rgba(8,13,17,0.9) 0%,rgba(8,13,17,0.9) 50%,rgba(7,7,7,0.9) 100%);
+        }
+
+        dd ul {
+            list-style-type: none;
+            background: rgba(0, 0, 0, 0.5);
+            margin: 0;
+            padding: 0;
+
+            li {
+                position: relative;
+                height: 40px;
+                line-height: 40px;
+
+                border-bottom: solid 1px rgba(12,12,12,0.8);
+                cursor: pointer;
+
+                &:hover {
+                    background: linear-gradient(to right,  rgba(19,73,127,0.8) 0%,rgba(12,12,12,0.48) 40%,rgba(12,12,12,0) 100%);
+                }
+
+                &.selected {
+                    background: linear-gradient(to right,  rgba(28,109,191,1) 0%,rgba(12,12,12,0.62) 40%,rgba(12,12,12,0.2) 85%,rgba(12,12,12,0) 100%);
+                }
+            }
+            
+
+            .thumb {
+                position: absolute;
+                background-color: #000;
+                height: 100%;
+                overflow: hidden;
+                
+                img {
+                    margin-top: -10px;
+                }
+
+                .lock {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-image: url(/img/lv_lock.png);
+                    background-size: 75% auto;
+                    background-position: center;
+                }
+                
+                .plus {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-image: url(/img/plus.png);
+                    background-size: 100% auto;
+                    background-position: center;
+                }
+            }
+
+            .disabled {
+                .thumb img {
+                    opacity: 0.33;
+                    filter: grayscale(100%);
+                }
+                
+                .name {
+                    color: #656565;
+                }
+            }
+
+            .list-counter {
+                width: 15px;
+                height: 15px;
+                font-size: 10px;
+                line-height: 16px;
+                padding-left: 1px;
+                text-align: center;
+                position: absolute;
+                background-color: #000;
+                bottom: 0;
+                right: 0;
+
+                &.complete {
+                    background-color: rgba(14,111,178,1);
+                }
+            }
+
+            .name {
+                margin-left: 75px;
+                color: #ddd;
+            }
+
+            .tree-exists {
+                color: aqua;
+                font-size: 16px;
+            }
+            
+            .subEntryDiv {
+                max-height: 0;
+                animation:expand ease-in 1;
+                animation-fill-mode:forwards;
+                animation-duration:0.2s;
+                overflow: hidden;
+            }
+            
+            .subEntry {
+                margin-left: 20px;
+                height: 30px;
+                line-height: 30px;
+                
+                .thumb {
+                    width: 54px;
+                    
+                    img {
+                        height: 54px;
+                        width: 54px;   
+                        margin-top: -15px;
+                    }
+                }
+                
+                .name {
+                    margin-left: 65px;
+                    font-size: 14px;
+                }
+            }
+            
+            .classification {
+                display: inline-block;
+                position: absolute;
+                right: 22%;
+                width: 22%;
+                height: 100%;
+                text-align: center;
+                background: rgba(9, 9, 9, 0.65);
+                overflow: hidden;
+                
+                &.disabled {
+                    color: red;
+                }
+            }
+            
+            .element {
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                width: 22%;
+                height: 100%;
+                padding: 0 0.5em;
+            }
+        }
+    }
+}
+
+.hotkeyBar {
+    position: absolute;
+    z-index: 2;
+    left: 29.5%;
+    top: 12.5rem;
+    margin: 10px 0;
+    width: 45px;
+    height: 620px;
+    background: rgba(9,9,9,0.65);
+    padding: 15px 3px;
+    border-radius: 5px;
+    
+    opacity: 0; 
+    animation:fadeIn ease-in 1;
+
+    animation-fill-mode:forwards;
+
+    animation-duration:0.5s;
+    
+    @media (max-width: 1399px) {
+        display: none;
+    }
+    
+    ul {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        height: 100%;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        display: block;
+        flex: 0 1 auto;
+        font-size: 12px;
+
+        a {
+            height: 20px;
+            line-height: 20px;
+            display: block;
+            text-align: center;
+            border-radius: 5px;
+            
+            &:hover {
+                text-decoration: none;
+                background: rgba(129, 129, 129, 0.5);
+            }
+            
+            &:focus {
+                text-decoration: none;
+            }
+        }
+        
+        
+    }
+    
+    a {
+        color: white;
+    }
+}

@@ -1,0 +1,204 @@
+$glass: rgba(0,0,0,.5);
+$lightgold: #b2937f;
+$darkblue: #111D2B;
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+
+@import "bootstrap";
+@import "scrollbars";
+@import "tooltip";
+@import "modal";
+@import "fontAwesome";
+
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: black;
+    position: absolute;
+    width: 100%;
+}
+
+.btn, a {
+    outline: none !important;
+}
+
+.staticBackground {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    will-change: transform;
+    background: url(/img/bg.jpg) no-repeat center center; 
+    background-size: cover;
+    background-color: black;
+}
+
+.google-login {
+    background: url(/img/btn-google-logo.png) no-repeat #dd4b39;
+    background-size: auto 100%;
+    border-radius: 2px;
+    padding-left: 50px;
+    padding-right: 10px;
+    line-height: 30px;
+    margin: 20px auto 0 auto;
+    display: block;
+    width: 150px;
+}
+
+.main-background {
+    background: url(/img/main-bg.png) no-repeat top center;
+    position: absolute;
+    background-size: 100% 40%;
+    top: -100px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -5;
+}
+
+.main {
+    background-color: black;
+    width: 100%;
+    min-height: 150px;
+    position: relative;
+    bottom: 0;
+    clear: both;
+    z-index: 3;
+    margin-top: 0;
+    padding-bottom: 5rem;
+    
+    @media (min-width: 768px) {
+        padding-left: 80px;
+    }
+    
+    .container {
+        padding-top: 0;
+        
+        @media (min-width: 768px) {
+            width: 700px;
+        }
+        
+        @media (min-width: 992px) {
+            width: 920px;
+        }
+        
+        @media (min-width: 1200px) {
+            width: 1120px;
+        }
+        
+        h2 {
+            color: aqua;
+        }
+    }
+    
+    textarea {
+        resize: none;
+    }
+    
+    .container-fluid {
+        h2 {
+            color: aqua;
+        }
+    }
+    
+    h1 {
+        font-size: 30px;
+        color: aqua;  
+    }
+    
+    .ad {
+        padding-bottom: 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.footer {
+    position: relative;
+    z-index: 10;
+    background-color: #000;
+    bottom: 0;
+    border-top: solid 1px rgba(184, 134, 11, 0.75);
+    height: 50px;
+    width: 100%;
+    
+    @media(max-width: 767px) {
+        height: 200px;
+    }
+    
+    .bnsLink {
+        float: left;
+        margin-left: 8rem;
+        margin-top: 1.75rem;
+        opacity: 0.6;
+        
+        @media(max-width: 767px) {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 154px;
+            float: inherit;
+        }
+        
+        &:hover, &:focus {
+            opacity: 1;
+        }
+        
+        img {
+            height: 70px;
+        }
+    }
+    
+    .donationLink {
+        float: right;
+        margin-right: 3.5rem;
+        margin-top: 5.5rem;
+        font-size: 2rem;
+        color: #777;
+        
+        @media(max-width: 767px) {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 200px;
+            float: inherit;
+        }
+        
+        .glyphicon-heart {
+            margin-right: 0.75rem;
+            font-size: 2.4rem;
+        }
+        
+        &:hover, &:focus {
+            text-decoration: none;
+            color: aqua;
+        }
+    }
+}
+
+.content-wrap {
+    width: 100%;
+    padding-left: 80px;
+
+    @media (max-width: 767px) {
+        padding-left: 0;
+    }
+}
+
+.container {
+    color: white;
+}
+
+@media(max-width: 767px) {
+    .text-right {
+        text-align: left;
+        margin-top: 10px;
+    }
+}

@@ -1,0 +1,125 @@
+
+.modal {
+    padding: 150px 0 !important;
+}
+
+.modal-backdrop {
+    display: none;
+}
+
+.modal-open {
+    overflow-y: auto;
+    padding: 0 !important;
+}
+
+#classModal {
+    margin-top: -50px;
+    
+    .intro {
+        padding-top: 80%;
+    }
+    
+    table {
+        margin: 20px 0;
+        width: 100%;
+    }
+    
+    .chart {
+        margin: 0 auto 20px auto;
+        width: 80%;
+    }
+
+    #chart-legend {
+        ul {
+            padding-left: 10px;
+        }
+    
+        span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+        }
+    }
+    
+    .col-md-7 {
+        &.BM {
+            background: url(/img/bg_tree_BM.png) no-repeat;
+            background-size: 100% auto;
+        }
+        &.KF {
+            background: url(/img/bg_tree_KF.png) no-repeat;
+            background-size: 100% auto;
+        }
+        &.DE {
+            background: url(/img/bg_tree_DE.png) no-repeat;
+            background-size: 100% auto;
+        }
+        &.FM {
+            background: url(/img/bg_tree_FM.png) no-repeat;
+            background-size: 100% auto;
+        }
+        &.AS {
+            background: url(/img/bg_tree_AS.png) no-repeat;
+            background-size: 100% auto;
+        }
+        &.SU {
+            background: url(/img/bg_tree_SU.png) no-repeat;
+            background-size: 100% auto;
+        }
+        &.BD {
+            background: url(/img/bg_tree_BD.png) no-repeat;
+            background-size: 100% auto;
+        }
+        &.WL {
+            background: url(/img/bg_tree_WL.png) no-repeat;
+            background-size: 100% auto;
+        }
+        &.SF {
+            background: url(/img/bg_tree_SF.png) no-repeat;
+            background-size: 100% auto;
+        }
+    }
+}
+
+.modal-content {
+    background-color: rgba(12, 12, 12, 0.9);
+    color: white;
+    
+    .modal-header {
+        border-color: #333;
+    }
+    
+    .modal-footer {
+        border: none;
+    }
+    
+    input {
+        background-color: rgba(0,0,0,0.9);
+        border: none;
+        border-radius: 2px;
+        color: #aaa;
+    }
+    
+    .btn {
+        border: none;
+    }
+    
+    .btn-default {
+        background-color: #777;
+        color: white;
+        
+        &:hover {
+            background-color: #555;
+        }
+    }
+}
+
+.embedGroup {
+    padding-top: 15px;
+    
+    .form-inline label{
+        margin-right: 10px;
+        font-weight: 400;
+    }
+}

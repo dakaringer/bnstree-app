@@ -1,0 +1,130 @@
+.minibar
+    .affiliate
+        a(href='http://www.bladeandsoul.com/')
+            img(height='30' alt='bns' src='/img/bns.png')
+            span Blade & Soul Website
+        //a(href='http://impbns.com/')
+            img(height='30' alt='bns' src='/img/bns.png')
+            span The Imperial Network
+        //a(href='/ace')
+            img(height='30' alt='ace' src='/img/ace.png')
+            span Ace
+    .login
+        if loggedin
+            li.dropdown
+                a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-expanded='false') #{loggedin}
+                ul.dropdown-menu
+                    li: a(href='/profile') Profile
+                    li: a(href='/logout') Log Out
+        else
+            li: a(href='#' onClick='this.blur();' data-toggle='modal' data-target='#login') Log in / Sign up
+nav.navbar.navbar-inverse.topbar
+    .navbar-border
+    .navbar-header.navbar-main
+        button.navbar-toggle.main-navbar-toggle.collapsed(type='button' data-toggle='collapse' data-target='#navbar')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        .navbar-brand
+            a(href='/') 
+                img(height='70' alt="logo" src="/img/logo3.png") 
+    #navbar.navbar-collapse.collapse
+        ul.nav.navbar-nav.navbar-right.navbar-login
+            li.dropdown
+                a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-expanded='false') Skill Trees
+                    span.caret
+                ul.dropdown-menu(role='menu')
+                    li(class=(job == 'BM') && 'active'): a(href='/BM') Blade Master
+                    li(class=(job == 'KF') && 'active'): a(href='/KF') Kung Fu Master
+                    li(class=(job == 'DE') && 'active'): a(href='/DE') Destroyer
+                    li(class=(job == 'FM') && 'active'): a(href='/FM') Force Master
+                    li(class=(job == 'AS') && 'active'): a(href='/AS') Assassin
+                    li(class=(job == 'SU') && 'active'): a(href='/SU') Summoner
+                    li(class=(job == 'BD') && 'active'): a(href='/BD') Blade Dancer
+                    li(class=(job == 'WL') && 'active'): a(href='/WL') Warlock
+                    li(class=(job == 'SF') && 'active'): a(href='/SF') Soul Fighter
+            li.dropdown
+                a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-expanded='false') Items
+                    span.caret
+                ul.dropdown-menu(role='menu')
+                    //li(class=(job == 'BM') && 'active'): a(href='/evolver') Item Evolver (Beta)
+                    li(class=(page == 'mixer') && 'active'): a(href='/soulshield') Soul Shield Mixer
+            li.dropdown
+                a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-expanded='false') Character
+                    span.caret
+                ul.dropdown-menu(role='menu')
+                    li(class=(page == 'character') && 'active'): a(href='/character') Search / Infographic
+            li(class=(page == 'blog' && type == 'update') && 'active').dropdown
+                a(href='/update') Patch Notes
+            if loggedin
+                li.dropdown2
+                    a.dropdown-toggle(href='#' data-toggle='dropdown' role='button' aria-expanded='false') #{loggedin}
+                    ul.dropdown-menu
+                        li: a(href='/profile') Profile
+                        li: a(href='/logout') Log Out
+            else
+                li: a(href='#' onClick='this.blur();' data-toggle='modal' data-target='#login') Log in / Sign up
+
+.sidebar
+    .sidebar-brand
+        a(href='/') 
+            img(height='70' alt="logo" src="/img/logo3.png") 
+            span
+                h1 BnSTree
+    ul
+        a(role="button" data-toggle="collapse" href="#jobs" aria-expanded="true" aria-controls="jobs")
+            h4 Skill Trees
+        hr
+        #jobs.collapse.in
+            li(class=(job == 'BM') && 'active'): a(href='/BM')
+                i.side-icon.side-icon-bm 
+                span Blade Master
+            li(class=(job == 'KF') && 'active'): a(href='/KF')
+                i.side-icon.side-icon-kf 
+                span Kung Fu Master
+            li(class=(job == 'DE') && 'active'): a(href='/DE')
+                i.side-icon.side-icon-de 
+                span Destroyer
+            li(class=(job == 'FM') && 'active'): a(href='/FM')
+                i.side-icon.side-icon-fm 
+                span Force Master
+            li(class=(job == 'AS') && 'active'): a(href='/AS')
+                i.side-icon.side-icon-as 
+                span Assassin
+            li(class=(job == 'SU') && 'active'): a(href='/SU')
+                i.side-icon.side-icon-su 
+                span Summoner
+            li(class=(job == 'BD') && 'active'): a(href='/BD')
+                i.side-icon.side-icon-bd 
+                span Blade Dancer
+            li(class=(job == 'WL') && 'active'): a(href='/WL')
+                i.side-icon.side-icon-wl 
+                span Warlock
+            li(class=(job == 'SF') && 'active'): a(href='/SF')
+                i.side-icon.side-icon-sf 
+                span Soul Fighter
+        a(role="button" data-toggle="collapse" href="#items" aria-expanded="true" aria-controls="items")
+            h4 Items
+        hr
+        #items.collapse.in
+            //li(class=(page == 'evolver') && 'active'): a(href='/evolver')
+                i.side-icon.side-icon-item
+                span Item Evolver
+                    small  (Beta)
+            li(class=(page == 'mixer') && 'active'): a(href='/soulshield')
+                i.side-icon.side-icon-ss
+                span Soul Shield Mixer
+        a(role="button" data-toggle="collapse" href="#character" aria-expanded="true" aria-controls="items")
+            h4 Character
+        hr
+        #character.collapse.in
+            li(class=(page == 'character') && 'active'): a(href='/character')
+                i.side-icon.side-icon-char
+                span Search / Infographic
+        .subside
+            li(class=(type == 'update') && 'active'): a(href='/update')
+                span Patch Notes
+            li: a(target="_blank" href="https://www.twitchalerts.com/donate/dakaringer") 
+                span Donate to BnSTree 
+                span.glyphicon.glyphicon-heart(aria-hidden="true")

@@ -1,0 +1,288 @@
+.itemNav {
+    padding-top: 1.5rem;
+    
+    .navbar-header {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .subtitle {
+        font-size: 24px;
+        color: white;
+    }
+    
+    .typeMenu {
+        @media (min-width: 768px) {
+            margin-left: 2rem;
+        }
+        
+        a {
+            padding-top: 27px;
+            padding-bottom: 9px;
+            
+            @media(max-width: 767px) {
+                padding-top: 15px;
+                padding-bottom: 10px;
+                padding-left: 30px;
+            }
+        }
+    }
+}
+
+.listFilter {
+    z-index: 10;
+    background: #222;
+    border-right: solid 1px rgba(184, 134, 11, 0.75);
+    border-bottom: solid 1px black;
+    
+    opacity:0; 
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+    
+    position: absolute;
+    width: 25%;
+    
+    @media (max-width: 1199px) {
+        width: 100%;
+        position: relative;
+        border-right: none;
+        padding: 1px;
+    }
+    
+    @media (max-width: 767px) {
+        height: auto;
+        
+        form {
+            margin: 0;
+        }
+    }    
+    
+    .glyphicon-remove {
+        position: absolute;
+        color: #555;
+        cursor: pointer;
+        margin-left: -2.1rem;
+        margin-top: 1.3rem;
+        
+        @media (max-width: 767px) {
+            right: 3.3rem;
+            margin-top: 1.6rem;
+        }
+    }
+    
+    .searchInput {
+        width: calc(100% - 175px);
+        margin-right: 10px;
+        
+        @media (max-width: 767px) {
+            width: 100%;
+        }
+    }
+    
+    .form-group {
+        input {
+            background: #000;
+            border: none;
+            padding: 0 5px;
+            color: white;
+            width: 100%;
+            height: 25px;
+        }
+    }
+    
+    .levelInput {
+        display: inline;
+        color: white;
+        
+        label {
+            color: #9d9d9d;
+            font-weight: normal;
+            margin: 0 5px;
+        }
+        
+        input {
+            width: 50px;
+        }
+        
+        .form-control {
+            display: inline;
+        }
+    }
+    
+    .checkbox {
+        color: #9d9d9d;
+        margin: 0 10px;
+        
+        span {
+            margin-left: 5px;
+        }
+        
+        @media (max-width: 767px) {
+            display: inline-block;
+        }
+    }
+    
+    .gradeFilters {
+        margin-top: 0.5rem;
+        
+        @media (max-width: 767px) {
+            display: inline-block;
+        }
+    }
+    
+    .itemClassSelect {
+        margin-top: 6px;
+        
+        label {
+            color: #9d9d9d;
+            font-weight: normal;
+            margin: 0 5px;
+        }
+        
+        select {
+            padding: 0px 2px;
+            border-radius: 3px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            background: black;
+            height: 22px;
+        }
+    }
+}
+
+.itemList {
+    height: 800px;
+    background: rgba(0,0,0,0.5);
+    padding: 0;
+    border-right: solid 1px rgba(184, 134, 11, 0.75);
+    padding-top: 69px;
+    list-style: none;
+    
+    opacity:0; 
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+    
+    &.weaponList {
+        padding-top: 98px;
+        
+        @media(max-width: 1489px) {
+            padding-top: 120px;
+        }
+    }
+    
+    @media(max-width: 1199px) {
+        padding-top: 0 !important;
+        height: 20rem;
+        overflow: auto;
+        border-right: none;
+        border-bottom: solid 1px rgba(184, 134, 11, 0.75);
+    }
+    
+    dl {
+        margin: 0;
+        color: #fff;
+
+        dt {
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+            border-bottom: solid 1px #000;
+            
+            background: linear-gradient(to right,  rgba(8,13,17,0.9) 0%,rgba(8,13,17,0.9) 50%,rgba(7,7,7,0.9) 100%);
+        }
+    
+        dd {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                position: relative;
+                height: 64px;
+                line-height: 64px;
+                background: rgba(0,0,0,0.5);
+
+                border-bottom: solid 1px rgba(12,12,12,0.8);
+                cursor: pointer;
+
+                &:hover {
+                    background: linear-gradient(to right,  rgba(19,73,127,0.8) 0%,rgba(12,12,12,0.48) 40%,rgba(12,12,12,0) 100%);
+                }
+
+                &.selected {
+                    background: linear-gradient(to right,  rgba(28,109,191,1) 0%,rgba(12,12,12,0.62) 60%,rgba(12,12,12,0.2) 85%,rgba(12,12,12,0) 100%);
+                }
+            }
+            
+
+            .thumb {
+                position: absolute;
+                background-color: #000;
+                height: 64px;
+                overflow: hidden;
+            }
+            
+            .name {
+                margin-left: 80px;
+                color: #ddd;
+                font-size: 18px;
+            }
+            
+            @keyframes expand { from { max-height:0; } to { max-height:15rem; } }
+            
+            .subEntryDiv {
+                max-height: 0;
+                animation:expand ease-in 1;
+                animation-fill-mode:forwards;
+                animation-duration:0.2s;
+                overflow: hidden;
+                background: rgba(0, 0, 0, 0.7);
+                padding-left: 14px;
+            }
+            
+            .subEntry {
+                height: 50px;
+                line-height: 50px;
+                
+                .name {
+                    font-size: 16px;
+                    margin-left: 65px;
+                }
+                
+                .thumb {
+                    height: 50px;
+                    
+                    img {
+                        height: 50px;
+                        width: 50px;   
+                    }
+                }
+            }
+        }
+    }
+    
+    .buffer {
+        list-style-type: none;
+        height: 125px;
+        //background: rgba(0,0,0,0.6);
+        
+        @media (max-width: 767px) {
+            display:none;
+        }
+    }
+}
+    
+.grade_4 {
+    color: #297bb0 !important;
+}
+
+.grade_5 {
+    color: #a847bd !important;
+}
+
+.grade_7 {
+    color: #ed6900 !important;
+}

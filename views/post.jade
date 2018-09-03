@@ -1,0 +1,81 @@
+extends layout
+
+block content
+    script.
+        var job = '#{job}',
+              loggedin = "#{loggedin}",
+              edit = true,
+              readonly = true;
+        
+        var buildCode = '#{buildData.buildCode}',
+            buildList = '!{buildData.buildList}',
+            viewMode = #{mode};
+            
+            
+    include ./includes/trainer.jade
+    include ./includes/classModal.jade
+    script(type='text/javascript' src='/js/vendor.js')
+    
+    .main
+        .container
+            .post
+                h2 #{buildData.title} 
+                    small #{buildData.type}, Lv#{buildData.level} H#{buildData.hLevel}
+                .row
+                    .col-sm-8
+                        span By: #{buildData.author.username}
+                        span.date Last Edited: #{buildData.dateEdited.toLocaleString()}
+                    p.col-sm-4.text-right 
+                        i.fa.fa-comment
+                        span  Comments: 
+                        span.disqus-comment-count(data-disqus-identifier=job + '/' + buildData._id) 0
+                        i.fa.fa-heart
+                        span  Likes: #{buildData.likes}
+                .content !{buildData.content}
+                if fav != null
+                    - var a = (fav ? 'display:none;' : '')
+                    - var b = (fav ? '' : 'display:none;')
+                    button#fav.btn.btn-default.center-block(style=a)
+                        i.fa.fa-heart
+                        span  Like
+                    button#unfav.btn.btn-info.center-block(style=b)
+                        i.fa.fa-heart 
+                        span  Liked
+                if editable
+                    .pubButtons
+                        a.btn.btn-info(href='/' + job + '/' + buildData._id + '/edit') Edit
+            .chat
+                h2 Comments
+                #disqus_thread
+            include ./includes/adtext.jade
+            include ./includes/buildList.jade
+            
+                script.                    
+                    $('#fav').click(function() {
+                        $("#fav").prop('disabled', true);
+                        $.post('/' + job + '/' + '#{buildData._id}' + '/fav', {}, function(data, status){
+                            console.log(data);
+                            if (data) {
+                                $("#fav").hide();
+                                $("#unfav").show();
+                                $("#fav").prop('disabled', false);
+                            }
+                        });
+                    });
+                    
+                    $('#unfav').click(function() {
+                        $("#unfav").prop('disabled', true);
+                        $.post('/' + job + '/' + '#{buildData._id}' + '/unfav', {}, function(data, status){
+                            if (data) {
+                                $("#unfav").hide();
+                                $("#fav").show();
+                                $("#unfav").prop('disabled', false);
+                            }
+                        });
+                    });
+            
+            include ./includes/ad.jade
+            
+        .main-background
+    
+    

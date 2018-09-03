@@ -1,0 +1,317 @@
+extends layout
+
+block content
+    style .background {transform: translateY(-23%) translateZ(0)}
+    .content-wrap
+        .profile-info
+            .container
+                form#nameChange.form-inline(method="post")
+                    .form-group
+                        label Change Username 
+                        input.form-control(type="text" name="username" value="#{loggedin}" required)
+                    button.btn.btn-info(id="submit") Save
+                    #confirm(style="display:none") Saved 
+                        span.glyphicon.glyphicon-ok(aria-hidden="true")
+                    #taken(style="display:none") Name is already taken 
+                        span.glyphicon.glyphicon-remove(aria-hidden="true")
+                    #error(style="display:none") Error
+                        span.glyphicon.glyphicon-remove(aria-hidden="true")
+            
+    script(type='text/javascript' src='/js/vendor.js')
+    script.
+        $('#submit').click(function(){
+            $('#confirm').hide();
+            $('#taken').hide();
+            $('#error').hide();
+            $.post('/profile', {form: JSON.stringify($('#nameChange').serializeArray()) }, function(data, status){
+                switch(parseInt(data)){
+                    case 0:
+                        $('#confirm').show();
+                        break;
+                    case 1:
+                        $('#taken').show();
+                        break;
+                    case 2:
+                        $('#error').show();
+                        break;
+                }
+            });
+            return false;
+        });
+            
+    .front.main
+        .container-fluid
+            .build-list.table-responsive.col-lg-6
+                h2 My Builds
+                form.form-inline.sort
+                    .form-group
+                        label Sort by: 
+                        select#sort-mybuilds.form-control.input-sm
+                            option(value='new') Newest
+                            option(value='edited') Last Edited
+                            option(value='pop') Popular
+                table.table.table-hover
+                    thead
+                        tr
+                            th.col-sm-2 Class
+                            th.col-sm-1 Type
+                            th.col-sm-7 Title
+                            th.col-sm-1 Req. Level
+                            th.col-sm-1.text-center: i.fa.fa-heart
+                    tbody#mybuilds
+                        each build in myBuildList
+                            -var jobName = ""
+                            case build.job
+                                when "BM"
+                                    -jobName = "Blade Master"
+                                when "KF"
+                                    -jobName = "Kung Fu Master"
+                                when "DE"
+                                    -jobName = "Destroyer"
+                                when "FM"
+                                    -jobName = "Force Master"
+                                when "AS"
+                                    -jobName = "Assasssin"
+                                when "SU"
+                                    -jobName = "Summoner"
+                                when "BD"
+                                    -jobName = "Blade Dancer"
+                                when "WL"
+                                    -jobName = "Warlock"
+                                when "SF"
+                                    -jobName = "Soul Fighter"
+                            tr
+                                td= jobName
+                                td #{build.type}
+                                td
+                                    a(href='/' + build.job + '/' + build._id) #{build.title}
+                                    //span.disqus-comment-count(data-disqus-identifier=job + '/' + build._id) 0
+                                if (build.hLevel > 0)
+                                    td Lv#{build.level} H#{build.hLevel}
+                                else 
+                                    td Lv#{build.level}
+                                td.text-center #{build.likes}
+                #page-mybuilds
+                form#search-mybuilds.form-inline.search
+                    select.input-sm(name='class')
+                        option(value='all') All
+                        option(value='BM') Blade Master
+                        option(value='KF') Kung Fu Master
+                        option(value='DE') Destroyer
+                        option(value='FM') Force Master
+                        option(value='AS') Assassin
+                        option(value='SU') Summoner
+                        option(value='BD') Blade Dancer
+                        option(value='WL') Warlock
+                        option(value='SF') Soul Fighter
+                    select.input-sm(name='scope')
+                        option(value='all') All
+                        option(value='PvE') PvE
+                        option(value='PvP') PvP
+                    input.input-sm(type='text' name='text' placeholder='Search')
+                    select.input-sm(name='type')
+                        option(value='content') Title + Content
+                        option(value='title') Title
+                    button.btn.btn-default.btn-sm(type='submit') Search
+                script.
+                    function convert (code) {
+                        switch (code) {
+                            case "BM":
+                                return "Blade Master";
+                                break;
+                            case "KF":
+                                return "Kung Fu Master";
+                                break;
+                            case "DE":
+                                return "Destroyer";
+                                break;
+                            case "FM":
+                                return "Force Master";
+                                break;
+                            case "AS":
+                                return "Assassin";
+                                break;
+                            case "SU":
+                                return "Summoner";
+                                break;
+                            case "BD":
+                                return "Blade Dancer";
+                                break;
+                            case "WL":
+                                return "Warlock";
+                                break;
+                            case "SF":
+                                return "Soul Fighter";
+                                break;
+                        }
+                    }
+                    
+                    function myBuildList (data) {
+                        var temp = '';
+                        var build = null;
+                        for (var b in data) {
+                            build = data[b];
+                            if (build.hLevel > 0) {
+                                temp += '<tr><td>' + convert(build.job) + '</td><td>' + build.type + '</td><td><a href="/' + build.job + '/' + build._id  + '">' + build.title + '</a></td><td>Lv' + build.level + ' H' + build.hLevel + '</td><td class="text-center">' + build.likes + '</td></tr>';
+                            }
+                            else {
+                                temp += '<tr><td>' + convert(build.job) + '</td><td>' + build.type + '</td><td><a href="/' + build.job + '/' + build._id  + '">' + build.title + '</a></td><td>Lv' + build.level + '</td><td class="text-center">' + build.likes + '</td></tr>';
+                            }
+                        }
+                        $('#mybuilds').html(temp);
+                        //DISQUSWIDGETS = undefined;
+                        //$.getScript("//bnstree.disqus.com/count.js");
+                    }
+
+                    $('#page-mybuilds').bootpag({
+                        total: Math.ceil(#{myBuildCount} / 10),
+                        maxVisible: 5
+                    }).on('page', function(event, num){
+                        $.post('/profile-search', {pageNumber: num, cat:"my", by: $('#sort-mybuilds').val(), form: JSON.stringify($('#search-mybuilds').serializeArray())}, function(data, status){
+                            myBuildList(data[1]);
+                        });
+                    });
+
+                    $('#sort-mybuilds').change(function() {
+                        $.post('/profile-search', {pageNumber: 1, cat:"my", by: this.value, form: JSON.stringify($('#search-mybuilds').serializeArray())}, function(data, status){
+                            $('#page-mybuilds').bootpag({
+                                total: Math.ceil(data[0] / 10),
+                                page: 1
+                            });
+                            myBuildList(data[1]);
+                        });
+                    });
+
+                    $('#search-mybuilds').submit(function(e) {
+                        e.preventDefault();
+                        $.post('/profile-search', {pageNumber: 1, cat:"my", by: $('#sort-mybuilds').val(), form: JSON.stringify($('#search-mybuilds').serializeArray()) }, function(data, status){
+                            $('#page-mybuilds').bootpag({
+                                total: Math.ceil(data[0] / 10),
+                                page: 1
+                            });
+                            myBuildList(data[1]);
+                        });
+                    });
+            .build-list.table-responsive.col-lg-6
+                h2 My Liked Builds
+                form.form-inline.sort
+                    .form-group
+                        label Sort by: 
+                        select#sort-likedbuilds.form-control.input-sm
+                            option(value='new') Newest
+                            option(value='edited') Last Edited
+                            option(value='pop') Popular
+                table.table.table-hover
+                    thead
+                        tr
+                            th.col-sm-2 Class
+                            th.col-sm-1 Type
+                            th.col-sm-5 Title
+                            th.col-sm-1 Req. Level
+                            th.col-sm-2 Posted by
+                            th.col-sm-1.text-center: i.fa.fa-heart
+                    tbody#likedbuilds
+                        each build in likedBuildList
+                            -var jobName = ""
+                            case build.job
+                                when "BM"
+                                    -jobName = "Blade Master"
+                                when "KF"
+                                    -jobName = "Kung Fu Master"
+                                when "DE"
+                                    -jobName = "Destroyer"
+                                when "FM"
+                                    -jobName = "Force Master"
+                                when "AS"
+                                    -jobName = "Assasssin"
+                                when "SU"
+                                    -jobName = "Summoner"
+                                when "BD"
+                                    -jobName = "Blade Dancer"
+                                when "WL"
+                                    -jobName = "Warlock"
+                                when "SF"
+                                    -jobName = "Soul Fighter"
+                            tr
+                                td= jobName
+                                td #{build.type}
+                                td
+                                    a(href='/' + build.job + '/' + build._id) #{build.title}
+                                    //span.disqus-comment-count(data-disqus-identifier=job + '/' + build._id) 0
+                                if (build.hLevel > 0)
+                                    td Lv#{build.level} H#{build.hLevel}
+                                else 
+                                    td Lv#{build.level}
+                                td #{build.author.username}
+                                td.text-center #{build.likes}
+                #page-likedbuilds
+                form#search-likedbuilds.form-inline.search
+                    select.input-sm(name='class')
+                        option(value='all') All
+                        option(value='BM') Blade Master
+                        option(value='KF') Kung Fu Master
+                        option(value='DE') Destroyer
+                        option(value='FM') Force Master
+                        option(value='AS') Assassin
+                        option(value='SU') Summoner
+                        option(value='BD') Blade Dancer
+                        option(value='WL') Warlock
+                        option(value='SF') Soul Fighter
+                    select.input-sm(name='scope')
+                        option(value='all') All
+                        option(value='PvE') PvE
+                        option(value='PvP') PvP
+                    input.input-sm(type='text' name='text' placeholder='Search')
+                    select.input-sm(name='type')
+                        option(value='content') Title + Content
+                        option(value='title') Title
+                        option(value='author') Posted by
+                    button.btn.btn-default.btn-sm(type='submit') Search
+                script.
+                    function myLikeList (data) {
+                        var temp = '';
+                        var build = null;
+                        for (var b in data) {
+                            build = data[b];
+                            if (build.hLevel > 0) {
+                                temp += '<tr><td>' + convert(build.job) + '</td><td>' + build.type + '</td><td><a href="/' + build.job + '/' + build._id  + '">' + build.title + '</a></td><td>Lv' + build.level + ' H' + build.hLevel + '</td><td>' + build.author.username + '</td><td class="text-center">' + build.likes + '</td></tr>';
+                            }
+                            else {
+                                temp += '<tr><td>' + convert(build.job) + '</td><td>' + build.type + '</td><td><a href="/' + build.job + '/' + build._id  + '">' + build.title + '</a></td><td>Lv' + build.level + '</td><td>' + build.author.username + '</td><td class="text-center">' + build.likes + '</td></tr>';
+                            }
+                        }
+                        $('#likedbuilds').html(temp);
+                        //DISQUSWIDGETS = undefined;
+                        //$.getScript("//bnstree.disqus.com/count.js");
+                    }
+
+                    $('#page-likedbuilds').bootpag({
+                        total: Math.ceil(#{likedBuildCount} / 10),
+                        maxVisible: 5
+                    }).on('page', function(event, num){
+                        $.post('/profile-search', {pageNumber: num, cat:"liked", by: $('#sort-likedbuilds').val(), form: JSON.stringify($('#search-likedbuilds').serializeArray())}, function(data, status){
+                            myLikeList(data[1]);
+                        });
+                    });
+
+                    $('#sort-likedbuilds').change(function() {
+                        $.post('/profile-search', {pageNumber: 1, cat:"liked", by: this.value, form: JSON.stringify($('#search-likedbuilds').serializeArray())}, function(data, status){
+                            $('#page-likedbuilds').bootpag({
+                                total: Math.ceil(data[0] / 10),
+                                page: 1
+                            });
+                            myLikeList(data[1]);
+                        });
+                    });
+
+                    $('#search-likedbuilds').submit(function(e) {
+                        e.preventDefault();
+                        $.post('/profile-search', {pageNumber: 1, cat:"liked", by: $('#sort-likedbuilds').val(), form: JSON.stringify($('#search-likedbuilds').serializeArray()) }, function(data, status){
+                            $('#page-likedbuilds').bootpag({
+                                total: Math.ceil(data[0] / 10),
+                                page: 1
+                            });
+                            myLikeList(data[1]);
+                        });
+                    });
+        .main-background

@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    script(type='text/javascript' src='/js/vendor.js')
+    if (guild && guild.guildName == "Ace" && guild.level > 3)
+        .content-wrap
+            .highlight
+                .news.col-sm-4.col-sm-push-8.build-list
+                    img.logo(src="/img/ace-large-white.png")
+                    a(href="/ace/announcements")
+                        h3 Announcements
+                    table.table
+                        tbody#posts
+                            - var yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
+                            - var type = "update";
+                            each post in announcements
+                                tr
+                                    td.col-sm-9
+                                        a(href='/' + type + '/' + post._id) #{post.title}
+                                        //span.disqus-comment-count(data-disqus-identifier=job + '/' + post._id) 0
+                                        if post.datePosted > yesterday
+                                            span.new N
+                                    td.col-sm-3 #{post.dateEdited.getDate() + '.' + (post.dateEdited.getMonth()+1) + '.' + post.dateEdited.getFullYear()}
+                .col-sm-8.col-sm-pull-4
+        .front.main
+            .container-fluid
+                .dashboard
+                    .discord
+                        h2 Discord 
+                            small
+                                a(href="https://bit.ly/1P7Ecij") Link
+                        iframe(src="https://discordapp.com/widget?id=137367520939212800&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0")
+                    .member
+                        h2 Member List
+            .main-background       
+    else
+        .main.blog
+            .container
+                img.logo(src="/img/ace-large-white.png")
+                h2 This page is for Ace members only
+                p If you are a member, register 
+                    if (loggedin)
+                        a(href="ace/register") here*
+                    else
+                        a() here*
+                    span .
+                    h6 * You must be logged in.

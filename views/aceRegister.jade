@@ -1,0 +1,60 @@
+extends layout
+
+block content
+    .main.blog
+        .container
+            h2 Ace Registration
+            form.form-horizontal.registration#buildForm(method='post')
+                .form-group
+                    label.col-sm-2.control-label Password
+                    .col-sm-10
+                        input.form-control(type="password" name="psw" placeholder="Password")
+                .form-group
+                    label.col-sm-2.control-label In Game Name
+                    .col-sm-10
+                        input.form-control(type="text" name="ign" placeholder="In Game Name")
+                .form-group
+                    label.col-sm-2.control-label Class
+                    .col-sm-10
+                        select.form-control(name="job")
+                            option(value="BM") Blade Master
+                            option(value="KF") Kung Fu Master
+                            option(value="DE") Destroyer
+                            option(value="FM") Force Master
+                            option(value="AS") Assassin
+                            option(value="SU") Summoner
+                            option(value="BD") Blade Dancer
+                            option(value="WL") Warlock
+                            option(value="SF") Soul Fighter
+                .form-group
+                    label.col-sm-2.control-label Craft1
+                    .col-sm-10
+                        select.form-control(name="craft1")
+                            option(value="Undecided") Undecided
+                            option(value="The Forgekeepers") The Forgekeepers
+                            option(value="The Radiant Ring") The Radiant Ring
+                            option(value="The Earthseers") The Earthseers
+                            option(value="The Silver Cauldron") The Silver Cauldron
+                            option(value="Acquired Taste") Acquired Taste
+                            option(value="Soul Wardens") Soul Wardens
+                            option(value="The Merry Potters") The Merry Potters
+                .form-group
+                    label.col-sm-2.control-label Craft2
+                    .col-sm-10
+                        select.form-control(name="craft2")
+                            option(value="Undecided") Undecided
+                            option(value="The Forgekeepers") The Forgekeepers
+                            option(value="The Radiant Ring") The Radiant Ring
+                            option(value="The Earthseers") The Earthseers
+                            option(value="The Silver Cauldron") The Silver Cauldron
+                            option(value="Acquired Taste") Acquired Taste
+                            option(value="Soul Wardens") Soul Wardens
+                            option(value="The Merry Potters") The Merry Potters
+                .form-group
+                    .col-sm-offset-2.col-sm-10
+                        input#submit.btn.btn-info(type='submit' value='Submit')
+    script.
+        $("#buildForm").submit( function(eventObj) {
+            $("#submit").prop('disabled', true);
+            return true;
+        });;

@@ -1,0 +1,86 @@
+extends layout
+
+block content
+    script.
+        var job = '#{job}',
+              loggedin = "#{loggedin}",
+              edit = true,
+              readonly = false;
+        
+        var buildCode = '#{buildData.buildCode}',
+            buildList = '!{buildData.buildList}',
+            viewMode = #{mode};
+            
+    include ./includes/trainer.jade
+    include ./includes/classModal.jade
+    script(type='text/javascript' src='/js/vendor.js')
+    
+    .main
+        .container
+            h2 Edit Build
+            form#buildForm(method='post')
+                .form-group
+                    label Title
+                    input.form-control(type='text' name='title' value=buildData.title required)
+                .form-group
+                    label Type
+                    select.form-control(name='type' value=buildData.type)
+                        if (buildData.type == 'PvE')
+                            option(selected) PvE
+                            option PvP
+                            option Leveling
+                        else if (buildData.type == 'PvP')
+                            option PvE
+                            option(selected) PvP
+                            option Leveling
+                        else
+                            option PvE
+                            option PvP
+                            option(selected) Leveling
+                .form-group
+                    textarea.form-control.ckeditor(type='text' rows='10' name='content') #{buildData.content}
+                .pubButtons
+                    button.btn.btn-danger(type="button" data-toggle="modal" data-target="#confirmDelete") Delete
+                    input#submit.btn.btn-info(type='submit' value='Submit')
+                    a.btn.btn-default(href='/' + job + '/' + buildData._id) Cancel
+            
+        .main-background
+    
+    #confirmDelete.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h3.modal-title Delete Post
+                .modal-body.container-fluid
+                    p Are you sure? Deleted data cannot be recovered.
+                .modal-footer
+                    a#delete.btn.btn-danger(href='#') Yes
+                    button.btn.btn-default(type='button' data-dismiss='modal') Cancel
+                    
+    script.
+        $('#submit').click(function(){
+            $('#submit').addClass('disabled')
+        });
+        $('#buildForm').submit( function(eventObj) {
+            $('<input />').attr('type', 'hidden')
+                .attr('name', 'buildCode')
+                .attr('value', buildCode)
+                .appendTo(this);
+            $('<input />').attr('type', 'hidden')
+                .attr('name', 'buildList')
+                .attr('value', buildList)
+                .appendTo(this);
+            return true;
+        });
+        $('#delete').click(function(){
+            $.ajax({
+                url: '/' + job + '/' + '#{buildData._id}' + '/delete',
+                type: 'DELETE',
+                success: function(result) {
+                }
+            });
+            window.location.replace('/' + job);
+            return false;
+        });
+    
+    

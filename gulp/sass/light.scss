@@ -1,0 +1,69 @@
+@import "common";
+@import "nav";
+
+@import "skillNav";
+@import "skillList";
+@import "skillGrid";
+@import "skillTree";
+@import "skillTooltip";
+
+#training-wrap {
+    width: 100%;
+    overflow: hidden;
+
+    position: relative;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.tooltip-tree-group {
+    padding: 0;
+    display: flex;
+}
+
+.content-wrap, #training-wrap {
+    padding: 0;
+    margin: 0;
+}
+
+.skillTree {
+    transform: scale(0.9);
+    transform-origin: top;
+    filter: blur(0);
+    height: auto;
+    padding-bottom: 0;
+}
+
+
+.footer {
+    display: none;
+}
+
+.foot {
+    position: relative;
+    z-index: 1;
+    background: #000;
+    width: 100%;
+    height: 35px;
+}
+
+.power {
+    color: deepskyblue;
+    font-size: 19px;
+    margin-left: 10px;
+    line-height: 35px;
+}
+
+.skillNav {
+    margin: 0;
+}
+
+.skillTooltip.col-xs-6 {
+    border-bottom: none;
+    border-left: solid 1px rgba(184, 134, 11, 0.75);
+    
+    .icon img {
+        width: 60px;
+        height: 60px;
+    }
+}

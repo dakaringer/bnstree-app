@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    script(type='text/javascript' src='/js/vendor.js')
+    
+    .main.blog
+        .container
+            h2 Publish #{type.charAt(0).toUpperCase() + type.slice(1)}
+            form#buildForm(method="post")
+                .form-group
+                    label Title
+                    input.form-control(type="text" name="title" required)
+                .form-group
+                    textarea.form-control.ckeditor(type="text" rows='30' name="content")
+                .pubButtons
+                    input#submit.btn.btn-info(type='submit' value='Submit')
+                    a.btn.btn-default(href='/#{type}') Cancel
+                    
+            script.
+                $("#buildForm").submit( function(eventObj) {
+                    $("#submit").prop('disabled', true);
+                    return true;
+                });

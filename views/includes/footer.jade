@@ -1,0 +1,58 @@
+if pub
+    script(type='text/javascript', src='/ckeditor/ckeditor.js')
+if job
+    //script(id="dsq-count-scr" src="//bnstree.disqus.com/count.js" async)
+    script(type='text/javascript').
+        
+        var disqus_config = function () {
+            this.page.url = 'https://bnstree.com/#{job}/#{identifier}'
+            this.page.identifier = '#{job}/#{identifier}'; 
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+
+            s.src = '//bnstree.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+
+        var tag = document.createElement('script');
+        var player;
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+
+        tag.src = "https://www.youtube.com/iframe_api";
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onPlayerReady() {
+            player.mute();
+        }
+
+        function onYouTubeIframeAPIReady() {
+            "use strict";
+            player = new YT.Player('ytplayer', {
+                videoId: "#{classInfo.info.video}",
+                playerVars: {'controls': 0, 'showinfo': 0, 'modestbranding': 1, rel: 0},
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        var ncChart = [#{classInfo.info.ncChart}],
+            dielChart = [#{classInfo.info.dielChart}];
+
+if blog
+    script(type='text/javascript').
+        var disqus_config = function () {
+            this.page.url = 'https://bnstree.com/#{type}/#{identifier}'
+            this.page.identifier = '#{type}/#{identifier}'; 
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+
+            s.src = '//bnstree.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();

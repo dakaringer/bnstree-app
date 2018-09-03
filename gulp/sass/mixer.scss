@@ -1,0 +1,19 @@
+@import "common";
+@import "nav";
+//@import "post";
+
+@import "soulshieldList";
+@import "soulshieldEquip";
+@import "soulshieldTooltip";
+
+#mixer-wrap {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.equipTooltipGroup {
+    padding: 0;
+}

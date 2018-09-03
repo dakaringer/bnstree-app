@@ -1,0 +1,329 @@
+.skillTree {
+    height: 800px;
+    user-select: none;
+    opacity:0;
+    animation:fadeIn ease-in 1;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.25);
+
+    animation-fill-mode:forwards;
+
+    animation-duration:0.5s;
+
+    @media (max-width: 767px) {
+        height: 750px;
+        padding-bottom: 150px;
+    }
+
+    &.loading {
+        width: 100%;
+    }
+
+    hr {
+        border-color: rgba(50, 50, 50, 0.5);
+        margin-bottom: 10px;
+    }
+
+    .tree-point {
+        position: absolute;
+        right: 25px;
+        top: 53rem;
+        color: darkblue;
+    }
+
+    .tree-wrap {
+        position: relative;
+        top: 35rem;
+        transform: translateY(-50%);
+        margin: 0 auto;
+        height: 53.5rem;
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+    .no-tree {
+        width: 100%;
+        font-size: 18px;
+        color: white;
+
+        .skill-name {
+            color: darkblue;
+        }
+    }
+
+    .col-1 {
+        width: 50px;
+    }
+
+    .col-2 {
+        width: 145px;
+    }
+
+    .col-3 {
+        width: 240px;
+    }
+
+    .col-4 {
+        width: 335px;
+    }
+
+    .loading-wrap {
+        width: 150px;
+
+        .loading-img {
+            background: url(/img/loading.png) no-repeat 0 0;
+
+            width: 150px;
+            height: 64px;
+            position: absolute;
+            top: 42%;
+        }
+    }
+
+    .node-group {
+        position: absolute;
+    }
+
+    .FLabel {
+        position: absolute;
+        width: 50px;
+        text-align: center;
+        color: darkblue;
+        top: -40px;
+    }
+
+    .TLabel {
+        position: absolute;
+        height: 50px;
+        line-height: 50px;
+        color: darkblue;
+        left: -50px;
+    }
+
+    @for $i from 1 through 5 {
+        .T#{$i} {
+            top: ($i - 1) * 95px;
+        }
+
+        @for $j from 1 through 4 {
+            .pos_#{$i}#{$j} {
+                left: ($j - 1) * 95px;
+                top: ($i - 1) * 95px;
+            }
+        }
+    }
+
+    @for $i from 1 through 4 {
+        .F#{$i} {
+            left: ($i - 1) * 95px;
+        }
+
+        .line_#{$i}0 {
+            position: absolute;
+            top: -41px - ($i - 1) * 95px;
+            left: 22px;
+            height: 20px + (($i - 1) * 95px);
+            border-left: 6px #444 solid;
+        }
+        .line.skip_#{$i}0 {
+            margin-top: $i * -95px;
+        }
+        @for $j from 1 through 3 {
+            .line_#{$i}#{$j} {
+                position: absolute;
+                top: -41px - ($i - 1) * 95px;
+                left: -($j * 95px) + 22px;
+                height: 23px + ($i - 1) * 95px;
+                width: $j * 95px + 1px;
+                border-left: 6px #444 solid;
+                border-bottom: 6px #444 solid;
+            }
+        }
+    }
+
+    .arrow {
+        position: absolute;
+        top: -24px;
+        left: 22px;
+        width: 6px;
+        height: 19px;
+        background-color: #444;
+
+        @for $i from 1 through 4 {
+            &.skip_#{$i}0 {
+                top: $i * -119px;
+                height: $i * 111px;
+            }
+        }
+    }
+
+    .glyphicon-triangle-bottom {
+        position: absolute;
+        font-size: 15px;
+        top: -11px;
+        left: 17px;
+        color: #444;
+    }
+
+    .active {
+        .line {
+            z-index: 2;
+            border-color: #ff9024 !important;
+        }
+
+        .arrow {
+            z-index: 2;
+            background-color: #ff9024;
+        }
+
+        .glyphicon-triangle-bottom {
+            color: #ff9024;
+        }
+    }
+
+    .node-wrap {
+        position: absolute;
+        left: -2px;
+        z-index: 3;
+    }
+
+    .current-node {
+        left: -5px;
+        top: -3px;
+        width: 60px;
+        height: 60px;
+        border: solid 3px white;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px 3px rgb(67, 138, 252);
+    }
+
+    .elite1 {
+        position: absolute;
+        left: -12px;
+        top: -10px;
+        width: 75px;
+        height: 75px;
+        border-style: solid;
+        border-width: 12px;
+        border-image: url(/img/elite_border.png) 12 stretch;
+    }
+
+    .elite2 {
+        position: absolute;
+        left: -12px;
+        top: -10px;
+        width: 75px;
+        height: 75px;
+        border-style: solid;
+        border-width: 12px;
+        border-image: url(/img/elite_border.png) 12 stretch;
+    }
+
+    .node {
+        position: absolute;
+        height: 54px;
+        width: 54px;
+        z-index: 5;
+        border: solid 2px #777;
+        background-color: black;
+        border-radius: 3px;
+        border-top-color: #aaa;
+        border-bottom-color: #555;
+
+        &:hover {
+            border-color: skyblue;
+        }
+
+        img {
+            width: 50px;
+            opacity: 0.33;
+            filter: grayscale(100%);
+        }
+
+        .node-points {
+            position: absolute;
+            background-color: black;
+            width: 25px;
+            height: 15px;
+            line-height: 15px;
+            text-align: center;
+            bottom: -3px;
+            right: -6px;
+            font-size: 11px;
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-size: 130% 130%;
+            background-position: center center;
+        }
+
+
+        .plus:hover {
+            background-image: url(/img/plus.png);
+        }
+
+        .excluded:hover {
+            background-image: url(/img/excluded.png);
+        }
+
+        .no-points {
+            background-image: url(/img/no_points.png);
+        }
+
+        .book {
+            background-image: url(/img/book.png);
+        }
+
+        .achievement {
+            background-image: url(/img/lock_achievement.png);
+        }
+
+        &.learnable {
+            cursor: pointer;
+        }
+
+        &.active {
+            cursor: pointer;
+
+            img {
+                opacity: 1;
+
+                filter: none;
+            }
+
+            .node-points {
+                color: aqua;
+            }
+        }
+    }
+}
+
+
+.tagGroup {
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    color: white;
+
+    .tag {
+        display: inline-block;
+        position: relative;
+        margin: 0.3rem;
+        padding: 0 0.5rem 0 0.5rem;
+        border-radius: 0.2rem;
+        background-color: #555;
+        font-size: 12px;
+        cursor: default;
+
+        &.active {
+            background-color: #195F9A;
+        }
+    }
+}

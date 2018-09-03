@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=900, initial-scale=1.0, user-scalable=no')
+        
+        link(rel='stylesheet' href='/css/light.css')
+
+    body
+        .staticBackground
+        script.
+            var job = '#{job}',
+                  loggedin = false,
+                  edit = false,
+                  readonly = '#{readonly}' == 'true' ? true : false;
+                  widget = true;
+            
+            var buildCode = '#{buildCode}';
+        
+        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
+        
+        include ./includes/trainer.jade
+        include ./includes/classModal.jade
+        script(type='text/javascript' src='/js/vendor.js')
+        
+        .foot
+            a.power(href='/' target="_blank") Powered by bnstree.com
+        include ./includes/footer.jade

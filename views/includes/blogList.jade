@@ -1,0 +1,57 @@
+.build-list
+    if (type == "update")
+        h2 Patch Notes
+    table.table.table-hover
+        thead
+            tr
+                th.col-sm-10 Title
+                th.col-sm-2 Date
+        tbody#posts
+            - var yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
+            each post in posts
+                tr
+                    td
+                        a(href='/' + type + '/' + post._id) #{post.title}
+                        //span.disqus-comment-count(data-disqus-identifier=job + '/' + post._id) 0
+                        if post.datePosted > yesterday
+                            span.new N
+                    td #{post.dateEdited.getDate() + '.' + (post.dateEdited.getMonth()+1) + '.' + post.dateEdited.getFullYear()}
+    #page-posts
+    form#search-posts.form-inline.search
+        input.input-sm(type='text' name='text' placeholder='Search')
+        select.input-sm(name='type')
+            option(value='content') Title + Content
+            option(value='title') Title
+        button.btn.btn-default.btn-sm(type='submit') Search
+    script.
+        function blogList (data) {
+            var temp = '';
+            var post = null;
+            for (var b in data) {
+                post = data[b];
+                temp += '<tr><td><a href="/#{type}/' + post._id  + '">' + post.title + '</a></td><td>' + post.dateEdited.getDate() + '.' + (post.dateEdited.getMonth()+1) + '.' + post.dateEdited.getFullYear() + '</td></tr>';
+            }
+            $('#posts').html(temp);
+            //DISQUSWIDGETS = undefined;
+            //$.getScript("//bnstree.disqus.com/count.js");
+        }
+
+        $('#page-posts').bootpag({
+            total: Math.ceil(#{count} / 10),
+            maxVisible: 5
+        }).on('page', function(event, num){
+            $.post('/blog-search', {pageNumber: num, type: '#{type}', form: JSON.stringify($('#search-posts').serializeArray())}, function(data, status){
+                blogList(data[1]);
+            });
+        });
+
+        $('#search-posts').submit(function(e) {
+            e.preventDefault();
+            $.post('/blog-search', {pageNumber: 1, type: '#{type}', form: JSON.stringify($('#search-posts').serializeArray()) }, function(data, status){
+                $('#page-posts').bootpag({
+                    total: Math.ceil(data[0] / 10),
+                    page: 1
+                });
+                blogList(data[1]);
+            });
+        });

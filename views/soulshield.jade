@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    script.        
+        var buildCode = '#{buildCode}';
+
+    include ./includes/mixer.jade
+    script(type='text/javascript' src='/js/vendor.js')
+    
+    .main
+        .container
+            //include ./includes/buildList.jade
+            include ./includes/ad.jade
+        .main-background

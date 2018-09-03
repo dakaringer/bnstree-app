@@ -1,0 +1,95 @@
+.build-list.table-responsive
+    if identifier == ''
+        h2 Builds
+    else
+        h2 More Builds
+    form.form-inline.sort
+        .form-group
+            label Sort by: 
+            select#sort-selection.form-control.input-sm
+                option(value='new') Newest
+                option(value='edited') Last Edited
+                option(value='pop') Popular
+    table.table.table-hover
+        thead
+            tr
+                th.col-sm-1 Type
+                th.col-sm-7 Title
+                th.col-sm-1 Req. Level
+                th.col-sm-2 Posted by
+                th.col-sm-1.text-center: i.fa.fa-heart
+        tbody#builds
+            - var yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
+            each build in buildList
+                tr
+                    td #{build.type}
+                    td
+                        a(href='/' + job + '/' + build._id) #{build.title}
+                        //span.disqus-comment-count(data-disqus-identifier=job + '/' + build._id) 0
+                        if build.datePosted > yesterday
+                            span.new N
+                    if (build.hLevel > 0)
+                        td Lv#{build.level} H#{build.hLevel}
+                    else 
+                        td Lv#{build.level}
+                    td #{build.author.username}
+                    td.text-center #{build.likes}
+    #page-selection
+    form#search-selection.form-inline.search
+        select.input-sm(name='scope')
+            option(value='all') All
+            option(value='PvE') PvE
+            option(value='PvP') PvP
+        input.input-sm(type='text' name='text' placeholder='Search')
+        select.input-sm(name='type')
+            option(value='content') Title + Content
+            option(value='title') Title
+            option(value='author') Posted by
+        button.btn.btn-default.btn-sm(type='submit') Search
+    script.
+        function buildTable (data) {
+            var temp = '';
+            var build = null;
+            for (var b in data) {
+                build = data[b];
+                if (build.hLevel > 0) {
+                    temp += '<tr><td>' + build.type + '</td><td><a href="/' + job + '/' + build._id  + '">' + build.title + '</a></td><td>Lv' + build.level + ' H' + build.hLevel + '</td><td>' + build.author.username + '</td><td class="text-center">' + build.likes + '</td></tr>';
+                }
+                else {
+                    temp += '<tr><td>' + build.type + '</td><td><a href="/' + job + '/' + build._id  + '">' + build.title + '</a></td><td>Lv' + build.level + '</td><td>' + build.author.username + '</td><td class="text-center">' + build.likes + '</td></tr>';
+                }
+            }
+            $('#builds').html(temp);
+            //DISQUSWIDGETS = undefined;
+            //$.getScript("//bnstree.disqus.com/count.js");
+        }
+
+        $('#page-selection').bootpag({
+            total: Math.ceil(#{count} / 10),
+            maxVisible: 5
+        }).on('page', function(event, num){
+            $.post('/' + job + '/search', {pageNumber: num, by: $('#sort-selection').val(), form: JSON.stringify($('#search-selection').serializeArray())}, function(data, status){
+                buildTable(data[1]);
+            });
+        });
+
+        $('#sort-selection').change(function() {
+            $.post('/' + job + '/search', {pageNumber: 1, by: this.value, form: JSON.stringify($('#search-selection').serializeArray())}, function(data, status){
+                $('#page-selection').bootpag({
+                    total: Math.ceil(data[0] / 10),
+                    page: 1
+                });
+                buildTable(data[1]);
+            });
+        });
+
+        $('#search-selection').submit(function(e) {
+            e.preventDefault();
+            $.post('/' + job + '/search', {pageNumber: 1, by: $('#sort-selection').val(), form: JSON.stringify($('#search-selection').serializeArray()) }, function(data, status){
+                $('#page-selection').bootpag({
+                    total: Math.ceil(data[0] / 10),
+                    page: 1
+                });
+                buildTable(data[1]);
+            });
+        });

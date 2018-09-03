@@ -1,0 +1,297 @@
+@import "common";
+@import "nav";
+@import "post";
+@import "buildList";
+@import "profile";
+@import "timer";
+
+@import "skillNav";
+@import "skillList";
+@import "skillGrid";
+@import "skillTree";
+@import "skillTooltip";
+
+#training-wrap {
+    width: 100%;
+    overflow: hidden;
+
+    position: relative;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.background { 
+    will-change: transform;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20%);
+}
+
+.tooltip-tree-group {
+    padding: 0;
+}
+
+.countdownDiv {
+    text-align: center;
+    position: relative;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    
+    @media (min-width: 1250px) {
+        top: 30%;
+    }
+    
+    .countdownHeader {
+        color: aqua;
+    }
+
+    a:hover, a:focus {
+        text-decoration: none;
+    }
+    
+    .countdownContainer {
+        padding: 0 5% 5rem 5%;
+        display: flex;
+        justify-content: space-between;
+        color: white;
+
+        h4 {
+            color: orange;
+            margin-bottom: 0;
+        }
+
+        .countdown {
+            margin-top: 0;
+            font-size: 50px;
+        }
+        
+        @media (max-width: 1250px) {
+            display: block;
+        }
+    }
+}
+
+.highlight {
+    background: rgba(0,0,0,0.35);
+    width: 100%;
+    height: 650px;
+    padding: 0;
+
+    @media (min-width: 1200px) {
+        will-change: transform;
+        transform: translateZ(0);
+        position: fixed;
+        height: 700px;
+        margin-left: -25px;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+    @media (max-height: 850px) {
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }  
+    
+    @media (max-width: 767px) {
+        height: auto;
+    }  
+}
+
+.news {
+    background: rgba(0,0,0,0.5);
+    height: 100%;
+    padding-top: 30px;
+    padding-right: 50px;
+    color: white;
+    border-left: solid 1px rgba(184, 134, 11, 0.75);
+    
+    @media (max-width: 767px) {
+        border-left: none;
+        border-top: solid 1px rgba(184, 134, 11, 0.75);
+        height: auto;
+        padding-bottom: 10rem;
+    }
+    
+    h3 {
+        color: aqua;
+    }
+    
+    .charSearch {
+        margin: 3rem 0;
+    }
+}
+
+.front {
+    @media (min-width: 1200px){
+        margin-top: 700px;
+        min-height: 500px;
+    }
+    
+    @media (max-height: 850px) {
+        margin-top: 0;
+    }
+}
+
+.blog {
+    margin-top: 0;
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+    min-height: 100rem;
+    background: rgba(0,0,0,0.75);
+}
+
+.classes {
+    display: flex;
+    
+    @media (min-width: 768px) {
+        justify-content: space-between;
+    }
+    
+    @media (max-width: 767px){
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+    }
+}
+
+.class-button {
+    height: 400px;
+    width: 20%;
+    padding: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+    
+    @media (max-width: 767px) {
+        height: 100px;
+        flex-grow: 1;
+        width: 33.33%;
+    }
+    
+    &:hover, &:focus {
+        text-decoration: none;
+        color: white;
+    }
+    
+    .class-pic {
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        min-height: 150px;
+        filter: grayscale(100%);
+        
+        @media (max-width: 767px) {
+            width: auto;
+            height: auto;
+            background: none !important;
+        }
+        
+        &.img-BM {
+            background: url(/img/bg_tree_BM.png) no-repeat top center black;
+            background-size: auto 199%;
+            background-position: 72% 10%;
+        }
+        
+        &.img-KF {
+            background: url(/img/bg_tree_KF.png) no-repeat top center black;
+            background-size: auto 160%;
+            background-position: 62% 17%;
+        }
+        
+        &.img-DE {
+            background: url(/img/bg_tree_DE.png) no-repeat top center black;
+            background-size: auto 152%;
+            background-position: 74% 45%;
+        }
+        
+        &.img-FM {
+            background: url(/img/bg_tree_FM.png) no-repeat top center black;
+            background-size: auto 146%;
+            background-position: 38% 33%;
+        }
+        
+        &.img-AS {
+            background: url(/img/bg_tree_AS.png) no-repeat top center black;
+            background-size: auto 100%;
+            background-position: 20% 0%;
+        }
+        
+        &.img-SU {
+            background: url(/img/bg_tree_SU.png) no-repeat top center black;
+            background-size: auto 135%;
+            background-position: 85% 12%;
+        }
+        
+        &.img-BD {
+            background: url(/img/bg_tree_BD.png) no-repeat top center black;
+            background-size: auto 141%;
+            background-position: 61% 66%;
+        }
+        
+        &.img-WL {
+            background: url(/img/bg_tree_WL.png) no-repeat top center black;
+            background-size: auto 147%;
+            background-position: 32% 71%;
+        }
+        
+        &.img-SF {
+            background: url(/img/bg_tree_SF.png) no-repeat top center black;
+            background-size: auto 131%;
+            background-position: 54% 74%;
+        }
+        
+        &:hover {
+            filter: grayscale(0%);
+            
+            .class-header {
+                color: white;
+                
+            }
+        }
+        
+        .class-header {
+            color: #ccc;
+            position: absolute;
+            top: 10%;
+            padding-left: 5px;
+            
+            @media (max-width: 767px) {
+                position: relative;
+                padding: 0;
+            }
+            
+            .side-icon {
+                margin-bottom: 10px;
+                margin-left: -3px;
+                
+                @media (max-width: 767px) {
+                    transform: scale(1.25);
+                    transform-origin: center;
+                    position: relative;
+                    display: block;
+                    margin: 15px auto;
+                }
+            }
+            
+            h4 {
+                font-size: 2.5em;
+                transform: rotate(90deg);
+                transform-origin: left top;
+                width: 300px;
+                margin: 0 0 0 40px;
+                
+                @media (max-width: 767px) {
+                    transform: rotate(0deg);
+                    font-size: 14px;
+                    margin: 0;
+                    width: auto;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

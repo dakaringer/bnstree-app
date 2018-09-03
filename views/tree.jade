@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    script.
+        var job = '#{job}',
+              loggedin = "#{loggedin}",
+              edit = false,
+              readonly = false
+              viewMode = 0;
+        
+        var buildCode = '#{buildCode}',
+            viewMode = #{mode};
+            
+    include ./includes/trainer.jade
+    include ./includes/classModal.jade
+    script(type='text/javascript' src='/js/vendor.js')
+    
+    .main
+        .container
+            include ./includes/buildList.jade
+            include ./includes/ad.jade
+        .main-background

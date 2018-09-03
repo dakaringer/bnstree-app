@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    script(type='text/javascript' src='/js/vendor.js')
+    .main.blog
+        .container
+            .post.blogPost
+                if (latestPost) 
+                    h1 #{latestPost.title} 
+                    .row
+                        .col-sm-8
+                            span By: #{latestPost.author.username}
+                            span.date Last Edited: #{latestPost.dateEdited.getDate() + '.' + (latestPost.dateEdited.getMonth()+1) + '.' + latestPost.dateEdited.getFullYear() + ' ' + latestPost.dateEdited.getHours() + ':' + latestPost.dateEdited.getMinutes()}
+                        p.col-sm-4.text-right 
+                            i.fa.fa-comment
+                            span  Comments: 
+                            span.disqus-comment-count(data-disqus-identifier=type + '/' + latestPost._id) 0
+                    .content !{latestPost.content}
+            
+            include ./includes/blogList.jade
+            if loggedin && admin
+                .pubButtons(style="margin-top:10rem;clear:both")
+                    a.btn.btn-info(href='/#{type}/pub') Add New
+            
+            include ./includes/ad.jade

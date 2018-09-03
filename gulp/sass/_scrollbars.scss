@@ -1,0 +1,35 @@
+$face-color: rgba(35, 56, 80, 0.8);
+$glass: rgba(0,0,0,0.8);
+
+body {
+    scrollbar-face-color: $face-color;
+    scrollbar-highlight-color: $face-color;
+    scrollbar-track-color: $glass;
+    scrollbar-arrow-color: $face-color;
+    scrollbar-shadow-color: $face-color;
+    scrollbar-dark-shadow-color: $face-color;
+}
+
+
+body::-webkit-scrollbar {
+    width: 12px;
+    background-color: $glass;
+}
+
+
+select, div {
+    &::-webkit-scrollbar {
+        width: 7px;
+        background-color: rgba(12,12,12,0.5);
+    }
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $face-color;
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-corner, ::-webkit-resizer {
+    background-color: $glass;
+}

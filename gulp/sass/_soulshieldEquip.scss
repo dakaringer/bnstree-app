@@ -1,0 +1,197 @@
+.soulshieldEquip {
+    background: rgba(0,0,0,0.25);
+    height: 800px;
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+    
+    opacity:0; 
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+    
+    @media(min-width: 768px) {
+        padding-bottom: 4rem;
+    }
+    
+    @media(min-width: 1200px) {
+        padding-bottom: 7rem;
+    }
+    
+    @media(max-height: 850px) {
+        padding-bottom: 7.5rem;
+    }
+    
+    @media(max-width: 767px) {
+        height: auto;
+    }
+    
+    .mainEquip {
+        background: url(/img/bg_equip.png) no-repeat;
+        width: 300px;
+        height: 300px;
+        margin: 2.5rem auto;
+        position: relative;
+        
+        .equipPiece {
+            position: absolute;
+            
+            img {
+                width: 140px;
+            }
+        }
+        
+        .selected {
+            background: url(/img/equip_select.png) no-repeat;
+            z-index: 1;
+        }
+        
+        .blankImg {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .pos_1 {
+            top: 10px;
+            left: 81px;
+            
+            &.selected {
+                background-position: -5px -5px;
+            }
+        }
+        
+        .pos_2 {
+            top: 10px;
+            left: 151px;
+            
+            &.selected {
+                background-position: -5px -155px;
+            }
+        }
+        
+        .pos_3 {
+            top: 80px;
+            left: 151px;
+            
+            &.selected {
+                background-position: -5px -305px;
+            }
+        }
+        
+        .pos_4 {
+            top: 150px;
+            left: 151px;
+            
+            &.selected {
+                background-position: -5px -455px;
+            }
+        }
+        
+        .pos_5 {
+            top: 150px;
+            left: 81px;
+            
+            &.selected {
+                background-position: -5px -605px;
+            }
+        }
+        
+        .pos_6 {
+            top: 150px;
+            left: 11px;
+            
+            &.selected {
+                background-position: -5px -755px;
+            }
+        }
+        
+        .pos_7 {
+            top: 80px;
+            left: 11px;
+            
+            &.selected {
+                background-position: -5px -905px;
+            }
+        }
+        
+        .pos_8 {
+            top: 10px;
+            left: 11px;
+            
+            &.selected {
+                background-position: -5px -1055px;
+            }
+        }
+    }
+    
+    .fullStats {
+        flex: 1 1 auto;
+        color: white;
+        padding: 0.5rem 5rem;
+        overflow: auto;
+        
+        @media(min-width: 1200px) {
+            padding-bottom: 5rem;
+        }
+        
+        @media(max-width: 767px) {
+            height: auto;
+            padding-bottom: 12rem;
+        }
+        
+        small {
+            color: #ddd;
+        }
+        
+        .statTable {
+            width: 65%;
+            margin: 0 auto;
+            
+            th {
+                font-weight: normal;
+            }
+            
+            .sum {
+                text-align: right;
+                padding-right: 1rem;
+                color: #66FF66;
+            }
+            
+            .adding {
+                color: #66FF66;
+            }
+        }
+        
+        .effectName {
+            margin-top: 2rem;
+            margin-bottom: 0;
+        }
+        
+        .set {
+            padding-left: 1rem;
+        }
+        
+        .effectLabel {
+            border: 1px solid #ACAA1C;
+            border-radius: 2px;
+            background: #433E00;
+            text-align: center;
+            width: 16px;
+            height: 16px;
+            font-size: 13px;
+            line-height: 16px;
+            display: inline-block;
+            margin-right: 5px;
+            color: #EDEED6;
+        }
+        
+        .effectList {
+            margin-left: 2rem;
+            margin-top: -19px;
+            
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

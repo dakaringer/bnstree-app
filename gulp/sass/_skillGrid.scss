@@ -1,0 +1,285 @@
+.gridWraper {
+    overflow: auto;
+    height: 100%;
+    
+    @media(max-width:1200px) {
+        height: 125%;
+    }
+}
+
+.skillGrid {
+    transform: translateZ(0);
+    will-change: transform;
+    overflow-y: hidden;
+    height: 850px;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.25);
+    padding: 0;
+    overflow-x: auto;
+    
+    opacity:0; 
+    animation:fadeIn ease-in 1;
+
+    animation-fill-mode:forwards;
+
+    animation-duration:0.5s;
+    
+    .listFilter {
+        width: 100%;
+        position: relative;
+        border-right: none;
+        padding: 1px;
+    }
+    
+    .gridTop, .gridBottom {
+        height: 42%;
+        margin: 0 auto;
+        position: relative;
+        min-width: 1000px;
+        
+        @media(max-width:1199px) {
+            height: 34%;
+        }
+    }
+    
+    .gridTop {
+        .primaryBlock, .secondaryBlock {
+            bottom: 0;
+        }
+        
+        .keyGridGroup {
+            background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+            padding-bottom: 40px;
+
+            .keyLabel {
+                bottom: 0;
+            }
+        }
+        
+        @for $i from 0 through 3 {
+            .index_#{$i} {
+                bottom: $i * 75px + 35px;
+            }
+        }
+        
+        @for $i from 4 through 7 {
+            .index_#{$i} {
+                bottom: ($i - 4) * 75px + 35px;
+                left: 70px;
+            }
+        }
+        
+        @for $i from 8 through 10 {
+            .index_#{$i} {
+                bottom: ($i - 8) * 75px + 35px;
+                left: 140px;
+            }
+        }
+    }
+    
+    .gridBottom {
+        .keyGridGroup {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+            padding-top: 40px;
+            
+            .keyLabel {
+                top: 0;
+            }
+        }
+        
+        @for $i from 0 through 3 {
+            .index_#{$i} {
+                top: $i * 75px + 35px;
+            }
+        }
+        
+        @for $i from 4 through 7 {
+            .index_#{$i} {
+                top: ($i - 4) * 75px + 35px;
+                left: 70px;
+            }
+        }
+    }
+    
+    .gridEntry {
+        position: absolute;
+        width: 70px;
+        overflow-x: hidden;
+        text-align: center;
+        font-size: 12px;
+        white-space: nowrap;
+        
+        &.selected .thumb {
+            border-color: white;
+            box-shadow: 0px 0px 10px 3px rgb(67, 138, 252);
+        }
+        
+        .thumb {
+            position: relative;
+            width: 54px;
+            border: solid 2.5px #555;
+            border-radius: 3px;
+            margin: 0 auto;
+            cursor: pointer;
+            background-color: #000;
+
+            &:hover {
+                border-color: skyblue;
+            }
+            
+            .lock {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url(/img/lv_lock.png);
+                background-size: 75% auto;
+                background-position: center;
+            }
+
+            .plus {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url(/img/plus.png);
+                background-size: 100% auto;
+                background-position: center;
+            }
+            
+            .gridElement {
+                position: absolute;
+                left: 1px;
+                
+                img {
+                    height: 15px;
+                    width: 15px;
+                }
+            }
+        }
+
+        .list-counter {
+            width: 15px;
+            height: 15px;
+            font-size: 10px;
+            line-height: 16px;
+            padding-left: 1px;
+            text-align: center;
+            position: absolute;
+            background-color: #000;
+            bottom: 0;
+            right: 0;
+
+            &.complete {
+                background-color: rgba(14,111,178,1);
+            }
+        }
+        
+        .name {
+            margin: 0 5px 0 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .tree-exists {
+            color: aqua;
+        }
+        
+        &.disabled .thumb img {
+            opacity: 0.33;
+            filter: grayscale(100%);
+        }
+
+        &.disabled .name {
+            color: #656565;
+        }
+    }
+    
+    .keyLabel {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        margin: 5px 0 5px 0;
+        font-size: 16px;
+    }
+    
+    .primaryBlock {
+        position:absolute;
+        right: 70%;
+    }
+    
+    .secondaryBlock {
+        position: absolute;
+        left: 30%;
+    }
+    
+    .gridBlock {
+        float: left;
+        margin: 3px 5px;
+    }
+    
+    .keyGridGroup {
+        float: left;
+        min-width: 70px;
+        margin: 2px;
+        min-height: 200px;
+        border-radius: 4px;
+        color: white;
+        position: relative;
+        
+        @for $i from 1 through 3 {
+            &.width_#{$i} {
+                width: $i * 70px;
+            }
+        }
+    }
+}
+
+#gridModal {
+    top: -35px;
+    
+    @media(min-width: 768px) {
+        .modal-body {
+            height: 650px; 
+            padding: 0;
+        }
+    }
+    
+    .modal-content {
+        background-color: rgba(12,12,12,0.90);
+    }
+    
+    .skillTree, .skillTooltip {
+        height: 100%;
+        background: transparent;
+        
+        .FLabel, .TLabel {
+            color: orange;
+        }
+        
+        .no-tree .skill-name, .tree-point {
+            color: aqua;
+        }
+    }
+}
+
+.gridTooltip {
+    padding: 0;
+    background-color: rgba(0,0,0,0.25) !important;
+    border-left: solid 1px rgba(184, 134, 11, 0.75);
+    height: 850px;
+    
+    @media(max-width: 1200px) {
+        display: none;
+    }
+    
+    .skillTooltip {
+        width: 100%;
+        background: none;
+        animation: none;
+        border: none;
+        opacity: 1;
+    }
+}

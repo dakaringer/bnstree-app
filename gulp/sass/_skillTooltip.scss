@@ -1,0 +1,263 @@
+
+.skillTooltip {
+    overflow: auto;
+    overflow-x: hidden;
+    height: 800px;
+    color: white;
+    background-color: rgba(0,0,0,0.25);
+    border-left: solid 1px rgba(184, 134, 11, 0.75);
+    
+    opacity:0; 
+    animation:fadeIn ease-in 1;
+    
+    animation-fill-mode:forwards;
+
+    animation-duration:0.5s;
+
+    @media (max-width: 767px) {
+        border-bottom: solid 1px rgba(184, 134, 11, 0.75);
+        border-left: none;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .tooltip-wrap {
+        padding: 10px;
+        position: relative;
+    }
+    
+    .label {
+        padding: 0 0.5em 0.1em 0.5em;
+        border-radius: 0.5em;
+        position: relative;
+        top: -1px;
+        margin-left: 0.5em;
+        
+        &.label-success {
+            background-color: #33CC33;
+        }
+        
+        &.label-warning {
+            background-color: #eaab00;
+        }
+    }
+
+    .strike {
+        color: #999;
+        text-decoration: line-through;
+    }
+
+    .mod {
+        color: #FFDF33;
+    }
+
+    .new {
+        color: #66FF66;
+    }
+    
+    .scale {
+        color: orange;
+    }
+
+    .tooltip-name {
+        margin-top: 10px;
+        color: aqua;
+        float: left;
+        
+        .classification {
+            color: #aaa;
+        }
+        
+        .element-img {
+            width: 20px;
+        }
+    }
+    
+    .chi {
+        float: right;
+        margin: 17px 5px 0 0;
+        
+        .glyphicon {
+            font-size: 13px;
+        }
+    }
+    
+    .icon {
+        clear: both;
+        
+        img {
+            width: 70px;
+            height: 70px;
+            border: solid 2px #777;
+            border-radius: 5px;
+            border-top-color: #aaa;
+            border-bottom-color: #555;
+        }
+    }
+    
+    .icon, .main-info {
+        float: left;
+    }
+
+    .main-info {
+        margin-left: 10px;
+        max-width: calc(100% - 80px);
+
+        .m1 {
+            font-size: 17px;
+            line-height: 18px;
+            
+            .element-img {
+                width: 20px;
+                margin-left: 0.3em;
+            }
+        }
+
+        .m2 {
+            margin-top: 5px;
+            font-size: 13px;
+            line-height: 10px;
+            
+            p {
+                margin-bottom: 5px;
+            }
+            
+            .element-img {
+                width: 16px;
+                height: 16px;
+                margin-left: 0.3em;
+            }
+        }
+        
+        p {
+            margin: 0;
+        }
+    }
+
+    .sub{
+        clear:both;
+        margin-bottom: 20px;
+        padding-top: 8px;
+        font-size: 13px;
+
+        p {
+            margin-bottom: 5px;
+            line-height: 1.0;
+        }
+        
+        .element-img {
+            width: 16px;
+            height: 16px;
+            margin-left: 0.3em;
+        }
+    }
+
+    .skill-info {
+        width: 100%;
+        padding: 0;
+        color: white;
+
+        .info-box {
+            padding: 5px 2px;
+            font-size: 12px;
+            text-align: center;
+            width: 25%;
+            float: left;
+
+            .info-header {
+                height: 25px;
+                line-height: 25px;
+                background-color: rgba(28, 32, 44, 0.7);
+                border-radius: 3px;
+            }
+
+            .info {
+                margin-top: 2px;
+                height: 60px;
+                background-color: rgba(28, 32, 44, 0.7);
+                border-radius: 3px;
+
+                span {
+                    line-height: 60px;
+                }
+
+                .diff {
+                    line-height: 22px;
+                }
+
+                .glyphicon {
+                    line-height: 0;
+                }
+            }
+            
+            
+            @for $i from 1 through 6 {
+                .area_#{$i} {
+                    background-image: url(/img/area_#{$i}.png);
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: auto 100%;
+                }
+            }
+        }
+    }
+
+    .cond {
+        margin-top: 20px;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        .cond-header {
+            color: #FFDF33;
+            margin-top: 10px;
+        }
+
+        .cond-icon {
+            width: 20px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .item {
+            color: #E6B800;
+        }
+
+        .other {
+            color: deepskyblue;
+        }
+
+        .unreleased {
+            color: darkgoldenrod;
+        }
+        
+        .achievement {
+            color: aqua;
+        }
+
+        .extra-info {
+            margin-left: -5px;
+            margin-top: -3px;
+            
+            .superior {
+                color: #297bb0;
+            }
+
+            .heroic {
+                color: #a847bd;
+            }
+            
+            .vendor {
+                color: lightgreen;
+            }
+        }
+    }
+    
+    .tagGroup {
+        text-align: left;
+        margin: 0;
+        width: 80%;
+        margin-top: 15px;
+    }
+}

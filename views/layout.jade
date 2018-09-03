@@ -1,0 +1,99 @@
+doctype html
+html(lang="en")
+    head
+        case page
+            when 'mixer'
+                title Soul Shield Mixer :: BnSTree
+                meta(name='description' content='Mix and match soul shield pieces for the most optimal stats and set effects.')
+            when 'evolver'
+                title Item Evolver :: BnSTree
+                meta(name='description' content='See detailed description of item trees.')
+            when 'character'
+                title Character Search :: BnSTree
+                meta(name='description' content='Character lookup.')
+            when 'skill'
+                case job
+                    when 'BM'
+                        title Blade Master :: BnSTree
+                        meta(name='description' content='Blade Master is a melee warrior capable of fluidly transitioning between offense and defense with different sword stances to respond to many situations.')
+                    when 'KF'
+                        title Kung Fu Master :: BnSTree
+                        meta(name='description' content='Kung Fu Master is a melee champion that combines offense and defense to overpower their foes with deadly punches and kicks.')
+                    when 'DE'
+                        title Destroyer :: BnSTree
+                        meta(name='description' content='Destroyer is a melee juggernaut capable of locking down foes and destroying them with their giant axe.')
+                    when 'FM'
+                        title Force Master :: BnSTree
+                        meta(name='description' content='Force Master is a ranged elementalist harnessing the power of ice and fire to annihilate their foes.')
+                    when 'AS'
+                        title Assassin :: BnSTree
+                        meta(name='description' content='Assassin is a melee specialist that relies on fast and deadly attacks combined with extreme mobility to quickly get in and out of many situations.')
+                    when 'SU'
+                        title Summoner :: BnSTree
+                        meta(name='description' content='Summoner is a ranged sorcerer that cooperates with their familiar and the power of nature to deal with their foes.')
+                    when 'BD'
+                        title Blade Dancer :: BnSTree
+                        meta(name='description' content='Blade Dancer is a melee fighter that dances around their enemies while decimating them with a flurry of slashes.')
+                    when 'WL'
+                        title Warlock :: BnSTree
+                        meta(name='description' content='Warlock is a ranged caster that summon entities from the nether to devastate their foes.')
+                    when 'SF'
+                        title Soul Fighter :: BnSTree
+                        meta(name='description' content='Soul Fighter is a versatile class that can switch between melee and ranged modes to deal the various situations.')
+            default
+                title BnSTree :: Blade & Soul Simulation Tools and Guides
+                if (page != "blog") 
+                    meta(name='description' content='The skill tree simulator for Blade & Soul, an eastern style fantasy MMORPG. Fans can create/share builds, write guides, and read up on the distinct 9 classes and their numerous abilities with a polished easy to use interface!')
+
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no')
+        
+
+        link(rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=3")
+        link(rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=3")
+        link(rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=3")
+        link(rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=3")
+        link(rel="icon" type="image/png" href="/favicon-32x32.png?v=3" sizes="32x32")
+        link(rel="icon" type="image/png" href="/favicon-96x96.png?v=3" sizes="96x96")
+        link(rel="icon" type="image/png" href="/favicon-16x16.png?v=3" sizes="16x16")
+        link(rel="manifest" href="/manifest.json?v=3")
+        meta(name="msapplication-TileColor" content="#111d2b")
+        meta(name="theme-color" content="#111d2b")
+        
+        case page
+            when 'ace'
+                link(rel='stylesheet' href='/css/ace.css?v=160516')
+            when 'mixer'
+                link(rel='stylesheet' href='/css/mixer.css?v=160516')
+            when 'evolver'
+                link(rel='stylesheet' href='/css/evolver.css?v=160516')
+            when 'character'
+                link(rel='stylesheet' href='/css/character.css?v=160516')
+            default
+                link(rel='stylesheet' href='/css/prototype.css?v=160516')
+    
+        script.
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-61749626-4', 'auto');
+            ga('send', 'pageview');
+    body
+        include ./includes/nav.jade
+        
+        if page == 'main' || page == 'ace'
+            video.background(autoplay muted loop poster="/img/bg.jpg")
+                    source(src="/img/bg.webm" type="video/webm")
+                    source(src="/img/bg.mp4" type="video/mp4")
+        else
+            .staticBackground
+                    
+        script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
+        block content
+        
+        .footer
+        
+        include ./includes/loginModal.jade
+        
+        include ./includes/footer.jade

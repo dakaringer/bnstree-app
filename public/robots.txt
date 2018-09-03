@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /BM/*
+Disallow: /KF/*
+Disallow: /DE/*
+Disallow: /FM/*
+Disallow: /SU/*
+Disallow: /BD/*
+Disallow: /WL/*
+Disallow: /SF/*

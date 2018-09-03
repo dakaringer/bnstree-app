@@ -1,0 +1,49 @@
+extends layout
+
+block content
+    script(type='text/javascript' src='/js/vendor.js')
+    
+    .main.blog
+        .container
+            h2 Edit #{type.charAt(0).toUpperCase() + type.slice(1)}
+            form#buildForm(method='post')
+                .form-group
+                    label Title
+                    input.form-control(type='text' name='title' value=postData.title required)
+                .form-group
+                    textarea.form-control.ckeditor(type='text' rows='30' name='content') #{postData.content}
+                .pubButtons
+                    button.btn.btn-danger(type="button" data-toggle="modal" data-target="#confirmDelete") Delete
+                    input#submit.btn.btn-info(type='submit' value='Submit')
+                    a.btn.btn-default(href='/' + type + '/' + postData._id) Cancel
+    
+    #confirmDelete.modal.fade
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h3.modal-title Delete Post
+                .modal-body.container-fluid
+                    p Are you sure? Deleted data cannot be recovered.
+                .modal-footer
+                    a#delete.btn.btn-danger(href='#') Yes
+                    button.btn.btn-default(type='button' data-dismiss='modal') Cancel
+                    
+    script.
+        $('#submit').click(function(){
+            $('#submit').addClass('disabled')
+        });
+        $('#buildForm').submit( function(eventObj) {
+            return true;
+        });
+        $('#delete').click(function(){
+            $.ajax({
+                url: '/#{type}/#{postData._id}/delete',
+                type: 'DELETE',
+                success: function(result) {
+                }
+            });
+            window.location.replace('/#{type}');
+            return false;
+        });
+    
+    

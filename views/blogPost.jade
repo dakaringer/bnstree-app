@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    script(type='text/javascript' src='/js/vendor.js')
+    .main.blog
+        .container
+            .post.blogPost
+                h1 #{mainPost.title} 
+                .row
+                    .col-sm-8
+                        span By: #{mainPost.author.username}
+                        span.date Last Edited: #{mainPost.dateEdited.getDate() + '.' + (mainPost.dateEdited.getMonth()+1) + '.' + mainPost.dateEdited.getFullYear() + ' ' + mainPost.dateEdited.getHours() + ':' + mainPost.dateEdited.getMinutes()}
+                    p.col-sm-4.text-right 
+                        i.fa.fa-comment
+                        span  Comments: 
+                        span.disqus-comment-count(data-disqus-identifier=type + '/' + mainPost._id) 0
+                .content !{mainPost.content}
+                if loggedin && admin
+                    .pubButtons
+                        a.btn.btn-info(href='/' + type + '/' + mainPost._id + '/edit') Edit
+            
+            .chat
+                h2 Comments
+                #disqus_thread
+            
+            include ./includes/adtext.jade
+            include ./includes/blogList.jade
+            include ./includes/ad.jade
+            if loggedin && admin
+                .pubButtons(style="clear:both")
+                    a.btn.btn-info(href='/#{type}/pub') Add New

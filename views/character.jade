@@ -1,0 +1,578 @@
+extends layout
+
+block content
+    .content-wrap
+        .character-wrap
+            nav.navbar.navbar-inverse.navbar-static-top.characterNav
+                .container-fluid
+                    .navbar-header
+                        a(href='/character')
+                            h1.subtitle Character Search / Infographic
+                    form.navbar-form.navbar-right(role="search" action="./character")
+                        .radio
+                            label.radio-inline
+                                input(type="radio" name="r" value="na" checked=region=="na"||!region)
+                                span NA
+                            label.radio-inline
+                                input(type="radio" name="r" value="eu" checked=region=="eu")
+                                span EU
+                        input.form-control(type="text" name="c" placeholder="Search character")
+            .characterProfile
+                if (charInfo == -1)
+                    .noCharacter
+                        h4 Character not found.
+                else if (charInfo)
+                    .equipContainer.col-lg-4
+                        .profile.col-sm-5
+                            .profileImgWrap
+                                if (charInfo.profile)
+                                    img.profileImg(src="#{charInfo.profile}" onerror='this.style.display = "none"')
+                                img.no-profile(src="/img/no-profile.gif")
+                            h3 #{charInfo.account} #{charInfo.name}
+                            p #{charInfo.job}
+                            p #{charInfo.level}
+                            p #{charInfo.server}
+                            p #{charInfo.faction}
+                            p #{charInfo.clan}
+                        .equips.col-sm-7
+                            if (charInfo.equip.weapon.name)
+                                .weapon.equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.weapon.icon}")
+                                    span.name(class="#{charInfo.equip.weapon.grade}") #{charInfo.equip.weapon.name}
+                            if (charInfo.equip.necklace.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.necklace.icon}")
+                                    span.name(class="#{charInfo.equip.necklace.grade}") #{charInfo.equip.necklace.name}
+                            if (charInfo.equip.earring.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.earring.icon}")
+                                    span.name(class="#{charInfo.equip.earring.grade}") #{charInfo.equip.earring.name}
+                            if (charInfo.equip.ring.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.ring.icon}")
+                                    span.name(class="#{charInfo.equip.ring.grade}") #{charInfo.equip.ring.name}
+                            if (charInfo.equip.bracelet.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.bracelet.icon}")
+                                    span.name(class="#{charInfo.equip.bracelet.grade}") #{charInfo.equip.bracelet.name}
+                            if (charInfo.equip.belt.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.belt.icon}")
+                                    span.name(class="#{charInfo.equip.belt.grade}") #{charInfo.equip.belt.name}
+                            if (charInfo.equip.soul.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.soul.icon}")
+                                    span.name(class="#{charInfo.equip.soul.grade}") #{charInfo.equip.soul.name}
+                            hr.equipDivider
+                            if (charInfo.equip.outfit.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.outfit.icon}")
+                                    span.name(class="#{charInfo.equip.outfit.grade}") #{charInfo.equip.outfit.name}
+                            if (charInfo.equip.addon.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.addon.icon}")
+                                    span.name(class="#{charInfo.equip.addon.grade}") #{charInfo.equip.addon.name}
+                            if (charInfo.equip.hat.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.hat.icon}")
+                                    span.name(class="#{charInfo.equip.hat.grade}") #{charInfo.equip.hat.name}
+                            if (charInfo.equip.face.name)
+                                .equipPair
+                                    span.icon
+                                        img(src="#{charInfo.equip.face.icon}")
+                                    span.name(class="#{charInfo.equip.face.grade}") #{charInfo.equip.face.name}
+                            hr.equipDivider
+                            h4 Soul Shield
+                            .soulshieldEquip
+                                .mainEquip
+                                    span.equipPiece.pos_1
+                                        if (charInfo.equip.soulshield.icons.pos1)
+                                            img(src="#{charInfo.equip.soulshield.icons.pos1}")
+                                    span.equipPiece.pos_2
+                                        if (charInfo.equip.soulshield.icons.pos2)
+                                            img(src="#{charInfo.equip.soulshield.icons.pos2}")
+                                    span.equipPiece.pos_3
+                                        if (charInfo.equip.soulshield.icons.pos3)
+                                            img(src="#{charInfo.equip.soulshield.icons.pos3}")
+                                    span.equipPiece.pos_4
+                                        if (charInfo.equip.soulshield.icons.pos4)
+                                            img(src="#{charInfo.equip.soulshield.icons.pos4}")
+                                    span.equipPiece.pos_5
+                                        if (charInfo.equip.soulshield.icons.pos5)
+                                            img(src="#{charInfo.equip.soulshield.icons.pos5}")
+                                    span.equipPiece.pos_6
+                                        if (charInfo.equip.soulshield.icons.pos6)
+                                            img(src="#{charInfo.equip.soulshield.icons.pos6}")
+                                    span.equipPiece.pos_7
+                                        if (charInfo.equip.soulshield.icons.pos7)
+                                            img(src="#{charInfo.equip.soulshield.icons.pos7}")
+                                    span.equipPiece.pos_8
+                                        if (charInfo.equip.soulshield.icons.pos8)
+                                            img(src="#{charInfo.equip.soulshield.icons.pos8}")
+                    hr.lg-hidden
+                    .statContainer.col-lg-8
+                        .attackStats.col-lg-6
+                            h3.groupHeader Attack
+                            .stats
+                                .statGroup.mainStat
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[0].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.attack[0].subValues[0]} Equipment: #{charInfo.attack[0].subValues[1]}") #{charInfo.attack[0].value}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header Evolved Attack Power
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.attack[1].subValues[0]} Equipment: #{charInfo.attack[1].subValues[1]}") #{charInfo.attack[1].value}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[2].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.attack[2].subValues[0]} Equipment: #{charInfo.attack[2].subValues[1]}") #{charInfo.attack[2].value}
+                                    .details
+                                        .statPair
+                                            span.header Defense Piercing
+                                            span.value #{charInfo.attack[2].subValues[2]}
+                                        .statPair
+                                            span.header Block Piercing
+                                            span.value #{charInfo.attack[2].subValues[3]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[3].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.attack[3].subValues[0]} Equipment: #{charInfo.attack[3].subValues[1]}") #{charInfo.attack[3].value}
+                                    .details
+                                        .statPair
+                                            span.header Hit Rate
+                                            span.value #{charInfo.attack[3].subValues[2]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[4].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.attack[4].subValues[0]} Equipment: #{charInfo.attack[4].subValues[1]}") #{charInfo.attack[4].value}
+                                    .details
+                                        .statPair
+                                            span.header Block Skill Piercing
+                                            span.value #{charInfo.attack[4].subValues[2]}
+                                        .statPair
+                                            span.header Counter Skill Piercing
+                                            span.value #{charInfo.attack[4].subValues[3]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[5].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.attack[5].subValues[0]} Equipment: #{charInfo.attack[5].subValues[1]}") #{charInfo.attack[5].value}
+                                    .details
+                                        .statPair
+                                            span.header Critical Hit Rate
+                                            span.value #{charInfo.attack[5].subValues[2]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[6].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.attack[6].subValues[0]} Equipment: #{charInfo.attack[6].subValues[1]}") #{charInfo.attack[6].value}
+                                    .details
+                                        .statPair
+                                            span.header Critical Hit Damage
+                                            span.value #{charInfo.attack[6].subValues[2]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[7].header}
+                                            span.value 
+                                                span #{charInfo.attack[7].value} 
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[8].header}
+                                            span.value 
+                                                span #{charInfo.attack[8].value} 
+                                    .details
+                                        .statPair
+                                            span.header Damage Bonus
+                                            span.value #{charInfo.attack[8].subValues[0]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.attack[9].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.attack[9].subValues[0]} Equipment: #{charInfo.attack[9].subValues[1]}") #{charInfo.attack[9].value}
+                        .defenseStats.col-lg-6
+                            h3.groupHeader Defense
+                            .stats
+                                .statGroup.mainStat
+                                    .statHeader
+                                        .statPair
+                                            span.header Health
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.defense[0].subValues[0]} Equipment: #{charInfo.defense[0].subValues[1]}") #{charInfo.defense[0].value}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[1].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.defense[1].subValues[0]} Equipment: #{charInfo.defense[1].subValues[1]}") #{charInfo.defense[1].value}
+                                    .details
+                                        .statPair
+                                            span.header Damage Reduction
+                                            span.value #{charInfo.defense[1].subValues[2]}
+                                        .statPair
+                                            span.header Area of Effect Defense
+                                            span.value #{charInfo.defense[1].subValues[3]}
+                                        .statPair
+                                            span.header Area of Effect Damage Reduction
+                                            span.value #{charInfo.defense[1].subValues[4]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[2].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.defense[2].subValues[0]} Equipment: #{charInfo.defense[2].subValues[1]}") #{charInfo.defense[2].value}
+                                    .details
+                                        .statPair
+                                            span.header Damage Reduction
+                                            span.value #{charInfo.defense[2].subValues[2]}
+                                        .statPair
+                                            span.header Area of Effect Defense
+                                            span.value #{charInfo.defense[2].subValues[3]}
+                                        .statPair
+                                            span.header Area of Effect Damage Reduction
+                                            span.value #{charInfo.defense[2].subValues[4]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[3].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.defense[3].subValues[0]} Equipment: #{charInfo.defense[3].subValues[1]}") #{charInfo.defense[3].value}
+                                    .details
+                                        .statPair
+                                            span.header Counter Bonus
+                                            span.value #{charInfo.defense[3].subValues[3]}
+                                        .statPair
+                                            span.header Evasion Rate
+                                            span.value #{charInfo.defense[3].subValues[2]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[4].header}
+                                            span.value.tooltip-breakdown(data-tooltip="Base: #{charInfo.defense[4].subValues[0]} Equipment: #{charInfo.defense[4].subValues[1]}") #{charInfo.defense[4].value}
+                                    .details
+                                        .statPair
+                                            span.header Damage Reduction
+                                            span.value #{charInfo.defense[4].subValues[2]}
+                                        .statPair
+                                            span.header Block Bonus
+                                            span.value #{charInfo.defense[4].subValues[3]}
+                                        .statPair
+                                            span.header Block Rate
+                                            span.value #{charInfo.defense[4].subValues[4]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[5].header}
+                                            span.value #{charInfo.defense[5].value}
+                                    .details
+                                        .statPair
+                                            span.header Critical Evasion Rate
+                                            span.value #{charInfo.defense[5].subValues[0]}
+                                        .statPair
+                                            span.header Damage Reduction
+                                            span.value #{charInfo.defense[5].subValues[1]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[6].header}
+                                            span.value 
+                                                span #{charInfo.defense[6].value} 
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[7].header}
+                                            span.value #{charInfo.defense[7].value}
+                                    .details
+                                        .statPair
+                                            span.header Damage Reduction
+                                            span.value #{charInfo.defense[7].subValues[0]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[8].header}
+                                            span.value #{charInfo.defense[8].value}
+                                    .details
+                                        .statPair
+                                            span.header Out of Combat
+                                            span.value #{charInfo.defense[8].subValues[0]}
+                                        .statPair
+                                            span.header In Combat
+                                            span.value #{charInfo.defense[8].subValues[1]}
+                                hr.statDivider
+                                .statGroup
+                                    .statHeader
+                                        .statPair
+                                            span.header #{charInfo.defense[9].header}
+                                            span.value #{charInfo.defense[9].subValues[0]}
+                                    .details
+                                        .statPair
+                                            span.header Additional Recovery
+                                            span.value #{charInfo.defense[9].subValues[1]}
+                                        .statPair
+                                            span.header Recovery Rate
+                                            span.value #{charInfo.defense[9].subValues[2]}
+                else if (regionData && data)
+                    - var total = regionData.na.count + regionData.eu.count
+                    .signature
+                        h2 Game Stats
+                            small.mini Based on level 50 characters recorded on BnSTree (#{total} characters)
+                    hr(style="margin:1rem;")
+                    .infographics
+                        .playerDist.col-xs-12
+                            .col-md-6.statGroup
+                                h4 Players by NA Servers (#{regionData.na.count} characters)
+                                .col-lg-6
+                                    canvas#serverDistNA(width="250" height="250")
+                                .col-lg-6
+                                    each val, index in regionData.na.serverGroups
+                                        - var percent = val.count / regionData.na.count * 100
+                                        .serverGroup
+                                            h5 #{val.group} 
+                                                small #{val.count} (#{percent.toFixed(2)}%)
+                                                br
+                                                small #{val.serverList}
+                                            .faction
+                                                span.ceruLabel Cerulean
+                                                span.crimLabel Crimson
+                                                .bar(style="clear:both")
+                                                    - var percent1 = val.faction.ceru / val.count * 100
+                                                    - var percent2 = val.faction.crim / val.count * 100
+                                                    .ceruleanBar(style="width:#{percent1}%")
+                                                    span.ceruCount #{val.faction.ceru} (#{percent1.toFixed(2)}%)
+                                                    span.crimCount #{val.faction.crim} (#{percent2.toFixed(2)}%)
+                            .col-md-6.statGroup
+                                h4 Players by EU Servers (#{regionData.eu.count} characters)
+                                .col-lg-6
+                                    canvas#serverDistEU(width="250" height="250")
+                                .col-lg-6
+                                    each val, index in regionData.eu.serverGroups
+                                        - var percent = val.count / regionData.eu.count * 100
+                                        .serverGroup
+                                            h5 #{val.group} 
+                                                small #{val.count} (#{percent.toFixed(2)}%)
+                                                br
+                                                small #{val.serverList}
+                                            .faction
+                                                span.ceruLabel Cerulean
+                                                span.crimLabel Crimson
+                                                .bar(style="clear:both")
+                                                    - var percent1 = val.faction.ceru / val.count * 100
+                                                    - var percent2 = val.faction.crim / val.count * 100
+                                                    .ceruleanBar(style="width:#{percent1}%")
+                                                    span.ceruCount #{val.faction.ceru} (#{percent1.toFixed(2)}%)
+                                                    span.crimCount #{val.faction.crim} (#{percent2.toFixed(2)}%)
+                            
+                        hr.divider
+                        .stats
+                            .col-md-6.statGroup
+                                h4 Class Distribution
+                                div
+                                    .col-sm-6
+                                        canvas#classDist(width="250" height="250")
+                                    .col-sm-6
+                                        table.table
+                                            tbody
+                                                each val, index in data.classes
+                                                    - var percent = val.count / total * 100
+                                                    tr
+                                                        td #{val.job}
+                                                        td #{val.count} (#{percent.toFixed(2)}%)
+                                        
+                            .col-md-6.statGroup
+                                .col-lg-6
+                                    h4 Hongmoon Level Distribution
+                                    canvas#lvlDist(width="250" height="250")
+                                .col-lg-6
+                                    h4 Average Stats
+                                    table.table
+                                        thead
+                                            tr
+                                                th
+                                                th Average
+                                                th SD σ
+                                                th Min
+                                                th Max
+                                        tbody
+                                            tr
+                                                td Attack Power
+                                                td #{data.stats.attack.average.toFixed(2)}
+                                                td #{data.stats.attack.sd.toFixed(2)}
+                                                td #{data.stats.attack.min}
+                                                td #{data.stats.attack.max}
+                                            tr
+                                                td Critical Hit Rate
+                                                td #{data.stats.critRate.average.toFixed(2)}%
+                                                td #{data.stats.critRate.sd.toFixed(2)}
+                                                td #{data.stats.critRate.min}
+                                                td #{data.stats.critRate.max}
+                                            tr
+                                                td Critical Hit Damage
+                                                td #{data.stats.critDamage.average.toFixed(2)}%
+                                                td #{data.stats.critDamage.sd.toFixed(2)}
+                                                td #{data.stats.critDamage.min}
+                                                td #{data.stats.critDamage.max}
+                        hr.divider
+                        .equips.col-sm-12
+                            h4 Top 5 Items
+                            .table-responsive
+                                table.table
+                                    thead
+                                        tr
+                                            th
+                                            th.col-xs-2 #1
+                                            th.col-xs-2 #2
+                                            th.col-xs-2 #3
+                                            th.col-xs-2 #4
+                                            th.col-xs-2 #5
+                                    tbody
+                                        tr
+                                            td Weapon
+                                            each val, index in data.equips.weapon
+                                                - var percent = val.count / total * 100
+                                                td #{val._id}
+                                                    small #{val.count} (#{percent.toFixed(2)}%)
+                                        tr
+                                            td Necklace
+                                            each val, index in data.equips.necklace
+                                                - var percent = val.count / total * 100
+                                                td #{val._id}
+                                                    small #{val.count} (#{percent.toFixed(2)}%)
+                                        tr
+                                            td Earring
+                                            each val, index in data.equips.earring
+                                                - var percent = val.count / total * 100
+                                                td #{val._id}
+                                                    small #{val.count} (#{percent.toFixed(2)}%)
+                                        tr
+                                            td Ring
+                                            each val, index in data.equips.ring
+                                                - var percent = val.count / total * 100
+                                                td #{val._id}
+                                                    small #{val.count} (#{percent.toFixed(2)}%)
+                                        tr
+                                            td Bracelet
+                                            each val, index in data.equips.bracelet
+                                                - var percent = val.count / total * 100
+                                                td #{val._id}
+                                                    small #{val.count} (#{percent.toFixed(2)}%)
+                                        tr
+                                            td Belt
+                                            each val, index in data.equips.belt
+                                                - var percent = val.count / total * 100
+                                                td #{val._id}
+                                                    small #{val.count} (#{percent.toFixed(2)}%)
+                                        tr
+                                            td Soul
+                                            each val, index in data.equips.soul
+                                                - var percent = val.count / total * 100
+                                                td #{val._id}
+                                                    small #{val.count} (#{percent.toFixed(2)}%)
+                else 
+                    .noCharacter
+                        h4 Use the Search function to lookup characters.
+        
+        script(type='text/javascript' src='/js/vendor.js')
+        if (regionData && data)
+            script(type='text/javascript').
+                var options = {
+                    legend: {
+                        display: false
+                    }
+                }
+                
+                var colorsR =["#B71C1C","#C62828","#D32F2F","#E53935","#F44336","#EF5350"];
+                
+                var colorsB = ["#0D47A1","#1565C0","#1976D2","#1E88E5","#2196F3","#42A5F5"];
+                
+                var colorsG = ["#388E3C","#4CAF50","#4CAF50","#689F38","#8BC34A","#8BC34A","#AFB42B","#CDDC39","#CDDC39"];
+
+                var serverChartNA = new Chart(document.getElementById("serverDistNA"), {
+                    type: 'pie',
+                    data: {
+                        labels: !{JSON.stringify(chartData.na.label)},
+                        datasets: [{
+                            data: [#{chartData.na.data}],
+                            backgroundColor: colorsR
+                        }]
+                    },
+                    options: options
+                });
+                
+                var serverChartEU = new Chart(document.getElementById("serverDistEU"), {
+                    type: 'pie',
+                    data: {
+                        labels: !{JSON.stringify(chartData.eu.label)},
+                        datasets: [{
+                            data: [#{chartData.eu.data}],
+                            backgroundColor: colorsB
+                        }]
+                    },
+                    options: options
+                });
+                
+                var classChart = new Chart(document.getElementById("classDist"), {
+                    type: 'pie',
+                    data: {
+                        labels: !{JSON.stringify(chartData.job.label)},
+                        datasets: [{
+                            data: [#{chartData.job.data}],
+                            backgroundColor: colorsG
+                        }]
+                    },
+                    options: options
+                });
+                
+                var lvlChart = new Chart(document.getElementById("lvlDist"), {
+                    type: 'bar',
+                    data: {
+                        labels: !{JSON.stringify(chartData.level.label)},
+                        datasets: [{
+                            data: [#{chartData.level.data}],
+                            backgroundColor: "rgba(63, 81, 181, 0.8)",
+                            borderColor: "rgba(63, 81, 181, 1)",
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                display: false
+                            }]
+                        }
+                    }
+                });
+    .main
+        .container
+            include ./includes/ad.jade
+        .main-background

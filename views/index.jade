@@ -1,0 +1,186 @@
+extends layout
+
+block content
+    .content-wrap
+        .highlight
+            .col-sm-8.timerContainer
+                include ./includes/timer.jade
+            .news.col-sm-4
+                .charSearch
+                    h3 Character Search
+                    form(role="search" action="./character")
+                        .radio
+                            label.radio-inline
+                                input(type="radio" name="r" value="na" checked=region=="na"||!region)
+                                span NA
+                            label.radio-inline
+                                input(type="radio" name="r" value="eu" checked=region=="eu")
+                                span EU
+                        input.form-control(type="text" name="c" placeholder="Search character")
+                .build-list
+                    a(href="/update")
+                        h3 Update
+                    table.table
+                        tbody#posts
+                            - var yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
+                            - var type = "update";
+                            each post in update
+                                tr
+                                    td.col-sm-9
+                                        a(href='/' + type + '/' + post._id) #{post.title}
+                                        //span.disqus-comment-count(data-disqus-identifier=job + '/' + post._id) 0
+                                        if post.datePosted > yesterday
+                                            span.new N
+                                    td.col-sm-3 #{post.dateEdited.getDate() + '.' + (post.dateEdited.getMonth()+1) + '.' + post.dateEdited.getFullYear()}
+
+
+    script(type='text/javascript' src='/js/vendor.js')
+    
+    .front.main
+        .container-fluid
+            //.classes
+                a.class-button.col-sm-4(href='/BM')
+                    .class-pic.img-BM
+                        .class-header
+                            .active.side-icon.side-icon-bm
+                            h4 Blade Master
+                a.class-button.col-sm-4(href='/KF')
+                    .class-pic.img-KF
+                        .class-header
+                            .active.side-icon.side-icon-kf
+                            h4 Kung Fu Master
+                a.class-button.col-sm-4(href='/DE')
+                    .class-pic.img-DE
+                        .class-header
+                            .active.side-icon.side-icon-de
+                            h4 Destroyer
+                a.class-button.col-sm-4(href='/FM')
+                    .class-pic.img-FM
+                        .class-header
+                            .active.side-icon.side-icon-fm
+                            h4 Force Master
+                a.class-button.col-sm-4(href='/AS')
+                    .class-pic.img-AS
+                        .class-header
+                            .active.side-icon.side-icon-as
+                            h4 Assassin
+                a.class-button.col-sm-4(href='/SU')
+                    .class-pic.img-SU
+                        .class-header
+                            .active.side-icon.side-icon-su
+                            h4 Summoner
+                a.class-button.col-sm-4(href='/BD')
+                    .class-pic.img-BD
+                        .class-header
+                            .active.side-icon.side-icon-bd
+                            h4 Blade Dancer
+                a.class-button.col-sm-4(href='/WL')
+                    .class-pic.img-WL
+                        .class-header
+                            .active.side-icon.side-icon-wl
+                            h4 Warlock
+                a.class-button.col-sm-4(href='/SF')
+                    .class-pic.img-SF
+                        .class-header
+                            .active.side-icon.side-icon-sf
+                            h4 Soul Fighter
+            
+            .build-list.col-lg-6
+                h2 Weekly Popular Builds
+                table.table.table-hover
+                    thead
+                        tr
+                            th.col-sm-2 Class
+                            th.col-sm-1 Type
+                            th.col-sm-5 Title
+                            th.col-sm-1 Req. Level
+                            th.col-sm-2 Posted by
+                            th.col-sm-1.text-center: i.fa.fa-heart
+                    tbody#popbuilds
+                        - var yesterday = new Date(new Date().getTime() - (24 * 60 * 60 * 1000));
+                        each build in popBuildList
+                            -var jobName = ""
+                            case build.job
+                                when "BM"
+                                    -jobName = "Blade Master"
+                                when "KF"
+                                    -jobName = "Kung Fu Master"
+                                when "DE"
+                                    -jobName = "Destroyer"
+                                when "FM"
+                                    -jobName = "Force Master"
+                                when "AS"
+                                    -jobName = "Assasssin"
+                                when "SU"
+                                    -jobName = "Summoner"
+                                when "BD"
+                                    -jobName = "Blade Dancer"
+                                when "WL"
+                                    -jobName = "Warlock"
+                                when "SF"
+                                    -jobName = "Soul Fighter"
+                            tr
+                                td= jobName
+                                td #{build.type}
+                                td
+                                    a(href='/' + build.job + '/' + build._id) #{build.title}
+                                    //span.disqus-comment-count(data-disqus-identifier=job + '/' + build._id) 0
+                                    if build.datePosted > yesterday
+                                        span.new N
+                                if (build.hLevel > 0)
+                                    td Lv#{build.level} H#{build.hLevel}
+                                else 
+                                    td Lv#{build.level}
+                                td #{build.author.username}
+                                td.text-center #{build.likes}
+            .build-list.col-lg-6
+                h2 New Builds
+                table.table.table-hover
+                    thead
+                        tr
+                            th.col-sm-2 Class
+                            th.col-sm-1 Type
+                            th.col-sm-5 Title
+                            th.col-sm-1 Req. Level
+                            th.col-sm-2 Posted by
+                            th.col-sm-1.text-center: i.fa.fa-heart
+                    tbody#newbuilds
+                        each build in newBuildList
+                            -var jobName = ""
+                            case build.job
+                                when "BM"
+                                    -jobName = "Blade Master"
+                                when "KF"
+                                    -jobName = "Kung Fu Master"
+                                when "DE"
+                                    -jobName = "Destroyer"
+                                when "FM"
+                                    -jobName = "Force Master"
+                                when "AS"
+                                    -jobName = "Assasssin"
+                                when "SU"
+                                    -jobName = "Summoner"
+                                when "BD"
+                                    -jobName = "Blade Dancer"
+                                when "WL"
+                                    -jobName = "Warlock"
+                                when "SF"
+                                    -jobName = "Soul Fighter"
+                            tr
+                                td= jobName
+                                td #{build.type}
+                                td
+                                    a(href='/' + build.job + '/' + build._id) #{build.title}
+                                    //span.disqus-comment-count(data-disqus-identifier=job + '/' + build._id) 0
+                                    if build.datePosted > yesterday
+                                        span.new N
+                                if (build.hLevel > 0)
+                                    td Lv#{build.level} H#{build.hLevel}
+                                else 
+                                    td Lv#{build.level}
+                                td #{build.author.username}
+                                td.text-center #{build.likes}
+                                
+        .container
+            include ./includes/ad.jade
+        .main-background

@@ -1,0 +1,394 @@
+@import "common";
+@import "nav";
+@import "soulshieldEquip";
+//@import "post";
+
+.character-wrap {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.characterNav {
+    padding-top: 2rem;
+    background: rgba(0,0,0,0.85);
+    
+    .navbar-header {
+        margin-left: 0;
+        margin-right: 0;
+        
+        a:hover {
+            text-decoration: none;
+        }
+    }
+    
+    .subtitle {
+        margin-top: 24px;
+        font-size: 24px;
+        color: white;
+    }
+    
+    form {
+        margin-top: 2rem;
+        
+        label {
+            color: white;
+            margin-right: 1rem;
+            font-weight: normal;
+        }
+        
+        input {
+            background: #000 !important;
+            border: none;
+            padding: 0 5px;
+            color: white;
+            height: 25px;
+        }
+        
+        .radio {
+            margin-right: 1rem;
+            
+            span {
+                margin-left: 0.5rem;
+                position: relative;
+                bottom: 0.7rem;
+            }
+        }
+    }
+}
+
+.characterProfile {
+    min-height: 800px;
+    overflow: auto;
+    background: rgba(0,0,0,0.5);
+    padding: 3rem 1rem 7rem 1rem;
+    color: white;
+    
+    @media (min-width: 768px) {
+        padding-bottom: 12rem;
+    }
+    
+    h3.groupHeader {
+        transform: rotate(90deg);
+        transform-origin: left top 0;
+        font-size: 10rem;
+        position: absolute;
+        margin: 0;
+        margin-top: 1rem;
+        margin-left: 6rem;
+        color: #ccc;
+        font-weight: 300;
+        opacity: 0.5;
+    }
+}
+
+.profile {
+    padding: 1rem;
+    
+    .profileImgWrap {
+        position: relative;
+        overflow: hidden;
+        
+        .profileImg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1;
+        }
+        
+        .no-profile {
+            background: rgba(0,0,0,0.5);
+        }
+    }
+    
+    p {
+        margin: 0;
+    }
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.signature {
+    margin-top: -3.5rem;
+    position: relative;
+    
+    small {
+        color: #eee;
+        margin-left: 1rem;
+    }
+    
+    .mini {
+        color: orange;
+        font-size: 14px;
+        
+        @media(max-width: 830px) {
+            display:block;
+            margin-left: 0.5rem;
+            margin-top: 1rem;
+        }
+    }
+}
+
+.statContainer {
+    @media(max-width: 767px) {
+        padding-bottom: 10rem;
+    }
+    
+    .attackStats, .defenseStats {
+        padding-left: 3.5rem;
+        padding-right: 2rem;
+    }
+    
+    .stats {
+        padding: 1rem 0rem 1rem 5rem;
+        
+        @media(max-width: 1199px) {
+            padding-right: 0;
+        }
+    }
+    
+    .statHeader {
+        .value {
+            color: palegreen;
+        }
+    }
+    
+    .statGroup {
+        font-size: 1.8rem;
+    }
+    
+    .mainStat {
+        font-size: 3rem;
+    }
+    
+    .statPair {
+        clear: both;
+        overflow: auto;
+        
+        .header {
+            float: left;
+        }
+        .value {
+            float: right;
+        }
+    }
+    
+    .details {
+        color: #ddd;
+        font-size: 1.4rem;
+    }
+    
+    .statDivider {
+        clear: both;
+        opacity: 0.5;
+        margin: 1rem 0;
+    }
+    
+}
+
+.equipContainer {
+    overflow: visible;
+    height: 100%;
+    .equips {
+        padding: 1rem 0 3rem 1rem;
+    }
+    
+    .equipPair {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: baseline;
+        
+        .icon {
+            img {
+                width: 32px;
+            }
+        }
+        
+        .name {
+            margin-left: 1rem;
+            font-size: 1.3rem;
+            text-overflow: ellipsis;
+        }
+    }
+    
+    .weapon {
+        .icon {
+            img {
+                width: 58px;
+            }
+        }
+        
+        .name {
+            font-size: 1.5rem;
+        }
+    }
+    
+    .soulshieldEquip {
+        background: none;
+        height: auto;
+        padding: 0;
+        transform: scale(0.6);
+        transform-origin: top;
+        margin-bottom: -17rem;
+        margin-top: -1rem;
+    }
+    
+    .equipDivider {
+        opacity: 0.5;
+        margin: 3rem 0;
+    }
+}
+
+.gemContainer {
+    
+}
+
+.grade_1 {
+    color: #999 !important;
+}
+
+.grade_2 {
+    color: #fff !important;
+}
+
+.grade_3 {
+    color: #58ff77 !important;
+}
+
+.grade_4 {
+    color: #00d8ff !important;
+}
+
+.grade_5 {
+    color: #d739ff !important;
+}
+
+.grade_6 {
+    color: #f1b037 !important;
+}
+
+.grade_7 {
+    color: #ff770a !important;
+}
+
+.grade_8 {
+    color: #8a7aff !important;
+}
+
+.noCharacter {
+    width: 100%;
+    text-align: center;
+    height: 64px;
+    position: absolute;
+    top: 42%;
+    color: white;
+}
+
+.divider {
+    clear: both;
+    opacity: 0.5;
+    margin: 3rem 0;
+}
+
+hr.lg-hidden {
+    margin: 3rem 0;
+    @media (min-width: 1200px) {
+        display: none;
+    }
+}
+
+
+.infographics {
+    canvas {
+        padding: 10%;
+    }
+    
+    table {
+        width: 100%;
+        
+        small {
+            float: right;
+            margin-right: 1rem;
+        }
+    }
+    
+    .statGroup {
+        margin-bottom: 3rem;
+    }
+    
+    .serverGroup {
+        h5 {
+            margin-bottom: 0;
+        }
+        
+        small {
+            color: #ddd;
+        }
+        
+        .faction {
+            span {
+                font-size: 1.2rem;
+            }
+            
+            .ceruLabel {
+                float:left;
+                color:aquamarine;
+            }
+            
+            .crimLabel {
+                float: right;
+                color: #e63c28;
+            }
+            
+            .bar {
+                height: 1rem;
+                background: #e63c28;
+                position: relative;
+                
+                span {
+                    position: absolute;
+                    font-size: 1rem;
+                    color: #555;
+                    top: -0.1rem;
+                }
+                
+                .ceruCount {
+                    left: 0.1rem;
+                }
+                .crimCount {
+                    right: 0.1rem;
+                }
+            }
+            
+            .ceruleanBar {
+                height: 100%;
+                background: aquamarine;
+            }
+        }
+    }
+    
+    
+    .stats {
+        padding: 0rem 2rem;
+        
+        .average {
+            width: 100%;
+            max-width: 800px;
+            font-size: 1.5rem;
+        }
+        
+        .topGroup {
+            padding: 1rem;
+            
+            ul {
+                padding-left: 2rem;
+                list-style-type:decimal;
+            }
+        }
+    }
+}

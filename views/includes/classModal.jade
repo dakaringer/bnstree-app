@@ -1,0 +1,60 @@
+#classModal.modal.fade
+    .modal-dialog.modal-lg
+        .modal-content
+            .modal-header
+                button.close(type='button' data-dismiss="modal" aria-label="Close")
+                    span(aria-hidden="true") &times;
+                case job
+                    when "BM"
+                        h3.modal-title Blade Master
+                    when "KF"
+                        h3.modal-title Kung Fu Master
+                    when "DE"
+                        h3.modal-title Destroyer
+                    when "FM"
+                        h3.modal-title Force Master
+                    when "AS"
+                        h3.modal-title Assassin
+                    when "SU"
+                        h3.modal-title Summoner
+                    when "BD"
+                        h3.modal-title Blade Dancer
+                    when "WL"
+                        h3.modal-title Warlock
+            .modal-body.container-fluid
+                .col-md-7(class="#{job}")
+                    .intro
+                        p #{classInfo.info.desc1}
+                        p #{classInfo.info.desc2}
+                        h3 Play Style
+                        p #{classInfo.info.playstyle}
+                .col-md-5
+                    .embed-responsive.embed-responsive-16by9
+                        #ytplayer.embed-responsive-item
+                    table
+                        tbody
+                            tr
+                                td Difficulty
+                                td
+                                    -n = 0
+                                    while n < 5
+                                        -n++
+                                        if n <= classInfo.info.difficulty
+                                            i.fa.fa-star
+                                        else if n - classInfo.info.difficulty == 0.5
+                                            i.fa.fa-star-half-o
+                                        else
+                                            i.fa.fa-star-o
+                                    if classInfo.info.difficulty <= 2
+                                        span  [ Easy ]
+                                    else if classInfo.info.difficulty <= 3
+                                        span  [ Normal ]
+                                    else if classInfo.info.difficulty <= 4
+                                        span  [ Hard ]
+                                    else if classInfo.info.difficulty <= 5
+                                        span  [ Very Hard ]
+                            tr
+                                td Playable Race
+                                td #{classInfo.info.race}
+                    .chart
+                        canvas#classChart(width='300' height='300')
