@@ -1,0 +1,30 @@
+@import 'constants';
+@import 'breakpoints';
+@import 'Hamburger';
+
+.navigation {
+	padding-left: 30rem;
+	min-height: 100vh;
+	height: 100vh;
+	padding-left: var(--menu-width);
+
+	@media (--xs-down) {
+		height: auto;
+	}
+
+	@media (--md-down) {
+		padding-left: 0rem;
+	}
+
+	& .menu-toggle {
+		padding: 0.5rem;
+		position: fixed;
+		z-index: 1200;
+		top: 50%;
+		left: -2.5rem;
+		transform-origin: 50% 0;
+		transform: translateY(-50%) rotate(90deg);
+		letter-spacing: 0.5rem;
+		color: var(--text-secondary);
+	}
+}

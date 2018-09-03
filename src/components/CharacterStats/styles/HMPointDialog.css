@@ -1,0 +1,56 @@
+@import 'constants';
+
+.hm-point-dialog {
+	& .header {
+		& .total-points {
+			margin-left: 1rem;
+		}
+
+		& .close-button {
+			position: absolute;
+			right: 1rem;
+			top: 1.6rem;
+			color: var(--text-secondary);
+		}
+	}
+
+	& .main-effect-container {
+		& .main-effect {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			& .label {
+				display: flex;
+				align-items: center;
+
+				& img {
+					margin-right: 1rem;
+				}
+			}
+		}
+	}
+
+	& .additional-effects {
+		margin-top: 1rem;
+
+		& .additional-effect {
+			color: var(--disabled);
+
+			& .additional-effect-req {
+				text-align: center;
+				padding-right: 2rem;
+			}
+		}
+	}
+
+	& .additional-buff {
+		margin-top: 1rem;
+		display: flex;
+		align-items: center;
+
+		& img {
+			margin-right: 1rem;
+		}
+	}
+}

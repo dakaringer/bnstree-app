@@ -1,0 +1,11 @@
+@import 'fade';
+
+.fade-container {
+	position: relative;
+	animation: initialize 0.5s ease;
+	height: 100%;
+
+	&.withShift {
+		animation: initializeWithShift 0.5s ease;
+	}
+}

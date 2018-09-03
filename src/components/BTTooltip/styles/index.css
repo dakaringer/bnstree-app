@@ -1,0 +1,43 @@
+@import 'breakpoints';
+
+.popper {
+	z-index: 1000;
+}
+
+.tooltip {
+	padding: 1.2rem;
+	width: 55rem;
+	box-sizing: border-box;
+
+	@media (--xs-down) {
+		width: calc(100vw - 3rem);
+	}
+
+	& .title {
+		margin-bottom: 1rem;
+	}
+
+	& .main {
+		display: flex;
+		margin-bottom: 1rem;
+
+		& .icon {
+			height: 6rem;
+			width: 6rem;
+			border-radius: 0.3rem;
+
+			@media (--xs-down) {
+				width: 5rem;
+				height: 5rem;
+			}
+		}
+
+		& .main-text {
+			margin-left: 1rem;
+		}
+	}
+
+	& .sub {
+		margin-bottom: 1rem;
+	}
+}

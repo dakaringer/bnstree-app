@@ -1,0 +1,22 @@
+@import 'breakpoints';
+
+.skill-list {
+	overflow: hidden;
+	max-width: 120rem;
+	margin: 0 auto;
+
+	& .group-label {
+		margin: 0.8rem;
+	}
+
+	& .skill-group {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 1.8rem;
+		margin-bottom: 3rem;
+
+		@media (--md-down) {
+			grid-template-columns: 1fr;
+		}
+	}
+}

@@ -1,0 +1,129 @@
+@import 'constants';
+@import 'breakpoints';
+
+.character-equipment {
+	padding: 2.5rem;
+	display: grid;
+	grid-gap: 0.5rem 1rem;
+	grid-template-columns: 1fr 1fr;
+
+	@media (--xs-down) {
+		padding: 2rem;
+		grid-gap: 1rem;
+		grid-template-columns: 1fr;
+	}
+
+	& .weapon {
+		grid-column: 1 / 3;
+		display: flex;
+
+		@media (--xs-down) {
+			grid-column: 1 / 2;
+		}
+
+		& .icon {
+			margin-right: 1rem;
+			height: 5rem;
+			width: 5rem;
+			border-radius: 0.3rem;
+		}
+
+		& .gems {
+			display: flex;
+
+			& img {
+				height: 2.5rem;
+				width: 2.5rem;
+				margin-right: 0.2rem;
+			}
+		}
+	}
+
+	& .accessories {
+		grid-row: 2 / 4;
+	}
+
+	& .accessories,
+	& .cosmetics {
+		& .accessory,
+		& .cosmetic {
+			margin: 1rem 0;
+			display: flex;
+			align-items: center;
+
+			& img {
+				height: 3.5rem;
+				width: 3.5rem;
+				background: var(--black-glass);
+				margin-right: 1rem;
+				border-radius: 0.3rem;
+			}
+		}
+	}
+
+	& .soulshield-container {
+		align-self: start;
+		display: flex;
+		align-items: center;
+		padding-bottom: 1rem;
+
+		@media (--xs-down) {
+			margin-top: 2rem;
+		}
+
+		& .soulshield {
+			position: relative;
+			height: 12.5rem;
+			width: 12.5rem;
+			margin-right: 1rem;
+
+			& .piece {
+				width: 6.5rem;
+				position: absolute;
+
+				&.piece-8,
+				&.piece-1,
+				&.piece-2 {
+					top: 0rem;
+				}
+
+				&.piece-7,
+				&.piece-3 {
+					top: 3rem;
+				}
+
+				&.piece-6,
+				&.piece-5,
+				&.piece-4 {
+					top: 6rem;
+				}
+
+				&.piece-8,
+				&.piece-7,
+				&.piece-6 {
+					left: 0rem;
+				}
+
+				&.piece-1,
+				&.piece-5 {
+					left: 3rem;
+				}
+
+				&.piece-2,
+				&.piece-3,
+				&.piece-4 {
+					left: 6rem;
+				}
+			}
+		}
+
+		& .view-button {
+			padding: 1rem;
+			text-align: left;
+			flex: 1;
+			display: flex;
+			justify-content: flex-start;
+			max-width: 18rem;
+		}
+	}
+}

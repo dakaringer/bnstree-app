@@ -1,0 +1,55 @@
+@keyframes initialize {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes initializeWithShift {
+	0% {
+		opacity: 0;
+		top: 5rem;
+	}
+
+	100% {
+		opacity: 1;
+		top: 0;
+	}
+}
+
+.fade-with-shift-enter {
+	position: relative;
+	top: 5rem;
+	left: 0;
+	width: 100%;
+	opacity: 0;
+}
+
+.fade-enter {
+	position: relative;
+	left: 0;
+	width: 100%;
+	opacity: 0;
+}
+
+.fade-enter-active {
+	transition: opacity ease, top ease;
+	top: 0;
+	opacity: 1;
+}
+
+.fade-exit {
+	position: absolute !important;
+	top: 0;
+	left: 0;
+	width: 100%;
+	opacity: 1;
+}
+
+.fade-exit-active {
+	transition: opacity ease;
+	opacity: 0;
+}

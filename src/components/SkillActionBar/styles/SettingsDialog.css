@@ -1,0 +1,48 @@
+@import 'constants';
+@import 'breakpoints';
+
+.settings-dialog {
+	& .header {
+		position: relative;
+
+		& .close-button {
+			position: absolute;
+			right: 1rem;
+			top: 1.6rem;
+			color: var(--text-secondary);
+		}
+	}
+
+	& hr {
+		margin-top: 3rem;
+	}
+
+	& .subheading {
+		margin-bottom: 1rem;
+	}
+
+	& .inputs {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 2rem;
+
+		@media (--sm-down) {
+			grid-template-columns: 1fr;
+		}
+
+		& .help-tooltip {
+			height: 1em;
+			width: 1em;
+			margin-left: 1rem;
+		}
+
+		& .element-icon {
+			height: 1.8rem;
+			margin-right: 1rem;
+		}
+
+		& .element-input {
+			width: calc(100% - 2.8rem);
+		}
+	}
+}

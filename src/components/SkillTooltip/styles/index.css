@@ -1,0 +1,118 @@
+@import 'constants';
+
+.skill-tooltip {
+	padding-bottom: 1rem;
+
+	& .title {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+
+		& .skill {
+			display: flex;
+			align-items: baseline;
+			font-weight: normal;
+
+			& .move {
+				margin-left: 0.6rem;
+				font-weight: 300;
+			}
+		}
+
+		& .cost {
+			color: var(--text-primary);
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	& .info {
+		display: flex;
+		width: 100%;
+
+		& .info-item {
+			width: 25%;
+			margin-right: 0.6rem;
+
+			& .info-item-header {
+				text-align: center;
+				margin-bottom: 0.5rem;
+				border-radius: 0.3rem;
+				padding: 0.2rem;
+				background-color: rgba(0, 0, 0, 0.7);
+			}
+
+			& .info-item-data {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				height: 6rem;
+				border-radius: 0.3rem;
+				background-color: rgba(0, 0, 0, 0.7);
+			}
+		}
+
+		& .info-item:last-child {
+			margin: 0;
+		}
+
+		& .area_1,
+		& .area_2,
+		& .area_3,
+		& .area_4,
+		& .area_5,
+		& .area_6 {
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: auto 100%;
+		}
+
+		& .area_1 {
+			background-image: url(../images/areaIcons/area_1.png);
+		}
+
+		& .area_2 {
+			background-image: url(../images/areaIcons/area_2.png);
+		}
+
+		& .area_3 {
+			background-image: url(../images/areaIcons/area_3.png);
+		}
+
+		& .area_4 {
+			background-image: url(../images/areaIcons/area_4.png);
+		}
+
+		& .area_5 {
+			background-image: url(../images/areaIcons/area_5.png);
+		}
+
+		& .area_6 {
+			background-image: url(../images/areaIcons/area_6.png);
+		}
+	}
+
+	& .requirements {
+		margin-top: 1rem;
+	}
+
+	& .tags {
+		margin-top: 1.5rem;
+		display: flex;
+		flex-wrap: wrap;
+
+		& .tag {
+			padding: 0.1rem 0.5rem;
+			border-radius: 0.3rem;
+			background: var(--primary-dark);
+			margin-right: 0.6rem;
+			margin-bottom: 0.6rem;
+
+			&.disabled {
+				background: var(--grey);
+				color: var(--disabled);
+			}
+		}
+	}
+}

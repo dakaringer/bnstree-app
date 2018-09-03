@@ -1,0 +1,42 @@
+@import 'constants';
+
+.soulshield-dialog {
+	& .header {
+		position: relative;
+
+		& .breakdown {
+			margin-left: 1rem;
+		}
+
+		& .close-button {
+			position: absolute;
+			right: 1rem;
+			top: 1.6rem;
+			color: var(--text-secondary);
+		}
+	}
+
+	& .soulshield-stats {
+		& .stat-total {
+			padding: 0 1rem;
+			text-align: right;
+		}
+
+		& .stat-breakdown {
+			display: flex;
+			align-items: center;
+
+			& .plus {
+				margin: 0 0.5rem;
+			}
+		}
+	}
+
+	& .set {
+		display: flex;
+
+		& .set-name {
+			margin-right: 0.5rem;
+		}
+	}
+}

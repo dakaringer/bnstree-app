@@ -1,0 +1,30 @@
+@import 'fade';
+@import 'constants';
+@import 'breakpoints';
+
+.container {
+	animation: initialize 0.8s ease-in-out;
+
+	& .page-content {
+		padding: 3rem 4rem 10rem;
+
+		@media (--xs-down) {
+			padding: 2rem 1rem;
+			padding-left: 2rem;
+		}
+	}
+
+	& .top-nav {
+		position: sticky;
+		top: 0;
+		width: 100%;
+		background: linear-gradient(to bottom, var(--black-glass) 0%, transparent 150%) !important;
+		padding: 1.5rem 2rem 1rem;
+		box-sizing: border-box;
+		z-index: 2;
+
+		@media (--xs-down) {
+			padding: 1rem;
+		}
+	}
+}

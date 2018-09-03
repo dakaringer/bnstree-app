@@ -1,0 +1,64 @@
+@import 'constants';
+@import 'breakpoints';
+
+.skill-list-element {
+	display: grid;
+	grid-template-columns: 6.4rem 1fr;
+	grid-gap: 0.3rem 1rem;
+	padding: 1rem;
+
+	@media (--sm-down) {
+		margin-right: 0;
+		grid-template-columns: 3rem 1fr;
+		grid-gap: 1rem;
+	}
+
+	& .icon-container {
+		grid-row: 1 / 3;
+
+		@media (--sm-down) {
+			grid-row: 1;
+		}
+
+		& .icon {
+			& img {
+				width: 6.4rem;
+				height: 6.4rem;
+				border-radius: 0.3rem;
+
+				@media (--sm-down) {
+					width: 3rem;
+					height: 3rem;
+				}
+			}
+		}
+	}
+
+	& .skill {
+		display: flex;
+		align-items: center;
+
+		& img {
+			height: 1em;
+			margin-left: 1rem;
+		}
+	}
+
+	& .moves {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 0.5rem;
+
+		& > div {
+			min-width: 0;
+		}
+
+		@media (--sm-down) {
+			grid-column: 1 / 3;
+		}
+
+		@media (--xs-down) {
+			grid-template-columns: 1fr;
+		}
+	}
+}

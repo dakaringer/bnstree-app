@@ -1,0 +1,61 @@
+@import 'constants';
+
+.button-wrapper {
+	position: relative;
+
+	& .move {
+		width: 100%;
+		font-size: 1rem;
+		justify-content: flex-start;
+		padding: 0.8rem;
+
+		&.hasHM {
+			padding-right: 3rem;
+		}
+
+		& .label {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		& .type-icon {
+			height: 1.6em;
+			margin-right: 0.6rem;
+		}
+
+		&.disabled {
+			border-color: transparent;
+			color: var(--text-primary);
+			filter: brightness(0.7);
+		}
+	}
+
+	& .hm_toggle {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.3rem;
+		opacity: 0.9;
+		width: 2.6rem;
+		height: 2.6rem;
+		filter: saturate(0) brightness(0.8);
+
+		& img {
+			height: 2.6rem;
+		}
+	}
+
+	&.active {
+		& .move {
+			border-color: rgba(0, 255, 255, 0.5);
+
+			& .label {
+				color: aqua;
+			}
+		}
+
+		& .hm_toggle {
+			filter: saturate(1);
+		}
+	}
+}
