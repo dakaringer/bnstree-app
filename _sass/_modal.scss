@@ -1,0 +1,50 @@
+.modal-content {
+    background-color: rgba(30,30,30,0.9);
+    color: $default-font-color;
+    
+    li {
+        list-style-type: square;
+        list-style-position: inside;
+        text-indent: -1em;
+        padding-left: 1.5em;
+    }
+}
+
+
+.modal-title {
+    color: $gold;
+}
+
+
+.modal-header {
+    border-bottom: $border;
+}
+
+
+.modal-footer {
+    border-top: $border;
+}
+
+
+#codearea {
+    background-color: $glass;
+    border: $border;
+    margin-top: 10px;
+    width: 100%;
+    height: 150px;
+    resize: none;
+}
+
+.btn {
+    border: none;
+}
+
+.btn-default {
+    background-color: #999;
+    color: $default-font-color;
+    
+    &:hover {
+        color: $default-font-color;
+        background-color: #555;
+    }
+}

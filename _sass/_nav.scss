@@ -1,0 +1,119 @@
+/**
+ * Navbar
+ */
+.navbar-inverse {
+    height: 90px;
+    min-width: 550px;
+    
+    padding-top: 20px;
+    
+    background-color: $glass;
+    border-bottom: $border;
+    
+    .navbar-nav>.open>a {
+        &, &:hover, &:focus {
+            background-color:transparent;
+        }
+    }
+}
+
+
+.navbar-toggle {
+    display: block;
+    float: left;
+    border-width: 0px;
+    z-index: 1;
+    
+    
+    &:hover{
+        background-color: transparent !important;
+        
+        > .icon-bar {
+            background-color: $blue !important;
+        }
+    }
+}
+
+
+#home {
+    position: absolute;
+    width: 280px;
+    height: 70px;
+    margin:-9px auto 0 auto;
+    left: 0;
+    right: 0;
+    padding: 0;
+}
+
+
+.navbar-right {
+    margin-top: 15px;
+    
+    @media (max-width: 767px) {
+        margin-top: 21px;
+        background-color: $glass;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    
+    .dropdown-menu { 
+        background-color: $glass;
+        color: #9d9d9d;
+        border: $border;
+    }
+    
+    .dropdown-menu>li>a { 
+        color: #9d9d9d;
+        
+        &:hover,
+        &:focus {
+            background-color: rgba(80,80,80,0.5);
+            color: $default-font-color;
+        }
+    }
+}
+
+
+
+/**
+ * Navmenu
+ */
+.navmenu {
+    z-index: 1;
+    -webkit-box-shadow: inset -20px 0px 15px -10px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow:    inset -20px 0px 15px -10px rgba(0, 0, 0, 0.5);
+    box-shadow:         inset -20px 0px 15px -10px rgba(0, 0, 0, 0.5);
+}
+
+.navmenu-nav {
+    margin-top: 200px;
+    font-size: 16px;
+    
+    
+    p {
+        padding-left: 15px;
+        padding-bottom: 5px;
+        font-size: 18px;
+        color: #777;
+        border-bottom: 1px solid #777;
+    }
+    
+    li a {
+        padding-left: 35px;
+    }
+}
+
+
+.navmenu-inverse {
+    background-color:#111;
+    border-right: $border;
+    
+    .navmenu-nav>li>a {
+        color: $gold;
+    }
+} 

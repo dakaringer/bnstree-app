@@ -1,0 +1,22 @@
+EN/KR line break
+"name2_refine": "(.*) - (.*)",		->		"name2_refine": "$1<br>$2",
+
+No skill tree description
+- Eliminates <br>
+- "name2_refine": "(.*)<br>(.*)",		->		"name2_refine": "$1<br>$2",\n\t\t\t\t"name2_refine_en": "$1",
+- change displayNoSkillTreeDescription functions
+
+
+How to disable skills
+- create copy of skill with different id
+- slot_data change skill_id and add modified id to train_skill_id and parent_train
+- training.min.js add disable nc.bns.training.Model.SKILL_TYPE_HIDDEN
+if _tempObj skill id == original id skill tyep = SKILL_TYPE_HIDDEN
+add class hide if SKILL_TYPE_HIDDEN
+
+
+
+
+todo
+- Fix tooltip descriptions... re-translate
+- interlace images

@@ -1,0 +1,14 @@
+{% include head.html %}
+
+    {% include sidebar.html %}
+	
+	{% if page.type != 'home' %}
+    {% include modal.html %}
+    {% endif %}
+    
+    <div class="canvas">
+        {% include navbar.html %}
+        {{content}}
+    </div>
+
+{% include footer.html %}

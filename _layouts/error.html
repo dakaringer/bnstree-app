@@ -1,0 +1,43 @@
+---
+layout: default
+---
+    <div class="main-bg">
+        <div class="container main-content" style="color:#fff;">
+
+            <h2 class="featurette-heading">Oops! {{page.code}}.</h2>
+            <div class="row featurette">
+                <div class="col-md-12">
+                    {{content}}
+                </div>
+            </div>
+
+            <hr class="featurette-divider">
+
+            <h2 class="featurette-heading">Did you mean?</h2>
+            <div class="row featurette">
+				<div class="col-md-12">
+                    <p>Get back to the trees!</p>
+					<ul class="nav">
+						<li><a href="{% if page.type != 'home' %}../{% endif %}BM/"><span>Blade Master</span></a>
+						</li>
+						<li><a href="{% if page.type != 'home' %}../{% endif %}KF/"><span>Kung-Fu Master</span></a>
+						</li>
+						<li><a href="{% if page.type != 'home' %}../{% endif %}DE/"><span>Destroyer</span></a>
+						</li>
+						<li><a href="{% if page.type != 'home' %}../{% endif %}FM/"><span>Force Master</span></a>
+						</li>
+						<li><a href="{% if page.type != 'home' %}../{% endif %}AS/"><span>Assassin</span></a>
+						</li>
+						<li><a href="{% if page.type != 'home' %}../{% endif %}SU/"><span>Summoner</span></a>
+						</li>
+						<li><a href="{% if page.type != 'home' %}../{% endif %}SM/"><span>Lyn Blade Master</span></a>
+						</li>
+						<li><a href="{% if page.type != 'home' %}../{% endif %}WL/"><span>Warlock</span></a>
+						</li>
+					</ul>
+                </div>
+            </div></div>
+            
+
+        <!-- /.container -->
+    </div>

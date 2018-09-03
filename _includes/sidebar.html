@@ -1,0 +1,21 @@
+<nav class="navmenu navmenu-inverse navmenu-fixed-left">
+        <ul class="nav navmenu-nav">
+            <p>Skill Trees</p>
+            <li {% if page.job == 'BM' %}class="active"{% endif %}><a href="{% if page.type != 'home' %}../{% endif %}BM/"><span>Blade Master</span></a>
+            </li>
+            <li {% if page.job == 'KF' %}class="active"{% endif %}><a href="{% if page.type != 'home' %}../{% endif %}KF/"><span>Kung-Fu Master</span></a>
+            </li>
+            <li {% if page.job == 'DE' %}class="active"{% endif %}><a href="{% if page.type != 'home' %}../{% endif %}DE/"><span>Destroyer</span></a>
+            </li>
+            <li {% if page.job == 'FM' %}class="active"{% endif %}><a href="{% if page.type != 'home' %}../{% endif %}FM/"><span>Force Master</span></a>
+            </li>
+            <li {% if page.job == 'AS' %}class="active"{% endif %}><a href="{% if page.type != 'home' %}../{% endif %}AS/"><span>Assassin</span></a>
+            </li>
+            <li {% if page.job == 'SU' %}class="active"{% endif %}><a href="{% if page.type != 'home' %}../{% endif %}SU/"><span>Summoner</span></a>
+            </li>
+            <li {% if page.job == 'BD' %}class="active"{% endif %}><a href="{% if page.type != 'home' %}../{% endif %}BD/"><span>Lyn Blade Master</span></a>
+            </li>
+            <li {% if page.job == 'WL' %}class="active"{% endif %}><a href="{% if page.type != 'home' %}../{% endif %}WL/"><span>Warlock</span></a>
+            </li>
+        </ul>
+    </nav>

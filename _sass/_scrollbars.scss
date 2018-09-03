@@ -1,0 +1,33 @@
+$face-color: rgba(50,50,50,0.75);
+
+
+body {
+    scrollbar-face-color: $face-color;
+    scrollbar-highlight-color: $face-color;
+    scrollbar-track-color: $glass;
+    scrollbar-arrow-color: $face-color;
+    scrollbar-shadow-color: $face-color;
+    scrollbar-dark-shadow-color: $face-color;
+}
+    
+    
+body::-webkit-scrollbar {
+    width: 14px;
+    background-color: $glass;
+}
+
+
+ul, .modal, .categoryBody {
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $face-color;
+}
+
+
+::-webkit-scrollbar-corner, ::-webkit-resizer {
+    background-color: $glass;
+}

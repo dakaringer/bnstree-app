@@ -1,0 +1,183 @@
+<div class="modal fade" id="reset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Reset current skill?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This will unlearn all talents from the currently selected skill.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" onclick="_training.resetSelectedSkill()" data-dismiss="modal">Reset Skill</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="resetAll" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Reset all skills?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This will unlearn all talents from all skills.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" onclick="_training.resetAllSkill()" data-dismiss="modal">Reset All</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="applyBuild" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Apply build?</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This will overwrite the current tree.</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="applyBuildButton" type="button" class="btn btn-warning" onclick="" data-dismiss="modal">Apply</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">How to Use</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Basic Controls
+                        <li>Left click to learn</li>
+                        <li>Right click to unlearn</li>
+                        <li>Hover to display changes on the tooltip (disabled on touchscreens)</li>
+                        <li>If you are using a touch screen, tap to learn and unlearn depending on the number of points already used on the talent</li>
+                        <br>Extra Features
+                        <li>Choose a featured build from this list on the right to instantly display a preset build</li>
+                        <li>You can also save/load your own builds by using the "Save/Load Build" button on the top right</li>
+                        <br>How damage is calculated
+                        <br>Skill damage is calculated by using the following formula:
+                        <li>Min damage = (attack - weapon constant) * skill multiplier</li>
+                        <li>Max damage = (attack + weapon constant) * skill multiplier</li>
+                        <li>Skill multiplier depends on the skill, attribute, and talent</li>
+                        <li>Weapon constant depends on the weapon the character is holding</li>
+                        <li>This skill tree assumes the character has an attack of 13 for all levels and does not have a weapon equipped (weapon constant = 1)</li>
+                        <br>Level and skill points
+                        <li>Characters earn 1 skill point starting from level 15 to 50</li>
+                        <li>Characters earn 5 skill points upon leveling to divine level 1</li>
+                        <li>Characters earn 1 skill point for every even divine level</li>
+                        <li>Characters earn 2 skill points for every odd divine level</li>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="status" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Status Effects</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Crowd Controls</p>Down
+                    <li>Target falls on their back</li>
+                    <li>Target can use backward roll, down abilities (block/counter/rising etc.), status escapes</li>
+                    <br>Daze
+                    <li>Target kneels on the ground</li>
+                    <li>Target can use backward roll, status escapes</li>
+                    <br>Stun
+                    <li>Target puts their hand to their head</li>
+                    <li>Target can use status escapes</li>
+                    <br>Knock Back
+                    <li>Target is knocked back x meters</li>
+                    <li>Usually accompanied with another crowd control effect after</li>
+                    <br>Frostbite
+                    <li>Target is slowed</li>
+                    <li>Charge abilities are disabled</li>
+                    <li>Stacks up to 3 times</li>
+                    <li>Freezes the target at 3 stacks</li>
+                    <br>Freeze/Root/Immobilize
+                    <br>
+                    <li>Target is rooted in ice</li>
+                    <li>Target cannot move but can use charge abilities</li>
+                    <br>Ice Prison
+                    <li>Target is locked in ice</li>
+                    <li>All abilities are disabled</li>
+                    <li>Target is invulnerable</li>
+                    <br>Flash Freeze
+                    <li>Target is locked in ice</li>
+                    <li>Target can use status escapes</li>
+                    <li>Ice breaks on taking damage</li>
+                    <br>Unconscious
+                    <li>Target is knocked unconscious on the floor</li>
+                    <li>Target is healed over time</li>
+                    <li>Target can use backward roll, status escapes</li>
+                    <li>Target wakes on taking damage</li>
+                    <br>
+                    <br>
+                    <p>Debuffs</p>Bleed
+                    <li>Deals damage over time every 2 sec</li>
+                    <li>Stacks up to 5 times</li>
+                    <li>Decreases health regeneration by 20% per stack</li>
+                    <br>Internal Bleeding
+                    <li>Decreases healing by 50%</li>
+                    <br>Charge Disabled
+                    <li>Target cannot use charge abilities</li>
+                    <br>Defense Disabled
+                    <li>Target cannot use block/counter abilities</li>
+                    <br>Offensive Defense Disabled
+                    <li>Target cannot use offensive defense abilities</li>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="saveload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Save, Load, Share</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="instructions">Generate your code and save your build with a simple text editor like notepad or paste your code in the box and hit apply to load your build.
+                        <br>
+                        <br>You can also generate a URL that you can use to link to your build. Keep in mind that the generated URL can be very long. Consider using a URL shortener.</p>
+                    <textarea id="codearea"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" onclick="generateBuild()">Generate Code</button>
+                    <button type="button" class="btn btn-warning" onclick="applyBuild('{{ page.job }}')">Apply Code</button>
+                    <button type="button" class="btn btn-warning" onclick="generateUrl('{{ page.job }}')">Generate URL </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

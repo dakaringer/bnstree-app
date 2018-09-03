@@ -1,0 +1,110 @@
+$border: 1px solid #31302B;
+$min-width: 550px;
+
+$glass: rgba(0, 0, 0, 0.5);
+$darkglass: rgba(0, 0, 0, 0.8);
+$default-font-color: floralwhite;
+
+$gold: #B29F69;
+$blue: #6DC0CD;
+$yellow: #C7A94F;
+
+
+
+/**
+ * Fonts
+ */
+@font-face {
+    font-family: NanumGothic;
+    src: local(NanumGothic), local(NanumGothic), url(../fonts/NanumGothic-Regular.ttf)
+}
+
+
+@font-face {
+    font-family: hvgafix;
+    src: local(hvgafix), url(../fonts/hvgafix.fon)
+}
+
+
+* {
+    font-family: "NanumGothic", "Segoe UI", "Helvetica Neue";
+    -webkit-font-smoothing: antialiased;
+}
+
+
+a {
+    color: $yellow;
+    
+    &:hover {
+        color: #967920;
+    }
+}
+
+
+p {
+    margin-bottom: 15px;
+}
+
+
+
+/**
+ * Basic styling
+ */
+body,
+html {
+    height: 100%;
+    min-width: 550px;
+    margin: 0;
+    padding: 0;
+    
+    background-color: black;
+}
+
+
+.canvas {
+    position: relative;
+    z-index: 2;
+    
+    min-height:100%;
+    
+    background: #000 url(../img/home.jpg) no-repeat center 2px;
+    background-size: 100% auto;
+    
+    border-left: $border;
+    margin-left: -1px;
+    padding-right:1px;
+}
+
+
+.main-bg {
+    background-color: $glass;
+    border-top: $border;
+    padding-bottom: 100px;
+    color: $default-font-color;
+}
+
+
+
+/**
+ * Bootstrap Override
+ */
+.screen {
+    overflow-y: auto !important;
+    padding-right: 0px !important;
+}
+
+
+.lead {
+    color: $blue;
+    font-size: 24px;
+    text-indent: 0px;
+}
+
+
+
+/**
+ * Import
+ */
+@import "nav";
+@import "content";
+@import "scrollbars";

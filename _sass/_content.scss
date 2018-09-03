@@ -1,0 +1,86 @@
+.featurette {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+
+.featurette-divider {
+    margin: 85px 0;
+    border-top: $border;
+}
+
+
+.featurette-heading {
+    color: $gold;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+    
+    @media (min-width: 992px) {
+        margin-top: 70px;
+        margin-bottom: 20px;
+    }
+    
+    @media (min-width: 768px) {
+        font-size: 50px;
+    }
+}
+
+
+
+@media (max-width: 991px) {
+    .nav-stacked {
+        padding: 10px 0 20px 0;
+    }
+}
+
+@mixin gradient($r, $g, $b) {
+    $c1: rgba($r, $g, $b, 1);
+    $c2: rgba($r, $g, $b, 0);
+    background: -moz-linear-gradient(left,  rgba(240, 240, 240, 1) 0%, $c2 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,$c1), color-stop(100%,$c2));
+    background: -webkit-linear-gradient(left,  $c1 0%,$c2 100%);
+    background: -o-linear-gradient(left,  $c1 0%,$c2 100%);
+    background: -ms-linear-gradient(left,  $c1 0%,$c2 100%);
+    background: linear-gradient(to right,  rgb($r, $g, $b) 0%,$c2 100%);
+}
+
+
+.nav-pills>li {
+    &.active>a,
+    &.active>a:focus,
+    &.active>a:hover {
+        @include gradient(25, 85, 130);
+    }
+    
+    >a:focus,
+    >a:hover {
+        @include gradient(240, 240, 240);
+        color: #222;
+    }
+    
+    >a {
+        @include gradient(50, 50, 50);
+        color: #aaa;
+    }
+}
+
+
+.tab-pane li {
+    list-style-type: square;
+    list-style-position: inside;
+    text-indent: -1em;
+    padding-left: 1.5em;
+}
+
+
+.tab-content {
+    min-height: 300px;
+    border: $border;
+    padding: 10px;
+    
+    h3 {
+        color: #555;
+        margin-top: 0;
+    }
+}

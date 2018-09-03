@@ -1,0 +1,49 @@
+---
+---
+
+// Imports
+@import "base";
+@import "modal";
+
+.carousel {
+    height: 500px;
+    
+    .item {
+        height: 500px;
+    }
+}
+
+
+.carousel-caption {
+    z-index: 10;
+    
+    @media (min-width: 768px) {
+        margin-bottom: 20px;
+        font-size: 21px;
+        line-height: 1.4;
+    }
+}
+
+
+.im1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%; 
+    height:90%; 
+    background:url(../img/p1.png) center center no-repeat;
+    background-size: auto 100%;
+}
+
+
+.im2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%; 
+    height:90%; 
+    background:url(../img/p2.png) center center no-repeat;
+    background-size: auto 100%;
+}
+
+

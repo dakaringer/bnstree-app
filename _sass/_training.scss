@@ -1,0 +1,779 @@
+$green: #75DC8A;
+
+em {
+    font-style: normal;
+}
+
+dl,
+dt,
+dd,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+strong {
+    font-weight: 500;
+}
+
+.training-content {
+    margin: 100px 0 100px 0;
+    
+    @media (max-width: 767px) {
+        margin: 110px 0 40px 0;
+    }
+}
+
+@mixin user-select($a) {
+    -moz-user-select: -moz-$a;
+    -khtml-user-select: $a;
+    -webkit-user-select: $a;
+    -ms-user-select:$a;
+    user-select:$a;
+}
+
+.trWrap {
+    transform-origin: 50% 0%;
+    -ms-transform-origin: 50% 0%;
+    -webkit-transform-origin: 50% 0%;
+    
+    margin: auto;
+    width: 940px;
+    overflow: hidden;
+    background-color: $glass;
+    border: $border;
+    
+    @media (max-width: 991px) {
+        width: 515px;
+    }
+    
+    .menuWrap {
+        display: none;
+    }
+    
+    .header {
+        background: $darkglass;
+        width: auto;
+        position: relative;
+        height: 35px;
+        z-index: 60;
+        padding: 12px 10px 0 10px;
+        color: $yellow;
+        text-decoration: none;
+
+        span {
+            font-size: 12px;
+        }
+
+        .job, 
+        .level,
+        .mastery_level {
+            float: left;
+            margin-right: 15px;
+            font-size: 12px;
+            text-decoration: none;
+            
+            &:hover > strong {
+                color: $default-font-color;
+            }
+        }
+
+        .select_level {
+            position: relative;
+            z-index: 61;
+            cursor: pointer;
+        }
+
+        .ly_level {
+            position: absolute;
+            top: 22px;
+            left: -10px;
+            z-index: 51;
+            background-color: $darkglass;
+            width: 65px;
+            height: 92px;
+            overflow: auto;
+            display: none;
+        }
+
+        .mastery_level .ly_level {
+            left: 67px;
+            width: 48px;
+        }
+
+        .ly_level li {
+            list-style: none;
+            height: 16px;
+            font-size: 11px;
+            padding: 0 0 0 10px;
+            
+            &:hover {
+                color: $default-font-color;
+                background-color: #333;
+            }
+        }
+
+        .btn_level {
+            display: inline-block;
+            width: 20px;
+            height: 12px;
+            vertical-align: middle;
+            background: url(../img/ico_down.gif) no-repeat center 2px;
+        }
+
+        .btn_reset,
+        .btn_reset_all {
+            float: right;
+            color: $yellow;
+            margin-left: 15px;
+            text-decoration: none;
+            
+            &:hover {
+                color: $default-font-color;
+            }
+        }
+    }
+    
+    
+}
+
+
+.categoryWrap,
+.treeWrap,
+.tooltipWrap {
+    float: left;
+    min-height: 493px;
+}
+
+
+.categoryWrap {
+    width: 197px;
+    padding: 10px 0 0 10px;
+
+    .categoryBody {
+        -webkit-overflow-scrolling: touch;
+        height: 470px;
+        width: 100%;
+        min-height: 413px;
+        @include user-select(none);
+        overflow-x :auto;
+    }
+
+    dt {
+        margin-top: -1px;
+        height: 31px;
+        color: $default-font-color;
+        overflow: hidden;
+        background: url(../img/tr_v2.png) no-repeat 0 -9px;
+
+
+        strong {
+            display: block;
+            line-height: 30px;
+            padding: 1px 0 0 10px;
+        }
+    }        
+
+    li {
+        position: relative;
+        height: 31px;
+        font-size: 9px;
+        line-height: 1.4;
+        background: url(../img/tr_v2.png) no-repeat 0 -40px;
+
+        &:hover {
+            cursor: pointer;
+            background-position: 0 -71px;
+        }
+
+        &.selected {
+            background-position: 0 -102px;
+        }
+    }
+
+    .thumb, .frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 54px;
+        height: 30px;
+        overflow: hidden;
+
+        img {
+            top: -15px;
+        }
+    }
+
+    em {
+        position: absolute;
+        left: 58px;
+        margin-top: 3px;
+        color: $yellow;
+
+        &.single {
+            color: $default-font-color;
+        }
+    }
+
+    .point_able {
+        position: absolute;
+        top: 16px;
+        left: 40px;
+        overflow: hidden;
+        width: 14px;
+        height: 15px;
+        padding: 2px 0 0 4px;
+        font-size: 10px;
+        text-indent: 1px;
+        line-height: 1.2;
+        color: #fff;
+        background: url(../img/tr_v2.png) no-repeat 0 -550px;
+    }
+
+    .cmdkey {
+        position: absolute;
+        top: 2px;
+        left: 1px;
+        width: 19px;
+        height: 8px;
+        text-indent: -1000px;
+        overflow: hidden;
+        background: url(../img/tr_v2.png) no-repeat 0 -800px;
+    }
+
+    $keys: LB, RB, F, TAB, 1, 2, 3, 4, Z, X, C, V, Q, E, W, S, NONE;
+    @for $i from 1 through length($keys) {
+        $c: nth($keys, $i);
+        .key_#{$c} {
+            background-position: 0 (-300 - ($i - 1) * 10px);
+            display: none;
+        }
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .lock .frame {
+        background: url(../img/tr_v2.png) no-repeat 0 -639px;
+    }
+
+    .disable .frame {
+        background: url(../img/disable.png) repeat;
+    }
+
+    .disable em,
+    .lock em {
+        color: #999;
+    }
+
+}
+
+
+.treeWrap {
+    width: 315px;
+    @include user-select(none);
+
+    .only {
+        width: 100%;
+        text-align: center;
+        margin: 230px auto 0;
+        color: #fff;
+
+        em {
+            color: $yellow;
+        }
+    }
+
+    @for $i from 1 through 4 {
+        .tree_cols#{$i} {
+            position: relative;
+            width: ((75 * ($i - 1)) + 70px);
+            height: 450px;
+            margin: 40px auto 0;
+        }
+    }
+
+    .slot_11 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        overflow: hidden;
+    }
+
+    @for $i from 2 through 5 {
+        @for $j from 1 through 4 {
+            .slot_#{$i}#{$j} {
+                position: absolute;
+                left: (($j - 1) * 75px);
+                top: (($i - 1) * 75px);
+                overflow: hidden;
+            }
+        }
+    }
+
+    .slot {
+        position: relative;
+        width: 70px;
+        height: 70px;
+
+        .thumb {
+            position: absolute;
+            left: 12px;
+            top: 12px;
+
+            img {
+                width: 46px;
+                height: 46px;
+            }
+        }
+    }
+
+    .step {
+        position: absolute;
+        left: 40px;
+        top: 45px;
+        width: 28px;
+        height: 16px;
+        padding-top: 2px;
+        font-size: 10px;
+        text-align: center;
+        color: #999;
+        background: url(../img/tr_v2.png) no-repeat 0 -570px;
+    }
+
+    .complete .step,
+    .plusstep .step {
+        color: $green;
+    }
+
+    .frame {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        width: 46px;
+        height: 46px;
+        background: url(../img/disable.png) repeat;
+    }
+
+    .complete .frame,
+    .achievement.complete .frame {
+        background-image: none;
+    }
+
+    .elite.complete .frame {
+        background: url(../img/tr_v2.png) repeat -130px -650px;
+    }
+
+    .elite.plus .frame {
+        background: url(../img/tr_v2.png) repeat -130px -720px;
+    }
+
+    .elite.plusstep .frame {
+        background: url(../img/tr_v2.png) repeat -130px -790px;
+    }
+
+    .hover, 
+    .plus .frame, 
+    .plusstep .frame,
+    .elite .frame,
+    .elite_legend .frame,
+    .achievement.plus .frame,
+    .achievement .frame,
+    .achievement.plus .frame,
+    .achievement.plusstep .frame{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 70px;
+        height: 70px;
+    }
+
+    .hover {
+        background: url(../img/tr_v2.png) no-repeat -130px -300px;
+
+        &:hover {
+            background-position: -60px -300px
+        }
+    }
+
+    .plus .frame,
+    .achievement.plus .frame {
+        background: url(../img/tr_v2.png) repeat -130px -370px;
+    }
+
+    .plusstep .frame,
+    .achievement.plusstep .frame {
+        background: url(../img/tr_v2.png) repeat -130px -440px;
+    }
+
+    .elite .frame,
+    .elite_legend .frame {
+        background: url(../img/tr_v2.png) repeat -130px -580px;
+    }
+
+    .achievement .frame {
+        background: url(../img/tr_v2.png) repeat -130px -860px;
+    }
+
+    .achievement .hover:hover {
+        background-position: -60px -300px;
+    }
+
+    .impossible .hover {
+        background: url(../img/tr_v2.png) repeat -60px -370px;
+    }
+
+    .exclusive .hover {
+        background: url(../img/tr_v2.png) repeat -60px -440px;
+    }
+
+    .lock .hover {
+        background: url(../img/tr_v2.png) repeat -60px -510px;
+    }
+
+    .active {
+        .thumb {
+            top: 13px;
+        }
+
+        .frame,
+        .hover{
+            top: 1px;
+        }
+    }
+
+    .tree_arrow {
+        .arrow {
+            position: absolute;
+            z-index: 0;
+        }
+
+        .able {
+            z-index: 1;
+
+            .h,
+            .v {
+                height: 5px;
+                background-color: #ff9024;
+            }
+
+            .end {
+                background-position: 0 -530px;
+            }
+        }
+
+        .arrow span {
+            position: absolute;
+            display: inline-block;
+            float: left;
+        }
+
+        .h, 
+        .v {
+            height: 5px;
+            background-color: #1b1b1b;
+        }
+
+        .end {
+            width: 12px;
+            height: 17px;
+            background: url(../img/tr_v2.png) no-repeat 0 -510px;
+        }
+    }
+
+}
+
+
+
+.tooltipWrap {
+    height: 400px;
+    width: 425px;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    background-size: 85% auto !important;
+    
+    @media (max-width: 991px) {
+        clear: both;
+        width: 100%;
+        background-size: 65% auto !important;
+    }
+}
+
+.tooltip {
+    width: inherit;
+    padding: 10px;
+    color: #fff;
+    z-index: 9999;
+    
+    
+    section {
+        position: relative;
+    }
+
+    img {
+        vertical-align: middle;
+    }
+
+    .consumed_sp {
+        position: absolute;
+        top: -7px;
+        right: 0;
+        margin: 0;
+        font-size: 11px;
+        color: $default-font-color;
+    }
+
+    footer {
+        padding: 10px 0 0;
+        font-size: 11px;
+        letter-spacing: 0;
+        color: #999!important;
+    }
+
+    dt.name {
+        display: block;
+        height: 25px;
+        padding-bottom: 7px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #6dc0cd;
+    }
+
+    dd.thumb {
+        position: relative;
+        float: left;
+        margin: 0!important;
+        padding: 0 8px 0 3px;
+            
+        img {
+            width: 50px;
+            height: 50px;
+            margin: 2px 1px;
+        }
+        
+        .frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 56px;
+            height: 56px;
+            background: url(../img/tr_v2.png) no-repeat 0 -670px;
+        }
+    }
+
+    dd.main_info {
+        max-width: 342px;
+        float: left;
+        margin-top: 2px;
+        letter-spacing: 0;
+        font-weight: 500;
+        color: $default-font-color;
+        
+        .main_info1 {
+
+            font-size: 12.5px;
+            line-height: 1.0;
+            margin-bottom: 0;
+        }
+        
+        .main_info2 {
+            margin-top: 3px;
+            font-size: 10px;
+            line-height: 1.1;
+        }
+
+
+        @media (max-width: 991px) {
+            max-width: 430px;
+        }
+    }
+
+    dd.sub_info {
+        clear: both;
+        padding-top: 5px;
+        font-size: 9.6px;
+        letter-spacing: 0;
+        color: $default-font-color;
+    }
+
+    .money_info {
+        padding-top: 5px;
+        text-align: right;
+        color: $yellow;
+        font-size: 11px;
+        
+        img {
+            vertical-align: middle;
+            margin: -3px 3px 0 1px;
+        }
+    }    
+
+    .skill_info {
+        margin: 20px auto 20px auto;
+        width: 236px;
+        font-size: 10px;
+        
+        &:after {
+            clear: both;
+            display: block;
+            content: '';
+        }
+        
+        li {
+            float: left;
+            display: inline-block;
+            width: 56px;
+            height: 67px;
+            overflow: hidden;
+            word-spacing: 0;
+            letter-spacing: 0;
+            margin-left: 4px;
+            background: url(../img/skill.png) no-repeat;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            em,
+            div {
+                display: block;
+                text-align: center;
+                width: 100%;
+            }
+            
+            em {
+                height: 21px;
+                padding-top: 3px;
+            }
+
+            .diff {
+                    padding: 4px 0;
+                }
+            
+            div {
+                padding: 16px 0;
+                
+                p {
+                    overflow: hidden;
+                    padding-top: 2px;
+                    line-height: 110%;
+                    margin-bottom: 0;
+                }
+                
+                .diff_arrow {
+                    padding-top: 3px;
+                    font-size: 8px;
+                }
+                
+                .ui_skill_mod {
+                    padding-top: 0;
+                }
+            }
+
+            &.meter {
+                margin-left: 0!important;
+            }
+            
+            @for $i from 0 through 6 {
+                &.range_#{$i} {
+                    background-position: (0px - (60 * $i)) 0;
+                }
+            }
+        }
+        
+        p {
+            &.range {
+                background: url(../img/skill.png) no-repeat;
+            }
+            
+            @for $i from 0 through 6 {
+                &.range_#{$i} {
+                    background-position: (17px - (60 * $i)) -74px;
+                }
+            }
+        }
+    }
+    
+    .icon_in_description {
+        margin-top: -2px;
+    }
+    
+    
+    .skill_acquire {
+        clear: both;
+        margin-top: 7px;
+        font-size: 10px;
+        font-weight: 400;
+        
+        strong {
+            display: block;
+            margin-bottom: 3px;
+            color: #ffb424;
+        }
+        
+        dl {
+            margin-bottom: 3px;
+            
+            img {
+                height: 16px;
+                margin-top: 2px;
+            }
+        }
+
+        dt {
+            color: #ffe300;
+        }
+
+       .legend {
+            color: #ff9600;
+        }
+
+        dd span {
+            color: #29c7e4;
+        }
+
+    }
+}
+
+
+.ui_skill_mod {
+    color: #fbe76a!important;
+}
+
+.ui_skill_add {
+    color: #41cb54!important;
+}
+
+.ui_skill_del {
+    color: #999;
+    text-decoration: line-through;
+}
+
+
+
+.tree_tp {
+    float: right;
+    margin: 10px 0 0;
+    width: 75px;
+    height: 18px;
+    padding: 2px 0 0 25px;
+    color: $green;
+    background: url(../img/tr_v2.png) no-repeat 0 -610px;
+    text-align: center;
+}
+
+.tooltip .tree_tp {
+    font-size: 11px;
+    position: absolute;
+    text-align: right;
+    top: -6px;
+    right: 0;
+    padding-top: 2px;
+    width: 115px;
+}

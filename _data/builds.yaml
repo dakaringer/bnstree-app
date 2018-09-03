@@ -1,0 +1,42 @@
+---
+# AS
+
+# BM
+- job: BM
+  entry: 1
+  name: General
+  function: bm_pve_build1()
+  description: |
+    No description
+
+# DE
+
+# FM
+
+# KF
+
+# SM
+- job: SM
+  entry: 1
+  name: Essentials
+  function: sm_pve_essential()
+  description: |
+    No description
+
+- job: SM
+  entry: 2
+  name: General
+  function: sm_pve_build1()
+  description: |
+    No description
+
+- job: SM
+  entry: 3
+  name: 1v1
+  function: sm_pvp_build1()
+  description: |
+    No description
+
+# SU
+
+# WL

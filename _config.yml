@@ -1,0 +1,13 @@
+# Site settings
+title: BnS Tree
+email: your-email@domain.com
+description: > # this means to ignore newlines until "baseurl:"
+  Translated Blade and Soul Skill Trees for Enghlish Players
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://bnstree.com" # the base hostname & protocol for your site
+github_username:  dakaringer
+
+# Build settings
+markdown: redcarpet
+sass:
+  style: compressed
