@@ -1,0 +1,155 @@
+.skillListContainer {
+    padding: 0;
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+}
+
+.skillList {
+    height: $appHeight;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    position:relative;
+    overflow-y: auto;
+
+    .list {
+        flex: 1;
+        overflow-x: hidden;
+        margin-bottom: 0;
+    }
+
+    .groupHeader {
+        margin: 0;
+        padding: 0.5rem 1rem;
+        background: rgba(0,0,0,0.6);
+        color: white;
+    }
+
+    .listSkill {
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        border-bottom: 0.1rem solid #333;
+        cursor: pointer;
+
+        &.tree {
+            .name {
+                color: aqua;
+                font-size: 1.5rem;
+            }
+        }
+
+        &.selected {
+            background: rgba(0,0,0,0.5) !important;
+        }
+
+        &.disabled {
+            .name {
+                color: #777;
+            }
+
+            .icon {
+                filter: grayscale(100%);
+                opacity: 0.3;
+            }
+        }
+
+        &:hover {
+            background: rgba(0,0,0,0.3);
+        }
+
+        .imgContainer {
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background: black;
+            position: relative;
+
+            .overlay {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .pointsOverlay {
+                position:absolute;
+                background: #333;
+                height: 1.4rem;
+                width: 1.4rem;
+                right: 0;
+                bottom: 0;
+                color: white;
+                text-align: center;
+                font-size: 1rem;
+            }
+        }
+
+        .name {
+            margin-left: 1rem;
+            color: #ddd;
+            font-size: 1.3rem;
+            flex: 1;
+
+            small {
+                display: block;
+                color: #999;
+                font-size: 1.1rem;
+                margin-top: -0.2rem;
+
+                &.levelReq {
+                    color: red;
+                }
+            }
+        }
+
+        .elements {
+            @media(min-width: 1200px) {
+                margin-right: 5.5rem;
+            }
+
+            .element{
+                width: 2rem;
+                margin: 0 0.5rem;
+            }
+        }
+    }
+
+    .hotkeyBar {
+        width: 5rem;
+        text-align: center;
+        padding: 1rem 0;
+        background: rgba(0,0,0,0.5);
+        position: absolute;
+        height: 100%;
+        right: 0;
+        margin-right: 0.5rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+
+        a {
+            color: #aaa;
+            flex: 0 1 auto;
+            text-decoration: none !important;
+            font-size: 1.2rem;
+            padding: 1.3rem 0;
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+
+    @media(max-width: 1200px) {
+        height: 20rem;
+
+        .hotkeyBar {
+            display: none;
+        }
+    }
+}

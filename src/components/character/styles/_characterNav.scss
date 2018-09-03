@@ -1,0 +1,50 @@
+.character-nav {
+    .nav-search-container {
+        display: inline-block;
+        flex: 1 0;
+        display: flex;
+        align-items: baseline;
+        justify-content: flex-end;
+
+        form {
+            display: flex;
+            min-width: 25rem;
+            width: 30vw;
+            align-items: center;
+
+            .inputGroup {
+                flex: 1 0;
+            }
+        }
+
+        .inputGroup {
+            display: inline-block;
+            color: white;
+
+            .nameInput {
+                display: block;
+                margin-top: 0.7rem;
+                font-size: 1.25rem;
+                width: 100%;
+            }
+        }
+
+        .ant-radio-wrapper {
+            color: #ddd
+        }
+
+        @media(max-width: 767px) {
+            display: block;
+            padding: 2rem 0;
+            border-top: 0.1rem solid #777;
+            width: 100%;
+            order: 99;
+            flex: initial;
+            padding-left: 0.5rem;
+
+            form {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -1,0 +1,167 @@
+.trainer-nav {
+    border-radius: 0;
+    background: rgba(0,0,0,0.8);
+    margin: 0;
+    .navbar-brand {
+        margin-right: 1rem;
+        padding: 0.1rem 0 0;
+        img {
+            display: inline-block;
+        }
+        span {
+            vertical-align: middle;
+            color: white;
+        }
+    }
+
+    .navbar-toggle {
+        border: none;
+        color: white;
+    }
+
+    .settings {
+        display: flex;
+    }
+
+    .points {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        margin-right: 1rem;
+        a {
+            cursor: default;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .point-desc {
+            display: inline-block;
+            vertical-align: middle;
+            color: white;
+            h5 {
+                margin: 0;
+            }
+        }
+    }
+    .level {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        margin-right: 1rem;
+        a {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        h6 {
+            margin: 0.3rem 0;
+            span {
+                margin-left: 0.5rem;
+                color: gold;
+            }
+        }
+    }
+    .advanced {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        margin-right: 2rem;
+        vertical-align: middle;
+        color: white;
+        a {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        h5 {
+            margin: 0;
+        }
+    }
+
+    .level,
+    .points,
+    .advanced {
+        @media (max-width: 767px) {
+            flex: 1;
+            margin-right: 0;
+            padding: 0;
+
+            a {
+                padding: 0 0.5rem;
+            }
+        }
+    }
+
+    .modeToggle,
+    .share {
+        i {
+            margin-right: 0.5rem;
+        }
+    }
+    li.share {
+        a {
+            color: aqua;
+        }
+    }
+}
+.levelModal {
+    h4 {
+        clear:both;
+    }
+
+    .levelGrid {
+        clear: both;
+        overflow: hidden;
+
+        span {
+            width: 14%;
+            float: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 3.5rem;
+            width: 3.5rem;
+            border-radius: 50%;
+            &.active {
+                background: rgba(1,1,1,0.5);
+                button {
+                    color: aqua;
+                }
+            }
+            button {
+                color: #777;
+                &:active,
+                &:hover,
+                &:focus {
+                    color: white;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .warning {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+        color: orange;
+    }
+}
+.statModal {
+    img {
+        margin-top: -0.2rem;
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    .help {
+        margin-top: -1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+}
+
+.shareModal {
+    input {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+}

@@ -1,0 +1,267 @@
+.ssEquip {
+    @include appHeight();
+    display: flex;
+    align-items: center;
+    user-select: none;
+    flex-direction: column;
+    padding: 0;
+
+    @media(max-width: 1199px) {
+        height: auto;
+        min-height: 32rem;
+        flex-direction: row;
+    }
+
+    @media(max-width: 767px) {
+        flex-direction: column;
+    }
+
+    .imagePreview {
+        width: 24rem;
+        height: 24rem;
+        position: relative;
+        transform-origin: center;
+        transform: scale(0.9);
+        margin: 2rem;
+
+        .blankImg {
+            position: relative;
+            z-index: 2;
+        }
+
+        .piece {
+            position: absolute;
+            z-index: 1;
+            width: 12.2rem;
+
+            &.p8, &.p1, &.p2 {
+                top: -0.2rem;
+            }
+
+            &.p7, &.p3 {
+                top: 5.8rem;
+            }
+
+            &.p6, &.p5, &.p4 {
+                top: 11.8rem;
+            }
+
+            &.p8, &.p7, &.p6 {
+                left: -0.1rem;
+            }
+
+            &.p1, &.p5 {
+                left: 5.9rem;
+            }
+
+            &.p2, &.p3, &.p4 {
+                left: 12rem;
+            }
+        }
+
+        .setBackground {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.7;
+        }
+    }
+
+    .details {
+        width: 100%;
+        min-width: 30rem;
+        flex: 1 0;
+        border-radius: 0;
+        background: none;
+        align-self: baseline;
+
+        .effects {
+            padding-left: 0.7rem;
+        }
+
+        .ant-collapse-header {
+            height: 3rem;
+            line-height: 3rem;
+            background: none !important;
+            color: #ccc;
+
+            .arrow {
+                line-height: 3.2rem;
+                color: #ccc;
+            }
+        }
+
+        .ant-collapse-content, .ant-collapse-item {
+            border: none;
+        }
+
+        .ant-collapse-content {
+            padding-left: 2.5rem;
+            color: white;
+
+            .ant-collapse-content-box {
+                padding: 1rem 0;
+            }
+        }
+
+        .totalStats {
+            th {
+                padding-right: 2rem;
+            }
+
+            .total {
+                text-align: right;
+            }
+
+            .breakdown {
+                padding-left: 1rem;
+
+                .set, .fuse {
+                    color: #00FF6C;
+                }
+            }
+        }
+    }
+
+    .setEffect {
+        margin-top: 2rem;
+
+        .effectName {
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .setGroup {
+            font-size: 1.3rem;
+            line-height: 1.3rem;
+        }
+    }
+
+    .statControls .ant-collapse-content {
+        height: calc(75vh - 34rem);
+        overflow: auto;
+
+        @media(max-width: 1199px) {
+            height: 26rem;
+        }
+
+        @media(max-width: 766px) {
+            height: auto;
+        }
+
+        .piece {
+            padding: 1rem 0;
+            border-bottom: 0.1rem solid #aaa;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+
+            &:last-child {
+                border: none;
+            }
+
+            img {
+                margin-right: 1.5rem;
+                height: 7.2rem;
+            }
+
+            h6 {
+                margin: 0;
+            }
+
+            .control {
+                width: 100%;
+            }
+
+            .statController {
+                margin: 0.5rem 0;
+                width: 100%;
+
+                th {
+                    width: 8rem;
+                    color: #ccc;
+                    text-align: left;
+                }
+
+                td {
+                    display: flex;
+                    padding-left: 1rem;
+                }
+
+                .ant-input-number {
+                    width: 5rem;
+                    margin-left: 2rem;
+
+                    .ant-input-number-handler-wrap {
+                        display: none;
+                    }
+
+                    input {
+                        text-align: right;
+                    }
+                }
+
+                .ant-dropdown-link {
+                    color: #ccc;
+                    text-decoration: none;
+                    position: relative;
+                    z-index: 5;
+                }
+
+                .sliderWrap {
+                    width: 80%;
+                    overflow: hidden;
+                    padding: 0 1rem 0.5rem 1rem;
+                }
+
+                .ant-slider {
+                    border: none;
+                    background: none;
+                    margin-bottom: 1rem;
+
+                    .ant-slider-mark-text {
+                        color: white;
+                    }
+
+                    .ant-slider-step {
+                        background: #aaa;
+                        z-index: 0;
+                    }
+
+                    .ant-slider-track {
+                        background: aqua;
+                    }
+
+                    .ant-slider-handle {
+                        border: none;
+                    }
+
+                    .ant-slider-dot {
+                        display: none;
+                    }
+                }
+
+                .ant-radio-group {
+                    .ant-radio-button-wrapper {
+                        background: none;
+                        border-radius: 0.3rem;
+                        margin: 0.2rem 0.5rem;
+                        border: none;
+                        box-shadow: none;
+                        padding: 0 0.8rem;
+                        color: #ccc;
+
+                        &:hover {
+                            color: #108ee9;
+                        }
+
+                        &.ant-radio-button-wrapper-checked {
+                            background: rgba(150,150,150,0.5);
+                            color: aqua;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,94 @@
+.ant-modal {
+    .ant-modal-close {
+        outline: none;
+        color: white;
+    }
+
+    .ant-modal-content {
+        background: rgba(0,0,0,0.8);
+        color: white;
+        .ant-modal-footer,
+        .ant-modal-header {
+            border: none;
+            background: none;
+            .ant-modal-title {
+                color: white;
+            }
+        }
+        .ant-modal-header {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.ant-input-number {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    input {
+        color: white;
+        border-radius: 0;
+        border-bottom: solid 0.2rem #ddd !important;
+        &:active,
+        &:focus {
+            border-color: #108ee9 !important;
+        }
+    }
+}
+
+.ant-dropdown-menu {
+    border-radius: 0 !important;
+    margin-top: -0.3rem !important;
+    background: rgba(20,20,20,0.9) !important;
+
+    li > a, li {
+        color: #ccc;
+        border-radius: 0 !important;
+        text-transform: capitalize;
+    }
+
+    .ant-dropdown-menu-item-selected {
+        a, & {
+            background-color: transparent;
+            color: #ccc;
+        }
+    }
+
+    .active, .ant-dropdown-menu-item-active {
+        a, & {
+            background-color: #777;
+            color: #eee;
+        }
+
+        a:hover, &:hover {
+            background-color: #eee;
+            color: black;
+        }
+    }
+}
+
+
+
+.ant-tooltip {
+    @media(max-width: 767px) {
+        left: 0 !important;
+    }
+
+    .ant-tooltip-arrow {
+        border-right-color: rgba(15,15,15,0.8) !important;
+
+        @media(max-width: 767px) {
+            display: none;
+        }
+    }
+
+    .ant-tooltip-inner {
+        background: rgba(15,15,15,0.95);
+        border: 0.1rem solid #555;
+
+        hr {
+            border-color: #555;
+        }
+    }
+}

@@ -1,0 +1,135 @@
+.characterStats {
+    @include appHeight();
+    display: flex;
+    position: relative;
+
+    .attack, .defense {
+        height: 100%;
+        width: 50%;
+        border-right: 0.1rem solid #777;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .attack .mainStat {
+        background: url(../images/bgStat-attack.png) no-repeat;
+        background-position: 0 -0.5rem;
+        background-size: cover;
+    }
+
+    .defense .mainStat {
+        background: url(../images/bgStat-defense.png) no-repeat;
+        background-position: 0 -0.5rem;
+        background-size: cover;
+    }
+    .mainStat {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 0.8;
+
+        p:hover {
+            opacity: 1;
+        }
+
+        .mainValue {
+            margin: 0;
+            color: #00FF6C;
+            font-weight: bold;
+        }
+
+        h4 {
+            margin-top: 2rem;
+        }
+
+        hr {
+            width: 90%;
+            opacity: 0.5;
+            margin: 1.5rem 0;
+            margin-bottom: 0;
+        }
+
+        p {
+            width: 100%;
+            text-align: center;
+            margin: 0;
+            height: 4rem;
+            line-height: 4rem;
+            opacity: 0.75;
+            cursor: pointer;
+        }
+    }
+
+    .subStatsContainer {
+        overflow: auto;
+        flex: 1 0;
+    }
+
+    .subStats {
+        border-radius: 0;
+        background: none;
+
+        .statItem {
+            border-bottom: 0.1rem solid rgba(255,255,255,0.2);
+            &.level{
+                height: 3.8rem;
+                padding-left: 3.2rem;
+                span {
+                    line-height: 3.8rem;
+                }
+            }
+            .ant-collapse-header {
+                height: 100%;
+                padding-right: 2.5rem;
+                color: white;
+                background: none !important;
+                .arrow {
+                    float: right;
+                    color: white;
+                }
+                .mainValue {
+                    float: right;
+                    color: #00FF6C;
+                    font-weight: bold;
+                }
+            }
+
+            .ant-collapse-content {
+                background: rgba(0,0,0,0.5);
+                border: none;
+                border-bottom: 0.1rem solid rgba(255,255,255,0.2);
+            }
+
+            .ant-collapse-content-box {
+                padding-left: 2rem;
+                padding-right: 1rem;
+            }
+
+            .subHeader {
+                color: #ccc;
+            }
+            .subValue {
+                float: right;
+                color: #eee;
+            }
+        }
+    }
+
+    @media(max-width: 767px) {
+        height: auto;
+        min-height: inherit;
+        max-height: none;
+        flex-direction: column;
+        border-bottom: 0.1rem solid #777;
+
+        .attack, .defense {
+            border: none;
+        }
+
+        .attack, .defense {
+            height: auto;
+            width: 100%;
+        }
+    }
+}

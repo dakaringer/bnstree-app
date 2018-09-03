@@ -1,0 +1,78 @@
+.tabBar {
+    background: rgba(0,0,0,0.9);
+    border-bottom: 0.1rem solid #555;
+
+    .tabContainer {
+        height: 3.5rem;
+        overflow: hidden;
+        display: flex;
+        align-items: top;
+
+        .tabs {
+            flex: 1;
+            overflow: hidden;
+            overflow-x: scroll;
+            height: 6rem;
+        }
+
+        .ant-menu {
+            background: none;
+            border: none;
+            white-space: nowrap;
+            margin-bottom: -0.2rem;
+
+            .ant-menu-item {
+                margin: 0;
+                line-height: 3.5rem;
+                height: 3.5rem;
+                color: #999;
+                float: none;
+                display: inline-block;
+                user-select: none;
+                vertical-align: top;
+
+                .tab-name {
+                    max-width: 5rem;
+                    display: inline-block;
+                    vertical-align: bottom;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                &.ant-menu-item-selected {
+                    color: white;
+                }
+
+                &:hover {
+                    color: white;
+                }
+
+                .anticon {
+                    margin: 0;
+                    margin-left: 1rem;
+                }
+            }
+        }
+
+        .functionLink {
+            color: #999;
+            margin: 1rem;
+            text-decoration: none;
+            user-select: none;
+
+            @media(max-width: 767px) {
+                span {
+                    display: none;
+                }
+            }
+
+            &.disabled {
+                color: #555;
+            }
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+}

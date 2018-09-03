@@ -1,0 +1,120 @@
+.itemTooltip {
+    .ant-tooltip-inner {
+        max-width: 45rem;
+    }
+}
+
+.characterItemTooltip {
+    color: white;
+    padding: 0.5rem;
+    padding-bottom: 1rem;
+    width: 40rem;
+
+    @media(max-width: 767px) {
+        max-width: 92vw;
+    }
+
+    p {
+        margin-bottom: 0.1rem;
+        position: relative;
+    }
+
+    span {
+        @include itemColors();
+    }
+
+    .font_green {
+        color: #00FF6C;
+    }
+
+    .font_normal {
+        color: aqua;
+    }
+
+    .topBlock {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 0.5rem;
+
+        .name {
+            @include itemColors();
+
+            margin-top: 0.5rem;
+            flex: 1;
+            font-size: 2rem;
+        }
+    }
+
+    .mainBlock {
+        display: flex;
+        .icon {
+            margin-right: 1rem;
+            width: 6.7rem;
+        }
+        .mainAttb {
+            flex: 1;
+            .m1 {
+                font-size: 1.5rem;
+                line-height: 1.7rem;
+            }
+            .m2, .sub {
+                font-size: 1.2rem;
+                line-height: 1.2rem;
+            }
+            .m1 {
+                p {
+                    margin-bottom: 0.5rem;
+                }
+            }
+            .m2, .sub {
+                p {
+                    margin-bottom: 0.3rem;
+                }
+            }
+            .desc {
+                margin-top: 0.5rem;
+            }
+        }
+    }
+
+    .subBlock {
+        margin: 0.5rem 0;
+        font-size: 1.2rem;
+        line-height: 1.2rem;
+
+        p {
+            margin-bottom: 0.5rem;
+        }
+
+        .gems {
+            padding: 0 1rem;
+            .gem {
+                display: flex;
+                align-items: center;
+                margin-top: 2rem;
+                img {
+                    width: 5rem;
+                    height: 5rem;
+                    margin-right: 2.5rem;
+                }
+
+                .gemStats {
+                    white-space: pre-line;
+                }
+            }
+        }
+
+        .extra {
+            margin-top: 3rem;
+        }
+    }
+
+    h6 {
+        margin-bottom: 0.5rem;
+        color: #FFDF33;
+    }
+
+    .flavor {
+        color: #e9af00;
+    }
+}

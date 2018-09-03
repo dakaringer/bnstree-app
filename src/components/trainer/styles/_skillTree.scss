@@ -1,0 +1,223 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.tooltipTreeContainer {
+    background: rgba(0,0,0,0.4);
+    overflow: auto;
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+
+    .row {
+        @media (max-width: 767px) {
+            min-width: calc(200% + 6rem);
+        }
+    }
+}
+.treeContainer {
+    padding: 0 2rem;
+    border-right: solid 0.1rem #eee;
+    height: $appHeight;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    color: #eee;
+    user-select: none;
+
+
+    .skillTree {
+        min-height: 52rem;
+        padding: 4rem 0 1rem 0;
+        display: flex;
+    }
+
+    .noTree {
+        align-self: center;
+        white-space: nowrap;
+
+        .skillName {
+            color: aqua;
+        }
+    }
+
+    .nodes {
+        margin-left: -5rem;
+
+        th, td {
+            text-align: center;
+        }
+
+        th {
+            width: 5rem;
+            font-weight: 300;
+            font-size: 1.2rem;
+        }
+
+        td {
+            padding: 2rem;
+            height: 7.6rem;
+            position: relative;
+        }
+    }
+
+    .node {
+        border: solid 0.2rem #777;
+        background-color: black;
+        border-radius: 0.3rem;
+        border-top-color: #aaa;
+        border-bottom-color: #555;
+        box-sizing: content-box;
+        width:5.2rem;
+        position: relative;
+        z-index: 2;
+
+        &.learnable {
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: absolute;
+            z-index: 1;
+            &.current {
+                top:-0.4rem;
+                bottom: -0.4rem;
+                right: -0.4rem;
+                left: -0.4rem;
+                border: solid 0.2rem white;
+                border-radius: 0.4rem;
+                box-shadow: 0px 0px 1rem 0.3rem rgb(67, 138, 252);
+                z-index: -1;
+            }
+
+            .plus {
+                opacity: 0;
+            }
+        }
+
+        &:hover {
+            border-color: skyblue;
+
+            .plus {
+                opacity: 1;
+                animation-name: fadeIn;
+                animation-duration: 0.3s;
+
+            }
+        }
+
+        img {
+            width: 5.2rem;
+            user-select: none;
+        }
+    }
+
+    .path {
+        position: absolute;
+        bottom: 7.3rem;
+        right: 4.2rem;
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        z-index: 1;
+
+        .arrow1, .arrow2 {
+            margin-right: 0.3rem;
+        }
+
+        @for $i from 1 through 4 {
+            .arrow1.diff_#{$i}0 {
+                height: ($i - 1) * 9.6rem + 2rem;
+                border-left: 0.6rem #ff9024 solid;
+            }
+            @for $j from 1 through 3 {
+                .arrow1.diff_#{$i}#{$j} {
+                    height: ($i - 1) * 9.6rem + 2rem;
+                    width: $j * 9.6rem + 0.6rem;
+                    border-left: 0.6rem #ff9024 solid;
+                    border-bottom: 0.6rem #ff9024 solid;
+                }
+            }
+        }
+
+        .arrow2 {
+            height: 1.3rem;
+            border-left: 0.6rem #ff9024 solid;
+
+            @for $i from 1 through 4 {
+                &.diff_#{$i}0 {
+                    height: $i * 10.9rem;
+                }
+            }
+        }
+
+        .anticon {
+            margin-top: -0.3rem;
+            color: #ff9024;
+        }
+    }
+
+    .hm {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+    .hmTooltip {
+        padding: 0.5rem;
+        padding-right: 1rem;
+        img {
+            width: 3rem;
+            margin-right: 0.5rem;
+        }
+    }
+
+    .inactive {
+        .node .icon {
+            filter: grayscale(100%);
+            opacity: 0.3;
+        }
+
+        .path {
+            z-index: 0;
+            .arrow1, .arrow2, .anticon {
+                border-color: #444;
+                color: #444
+            }
+        }
+    }
+
+    .treeTagList {
+        width: 100%;
+
+        .treePointCounter {
+            float: right;
+            padding: 1rem;
+            height: 4rem;
+            font-size: 1.3rem;
+        }
+
+        hr {
+            clear: both;
+            margin-top: 0;
+        }
+
+        .tagBlock {
+            padding: 0 3rem;
+            text-align: center;
+
+            .tagDesc {
+                text-align: left;
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+.trainer-nav {
+    .nav-menu {
+        @media(max-width: 767px) {
+            display: none;
+        }
+    }
+
+    .nav-settings {
+        display: inline-block;
+        flex: 1 0;
+        display: flex;
+        align-items: baseline;
+        justify-content: flex-start;
+        margin-left: 2rem;
+
+        @media(max-width: 767px) {
+            display: block;
+            padding: 1rem 0 0 0.5rem;
+            margin-left: 0;
+            border-top: 0.1rem solid #777;
+            width: 100%;
+            order: 99;
+            flex: initial;
+
+            form {
+                width: 100%;
+            }
+        }
+    }
+
+    .modeToggle.active {
+        color: white !important;
+    }
+}

@@ -1,0 +1,14 @@
+$appHeight: 75rem;
+
+@import 'trainerNav';
+@import 'tabBar';
+@import 'skillList';
+@import 'skillGrid';
+@import 'skillTree';
+@import 'skillTooltip';
+@import 'bottomBar';
+@import 'buildList';
+
+.trainer .loadingContainer {
+    height: $appHeight;
+}

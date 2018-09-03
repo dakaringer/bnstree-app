@@ -1,0 +1,81 @@
+.ssList {
+    @include appHeight();
+    position: relative;
+    padding: 0;
+    border-right: 0.1rem solid #777;
+    user-select: none;
+    overflow: auto;
+    transform: translateZ(0);
+
+    @media(max-width: 1199px) {
+        height: 48rem;
+        min-height: calc(75vh - 32rem);
+        max-height: none;
+        border-right: none;
+        border-top: 0.1rem solid #777;
+    }
+
+    @media(max-width: 767px) {
+        height: auto;
+        min-height: inherit;
+        max-height: none;
+    }
+
+    .list {
+        padding: 0;
+        color: white;
+        width: 100%;
+        overflow-y: auto;
+
+        @media(max-width: 767px) {
+            padding: 0;
+        }
+    }
+}
+
+.ssItem {
+    position: relative;
+    background: linear-gradient(to right,  rgba(0,0,0,0.6) 65%,rgba(0,0,0,0) 100%);
+    width: 100%;
+    overflow: hidden;
+    padding: 0 1rem 0 19rem;
+    border-bottom: 0.1rem solid #777;
+
+    .setIcon {
+        position: absolute;
+        width: 16rem;
+        height: 16rem;
+        left: 1.5rem;
+        top: 0rem;
+    }
+
+    .ssItem-pieces {
+        display: flex;
+        flex-direction: column;
+
+        .ssName {
+            font-size: 2rem;
+            margin: 0.5rem 0;
+            @include itemColors();
+        }
+
+        .pieces {
+            a {
+                display: inline-block;
+            }
+            img {
+                width: 4rem;
+                height: 4rem;
+                border: 0.1rem solid #111;
+                box-sizing: content-box;
+                border-radius: 0.2rem;
+                margin: 0.1rem;
+
+                &.equipped {
+                    box-shadow: 0px 0px 0.1rem 0.1rem #43affa;
+                    border-color: #ddd;
+                }
+            }
+        }
+    }
+}

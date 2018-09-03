@@ -1,0 +1,105 @@
+.sideBarContainer {
+    padding: 0;
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+    position: relative;
+    z-index: 1;
+}
+
+.mixerSideBar {
+    @include appHeight();
+    background: rgba(0,0,0,0.7);
+    overflow: auto;
+    user-select: none;
+    border-right: 0.1rem solid #777;
+
+    .search {
+        background: rgba(0,0,0,0.8);
+        color: #eee;
+
+        input {
+            padding: 0 1rem;
+            width: 100%;
+            height: 4rem;
+            background: #222;
+        }
+
+        .clear {
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+            line-height: 4rem;
+            width: 2rem;
+            font-size: 1.8rem;
+            visibility: hidden;
+
+            &.active {
+                visibility: visible;
+            }
+        }
+    }
+
+    .classDropdown {
+        .ant-dropdown-trigger {
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 0;
+            width: 100%;
+            text-align: left;
+
+            .anticon {
+                float: right;
+            }
+
+            &:hover {
+                background: #333;
+            }
+        }
+    }
+
+    .search, .filterList, .classDropdown {
+        h5 {
+            color: #ccc;
+            margin: 0;
+            padding: 0.5rem 1rem;
+            background: rgba(0,0,0,0.8);
+            font-size: 1.2rem;
+        }
+
+        .filter {
+            display: block;
+            color: #aaa;
+            padding: 0.5rem 1.2rem;
+            background: rgba(10,10,10,0.5);
+            border-bottom: 0.1rem solid black;
+            vertical-align: middle;
+
+            &:hover {
+                text-decoration: none;
+                color: white;
+                background: rgba(20,20,20,0.8);
+            }
+
+            &.active {
+                text-decoration: none;
+                color: white;
+                background: rgba(40,40,40,0.8);
+            }
+
+            span {
+                height: 2.5rem;
+                line-height: 2.5rem;
+            }
+        }
+    }
+
+    @media(max-width: 767px) {
+        height: 20rem;
+        border-right: none;
+        border-bottom: 0.1rem solid #777;
+        min-height: 16rem;
+        max-height: 16rem;
+    }
+}

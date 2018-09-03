@@ -1,0 +1,221 @@
+.tooltipContainer {
+    max-height: $appHeight;
+    overflow: auto;
+}
+
+.skillTooltip {
+    color: white;
+    padding-bottom: 1rem;
+
+    p {
+        margin-bottom: 0.1rem;
+
+        .element {
+            width: 1.2em;
+            margin-left: 0.3rem;
+            vertical-align: text-bottom;
+        }
+    }
+
+    .topBlock {
+        display: flex;
+        align-items: baseline;
+
+        .name {
+            margin-top: 1.2rem;
+            color: aqua;
+            flex: 1;
+
+            .classification {
+                margin-left: 0.5rem;
+                color: #ccc;
+            }
+
+            .element {
+                margin-left: 0.3rem;
+                vertical-align: text-bottom;
+                width: 1.4em;
+            }
+        }
+
+        .focus {
+            color: white;
+        }
+    }
+
+    .boosted {
+        color: lawngreen;
+    }
+
+    .scale {
+        color: gold;
+    }
+    .mainBlock {
+        display: flex;
+        .icon {
+            margin-right: 1rem;
+        }
+        .mainAttb {
+            flex: 1;
+            .m1 {
+                font-size: 1.6rem;
+            }
+            .m2 {
+                font-size: 1.2rem;
+            }
+        }
+    }
+    .subBlock {
+        margin: 1rem 0 2rem 0;
+        font-size: 1.2rem;
+    }
+    .infoBlock {
+        display: flex;
+        justify-content: center;
+        .info-box {
+            padding: 0 0.2rem;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 25%;
+            .info,
+            .info-header {
+                background-color: rgba(0, 0, 0, 0.7);
+                border-radius: 0.2rem;
+            }
+            .info-header {
+                height: 2.5rem;
+                line-height: 2.5rem;
+            }
+            .info {
+                margin-top: 0.2rem;
+                height: 6rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .anticon {
+                    margin: 0.5rem;
+                }
+            }
+
+            @for $i from 1 through 6 {
+                .area_#{$i} {
+                    background-image: url(../images/area_#{$i}.png);
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: auto 100%;
+                }
+            }
+        }
+    }
+
+    .condBlock {
+        margin-top: 1rem;
+
+        small {
+            color: #ccc;
+        }
+
+        p {
+            font-size: 1.3rem;
+        }
+
+        h5 {
+            color: gold;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        img {
+            height: 1.4em;
+            margin: 0 0.5rem;
+        }
+
+        .achievement {
+            color: cyan;
+        }
+
+        .book {
+            color: yellow;
+        }
+
+        .unlock {
+            color: white;
+        }
+    }
+
+    .anticon {
+        font-size: 0.7em;
+        vertical-align: middle;
+    }
+    .skill {
+        color: aqua;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+        .icon {
+            width: 1em;
+            margin-right: 0.2em;
+        }
+    }
+    .mod {
+        color: #FFDF33;
+    }
+    .add {
+        color: #66FF66;
+    }
+    .delete {
+        color: #aaa;
+        text-decoration: line-through;
+        .skill {
+            filter: grayscale(100%);
+            color: #aaa;
+        }
+    }
+
+    .modTag {
+        color: white;
+        font-size: 0.8em;
+        padding: 0.1em 0.4em;
+        border-radius: 0.1rem;
+        margin-left: 0.1rem;
+
+        &.add {
+            background: #1c951c;
+        }
+        &.mod {
+            background: #cbac00;
+        }
+    }
+
+    .locked p {
+        color: GoldenRod;
+    }
+}
+
+.tagBlock {
+    margin-top: 2rem;
+    color: white;
+    .tag {
+        display: inline-block;
+        padding: 0.1rem 0.7rem;
+        background: #195F9A;
+        border-radius: 0.3rem;
+        font-size: 1.2rem;
+        cursor: default;
+        margin: 0.3rem;
+
+        &.disabled {
+            background: #555;
+            color: #aaa;
+        }
+    }
+
+    .tagDesc {
+        max-width: 30rem;
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+    }
+}

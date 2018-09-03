@@ -1,0 +1,31 @@
+.buildList {
+    .buildEntry {
+        h4 {
+            margin: 0.5rem 0;
+        }
+
+        .detail {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            color: #777;
+
+            span {
+                color: #ddd;
+                padding: 0 0.5rem;
+            }
+        }
+
+        .viewCount {
+            margin: 0;
+            color: #777;
+
+            i, span {
+                vertical-align: middle;
+            }
+        }
+
+        td {
+            vertical-align: middle;
+        }
+    }
+}

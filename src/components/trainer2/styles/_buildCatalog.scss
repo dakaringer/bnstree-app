@@ -1,0 +1,41 @@
+.buildCatalog {
+    .catalogItem {
+        padding: 2rem;
+        margin-bottom: 2rem;
+        cursor: pointer;
+        text-decoration: none;
+
+        .catalogTitle {
+            margin: 0;
+
+            .buildElement {
+                width: 1.8rem;
+            }
+
+            .buildType {
+                margin: 0 1rem;
+            }
+        }
+
+        .buildDetails {
+            color: #777;
+            margin: 0;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+    }
+}
+
+.buildFilter {
+    margin-bottom: 1rem;
+
+    .buildFilterGroup {
+        display: inline-block;
+        margin-right: 2rem;
+    }
+
+    .ant-btn {
+        margin-left: 0.5rem;
+        text-transform: capitalize;
+    }
+}

@@ -1,0 +1,66 @@
+@mixin appHeight() {
+    min-height: 75rem;
+    height: 75vh;
+}
+
+@mixin appHeight2() {
+    min-height: 78rem;
+    height: calc(75vh + 3rem);
+}
+
+@mixin itemColors() {
+    &.grade_0 {
+        color: #999;
+    }
+    &.grade_3 {
+        color: #008746;
+    }
+    &.grade_4 {
+        color: #297bb0;
+    }
+    &.grade_5 {
+        color: #a847bd;
+    }
+    &.grade_7 {
+        color: #ed6900;
+    }
+}
+
+@import '../../shared/styles/tabBar';
+@import '../../shared/styles/subNav';
+
+@import '../../trainer2/styles/skillList';
+@import '../../trainer2/styles/skillTooltip';
+
+@import 'characterItemTooltip';
+@import 'characterModals';
+
+.character {
+    @import 'characterNav';
+    @import 'characterProfile';
+    @import 'characterStats';
+    @import 'characterEquips';
+    @import 'characterTabBar';
+    @import 'characterSkills';
+
+    .ant-row {
+        background: rgba(0,0,0,0.7);
+    }
+    .mainContainer {
+        animation:fadeIn ease-in 1;
+        animation-fill-mode:forwards;
+        animation-duration:0.5s;
+    }
+
+    .loadingContainer {
+        @include appHeight();
+
+        h3 {
+            color: white;
+        }
+    }
+
+    .equipError {
+        color: white;
+    }
+}

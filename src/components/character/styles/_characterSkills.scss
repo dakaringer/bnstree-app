@@ -1,0 +1,67 @@
+.characterSkills {
+    display: block;
+    overflow: auto;
+
+    .buildInfo {
+        background: rgba(0,0,0,0.5);
+        height: 5rem;
+        width:100%;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+
+        h4 {
+            margin: 0;
+            text-transform: capitalize;
+            font-size: 2rem;
+
+            img {
+                vertical-align: bottom;
+                margin-left: 0.5rem;
+            }
+        }
+
+        &.flame {
+            background: linear-gradient(to right, rgba(150, 20, 20, 0.7) 0%, rgba(0,0,0,0.5) 50%);
+        }
+
+        &.frost {
+            background: linear-gradient(to right, rgba(5, 165, 255, 0.7) 0%, rgba(0,0,0,0.5) 50%);
+        }
+
+        &.wind {
+            background: linear-gradient(to right, rgba(25, 175, 125, 0.7) 0%, rgba(0,0,0,0.5) 50%);
+        }
+
+        &.earth {
+            background: linear-gradient(to right, rgba(90, 50, 40, 0.7) 0%, rgba(0,0,0,0.5) 50%);
+        }
+
+        &.lightning {
+            background: linear-gradient(to right, rgba(30, 50, 130, 0.7) 0%, rgba(0,0,0,0.5) 50%);
+        }
+
+        &.shadow {
+            background: linear-gradient(to right, rgba(40, 35, 60, 0.7) 0%, rgba(0,0,0,0.5) 50%);
+        }
+
+        .visibilityFilter {
+            font-size: 1.2rem;
+
+            .ant-checkbox-wrapper {
+                color: #aaa;
+            }
+
+            span {
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .skillItem .types .typeButton {
+        background: rgba(80, 80, 80, 0.5);
+        cursor: default;
+    }
+}

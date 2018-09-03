@@ -1,0 +1,237 @@
+.ssTooltipWrap {
+    .ant-tooltip-inner {
+        max-width: 45rem;
+    }
+}
+
+.ssTooltip {
+    color: white;
+    padding: 0.5rem;
+    padding-bottom: 1rem;
+    width: 40rem;
+
+    @media(max-width: 767px) {
+        max-width: 92vw;
+    }
+
+    p {
+        margin-bottom: 0.1rem;
+        position: relative;
+
+        .max {
+            color: #FFDF33;
+            position: absolute;
+            right: 0;
+        }
+
+        .fuse {
+            color: #00FF6C;
+        }
+    }
+
+    .topBlock {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 0.5rem;
+
+        .name {
+            @include itemColors();
+
+            margin-top: 0.5rem;
+            flex: 1;
+            font-size: 2rem;
+        }
+
+        .equipped {
+            color: white;
+        }
+    }
+
+    .mainBlock {
+        display: flex;
+        .icon {
+            margin-right: 1rem;
+            width: 6.7rem;
+        }
+        .mainAttb {
+            flex: 1;
+            .m1 {
+                font-size: 1.5rem;
+                line-height: 1.7rem;
+            }
+            .m2, .sub {
+                font-size: 1.2rem;
+                line-height: 1.2rem;
+            }
+            .m1 {
+                p {
+                    margin-bottom: 0.5rem;
+                }
+            }
+            .m2, .sub {
+                p {
+                    margin-bottom: 0.3rem;
+                }
+            }
+            .desc {
+                margin-top: 0.5rem;
+            }
+        }
+    }
+
+    .subBlock {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+        line-height: 1.2rem;
+
+        p {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    h6 {
+        margin-bottom: 0.5rem;
+        color: #FFDF33;
+    }
+
+    .flavor {
+        color: #e9af00;
+    }
+
+    .acquire {
+        .icon {
+            width: 1.8rem;
+            vertical-align: middle;
+        }
+
+        p {
+            margin-bottom: 0rem;
+        }
+    }
+
+    .compare {
+        h6 {
+            @include itemColors();
+        }
+        .comparison {
+            span {
+                &.negative {
+                    color: red;
+                }
+
+                &.positive {
+                    color: #66FF66;
+                }
+            }
+
+            &.add {
+                color: #66FF66;
+            }
+
+            &.delete {
+                color: #aaa;
+                text-decoration: line-through;
+            }
+        }
+    }
+}
+
+.ssTooltip, .ssEquip {
+    .skill {
+        color: aqua;
+        .icon {
+            width: 1em;
+            margin-right: 0.2em;
+        }
+    }
+
+    .setEffect {
+        .setPreview {
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+
+            .imagePreview {
+                position: relative;
+                .piece {
+                    position: absolute;
+                    z-index: 1;
+                    width: 6.5rem;
+
+                    &.p8, &.p1, &.p2 {
+                        top: -0.1rem;
+                    }
+
+                    &.p7, &.p3 {
+                        top: 3.1rem;
+                    }
+
+                    &.p6, &.p5, &.p4 {
+                        top: 6.3rem;
+                    }
+
+                    &.p8, &.p7, &.p6 {
+                        left: -0.1rem;
+                    }
+
+                    &.p1, &.p5 {
+                        left: 3.2rem;
+                    }
+
+                    &.p2, &.p3, &.p4 {
+                        left: 6.4rem;
+                    }
+                }
+
+                .setBackground {
+                    width: 12.6rem;
+                    height: 12.6rem;
+                    opacity: 0.5;
+                }
+            }
+
+            .labels {
+                margin-left: 3rem;
+                column-count: 2;
+                column-gap: 2rem;
+                p {
+                    color: #999;
+                    font-weight: bold;
+                    line-height: 2rem;
+                    font-size: 1.3rem;
+                    @include itemColors();
+                }
+            }
+        }
+
+        .setLabel {
+            width: 1.4rem;
+            height: 1.4rem;
+            line-height: 1.2rem;
+            text-align: center;
+            position: absolute;
+            background: #4f4b04;
+            border: 0.1rem solid #b4b41d;
+            border-radius: 0.2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .setGroup {
+            margin-bottom: 1rem;
+            opacity: 0.5;
+            filter: grayscale(90%);
+
+            &.active {
+                opacity: 1;
+                filter: grayscale(0%);
+            }
+
+            p {
+                padding-left: 2rem;
+                margin-bottom: 0.3rem;
+                color: #66FF66;
+            }
+        }
+    }
+}

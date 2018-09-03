@@ -1,0 +1,40 @@
+.editor {
+    .title, .subtitle, .thumb {
+        display: block;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        width: 100%;
+    }
+
+    .subtitle, .thumb {
+        font-size: 1.5rem;
+    }
+
+    .content {
+        max-width: 100%;
+        width: 100%;
+        min-height: 50rem;
+        padding: 1rem;
+        outline: none;
+    }
+
+    .buttons {
+        margin-top: 1rem;
+        float: right;
+
+        .ant-btn {
+            margin-left: 1rem;
+        }
+    }
+}
+
+.preview {
+    margin-top: 8rem;
+    padding-bottom: 2rem;
+    ul {
+        padding-left: 2rem;
+        li {
+            list-style: disc;
+        }
+    }
+}

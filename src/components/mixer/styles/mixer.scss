@@ -1,0 +1,38 @@
+@mixin appHeight() {
+    min-height: 75rem;
+    height: 75vh;
+}
+
+@mixin itemColors() {
+    &.grade_5 {
+        color: #a847bd;
+    }
+    &.grade_7 {
+        color: #ed6900;
+    }
+}
+
+@import '../../shared/styles/tabBar';
+@import '../../shared/styles/subNav';
+
+@import 'ssTooltip';
+@import 'ssModals';
+
+.mixer {
+    @import 'sideBar';
+    @import 'ssList';
+    @import 'ssEquip';
+
+    .ant-row {
+        background: rgba(0,0,0,0.6);
+    }
+    .mainContainer {
+        animation:fadeIn ease-in 1;
+        animation-fill-mode:forwards;
+        animation-duration:0.5s;
+    }
+
+    .loadingContainer {
+        @include appHeight();
+    }
+}

@@ -1,0 +1,28 @@
+.bottomBar {
+    background: rgba(0,0,0,0.8);
+
+    .btn {
+        padding: 0.2rem 1.5rem;
+        background-color: #555;
+        border: none;
+        color: white;
+
+        .patchHeader {
+            color: gold;
+        }
+    }
+
+    .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
+        background: #999;
+    }
+
+    .dropdown-menu {
+        border-radius: 0;
+        margin-bottom: 0;
+
+        background: rgba(0,0,0,0.8);
+        a {
+            color: #ccc;
+        }
+    }
+}

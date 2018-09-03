@@ -1,0 +1,148 @@
+.shareModal {
+    input {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+}
+
+.hmPointMenu {
+    .ant-tooltip-inner {
+        max-width: 30rem;
+        width: 30rem;
+        background: rgba(15,15,15,0.95);
+        border: 0.1rem solid #555;
+    }
+
+    h5 {
+        span {
+            color: #00FF6C;
+        }
+    }
+
+    .mainHmStat {
+        display: flex;
+        align-items: center;
+        margin-top: 1.2rem;
+        padding: 0 0.5rem;
+
+        img {
+            height: 2.5rem;
+            margin-right: 1rem;
+            opacity: 0.9;
+        }
+
+        p {
+            margin: 0;
+            flex: 1 0;
+            font-size: 1.4rem;
+
+            span {
+                float: right;
+                color: #00FF6C;
+            }
+        }
+    }
+
+    hr {
+        opacity: 0.5;
+        margin: 1.5rem 0;
+    }
+
+    .additionalEffects {
+        color: #999;
+        line-height: 1.4rem;
+        padding: 0 0.5rem;
+
+        h5 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        tr {
+            border-bottom: solid 0.1rem #555;
+        }
+
+        tr:last-child {
+            border-bottom: none;
+        }
+
+        td {
+            padding: 1rem 0;
+        }
+
+        th {
+            padding-right: 1rem;
+
+        }
+
+        .active {
+            th {
+                color: #00FF6C;
+            }
+
+            td {
+                color: white;
+            }
+        }
+    }
+}
+
+.ssStats {
+    .ant-tooltip-inner {
+        max-width: 50rem;
+        background: rgba(15,15,15,0.95);
+        border: 0.1rem solid #555;
+        padding: 1rem 2rem 2rem 2rem;
+    }
+
+    .bonus {
+        color: #00FF6C;
+    }
+
+    small {
+        margin-left: 0.5rem;
+        color: #eee;
+    }
+
+    table {
+        width: 100%;
+        min-width: 25rem;
+
+        .total {
+            text-align: right;
+            padding-right: 1rem;
+        }
+    }
+
+    .ssEffects {
+        margin-top: 0.5rem;
+        p {
+            margin: 0;
+        }
+
+        .setLabel {
+            width: 1.4rem;
+            height: 1.4rem;
+            line-height: 1.2rem;
+            text-align: center;
+            position: absolute;
+            background: #4f4b04;
+            border: 0.1rem solid #b4b41d;
+            border-radius: 0.2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .description {
+            margin-top: 0.5rem;
+            color: #66FF66;
+            margin-left: 2rem;
+            line-height: 1.3rem;
+        }
+
+        h6 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.7rem;
+        }
+    }
+}

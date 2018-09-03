@@ -1,0 +1,209 @@
+@mixin appHeight() {
+    min-height: 75rem;
+    height: 75vh;
+}
+
+.home {
+    animation:fadeIn ease-in 1;
+    animation-fill-mode:forwards;
+    animation-duration:0.5s;
+    .home-main {
+        @include appHeight();
+        background: rgba(0,0,0,0.6);
+        padding: 1rem 3rem;
+        color: #ccc;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        @media(max-width: 991px) {
+            min-height: 60rem;
+            height: calc(100vh - 6rem);
+        }
+
+        .home-main-item {
+            margin: 1rem 0;
+        }
+
+        .classLinks {
+            background: none;
+            border: none;
+
+            .classLinksContainer {
+                padding: 0;
+                a {
+                    color: #ccc;
+
+                    img {
+                        filter: grayscale(100%) brightness(75%);
+                    }
+
+                    &:hover {
+                        color: white;
+                        img {
+                            filter: grayscale(0%) brightness(100%);
+                        }
+                    }
+                }
+            }
+        }
+
+        .characterSearch {
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+
+            .inputGroup {
+                display: flex;
+
+                .nameInput {
+                    display: block;
+                    margin-top: 1rem;
+                    font-size: 1.8rem;
+                    width: 100%;
+                }
+            }
+
+            label {
+                color: #ddd;
+            }
+        }
+    }
+
+    .home-articles {
+        background: rgba(0,0,0,0.8);
+        @include appHeight();
+
+        padding: 2rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        @media(max-width: 991px) {
+            height: auto;
+            background: white;
+        }
+
+        .home-articles-latest {
+            margin-top: 2rem;
+        }
+
+        .viewAll {
+            display: block;
+            float: right;
+        }
+    }
+
+    .sub-block {
+        padding: 3rem 0;
+        .adBlock {
+            margin-bottom: 2rem;
+        }
+
+        .sideButton {
+            width: 100%;
+            padding: 1rem;
+            font-size: 2.4rem;
+            margin-bottom: 2rem;
+            height: auto;
+            border-radius: 0;
+
+            img {
+                height: 5rem;
+                vertical-align: middle;
+            }
+
+            span {
+                vertical-align: middle;
+            }
+
+            &.discord {
+                background: #7289da;
+                color: white;
+            }
+        }
+    }
+}
+
+.article {
+    overflow: hidden;
+    position: relative;
+    height: 25rem;
+    background: black;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    padding: 2rem;
+
+    .thumb {
+        position:absolute;
+        min-width: 100%;
+        top: 0;
+        transform: translate(-50%, 0%);
+        left: 50%;
+        opacity: 0.6;
+    }
+
+    &:hover > .thumb {
+        opacity: 0.8;
+    }
+
+    .content {
+        position: relative;
+        z-index: 1;
+        color: white;
+        padding: 0;
+
+        .title {
+            margin-bottom: 0;
+        }
+
+        .subtitle {
+            color: #ccc;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.home-builds {
+    h2 {
+        margin-top: 0;
+    }
+    .home-builds-latest {
+        margin-bottom: 5rem;
+
+        .build {
+            padding: 2rem;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            text-decoration: none;
+
+            .catalogTitle {
+                margin: 0;
+
+                .buildClass {
+                    width: 2.4rem;
+                    vertical-align: middle;
+                    margin-right: 0.5rem;
+                }
+
+                .buildElement {
+                    width: 1.8rem;
+                    vertical-align: middle;
+                }
+
+                .buildType {
+                    margin: 0 1rem;
+                }
+            }
+
+            .buildDetails {
+                color: #777;
+                margin: 0;
+                font-size: 1.2rem;
+                margin-top: 1rem;
+            }
+        }
+    }
+}

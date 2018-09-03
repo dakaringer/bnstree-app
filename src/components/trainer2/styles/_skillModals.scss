@@ -1,0 +1,64 @@
+.renameModal {
+    input {
+        width: 100%;
+    }
+}
+
+.resetModal {
+    .buttons {
+        display: flex;
+
+        button {
+            flex: 1;
+            margin: 0 1rem;
+        }
+    }
+}
+
+.statModal {
+    img {
+        margin-top: -0.2rem;
+        width: 1.6rem;
+        height: 1.6rem;
+    }
+
+    .help {
+        margin-top: -1.5rem;
+        margin-bottom: 2rem;
+        color: #aaa;
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+}
+
+.shareModal {
+    input {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .post {
+        float: right;
+        position: relative;
+        bottom: 0.5rem;
+    }
+
+    .disabled {
+        .ant-radio-group span {
+            color: #777;
+        }
+
+        .post {
+            color: #777;
+            border-color: #777;
+        }
+    }
+
+    .noTitle {
+        margin-top: 2rem;
+        color: red;
+    }
+}

@@ -1,0 +1,128 @@
+.skillGrid {
+    @include appHeight();
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    width: 100%;
+    user-select: none;
+
+    table {
+        margin: 0 auto;
+    }
+
+    .top {
+        height: 34rem;
+
+        td {
+            vertical-align: bottom;
+        }
+
+        .group {
+            flex-direction: column;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+        }
+
+        .grid {
+            flex-direction: column-reverse;
+        }
+    }
+
+    .bottom {
+        height: 34rem;
+
+        td {
+            vertical-align: top;
+        }
+
+        .group {
+            flex-direction: column-reverse;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
+        }
+
+        .grid {
+            flex-direction: column;
+        }
+    }
+
+    .primary .block {
+        justify-content: flex-end;
+    }
+
+    .secondaryContainer {
+        display: flex;
+    }
+
+    .block {
+        display: flex;
+        margin: 0.5rem;
+    }
+
+    .group {
+        margin: 0 0.3rem;
+        display: flex;
+        max-height: 34rem;
+        justify-content: flex-end;
+        border-radius: 0.3rem;
+        padding: 0 0.2rem;
+        @for $i from 1 through 4 {
+            &.width_#{$i} {
+                width: $i * 6rem + 0.5rem;
+            }
+        }
+    }
+
+    .grid {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        max-height: 30rem;
+    }
+
+    .groupHeader {
+        margin: 0;
+        padding: 1rem;
+        color: white;
+        text-align: center;
+    }
+
+    .gridSkill {
+        cursor: pointer;
+        width: 5.5rem;
+        height: 7.5rem;
+
+        .imgContainer {
+            width: 5rem;
+            height: 5rem;
+            margin: auto;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background: black;
+            position: relative;
+            box-sizing: content-box;
+            border: solid 1px transparent;
+
+            img {
+                width: 5rem;
+            }
+        }
+
+        .gridSkillName {
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 1.1rem;
+            margin: 0.2rem 0;
+            text-align: center;
+            text-overflow: ellipsis;
+            color: white;
+
+            &.trainable {
+                color: aqua;
+            }
+        }
+
+        &:hover>.imgContainer {
+            border: solid 0.1rem aqua;
+        }
+    }
+}

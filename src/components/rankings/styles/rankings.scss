@@ -1,0 +1,31 @@
+@mixin appHeight() {
+    min-height: 75rem;
+    height: 75vh;
+}
+
+@import '../../shared/styles/tabBar';
+@import '../../shared/styles/subNav';
+
+.rankings {
+    @import 'rankingList';
+    @import 'rankingTabBar';
+
+    .mainContainer {
+        animation:fadeIn ease-in 1;
+        animation-fill-mode:forwards;
+        animation-duration:0.5s;
+    }
+
+    .loadingContainer {
+        @include appHeight();
+    }
+
+    .bottomBar {
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 0 0.5rem;
+        p {
+            line-height: 3rem;
+        }
+    }
+}

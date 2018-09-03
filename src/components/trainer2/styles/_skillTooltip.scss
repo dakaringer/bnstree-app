@@ -1,0 +1,252 @@
+.skillTooltipWrap {
+    .ant-tooltip-inner {
+        max-width: 60rem;
+
+        .skillItem {
+            margin: 0;
+            background: none;
+        }
+    }
+}
+
+.skillTooltip {
+    color: white;
+    padding: 0.5rem;
+    padding-bottom: 1rem;
+    width: 55rem;
+
+    @media(max-width: 767px) {
+        max-width: 92vw;
+    }
+
+    p {
+        margin-bottom: 0.1rem;
+
+        .element {
+            width: 1.2em;
+            vertical-align: text-bottom;
+        }
+    }
+
+    .topBlock {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 0.5rem;
+
+        .name {
+            margin-top: 0.5rem;
+            color: aqua;
+            flex: 1;
+            font-size: 2rem;
+
+            .classification {
+                margin-left: 0.5rem;
+                color: #ccc;
+            }
+
+            .element {
+                margin-left: 0.3rem;
+                vertical-align: text-bottom;
+                width: 1.4em;
+            }
+        }
+
+        .focus {
+            color: white;
+        }
+    }
+
+    .boosted {
+        color: lawngreen;
+    }
+
+    .scale {
+        color: gold;
+
+        &.pet {
+            color: aqua;
+        }
+    }
+    .mainBlock {
+        display: flex;
+        .icon {
+            margin-right: 1rem;
+            width: 6.7rem;
+        }
+        .mainAttb {
+            flex: 1;
+            .m1 {
+                margin-top: -0.2rem;
+                font-size: 1.6rem;
+                line-height: 1.7rem;
+
+                p {
+                    margin-bottom: 0.5rem;
+                }
+            }
+            .m2 {
+                font-size: 1.1rem;
+                line-height: 1.2rem;
+
+                p {
+                    margin-bottom: 0.5rem;
+                }
+            }
+        }
+    }
+
+    .subBlock {
+        margin: 0.5rem 0;
+        font-size: 1.1rem;
+        line-height: 1.2rem;
+
+        p {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .infoBlock {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        .info-box {
+            padding: 0 0.2rem;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 25%;
+            .info,
+            .info-header {
+                background-color: rgba(0, 0, 0, 0.7);
+                border-radius: 0.2rem;
+            }
+            .info-header {
+                height: 2.5rem;
+                line-height: 2.5rem;
+            }
+            .info {
+                margin-top: 0.2rem;
+                height: 6rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                .anticon {
+                    margin: 0.5rem;
+                }
+            }
+
+            @for $i from 1 through 6 {
+                .area_#{$i} {
+                    background-image: url(../images/area_#{$i}.png);
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: auto 100%;
+                }
+            }
+        }
+    }
+
+    .condBlock {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+
+        small {
+            color: #ccc;
+        }
+
+        h6 {
+            color: gold;
+            margin-top: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        img {
+            height: 1.4em;
+            margin: 0 0.5rem;
+            vertical-align: middle;
+        }
+
+        .achievement {
+            color: cyan;
+        }
+
+        .book {
+            color: yellow;
+        }
+
+        .unlock {
+            color: white;
+        }
+    }
+
+    .anticon {
+        font-size: 0.7em;
+        vertical-align: middle;
+    }
+    .skill {
+        color: aqua;
+        .icon {
+            width: 1em;
+            margin-right: 0.2em;
+        }
+    }
+    .mod {
+        color: #FFDF33;
+    }
+    .add {
+        color: #66FF66;
+    }
+    .delete {
+        color: #aaa;
+        text-decoration: line-through;
+        .skill {
+            filter: grayscale(100%);
+            color: #aaa;
+        }
+    }
+
+    .modTag {
+        color: white;
+        font-size: 0.8em;
+        padding: 0.1em 0.4em;
+        border-radius: 0.1rem;
+        margin-left: 0.1rem;
+
+        &.add {
+            background: #1c951c;
+        }
+        &.mod {
+            background: #cbac00;
+        }
+    }
+
+    .locked p {
+        color: GoldenRod;
+    }
+}
+
+.tagBlock {
+    margin-top: 2rem;
+    color: white;
+    .tag {
+        display: inline-block;
+        padding: 0rem 0.5rem;
+        background: #195F9A;
+        border-radius: 0.3rem;
+        font-size: 1.1rem;
+        cursor: default;
+        margin: 0.3rem;
+
+        &.disabled {
+            background: #555;
+            color: #aaa;
+        }
+    }
+
+    .tagDesc {
+        max-width: 30rem;
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+    }
+}

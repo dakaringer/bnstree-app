@@ -1,0 +1,10 @@
+src
+node_modules
+.babelrc
+.eslintrc.json
+webpack.dev.config.js
+webpack.prod.config.js
+nodemon.json
+index.dev.js
+*.env
+public

@@ -1,0 +1,32 @@
+@mixin appHeight() {
+    min-height: 75rem;
+    height: 75vh;
+}
+
+@import '../../shared/styles/tabBar';
+@import '../../shared/styles/subNav';
+
+@import 'skillTooltip';
+@import 'skillModals';
+@import 'skillList';
+
+.trainer2 {
+    @import 'trainerNav';
+    @import 'sideBar';
+    @import 'skillGrid';
+    @import 'bottomBar';
+    @import 'buildCatalog';
+
+    .ant-row {
+        background: rgba(0,0,0,0.6);
+    }
+    .mainContainer {
+        animation:fadeIn ease-in 1;
+        animation-fill-mode:forwards;
+        animation-duration:0.5s;
+    }
+
+    .loadingContainer {
+        @include appHeight();
+    }
+}

@@ -1,0 +1,132 @@
+.tabBarContainer {
+    background: rgba(0,0,0,0.85);
+    border-bottom: 0.1rem solid #555;
+
+    .searchBar {
+        height: 3rem;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        .searchInputGroup {
+            background: rgba(0,0,0,0.95);
+            height: 100%;
+            color: #eee;
+            flex: 1;
+            position: relative;
+
+            input {
+                padding: 0 1rem;
+                width: 100%;
+                height: 100%;
+            }
+
+            .clear {
+                position: absolute;
+                right: 0;
+                cursor: pointer;
+                line-height: 3rem;
+                width: 2rem;
+                font-size: 1.8rem;
+                visibility: hidden;
+
+                &.active {
+                    visibility: visible;
+                }
+            }
+        }
+
+        .visibilityFilter {
+            padding: 0 1rem;
+            color: #aaa;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+
+            .ant-switch {
+                margin-right: 0.5rem;
+            }
+
+            .ant-switch-checked {
+                background-color: gold;
+                border-color: gold;
+            }
+        }
+    }
+    .buildTabs {
+        height: 3rem;
+        overflow: hidden;
+        padding: 0 0.5rem;
+        display: flex;
+        align-items: center;
+
+        .nav {
+            height: 100%;
+            border-bottom: none;
+            flex: 1;
+
+            li {
+                height: 100%;
+                margin: 0 0.2rem;
+
+                &.active > a {
+                    background: #777;
+                    color: white;
+                }
+
+                a {
+                    background: #444;
+                    border: none;
+                    color: #999;
+                    height: 100%;
+                    padding: 0.5rem 1rem;
+                    border-radius: 0;
+                    cursor: pointer;
+
+                    .anticon {
+                        margin: 0;
+                        margin-left: 0.3rem;
+                    }
+
+                    &:hover {
+                        color: #eee;
+                    }
+                }
+            }
+        }
+
+        .functionLink {
+            color: #aaa;
+            margin: 1rem;
+            text-decoration: none;
+
+            @media(max-width: 767px) {
+                span {
+                    display: none;
+                }
+            }
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+
+
+}
+
+.renameModal {
+    input {
+        width: 100%;
+    }
+}
+
+.resetModal {
+    .buttons {
+        display: flex;
+
+        button {
+            flex: 1;
+            margin: 0 1rem;
+        }
+    }
+}

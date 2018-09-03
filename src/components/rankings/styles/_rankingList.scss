@@ -1,0 +1,126 @@
+@mixin itemColors() {
+    &.grade_0 {
+        color: #999;
+    }
+    &.grade_3 {
+        color: #008746;
+    }
+    &.grade_4 {
+        color: #297bb0;
+    }
+    &.grade_5 {
+        color: #a847bd;
+    }
+    &.grade_7 {
+        color: #ed6900;
+    }
+}
+
+.rankingList {
+    @include appHeight();
+    background: rgba(0,0,0,0.7);
+    overflow: auto;
+    padding-bottom: 5rem;
+    color: #ddd;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+
+        td {
+            border-bottom: 1px solid #555;
+        }
+
+        tr:last-child td {
+            border: none;
+        }
+        
+    }
+
+    .rankCharacter {
+        height: 5rem;
+        font-weight: bold;
+        box-sizing: border-box;
+        font-size: 1.5rem;
+    }
+
+    .rank {
+        width: 5rem;
+        text-align: center;
+        @include itemColors();
+    }
+
+    .class {   
+        width: 18rem;
+
+        @media(max-width: 767px) {
+            width: 5rem;
+            span {
+                display: none;
+            }
+        }
+    }
+
+    .score {
+        width: 10rem;
+
+        @media(max-width: 767px) {
+            width: 5rem;
+        }
+    }
+
+    .score, .class {
+        img {
+            height: 4rem;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+    }
+
+    .diff {
+        text-align: center;
+        width: 5rem;
+
+        .anticon {
+            margin-right: 0.5rem;
+        }
+
+        &.up {
+            color: aqua;
+        }
+
+        &.down {
+            color: red;
+        }
+    }
+
+    .ant-pagination {
+        li {
+            background: none;
+            a {
+                color: #108ee9;
+            }
+        }
+        .ant-pagination-item-active a, a:hover {
+            color: white;
+        }
+
+        .ant-pagination-disabled a {
+            color: #999;
+        }
+    }
+
+    .filters {
+        padding: 0 0.5rem;
+        margin-bottom: 1rem;
+
+        .filter {
+            margin-right: 1rem;
+        }
+
+        .ant-btn {
+            margin-left: 0.5rem;
+        }
+    }
+}

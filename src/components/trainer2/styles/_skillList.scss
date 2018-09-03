@@ -1,0 +1,241 @@
+@keyframes glow {
+    from {box-shadow: inset 0px 0px 0.8rem 0.5rem rgba(250, 215, 50, 1);}
+    to {box-shadow: inset 0px 0px 0.8rem 0.5rem rgba(250, 215, 50, 0);}
+}
+
+.skillList2 {
+    @include appHeight();
+    display: flex;
+    position: relative;
+    user-select: none;
+
+    @media(max-width: 767px) {
+        height: auto;
+        min-height: inherit;
+        max-height: none;
+    }
+
+    .list {
+        padding: 2rem 3rem;
+        color: white;
+        width: 100%;
+        padding-right: 6rem;
+        overflow-y: auto;
+        transform: translateZ(0);
+
+        .group {
+            padding: 0.5rem;
+            width: 100%;
+            padding-left: 2rem;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+
+            @media(max-width: 767px) {
+                padding: 0.5rem;
+            }
+
+            .groupLabel {
+                position: relative;
+                left: -1rem;
+                top: -0.5rem;
+                width: 100%;
+                padding: 1.2rem 2rem;
+                font-size: 1.3rem;
+                height: 4rem;
+                background: url(../images/skill_level_bg_pc.png) no-repeat;
+                margin-bottom: -2.5rem;
+
+                @media(max-width: 767px) {
+                    margin-bottom: -0.5rem;
+                }
+            }
+        }
+
+        @media(max-width: 767px) {
+            padding: 0;
+        }
+    }
+
+    .hotkeyBar {
+        width: 5.5rem;
+        text-align: center;
+        padding: 0.5rem 0;
+        position: absolute;
+        height: 100%;
+        right: 2rem;
+        padding-right: 0rem;
+        margin-right: 0.5rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        text-overflow: ellipsis;
+        overflow: auto;
+
+        a {
+            color: #ddd;
+            flex: 0 1 auto;
+            text-decoration: none !important;
+            font-size: 1.2rem;
+            padding: 0.8rem 0;
+
+            &:hover {
+                color: white;
+            }
+        }
+
+        @media(max-width: 767px) {
+            display: none;
+        }
+    }
+}
+
+.skillItem {
+    margin: 0.5rem 2rem;
+    padding: 1.2rem;
+    background: linear-gradient(to right,  rgba(0,0,0,0.6) 75%,rgba(0,0,0,0) 100%);
+    width: 42.5rem;
+    display: flex;
+
+    @media(max-width: 767px) {
+        transform: scale(0.90);
+        transform-origin: 0% 0%;
+        margin: 0;
+    }
+
+    .icon {
+        margin-right: 1.5rem;
+        width: 7.2rem;
+        height: 7.2rem;
+        border: solid 0.1rem transparent;
+        box-sizing: content-box;
+
+        &:hover {
+            border: solid 0.1rem rgba(30,30,30,0.5);
+        }
+    }
+
+    .skillName {
+        color: aqua;
+        margin: 0;
+        font-size: 1.5rem;
+        margin-bottom: 0.2rem;
+
+        .key {
+            height: 1.5rem;
+            vertical-align: top;
+            margin-left: 0.2rem;
+        }
+    }
+
+    .types {
+        padding-top: 0.2rem;
+        height: 5.4rem;
+        display: flex;
+        flex-direction: row;
+
+        .buttonWrap {
+            margin-right: 1rem;
+            border: solid 0.2rem transparent;
+            box-sizing: content-box;
+            height: 100%;
+            position: relative;
+            border: solid 0.1rem #555;
+            border-radius: 0.2rem;
+
+            .innerWrap {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                color: #bbb;
+                box-sizing: content-box;
+
+                &.glow {
+                    animation-name: glow;
+                    animation-duration: 0.8s;
+                    animation-iteration-count: infinite;
+                    animation-direction: alternate;
+                    animation-timing-function: ease-in;
+                }
+            }
+
+            &.active {
+                box-shadow: 0px 0px 1rem 0.2rem rgb(67, 175, 250);
+                border-color: white;
+
+                &>.innerWrap {
+                    color: #fff;
+                }
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .typeButton {
+            flex: 1 0 auto;
+            width: 9rem;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            padding: 0.3rem 0;
+
+            h6 {
+                margin: 0;
+                font-size: 1.1rem;
+                white-space: nowrap;
+            }
+
+            .typeImg {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                img {
+                    height: 2.4rem;
+                }
+            }
+        }
+
+        .typeButton {
+            background: rgba(80,80,80,0.5);
+            cursor: pointer;
+            text-align: center;
+
+            &:hover {
+                background: rgba(50,50,50,0.5);
+            }
+        }
+
+        .hmButton {
+            position: absolute;
+            height: 2.5rem;
+            width: 2.5rem;
+            top: -0.5rem;
+            left: -0.5rem;
+            cursor: pointer;
+            background-color: none;
+            background: url(../images/ic_mastery_pc.png) center no-repeat;
+
+            &.active {
+                background: url(../images/ic_mastery_pc_active.png) center no-repeat;
+            }
+        }
+
+        &.single {
+            .active {
+                box-shadow: none;
+                border-color: #444;
+
+                .typeButton {
+                    background: rgba(30,30,30,0.5);
+                }
+            }
+        }
+    }
+}

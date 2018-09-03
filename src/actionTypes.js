@@ -1,0 +1,6 @@
+export const SET_UI_TEXT = 'SET_UI_TEXT'
+export const SET_ORDERS = 'SET_ORDERS'
+export const SET_LANGUAGE = 'SET_LANGUAGE'
+export const SET_USER = 'SET_USER'
+export const SET_LOADING = 'SET_LOADING'
+export const SET_NEWS = 'SET_NEWS'
