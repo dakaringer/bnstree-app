@@ -44,7 +44,7 @@ module.exports = merge(common, {
 			openAnalyzer: false
 		}),
 		new SentryPlugin({
-			release: 'v6.0.0',
+			release: process.env.RELEASE || 'abcdefg',
 			include: './dist',
 			ignore: ['node_modules', 'webpack']
 		})
