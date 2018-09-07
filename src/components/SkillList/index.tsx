@@ -97,7 +97,7 @@ class SkillList extends React.PureComponent<Props, State> {
 
 		data = data.filter(skill => {
 			const moves = skill.moves.filter(move => get(move, 'element', element) === element)
-			const visibility = skillPreferences.visibility === 'ALL' || readonly || moves.length > 1
+			const visibility = (!readonly && skillPreferences.visibility === 'ALL') || moves.length > 1
 
 			let search = true
 			if (searchActive) {
