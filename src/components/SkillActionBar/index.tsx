@@ -178,6 +178,7 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 								control={
 									<Checkbox
 										checked={skillPreferences.visibility === 'TRAINABLE'}
+										color="primary"
 										onClick={() =>
 											updatePreferences({
 												skills: {
