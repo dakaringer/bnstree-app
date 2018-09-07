@@ -21,7 +21,7 @@ interface State {
 	showMore: boolean
 }
 
-class CharacterStat extends React.PureComponent<Props, State> {
+class StatList extends React.PureComponent<Props, State> {
 	constructor(props: Props) {
 		super(props)
 		this.state = {
@@ -41,8 +41,8 @@ class CharacterStat extends React.PureComponent<Props, State> {
 		return (
 			<div className={style.statList}>
 				{statList.map(stat => (
-					<Collapse in={stat.essential || showMore}>
-						<StatListItem key={stat.statId} stat={stat} statData={statData} />
+					<Collapse key={stat.statId} in={stat.essential || showMore}>
+						<StatListItem stat={stat} statData={statData} />
 					</Collapse>
 				))}
 				<ButtonBase onClick={() => this.setState({ showMore: !showMore })} className={style.expandButton}>
@@ -65,4 +65,4 @@ class CharacterStat extends React.PureComponent<Props, State> {
 	}
 }
 
-export default CharacterStat
+export default StatList
