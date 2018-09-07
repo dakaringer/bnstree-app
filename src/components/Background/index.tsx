@@ -54,8 +54,8 @@ class Background extends React.PureComponent<Props, State> {
 			<div className={style.background}>
 				<FadeContainer currentKey={i} timeout={2000} className={style.imgContainer}>
 					<ImageLoader key={i} src={imageArray[i]} />
-					<div className={style.cover} />
 				</FadeContainer>
+				<div className={style.cover} />
 			</div>
 		)
 	}
