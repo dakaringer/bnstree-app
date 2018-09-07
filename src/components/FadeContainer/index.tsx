@@ -24,9 +24,8 @@ const FadeContainer: React.SFC<Props> = props => {
 
 	return (
 		<TransitionGroup
-			className={classNames(style.fadeContainer, {
-				[style.withShift]: shift
-			})}
+			className={classNames(style.fadeContainer, { [style.withShift]: shift })}
+			style={{ animationDuration: timeout ? `${timeout}ms` : '500ms' }}
 			{...containerProps}>
 			<CSSTransition key={currentKey} classNames={transitionClasses} timeout={timeout || 500} unmountOnExit>
 				<div style={{ transitionDuration: timeout ? `${timeout}ms` : '500ms' }} className={className}>
