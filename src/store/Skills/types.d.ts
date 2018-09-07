@@ -18,7 +18,7 @@ interface SkillData {
 
 export interface MoveData {
 	name: string
-	move: number | { [element in SkillElement]?: number }
+	move: number
 	type: string
 	focus?: number
 	health?: number

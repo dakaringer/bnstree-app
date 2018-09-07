@@ -57,7 +57,7 @@ class SkillListElement extends React.PureComponent<Props, State> {
 				build: {
 					[classCode]: {
 						[element]: {
-							[skillId]: typeof moveData.move !== 'number' ? moveData.move[element] : moveData.move
+							[skillId]: moveData.move
 						}
 					}
 				}
@@ -69,12 +69,14 @@ class SkillListElement extends React.PureComponent<Props, State> {
 		const { skillData, resource, currentMove, element, locale, showHotkey, readonly } = this.props
 		const { hoverMoveData } = this.state
 
-		const moves = skillData.moves.filter(move => !move.element || move.element === element)
-
-		const currentMoveData = moves.find(move => {
-			const moveNumber = typeof move.move !== 'number' ? move.move[element] : move.move
-			return moveNumber === currentMove
+		const moves = skillData.moves.filter(move => !move.element || move.element === element).map((move, i) => {
+			return {
+				...move,
+				move: i + 1
+			}
 		})
+
+		const currentMoveData = moves.find(move => move.move === currentMove)
 		if (!currentMoveData) return null
 
 		const nameData =
@@ -106,8 +108,7 @@ class SkillListElement extends React.PureComponent<Props, State> {
 				</Typography>
 				<div className={style.moves}>
 					{moves.map(moveData => {
-						const moveNumber = typeof moveData.move !== 'number' ? moveData.move[element] : moveData.move
-						if (!moveNumber) return null
+						const moveNumber = moveData.move
 
 						if (moveNumber > 3) return
 						const hmMoveData = moves.find(hmMove => hmMove.move === moveNumber + 3)

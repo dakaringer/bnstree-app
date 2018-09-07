@@ -41,8 +41,7 @@ const SkillTooltip: React.SFC<Props> = props => {
 	const nameData = resource[hoverMoveData.name] || resource[`${hoverMoveData.name}-${element.toLocaleLowerCase()}`]
 	if (!nameData) return null
 
-	const moveNumber = typeof hoverMoveData.move !== 'number' ? hoverMoveData.move[element] : hoverMoveData.move
-	if (!moveNumber) return null
+	const moveNumber = hoverMoveData.move
 	const move = moveNumber > 3 ? moveNumber - 3 : moveNumber
 
 	const title = (
