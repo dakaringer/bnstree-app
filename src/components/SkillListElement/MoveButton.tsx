@@ -32,7 +32,8 @@ const MoveButton: React.SFC<Props> = props => {
 		<div
 			className={classNames(style.buttonWrapper, {
 				[style.active]: active || hmActive
-			})}>
+			})}
+			onPointerEnter={() => hoverMove(hmActive && hmMoveData ? hmMoveData : moveData)}>
 			<Button
 				classes={{
 					root: classNames(style.move, {
@@ -43,7 +44,6 @@ const MoveButton: React.SFC<Props> = props => {
 				}}
 				variant="outlined"
 				onClick={() => (selectMove && !hmActive ? selectMove(skillId, moveData) : null)}
-				onPointerEnter={() => hoverMove(hmActive && hmMoveData ? hmMoveData : moveData)}
 				disabled={readonly}>
 				{process.env.NODE_ENV === 'production' ? (
 					<>
@@ -60,20 +60,22 @@ const MoveButton: React.SFC<Props> = props => {
 				)}
 			</Button>
 			{hmMoveData && (
-				<Checkbox
-					color="primary"
-					icon={<ImageLoader src={masteryIcon} />}
-					checkedIcon={<ImageLoader src={masteryIcon_selected} />}
+				<div
 					className={style.hmToggle}
-					checked={hmActive}
-					onClick={event => event.stopPropagation()}
-					onChange={(_event, checked) =>
-						selectMove ? selectMove(skillId, checked ? hmMoveData : moveData) : null
-					}
 					onPointerEnter={() => hoverMove(hmMoveData)}
-					onPointerLeave={() => hoverMove(hmActive && hmMoveData ? hmMoveData : moveData)}
-					disabled={readonly}
-				/>
+					onPointerLeave={() => hoverMove(hmActive && hmMoveData ? hmMoveData : moveData)}>
+					<Checkbox
+						color="primary"
+						icon={<ImageLoader src={masteryIcon} />}
+						checkedIcon={<ImageLoader src={masteryIcon_selected} />}
+						checked={hmActive}
+						onClick={event => event.stopPropagation()}
+						onChange={(_event, checked) =>
+							selectMove ? selectMove(skillId, checked ? hmMoveData : moveData) : null
+						}
+						disabled={readonly}
+					/>
+				</div>
 			)}
 		</div>
 	)
