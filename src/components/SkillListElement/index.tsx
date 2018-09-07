@@ -69,10 +69,11 @@ class SkillListElement extends React.PureComponent<Props, State> {
 		const { skillData, resource, currentMove, element, locale, showHotkey, readonly } = this.props
 		const { hoverMoveData } = this.state
 
-		const moves = skillData.moves.filter(move => !move.element || move.element === element).map((move, i) => {
+		const filteredMoves = skillData.moves.filter(move => !move.element || move.element === element)
+		const moves = filteredMoves.map((move, i) => {
 			return {
 				...move,
-				move: i + 1
+				move: move.move > 3 ? i - filteredMoves.length / 2 + 4 : i + 1
 			}
 		})
 
