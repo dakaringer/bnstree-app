@@ -42,20 +42,16 @@ class BTTooltip extends React.PureComponent<Props, State> {
 		}
 	}
 
-	open = (event: React.PointerEvent) => {
-		if (event.pointerType !== 'touch' || event.type === 'pointerup') {
-			this.setState({
-				isOpen: true
-			})
-		}
+	open = () => {
+		this.setState({
+			isOpen: true
+		})
 	}
 
-	close = (event?: React.PointerEvent) => {
-		if (!event || event.pointerType !== 'touch' || event.type === 'pointerup') {
-			this.setState({
-				isOpen: false
-			})
-		}
+	close = () => {
+		this.setState({
+			isOpen: false
+		})
 	}
 
 	render() {
@@ -65,7 +61,11 @@ class BTTooltip extends React.PureComponent<Props, State> {
 		return (
 			<ClickAwayListener onClickAway={isOpen ? () => this.close() : () => null} mouseEvent={false}>
 				<>
-					<div ref={this.ref} onPointerUp={this.open} onPointerEnter={this.open} onPointerLeave={this.close}>
+					<div
+						ref={this.ref}
+						onPointerDown={this.open}
+						onPointerEnter={this.open}
+						onPointerLeave={this.close}>
 						{target}
 					</div>
 					<Popper
@@ -73,7 +73,9 @@ class BTTooltip extends React.PureComponent<Props, State> {
 						anchorEl={anchor}
 						placement="bottom-start"
 						popperOptions={{ preventOverflow: { padding: isWidthDown('xs', width) ? 10 : 23 } }}
-						className={style.popper}>
+						className={style.popper}
+						onPointerEnter={this.open}
+						onPointerLeave={this.close}>
 						{() => (
 							<Fade in={isOpen}>
 								<Paper className={classNames(style.tooltip, className)}>
