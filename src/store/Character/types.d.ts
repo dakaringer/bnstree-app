@@ -74,7 +74,7 @@ export interface CharacterEquipment {
 export interface CharacterSkils {
 	elementIndex: number
 	pageName: string
-	build: number[]
+	build: { [id: string]: number }
 }
 
 export interface OtherCharacters {

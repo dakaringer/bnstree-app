@@ -2,11 +2,11 @@ import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
-import { Typography } from '@material-ui/core'
+import { Typography, Paper } from '@material-ui/core'
 import T from '@src/components/T'
 
 import { RootState } from '@src/store/rootReducer'
-import { CharacterRegion } from '@src/store/constants'
+import { CharacterRegion, ClassCode, SkillElement } from '@src/store/constants'
 import { getData, getIsLoading } from '@src/store/Character/selectors'
 import CharacterActions from '@src/store/Character/actions'
 import UserActions from '@src/store/User/actions'
@@ -16,6 +16,58 @@ import PageContainer from '@src/components/PageContainer'
 import CharacterProfile from '@src/components/CharacterProfile'
 import CharacterEquipment from '@src/components/CharacterEquipment'
 import CharacterStats from '@src/components/CharacterStats'
+import SkillList from '@src/components/SkillList'
+
+const classElements: {
+	[key in ClassCode]: {
+		[i: number]: SkillElement
+	}
+} = {
+	BM: {
+		0: 'FLAME',
+		1: 'LIGHTNING'
+	},
+	KF: {
+		0: 'WIND',
+		1: 'FLAME'
+	},
+	DE: {
+		0: 'EARTH',
+		1: 'SHADOW'
+	},
+	FM: {
+		0: 'FLAME',
+		1: 'FROST'
+	},
+	AS: {
+		0: 'SHADOW',
+		1: 'LIGHTNING'
+	},
+	SU: {
+		0: 'WIND',
+		1: 'EARTH'
+	},
+	BD: {
+		0: 'WIND',
+		1: 'LIGHTNING'
+	},
+	SF: {
+		0: 'EARTH',
+		1: 'FROST'
+	},
+	WL: {
+		0: 'FROST',
+		1: 'SHADOW'
+	},
+	GS: {
+		0: 'FLAME',
+		1: 'SHADOW'
+	},
+	WA: {
+		0: 'LIGHTNING',
+		1: 'FROST'
+	}
+}
 
 interface PropsFromStore {
 	characterData: ReturnType<typeof getData>
@@ -83,6 +135,8 @@ class CharacterPage extends React.PureComponent<Props> {
 			)
 		}
 
+		const classCode = characterData.profile.classCode
+
 		return (
 			<PageContainer isLoading={isLoading} className={style.character}>
 				<CharacterProfile
@@ -94,12 +148,14 @@ class CharacterPage extends React.PureComponent<Props> {
 					<CharacterStats
 						statData={characterData.stats}
 						type="attack"
-						classCode={characterData.profile.classCode}
+						classCode={classCode}
+						className={style.stats}
 					/>
 					<CharacterStats
 						statData={characterData.stats}
 						type="defense"
-						classCode={characterData.profile.classCode}
+						classCode={classCode}
+						className={style.stats}
 					/>
 					<CharacterEquipment
 						equipmentData={characterData.equipment}
@@ -107,6 +163,17 @@ class CharacterPage extends React.PureComponent<Props> {
 						className={style.equipment}
 					/>
 				</div>
+				<Paper className={style.characterSkills}>
+					<Typography variant="display1">
+						<T id="character.navigation.skills" />
+					</Typography>
+					<SkillList
+						classCode={classCode}
+						element={classElements[classCode][characterData.skills.elementIndex]}
+						buildData={characterData.skills.build}
+						readonly
+					/>
+				</Paper>
 			</PageContainer>
 		)
 	}
