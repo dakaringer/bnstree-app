@@ -15,6 +15,7 @@ import ItemActions from '@src/store/Items/actions'
 
 import * as style from './styles/index.css'
 import comparators from './comparators'
+import { classes } from '@src/components/Navigation/links'
 
 interface PropsFromStore {
 	itemData: ReturnType<typeof getData>
@@ -121,9 +122,23 @@ class ItemList extends React.PureComponent<Props, State> {
 									<T id={['item', 'group_label', itemType, group]} />
 								</Typography>
 								<div className={style.itemGroup}>
-									{groupData.map(item => (
-										<ItemListElement key={item._id} itemData={item} />
-									))}
+									{groupData
+										.concat()
+										.sort((a, b) => {
+											if (!a.classCode) {
+												return -1
+											}
+											if (a.classCode !== b.classCode) {
+												return (
+													classes.findIndex(c => c.classCode === a.classCode) -
+													classes.findIndex(c => c.classCode === b.classCode)
+												)
+											}
+											return a._id > b._id ? 1 : -1
+										})
+										.map(item => (
+											<ItemListElement key={item._id} itemData={item} />
+										))}
 								</div>
 							</div>
 						)
