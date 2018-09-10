@@ -75,7 +75,7 @@ class ItemActionBar extends React.PureComponent<Props, State> {
 						className={style.filter}
 						onClick={event => this.setState({ classAnchor: event.currentTarget })}>
 						{itemPreferences.filter !== 'ALL' && <ImageLoader src={classIcons[itemPreferences.filter]} />}
-						<Hidden smDown>
+						<Hidden smDown={itemPreferences.filter !== 'ALL'}>
 							<T
 								id={
 									itemPreferences.filter !== 'ALL'
