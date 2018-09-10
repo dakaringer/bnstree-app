@@ -65,7 +65,9 @@ class BTTooltip extends React.PureComponent<Props, State> {
 						ref={this.ref}
 						onPointerDown={this.open}
 						onPointerEnter={this.open}
-						onPointerLeave={this.close}>
+						onPointerLeave={this.close}
+						onContextMenu={event => event.preventDefault()}
+						style={{ userSelect: 'none', touchAction: 'none' }}>
 						{target}
 					</div>
 					<Popper

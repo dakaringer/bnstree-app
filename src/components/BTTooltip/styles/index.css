@@ -11,6 +11,7 @@
 
 	@media (--xs-down) {
 		width: calc(100vw - 3rem);
+		margin-right: 0.5rem;
 	}
 
 	& .title {
