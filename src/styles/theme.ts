@@ -62,9 +62,6 @@ export default createMuiTheme({
 				horizontal: 'left'
 			},
 			marginThreshold: 5
-		},
-		MuiButtonBase: {
-			onContextMenu: event => event.preventDefault()
 		}
 	},
 	overrides: {
