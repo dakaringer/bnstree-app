@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
+import FadeContainer from '@src/components/FadeContainer'
 
 import { RootState } from '@src/store/rootReducer'
 import { ClassCode } from '@src/store/constants'
@@ -10,7 +11,6 @@ import PageContainer from '@src/components/PageContainer'
 import SkillActionBar from '@src/components/SkillActionBar'
 import SkillList from '@src/components/SkillList'
 import { classes } from '@src/components/Navigation/links'
-import FadeContainer from '@src/components/FadeContainer'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>
@@ -31,7 +31,7 @@ const SkillPage: React.SFC<Props> = props => {
 
 	return (
 		<PageContainer isLoading={isLoading} topNav={<SkillActionBar classCode={classCode} element={element} />}>
-			<FadeContainer currentKey={classCode}>
+			<FadeContainer currentKey={`${classCode}-${element}`}>
 				<SkillList
 					classCode={classCode}
 					element={element}
