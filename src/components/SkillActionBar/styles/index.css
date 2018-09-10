@@ -57,10 +57,10 @@
 	}
 
 	& .search-container {
-		padding: 0.3rem 1.6rem;
+		padding: 0.3rem 1.8rem;
 		padding-right: 1.2rem;
 		background: var(--black-glass);
-		border-radius: 0.3rem;
+		border-radius: 1.5em;
 
 		@media (--sm-down) {
 			grid-area: bottom;
