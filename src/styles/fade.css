@@ -11,18 +11,18 @@
 @keyframes initializeWithShift {
 	0% {
 		opacity: 0;
-		top: 5rem;
+		transform: translateY(5rem);
 	}
 
 	100% {
 		opacity: 1;
-		top: 0;
+		transform: translateY(0);
 	}
 }
 
 .fade-with-shift-enter {
 	position: relative;
-	top: 5rem;
+	transform: translateY(5rem);
 	left: 0;
 	width: 100%;
 	opacity: 0;
@@ -36,13 +36,14 @@
 }
 
 .fade-enter-active {
-	transition: opacity ease, top ease;
-	top: 0;
+	transition: opacity ease-in-out, transform ease-in-out;
+	transform: translateY(0);
 	opacity: 1;
 }
 
 .fade-exit {
 	position: absolute !important;
+	transform: translateY(0);
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -50,6 +51,6 @@
 }
 
 .fade-exit-active {
-	transition: opacity ease;
+	transition: opacity ease-in-out;
 	opacity: 0;
 }
