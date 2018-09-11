@@ -37,7 +37,6 @@ module.exports = merge(common, {
 			chunkFilename: 'css/[id].[hash:8].css'
 		}),
 		new CompressionPlugin({ test: /\.(js|css)$/ }),
-		new webpack.EnvironmentPlugin(['SENTRY_DSN', 'GOOGLE_CLIENT_ID', 'GA_TRACKER']),
 		new CopyWebpackPlugin([{ from: 'public' }]),
 		new BundleAnalyzerPlugin({
 			analyzerMode: 'static',
