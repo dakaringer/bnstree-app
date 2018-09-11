@@ -65,10 +65,17 @@
 		@media (--sm-down) {
 			grid-area: bottom;
 			grid-column: 1 / 3;
-			margin: 1rem -1rem -1rem;
+			margin: 1rem -2rem -1rem;
+			padding-left: 3.3rem;
+			padding-right: 2rem;
+			border-radius: 0;
+		}
+
+		@media (--xs-down) {
+			margin-left: -1rem;
+			margin-right: -1rem;
 			padding-left: 2.3rem;
 			padding-right: 1rem;
-			border-radius: 0;
 		}
 
 		& .search {
