@@ -6,7 +6,7 @@
 	animation: initialize 0.8s ease-in-out;
 
 	& .page-content {
-		padding: 3rem 4rem 10rem;
+		padding: 2rem 4rem 10rem;
 
 		@media (--xs-down) {
 			padding: 2rem 1rem;
