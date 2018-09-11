@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { intersection, groupBy, debounce, get } from 'lodash-es'
+import { groupBy, debounce, get } from 'lodash-es'
 import Fuse from 'fuse.js'
 import { Typography } from '@material-ui/core'
 import T from '@src/components/T'
@@ -9,9 +9,9 @@ import SkillListElement from '@src/components/SkillListElement'
 
 import { SkillElement, ClassCode } from '@src/store/constants'
 import { RootState } from '@src/store/rootReducer'
-import { getTags } from '@src/store/Intl/selectors'
-import { getSkillNames } from '@src/store/Resources/selectors'
 import { getData, getSkillPreferences } from '@src/store/Skills/selectors'
+import { getResource } from '@src/store/Resources/selectors'
+import { getLocale, getMessages } from '@src/store/Intl/selectors'
 import SkillActions from '@src/store/Skills/actions'
 
 import * as style from './styles/index.css'
@@ -20,8 +20,9 @@ import comparators from './comparators'
 interface PropsFromStore {
 	skillData: ReturnType<typeof getData>
 	skillPreferences: ReturnType<typeof getSkillPreferences>
-	skillNames: ReturnType<typeof getSkillNames>
-	tags: ReturnType<typeof getTags>
+	resource: ReturnType<typeof getResource>
+	locale: ReturnType<typeof getLocale>
+	messages: ReturnType<typeof getMessages>
 }
 
 interface PropsFromDispatch {
@@ -36,7 +37,8 @@ interface Props extends PropsFromStore, PropsFromDispatch {
 }
 
 interface State {
-	skillData: { [key: string]: PropsFromStore['skillData'][ClassCode] } | undefined
+	skillData: PropsFromStore['skillData'][ClassCode] | undefined
+	filteredSkillData: { [key: string]: PropsFromStore['skillData'][ClassCode] } | undefined
 }
 
 class SkillList extends React.PureComponent<Props, State> {
@@ -47,23 +49,21 @@ class SkillList extends React.PureComponent<Props, State> {
 
 		this.filterSkills = debounce(this.filterSkills, 200, { leading: true })
 		this.state = {
-			skillData: undefined
+			skillData: undefined,
+			filteredSkillData: undefined
 		}
 	}
 
-	componentDidMount() {
-		this.filterSkills()
-	}
-
 	componentDidUpdate(prevProps: Props) {
-		const { skillData, classCode, skillPreferences, loadClass } = this.props
+		const { skillData, classCode, element, skillPreferences, loadClass } = this.props
 
 		if (classCode !== prevProps.classCode) {
 			loadClass(classCode)
 		}
 
-		if (
-			skillData[classCode] !== prevProps.skillData[classCode] ||
+		if (skillData[classCode] !== prevProps.skillData[classCode] || element !== prevProps.element) {
+			this.processSkills()
+		} else if (
 			skillPreferences.search !== prevProps.skillPreferences.search ||
 			skillPreferences.visibility !== prevProps.skillPreferences.visibility
 		) {
@@ -71,62 +71,70 @@ class SkillList extends React.PureComponent<Props, State> {
 		}
 	}
 
-	filterSkills = () => {
-		const { skillData, classCode, element, skillPreferences, skillNames, tags, readonly } = this.props
-		let data = skillData[classCode]
-		if (!data) return null
+	processSkills = () => {
+		const { skillData, classCode, element, resource, locale, messages } = this.props
+		const tagList = get(messages, 'skill.tag', {})
+		const data = (skillData[classCode] || []).map(skill => {
+			const moves = skill.moves.map(move => {
+				const nameData =
+					resource.skill[move.name] || resource.skill[`${move.name}-${element.toLocaleLowerCase()}`]
 
-		let filteredTags: string[] = []
-		let filteredSkillNames: string[] = []
-		const searchActive = skillPreferences.search.trim() !== ''
-		if (searchActive) {
+				const tags: string[] = (move.tags || []).map(tag => tagList[tag])
+
+				return {
+					...move,
+					id: move.name,
+					name: nameData.name[locale],
+					icon: nameData.icon,
+					tags
+				}
+			})
+
+			return {
+				...skill,
+				moves
+			}
+		})
+
+		this.setState(
+			{
+				skillData: data
+			},
+			this.filterSkills
+		)
+	}
+
+	filterSkills = () => {
+		const { element, skillPreferences, readonly } = this.props
+		const { skillData } = this.state
+		if (!skillData) return null
+
+		let data = skillData.filter(skill => {
+			const moves = skill.moves.filter(move => get(move, 'element', element) === element)
+			return (!readonly && skillPreferences.visibility === 'ALL') || moves.length > 1
+		})
+
+		if (skillPreferences.search.trim() !== '') {
 			const fuseOption = {
 				threshold: 0.35,
-				keys: ['value']
+				keys: ['moves.name', 'moves.tags']
 			}
-			const fuseTags = new Fuse(tags, fuseOption)
-			filteredTags = fuseTags
-				.search(skillPreferences.search)
-				.map((value: { key: string; value: string }) => value.key)
-
-			const fuseSkillNames = new Fuse(skillNames, fuseOption)
-			filteredSkillNames = fuseSkillNames
-				.search(skillPreferences.search)
-				.map((value: { key: string; value: string }) => value.key)
+			const fuse = new Fuse(data, fuseOption)
+			data = fuse.search(skillPreferences.search)
 		}
-
-		data = data.filter(skill => {
-			const moves = skill.moves.filter(move => get(move, 'element', element) === element)
-			const visibility = (!readonly && skillPreferences.visibility === 'ALL') || moves.length > 1
-
-			let search = true
-			if (searchActive) {
-				let hasTag = true
-				let hasName = true
-
-				const skillTags = skill.moves.reduce((result: string[], move) => result.concat(move.tags || []), [])
-				hasTag = intersection(filteredTags, skillTags).length > 0
-
-				const skillNames = skill.moves.reduce((result: string[], move) => result.concat(move.name || []), [])
-				hasName = intersection(filteredSkillNames, skillNames).length > 0
-
-				search = hasTag || hasName
-			}
-
-			return visibility && search
-		})
 
 		const groupedData = groupBy(
 			data,
 			skill => (skillPreferences.order === 'LEVEL' || readonly ? skill.group.minLevel : skill.group.hotkey)
 		)
 
-		this.setState({ skillData: groupedData })
+		this.setState({ filteredSkillData: groupedData })
 	}
 
 	render() {
 		const { buildData, classCode, element, skillPreferences, readonly } = this.props
-		const { skillData } = this.state
+		const { filteredSkillData } = this.state
+		const skillData = filteredSkillData
 
 		if (!skillData) return null
 
@@ -171,8 +179,9 @@ const mapStateToProps = (state: RootState) => {
 	return {
 		skillData: getData(state),
 		skillPreferences: getSkillPreferences(state),
-		skillNames: getSkillNames(state),
-		tags: getTags(state)
+		resource: getResource(state),
+		locale: getLocale(state),
+		messages: getMessages(state)
 	}
 }
 

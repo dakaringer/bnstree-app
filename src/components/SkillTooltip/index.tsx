@@ -38,16 +38,14 @@ interface Props extends SelfProps, PropsFromStore, WithWidth {}
 const SkillTooltip: React.SFC<Props> = props => {
 	const { element, currentMoveData, hoverMoveData, resource, locale, width, ...tooltipProps } = props
 
-	const nameData = resource[hoverMoveData.name] || resource[`${hoverMoveData.name}-${element.toLocaleLowerCase()}`]
-	if (!nameData) return null
-
 	const moveNumber = hoverMoveData.move
 	const move = moveNumber > 3 ? moveNumber - 3 : moveNumber
 
 	const title = (
 		<div className={style.title}>
 			<Typography variant={isWidthDown('xs', width) ? 'subheading' : 'title'} className={style.skill}>
-				{nameData.name[locale]}{' '}
+				{hoverMoveData.name}
+				{process.env.NODE_ENV !== 'production' && <Typography color="secondary">{hoverMoveData.id}</Typography>}
 				<Typography color="textSecondary" className={style.move}>
 					<T id={hoverMoveData.move > 3 ? 'skill.general.move_hm' : 'skill.general.move'} values={{ move }} />
 				</Typography>
@@ -82,7 +80,7 @@ const SkillTooltip: React.SFC<Props> = props => {
 
 	return (
 		<BTTooltip
-			icon={`${STATIC_SERVER}/images/skills/${nameData.icon}`}
+			icon={`${STATIC_SERVER}/images/skills/${hoverMoveData.icon}`}
 			title={title}
 			m1={m1}
 			m2={m2}

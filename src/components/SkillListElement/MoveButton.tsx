@@ -45,19 +45,13 @@ const MoveButton: React.SFC<Props> = props => {
 				variant="outlined"
 				onClick={() => (selectMove && !hmActive ? selectMove(skillId, moveData) : null)}
 				disabled={readonly}>
-				{process.env.NODE_ENV === 'production' ? (
-					<>
-						<ImageLoader
-							src={typeIcons[type + (active || hmActive ? '_selected' : '')]}
-							className={style.typeIcon}
-						/>
-						<div className={style.label}>
-							<T id={['skill', 'type', hmMoveData && hmActive ? hmMoveData.type : moveData.type]} />
-						</div>
-					</>
-				) : (
-					<div className={style.label}>{moveData.name}</div>
-				)}
+				<ImageLoader
+					src={typeIcons[type + (active || hmActive ? '_selected' : '')]}
+					className={style.typeIcon}
+				/>
+				<div className={style.label}>
+					<T id={['skill', 'type', hmMoveData && hmActive ? hmMoveData.type : moveData.type]} />
+				</div>
 			</Button>
 			{hmMoveData && (
 				<div

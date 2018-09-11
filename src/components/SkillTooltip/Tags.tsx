@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Typography } from '@material-ui/core'
 import { difference } from 'lodash-es'
 import * as classNames from 'classnames'
-import T from '@src/components/T'
 
 import { DeepReadonlyArray } from '@src/utils/immutableHelper'
 
@@ -15,12 +14,12 @@ const Tags = (currentTags: DeepReadonlyArray<string>, hoverTags: DeepReadonlyArr
 		<span className={style.tags}>
 			{hoverTags.map(tag => (
 				<Typography key={tag} variant="caption" className={style.tag}>
-					<T id={['skill', 'tag', tag]} />
+					{tag}
 				</Typography>
 			))}
 			{diff.map(tag => (
 				<Typography key={tag} variant="caption" className={classNames(style.tag, style.disabled)}>
-					<T id={['skill', 'tag', tag]} />
+					{tag}
 				</Typography>
 			))}
 		</span>

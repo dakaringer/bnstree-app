@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { groupBy, debounce, intersection } from 'lodash-es'
+import { groupBy, debounce } from 'lodash-es'
 import Fuse from 'fuse.js'
 import { Typography } from '@material-ui/core'
 import T from '@src/components/T'
@@ -10,7 +10,8 @@ import ItemListElement from '@src/components/ItemListElement'
 import { ItemType } from '@src/store/constants'
 import { RootState } from '@src/store/rootReducer'
 import { getData, getItemPreferences } from '@src/store/Items/selectors'
-import { getItemNames } from '@src/store/Resources/selectors'
+import { getResource } from '@src/store/Resources/selectors'
+import { getLocale } from '@src/store/Intl/selectors'
 import ItemActions from '@src/store/Items/actions'
 
 import * as style from './styles/index.css'
@@ -19,8 +20,9 @@ import { classes } from '@src/components/Navigation/links'
 
 interface PropsFromStore {
 	itemData: ReturnType<typeof getData>
-	itemNames: ReturnType<typeof getItemNames>
 	itemPreferences: ReturnType<typeof getItemPreferences>
+	resource: ReturnType<typeof getResource>
+	locale: ReturnType<typeof getLocale>
 }
 
 interface PropsFromDispatch {
@@ -32,7 +34,8 @@ interface Props extends PropsFromStore, PropsFromDispatch {
 }
 
 interface State {
-	itemData: { [key: string]: PropsFromStore['itemData'][ItemType] } | undefined
+	itemData: PropsFromStore['itemData'][ItemType] | undefined
+	filteredItemData: { [key: string]: PropsFromStore['itemData'][ItemType] } | undefined
 }
 
 class ItemList extends React.PureComponent<Props, State> {
@@ -43,12 +46,9 @@ class ItemList extends React.PureComponent<Props, State> {
 
 		this.filterItems = debounce(this.filterItems, 200, { leading: true })
 		this.state = {
-			itemData: undefined
+			itemData: undefined,
+			filteredItemData: undefined
 		}
-	}
-
-	componentDidMount() {
-		this.filterItems()
 	}
 
 	componentDidUpdate(prevProps: Props) {
@@ -58,54 +58,62 @@ class ItemList extends React.PureComponent<Props, State> {
 			loadItems(itemType)
 		}
 
-		if (itemData[itemType] !== prevProps.itemData[itemType] || itemPreferences !== prevProps.itemPreferences) {
+		if (itemData[itemType] !== prevProps.itemData[itemType]) {
+			this.processItems()
+		} else if (itemPreferences !== prevProps.itemPreferences) {
 			this.filterItems()
 		}
 	}
 
-	filterItems = () => {
-		const { itemData, itemType, itemNames, itemPreferences } = this.props
-		let data = itemData[itemType]
-		if (!data) return null
+	processItems = () => {
+		const { itemData, itemType, resource, locale } = this.props
 
-		let filteredItems: string[] = []
-		const searchActive = itemPreferences.search.trim() !== ''
-		if (searchActive) {
+		const data = (itemData[itemType] || []).map(item => {
+			const nameData = resource.item[item.name]
+
+			return {
+				...item,
+				id: item.name,
+				name: nameData.name[locale],
+				icon: nameData.icon
+			}
+		})
+
+		this.setState(
+			{
+				itemData: data
+			},
+			this.filterItems
+		)
+	}
+
+	filterItems = () => {
+		const { itemPreferences } = this.props
+		const { itemData } = this.state
+		if (!itemData) return null
+
+		let data = itemData.filter(item => {
+			return itemPreferences.filter === 'ALL' || !item.classCode || item.classCode === itemPreferences.filter
+		})
+
+		if (itemPreferences.search.trim() !== '') {
 			const fuseOption = {
 				threshold: 0.35,
-				keys: ['value']
+				keys: ['name']
 			}
-			const fuseTags = new Fuse(itemNames, fuseOption)
-			filteredItems = fuseTags
-				.search(itemPreferences.search)
-				.map((value: { key: string; value: string }) => value.key)
+			const fuse = new Fuse(data, fuseOption)
+			data = fuse.search(itemPreferences.search)
 		}
-
-		data = data.filter(item => {
-			const visibility =
-				itemPreferences.filter === 'ALL' || !item.classCode || item.classCode === itemPreferences.filter
-
-			let search = true
-			if (searchActive) {
-				let hasName = true
-				let hasFuse = true
-				hasName = filteredItems.includes(item.name)
-				hasFuse = intersection(filteredItems, item.fuse || []).length > 0
-
-				search = hasName || hasFuse
-			}
-
-			return visibility && search
-		})
 
 		const groupedData = groupBy(data, item => item.group)
 
-		this.setState({ itemData: groupedData })
+		this.setState({ filteredItemData: groupedData })
 	}
 
 	render() {
 		const { itemType } = this.props
-		const { itemData } = this.state
+		const { filteredItemData } = this.state
+		const itemData = filteredItemData
 
 		if (!itemData) return null
 
@@ -151,8 +159,9 @@ class ItemList extends React.PureComponent<Props, State> {
 const mapStateToProps = (state: RootState) => {
 	return {
 		itemData: getData(state),
-		itemNames: getItemNames(state),
-		itemPreferences: getItemPreferences(state)
+		itemPreferences: getItemPreferences(state),
+		resource: getResource(state),
+		locale: getLocale(state)
 	}
 }
 

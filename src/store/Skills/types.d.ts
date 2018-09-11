@@ -17,7 +17,9 @@ interface SkillData {
 }
 
 export interface MoveData {
+	id?: string
 	name: string
+	icon?: string
 	move: number
 	type: string
 	focus?: number

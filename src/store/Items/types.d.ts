@@ -9,6 +9,7 @@ interface ItemData {
 	_id: string
 	group: string
 	name: string
+	icon?: string
 	grade: number
 	classCode?: ClassCode
 	stats?: ItemStat[]

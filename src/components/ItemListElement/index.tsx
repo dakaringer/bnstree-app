@@ -1,38 +1,23 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { Paper, Typography, ButtonBase } from '@material-ui/core'
 import ImageLoader from '@src/components/ImageLoader'
 import T from '@src/components/T'
 import ItemTooltip from '@src/components/ItemTooltip'
 
 import { DeepReadonly } from '@src/utils/immutableHelper'
-import { RootState } from '@src/store/rootReducer'
 import { ItemData } from '@src/store/Items/types'
-import { getLocale } from '@src/store/Intl/selectors'
-import { getResource } from '@src/store/Resources/selectors'
 
 import * as style from './styles/index.css'
 import classIcons from '@src/images/classIcons'
 import { STATIC_SERVER } from '@src/constants'
 
-interface PropsFromStore {
-	resource: ReturnType<typeof getResource>['item']
-	locale: ReturnType<typeof getLocale>
-}
-
-interface Props extends PropsFromStore {
+interface Props {
 	itemData: DeepReadonly<ItemData>
 }
 
 class ItemListElement extends React.PureComponent<Props> {
 	render() {
-		const { itemData, resource, locale } = this.props
-
-		const nameData = resource[itemData.name]
-		if (!nameData) {
-			console.error(`[BnSTree] Missing item name data: "${itemData.name}"`)
-			return null
-		}
+		const { itemData } = this.props
 
 		return (
 			<Paper className={style.itemListElement}>
@@ -41,14 +26,14 @@ class ItemListElement extends React.PureComponent<Props> {
 						itemData={itemData}
 						target={
 							<ButtonBase className={style.icon}>
-								<ImageLoader src={`${STATIC_SERVER}/images/items/${nameData.icon}`} />
+								<ImageLoader src={`${STATIC_SERVER}/images/items/${itemData.icon}`} />
 							</ButtonBase>
 						}
 					/>
 				</div>
 				<div>
 					<Typography variant="subheading" color="inherit" className={style[`grade_${itemData.grade}`]}>
-						{nameData.name[locale]}
+						{itemData.name}
 					</Typography>
 					{itemData.classCode && (
 						<Typography color="textSecondary" className={style.class}>
@@ -62,11 +47,4 @@ class ItemListElement extends React.PureComponent<Props> {
 	}
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		resource: getResource(state).item,
-		locale: getLocale(state)
-	}
-}
-
-export default connect(mapStateToProps)(ItemListElement)
+export default ItemListElement
