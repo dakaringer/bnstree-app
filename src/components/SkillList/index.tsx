@@ -54,6 +54,10 @@ class SkillList extends React.PureComponent<Props, State> {
 		}
 	}
 
+	componentDidMount() {
+		this.processSkills()
+	}
+
 	componentDidUpdate(prevProps: Props) {
 		const { skillData, classCode, element, skillPreferences, loadClass } = this.props
 
