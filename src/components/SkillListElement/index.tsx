@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { Paper, Typography, ButtonBase } from '@material-ui/core'
+import VisibilitySensor from 'react-visibility-sensor'
+import { Fade, Paper, Typography, ButtonBase } from '@material-ui/core'
 import ImageLoader from '@src/components/ImageLoader'
 
 import { DeepReadonly } from '@src/utils/immutableHelper'
@@ -30,13 +31,15 @@ interface Props extends PropsFromDispatch {
 
 interface State {
 	hoverMoveData: DeepReadonly<MoveData> | null
+	visible: boolean
 }
 
 class SkillListElement extends React.PureComponent<Props, State> {
 	constructor(props: Props) {
 		super(props)
 		this.state = {
-			hoverMoveData: null
+			hoverMoveData: null,
+			visible: false
 		}
 	}
 
@@ -59,7 +62,7 @@ class SkillListElement extends React.PureComponent<Props, State> {
 
 	render() {
 		const { skillData, currentMove, element, showHotkey, readonly } = this.props
-		const { hoverMoveData } = this.state
+		const { hoverMoveData, visible } = this.state
 
 		const filteredMoves = skillData.moves.filter(move => !move.element || move.element === element)
 		const moves = filteredMoves.map((move, i) => {
@@ -75,52 +78,65 @@ class SkillListElement extends React.PureComponent<Props, State> {
 		const keyIcon = isNaN(parseInt(skillData.group.hotkey)) ? skillData.group.hotkey : 'N' + skillData.group.hotkey
 
 		return (
-			<Paper className={style.skillListElement}>
-				<div className={style.iconContainer}>
-					<SkillTooltip
-						element={element}
-						currentMoveData={currentMoveData}
-						hoverMoveData={currentMoveData}
-						target={
-							<ButtonBase className={style.icon}>
-								<ImageLoader src={`${STATIC_SERVER}/images/skills/${currentMoveData.icon}`} />
-							</ButtonBase>
-						}
-					/>
-				</div>
-				<Typography variant="subheading" color="inherit" className={style.skill}>
-					{currentMoveData.name}
-					{showHotkey && <ImageLoader src={keyIcons[keyIcon]} />}
-				</Typography>
-				<div className={style.moves}>
-					{moves.map(moveData => {
-						const moveNumber = moveData.move
+			<VisibilitySensor
+				offset={{ top: -1000, bottom: -1000 }}
+				onChange={(isVisible: boolean) => {
+					if (isVisible) this.setState({ visible: true })
+				}}
+				active={!visible}>
+				<div style={{ minHeight: '9rem' }}>
+					<Fade in={visible} timeout={1000} unmountOnExit>
+						<Paper className={style.skillListElement}>
+							<div className={style.iconContainer}>
+								<SkillTooltip
+									element={element}
+									currentMoveData={currentMoveData}
+									hoverMoveData={currentMoveData}
+									target={
+										<ButtonBase className={style.icon}>
+											<ImageLoader
+												src={`${STATIC_SERVER}/images/skills/${currentMoveData.icon}`}
+											/>
+										</ButtonBase>
+									}
+								/>
+							</div>
+							<Typography variant="subheading" color="inherit" className={style.skill}>
+								{currentMoveData.name}
+								{showHotkey && <ImageLoader src={keyIcons[keyIcon]} />}
+							</Typography>
+							<div className={style.moves}>
+								{moves.map(moveData => {
+									const moveNumber = moveData.move
 
-						if (moveNumber > 3) return
-						const hmMoveData = moves.find(hmMove => hmMove.move === moveNumber + 3)
-						return (
-							<SkillTooltip
-								key={moveNumber}
-								element={element}
-								currentMoveData={currentMoveData}
-								hoverMoveData={hoverMoveData || currentMoveData}
-								target={
-									<MoveButton
-										skillId={skillData._id}
-										moveData={moveData}
-										hmMoveData={hmMoveData}
-										active={moveNumber === currentMove && moves.length !== 1}
-										hmActive={moveNumber + 3 === currentMove}
-										readonly={readonly || moves.length === 1}
-										selectMove={this.selectMove}
-										hoverMove={hoverMoveData => this.setState({ hoverMoveData })}
-									/>
-								}
-							/>
-						)
-					})}
+									if (moveNumber > 3) return
+									const hmMoveData = moves.find(hmMove => hmMove.move === moveNumber + 3)
+									return (
+										<SkillTooltip
+											key={moveNumber}
+											element={element}
+											currentMoveData={currentMoveData}
+											hoverMoveData={hoverMoveData || currentMoveData}
+											target={
+												<MoveButton
+													skillId={skillData._id}
+													moveData={moveData}
+													hmMoveData={hmMoveData}
+													active={moveNumber === currentMove && moves.length !== 1}
+													hmActive={moveNumber + 3 === currentMove}
+													readonly={readonly || moves.length === 1}
+													selectMove={this.selectMove}
+													hoverMove={hoverMoveData => this.setState({ hoverMoveData })}
+												/>
+											}
+										/>
+									)
+								})}
+							</div>
+						</Paper>
+					</Fade>
 				</div>
-			</Paper>
+			</VisibilitySensor>
 		)
 	}
 }
