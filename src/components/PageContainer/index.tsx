@@ -16,20 +16,19 @@ const Container: React.SFC<Props> = props => {
 	const { isLoading, children, topNav, className } = props
 
 	return (
-		<FadeContainer currentKey={isLoading ? 'loading' : 'loaded'} className={classNames(style.container, className)}>
-			{isLoading ? (
-				<LoadingLyn />
-			) : (
-				<>
-					<Slide direction="down" in={Boolean(topNav)} unmountOnExit timeout={500}>
-						<Paper square className={style.topNav}>
-							{topNav}
-						</Paper>
-					</Slide>
-					<div className={style.pageContent}>{children}</div>
-				</>
-			)}
-		</FadeContainer>
+		<>
+			<Slide direction="down" in={Boolean(topNav)} timeout={500}>
+				<Paper square className={style.topNav}>
+					{topNav}
+				</Paper>
+			</Slide>
+			<FadeContainer
+				currentKey={isLoading ? 'loading' : 'loaded'}
+				timeout={1000}
+				className={classNames(style.container, className)}>
+				{isLoading ? <LoadingLyn /> : <div className={style.pageContent}>{children}</div>}
+			</FadeContainer>
+		</>
 	)
 }
 
