@@ -51,6 +51,10 @@ class ItemList extends React.PureComponent<Props, State> {
 		}
 	}
 
+	componentDidMount() {
+		this.processItems()
+	}
+
 	componentDidUpdate(prevProps: Props) {
 		const { itemData, itemType, itemPreferences, loadItems } = this.props
 
