@@ -62,11 +62,11 @@ const Home = () => {
 						/>
 						<FormControlLabel
 							control={<Checkbox indeterminate checked={true} />}
-							label="Soul Badge Data (latest KR) - WA only"
+							label="Soul Badge Data (latest KR) - WR only"
 						/>
 						<FormControlLabel
 							control={<Checkbox indeterminate checked={true} />}
-							label="Mystic Badge Data (latest KR) - WA only"
+							label="Mystic Badge Data (latest KR) - WR only"
 						/>
 						<FormControlLabel control={<Checkbox checked={false} />} label="Soul Shield Data (latest KR)" />
 						<FormControlLabel control={<Checkbox checked={false} />} label="Other items" />

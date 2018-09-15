@@ -186,7 +186,7 @@ export const classElements: { [key: string]: string[] } = {
 	WL: ['attack_attribute_ice_value', 'attack_attribute_void_value'],
 	SF: ['attack_attribute_ice_value', 'attack_attribute_earth_value'],
 	GS: ['attack_attribute_fire_value', 'attack_attribute_void_value'],
-	WA: ['attack_attribute_ice_value', 'attack_attribute_lightning_value']
+	WR: ['attack_attribute_ice_value', 'attack_attribute_lightning_value']
 }
 
 export const hmPointBuffs = {

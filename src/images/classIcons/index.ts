@@ -8,7 +8,7 @@ import BD from './Job_Img_SwordMaster_40.png'
 import WL from './Job_Img_Warlock_40.png'
 import SF from './Job_Img_SoulFighter_40.png'
 import GS from './Job_Img_Shooter_40.png'
-import WA from './Job_Img_Warrior_40.png'
+import WR from './Job_Img_Warrior_40.png'
 
 export default {
 	BM,
@@ -21,5 +21,5 @@ export default {
 	WL,
 	SF,
 	GS,
-	WA
+	WR
 }

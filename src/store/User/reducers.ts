@@ -36,7 +36,7 @@ const initialState = {
 				WL: 'FROST' as SkillElement,
 				SF: 'EARTH' as SkillElement,
 				GS: 'FLAME' as SkillElement,
-				WA: 'LIGHTNING' as SkillElement
+				WR: 'LIGHTNING' as SkillElement
 			},
 			build: {
 				BM: {
@@ -79,7 +79,7 @@ const initialState = {
 					FLAME: {},
 					SHADOW: {}
 				},
-				WA: {
+				WR: {
 					LIGHTNING: {},
 					FROST: {}
 				}

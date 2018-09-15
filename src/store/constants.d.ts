@@ -1,4 +1,4 @@
-export type ClassCode = 'BM' | 'KF' | 'DE' | 'FM' | 'AS' | 'SU' | 'BD' | 'WL' | 'SF' | 'GS' | 'WA'
+export type ClassCode = 'BM' | 'KF' | 'DE' | 'FM' | 'AS' | 'SU' | 'BD' | 'WL' | 'SF' | 'GS' | 'WR'
 
 export type SkillMode = 'COMPACT' | 'LIST' | 'ICON'
 export type SkillOrder = 'LEVEL' | 'HOTKEY'

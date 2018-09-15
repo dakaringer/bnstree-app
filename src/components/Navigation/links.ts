@@ -71,10 +71,10 @@ export const classes = [
 		icon: classIcons.GS
 	},
 	{
-		classCode: 'WA',
-		link: 'warrior',
-		label: 'general.class_names.WA',
-		icon: classIcons.WA
+		classCode: 'WR',
+		link: 'warden',
+		label: 'general.class_names.WR',
+		icon: classIcons.WR
 	}
 ]
 

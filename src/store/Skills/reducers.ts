@@ -17,7 +17,7 @@ const initialState = {
 		WL: null,
 		SF: null,
 		GS: null,
-		WA: null
+		WR: null
 	},
 	isLoading: false
 }
