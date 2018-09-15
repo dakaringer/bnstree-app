@@ -17,6 +17,10 @@ const searchCharacterCall = (payload: ReturnType<typeof Actions.search>['payload
 
 // Sagas
 function* searchCharacterSaga(action: ReturnType<typeof Actions.search>) {
+	if (!action.payload) {
+		return yield put(Actions.setData(null))
+	}
+
 	yield put(Actions.setLoading(true))
 	const response = yield call(searchCharacterCall, action.payload)
 	yield put(Actions.setData(get(response, 'data.character.data', null)))

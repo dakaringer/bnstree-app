@@ -9,9 +9,9 @@ const Actions = {
 	search: createStandardAction(sagaActionTypes.SEARCH)<{
 		name: string
 		region: CharacterRegion
-	}>(),
+	} | null>(),
 	// Redux actions
-	setData: createStandardAction(reduxActionTypes.SET_DATA)<CharacterData>(),
+	setData: createStandardAction(reduxActionTypes.SET_DATA)<CharacterData | null>(),
 	setLoading: createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
 }
 type Actions = ActionType<typeof Actions>
