@@ -30,7 +30,7 @@ export const stats = {
 		{
 			statId: 'attack_concentrate_value',
 			icon: 'concentration',
-			subStats: ['attack_perfect_parry_damage_rate', 'attack_counter_pierce_rate']
+			subStats: ['attack_perfect_parry_damage_rate', 'attack_counter_damage_rate']
 		},
 		{
 			statId: 'attack_critical_value',
