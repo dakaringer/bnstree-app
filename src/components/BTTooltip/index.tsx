@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Popper, Paper, Fade, Typography, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
 import * as classNames from 'classnames'
+import { debounce } from 'lodash-es'
 import ImageLoader from '@src/components/ImageLoader'
 
 import * as style from './styles/index.css'
@@ -24,12 +25,14 @@ interface State {
 
 interface BTTooltip {
 	ref: React.RefObject<HTMLDivElement>
+	debouncedOpen: ReturnType<typeof debounce>
 }
 
 class BTTooltip extends React.PureComponent<Props, State> {
 	constructor(props: Props) {
 		super(props)
 		this.ref = React.createRef()
+		this.debouncedOpen = debounce(this.open, 200)
 		this.state = {
 			isOpen: false,
 			anchor: undefined
@@ -43,6 +46,7 @@ class BTTooltip extends React.PureComponent<Props, State> {
 	}
 
 	close = () => {
+		this.debouncedOpen.cancel()
 		this.setState({
 			isOpen: false
 		})
@@ -56,8 +60,8 @@ class BTTooltip extends React.PureComponent<Props, State> {
 			<>
 				<div
 					ref={this.ref}
-					onPointerDown={this.open}
-					onPointerEnter={this.open}
+					onPointerDown={this.debouncedOpen}
+					onPointerEnter={this.debouncedOpen}
 					onPointerLeave={this.close}
 					onContextMenu={event => event.preventDefault()}
 					style={{ userSelect: 'none', touchAction: 'none' }}>
