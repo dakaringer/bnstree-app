@@ -3,11 +3,14 @@
 
 .settings-dialog {
 	& .header {
+		padding-top: 2rem;
 		position: relative;
 
 		& .close-button {
+			width: 3rem;
+			height: 3rem;
 			position: absolute;
-			right: 1rem;
+			right: 1.6rem;
 			top: 1.6rem;
 			color: var(--text-secondary);
 		}

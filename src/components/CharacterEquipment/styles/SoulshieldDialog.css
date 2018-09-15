@@ -2,6 +2,8 @@
 
 .soulshield-dialog {
 	& .header {
+		min-width: 30rem;
+		padding-top: 2rem;
 		position: relative;
 
 		& .breakdown {
@@ -9,8 +11,10 @@
 		}
 
 		& .close-button {
+			width: 3rem;
+			height: 3rem;
 			position: absolute;
-			right: 1rem;
+			right: 1.6rem;
 			top: 1.6rem;
 			color: var(--text-secondary);
 		}

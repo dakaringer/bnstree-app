@@ -2,13 +2,17 @@
 
 .hm-point-dialog {
 	& .header {
+		padding-top: 2rem;
+
 		& .total-points {
 			margin-left: 1rem;
 		}
 
 		& .close-button {
+			width: 3rem;
+			height: 3rem;
 			position: absolute;
-			right: 1rem;
+			right: 1.6rem;
 			top: 1.6rem;
 			color: var(--text-secondary);
 		}

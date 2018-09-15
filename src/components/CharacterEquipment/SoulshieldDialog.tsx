@@ -40,15 +40,23 @@ const SoulshieldDialog: React.SFC<Props> = props => {
 				<Typography variant="headline" color="primary">
 					<T id="character.navigation.soulshield_attributes" />
 				</Typography>
-				<Typography variant="caption" className={style.breakdown}>
-					<T id="character.navigation.soulshield_attributes_breakdown" />
-				</Typography>
 				<IconButton color="inherit" onClick={close} className={style.closeButton}>
 					<Close />
 				</IconButton>
 			</DialogTitle>
 			<DialogContent>
 				<table className={style.soulshieldStats}>
+					<thead>
+						<tr>
+							<td />
+							<td />
+							<td>
+								<Typography variant="caption" className={style.breakdown}>
+									<T id="character.navigation.soulshield_attributes_breakdown" />
+								</Typography>
+							</td>
+						</tr>
+					</thead>
 					<tbody>
 						{soulshieldData.stats.map(stat => (
 							<tr key={stat.stat}>
