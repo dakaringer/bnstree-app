@@ -61,12 +61,12 @@ const Home = () => {
 							label="Basic Functionality"
 						/>
 						<FormControlLabel
-							control={<Checkbox indeterminate checked={true} />}
-							label="Soul Badge Data (latest KR) - WR only"
+							control={<Checkbox checked={true} color="primary" />}
+							label="Soul Badge Data (latest KR)"
 						/>
 						<FormControlLabel
-							control={<Checkbox indeterminate checked={true} />}
-							label="Mystic Badge Data (latest KR) - WR only"
+							control={<Checkbox checked={true} color="primary" />}
+							label="Mystic Badge Data (latest KR)"
 						/>
 						<FormControlLabel control={<Checkbox checked={false} />} label="Soul Shield Data (latest KR)" />
 						<FormControlLabel control={<Checkbox checked={false} />} label="Other items" />
