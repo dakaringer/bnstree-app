@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const CssExtractPlugin = require('extract-css-chunks-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const UglifyJSWebpackPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -16,14 +16,8 @@ module.exports = merge(common, {
 	mode: 'production',
 	optimization: {
 		minimizer: [
-			new UglifyJSWebpackPlugin({
-				sourceMap: true,
-				uglifyOptions: {
-					comments: false,
-					compress: {
-						drop_console: true
-					}
-				}
+			new TerserPlugin({
+				sourceMap: true
 			})
 		]
 	},
