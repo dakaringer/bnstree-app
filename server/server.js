@@ -12,7 +12,7 @@ app.use(helmet())
 app.use(compression())
 
 app.use(express.static(path.resolve(__dirname, BUILD_FOLDER), { maxAge: '30d' }))
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
 	const filePath = path.resolve(__dirname, BUILD_FOLDER, 'index.html')
 
 	fs.readFile(filePath, 'utf8', (err, htmlData) => {

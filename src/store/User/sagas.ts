@@ -23,7 +23,7 @@ const loadPreferencesCall = () => {
 }
 
 const loadPreferencesLocalCall = () => {
-	return localForage.getItem('userPreferences')
+	return localForage.getItem('userPreferences').catch(() => ({}))
 }
 
 const idTokenLoginCall = (idToken: string) => {
@@ -58,11 +58,10 @@ const updatePreferencesCall = (payload: ReturnType<typeof Actions.updatePreferen
 }
 
 const updatePreferencesLocalCall = async (payload: ReturnType<typeof Actions.updatePreferences>['payload']) => {
-	const preferences = await localForage.getItem('userPreferences')
-	localForage.setItem(
-		'userPreferences',
-		mergeWith(preferences || {}, payload, (a, b) => (b === null ? a : undefined))
-	)
+	const preferences = await localForage.getItem('userPreferences').catch(() => ({}))
+	localForage
+		.setItem('userPreferences', mergeWith(preferences || {}, payload, (a, b) => (b === null ? a : undefined)))
+		.catch(() => {})
 }
 
 // Sagas
