@@ -79,20 +79,27 @@ class SkillList extends React.PureComponent<Props, State> {
 		const { skillData, classCode, element, resource, locale, messages } = this.props
 		const tagList = get(messages, 'skill.tag', {})
 		const data = (skillData[classCode] || []).map(skill => {
-			const moves = skill.moves.map(move => {
-				const nameData =
-					resource.skill[move.name] || resource.skill[`${move.name}-${element.toLocaleLowerCase()}`]
+			const moves = skill.moves
+				.map(move => {
+					const nameData =
+						resource.skill[move.name] || resource.skill[`${move.name}-${element.toLocaleLowerCase()}`]
 
-				const tags: string[] = (move.tags || []).map(tag => tagList[tag])
+					if (!nameData) {
+						console.error(`[BnSTree] Missing skill name data: "${move.name}"`)
+						return null
+					}
 
-				return {
-					...move,
-					id: move.name,
-					name: nameData.name[locale],
-					icon: nameData.icon,
-					tags
-				}
-			})
+					const tags: string[] = (move.tags || []).map(tag => tagList[tag])
+
+					return {
+						...move,
+						id: move.name,
+						name: nameData.name[locale],
+						icon: nameData.icon,
+						tags
+					}
+				})
+				.filter(move => move) as typeof skill.moves
 
 			return {
 				...skill,

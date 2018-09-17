@@ -72,16 +72,23 @@ class ItemList extends React.PureComponent<Props, State> {
 	processItems = () => {
 		const { itemData, itemType, resource, locale } = this.props
 
-		const data = (itemData[itemType] || []).map(item => {
-			const nameData = resource.item[item.name]
+		const data = (itemData[itemType] || [])
+			.map(item => {
+				const nameData = resource.item[item.name]
 
-			return {
-				...item,
-				id: item.name,
-				name: nameData.name[locale],
-				icon: nameData.icon
-			}
-		})
+				if (!nameData) {
+					console.error(`[BnSTree] Missing item name data: "${item.name}"`)
+					return null
+				}
+
+				return {
+					...item,
+					id: item.name,
+					name: nameData.name[locale],
+					icon: nameData.icon
+				}
+			})
+			.filter(move => move) as typeof itemData[ItemType]
 
 		this.setState(
 			{
