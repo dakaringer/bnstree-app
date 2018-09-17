@@ -2,19 +2,7 @@ import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import {
-	Button,
-	IconButton,
-	Input,
-	Hidden,
-	Paper,
-	FormGroup,
-	FormControlLabel,
-	Checkbox,
-	Popover,
-	MenuItem,
-	Menu
-} from '@material-ui/core'
+import { Button, IconButton, Input, Hidden, Checkbox, MenuItem, Menu, Tooltip } from '@material-ui/core'
 import { Tune, Share, FilterList, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import T from '@src/components/T'
@@ -52,7 +40,6 @@ interface Props extends SelfProps, InjectedIntlProps, PropsFromStore, PropsFromD
 interface State {
 	settingsDialogOpen: boolean
 	classAnchor: HTMLElement | undefined
-	filterAnchor: HTMLElement | undefined
 }
 
 class SkillActionBar extends React.PureComponent<Props, State> {
@@ -60,8 +47,7 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 		super(props)
 		this.state = {
 			settingsDialogOpen: false,
-			classAnchor: undefined,
-			filterAnchor: undefined
+			classAnchor: undefined
 		}
 	}
 
@@ -92,7 +78,7 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 
 	render() {
 		const { classCode, element, intl, skillPreferences, updatePreferences } = this.props
-		const { settingsDialogOpen, classAnchor, filterAnchor } = this.state
+		const { settingsDialogOpen, classAnchor } = this.state
 
 		return (
 			<div className={style.skillActionBar}>
@@ -139,11 +125,25 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 										<Clear />
 									</IconButton>
 								)}
-								<IconButton
-									className={style.filter}
-									onClick={event => this.setState({ filterAnchor: event.currentTarget })}>
-									<FilterList />
-								</IconButton>
+								<Tooltip title={<T id="skill.menu.show_trainable" />}>
+									<Checkbox
+										checked={skillPreferences.visibility === 'TRAINABLE'}
+										color="primary"
+										className={style.filter}
+										icon={<FilterList />}
+										checkedIcon={<FilterList />}
+										onClick={() =>
+											updatePreferences({
+												skills: {
+													visibility:
+														skillPreferences.visibility === 'TRAINABLE'
+															? 'ALL'
+															: 'TRAINABLE'
+												}
+											})
+										}
+									/>
+								</Tooltip>
 							</>
 						}
 					/>
@@ -159,44 +159,6 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 						<Share />
 					</IconButton>
 				</div>
-				<Popover
-					anchorEl={filterAnchor}
-					open={Boolean(filterAnchor)}
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'center'
-					}}
-					transformOrigin={{
-						vertical: 'top',
-						horizontal: 'center'
-					}}
-					onClose={() => this.setState({ filterAnchor: undefined })}>
-					<Paper>
-						<FormGroup>
-							<FormControlLabel
-								className={style.label}
-								control={
-									<Checkbox
-										checked={skillPreferences.visibility === 'TRAINABLE'}
-										color="primary"
-										onClick={() =>
-											updatePreferences({
-												skills: {
-													visibility:
-														skillPreferences.visibility === 'TRAINABLE'
-															? 'ALL'
-															: 'TRAINABLE'
-												}
-											})
-										}
-										value="checkedA"
-									/>
-								}
-								label={<T id="skill.menu.show_trainable" />}
-							/>
-						</FormGroup>
-					</Paper>
-				</Popover>
 				<SettingsDialog open={settingsDialogOpen} close={() => this.setState({ settingsDialogOpen: false })} />
 			</div>
 		)
