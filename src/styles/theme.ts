@@ -108,6 +108,16 @@ export default createMuiTheme({
 			root: {
 				marginLeft: 0
 			}
+		},
+		MuiIconButton: {
+			root: {
+				padding: 0
+			}
+		},
+		MuiCheckbox: {
+			root: {
+				padding: '1.2rem'
+			}
 		}
 	}
 })

@@ -15,7 +15,7 @@
 		grid-gap: 1.8rem;
 		margin-bottom: 3rem;
 
-		@media (--md-down) {
+		@media (--sm-down) {
 			grid-template-columns: 1fr;
 		}
 	}
