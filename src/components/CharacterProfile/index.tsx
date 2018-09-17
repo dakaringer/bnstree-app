@@ -24,7 +24,7 @@ interface Props extends WithWidth {
 
 interface State {
 	imgOpen: boolean
-	imgFailed: boolean
+	noImage: boolean
 	accountAnchor: HTMLElement | undefined
 }
 
@@ -33,20 +33,20 @@ class CharacterProfile extends React.PureComponent<Props, State> {
 		super(props)
 		this.state = {
 			imgOpen: false,
-			imgFailed: false,
+			noImage: false,
 			accountAnchor: undefined
 		}
 	}
 
 	render() {
 		const { profileData, otherCharacters, badges, width, className } = this.props
-		const { imgOpen, imgFailed, accountAnchor } = this.state
+		const { imgOpen, noImage, accountAnchor } = this.state
 
 		const profileImg = (
 			<ImageLoader
 				src={`${API_SERVER}/proxy/${profileData.region.toLowerCase()}/profile_img/${profileData.profileImg}`}
 				className={style.profileImg}
-				onFail={() => this.setState({ imgFailed: true })}
+				onError={() => this.setState({ noImage: true })}
 			/>
 		)
 
@@ -64,16 +64,16 @@ class CharacterProfile extends React.PureComponent<Props, State> {
 				<div className={style.profileImgContainer}>
 					<ButtonBase
 						className={classNames(style.profileImgButton, {
-							[style.noImage]: imgFailed
+							[style.noImage]: noImage
 						})}
 						onClick={() => this.setState({ imgOpen: true })}
-						disabled={imgFailed}>
+						disabled={noImage}>
 						{profileImg}
 					</ButtonBase>
 				</div>
 				<div
 					className={classNames(style.generalInfo, {
-						[style.noImage]: imgFailed
+						[style.noImage]: noImage
 					})}>
 					<Modal open={imgOpen} onClose={() => this.setState({ imgOpen: false })}>
 						<ButtonBase className={style.profileImgModal} onClick={() => this.setState({ imgOpen: false })}>
