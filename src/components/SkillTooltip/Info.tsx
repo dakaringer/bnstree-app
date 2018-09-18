@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Paper, Typography } from '@material-ui/core'
 import { ArrowDropDown } from '@material-ui/icons'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 import { get, isEqual } from 'lodash-es'
 import T from '@src/components/T'
 

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Paper, Typography, ButtonBase } from '@material-ui/core'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 import T from '@src/components/T'
 import ImageLoader from '@src/components/ImageLoader'
 
@@ -54,7 +54,8 @@ class MainStat extends React.PureComponent<Props, State> {
 						<ImageLoader src={statIcons[type === 'attack' ? 'attack_power' : 'defense']} />
 						{type === 'attack'
 							? statData.point_ability.offense_point
-							: statData.point_ability.defense_point}P
+							: statData.point_ability.defense_point}
+						P
 					</Typography>
 					<div>
 						{hmPointBuffs[type].map(buff => {

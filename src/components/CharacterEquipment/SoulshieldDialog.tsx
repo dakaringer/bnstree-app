@@ -11,6 +11,7 @@ import {
 import { Close } from '@material-ui/icons'
 import { InjectedProps } from '@material-ui/core/withMobileDialog'
 import { WithWidth } from '@material-ui/core/withWidth'
+import classNames from 'classnames'
 import T from '@src/components/T'
 
 import { DeepReadonly } from '@src/utils/immutableHelper'
@@ -35,7 +36,11 @@ const SoulshieldDialog: React.SFC<Props> = props => {
 	)
 
 	return (
-		<Dialog open={open} fullScreen={fullScreen} onClose={close} className={style.soulshieldDialog}>
+		<Dialog
+			open={open}
+			fullScreen={fullScreen}
+			onClose={close}
+			className={classNames(style.soulshieldDialog, style.dialog)}>
 			<DialogTitle disableTypography className={style.header}>
 				<Typography variant="headline" color="primary">
 					<T id="character.navigation.soulshield_attributes" />

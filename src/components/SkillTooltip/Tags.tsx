@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Typography } from '@material-ui/core'
 import { difference } from 'lodash-es'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 
 import { DeepReadonlyArray } from '@src/utils/immutableHelper'
 

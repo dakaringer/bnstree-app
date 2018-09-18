@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Button, Checkbox } from '@material-ui/core'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 import ImageLoader from '@src/components/ImageLoader'
 import T from '@src/components/T'
 

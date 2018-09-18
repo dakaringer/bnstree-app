@@ -16,6 +16,7 @@ import {
 import { Close, HelpOutline } from '@material-ui/icons'
 import { InjectedProps } from '@material-ui/core/withMobileDialog'
 import { WithWidth } from '@material-ui/core/withWidth'
+import classNames from 'classnames'
 import ImageLoader from '@src/components/ImageLoader'
 import T from '@src/components/T'
 import compose from '@src/utils/compose'
@@ -47,7 +48,11 @@ const SettingsDialog: React.SFC<Props> = props => {
 	const { open, fullScreen, close, skillPreferences, updatePreferences } = props
 
 	return (
-		<Dialog open={open} fullScreen={fullScreen} onClose={close} className={style.settingsDialog}>
+		<Dialog
+			open={open}
+			fullScreen={fullScreen}
+			onClose={close}
+			className={classNames(style.settingsDialog, style.dialog)}>
 			<DialogTitle disableTypography className={style.header}>
 				<Typography variant="headline" color="primary">
 					<T id={'skill.menu.settings'} />

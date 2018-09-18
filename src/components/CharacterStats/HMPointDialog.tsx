@@ -11,7 +11,7 @@ import {
 import { Close } from '@material-ui/icons'
 import { InjectedProps } from '@material-ui/core/withMobileDialog'
 import { WithWidth } from '@material-ui/core/withWidth'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 import T from '@src/components/T'
 import ImageLoader from '@src/components/ImageLoader'
 
@@ -55,7 +55,11 @@ const HMPointDialog: React.SFC<Props> = props => {
 	})
 
 	return (
-		<Dialog open={open} fullScreen={fullScreen} onClose={close} className={style.hmPointDialog}>
+		<Dialog
+			open={open}
+			fullScreen={fullScreen}
+			onClose={close}
+			className={classNames(style.hmPointDialog, style.dialog)}>
 			<DialogTitle disableTypography className={style.header}>
 				<Typography variant="subheading">
 					<T

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ButtonBase, Modal, Typography, Divider, Paper, Hidden, Menu, MenuItem, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
 import { ExpandMore } from '@material-ui/icons'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 import T from '@src/components/T'
 import ImageLoader from '@src/components/ImageLoader'
 

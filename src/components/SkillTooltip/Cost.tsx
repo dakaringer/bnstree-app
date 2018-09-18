@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ArrowRight } from '@material-ui/icons'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 import T from '@src/components/T'
 
 import * as style from './styles/index.css'

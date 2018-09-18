@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { ButtonBase, Hidden, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 
 import * as style from './styles/index.css'
 import Menu from './Menu'

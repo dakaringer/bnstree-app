@@ -1,23 +1,9 @@
 @import 'constants';
+@import 'dialog';
 
 .soulshield-dialog {
-	& .header {
-		min-width: 30rem;
-		padding-top: 2rem;
-		position: relative;
-
-		& .breakdown {
-			margin-left: 1rem;
-		}
-
-		& .close-button {
-			width: 3rem;
-			height: 3rem;
-			position: absolute;
-			right: 1.6rem;
-			top: 1.6rem;
-			color: var(--text-secondary);
-		}
+	& .breakdown {
+		margin-left: 1rem;
 	}
 
 	& .soulshield-stats {

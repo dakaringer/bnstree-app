@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Popper, Paper, Fade, Typography, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
-import * as classNames from 'classnames'
+import classNames from 'classnames'
 import { debounce } from 'lodash-es'
 import ImageLoader from '@src/components/ImageLoader'
 
