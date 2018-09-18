@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import { RouteProps } from 'react-router'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import { Snackbar, Typography } from '@material-ui/core'
 import { IntlProvider } from 'react-intl'
@@ -19,10 +20,9 @@ import { getLocale, getFlatMessages } from '@src/store/Intl/selectors'
 import { getLogoutMessage } from '@src/store/User/selectors'
 
 import Router from './router'
+import GATracker from './GATracker'
 import Navigation from '@src/components/Navigation'
 import Background from '@src/components/Background'
-import withGATracker from '@src/components/withGATracker'
-import withErrorBoundary from '@src/components/withErrorBoundary'
 import LoadingLyn from '@src/components/LoadingLyn'
 
 interface PropsFromStore {
@@ -37,7 +37,7 @@ interface PropsFromDispatch {
 	setLogoutMessage: typeof UserActions.setLogoutMessage
 }
 
-interface Props extends PropsFromStore, PropsFromDispatch {}
+interface Props extends PropsFromStore, PropsFromDispatch, RouteProps {}
 
 class App extends React.PureComponent<Props> {
 	constructor(props: Props) {
@@ -46,10 +46,10 @@ class App extends React.PureComponent<Props> {
 	}
 
 	render() {
-		const { locale, messages, logoutMessage, setLogoutMessage, isLoading } = this.props
+		const { locale, messages, logoutMessage, setLogoutMessage, isLoading, location } = this.props
 
 		return (
-			<>
+			<GATracker location={location ? location.pathname : '/'}>
 				{isLoading ? (
 					<LoadingLyn />
 				) : (
@@ -76,7 +76,7 @@ class App extends React.PureComponent<Props> {
 					</IntlProvider>
 				)}
 				<Background />
-			</>
+			</GATracker>
 		)
 	}
 }
@@ -103,7 +103,5 @@ export default compose<Props, {}>(
 		mapStateToProps,
 		mapDispatchToProps
 	),
-	withErrorBoundary,
-	withGATracker,
 	hot(module)
 )(App)

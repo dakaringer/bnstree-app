@@ -7,17 +7,20 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import store from '@src/store/redux'
 
 import App from './app'
+import ErrorBoundary from './ErrorBoundary'
 
 if (module.hot) {
 	module.hot.accept()
 }
 
 const Root: React.SFC = () => (
-	<Provider store={store()}>
-		<BrowserRouter>
-			<Route component={App} />
-		</BrowserRouter>
-	</Provider>
+	<ErrorBoundary>
+		<Provider store={store()}>
+			<BrowserRouter>
+				<Route component={App} />
+			</BrowserRouter>
+		</Provider>
+	</ErrorBoundary>
 )
 
 const EnsureIntl = new Promise(async resolve => {
