@@ -14,10 +14,24 @@ const ROOT = process.cwd()
 
 module.exports = merge(common, {
 	mode: 'production',
+	stats: {
+		all: false,
+		builtAt: true,
+		timings: true,
+		colors: true,
+		errors: true,
+		errorDetails: true
+	},
 	optimization: {
 		minimizer: [
 			new TerserPlugin({
-				sourceMap: true
+				parallel: true,
+				sourceMap: true,
+				terserOptions: {
+					compress: {
+						drop_console: true
+					}
+				}
 			})
 		]
 	},
