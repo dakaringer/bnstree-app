@@ -93,19 +93,20 @@ class Menu extends React.PureComponent<Props, State> {
 					<ImageLoader src={logo} />
 				</Link>
 				<div className={style.content}>
-					<ScrollContainer height="calc(100% - 6rem)">
-						<FadeContainer currentKey={currentLink ? currentLink.link : ''}>
-							<List>
-								{!currentLink ? (
-									<>
-										{userData ? (
-											<UserButton userData={userData} onSelect={this.openSubMenu} />
-										) : (
-											<LoginButton onSelect={this.openSubMenu} />
-										)}
-										<CharacterSearch className={style.characterSearch} onSubmit={onClose} />
-									</>
+					<FadeContainer currentKey={currentLink ? currentLink.link : ''} className={style.fadeContainer}>
+						{!currentLink && (
+							<>
+								{userData ? (
+									<UserButton userData={userData} onSelect={this.openSubMenu} />
 								) : (
+									<LoginButton onSelect={this.openSubMenu} />
+								)}
+								<CharacterSearch className={style.characterSearch} onSubmit={onClose} />
+							</>
+						)}
+						<ScrollContainer flex>
+							<List>
+								{currentLink && (
 									<ListItem button className={classNames(style.link, style.back)} onClick={this.back}>
 										<ChevronLeft className={style.arrow} />
 										<Typography variant="caption" color="inherit">
@@ -148,8 +149,8 @@ class Menu extends React.PureComponent<Props, State> {
 									)
 								})}
 							</List>
-						</FadeContainer>
-					</ScrollContainer>
+						</ScrollContainer>
+					</FadeContainer>
 				</div>
 				<Typography variant="caption" className={style.legal}>
 					<p>&copy; BnSTree {year}. All rights reserved.</p>

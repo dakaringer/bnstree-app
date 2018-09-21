@@ -17,6 +17,12 @@
 		padding-top: 1rem;
 		flex: 1;
 
+		& .fade-container {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+
 		& .login-button,
 		& .user-button {
 			height: 5.4rem;

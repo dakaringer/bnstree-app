@@ -2,14 +2,15 @@ import * as React from 'react'
 import Scrollbars from 'react-custom-scrollbars'
 
 interface Props {
-	height: string
+	height?: string
+	flex?: boolean
 	disabled?: boolean
 	className?: string
 	onScroll?: (value: {}) => void
 }
 
 const ScrollContainer: React.SFC<Props> = props => {
-	const { height, disabled, children, className, onScroll } = props
+	const { height, flex, disabled, children, className, onScroll } = props
 	if (disabled) return <div className={className}>{children}</div>
 
 	return (
@@ -32,7 +33,7 @@ const ScrollContainer: React.SFC<Props> = props => {
 				/>
 			)}
 			onScrollFrame={onScroll ? value => onScroll(value) : () => null}
-			style={{ height }}
+			style={{ height, flex: flex ? 1 : undefined }}
 			className={className}>
 			{children}
 		</Scrollbars>
