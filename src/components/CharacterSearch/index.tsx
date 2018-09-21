@@ -94,6 +94,7 @@ class CharacterSearch extends React.PureComponent<Props, State> {
 		if (name.trim() !== '') {
 			history.push(`/character/${this.validateRegion(region).toLowerCase()}/${name}`)
 		}
+		this.setState({ name: '' })
 	}
 
 	renderInput = (inputProps: any) => {
