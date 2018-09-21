@@ -57,6 +57,10 @@ class Menu extends React.PureComponent<Props, State> {
 		const { onClose } = this.props
 		const { linkPath } = this.state
 
+		if (linkPath.slice(-1)[0] === linkObject) {
+			return null
+		}
+
 		if (linkObject.subMenu) {
 			this.setState({
 				linkPath: [...linkPath, linkObject]
