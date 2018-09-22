@@ -125,7 +125,6 @@ class CharacterPage extends React.PureComponent<Props> {
 				!characterData.profile ||
 				!characterData.equipment ||
 				!characterData.stats ||
-				!characterData.skills ||
 				'failed' in characterData.profile ? (
 					<>
 						<Typography variant="display3" className={style.notFound}>
@@ -164,19 +163,23 @@ class CharacterPage extends React.PureComponent<Props> {
 								className={style.equipment}
 							/>
 						</div>
-						<Paper className={style.characterSkills}>
-							<Typography variant="display1">
-								<T id="character.navigation.skills" />
-							</Typography>
-							<SkillList
-								classCode={characterData.profile.classCode}
-								element={
-									classElements[characterData.profile.classCode][characterData.skills.elementIndex]
-								}
-								buildData={characterData.skills.build}
-								readonly
-							/>
-						</Paper>
+						{characterData.skills && (
+							<Paper className={style.characterSkills}>
+								<Typography variant="display1">
+									<T id="character.navigation.skills" />
+								</Typography>
+								<SkillList
+									classCode={characterData.profile.classCode}
+									element={
+										classElements[characterData.profile.classCode][
+											characterData.skills.elementIndex
+										]
+									}
+									buildData={characterData.skills.build}
+									readonly
+								/>
+							</Paper>
+						)}
 					</FadeContainer>
 				)}
 			</PageContainer>
