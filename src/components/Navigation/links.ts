@@ -7,6 +7,7 @@ export interface LinkObject {
 	icon?: string
 	subMenu?: LinkObject[]
 	render?: (resetMenu: () => void) => React.ReactElement<any>
+	disabled?: boolean
 }
 
 export const classes = [
@@ -92,14 +93,16 @@ export const items = [
 	{
 		itemType: 'SOULSHIELD',
 		link: 'soul-shields',
-		label: 'general.item_types.SOULSHIELD'
+		label: 'general.item_types.SOULSHIELD',
+		disabled: true
 	}
 ]
 
 export const menuLinks: LinkObject[] = [
 	{
 		link: 'news',
-		label: 'navigation.menu.news'
+		label: 'navigation.menu.news',
+		disabled: true
 	},
 	{
 		link: 'skills',
@@ -113,10 +116,12 @@ export const menuLinks: LinkObject[] = [
 	},
 	{
 		link: 'marketplace',
-		label: 'navigation.menu.marketplace'
+		label: 'navigation.menu.marketplace',
+		disabled: true
 	},
 	{
 		link: 'twitch',
-		label: 'navigation.menu.twitch'
+		label: 'navigation.menu.twitch',
+		disabled: true
 	}
 ]

@@ -141,7 +141,8 @@ class Menu extends React.PureComponent<Props, State> {
 															/>
 													  )
 													: 'div'
-											}>
+											}
+											disabled={linkObject.disabled}>
 											{linkObject.icon && <img src={linkObject.icon} />}
 											<T id={linkObject.label} />
 											{linkObject.subMenu && <ChevronRight className={style.arrow} />}
