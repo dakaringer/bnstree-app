@@ -2,10 +2,6 @@
 @import 'dialog';
 
 .soulshield-dialog {
-	& .breakdown {
-		margin-left: 1rem;
-	}
-
 	& .soulshield-stats {
 		& .stat-total {
 			padding: 0 1rem;

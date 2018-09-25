@@ -56,7 +56,7 @@ const SoulshieldDialog: React.SFC<Props> = props => {
 							<td />
 							<td />
 							<td>
-								<Typography variant="caption" className={style.breakdown}>
+								<Typography variant="caption">
 									<T id="character.navigation.soulshield_attributes_breakdown" />
 								</Typography>
 							</td>
