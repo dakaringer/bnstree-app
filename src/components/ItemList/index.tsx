@@ -137,7 +137,7 @@ class ItemList extends React.PureComponent<Props, State> {
 						if (!groupData) return
 						return (
 							<div key={group}>
-								<Typography variant="subheading" className={style.groupLabel}>
+								<Typography variant="subtitle1" className={style.groupLabel}>
 									<T id={['item', 'group_label', itemType, group]} />
 								</Typography>
 								<div className={style.itemGroup}>

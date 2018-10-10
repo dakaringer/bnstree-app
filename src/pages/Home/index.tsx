@@ -7,24 +7,24 @@ const Home = () => {
 	return (
 		<PageContainer>
 			<Paper style={{ padding: '2rem' }}>
-				<Typography variant="title" color="primary">
+				<Typography variant="h6" color="primary">
 					Welcome to BnSTree Next
 				</Typography>
 				<Typography>This site is currently under construction.</Typography>
 				<div style={{ marginTop: '2rem' }}>
 					<Typography>Current Progress</Typography>
 					<div style={{ marginTop: '1rem' }}>
-						<Typography variant="body2">Home</Typography>
+						<Typography variant="body1">Home</Typography>
 						<FormControlLabel control={<Checkbox checked={false} />} label="Layout" />
 					</div>
 					<div style={{ marginTop: '1rem' }}>
-						<Typography variant="body2">News</Typography>
+						<Typography variant="body1">News</Typography>
 						<FormControlLabel control={<Checkbox checked={false} />} label="Basic Functionality" />
 						<FormControlLabel control={<Checkbox checked={false} />} label="Skill/Item Data Integration" />
 						<FormControlLabel control={<Checkbox checked={false} />} label="Editor" />
 					</div>
 					<div style={{ marginTop: '1rem' }}>
-						<Typography variant="body2">Character Search</Typography>
+						<Typography variant="body1">Character Search</Typography>
 						<FormControlLabel
 							control={<Checkbox checked={true} color="primary" />}
 							label="Basic Functionality"
@@ -36,7 +36,7 @@ const Home = () => {
 						<FormControlLabel control={<Checkbox checked={false} />} label="KR Gems" />
 					</div>
 					<div style={{ marginTop: '1rem' }}>
-						<Typography variant="body2">Skills</Typography>
+						<Typography variant="body1">Skills</Typography>
 						<FormControlLabel
 							control={<Checkbox checked={true} color="primary" />}
 							label="Basic Functionality"
@@ -55,7 +55,7 @@ const Home = () => {
 						/>
 					</div>
 					<div style={{ marginTop: '1rem' }}>
-						<Typography variant="body2">Items</Typography>
+						<Typography variant="body1">Items</Typography>
 						<FormControlLabel
 							control={<Checkbox checked={true} color="primary" />}
 							label="Basic Functionality"
@@ -72,15 +72,15 @@ const Home = () => {
 						<FormControlLabel control={<Checkbox checked={false} />} label="Other items" />
 					</div>
 					<div style={{ marginTop: '1rem' }}>
-						<Typography variant="body2">Market</Typography>
+						<Typography variant="body1">Market</Typography>
 						<FormControlLabel control={<Checkbox checked={false} />} label="Basic Functionality" />
 					</div>
 					<div style={{ marginTop: '1rem' }}>
-						<Typography variant="body2">Twitch</Typography>
+						<Typography variant="body1">Twitch</Typography>
 						<FormControlLabel control={<Checkbox checked={false} />} label="Basic Functionality" />
 					</div>
 					<div style={{ marginTop: '1rem' }}>
-						<Typography variant="body2">Misc.</Typography>
+						<Typography variant="body1">Misc.</Typography>
 						<FormControlLabel control={<Checkbox checked={false} />} label="Other Languages" />
 					</div>
 				</div>

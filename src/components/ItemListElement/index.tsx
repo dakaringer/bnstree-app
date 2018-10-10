@@ -33,7 +33,7 @@ const ItemListElement: React.SFC<Props> = props => {
 					/>
 				</div>
 				<div>
-					<Typography variant="subheading" color="inherit" className={style[`grade_${itemData.grade}`]}>
+					<Typography variant="subtitle1" color="inherit" className={style[`grade_${itemData.grade}`]}>
 						{itemData.name}
 					</Typography>
 					{itemData.classCode && (

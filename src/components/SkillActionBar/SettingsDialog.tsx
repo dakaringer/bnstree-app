@@ -54,7 +54,7 @@ const SettingsDialog: React.SFC<Props> = props => {
 			onClose={close}
 			className={classNames(style.settingsDialog, style.dialog)}>
 			<DialogTitle disableTypography className={style.header}>
-				<Typography variant="headline" color="primary">
+				<Typography variant="h5" color="primary">
 					<T id={'skill.menu.settings'} />
 				</Typography>
 				<IconButton color="inherit" onClick={close} className={style.closeButton}>
@@ -62,7 +62,7 @@ const SettingsDialog: React.SFC<Props> = props => {
 				</IconButton>
 			</DialogTitle>
 			<DialogContent>
-				<Typography variant="subheading" className={style.subheading}>
+				<Typography variant="subtitle1" className={style.subtitle}>
 					<T id="skill.menu.stats" />
 				</Typography>
 				<div className={style.inputs}>
@@ -104,7 +104,7 @@ const SettingsDialog: React.SFC<Props> = props => {
 					/>
 				</div>
 				<Divider />
-				<Typography variant="subheading" className={style.subheading}>
+				<Typography variant="subtitle1" className={style.subtitle}>
 					<T id="skill.menu.element_damage" />
 				</Typography>
 				<div className={style.inputs}>

@@ -90,7 +90,7 @@ class SkillListElement extends React.PureComponent<Props, State> {
 							}
 						/>
 					</div>
-					<Typography variant="subheading" color="inherit" className={style.skill}>
+					<Typography variant="subtitle1" color="inherit" className={style.skill}>
 						{currentMoveData.name}
 						{showHotkey && <ImageLoader src={keyIcons[keyIcon]} />}
 					</Typography>

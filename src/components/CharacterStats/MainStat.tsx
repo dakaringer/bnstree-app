@@ -42,10 +42,10 @@ class MainStat extends React.PureComponent<Props, State> {
 		return (
 			<Paper className={classNames(style.mainStatContainer, style[type])}>
 				<div className={style.mainStat}>
-					<Typography variant="display1" noWrap className={style.label}>
+					<Typography variant="h4" noWrap className={style.label}>
 						<T id={['character', 'stats', mainStat]} />
 					</Typography>
-					<Typography variant="headline" color="primary">
+					<Typography variant="h5" color="primary">
 						{mainStatValue}
 					</Typography>
 				</div>

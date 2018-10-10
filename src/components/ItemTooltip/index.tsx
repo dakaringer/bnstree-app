@@ -28,7 +28,7 @@ const ItemTooltip: React.SFC<Props> = props => {
 			title={
 				<div className={style.title}>
 					<Typography
-						variant={isWidthDown('xs', width) ? 'subheading' : 'title'}
+						variant={isWidthDown('xs', width) ? 'subtitle1' : 'h6'}
 						className={style[`grade_${itemData.grade}`]}>
 						{itemData.name}
 					</Typography>

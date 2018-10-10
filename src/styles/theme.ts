@@ -20,13 +20,14 @@ export default createMuiTheme({
 		}
 	},
 	typography: {
+		useNextVariants: true,
 		htmlFontSize: 10,
 		fontFamily: "'Open Sans', sans-serif",
 		fontWeightMedium: 600,
-		title: {
+		h6: {
 			fontWeight: 'normal'
 		},
-		body1: {
+		body2: {
 			color: 'rgba(255, 255, 255, 0.9)'
 		},
 		button: {

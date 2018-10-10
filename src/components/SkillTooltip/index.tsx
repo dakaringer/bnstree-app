@@ -43,7 +43,7 @@ const SkillTooltip: React.SFC<Props> = props => {
 
 	const title = (
 		<div className={style.title}>
-			<Typography variant={isWidthDown('xs', width) ? 'subheading' : 'title'} className={style.skill}>
+			<Typography variant={isWidthDown('xs', width) ? 'subtitle1' : 'h6'} className={style.skill}>
 				{hoverMoveData.name}
 				{process.env.NODE_ENV !== 'production' && <Typography color="secondary">{hoverMoveData.id}</Typography>}
 				<Typography color="textSecondary" className={style.move}>

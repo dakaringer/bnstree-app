@@ -61,7 +61,7 @@ const HMPointDialog: React.SFC<Props> = props => {
 			onClose={close}
 			className={classNames(style.hmPointDialog, style.dialog)}>
 			<DialogTitle disableTypography className={style.header}>
-				<Typography variant="subheading">
+				<Typography variant="subtitle1">
 					<T
 						id={[
 							'character',
@@ -70,7 +70,7 @@ const HMPointDialog: React.SFC<Props> = props => {
 						]}
 					/>
 				</Typography>
-				<Typography variant="subheading" color="primary" className={style.totalPoints}>
+				<Typography variant="subtitle1" color="primary" className={style.totalPoints}>
 					{totalPoints}P
 				</Typography>
 				<IconButton color="inherit" onClick={close} className={style.closeButton}>

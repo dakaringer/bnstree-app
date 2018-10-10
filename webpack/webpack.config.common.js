@@ -16,7 +16,7 @@ module.exports = {
 		publicPath: '/'
 	},
 	resolve: {
-		modules: ['src', 'node_modules'],
+		modules: ['node_modules'],
 		extensions: ['.ts', '.tsx', '.js'],
 		alias: {
 			'@src': path.join(ROOT, 'src')

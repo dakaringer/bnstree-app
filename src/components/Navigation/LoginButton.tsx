@@ -92,7 +92,7 @@ class LoginButton extends React.PureComponent<Props, State> {
 								<GoogleLogo className={style.googleLogo} height={40} width={40} />
 								<GoogleLogoPressed className={style.googleLogoPressed} height={40} width={40} />
 							</span>
-							<Typography component="span" color="inherit" variant="body1">
+							<Typography component="span" color="inherit" variant="body2">
 								Sign in with Google
 							</Typography>
 						</ListItem>

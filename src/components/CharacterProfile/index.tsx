@@ -81,11 +81,11 @@ class CharacterProfile extends React.PureComponent<Props, State> {
 						</ButtonBase>
 					</Modal>
 					<div className={style.nameInfo}>
-						<Typography variant={isWidthDown('xs', width) ? 'display2' : 'display3'} color="inherit" noWrap>
+						<Typography variant={isWidthDown('xs', width) ? 'h3' : 'h2'} color="inherit" noWrap>
 							{profileData.name}
 						</Typography>
 						<ButtonBase onClick={event => this.setState({ accountAnchor: event.currentTarget })}>
-							<Typography variant="subheading" color="textSecondary" className={style.accountName}>
+							<Typography variant="subtitle1" color="textSecondary" className={style.accountName}>
 								{profileData.account}
 								<ExpandMore />
 							</Typography>{' '}

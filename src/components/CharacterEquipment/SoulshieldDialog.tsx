@@ -42,7 +42,7 @@ const SoulshieldDialog: React.SFC<Props> = props => {
 			onClose={close}
 			className={classNames(style.soulshieldDialog, style.dialog)}>
 			<DialogTitle disableTypography className={style.header}>
-				<Typography variant="headline" color="primary">
+				<Typography variant="h5" color="primary">
 					<T id="character.navigation.soulshield_attributes" />
 				</Typography>
 				<IconButton color="inherit" onClick={close} className={style.closeButton}>

@@ -158,7 +158,7 @@ class SkillList extends React.PureComponent<Props, State> {
 						if (!groupData) return
 						return (
 							<div key={group}>
-								<Typography variant="subheading" className={style.groupLabel}>
+								<Typography variant="subtitle1" className={style.groupLabel}>
 									{skillPreferences.order === 'LEVEL' || readonly ? (
 										<T id={['skill', 'group_label', 'level']} values={{ level: group }} />
 									) : (

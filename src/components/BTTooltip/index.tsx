@@ -83,7 +83,7 @@ class BTTooltip extends React.PureComponent<Props, State> {
 									<ImageLoader src={icon} className={style.icon} />
 									<div className={style.mainText}>
 										<Typography
-											variant={isWidthDown('xs', width) ? 'body1' : 'subheading'}
+											variant={isWidthDown('xs', width) ? 'body2' : 'subtitle1'}
 											color="inherit">
 											{m1}
 										</Typography>

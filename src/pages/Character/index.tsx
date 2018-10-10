@@ -127,12 +127,12 @@ class CharacterPage extends React.PureComponent<Props> {
 				!characterData.stats ||
 				'failed' in characterData.profile ? (
 					<>
-						<Typography variant="display3" className={style.notFound}>
+						<Typography variant="h2" className={style.notFound}>
 							<T id="character.not_found" />
 						</Typography>
 						{characterData &&
 							characterData.profile.failed === 'nameChanged' && (
-								<Typography variant="title" className={style.notFound} color="textSecondary">
+								<Typography variant="h6" className={style.notFound} color="textSecondary">
 									<T id="character.not_found_name_changed" />
 								</Typography>
 							)}
@@ -165,7 +165,7 @@ class CharacterPage extends React.PureComponent<Props> {
 						</div>
 						{characterData.skills && (
 							<Paper className={style.characterSkills}>
-								<Typography variant="display1">
+								<Typography variant="h4">
 									<T id="character.navigation.skills" />
 								</Typography>
 								<SkillList
