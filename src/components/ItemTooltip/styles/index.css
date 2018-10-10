@@ -8,4 +8,18 @@
 		justify-content: space-between;
 		align-items: baseline;
 	}
+
+	& .fuse .badges span {
+		display: inline-flex;
+		align-items: center;
+
+		& img {
+			height: 1.2em;
+			margin-right: 0.5rem;
+		}
+
+		&.plus {
+			margin: 0 0.5rem;
+		}
+	}
 }
