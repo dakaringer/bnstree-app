@@ -1,11 +1,9 @@
-:root {
-	@custom-media --xs-down (width < 650px);
-	@custom-media --sm-down (width < 960px);
-	@custom-media --md-down (width < 1280px);
-	@custom-media --lg-down (width < 1600px);
+@custom-media --xs-down (width < 650px);
+@custom-media --sm-down (width < 960px);
+@custom-media --md-down (width < 1280px);
+@custom-media --lg-down (width < 1600px);
 
-	@custom-media --sm-up (width >= 650px);
-	@custom-media --md-up (width >= 960px);
-	@custom-media --lg-up (width >= 1280px);
-	@custom-media --xl-up (width >= 1600px);
-}
+@custom-media --sm-up (width >= 650px);
+@custom-media --md-up (width >= 960px);
+@custom-media --lg-up (width >= 1280px);
+@custom-media --xl-up (width >= 1600px);
