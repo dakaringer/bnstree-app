@@ -14,8 +14,14 @@
     <meta name="application-name" content="BnSTree">
 
     <meta name="theme-color" content="#222222">
-    <meta name="description" content="Blade & Soul skill information, character search, and more!" />
+    <meta name="description" content="Blade & Soul skill information, character search, and more!">
     <meta property="og:site_name" content="BnSTree">
+
+    <% if (locals.characterMetadata) { %>
+    <meta property="og:title" content="<%= locals.characterMetadata.title %>">
+    <meta property="og:description" content="<%= locals.characterMetadata.desc %>">
+    <meta property="og:image" content="<%= locals.characterMetadata.image %>" />
+    <% } %>
 
     <meta name="google-site-verification" content="QxLOb_4E2BvzsOqlLodjmHg8vYUhNKRAfkbGULVJHC0">
 

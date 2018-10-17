@@ -1,6 +1,5 @@
 const path = require('path')
 const Dotenv = require('dotenv-webpack')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CssExtractPlugin = require('extract-css-chunks-webpack-plugin')
 
 const ROOT = process.cwd()
@@ -141,9 +140,6 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new HTMLWebpackPlugin({
-			template: path.join(ROOT, 'public', 'index.html')
-		}),
 		new Dotenv({
 			silent: true
 		})

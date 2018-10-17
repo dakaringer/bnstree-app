@@ -1,10 +1,11 @@
-const webpack = require('webpack')
+const path = require('path')
 const CssExtractPlugin = require('extract-css-chunks-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 
 const merge = require('webpack-merge')
 const common = require('./webpack.config.common.js')
@@ -36,6 +37,10 @@ module.exports = merge(common, {
 		]
 	},
 	plugins: [
+		new HTMLWebpackPlugin({
+			template: '!!raw-loader!' + path.join(ROOT, 'public', 'index.ejs'),
+			filename: 'index.ejs'
+		}),
 		new CleanWebpackPlugin(['dist'], {
 			root: ROOT,
 			beforeEmit: true
