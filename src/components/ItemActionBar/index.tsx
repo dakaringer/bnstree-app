@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { Button, IconButton, Input, Hidden, MenuItem, Menu } from '@material-ui/core'
+import { Button, IconButton, Input, MenuItem, Menu } from '@material-ui/core'
 import { Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import T from '@src/components/T'
@@ -75,15 +75,13 @@ class ItemActionBar extends React.PureComponent<Props, State> {
 						className={style.filter}
 						onClick={event => this.setState({ classAnchor: event.currentTarget })}>
 						{itemPreferences.filter !== 'ALL' && <ImageLoader src={classIcons[itemPreferences.filter]} />}
-						<Hidden smDown={itemPreferences.filter !== 'ALL'}>
-							<T
-								id={
-									itemPreferences.filter !== 'ALL'
-										? ['general', 'class_names', itemPreferences.filter]
-										: 'item.general.all'
-								}
-							/>
-						</Hidden>
+						<T
+							id={
+								itemPreferences.filter !== 'ALL'
+									? ['general', 'class_names', itemPreferences.filter]
+									: 'item.general.all'
+							}
+						/>
 					</Button>
 					<Menu
 						anchorEl={classAnchor}
