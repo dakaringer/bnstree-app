@@ -35,6 +35,7 @@
 			width: 100%;
 			background: black;
 			border-radius: 1em;
+			overflow: hidden;
 
 			& .character-search-input {
 				padding: 0.6rem 1.5rem;
