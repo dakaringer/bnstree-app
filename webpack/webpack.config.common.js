@@ -101,9 +101,6 @@ module.exports = {
 										'custom-properties': {
 											preserve: false
 										}
-									},
-									autoprefixer: {
-										grid: true
 									}
 								}),
 								require('cssnano')
