@@ -6,7 +6,10 @@
 		display: grid;
 		grid-gap: 2rem;
 		grid-template-columns: 1fr 1fr 2fr;
-		align-items: start;
+
+		& > * {
+			align-self: start;
+		}
 
 		@media (--lg-down) {
 			grid-template-columns: 1fr 1fr;
