@@ -80,12 +80,12 @@ const app = async (req, res) => {
 			const characterServer = `${character.profile.region.toUpperCase()}-${character.profile.server}`
 
 			const AP = `AP: ${character.stats.total_ability.attack_power_value}`
-			const CHR = `CHR: ${character.stats.total_ability.attack_critical_rate}`
-			const CHD = `CHD: ${character.stats.total_ability.attack_critical_damage_rate}`
+			const CHR = `Crit Rate: ${character.stats.total_ability.attack_critical_rate}%`
+			const CHD = `Crit Dmg: ${character.stats.total_ability.attack_critical_damage_rate}%`
 
 			const ED = classElements[character.profile.classCode].reduce(
 				(acc, element) => {
-					const rate = character.stats.total_ability[element]
+					const rate = `${character.stats.total_ability[element]}%`
 					if (rate === acc.rate) {
 						return null
 					} else if (rate > acc.rate) {
@@ -99,8 +99,6 @@ const app = async (req, res) => {
 				},
 				{ element: '', rate: 0 }
 			)
-
-			console.log(ED)
 
 			return {
 				title: `${characterName} | ${characterLevel} | ${characterServer}`,
