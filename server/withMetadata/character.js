@@ -17,7 +17,7 @@ const classElements = {
 	WL: ['attack_attribute_ice_rate', 'attack_attribute_void_rate'],
 	SF: ['attack_attribute_ice_rate', 'attack_attribute_earth_rate'],
 	GS: ['attack_attribute_fire_rate', 'attack_attribute_void_rate'],
-	WR: ['attack_attribute_lightning_rate', 'attack_attribute_frost_rate']
+	WR: ['attack_attribute_lightning_rate', 'attack_attribute_ice_rate']
 }
 
 const elements = {
@@ -85,12 +85,12 @@ const app = async (req, res) => {
 
 			const ED = classElements[character.profile.classCode].reduce(
 				(acc, element) => {
-					const rate = `${character.stats.total_ability[element]}%`
+					const rate = character.stats.total_ability[element]
 					if (rate === acc.rate) {
 						return null
 					} else if (rate > acc.rate) {
 						return {
-							rate,
+							rate: `${rate}%`,
 							element: elements[element]
 						}
 					} else {
@@ -103,7 +103,7 @@ const app = async (req, res) => {
 			return {
 				title: `${characterName} | ${characterLevel} | ${characterServer}`,
 				image: `${STATIC_SERVER}/images/class/${character.profile.classCode}`,
-				desc: `${AP} | ${CHR} | ${CHD}${ED && ` | ${ED.element}: ${ED.rate}`}`
+				desc: `${AP} | ${CHR} | ${CHD}${ED ? ` | ${ED.element}: ${ED.rate}` : ''}`
 			}
 		})
 
