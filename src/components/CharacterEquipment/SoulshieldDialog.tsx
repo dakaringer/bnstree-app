@@ -1,17 +1,5 @@
 import * as React from 'react'
-import {
-	Dialog,
-	DialogTitle,
-	DialogContent,
-	withMobileDialog,
-	Typography,
-	IconButton,
-	Divider
-} from '@material-ui/core'
-import { Close } from '@material-ui/icons'
-import { InjectedProps } from '@material-ui/core/withMobileDialog'
-import { WithWidth } from '@material-ui/core/withWidth'
-import classNames from 'classnames'
+import { Dialog, DialogTitle, DialogContent, Typography, Divider } from '@material-ui/core'
 import T from '@src/components/T'
 
 import { DeepReadonly } from '@src/utils/immutableHelper'
@@ -25,10 +13,10 @@ interface SelfProps {
 	close: () => void
 }
 
-interface Props extends SelfProps, InjectedProps, Partial<WithWidth> {}
+interface Props extends SelfProps {}
 
 const SoulshieldDialog: React.SFC<Props> = props => {
-	const { soulshieldData, open, fullScreen, close } = props
+	const { soulshieldData, open, close } = props
 
 	const pieceCount: { [key: string]: number } = soulshieldData.pieces.reduce(
 		(counter: { [key: string]: number }, piece) => ((counter[piece.name] = ++counter[piece.name] || 1), counter),
@@ -36,18 +24,11 @@ const SoulshieldDialog: React.SFC<Props> = props => {
 	)
 
 	return (
-		<Dialog
-			open={open}
-			fullScreen={fullScreen}
-			onClose={close}
-			className={classNames(style.soulshieldDialog, style.dialog)}>
-			<DialogTitle disableTypography className={style.header}>
+		<Dialog open={open} onClose={close} className={style.soulshieldDialog}>
+			<DialogTitle disableTypography>
 				<Typography variant="h5" color="primary">
 					<T id="character.navigation.soulshield_attributes" />
 				</Typography>
-				<IconButton color="inherit" onClick={close} className={style.closeButton}>
-					<Close />
-				</IconButton>
 			</DialogTitle>
 			<DialogContent>
 				<table className={style.soulshieldStats}>
@@ -106,4 +87,4 @@ const SoulshieldDialog: React.SFC<Props> = props => {
 	)
 }
 
-export default withMobileDialog<SelfProps>({ breakpoint: 'xs' })(SoulshieldDialog)
+export default React.memo(SoulshieldDialog)

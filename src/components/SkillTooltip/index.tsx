@@ -146,4 +146,4 @@ const mapStateToProps = (state: RootState) => {
 export default compose<Props, SelfProps>(
 	withWidth(),
 	connect(mapStateToProps)
-)(SkillTooltip)
+)(React.memo(SkillTooltip))

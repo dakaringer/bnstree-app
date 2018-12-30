@@ -31,4 +31,4 @@ const RegionSelector: React.SFC<Props> = props => {
 	)
 }
 
-export default RegionSelector
+export default React.memo(RegionSelector)

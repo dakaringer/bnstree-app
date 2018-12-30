@@ -79,4 +79,4 @@ const StatListItem: React.SFC<Props> = props => {
 	)
 }
 
-export default StatListItem
+export default React.memo(StatListItem)

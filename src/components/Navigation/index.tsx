@@ -49,7 +49,6 @@ class Navigation extends React.PureComponent<Props, State> {
 							className={classNames(style.menuToggle, style.hamburger, style.hamburgerSqueeze, {
 								[style.isActive]: menuOpen
 							})}>
-							MENU
 							<div className={style.hamburgerBox}>
 								<span className={style.hamburgerInner} />
 							</div>

@@ -40,4 +40,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(ItemPage)
+export default connect(mapStateToProps)(React.memo(ItemPage))

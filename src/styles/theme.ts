@@ -79,7 +79,8 @@ export default createMuiTheme({
 		},
 		MuiDialog: {
 			paper: {
-				background: 'rgba(8, 8, 8, 0.9)'
+				background: 'rgba(8, 8, 8, 0.9)',
+				minWidth: '30rem'
 			}
 		},
 		MuiList: {
@@ -102,7 +103,7 @@ export default createMuiTheme({
 			root: {
 				display: 'flex',
 				alignItems: 'baseline',
-				paddingRight: '8rem'
+				padding: '2rem 2.4rem'
 			}
 		},
 		MuiFormControlLabel: {

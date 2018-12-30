@@ -20,11 +20,14 @@
 		padding: 0.5rem;
 		position: fixed;
 		z-index: 1200;
-		top: 50%;
-		left: -2.5rem;
+		top: 2rem;
+		left: -1.5rem;
 		transform-origin: 50% 0;
-		transform: translateY(-50%) rotate(90deg);
 		letter-spacing: 0.5rem;
 		color: var(--text-secondary);
+
+		@media (--xs-down) {
+			top: 1.8rem;
+		}
 	}
 }

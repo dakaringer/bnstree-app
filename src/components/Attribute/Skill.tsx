@@ -26,8 +26,9 @@ const Skill: React.SFC<Props> = props => {
 	const { skillName, noIcon, resource, locale, defaultElement } = props
 
 	const skillQuery = skillName.split(/ +/)
-	const element = skillQuery[1] &&
-		isNaN(parseInt(skillQuery[1])) && <T id={['general', 'element_types', skillQuery[1].toUpperCase()]} />
+	const element = skillQuery[1] && isNaN(parseInt(skillQuery[1])) && (
+		<T id={['general', 'element_types', skillQuery[1].toUpperCase()]} />
+	)
 	const moves = skillQuery
 		.slice(element ? 2 : 1)
 		.map((move, i) => (
@@ -67,4 +68,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(Skill)
+export default connect(mapStateToProps)(React.memo(Skill))

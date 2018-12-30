@@ -10,9 +10,10 @@ interface Props {
 	isLoading?: boolean
 	className?: string
 	topNav?: React.ReactElement<any>
+	children: React.ReactNode
 }
 
-const Container: React.SFC<Props> = props => {
+const PageContainer: React.SFC<Props> = props => {
 	const { isLoading, children, topNav, className } = props
 
 	return (
@@ -32,4 +33,4 @@ const Container: React.SFC<Props> = props => {
 	)
 }
 
-export default Container
+export default React.memo(PageContainer)

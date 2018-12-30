@@ -36,4 +36,4 @@ const FadeContainer: React.SFC<Props> = props => {
 	)
 }
 
-export default FadeContainer
+export default React.memo(FadeContainer)

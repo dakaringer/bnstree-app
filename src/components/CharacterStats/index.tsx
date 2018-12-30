@@ -25,4 +25,4 @@ const CharacterStats: React.SFC<Props> = props => {
 	)
 }
 
-export default CharacterStats
+export default React.memo(CharacterStats)

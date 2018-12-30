@@ -12,4 +12,4 @@ const T: React.SFC<Props> = props => {
 	return <FormattedMessage id={typeof id === 'string' ? id : id.join('.')} values={values} />
 }
 
-export default T
+export default React.memo(T)

@@ -5,7 +5,6 @@ import {
 	Dialog,
 	DialogTitle,
 	DialogContent,
-	withMobileDialog,
 	Typography,
 	IconButton,
 	Divider,
@@ -13,13 +12,9 @@ import {
 	Tooltip,
 	InputAdornment
 } from '@material-ui/core'
-import { Close, HelpOutline } from '@material-ui/icons'
-import { InjectedProps } from '@material-ui/core/withMobileDialog'
-import { WithWidth } from '@material-ui/core/withWidth'
-import classNames from 'classnames'
+import { HelpOutline } from '@material-ui/icons'
 import ImageLoader from '@src/components/ImageLoader'
 import T from '@src/components/T'
-import compose from '@src/utils/compose'
 
 import { RootState } from '@src/store/rootReducer'
 import { SkillElement } from '@src/store/constants'
@@ -42,24 +37,17 @@ interface SelfProps {
 	close: () => void
 }
 
-interface Props extends SelfProps, PropsFromStore, PropsFromDispatch, InjectedProps, Partial<WithWidth> {}
+interface Props extends SelfProps, PropsFromStore, PropsFromDispatch {}
 
 const SettingsDialog: React.SFC<Props> = props => {
-	const { open, fullScreen, close, skillPreferences, updatePreferences } = props
+	const { open, close, skillPreferences, updatePreferences } = props
 
 	return (
-		<Dialog
-			open={open}
-			fullScreen={fullScreen}
-			onClose={close}
-			className={classNames(style.settingsDialog, style.dialog)}>
-			<DialogTitle disableTypography className={style.header}>
+		<Dialog open={open} onClose={close} className={style.settingsDialog}>
+			<DialogTitle disableTypography>
 				<Typography variant="h5" color="primary">
 					<T id={'skill.menu.settings'} />
 				</Typography>
-				<IconButton color="inherit" onClick={close} className={style.closeButton}>
-					<Close />
-				</IconButton>
 			</DialogTitle>
 			<DialogContent>
 				<Typography variant="subtitle1" className={style.subtitle}>
@@ -150,10 +138,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 		dispatch
 	)
 
-export default compose<Props, SelfProps>(
-	connect(
-		mapStateToProps,
-		mapDispatchToProps
-	),
-	withMobileDialog<SelfProps>({ breakpoint: 'xs' })
-)(SettingsDialog)
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(React.memo(SettingsDialog))

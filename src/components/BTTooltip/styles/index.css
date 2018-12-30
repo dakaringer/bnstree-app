@@ -4,18 +4,20 @@
 	z-index: 1000;
 }
 
+.target {
+	user-select: none;
+	touch-action: none;
+}
+
 .tooltip {
 	padding: 1.2rem;
 	width: 55rem;
+	max-width: calc(100vw - 3rem);
 	box-sizing: border-box;
-
-	@media (--xs-down) {
-		width: calc(100vw - 3rem);
-		margin-right: 0.5rem;
-	}
 
 	& .title {
 		margin-bottom: 1rem;
+		white-space: nowrap;
 	}
 
 	& .main {

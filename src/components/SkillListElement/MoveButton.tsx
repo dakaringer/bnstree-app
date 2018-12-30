@@ -75,4 +75,4 @@ const MoveButton: React.SFC<Props> = props => {
 	)
 }
 
-export default MoveButton
+export default React.memo(MoveButton)

@@ -33,4 +33,4 @@ const Router: React.SFC<Props> = props => {
 	)
 }
 
-export default withRouter(Router)
+export default withRouter(React.memo(Router))

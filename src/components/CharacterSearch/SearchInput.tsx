@@ -12,7 +12,7 @@ interface SelfProps {
 }
 
 interface SelfPropsWithRef extends SelfProps {
-	inputRef: string | ((instance: any) => any) | React.RefObject<any> | undefined
+	inputRef: React.Ref<{}> | undefined
 }
 
 interface Props extends SelfPropsWithRef, InjectedIntlProps {}

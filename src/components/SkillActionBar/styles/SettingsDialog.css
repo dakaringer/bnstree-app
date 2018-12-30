@@ -1,6 +1,5 @@
 @import 'constants';
 @import 'breakpoints';
-@import 'dialog';
 
 .settings-dialog {
 	& hr {

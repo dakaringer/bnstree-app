@@ -6,8 +6,7 @@
 		padding: 2rem 4rem 10rem;
 
 		@media (--xs-down) {
-			padding: 2rem 1rem;
-			padding-left: 2rem;
+			padding: 1rem;
 		}
 	}
 }

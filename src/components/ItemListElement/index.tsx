@@ -48,4 +48,4 @@ const ItemListElement: React.SFC<Props> = props => {
 	)
 }
 
-export default ItemListElement
+export default React.memo(ItemListElement)

@@ -1,16 +1,5 @@
 import * as React from 'react'
-import {
-	Dialog,
-	DialogTitle,
-	DialogContent,
-	withMobileDialog,
-	Typography,
-	IconButton,
-	Divider
-} from '@material-ui/core'
-import { Close } from '@material-ui/icons'
-import { InjectedProps } from '@material-ui/core/withMobileDialog'
-import { WithWidth } from '@material-ui/core/withWidth'
+import { Dialog, DialogTitle, DialogContent, Typography, Divider } from '@material-ui/core'
 import classNames from 'classnames'
 import T from '@src/components/T'
 import ImageLoader from '@src/components/ImageLoader'
@@ -28,39 +17,37 @@ interface SelfProps {
 	close: () => void
 }
 
-interface Props extends SelfProps, InjectedProps, Partial<WithWidth> {}
+interface Props extends SelfProps {}
 
 const HMPointDialog: React.SFC<Props> = props => {
-	const { type, pointData, open, fullScreen, close } = props
+	const { type, pointData, open, close } = props
 
 	const hmBonus = hmPointEffects[type]
 	const totalPoints = type === 'attack' ? pointData.offense_point : pointData.defense_point
 
-	const additionalBuffs = hmPointBuffs[type].filter(buff => pointData.picks[buff.index].point !== 0).map(buff => {
-		return (
-			<div className={style.additionalBuff} key={buff.type}>
-				<div>
-					<ImageLoader key={buff.type} src={statIcons[buff.icon]} />
+	const additionalBuffs = hmPointBuffs[type]
+		.filter(buff => pointData.picks[buff.index].point !== 0)
+		.map(buff => {
+			return (
+				<div className={style.additionalBuff} key={buff.type}>
+					<div>
+						<ImageLoader key={buff.type} src={statIcons[buff.icon]} />
+					</div>
+					<div>
+						<Typography>
+							<T id={['character', 'hm_point_dialog', buff.label]} />
+						</Typography>
+						<Typography color="textSecondary">
+							<T id={['character', 'hm_point_dialog', buff.effect]} />
+						</Typography>
+					</div>
 				</div>
-				<div>
-					<Typography>
-						<T id={['character', 'hm_point_dialog', buff.label]} />
-					</Typography>
-					<Typography color="textSecondary">
-						<T id={['character', 'hm_point_dialog', buff.effect]} />
-					</Typography>
-				</div>
-			</div>
-		)
-	})
+			)
+		})
 
 	return (
-		<Dialog
-			open={open}
-			fullScreen={fullScreen}
-			onClose={close}
-			className={classNames(style.hmPointDialog, style.dialog)}>
-			<DialogTitle disableTypography className={style.header}>
+		<Dialog open={open} onClose={close} className={style.hmPointDialog}>
+			<DialogTitle disableTypography>
 				<Typography variant="subtitle1">
 					<T
 						id={[
@@ -73,9 +60,6 @@ const HMPointDialog: React.SFC<Props> = props => {
 				<Typography variant="subtitle1" color="primary" className={style.totalPoints}>
 					{totalPoints}P
 				</Typography>
-				<IconButton color="inherit" onClick={close} className={style.closeButton}>
-					<Close />
-				</IconButton>
 			</DialogTitle>
 			<DialogContent>
 				<div className={style.mainEffectContainer}>
@@ -157,4 +141,4 @@ const HMPointDialog: React.SFC<Props> = props => {
 	)
 }
 
-export default withMobileDialog<SelfProps>({ breakpoint: 'xs' })(HMPointDialog)
+export default React.memo(HMPointDialog)

@@ -12,6 +12,7 @@
 			display: flex;
 			align-items: baseline;
 			font-weight: normal;
+			overflow: hidden;
 
 			& .move {
 				margin-left: 0.6rem;

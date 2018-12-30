@@ -49,4 +49,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(SkillPage)
+export default connect(mapStateToProps)(React.memo(SkillPage))

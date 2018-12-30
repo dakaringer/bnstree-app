@@ -40,4 +40,4 @@ const ScrollContainer: React.SFC<Props> = props => {
 	)
 }
 
-export default ScrollContainer
+export default React.memo(ScrollContainer)

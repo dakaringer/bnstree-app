@@ -50,8 +50,9 @@ const ItemTooltip: React.SFC<Props> = props => {
 									<ImageLoader src={`${STATIC_SERVER}/images/items/${item.icon}`} />
 									{item.name[locale]}
 								</span>
-								{itemData.fuse &&
-									i !== itemData.fuse.length - 1 && <span className={style.plus}> + </span>}
+								{itemData.fuse && i !== itemData.fuse.length - 1 && (
+									<span className={style.plus}> + </span>
+								)}
 							</span>
 						)
 					})}
@@ -92,4 +93,4 @@ const mapStateToProps = (state: RootState) => {
 export default compose<Props, SelfProps>(
 	withWidth(),
 	connect(mapStateToProps)
-)(ItemTooltip)
+)(React.memo(ItemTooltip))

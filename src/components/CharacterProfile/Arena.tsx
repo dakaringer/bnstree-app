@@ -69,4 +69,4 @@ const Arena: React.SFC<Props> = props => {
 	)
 }
 
-export default Arena
+export default React.memo(Arena)

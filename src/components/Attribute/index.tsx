@@ -149,4 +149,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(Attribute)
+export default connect(mapStateToProps)(React.memo(Attribute))

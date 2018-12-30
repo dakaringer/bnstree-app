@@ -1,5 +1,4 @@
 @import 'constants';
-@import 'dialog';
 
 .hm-point-dialog {
 	& .total-points {
