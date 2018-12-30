@@ -19,6 +19,36 @@ interface SelfProps {
 
 interface Props extends SelfProps {}
 
+const getAdditionalBuffValues = (type: string, tier: number) => {
+	switch (type) {
+		case 'threat':
+			return {
+				value1: tier * 100,
+				value2: null
+			}
+		case 'energy':
+			return {
+				value1: tier * 500,
+				value2: tier * 50
+			}
+		case 'regen':
+			return {
+				value1: tier * 1000,
+				value2: tier * 2
+			}
+		case 'speed':
+			return {
+				value1: tier * 5,
+				value2: tier * 5
+			}
+		case 'status':
+			return {
+				value1: tier * 120,
+				value2: tier * 200
+			}
+	}
+}
+
 const HMPointDialog: React.SFC<Props> = props => {
 	const { type, pointData, open, close } = props
 
@@ -26,7 +56,7 @@ const HMPointDialog: React.SFC<Props> = props => {
 	const totalPoints = type === 'attack' ? pointData.offense_point : pointData.defense_point
 
 	const additionalBuffs = hmPointBuffs[type]
-		.filter(buff => pointData.picks[buff.index].point !== 0)
+		.filter(buff => pointData.picks[buff.index].tier !== 0)
 		.map(buff => {
 			return (
 				<div className={style.additionalBuff} key={buff.type}>
@@ -35,10 +65,13 @@ const HMPointDialog: React.SFC<Props> = props => {
 					</div>
 					<div>
 						<Typography>
-							<T id={['character', 'hm_point_dialog', buff.label]} />
+							<T id={['character', 'hm_point_dialog', buff.label]} /> {pointData.picks[buff.index].point}
 						</Typography>
 						<Typography color="textSecondary">
-							<T id={['character', 'hm_point_dialog', buff.effect]} />
+							<T
+								id={['character', 'hm_point_dialog', buff.effect]}
+								values={getAdditionalBuffValues(buff.type, pointData.picks[buff.index].tier)}
+							/>
 						</Typography>
 					</div>
 				</div>

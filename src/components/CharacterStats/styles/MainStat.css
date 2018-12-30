@@ -42,7 +42,13 @@
 		}
 
 		& .hm-point-buff {
-			margin-left: 0.5rem;
+			margin-left: 1rem;
+			display: inline-flex;
+			align-items: center;
+
+			& img {
+				margin-right: 0.3rem;
+			}
 
 			&.disabled {
 				filter: brightness(50%);

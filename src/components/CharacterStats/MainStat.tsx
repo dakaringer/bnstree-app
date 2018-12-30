@@ -60,13 +60,14 @@ class MainStat extends React.PureComponent<Props, State> {
 					<div>
 						{hmPointBuffs[type].map(buff => {
 							return (
-								<ImageLoader
+								<span
 									key={buff.type}
-									src={statIcons[buff.icon]}
 									className={classNames(style.hmPointBuff, {
-										[style.disabled]: statData.point_ability.picks[buff.index].point === 0
-									})}
-								/>
+										[style.disabled]: statData.point_ability.picks[buff.index].tier === 0
+									})}>
+									<ImageLoader src={statIcons[buff.icon]} />
+									{statData.point_ability.picks[buff.index].point}
+								</span>
 							)
 						})}
 					</div>

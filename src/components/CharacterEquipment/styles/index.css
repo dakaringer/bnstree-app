@@ -30,6 +30,7 @@
 
 		& .gems {
 			display: flex;
+			flex-wrap: wrap;
 
 			& img {
 				height: 2.5rem;
