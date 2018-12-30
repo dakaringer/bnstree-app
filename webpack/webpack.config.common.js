@@ -81,7 +81,6 @@ module.exports = {
 						loader: 'css-loader',
 						options: {
 							modules: true,
-							namedExport: true,
 							camelCase: true,
 							localIdentName: '[name]__[local]__[hash:8]',
 							importLoaders: 1
