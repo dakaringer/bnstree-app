@@ -85,7 +85,7 @@ module.exports = merge(common, {
 			release: process.env.RELEASE || 'test',
 			include: './dist',
 			ignore: ['node_modules', 'webpack'],
-			dryRun: Boolean(process.env.RELEASE)
+			dryRun: !process.env.RELEASE
 		})
 	]
 })
