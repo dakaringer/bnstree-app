@@ -1,3 +1,5 @@
+declare var global: any
+
 declare module '*.css' {
 	interface IClassNames {
 		[className: string]: string

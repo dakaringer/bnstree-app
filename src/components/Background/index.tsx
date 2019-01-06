@@ -24,11 +24,11 @@ class Background extends React.PureComponent<Props, State> {
 	}
 
 	componentDidMount = () => {
-		this.intervalId = window.setInterval(this.next, 60000)
+		this.intervalId = setInterval(this.next, 60000)
 	}
 
 	componentWillUnmount = () => {
-		window.clearInterval(this.intervalId)
+		clearInterval(this.intervalId)
 	}
 
 	next = () => {

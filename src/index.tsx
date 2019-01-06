@@ -1,4 +1,5 @@
 import 'regenerator-runtime/runtime'
+import ensurePolyfill from './polyfill'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -23,4 +24,6 @@ const Root: React.SFC = () => (
 	</ErrorBoundary>
 )
 
-ReactDOM.render(<Root />, document.getElementById('root'))
+ensurePolyfill.then(() => {
+	ReactDOM.render(<Root />, document.getElementById('root'))
+})
