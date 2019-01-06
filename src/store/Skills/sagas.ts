@@ -19,6 +19,7 @@ const loadDataCall = (classCode: ReturnType<typeof Actions.loadData>['payload'])
 
 // Sagas
 function* loadSkillDataSaga(action: ReturnType<typeof Actions.loadData>) {
+	yield put(Actions.setClass(action.payload))
 	const data = yield select(getData)
 	if (data[action.payload]) return
 	yield put(Actions.setLoading(true))

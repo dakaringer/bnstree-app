@@ -167,8 +167,8 @@ class SkillList extends React.PureComponent<Props, State> {
 											currentMove={(buildData && buildData[skill._id]) || 1}
 											classCode={classCode}
 											element={element}
-											showHotkey={skillPreferences.order === 'LEVEL' || Boolean(readonly)}
-											readonly={Boolean(readonly)}
+											showHotkey={skillPreferences.order === 'LEVEL' || !!readonly}
+											readonly={!!readonly}
 										/>
 									))}
 								</div>

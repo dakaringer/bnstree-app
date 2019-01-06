@@ -90,7 +90,7 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 					</Button>
 					<Menu
 						anchorEl={classAnchor}
-						open={Boolean(classAnchor)}
+						open={!!classAnchor}
 						onClose={() => this.setState({ classAnchor: undefined })}>
 						{classes
 							.filter(c => c.classCode !== classCode)

@@ -3,7 +3,7 @@
 .trait-skill {
 	margin: 1rem 0;
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 
 	& .icon {
 		margin-right: 1rem;
@@ -12,6 +12,11 @@
 			width: 2.4rem;
 			height: 2.4rem;
 		}
+	}
+
+	& .skill {
+		display: flex;
+		align-items: baseline;
 	}
 
 	& .suffix {

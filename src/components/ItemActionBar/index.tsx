@@ -26,9 +26,7 @@ interface PropsFromDispatch {
 	updatePreferencesNoSave: typeof UserActions.updatePreferencesNoSave
 }
 
-interface SelfProps {}
-
-interface Props extends SelfProps, InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
+interface Props extends InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
 
 interface State {
 	classAnchor: HTMLElement | undefined
@@ -82,7 +80,7 @@ class ItemActionBar extends React.PureComponent<Props, State> {
 					</Button>
 					<Menu
 						anchorEl={classAnchor}
-						open={Boolean(classAnchor)}
+						open={!!classAnchor}
 						onClose={() => this.setState({ classAnchor: undefined })}>
 						{itemPreferences.filter !== 'ALL' && (
 							<MenuItem key="all" onClick={() => this.filter('ALL')} className={style.menuFilter}>
@@ -141,7 +139,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 		dispatch
 	)
 
-export default compose<Props, SelfProps>(
+export default compose<Props, {}>(
 	injectIntl,
 	connect(
 		mapStateToProps,

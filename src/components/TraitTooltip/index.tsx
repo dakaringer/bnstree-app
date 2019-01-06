@@ -38,9 +38,9 @@ const TraitTooltip: React.SFC<Props> = props => {
 				</Typography>
 			}
 			extra={trait.data.skills.map((skill, i) => (
-				<TraitSkill key={i} traitSkill={skill} specialization={specialization} classCode={trait.classCode} />
+				<TraitSkill key={i} traitSkill={skill} specialization={specialization} />
 			))}
-			offset={-3}
+			offset={-2}
 			{...tooltipProps}
 		/>
 	)

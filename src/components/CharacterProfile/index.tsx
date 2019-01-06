@@ -131,7 +131,7 @@ class CharacterProfile extends React.PureComponent<Props, State> {
 					</Paper>
 				</div>
 				<Menu
-					open={Boolean(accountAnchor)}
+					open={!!accountAnchor}
 					anchorEl={accountAnchor}
 					onClose={() => this.setState({ accountAnchor: undefined })}>
 					{accountCharacters}

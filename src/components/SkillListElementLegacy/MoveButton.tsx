@@ -37,7 +37,7 @@ const MoveButton: React.SFC<Props> = props => {
 			<Button
 				classes={{
 					root: classNames(style.move, {
-						[style.hasHM]: Boolean(hmMoveData)
+						[style.hasHM]: !!hmMoveData
 					}),
 					label: style.label,
 					disabled: style.disabled

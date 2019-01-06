@@ -78,7 +78,7 @@ const ItemTooltip: React.SFC<Props> = props => {
 			sub={sub}
 			extra={<>{extra}</>}
 			className={style.itemTooltip}
-			offset={-3}
+			offset={-2}
 			{...tooltipProps}
 		/>
 	)

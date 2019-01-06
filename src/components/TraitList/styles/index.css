@@ -4,7 +4,7 @@
 	overflow: hidden;
 	max-width: 120rem;
 	margin: 0 auto;
-	padding-top: 1rem;
+	padding-top: 2rem;
 
 	& .trait-group {
 		display: grid;

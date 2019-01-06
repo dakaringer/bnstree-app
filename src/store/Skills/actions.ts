@@ -13,6 +13,7 @@ const Actions = {
 		data: Skill[]
 		traits: Trait[]
 	}>(),
+	setClass: createStandardAction(reduxActionTypes.SET_CLASS)<ClassCode>(),
 	setLoading: createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
 }
 type Actions = ActionType<typeof Actions>

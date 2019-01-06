@@ -3,6 +3,7 @@ import { ClassCode, SkillSpecialization, Attribute } from '@src/store/constants'
 export interface Skills {
 	data: { [key in ClassCode]: Skill[] | null }
 	traits: { [key in ClassCode]: Trait[] | null }
+	currentClass: ClassCode
 	isLoading: boolean
 }
 
@@ -13,7 +14,8 @@ export interface Skill {
 }
 
 export interface SkillData {
-	name: string
+	nameId: string
+	name?: string
 	icon?: string
 	minLevel: number
 	hotkey: string
@@ -53,7 +55,8 @@ export interface Trait {
 	specialization?: SkillSpecialization<ClassCode>
 	classCode: ClassCode
 	data: {
-		name: string
+		nameId: string
+		name?: string
 		icon?: string
 		skills: TraitSkill[]
 	}

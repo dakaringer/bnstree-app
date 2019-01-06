@@ -3,6 +3,8 @@ import { reduxActionTypes } from './actionTypes'
 import { Skills } from './types'
 import Actions from './actions'
 
+import { ClassCode } from '@src/store/constants'
+
 export type State = DeepReadonly<Skills>
 
 const initialState = {
@@ -32,11 +34,18 @@ const initialState = {
 		GS: null,
 		WR: null
 	},
+	currentClass: 'BM' as ClassCode,
 	isLoading: false
 }
 
 export default (state: State = initialState, action: Actions) => {
 	switch (action.type) {
+		case reduxActionTypes.SET_CLASS: {
+			return {
+				...state,
+				currentClass: action.payload
+			}
+		}
 		case reduxActionTypes.SET_DATA: {
 			return {
 				...state,

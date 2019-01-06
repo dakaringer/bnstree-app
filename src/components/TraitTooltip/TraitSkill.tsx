@@ -9,29 +9,26 @@ import { DeepReadonly } from '@src/utils/immutableHelper'
 import { RootState } from '@src/store/rootReducer'
 import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { TraitSkill, SkillData } from '@src/store/Skills/types'
-import { getData, getSkillPreferences } from '@src/store/Skills/selectors'
+import { getSkillsWithTags, getSkillPreferences } from '@src/store/Skills/selectors'
 
 import { STATIC_SERVER } from '@src/constants'
 import style from './styles/TraitSkill.css'
 import SkillTooltip from '@src/components/SkillTooltip'
-import mergeChanges from './mergeChanges'
-import { processSkillNameAndTags } from '@src/utils/helpers'
 
 interface PropsFromStore {
-	skillData: ReturnType<typeof getData>
+	skillData: ReturnType<typeof getSkillsWithTags>
 	skillPreferences: ReturnType<typeof getSkillPreferences>
 }
 
 interface Props extends PropsFromStore {
 	traitSkill: DeepReadonly<TraitSkill>
 	specialization: SkillSpecialization<ClassCode>
-	classCode: ClassCode
 }
 
 const TraitSkill: React.SFC<Props> = props => {
-	const { traitSkill, specialization, classCode, skillData } = props
+	const { traitSkill, specialization, skillData } = props
 
-	const classSkills = skillData[classCode] || []
+	const classSkills = skillData || []
 	const targetSkill = classSkills.find(skill => traitSkill.skillId === skill._id)
 
 	return (
@@ -39,8 +36,11 @@ const TraitSkill: React.SFC<Props> = props => {
 			{!traitSkill.action &&
 				(() => {
 					if (!targetSkill || !traitSkill.data) return null
-					const modifiedSkillData = processSkillNameAndTags(mergeChanges(targetSkill.data, traitSkill.data))
-					const targetSkillData = processSkillNameAndTags(targetSkill.data)
+					const modifiedSkillData = {
+						...targetSkill.data,
+						...traitSkill.data
+					}
+					const targetSkillData = targetSkill.data
 					return (
 						<>
 							<SkillTooltip
@@ -65,7 +65,7 @@ const TraitSkill: React.SFC<Props> = props => {
 				traitSkill.action !== 'ADD' &&
 				(() => {
 					if (!targetSkill) return null
-					const targetSkillData = processSkillNameAndTags(targetSkill.data)
+					const targetSkillData = targetSkill.data
 					return (
 						<>
 							<SkillTooltip
@@ -91,7 +91,7 @@ const TraitSkill: React.SFC<Props> = props => {
 				traitSkill.action !== 'REMOVE' &&
 				(() => {
 					if (!traitSkill.data) return null
-					const newSkillData = processSkillNameAndTags(traitSkill.data as SkillData)
+					const newSkillData = traitSkill.data as SkillData
 					return (
 						<>
 							<SkillTooltip
@@ -108,22 +108,22 @@ const TraitSkill: React.SFC<Props> = props => {
 							/>
 							<Typography color="inherit" className={style.skill}>
 								{newSkillData.name}
+								{traitSkill.action === 'ADD' && (
+									<Typography variant="caption" color="textSecondary" className={style.suffix}>
+										<T id="skill.trait.added" />
+									</Typography>
+								)}
 							</Typography>
 						</>
 					)
 				})()}
-			{traitSkill.action === 'ADD' && (
-				<Typography variant="caption" color="textSecondary" className={style.suffix}>
-					<T id="skill.trait.added" />
-				</Typography>
-			)}
 		</div>
 	)
 }
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillData: getData(state),
+		skillData: getSkillsWithTags(state),
 		skillPreferences: getSkillPreferences(state)
 	}
 }

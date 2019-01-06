@@ -131,7 +131,7 @@ const SkillTooltip: React.SFC<Props> = props => {
 				</>
 			}
 			className={style.skillTooltip}
-			offset={-3}
+			offset={-2}
 			{...tooltipProps}
 		/>
 	)

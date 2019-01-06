@@ -37,7 +37,7 @@ const SkillListElement: React.SFC<Props> = props => {
 								<ImageLoader src={`${STATIC_SERVER}/images/skills/${skill.data.icon}`} />
 							</ButtonBase>
 						}
-						offset={-3}
+						offset={-1}
 					/>
 				</div>
 				<Typography variant="subtitle1" color="inherit" className={style.skill}>

@@ -2,7 +2,6 @@ import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
-import { get } from 'lodash-es'
 import { Button } from '@material-ui/core'
 import FadeContainer from '@src/components/FadeContainer'
 import T from '@src/components/T'
@@ -69,10 +68,7 @@ class SkillPage extends React.PureComponent<Props> {
 		const mode = skillPreferences.mode
 
 		return (
-			<PageContainer
-				isLoading={isLoading}
-				topNav={<SkillActionBar classCode={classCode} />}
-				className={style.skill}>
+			<PageContainer isLoading={isLoading} topNav={<SkillActionBar />} className={style.skill}>
 				<div className={style.modes}>
 					<Button
 						variant="outlined"
@@ -90,14 +86,8 @@ class SkillPage extends React.PureComponent<Props> {
 					</Button>
 				</div>
 				<FadeContainer currentKey={`${classCode}-${specialization}-${mode}`}>
-					{mode === 'TRAITS' && (
-						<TraitList
-							classCode={classCode}
-							specialization={specialization}
-							buildData={get(skillPreferences.build, [classCode, specialization], {})}
-						/>
-					)}
-					{mode === 'LIST' && <SkillList classCode={classCode} specialization={specialization} />}
+					{mode === 'TRAITS' && <TraitList />}
+					{mode === 'LIST' && <SkillList />}
 				</FadeContainer>
 			</PageContainer>
 		)

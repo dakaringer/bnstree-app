@@ -18,7 +18,7 @@ const PageContainer: React.SFC<Props> = props => {
 
 	return (
 		<>
-			<Slide direction="down" in={Boolean(topNav)} timeout={500}>
+			<Slide direction="down" in={!!topNav} timeout={500}>
 				<Paper square className={style.topNav}>
 					{topNav}
 				</Paper>

@@ -5,14 +5,14 @@ import { NavLink } from 'react-router-dom'
 import { Button, IconButton, Input, Hidden, MenuItem, Menu } from '@material-ui/core'
 import { Tune, Share, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
-import { get } from 'lodash-es'
+import { get, debounce } from 'lodash-es'
 import T from '@src/components/T'
 import ImageLoader from '@src/components/ImageLoader'
 import compose from '@src/utils/compose'
 
 import { RootState } from '@src/store/rootReducer'
 import { SkillSpecialization, ClassCode } from '@src/store/constants'
-import { getSkillPreferences } from '@src/store/Skills/selectors'
+import { getCurrentClass, getSkillPreferences } from '@src/store/Skills/selectors'
 import UserActions from '@src/store/User/actions'
 
 import { classes } from '@src/constants'
@@ -23,6 +23,7 @@ import SettingsDialog from './SettingsDialog'
 import specializations from './specializations'
 
 interface PropsFromStore {
+	classCode: ReturnType<typeof getCurrentClass>
 	skillPreferences: ReturnType<typeof getSkillPreferences>
 }
 
@@ -31,24 +32,21 @@ interface PropsFromDispatch {
 	updatePreferencesNoSave: typeof UserActions.updatePreferencesNoSave
 }
 
-interface SelfProps {
-	classCode: ClassCode
-	readonly?: boolean
-}
-
-interface Props extends SelfProps, InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
+interface Props extends InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
 
 interface State {
 	settingsDialogOpen: boolean
 	classAnchor: HTMLElement | undefined
 	specializationAnchor: HTMLElement | undefined
+	searchString: string
 }
 
 class SkillActionBar extends React.PureComponent<Props, State> {
 	state: State = {
 		settingsDialogOpen: false,
 		classAnchor: undefined,
-		specializationAnchor: undefined
+		specializationAnchor: undefined,
+		searchString: ''
 	}
 
 	selectSpecialization = (specialization: SkillSpecialization<ClassCode>) => {
@@ -64,19 +62,17 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 		this.setState({ specializationAnchor: undefined })
 	}
 
-	search = (value: string) => {
+	search = () => {
 		const { updatePreferencesNoSave } = this.props
+		const { searchString } = this.state
 
-		updatePreferencesNoSave({
-			skills: {
-				search: value
-			}
-		})
+		updatePreferencesNoSave({ skills: { search: searchString } })
 	}
+	debouncedSearch = debounce(this.search, 200, { leading: true })
 
 	render = () => {
 		const { classCode, intl, skillPreferences } = this.props
-		const { settingsDialogOpen, classAnchor, specializationAnchor } = this.state
+		const { settingsDialogOpen, classAnchor, specializationAnchor, searchString } = this.state
 		const specialization = skillPreferences.specialization[classCode]
 
 		return (
@@ -92,7 +88,7 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 					</Button>
 					<Menu
 						anchorEl={classAnchor}
-						open={Boolean(classAnchor)}
+						open={!!classAnchor}
 						onClose={() => this.setState({ classAnchor: undefined })}>
 						{classes
 							.filter(c => c.classCode !== classCode)
@@ -115,7 +111,7 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 					</Button>
 					<Menu
 						anchorEl={specializationAnchor}
-						open={Boolean(specializationAnchor)}
+						open={!!specializationAnchor}
 						onClose={() => this.setState({ specializationAnchor: undefined })}>
 						{(specializations[classCode] as SkillSpecialization<ClassCode>[])
 							.filter(s => s !== specialization)
@@ -135,12 +131,14 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 						disableUnderline
 						placeholder={intl.formatMessage({ id: 'skill.search_placeholder' })}
 						className={style.search}
-						value={skillPreferences.search}
-						onChange={event => this.search(event.currentTarget.value)}
+						value={searchString}
+						onChange={event => this.setState({ searchString: event.target.value }, this.debouncedSearch)}
 						endAdornment={
 							<>
 								{skillPreferences.search.trim() !== '' && (
-									<IconButton className={style.clear} onClick={() => this.search('')}>
+									<IconButton
+										className={style.clear}
+										onClick={() => this.setState({ searchString: '' }, this.debouncedSearch)}>
 										<Clear />
 									</IconButton>
 								)}
@@ -167,6 +165,7 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
+		classCode: getCurrentClass(state),
 		skillPreferences: getSkillPreferences(state)
 	}
 }
@@ -180,7 +179,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 		dispatch
 	)
 
-export default compose<Props, SelfProps>(
+export default compose<Props, {}>(
 	injectIntl,
 	connect(
 		mapStateToProps,

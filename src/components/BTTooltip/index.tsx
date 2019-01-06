@@ -101,8 +101,7 @@ class BTTooltip extends React.PureComponent<Props, State> {
 					onPointerLeave={() => this.setState({ tooltipOpen: false })}
 					modifiers={{
 						offset: { offset: offset || 0 },
-						computeStyle: { gpuAcceleration: false },
-						preventOverflow: { padding: 0 }
+						computeStyle: { gpuAcceleration: false }
 					}}>
 					{() => (
 						<Fade in={tooltipOpen} unmountOnExit>

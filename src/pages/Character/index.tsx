@@ -144,6 +144,11 @@ class CharacterPage extends React.PureComponent<Props> {
 							badges={characterData.badges}
 						/>
 						<div className={style.characterInfo}>
+							<CharacterEquipment
+								equipmentData={characterData.equipment}
+								region={characterData.profile.region}
+								className={style.equipment}
+							/>
 							<CharacterStats
 								statData={characterData.stats}
 								type="attack"
@@ -155,11 +160,6 @@ class CharacterPage extends React.PureComponent<Props> {
 								type="defense"
 								classCode={characterData.profile.classCode}
 								className={style.stats}
-							/>
-							<CharacterEquipment
-								equipmentData={characterData.equipment}
-								region={characterData.profile.region}
-								className={style.equipment}
 							/>
 						</div>
 						{characterData.skills && (
