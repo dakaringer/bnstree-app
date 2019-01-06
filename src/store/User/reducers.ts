@@ -24,7 +24,7 @@ const initialState = {
 	preferences: {
 		skills: {
 			search: '',
-			mode: 'LIST' as SkillMode,
+			mode: 'TRAITS' as SkillMode,
 			specialization: {
 				BM: 'empty' as SkillSpecialization<'BM'>,
 				KF: 'empty' as SkillSpecialization<'KF'>,
