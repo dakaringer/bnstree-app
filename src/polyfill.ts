@@ -5,7 +5,7 @@ export default new Promise(async resolve => {
 		})
 	}
 	if (!global.Intl) {
-		await require(['Intl'], Intl => {
+		await require(['intl'], Intl => {
 			global.Intl = Intl
 		})
 	}
