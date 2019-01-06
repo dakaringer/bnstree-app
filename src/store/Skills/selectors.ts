@@ -72,7 +72,14 @@ export const getFilteredSkills = createSelector(
 			data = fuse.search(skillPreferences.search)
 		}
 
-		return groupBy(data, skill => skill.data.minLevel)
+		return groupBy(
+			data.sort((a, b) => {
+				if (a._id < b._id) return -1
+				if (a._id > b._id) return 1
+				return 0
+			}),
+			skill => skill.data.minLevel
+		)
 	}
 )
 export const getTraits = createSelector(
@@ -137,6 +144,6 @@ export const getFilteredTraits = createSelector(
 			data = fuse.search(skillPreferences.search)
 		}
 
-		return groupBy(data, trait => trait.index[0])
+		return groupBy(data.sort((a, b) => a.index[1] - b.index[1]), trait => trait.index[0])
 	}
 )
