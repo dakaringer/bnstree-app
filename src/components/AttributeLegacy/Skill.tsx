@@ -7,7 +7,7 @@ import { RootState } from '@src/store/rootReducer'
 import { getLocale } from '@src/store/Intl/selectors'
 import { getResource } from '@src/store/Resources/selectors'
 
-import * as style from './styles/Skill.css'
+import style from './styles/Skill.css'
 import { STATIC_SERVER } from '@src/constants'
 import Join from './Join'
 

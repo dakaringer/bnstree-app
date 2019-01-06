@@ -9,7 +9,7 @@ import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { RootState } from '@src/store/rootReducer'
 import { getData, getSkillPreferences } from '@src/store/Skills/selectors'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import SkillListElement from '@src/components/SkillListElement'
 import { processSkillNameAndTags } from '@src/utils/helpers'
 

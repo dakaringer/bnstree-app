@@ -9,7 +9,7 @@ import { CharacterEquipment as CharacterEquipmentType } from '@src/store/Charact
 import { CharacterRegion } from '@src/store/constants'
 import { API_SERVER } from '@src/constants'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import SoulshieldDialog from './SoulshieldDialog'
 
 interface Props {

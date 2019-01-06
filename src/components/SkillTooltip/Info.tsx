@@ -8,7 +8,7 @@ import T from '@src/components/T'
 import { DeepReadonly, DeepReadonlyArray } from '@src/utils/immutableHelper'
 import { MoveInfo } from '@src/store/Skills/types'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 const getInfoText = (value: number | DeepReadonlyArray<number>, type: 'range' | 'area' | 'time') => {
 	if (type === 'range' || type === 'area') {

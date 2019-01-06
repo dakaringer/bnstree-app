@@ -15,7 +15,7 @@ import { getSkillPreferences } from '@src/store/SkillsLegacy/selectors'
 import UserActions from '@src/store/User/actions'
 
 import { classes } from '@src/constants'
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import classIcons from '@src/images/classIcons'
 import elementIcons from '@src/images/elementIcons'
 import SettingsDialog from './SettingsDialog'

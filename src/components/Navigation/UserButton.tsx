@@ -8,7 +8,7 @@ import { DeepReadonly } from '@src/utils/immutableHelper'
 import { UserData } from '@src/store/User/types'
 import UserActions from '@src/store/User/actions'
 
-import * as style from './styles/Menu.css'
+import style from './styles/Menu.css'
 import { LinkObject } from './links'
 
 interface PropsFromDispatch {

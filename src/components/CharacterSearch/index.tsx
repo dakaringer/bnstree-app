@@ -15,7 +15,7 @@ import { CharacterRegion } from '@src/store/constants'
 import { getCharacterPreferences } from '@src/store/Character/selectors'
 import UserActions from '@src/store/User/actions'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import SearchInput from './SearchInput'
 
 interface PropsFromStore {

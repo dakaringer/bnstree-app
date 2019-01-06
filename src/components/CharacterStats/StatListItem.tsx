@@ -7,7 +7,7 @@ import ImageLoader from '@src/components/ImageLoader'
 import { DeepReadonly } from '@src/utils/immutableHelper'
 import { CharacterStats } from '@src/store/Character/types'
 
-import * as style from './styles/CharacterStatListItem.css'
+import style from './styles/CharacterStatListItem.css'
 import statIcons from './images/statIcons'
 
 interface Props {

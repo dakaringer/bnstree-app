@@ -6,7 +6,7 @@ import { Typography, ListItem } from '@material-ui/core'
 import { googleYoloConfig, googleAuthConfig } from './config'
 import UserActions from '@src/store/User/actions'
 
-import * as style from './styles/Menu.css'
+import style from './styles/Menu.css'
 import { LinkObject } from './links'
 import GoogleLogo from './images/GoogleLogo.svg'
 import GoogleLogoPressed from './images/GoogleLogo-pressed.svg'

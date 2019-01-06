@@ -12,7 +12,7 @@ import { getLocale } from '@src/store/Intl/selectors'
 
 import { SkillSpecialization, ClassCode } from '@src/store/constants'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import TraitSkill from './TraitSkill'
 
 interface Props {

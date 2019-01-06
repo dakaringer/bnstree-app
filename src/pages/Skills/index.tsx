@@ -19,7 +19,7 @@ import SkillActionBar from '@src/components/SkillActionBar'
 import SkillList from '@src/components/SkillList'
 import TraitList from '@src/components/TraitList'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>

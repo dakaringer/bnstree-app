@@ -3,7 +3,7 @@ import { Dialog, Popper, Paper, Fade, Typography } from '@material-ui/core'
 import classNames from 'classnames'
 import ImageLoader from '@src/components/ImageLoader'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 interface Props {
 	icon?: any

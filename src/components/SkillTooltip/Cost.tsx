@@ -3,7 +3,7 @@ import { ArrowRight } from '@material-ui/icons'
 import classNames from 'classnames'
 import T from '@src/components/T'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 const Cost = (currentCost: number, hoverCost: number, type: 'focus' | 'health' = 'focus') => {
 	const cost = type === 'focus' ? 'skill.general.cost_focus' : 'skill.general.cost_health'

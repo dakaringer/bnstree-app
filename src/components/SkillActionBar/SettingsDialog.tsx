@@ -18,7 +18,7 @@ import { RootState } from '@src/store/rootReducer'
 import { getSkillPreferences } from '@src/store/Skills/selectors'
 import UserActions from '@src/store/User/actions'
 
-import * as style from './styles/SettingsDialog.css'
+import style from './styles/SettingsDialog.css'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>

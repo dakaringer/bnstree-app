@@ -14,7 +14,7 @@ import { MoveData } from '@src/store/SkillsLegacy/types'
 import { getResource } from '@src/store/Resources/selectors'
 import { getLocale } from '@src/store/Intl/selectors'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import { STATIC_SERVER } from '@src/constants'
 import Cost from './Cost'
 import Attributes from './Attributes'

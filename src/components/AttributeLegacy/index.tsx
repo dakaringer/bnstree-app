@@ -10,7 +10,7 @@ import { SkillElement } from '@src/store/constants'
 import { SkillAttribute } from '@src/store/SkillsLegacy/types'
 import { getSkillPreferences } from '@src/store/SkillsLegacy/selectors'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import elementIcons from './images/elementIcons'
 import { STATIC_SERVER } from '@src/constants'
 import Skill from './Skill'

@@ -9,7 +9,7 @@ import { DeepReadonly, DeepReadonlyArray, DeepReadonlyObject } from '@src/utils/
 import { SkillElement } from '@src/store/constants'
 import { MoveInfo } from '@src/store/SkillsLegacy/types'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 const getInfoText = (
 	value: number | DeepReadonlyArray<number> | DeepReadonlyObject<{ [element in SkillElement]?: number | number[] }>,

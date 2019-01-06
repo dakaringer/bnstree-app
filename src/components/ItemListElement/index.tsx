@@ -8,7 +8,7 @@ import Virtualizer from '@src/components/Virtualizer'
 import { DeepReadonly } from '@src/utils/immutableHelper'
 import { ItemData } from '@src/store/Items/types'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import classIcons from '@src/images/classIcons'
 import { STATIC_SERVER } from '@src/constants'
 

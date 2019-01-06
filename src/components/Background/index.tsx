@@ -2,7 +2,7 @@ import * as React from 'react'
 import FadeContainer from '@src/components/FadeContainer'
 import ImageLoader from '@src/components/ImageLoader'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 const images = require.context('./images', true, /\.jpe?g$/)
 const keys = images.keys()

@@ -9,7 +9,7 @@ import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { Skill } from '@src/store/Skills/types'
 
 import { STATIC_SERVER } from '@src/constants'
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import keyIcons from './images/keyIcons'
 import SkillTooltip from '@src/components/SkillTooltip'
 import { types, typeIcons } from './images/typeIcons'

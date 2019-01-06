@@ -1,7 +1,7 @@
 import * as React from 'react'
 import SpriteAnimator from 'react-sprite-animator'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import loadingImg from './images/loading.png'
 
 const LoadingLyn = () => {

@@ -14,7 +14,7 @@ import { getResource } from '@src/store/Resources/selectors'
 import { getLocale, getMessages } from '@src/store/Intl/selectors'
 import SkillActions from '@src/store/SkillsLegacy/actions'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import comparators from './comparators'
 
 interface PropsFromStore {

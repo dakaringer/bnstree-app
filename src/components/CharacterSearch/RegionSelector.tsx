@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Select, MenuItem } from '@material-ui/core'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 const regions = ['NA', 'EU', 'KR', 'TW']
 

@@ -6,7 +6,7 @@ import ImageLoader from '@src/components/ImageLoader'
 
 import { DeepReadonly } from '@src/utils/immutableHelper'
 
-import * as style from './styles/HMPointDialog.css'
+import style from './styles/HMPointDialog.css'
 import statIcons from './images/statIcons'
 import { hmPointEffects, hmPointBuffs } from './stats'
 

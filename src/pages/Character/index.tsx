@@ -12,7 +12,7 @@ import { getData, getIsLoading } from '@src/store/Character/selectors'
 import CharacterActions from '@src/store/Character/actions'
 import UserActions from '@src/store/User/actions'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import PageContainer from '@src/components/PageContainer'
 import CharacterProfile from '@src/components/CharacterProfile'
 import CharacterEquipment from '@src/components/CharacterEquipment'

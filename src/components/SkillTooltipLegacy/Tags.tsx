@@ -5,7 +5,7 @@ import classNames from 'classnames'
 
 import { DeepReadonlyArray } from '@src/utils/immutableHelper'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 const Tags = (currentTags: DeepReadonlyArray<string>, hoverTags: DeepReadonlyArray<string>) => {
 	const diff = difference(currentTags, hoverTags)

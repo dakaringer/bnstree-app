@@ -3,7 +3,7 @@ import { ButtonBase, Hidden, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
 import classNames from 'classnames'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import Menu from './Menu'
 
 import ScrollContainer from '@src/components/ScrollContainer'

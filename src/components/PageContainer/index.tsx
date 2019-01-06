@@ -4,7 +4,7 @@ import { Paper, Slide } from '@material-ui/core'
 import LoadingLyn from '@src/components/LoadingLyn'
 import FadeContainer from '@src/components/FadeContainer'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 
 interface Props {
 	isLoading?: boolean

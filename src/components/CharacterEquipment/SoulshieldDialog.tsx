@@ -5,7 +5,7 @@ import T from '@src/components/T'
 import { DeepReadonly } from '@src/utils/immutableHelper'
 import { CharacterEquipment } from '@src/store/Character/types'
 
-import * as style from './styles/SoulshieldDialog.css'
+import style from './styles/SoulshieldDialog.css'
 
 interface SelfProps {
 	soulshieldData: DeepReadonly<CharacterEquipment['soulshield']>

@@ -9,7 +9,7 @@ import { CharacterStats } from '@src/store/Character/types'
 import { ClassCode } from '@src/store/constants'
 
 import { hmPointBuffs } from './stats'
-import * as style from './styles/MainStat.css'
+import style from './styles/MainStat.css'
 import statIcons from './images/statIcons'
 import HMPointDialog from './HMPointDialog'
 

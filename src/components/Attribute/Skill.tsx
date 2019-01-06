@@ -3,7 +3,7 @@ import ImageLoader from '@src/components/ImageLoader'
 
 import { STATIC_SERVER } from '@src/constants'
 import { getNameData } from '@src/utils/helpers'
-import * as style from './styles/Skill.css'
+import style from './styles/Skill.css'
 
 interface Props {
 	skillName: string

@@ -6,7 +6,7 @@ import T from '@src/components/T'
 import { DeepReadonly } from '@src/utils/immutableHelper'
 import { CharacterProfile as CharacterProfileType } from '@src/store/Character/types'
 
-import * as style from './styles/Arena.css'
+import style from './styles/Arena.css'
 import medals from './images/Medals'
 
 const getRank = (rating: number) => {

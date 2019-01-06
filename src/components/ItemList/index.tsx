@@ -15,7 +15,7 @@ import { getLocale } from '@src/store/Intl/selectors'
 import ItemActions from '@src/store/Items/actions'
 
 import { classes } from '@src/constants'
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import comparators from './comparators'
 
 interface PropsFromStore {

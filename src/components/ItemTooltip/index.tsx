@@ -13,7 +13,7 @@ import { RootState } from '@src/store/rootReducer'
 import { getResource } from '@src/store/Resources/selectors'
 import { getLocale } from '@src/store/Intl/selectors'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import { STATIC_SERVER } from '@src/constants'
 import Attributes from './Attributes'
 

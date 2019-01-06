@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Input } from '@material-ui/core'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import RegionSelector from './RegionSelector'
 
 interface SelfProps {

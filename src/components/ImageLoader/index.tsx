@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
 
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import * as blankImg from './images/blank.gif'
 
 interface Props {

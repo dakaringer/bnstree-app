@@ -12,7 +12,7 @@ import { TraitSkill, SkillData } from '@src/store/Skills/types'
 import { getData, getSkillPreferences } from '@src/store/Skills/selectors'
 
 import { STATIC_SERVER } from '@src/constants'
-import * as style from './styles/TraitSkill.css'
+import style from './styles/TraitSkill.css'
 import SkillTooltip from '@src/components/SkillTooltip'
 import mergeChanges from './mergeChanges'
 import { processSkillNameAndTags } from '@src/utils/helpers'

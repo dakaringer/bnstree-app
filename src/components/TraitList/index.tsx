@@ -8,7 +8,7 @@ import { RootState } from '@src/store/rootReducer'
 import { getTraits, getSkillPreferences } from '@src/store/Skills/selectors'
 
 import { getNameData } from '@src/utils/helpers'
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import TraitListElement from '@src/components/TraitListElement'
 
 interface PropsFromStore {

@@ -14,7 +14,7 @@ import compose from '@src/utils/compose'
 import { RootState } from '@src/store/rootReducer'
 import { getData } from '@src/store/User/selectors'
 
-import * as style from './styles/Menu.css'
+import style from './styles/Menu.css'
 import logo from './images/logo.png'
 import { menuLinks, LinkObject } from './links'
 import UserButton from './UserButton'

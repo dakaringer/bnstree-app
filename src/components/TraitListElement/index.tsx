@@ -8,7 +8,7 @@ import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { Trait } from '@src/store/Skills/types'
 
 import { STATIC_SERVER } from '@src/constants'
-import * as style from './styles/index.css'
+import style from './styles/index.css'
 import TraitTooltip from '@src/components/TraitTooltip'
 
 interface Props {

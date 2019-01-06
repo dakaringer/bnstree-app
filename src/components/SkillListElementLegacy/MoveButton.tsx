@@ -7,7 +7,7 @@ import T from '@src/components/T'
 import { DeepReadonly } from '@src/utils/immutableHelper'
 import { MoveData } from '@src/store/SkillsLegacy/types'
 
-import * as style from './styles/MoveButton.css'
+import style from './styles/MoveButton.css'
 import { types, typeIcons } from './images/typeIcons'
 import masteryIcon from './images/ic_mastery_pc.png'
 import masteryIcon_selected from './images/ic_mastery_pc_active.png'
