@@ -37,14 +37,11 @@ interface State {
 }
 
 class Menu extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			linkPath: []
-		}
+	state: State = {
+		linkPath: []
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate = (prevProps: Props) => {
 		const { location } = this.props
 		if (prevProps.location.pathname !== location.pathname) {
 			this.setState({
@@ -128,7 +125,9 @@ class Menu extends React.PureComponent<Props, State> {
 											key={linkObject.link}
 											button
 											className={classNames(style.link, {
-												[style.active]: location.pathname.startsWith(link)
+												[style.active]: link.split('/').reduce((acc, path, i) => {
+													return acc && location.pathname.split('/')[i] === path
+												}, true)
 											})}
 											onClick={() => this.openSubMenu(linkObject)}
 											component={
@@ -160,7 +159,7 @@ class Menu extends React.PureComponent<Props, State> {
 		)
 	}
 
-	render() {
+	render = () => {
 		const { isOpen, onOpen, onClose } = this.props
 
 		return (

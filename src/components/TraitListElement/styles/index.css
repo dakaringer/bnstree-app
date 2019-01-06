@@ -1,0 +1,24 @@
+@import 'constants';
+
+.trait-list-element {
+	display: flex;
+	padding: 1rem;
+
+	& .icon {
+		margin-right: 1rem;
+		& img {
+			width: 5.2rem;
+			height: 5.2rem;
+			border-radius: 0.3rem;
+
+			@media (--sm-down) {
+				width: 3rem;
+				height: 3rem;
+			}
+		}
+	}
+
+	& .skill {
+		margin-top: -0.5rem;
+	}
+}

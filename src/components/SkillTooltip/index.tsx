@@ -1,21 +1,18 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { Typography, withWidth } from '@material-ui/core'
-import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
+import { Typography } from '@material-ui/core'
 import BTTooltip from '@src/components/BTTooltip'
 import T from '@src/components/T'
-import Attribute from '@src/components/Attribute'
-import compose from '@src/utils/compose'
-import { DeepReadonly } from '@src/utils/immutableHelper'
 
+import { DeepReadonly } from '@src/utils/immutableHelper'
 import { RootState } from '@src/store/rootReducer'
-import { SkillElement } from '@src/store/constants'
-import { MoveData } from '@src/store/Skills/types'
+import { SkillSpecialization, ClassCode } from '@src/store/constants'
+import { SkillData } from '@src/store/Skills/types'
 import { getResource } from '@src/store/Resources/selectors'
 import { getLocale } from '@src/store/Intl/selectors'
 
-import * as style from './styles/index.css'
 import { STATIC_SERVER } from '@src/constants'
+import * as style from './styles/index.css'
 import Cost from './Cost'
 import Attributes from './Attributes'
 import Info from './Info'
@@ -26,53 +23,35 @@ interface PropsFromStore {
 	locale: ReturnType<typeof getLocale>
 }
 
-interface SelfProps {
-	currentMoveData: DeepReadonly<MoveData>
-	hoverMoveData: DeepReadonly<MoveData>
-	element: SkillElement
+interface Props extends PropsFromStore {
+	id?: string
+	currentMoveData: DeepReadonly<SkillData>
+	hoverMoveData?: DeepReadonly<SkillData>
+	specialization: SkillSpecialization<ClassCode>
 	target: React.ReactElement<any>
+	offset?: number | string
 }
 
-interface Props extends SelfProps, PropsFromStore, WithWidth {}
-
 const SkillTooltip: React.SFC<Props> = props => {
-	const { element, currentMoveData, hoverMoveData, resource, locale, width, ...tooltipProps } = props
+	let { id, specialization, currentMoveData, hoverMoveData, resource, locale, ...tooltipProps } = props
 
-	const moveNumber = hoverMoveData.move
-	const move = moveNumber > 3 ? moveNumber - 3 : moveNumber
+	if (!hoverMoveData) hoverMoveData = currentMoveData
 
-	const title = (
-		<div className={style.title}>
-			<Typography variant={isWidthDown('xs', width) ? 'subtitle1' : 'h6'} className={style.skill}>
-				{hoverMoveData.name}
-				{process.env.NODE_ENV !== 'production' && <Typography color="secondary">{hoverMoveData.id}</Typography>}
-				<Typography color="textSecondary" className={style.move}>
-					<T id={hoverMoveData.move > 3 ? 'skill.general.move_hm' : 'skill.general.move'} values={{ move }} />
-				</Typography>
-			</Typography>
-			<Typography color="textSecondary">
-				{Cost(currentMoveData.focus || 0, hoverMoveData.focus || 0)}
-				{Cost(currentMoveData.health || 0, hoverMoveData.health || 0, 'health')}
-			</Typography>
-		</div>
-	)
+	const { m1, m2, sub } = Attributes(currentMoveData.attributes || [], hoverMoveData.attributes || [], specialization)
 
-	const { m1, m2, sub } = Attributes(currentMoveData.attributes || [], hoverMoveData.attributes || [], element)
-
-	const info =
-		currentMoveData.info && hoverMoveData.info ? Info(currentMoveData.info, hoverMoveData.info, element) : null
+	const info = currentMoveData.info && hoverMoveData.info ? Info(currentMoveData.info, hoverMoveData.info) : null
 
 	const stanceChange = Attributes(
 		currentMoveData.stance_change || [],
 		hoverMoveData.stance_change || [],
-		element,
+		specialization,
 		'buff_debuff_icon_08_53'
 	).sub
 
 	const requirements = Attributes(
 		currentMoveData.requirements || [],
 		hoverMoveData.requirements || [],
-		element,
+		specialization,
 		'buff_debuff_icon_08_53'
 	).sub
 
@@ -81,7 +60,20 @@ const SkillTooltip: React.SFC<Props> = props => {
 	return (
 		<BTTooltip
 			icon={`${STATIC_SERVER}/images/skills/${hoverMoveData.icon}`}
-			title={title}
+			title={
+				<div className={style.title}>
+					<Typography variant="subtitle1" className={style.skill}>
+						{hoverMoveData.name}
+						{process.env.NODE_ENV !== 'production' && id && (
+							<Typography color="secondary"> {id}</Typography>
+						)}
+					</Typography>
+					<Typography color="textSecondary">
+						{Cost(currentMoveData.focus || 0, hoverMoveData.focus || 0)}
+						{Cost(currentMoveData.health || 0, hoverMoveData.health || 0, 'health')}
+					</Typography>
+				</div>
+			}
 			m1={m1}
 			m2={m2}
 			sub={sub}
@@ -108,25 +100,6 @@ const SkillTooltip: React.SFC<Props> = props => {
 							</Typography>
 						</div>
 					)}
-					{hoverMoveData.unlock && (
-						<div className={style.requirements}>
-							<Typography variant="caption" color="secondary">
-								<T id="tooltip.general.unlock_hm" />
-							</Typography>
-							<Typography variant="caption" color="inherit">
-								<Attribute
-									attribute={{
-										msg: `unlock.${hoverMoveData.unlock.type}`,
-										values: {
-											skillName: hoverMoveData.unlock.skillName || hoverMoveData.name
-										},
-										icon: 'achievement'
-									}}
-									defaultElement={element}
-								/>
-							</Typography>
-						</div>
-					)}
 					{tags}
 				</>
 			}
@@ -143,7 +116,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default compose<Props, SelfProps>(
-	withWidth(),
-	connect(mapStateToProps)
-)(React.memo(SkillTooltip))
+export default connect(mapStateToProps)(React.memo(SkillTooltip))

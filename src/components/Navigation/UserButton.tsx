@@ -46,7 +46,7 @@ class UserButton extends React.PureComponent<Props> {
 		})
 	}
 
-	render() {
+	render = () => {
 		const { userData } = this.props
 
 		return (

@@ -1,0 +1,10 @@
+.skill {
+	& .modes {
+		display: flex;
+		margin-bottom: 1rem;
+		justify-content: flex-end;
+		& button {
+			margin-right: 0.5rem;
+		}
+	}
+}

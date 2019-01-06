@@ -14,9 +14,9 @@ import { getResource } from '@src/store/Resources/selectors'
 import { getLocale } from '@src/store/Intl/selectors'
 import ItemActions from '@src/store/Items/actions'
 
+import { classes } from '@src/constants'
 import * as style from './styles/index.css'
 import comparators from './comparators'
-import { classes } from '@src/components/Navigation/links'
 
 interface PropsFromStore {
 	itemData: ReturnType<typeof getData>
@@ -44,18 +44,17 @@ class ItemList extends React.PureComponent<Props, State> {
 		const { itemType, loadItems } = props
 		loadItems(itemType)
 
-		this.filterItems = debounce(this.filterItems, 200, { leading: true })
 		this.state = {
 			itemData: undefined,
 			filteredItemData: undefined
 		}
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		this.processItems()
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate = (prevProps: Props) => {
 		const { itemData, itemType, itemPreferences, loadItems } = this.props
 
 		if (itemType !== prevProps.itemType) {
@@ -65,7 +64,7 @@ class ItemList extends React.PureComponent<Props, State> {
 		if (itemData[itemType] !== prevProps.itemData[itemType]) {
 			this.processItems()
 		} else if (itemPreferences !== prevProps.itemPreferences) {
-			this.filterItems()
+			this.debouncedFilterItems()
 		}
 	}
 
@@ -94,7 +93,7 @@ class ItemList extends React.PureComponent<Props, State> {
 			{
 				itemData: data
 			},
-			this.filterItems
+			this.debouncedFilterItems
 		)
 	}
 
@@ -120,8 +119,9 @@ class ItemList extends React.PureComponent<Props, State> {
 
 		this.setState({ filteredItemData: groupedData })
 	}
+	debouncedFilterItems = debounce(this.filterItems, 200, { leading: true })
 
-	render() {
+	render = () => {
 		const { itemType } = this.props
 		const { filteredItemData } = this.state
 		const itemData = filteredItemData

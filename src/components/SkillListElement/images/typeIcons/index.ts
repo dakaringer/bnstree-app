@@ -197,5 +197,6 @@ export const types: { [key: string]: string } = {
 	WINDWALK: 't29',
 	REVIVE: 't19',
 	PROJECTILE: 't33',
-	FAMILIAR: 't33'
+	FAMILIAR: 't33',
+	PASSIVE: 't33'
 }

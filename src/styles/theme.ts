@@ -16,7 +16,7 @@ export default createMuiTheme({
 		primary: blue,
 		secondary: amber,
 		background: {
-			paper: 'rgba(3, 3, 3, 0.85)'
+			paper: 'rgba(3, 3, 3, 0.9)'
 		}
 	},
 	typography: {

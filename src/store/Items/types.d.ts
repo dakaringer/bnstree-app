@@ -1,11 +1,11 @@
 import { ItemType, ClassCode, Attribute } from '@src/store/constants'
 
-interface Items {
+export interface Items {
 	data: { [key in ItemType]: ItemData[] | null }
 	isLoading: boolean
 }
 
-interface ItemData {
+export interface ItemData {
 	_id: string
 	group: string
 	name: string
@@ -17,14 +17,14 @@ interface ItemData {
 	fuse?: string[]
 }
 
-interface ItemStat {
+export interface ItemStat {
 	stat: string
 	value: number
 	group?: 'm1' | 'm2'
 	stage?: number
 }
 
-interface ItemAttribute {
+export interface ItemAttribute {
 	icon?: string
 	msg: string
 	values?: { [key: string]: any }

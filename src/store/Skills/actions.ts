@@ -1,7 +1,7 @@
 import { createStandardAction, ActionType } from 'typesafe-actions'
 
 import { sagaActionTypes, reduxActionTypes } from './actionTypes'
-import { SkillData } from './types'
+import { Skill, Trait } from './types'
 import { ClassCode } from '@src/store/constants'
 
 const Actions = {
@@ -10,7 +10,8 @@ const Actions = {
 	// Redux actions
 	setData: createStandardAction(reduxActionTypes.SET_DATA)<{
 		classCode: ClassCode
-		data: SkillData[]
+		data: Skill[]
+		traits: Trait[]
 	}>(),
 	setLoading: createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
 }

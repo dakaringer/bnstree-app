@@ -2,21 +2,21 @@ import * as React from 'react'
 import { get, isEqual } from 'lodash-es'
 
 import { DeepReadonlyArray } from '@src/utils/immutableHelper'
-import { SkillElement } from '@src/store/constants'
+import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { SkillAttribute } from '@src/store/Skills/types'
 import Attribute, { SelfProps as AttributeProps } from '@src/components/Attribute'
 
 const Attributes = (
 	currentAttributeList: DeepReadonlyArray<SkillAttribute>,
 	hoverAttributeList: DeepReadonlyArray<SkillAttribute>,
-	defaultElement: SkillElement,
+	defaultSpecialization: SkillSpecialization<ClassCode>,
 	defaultIcon?: string
 ) => {
 	const currentAttributes = currentAttributeList.filter(
-		attribute => !attribute.element || attribute.element === defaultElement
+		attribute => !attribute.specialization || attribute.specialization === defaultSpecialization
 	)
 	const hoverAttributes = hoverAttributeList.filter(
-		attribute => !attribute.element || attribute.element === defaultElement
+		attribute => !attribute.specialization || attribute.specialization === defaultSpecialization
 	)
 
 	const result = hoverAttributes
@@ -31,7 +31,6 @@ const Attributes = (
 
 			let attributeObject: AttributeProps = {
 				attribute: hoverAttribute,
-				defaultElement,
 				defaultIcon
 			}
 
@@ -49,7 +48,6 @@ const Attributes = (
 				const attributeObject: AttributeProps = {
 					attribute: leftoverAttribute,
 					flag: 'del',
-					defaultElement,
 					defaultIcon
 				}
 				return attributeObject

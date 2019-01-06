@@ -19,7 +19,7 @@ const link = ApolloLink.from([
 				return error.message.trim() === 'Unauthorized'
 			})
 			if (unauthorized) {
-				store().dispatch(UserActions.logout())
+				store.dispatch(UserActions.logout())
 				if (response) response.errors = undefined
 			}
 		}

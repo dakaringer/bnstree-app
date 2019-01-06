@@ -7,13 +7,13 @@ import { injectIntl, InjectedIntlProps } from 'react-intl'
 import T from '@src/components/T'
 import ImageLoader from '@src/components/ImageLoader'
 import compose from '@src/utils/compose'
-import { classes } from '@src/components/Navigation/links'
 
 import { RootState } from '@src/store/rootReducer'
 import { ClassCode, ItemFilter } from '@src/store/constants'
 import { getItemPreferences } from '@src/store/Items/selectors'
 import UserActions from '@src/store/User/actions'
 
+import { classes } from '@src/constants'
 import * as style from './styles/index.css'
 import classIcons from '@src/images/classIcons'
 
@@ -35,11 +35,8 @@ interface State {
 }
 
 class ItemActionBar extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			classAnchor: undefined
-		}
+	state: State = {
+		classAnchor: undefined
 	}
 
 	search = (value: string) => {
@@ -64,7 +61,7 @@ class ItemActionBar extends React.PureComponent<Props, State> {
 		this.setState({ classAnchor: undefined })
 	}
 
-	render() {
+	render = () => {
 		const { itemPreferences, intl } = this.props
 		const { classAnchor } = this.state
 
@@ -92,15 +89,17 @@ class ItemActionBar extends React.PureComponent<Props, State> {
 								<T id="item.general.all" />
 							</MenuItem>
 						)}
-						{classes.filter(c => c.classCode !== itemPreferences.filter).map(c => (
-							<MenuItem
-								key={c.classCode}
-								onClick={() => this.filter(c.classCode as ClassCode)}
-								className={style.menuFilter}>
-								<ImageLoader src={classIcons[c.classCode as ClassCode]} />
-								<T id={['general', 'class_names', c.classCode]} />
-							</MenuItem>
-						))}
+						{classes
+							.filter(c => c.classCode !== itemPreferences.filter)
+							.map(c => (
+								<MenuItem
+									key={c.classCode}
+									onClick={() => this.filter(c.classCode as ClassCode)}
+									className={style.menuFilter}>
+									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
+									<T id={['general', 'class_names', c.classCode]} />
+								</MenuItem>
+							))}
 					</Menu>
 				</div>
 				<div className={style.searchContainer}>

@@ -26,7 +26,8 @@ function* loadSkillDataSaga(action: ReturnType<typeof Actions.loadData>) {
 	yield put(
 		Actions.setData({
 			classCode: action.payload,
-			data: get(response, 'data.skills.data', null)
+			data: get(response, 'data.skills.data', null),
+			traits: get(response, 'data.skills.traits', null)
 		})
 	)
 	yield put(Actions.setLoading(false))

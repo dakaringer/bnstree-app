@@ -38,18 +38,10 @@ interface State {
 	suggestions: string[]
 }
 
-interface CharacterSearch {
-	inputRef: HTMLInputElement
-}
-
 class CharacterSearch extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.fetchSuggestions = debounce(this.fetchSuggestions, 200)
-		this.state = {
-			name: '',
-			suggestions: []
-		}
+	state: State = {
+		name: '',
+		suggestions: []
 	}
 
 	fetchSuggestions = (options: Autosuggest.SuggestionsFetchRequestedParams) => {
@@ -78,6 +70,7 @@ class CharacterSearch extends React.PureComponent<Props, State> {
 				})
 			})
 	}
+	debouncedFetchSuggestions = debounce(this.fetchSuggestions, 200)
 
 	selectRegion = (region: string) => {
 		const { updatePreferences } = this.props
@@ -86,7 +79,6 @@ class CharacterSearch extends React.PureComponent<Props, State> {
 
 	submit = (event?: React.FormEvent<HTMLFormElement>) => {
 		if (event) event.preventDefault()
-		this.inputRef.blur()
 		const { region, history, onSubmit } = this.props
 		const { name } = this.state
 
@@ -133,7 +125,7 @@ class CharacterSearch extends React.PureComponent<Props, State> {
 		return validRegions.includes(region) ? region : 'NA'
 	}
 
-	render() {
+	render = () => {
 		const { className } = this.props
 		const { suggestions, name } = this.state
 
@@ -141,7 +133,7 @@ class CharacterSearch extends React.PureComponent<Props, State> {
 			<div className={classNames(style.characterSearch, className)}>
 				<Autosuggest
 					suggestions={suggestions}
-					onSuggestionsFetchRequested={this.fetchSuggestions}
+					onSuggestionsFetchRequested={this.debouncedFetchSuggestions}
 					onSuggestionsClearRequested={() => this.setState({ suggestions: [] })}
 					getSuggestionValue={suggestion => suggestion}
 					inputProps={{
@@ -159,11 +151,6 @@ class CharacterSearch extends React.PureComponent<Props, State> {
 						container: style.autoselectContainer,
 						suggestionsContainer: style.suggestionsContainer,
 						suggestionsList: style.suggestionsList
-					}}
-					ref={(autosuggest: any) => {
-						if (autosuggest !== null) {
-							this.inputRef = autosuggest.input
-						}
 					}}
 				/>
 			</div>

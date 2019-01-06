@@ -1,9 +1,11 @@
 import {
 	ClassCode,
 	SkillMode,
+	SkillModeLegacy,
 	SkillOrder,
 	SkillVisibility,
 	SkillElement,
+	SkillSpecialization,
 	CharacterRegion,
 	ItemFilter,
 	MarketRegion
@@ -26,6 +28,18 @@ export interface UserPreferences {
 	skills: {
 		search: string
 		mode: SkillMode
+		specialization: { [key in ClassCode]: SkillSpecialization<key> }
+		build: { [c in ClassCode]: { [s in SkillSpecialization<c>]: {} } | {} }
+		stats: {
+			ap: number
+			ad: number
+			c: number
+			power: number
+		}
+	}
+	skillsLegacy: {
+		search: string
+		mode: SkillModeLegacy
 		order: SkillOrder
 		visibility: SkillVisibility
 		element: { [key in ClassCode]: SkillElement }
@@ -45,7 +59,6 @@ export interface UserPreferences {
 	}
 	character: {
 		region: CharacterRegion
-		favorites: FavoriteCharacter[] | null
 	}
 	items: {
 		search: string
@@ -55,9 +68,4 @@ export interface UserPreferences {
 		region: MarketRegion
 	}
 	locale: string
-}
-
-export interface FavoriteCharacter {
-	region: CharacterRegion
-	name: string
 }

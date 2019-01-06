@@ -32,8 +32,10 @@ const Home = () => {
 						<FormControlLabel control={<Checkbox checked={true} color="primary" />} label="Stats" />
 						<FormControlLabel control={<Checkbox checked={true} color="primary" />} label="Items" />
 						<FormControlLabel control={<Checkbox checked={true} color="primary" />} label="Skills" />
-						<FormControlLabel control={<Checkbox checked={false} />} label="New KR HM Point System" />
-						<FormControlLabel control={<Checkbox checked={false} />} label="KR Gems" />
+						<FormControlLabel
+							control={<Checkbox checked={true} color="primary" />}
+							label="New KR HM Point System"
+						/>
 					</div>
 					<div style={{ marginTop: '1rem' }}>
 						<Typography variant="body1">Skills</Typography>
@@ -43,15 +45,14 @@ const Home = () => {
 						/>
 						<FormControlLabel
 							control={<Checkbox checked={true} color="primary" />}
-							label="Skill Data (latest KR)"
+							label="Skill Data (July 11 KR)"
 						/>
 						<FormControlLabel control={<Checkbox checked={true} color="primary" />} label="Search" />
 						<FormControlLabel control={<Checkbox checked={false} />} label="Grid Mode" />
-						<FormControlLabel control={<Checkbox checked={false} />} label="Sorting" />
 						<FormControlLabel control={<Checkbox checked={false} />} label="Share/Import" />
 						<FormControlLabel
-							control={<Checkbox checked={false} />}
-							label="Entirely New System for 9.19 Changes"
+							control={<Checkbox checked={true} indeterminate />}
+							label="Skill Specialization & Traits (aka Awakening)"
 						/>
 					</div>
 					<div style={{ marginTop: '1rem' }}>
@@ -62,13 +63,16 @@ const Home = () => {
 						/>
 						<FormControlLabel
 							control={<Checkbox checked={true} color="primary" />}
-							label="Soul Badge Data (latest KR)"
+							label="Soul Badge Data (July 11 KR)"
 						/>
 						<FormControlLabel
 							control={<Checkbox checked={true} color="primary" />}
-							label="Mystic Badge Data (latest KR)"
+							label="Mystic Badge Data (July 11 KR)"
 						/>
-						<FormControlLabel control={<Checkbox checked={false} />} label="Soul Shield Data (latest KR)" />
+						<FormControlLabel
+							control={<Checkbox checked={false} />}
+							label="Soul Shield Data (July 11 KR)"
+						/>
 						<FormControlLabel control={<Checkbox checked={false} />} label="Other items" />
 					</div>
 					<div style={{ marginTop: '1rem' }}>

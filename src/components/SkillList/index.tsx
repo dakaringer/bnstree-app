@@ -1,39 +1,26 @@
 import * as React from 'react'
-import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { groupBy, debounce, get } from 'lodash-es'
 import Fuse from 'fuse.js'
 import { Typography } from '@material-ui/core'
 import T from '@src/components/T'
-import SkillListElement from '@src/components/SkillListElement'
 
-import { SkillElement, ClassCode } from '@src/store/constants'
+import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { RootState } from '@src/store/rootReducer'
 import { getData, getSkillPreferences } from '@src/store/Skills/selectors'
-import { getResource } from '@src/store/Resources/selectors'
-import { getLocale, getMessages } from '@src/store/Intl/selectors'
-import SkillActions from '@src/store/Skills/actions'
 
 import * as style from './styles/index.css'
-import comparators from './comparators'
+import SkillListElement from '@src/components/SkillListElement'
+import { processSkillNameAndTags } from '@src/utils/helpers'
 
 interface PropsFromStore {
 	skillData: ReturnType<typeof getData>
 	skillPreferences: ReturnType<typeof getSkillPreferences>
-	resource: ReturnType<typeof getResource>
-	locale: ReturnType<typeof getLocale>
-	messages: ReturnType<typeof getMessages>
 }
 
-interface PropsFromDispatch {
-	loadClass: typeof SkillActions.loadData
-}
-
-interface Props extends PropsFromStore, PropsFromDispatch {
+interface Props extends PropsFromStore {
 	classCode: ClassCode
-	element: SkillElement
-	buildData: { [id: string]: number } | undefined
-	readonly?: boolean
+	specialization: SkillSpecialization<ClassCode>
 }
 
 interface State {
@@ -42,108 +29,63 @@ interface State {
 }
 
 class SkillList extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		const { classCode, loadClass } = props
-		loadClass(classCode)
-
-		this.filterSkills = debounce(this.filterSkills, 200, { leading: true })
-		this.state = {
-			skillData: undefined,
-			filteredSkillData: undefined
-		}
+	state: State = {
+		skillData: undefined,
+		filteredSkillData: undefined
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		this.processSkills()
 	}
 
-	componentDidUpdate(prevProps: Props) {
-		const { skillData, classCode, element, skillPreferences, loadClass } = this.props
+	componentDidUpdate = (prevProps: Props) => {
+		const { skillData, classCode, specialization, skillPreferences } = this.props
 
-		if (classCode !== prevProps.classCode) {
-			loadClass(classCode)
-		}
-
-		if (skillData[classCode] !== prevProps.skillData[classCode] || element !== prevProps.element) {
+		if (skillData[classCode] !== prevProps.skillData[classCode] || specialization !== prevProps.specialization) {
 			this.processSkills()
-		} else if (
-			skillPreferences.search !== prevProps.skillPreferences.search ||
-			skillPreferences.visibility !== prevProps.skillPreferences.visibility
-		) {
-			this.filterSkills()
+		} else if (skillPreferences.search !== prevProps.skillPreferences.search) {
+			this.debouncedFilterSkills()
 		}
 	}
 
 	processSkills = () => {
-		const { skillData, classCode, element, resource, locale, messages } = this.props
-		const tagList = get(messages, 'skill.tag', {})
-		const data = (skillData[classCode] || []).map(skill => {
-			const moves = skill.moves
-				.map(move => {
-					const nameData =
-						resource.skill[move.name] || resource.skill[`${move.name}-${element.toLocaleLowerCase()}`]
+		const { skillData, classCode, specialization } = this.props
+		const data = (skillData[classCode] || [])
+			.map(skill => {
+				return {
+					...skill,
+					data: processSkillNameAndTags(skill.data)
+				}
+			})
+			.filter(
+				skill => skill && get(skill, 'specialization', specialization) === specialization
+			) as typeof skillData[ClassCode]
 
-					if (!nameData) {
-						console.error(`[BnSTree] Missing skill name data: "${move.name}"`)
-						return null
-					}
-
-					const tags: string[] = (move.tags || []).map(tag => tagList[tag])
-
-					return {
-						...move,
-						id: move.name,
-						name: nameData.name[locale],
-						icon: nameData.icon,
-						tags
-					}
-				})
-				.filter(move => move) as typeof skill.moves
-
-			return {
-				...skill,
-				moves
-			}
-		})
-
-		this.setState(
-			{
-				skillData: data
-			},
-			this.filterSkills
-		)
+		this.setState({ skillData: data }, this.debouncedFilterSkills)
 	}
 
 	filterSkills = () => {
-		const { element, skillPreferences, readonly } = this.props
+		const { skillPreferences } = this.props
 		const { skillData } = this.state
-		if (!skillData) return null
+		if (!skillData) return
 
-		let data = skillData.filter(skill => {
-			const moves = skill.moves.filter(move => get(move, 'element', element) === element)
-			return (!readonly && skillPreferences.visibility === 'ALL') || moves.length > 1
-		})
+		let data = skillData
 
 		if (skillPreferences.search.trim() !== '') {
 			const fuseOption = {
 				threshold: 0.35,
-				keys: ['moves.name', 'moves.tags']
+				keys: ['data.name', 'data.tags']
 			}
 			const fuse = new Fuse(data, fuseOption)
 			data = fuse.search(skillPreferences.search)
 		}
 
-		const groupedData = groupBy(
-			data,
-			skill => (skillPreferences.order === 'LEVEL' || readonly ? skill.group.minLevel : skill.group.hotkey)
-		)
-
-		this.setState({ filteredSkillData: groupedData })
+		this.setState({ filteredSkillData: groupBy(data, skill => skill.data.minLevel) })
 	}
+	debouncedFilterSkills = debounce(this.filterSkills, 200, { leading: true })
 
-	render() {
-		const { buildData, classCode, element, skillPreferences, readonly } = this.props
+	render = () => {
+		const { specialization } = this.props
 		const { filteredSkillData } = this.state
 		const skillData = filteredSkillData
 
@@ -152,29 +94,21 @@ class SkillList extends React.PureComponent<Props, State> {
 		return (
 			<div className={style.skillList}>
 				{Object.keys(skillData)
-					.sort(comparators[skillPreferences.order])
+					.sort((a, b) => parseInt(a) - parseInt(b))
 					.map(group => {
 						const groupData = skillData[group]
-						if (!groupData) return
+						if (!groupData) return null
 						return (
 							<div key={group}>
 								<Typography variant="subtitle1" className={style.groupLabel}>
-									{skillPreferences.order === 'LEVEL' || readonly ? (
-										<T id={['skill', 'group_label', 'level']} values={{ level: group }} />
-									) : (
-										<T id={['skill', 'group_label', group]} />
-									)}
+									<T id={['skill', 'group_label', 'level']} values={{ level: group }} />
 								</Typography>
 								<div className={style.skillGroup}>
 									{groupData.map(skill => (
 										<SkillListElement
 											key={skill._id}
-											skillData={skill}
-											currentMove={(buildData && buildData[skill._id]) || 1}
-											classCode={classCode}
-											element={element}
-											showHotkey={skillPreferences.order === 'LEVEL' || Boolean(readonly)}
-											readonly={Boolean(readonly)}
+											skill={skill}
+											specialization={specialization}
 										/>
 									))}
 								</div>
@@ -189,22 +123,8 @@ class SkillList extends React.PureComponent<Props, State> {
 const mapStateToProps = (state: RootState) => {
 	return {
 		skillData: getData(state),
-		skillPreferences: getSkillPreferences(state),
-		resource: getResource(state),
-		locale: getLocale(state),
-		messages: getMessages(state)
+		skillPreferences: getSkillPreferences(state)
 	}
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-	bindActionCreators(
-		{
-			loadClass: SkillActions.loadData
-		},
-		dispatch
-	)
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(SkillList)
+export default connect(mapStateToProps)(SkillList)

@@ -4,12 +4,13 @@ import { RouteComponentProps } from 'react-router-dom'
 import PageContainer from '@src/components/PageContainer'
 import ItemActionBar from '@src/components/ItemActionBar'
 import ItemList from '@src/components/ItemList'
-import { items } from '@src/components/Navigation/links'
 import FadeContainer from '@src/components/FadeContainer'
 
 import { RootState } from '@src/store/rootReducer'
 import { ItemType } from '@src/store/constants'
 import { getIsLoading } from '@src/store/Skills/selectors'
+
+import { items } from '@src/constants'
 
 interface PropsFromStore {
 	isLoading: ReturnType<typeof getIsLoading>

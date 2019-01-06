@@ -45,7 +45,7 @@ class App extends React.PureComponent<Props> {
 		props.initialize()
 	}
 
-	render() {
+	render = () => {
 		const { locale, messages, logoutMessage, setLogoutMessage, isLoading, location } = this.props
 
 		return (

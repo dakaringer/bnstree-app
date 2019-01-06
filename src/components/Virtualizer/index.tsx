@@ -11,14 +11,11 @@ interface State {
 }
 
 class Virtualizer extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			visible: false
-		}
+	state: State = {
+		visible: false
 	}
 
-	render() {
+	render = () => {
 		const { minHeight, children } = this.props
 		const { visible } = this.state
 

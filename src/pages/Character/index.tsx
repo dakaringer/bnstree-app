@@ -17,7 +17,7 @@ import PageContainer from '@src/components/PageContainer'
 import CharacterProfile from '@src/components/CharacterProfile'
 import CharacterEquipment from '@src/components/CharacterEquipment'
 import CharacterStats from '@src/components/CharacterStats'
-import SkillList from '@src/components/SkillList'
+import SkillList from '@src/components/SkillListLegacy'
 
 const classElements: {
 	[key in ClassCode]: {
@@ -92,12 +92,12 @@ class CharacterPage extends React.PureComponent<Props> {
 		search({ name, region })
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount = () => {
 		const { search } = this.props
 		search(null)
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate = (prevProps: Props) => {
 		const { match, search, updatePreferences } = this.props
 		const region = match.params.region.toUpperCase() as CharacterRegion
 		const name = match.params.name
@@ -116,7 +116,7 @@ class CharacterPage extends React.PureComponent<Props> {
 		return validRegions.includes(region) ? region : 'NA'
 	}
 
-	render() {
+	render = () => {
 		const { characterData, isLoading } = this.props
 
 		return (
@@ -130,12 +130,11 @@ class CharacterPage extends React.PureComponent<Props> {
 						<Typography variant="h2" className={style.notFound}>
 							<T id="character.not_found" />
 						</Typography>
-						{characterData &&
-							characterData.profile.failed === 'nameChanged' && (
-								<Typography variant="h6" className={style.notFound} color="textSecondary">
-									<T id="character.not_found_name_changed" />
-								</Typography>
-							)}
+						{characterData && characterData.profile.failed === 'nameChanged' && (
+							<Typography variant="h6" className={style.notFound} color="textSecondary">
+								<T id="character.not_found_name_changed" />
+							</Typography>
+						)}
 					</>
 				) : (
 					<FadeContainer currentKey={`${characterData.profile.region}-${characterData.profile.name}`}>

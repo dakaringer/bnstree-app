@@ -23,14 +23,11 @@ interface State {
 }
 
 class CharacterEquipment extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			soulshieldDialogOpen: false
-		}
+	state: State = {
+		soulshieldDialogOpen: false
 	}
 
-	render() {
+	render = () => {
 		const { equipmentData, region, className } = this.props
 		const { soulshieldDialogOpen } = this.state
 
@@ -67,8 +64,8 @@ class CharacterEquipment extends React.PureComponent<Props, State> {
 						</div>
 					</div>
 					<div className={style.accessories}>
-						{equipmentData.accessories.map((accessory, index) => (
-							<Fade in key={accessory.type} timeout={500} style={{ transitionDelay: `${index * 50}ms` }}>
+						{equipmentData.accessories.map((accessory, i) => (
+							<Fade in key={accessory.type} timeout={500} style={{ transitionDelay: `${i * 50}ms` }}>
 								<Typography className={classNames(style.accessory, style[accessory.grade])}>
 									<ImageLoader
 										src={
@@ -108,15 +105,11 @@ class CharacterEquipment extends React.PureComponent<Props, State> {
 					</div>
 					<div className={style.soulshieldContainer}>
 						<div className={style.soulshield}>
-							{equipmentData.soulshield.pieces.map((piece, index) => (
-								<Fade
-									in
-									key={index}
-									timeout={500}
-									style={{ transitionDelay: `${(index + 15) * 50}ms` }}>
+							{equipmentData.soulshield.pieces.map((piece, i) => (
+								<Fade in key={i} timeout={500} style={{ transitionDelay: `${(i + 15) * 50}ms` }}>
 									<div>
 										<ImageLoader
-											className={classNames(style.piece, style[`piece${index + 1}`])}
+											className={classNames(style.piece, style[`piece${i + 1}`])}
 											src={
 												piece.icon
 													? `${API_SERVER}/proxy/${region.toLowerCase()}/resource_img/${

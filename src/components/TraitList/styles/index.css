@@ -1,0 +1,15 @@
+@import 'breakpoints';
+
+.trait-list {
+	overflow: hidden;
+	max-width: 120rem;
+	margin: 0 auto;
+	padding-top: 1rem;
+
+	& .trait-group {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-gap: 2rem;
+		margin-bottom: 3rem;
+	}
+}

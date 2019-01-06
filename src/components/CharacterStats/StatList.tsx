@@ -22,14 +22,11 @@ interface State {
 }
 
 class StatList extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			showMore: false
-		}
+	state: State = {
+		showMore: false
 	}
 
-	render() {
+	render = () => {
 		const { statData, type, classCode } = this.props
 		const { showMore } = this.state
 

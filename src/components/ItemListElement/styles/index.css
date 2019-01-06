@@ -19,7 +19,7 @@
 		}
 	}
 
-	& .class {
+	& .class-name {
 		display: flex;
 		align-items: center;
 		& img {

@@ -1,0 +1,7 @@
+@import 'constants';
+
+.skill {
+	& img {
+		vertical-align: top;
+	}
+}

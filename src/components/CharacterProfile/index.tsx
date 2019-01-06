@@ -29,16 +29,13 @@ interface State {
 }
 
 class CharacterProfile extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			imgOpen: false,
-			noImage: false,
-			accountAnchor: undefined
-		}
+	state: State = {
+		imgOpen: false,
+		noImage: false,
+		accountAnchor: undefined
 	}
 
-	render() {
+	render = () => {
 		const { profileData, otherCharacters, badges, width, className } = this.props
 		const { imgOpen, noImage, accountAnchor } = this.state
 

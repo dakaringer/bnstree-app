@@ -3,7 +3,7 @@
 
 .skill-list-element {
 	display: grid;
-	grid-template-columns: 6.4rem 1fr;
+	grid-template-columns: 5.2rem 1fr;
 	grid-gap: 0.3rem 1rem;
 	padding: 1rem;
 
@@ -22,8 +22,8 @@
 
 		& .icon {
 			& img {
-				width: 6.4rem;
-				height: 6.4rem;
+				width: 5.2rem;
+				height: 5.2rem;
 				border-radius: 0.3rem;
 
 				@media (--sm-down) {
@@ -37,6 +37,8 @@
 	& .skill {
 		display: flex;
 		align-items: center;
+		margin-top: -0.5rem;
+		margin-bottom: -0.5rem;
 
 		& img {
 			height: 1em;
@@ -44,14 +46,11 @@
 		}
 	}
 
-	& .moves {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-gap: 0.5rem;
-
-		& > div {
-			min-width: 0;
-		}
+	& .label {
+		width: 100%;
+		font-size: 1rem;
+		display: flex;
+		align-items: center;
 
 		@media (--sm-down) {
 			grid-column: 1 / 3;
@@ -59,6 +58,11 @@
 
 		@media (--xs-down) {
 			grid-template-columns: 1fr;
+		}
+
+		& img {
+			height: 1.6rem;
+			margin-right: 0.5rem;
 		}
 	}
 }

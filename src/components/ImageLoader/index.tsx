@@ -18,12 +18,9 @@ interface State {
 }
 
 class ImageLoader extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			loaded: false,
-			noImage: false
-		}
+	state: State = {
+		loaded: false,
+		noImage: false
 	}
 
 	onLoad = () => {
@@ -44,7 +41,7 @@ class ImageLoader extends React.PureComponent<Props, State> {
 		if (onError) onError()
 	}
 
-	render() {
+	render = () => {
 		const { src, className } = this.props
 		const { loaded } = this.state
 		return (

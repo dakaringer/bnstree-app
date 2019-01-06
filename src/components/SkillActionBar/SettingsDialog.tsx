@@ -7,22 +7,18 @@ import {
 	DialogContent,
 	Typography,
 	IconButton,
-	Divider,
 	TextField,
 	Tooltip,
 	InputAdornment
 } from '@material-ui/core'
 import { HelpOutline } from '@material-ui/icons'
-import ImageLoader from '@src/components/ImageLoader'
 import T from '@src/components/T'
 
 import { RootState } from '@src/store/rootReducer'
-import { SkillElement } from '@src/store/constants'
 import { getSkillPreferences } from '@src/store/Skills/selectors'
 import UserActions from '@src/store/User/actions'
 
 import * as style from './styles/SettingsDialog.css'
-import elementIcons from './images/elementIcons'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>
@@ -55,7 +51,6 @@ const SettingsDialog: React.SFC<Props> = props => {
 				</Typography>
 				<div className={style.inputs}>
 					<TextField
-						id="number"
 						label={<T id="skill.menu.attack_power" />}
 						value={skillPreferences.stats.ap}
 						onChange={event =>
@@ -64,7 +59,6 @@ const SettingsDialog: React.SFC<Props> = props => {
 						type="number"
 					/>
 					<TextField
-						id="number"
 						label={<T id="skill.menu.additional_damage" />}
 						value={skillPreferences.stats.ad}
 						onChange={event =>
@@ -73,7 +67,6 @@ const SettingsDialog: React.SFC<Props> = props => {
 						type="number"
 					/>
 					<TextField
-						id="number"
 						label={
 							<>
 								<T id="skill.menu.constant" />
@@ -90,34 +83,15 @@ const SettingsDialog: React.SFC<Props> = props => {
 						}
 						type="number"
 					/>
-				</div>
-				<Divider />
-				<Typography variant="subtitle1" className={style.subtitle}>
-					<T id="skill.menu.element_damage" />
-				</Typography>
-				<div className={style.inputs}>
-					{Object.keys(skillPreferences.stats.elementDamage).map(element => (
-						<div key={element}>
-							<ImageLoader src={elementIcons[element]} className={style.elementIcon} />
-							<TextField
-								id="number"
-								className={style.elementInput}
-								label={<T id={['general', 'element_types', element]} />}
-								value={skillPreferences.stats.elementDamage[element as SkillElement] * 100}
-								InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
-								onChange={event =>
-									updatePreferences({
-										skills: {
-											stats: {
-												elementDamage: { [element]: parseFloat(event.target.value || '1') }
-											}
-										}
-									})
-								}
-								type="number"
-							/>
-						</div>
-					))}
+					<TextField
+						label={<T id="skill.menu.power" />}
+						value={skillPreferences.stats.power * 100}
+						InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
+						onChange={event =>
+							updatePreferences({ skills: { stats: { power: parseFloat(event.target.value || '1') } } })
+						}
+						type="number"
+					/>
 				</div>
 			</DialogContent>
 		</Dialog>

@@ -18,7 +18,7 @@ interface SelfPropsWithRef extends SelfProps {
 interface Props extends SelfPropsWithRef, InjectedIntlProps {}
 
 class SearchInput extends React.PureComponent<Props> {
-	render() {
+	render = () => {
 		const { inputProps, intl, inputRef, ...regionSelectorProps } = this.props
 		return (
 			<Input

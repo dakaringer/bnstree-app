@@ -19,14 +19,14 @@ class ErrorBoundary extends React.PureComponent<Props, State> {
 		}
 	}
 
-	componentDidCatch(error: Error) {
+	componentDidCatch = (error: Error) => {
 		this.setState({
 			hasError: true
 		})
 		Raven.captureException(error)
 	}
 
-	render() {
+	render = () => {
 		const { children } = this.props
 		const { hasError } = this.state
 

@@ -14,25 +14,18 @@ interface State {
 	menuOpen: boolean
 }
 
-interface Navigation {
-	menuContainer: React.RefObject<HTMLDivElement>
-}
-
 class Navigation extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.menuContainer = React.createRef()
-		this.state = {
-			menuOpen: false
-		}
+	state = {
+		menuOpen: false
 	}
+	menuContainer: React.RefObject<HTMLDivElement> = React.createRef()
 
 	toggleMenu = () => {
 		const { menuOpen } = this.state
 		this.setState({ menuOpen: !menuOpen })
 	}
 
-	render() {
+	render = () => {
 		const { width, children } = this.props
 		const { menuOpen } = this.state
 

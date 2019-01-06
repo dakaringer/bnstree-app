@@ -21,7 +21,6 @@ module.exports = {
 			'@src': path.join(ROOT, 'src')
 		}
 	},
-	devtool: 'hidden-source-map',
 	module: {
 		rules: [
 			{
@@ -37,7 +36,8 @@ module.exports = {
 										modules: false,
 										targets: {
 											browsers: ['> 1%']
-										}
+										},
+										useBuiltIns: 'usage'
 									}
 								]
 							],
@@ -116,12 +116,21 @@ module.exports = {
 			},
 			{
 				test: /\.(gif|jpe?g|png)$/,
-				loader: 'url-loader',
-				options: {
-					limit: 10000,
-					fallback: 'file-loader',
-					name: 'static/media/[name].[ext]'
-				}
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 1024 * 10,
+							name: 'media/[name].[ext]'
+						}
+					},
+					{
+						loader: 'image-webpack-loader',
+						options: {
+							disable: true
+						}
+					}
+				]
 			},
 			{
 				test: /\.svg$/,

@@ -7,9 +7,11 @@ import Actions from './actions'
 
 import {
 	SkillMode,
+	SkillModeLegacy,
 	SkillOrder,
 	SkillVisibility,
 	SkillElement,
+	SkillSpecialization,
 	CharacterRegion,
 	ItemFilter,
 	MarketRegion
@@ -23,6 +25,42 @@ const initialState = {
 		skills: {
 			search: '',
 			mode: 'LIST' as SkillMode,
+			specialization: {
+				BM: 'empty' as SkillSpecialization<'BM'>,
+				KF: 'empty' as SkillSpecialization<'KF'>,
+				DE: 'empty' as SkillSpecialization<'DE'>,
+				FM: 'empty' as SkillSpecialization<'FM'>,
+				AS: 'empty' as SkillSpecialization<'AS'>,
+				SU: 'empty' as SkillSpecialization<'SU'>,
+				BD: 'BD_TEMPEST' as SkillSpecialization<'BD'>,
+				WL: 'empty' as SkillSpecialization<'WL'>,
+				SF: 'empty' as SkillSpecialization<'SF'>,
+				GS: 'empty' as SkillSpecialization<'GS'>,
+				WR: 'empty' as SkillSpecialization<'WR'>
+			},
+			build: {
+				BM: {},
+				KF: {},
+				DE: {},
+				FM: {},
+				AS: {},
+				SU: {},
+				BD: {},
+				WL: {},
+				SF: {},
+				GS: {},
+				WR: {}
+			},
+			stats: {
+				ap: 13,
+				ad: 0,
+				c: 1,
+				power: 1
+			}
+		},
+		skillsLegacy: {
+			search: '',
+			mode: 'LIST' as SkillModeLegacy,
 			order: 'LEVEL' as SkillOrder,
 			visibility: 'ALL' as SkillVisibility,
 			element: {
@@ -133,11 +171,8 @@ export default (state: State = initialState, action: Actions) => {
 		case reduxActionTypes.SET_PREFERENCES: {
 			if (!action.payload) return state
 
-			const mergedPreferences = mergeWith(
-				{},
-				state.preferences,
-				action.payload,
-				(a, b) => (b === null ? a : undefined)
+			const mergedPreferences = mergeWith({}, state.preferences, action.payload, (a, b) =>
+				b === null ? a : undefined
 			)
 
 			return {

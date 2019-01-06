@@ -19,6 +19,19 @@ const initialState = {
 		GS: null,
 		WR: null
 	},
+	traits: {
+		BM: null,
+		KF: null,
+		DE: null,
+		FM: null,
+		AS: null,
+		SU: null,
+		BD: null,
+		WL: null,
+		SF: null,
+		GS: null,
+		WR: null
+	},
 	isLoading: false
 }
 
@@ -30,6 +43,10 @@ export default (state: State = initialState, action: Actions) => {
 				data: {
 					...state.data,
 					[action.payload.classCode]: action.payload.data
+				},
+				traits: {
+					...state.traits,
+					[action.payload.classCode]: action.payload.traits
 				}
 			}
 		}

@@ -37,7 +37,7 @@ const ItemListElement: React.SFC<Props> = props => {
 						{itemData.name}
 					</Typography>
 					{itemData.classCode && (
-						<Typography color="textSecondary" className={style.class}>
+						<Typography color="textSecondary" className={style.className}>
 							<ImageLoader src={classIcons[itemData.classCode]} />
 							<T id={['general', 'class_names', itemData.classCode]} />
 						</Typography>

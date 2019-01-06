@@ -6,10 +6,10 @@ export interface Character {
 }
 
 export interface CharacterData {
-	profile: CharacterProfile | CharacterProfileFail
+	profile: CharacterProfile | { failed: string }
 	stats: CharacterStats
 	equipment: CharacterEquipment
-	skills: CharacterSkils
+	skills?: CharacterSkils
 	otherCharacters: OtherCharacters
 	votes: CharacterVotes
 	badges: CharacterBadge[]
@@ -37,10 +37,6 @@ export interface CharacterProfile {
 		}
 	}
 	failed?: string
-}
-
-export interface CharacterProfileFail {
-	failed: string
 }
 
 export interface CharacterStats {

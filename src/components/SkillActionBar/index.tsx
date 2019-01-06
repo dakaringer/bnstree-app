@@ -2,23 +2,25 @@ import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Button, IconButton, Input, Hidden, Checkbox, MenuItem, Menu, Tooltip } from '@material-ui/core'
-import { Tune, Share, FilterList, Clear } from '@material-ui/icons'
+import { Button, IconButton, Input, Hidden, MenuItem, Menu } from '@material-ui/core'
+import { Tune, Share, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
+import { get } from 'lodash-es'
 import T from '@src/components/T'
 import ImageLoader from '@src/components/ImageLoader'
 import compose from '@src/utils/compose'
-import { classes } from '@src/components/Navigation/links'
 
 import { RootState } from '@src/store/rootReducer'
-import { SkillElement, ClassCode } from '@src/store/constants'
+import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { getSkillPreferences } from '@src/store/Skills/selectors'
 import UserActions from '@src/store/User/actions'
 
+import { classes } from '@src/constants'
 import * as style from './styles/index.css'
 import classIcons from '@src/images/classIcons'
-import elementIcons from './images/elementIcons'
+import specializationIcons from '@src/images/specializationIcons'
 import SettingsDialog from './SettingsDialog'
+import specializations from './specializations'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>
@@ -31,7 +33,6 @@ interface PropsFromDispatch {
 
 interface SelfProps {
 	classCode: ClassCode
-	element: SkillElement
 	readonly?: boolean
 }
 
@@ -40,30 +41,27 @@ interface Props extends SelfProps, InjectedIntlProps, PropsFromStore, PropsFromD
 interface State {
 	settingsDialogOpen: boolean
 	classAnchor: HTMLElement | undefined
+	specializationAnchor: HTMLElement | undefined
 }
 
 class SkillActionBar extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			settingsDialogOpen: false,
-			classAnchor: undefined
-		}
+	state: State = {
+		settingsDialogOpen: false,
+		classAnchor: undefined,
+		specializationAnchor: undefined
 	}
 
-	toggleElement = () => {
-		const { updatePreferences, classCode, element, skillPreferences } = this.props
-
-		const classElements = Object.keys(skillPreferences.build[classCode])
-		const newElement = classElements[0] === element ? classElements[1] : classElements[0]
+	selectSpecialization = (specialization: SkillSpecialization<ClassCode>) => {
+		const { updatePreferences, classCode } = this.props
 
 		updatePreferences({
 			skills: {
-				element: {
-					[classCode]: newElement
+				specialization: {
+					[classCode]: specialization
 				}
 			}
 		})
+		this.setState({ specializationAnchor: undefined })
 	}
 
 	search = (value: string) => {
@@ -76,9 +74,10 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 		})
 	}
 
-	render() {
-		const { classCode, element, intl, skillPreferences, updatePreferences } = this.props
-		const { settingsDialogOpen, classAnchor } = this.state
+	render = () => {
+		const { classCode, intl, skillPreferences } = this.props
+		const { settingsDialogOpen, classAnchor, specializationAnchor } = this.state
+		const specialization = skillPreferences.specialization[classCode]
 
 		return (
 			<div className={style.skillActionBar}>
@@ -95,21 +94,41 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 						anchorEl={classAnchor}
 						open={Boolean(classAnchor)}
 						onClose={() => this.setState({ classAnchor: undefined })}>
-						{classes.filter(c => c.classCode !== classCode).map(c => (
-							<MenuItem
-								key={c.classCode}
-								onClick={() => this.setState({ classAnchor: undefined })}
-								className={style.menuClassName}
-								component={(props: any) => <NavLink to={c.link} {...props} />}>
-								<ImageLoader src={classIcons[c.classCode as ClassCode]} />
-								<T id={['general', 'class_names', c.classCode]} />
-							</MenuItem>
-						))}
+						{classes
+							.filter(c => c.classCode !== classCode)
+							.map(c => (
+								<MenuItem
+									key={c.classCode}
+									onClick={() => this.setState({ classAnchor: undefined })}
+									className={style.menuClassName}
+									component={(props: any) => <NavLink to={c.link} {...props} />}>
+									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
+									<T id={['general', 'class_names', c.classCode]} />
+								</MenuItem>
+							))}
 					</Menu>
-					<Button className={style.elementToggle} onClick={this.toggleElement}>
-						<ImageLoader src={elementIcons[element]} />
-						<T id={['general', 'element_types', element]} />
+					<Button
+						className={style.className}
+						onClick={event => this.setState({ specializationAnchor: event.currentTarget })}>
+						<ImageLoader src={get(specializationIcons, [classCode, specialization], '')} />
+						<T id={['general', 'specializations', specialization]} />
 					</Button>
+					<Menu
+						anchorEl={specializationAnchor}
+						open={Boolean(specializationAnchor)}
+						onClose={() => this.setState({ specializationAnchor: undefined })}>
+						{(specializations[classCode] as SkillSpecialization<ClassCode>[])
+							.filter(s => s !== specialization)
+							.map(s => (
+								<MenuItem
+									key={s}
+									onClick={() => this.selectSpecialization(s)}
+									className={style.menuClassName}>
+									<ImageLoader src={get(specializationIcons, [classCode, s], '')} />
+									<T id={['general', 'specializations', s]} />
+								</MenuItem>
+							))}
+					</Menu>
 				</div>
 				<div className={style.searchContainer}>
 					<Input
@@ -125,25 +144,6 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 										<Clear />
 									</IconButton>
 								)}
-								<Tooltip title={<T id="skill.menu.show_trainable" />}>
-									<Checkbox
-										checked={skillPreferences.visibility === 'TRAINABLE'}
-										color="primary"
-										className={style.filter}
-										icon={<FilterList />}
-										checkedIcon={<FilterList />}
-										onClick={() =>
-											updatePreferences({
-												skills: {
-													visibility:
-														skillPreferences.visibility === 'TRAINABLE'
-															? 'ALL'
-															: 'TRAINABLE'
-												}
-											})
-										}
-									/>
-								</Tooltip>
 							</>
 						}
 					/>

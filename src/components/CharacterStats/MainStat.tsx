@@ -24,15 +24,11 @@ interface State {
 }
 
 class MainStat extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-
-		this.state = {
-			hmPointDialogOpen: false
-		}
+	state: State = {
+		hmPointDialogOpen: false
 	}
 
-	render() {
+	render = () => {
 		const { statData, type } = this.props
 		const { hmPointDialogOpen } = this.state
 

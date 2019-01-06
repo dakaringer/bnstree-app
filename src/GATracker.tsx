@@ -6,7 +6,7 @@ interface Props {
 }
 
 class GATracker extends React.Component<Props> {
-	componentDidMount() {
+	componentDidMount = () => {
 		if (process.env.GA_TRACKER) {
 			ReactGA.initialize(process.env.GA_TRACKER)
 		}
@@ -14,7 +14,7 @@ class GATracker extends React.Component<Props> {
 		this.trackPage(page)
 	}
 
-	componentDidUpdate(prevProps: Props) {
+	componentDidUpdate = (prevProps: Props) => {
 		const currentPage = this.props.location
 		const prevPage = prevProps.location
 
@@ -28,7 +28,7 @@ class GATracker extends React.Component<Props> {
 		ReactGA.pageview(page)
 	}
 
-	render() {
+	render = () => {
 		const { children } = this.props
 		return children
 	}

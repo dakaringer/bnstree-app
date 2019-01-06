@@ -20,6 +20,8 @@ import Q from './Key_Alphabet_Q.png'
 import E from './Key_Alphabet_E.png'
 import S from './Key_Alphabet_S.png'
 
+import PASSIVE from './Passive.png'
+
 const keyIcons: { [key: string]: any } = {
 	LB,
 	RB,
@@ -37,7 +39,8 @@ const keyIcons: { [key: string]: any } = {
 	G,
 	Q,
 	E,
-	S
+	S,
+	PASSIVE
 }
 
 export default keyIcons

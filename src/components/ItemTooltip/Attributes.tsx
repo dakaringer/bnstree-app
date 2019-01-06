@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Attribute, { SelfProps as AttributeProps } from '@src/components/Attribute'
+import Attribute, { SelfProps as AttributeProps } from '@src/components/AttributeLegacy'
 
 import { DeepReadonlyArray } from '@src/utils/immutableHelper'
 import { ItemAttribute } from '@src/store/Items/types'

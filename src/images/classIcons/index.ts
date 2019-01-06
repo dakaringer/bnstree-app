@@ -1,3 +1,5 @@
+import { ClassCode } from '@src/store/constants'
+
 import BM from './Job_Img_BladeMaster_40.png'
 import KF from './Job_Img_KungfuFighter_40.png'
 import DE from './Job_Img_Destroyer_40.png'
@@ -10,7 +12,7 @@ import SF from './Job_Img_SoulFighter_40.png'
 import GS from './Job_Img_Shooter_40.png'
 import WR from './Job_Img_Warrior_40.png'
 
-export default {
+const classIcons: { [c in ClassCode]: any } = {
 	BM,
 	KF,
 	DE,
@@ -23,3 +25,5 @@ export default {
 	GS,
 	WR
 }
+
+export default classIcons

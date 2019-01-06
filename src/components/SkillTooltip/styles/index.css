@@ -1,8 +1,6 @@
 @import 'constants';
 
 .skill-tooltip {
-	padding-bottom: 1rem;
-
 	& .title {
 		display: flex;
 		justify-content: space-between;
@@ -13,11 +11,6 @@
 			align-items: baseline;
 			font-weight: normal;
 			overflow: hidden;
-
-			& .move {
-				margin-left: 0.6rem;
-				font-weight: 300;
-			}
 		}
 
 		& .cost {

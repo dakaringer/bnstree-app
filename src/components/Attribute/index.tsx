@@ -1,18 +1,17 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { ArrowRight } from '@material-ui/icons'
 import classNames from 'classnames'
 import T from '@src/components/T'
 import ImageLoader from '@src/components/ImageLoader'
-import { ArrowRight } from '@material-ui/icons'
 
 import { RootState } from '@src/store/rootReducer'
-import { SkillElement } from '@src/store/constants'
 import { SkillAttribute } from '@src/store/Skills/types'
 import { getSkillPreferences } from '@src/store/Skills/selectors'
 
-import * as style from './styles/index.css'
-import elementIcons from './images/elementIcons'
 import { STATIC_SERVER } from '@src/constants'
+import * as style from './styles/index.css'
+import powerIcon from './images/skill_attack_power.png'
 import Skill from './Skill'
 import Join from './Join'
 
@@ -24,19 +23,17 @@ export interface SelfProps {
 	attribute: SkillAttribute
 	moddedAttribute?: SkillAttribute
 	flag?: 'add' | 'mod' | 'del'
-	defaultElement: SkillElement
 	defaultIcon?: string
 }
 
 interface Props extends SelfProps, PropsFromStore {}
 
 const Attribute: React.SFC<Props> = props => {
-	const { attribute, moddedAttribute, flag, defaultElement, defaultIcon, skillPreferences } = props
+	const { attribute, moddedAttribute, flag, defaultIcon, skillPreferences } = props
 	let values: { [key: string]: any } = attribute.values ? { ...attribute.values } : {}
-	const element: SkillElement = values.element && (values.element !== 'default' ? values.element : defaultElement)
 
 	values.additional = values.additional && <T id="tooltip.general.additional" />
-	values.element = values.element && <T id={['general', 'element_types', element]} />
+	values.element = null
 
 	Object.keys(values).forEach(k => {
 		const keys = k.split('-')
@@ -47,8 +44,8 @@ const Attribute: React.SFC<Props> = props => {
 				const ap = skillPreferences.stats.ap
 				const ad = skillPreferences.stats.ad
 				const c = skillPreferences.stats.c
-				const elementDamage = skillPreferences.stats.elementDamage[element] || 1
-				const multiplyer = 1 * elementDamage
+				const power = skillPreferences.stats.power || 1
+				const multiplyer = 1 * power
 
 				const scale = value
 				const bottomScale = Array.isArray(scale) ? scale[0] : scale
@@ -79,12 +76,10 @@ const Attribute: React.SFC<Props> = props => {
 			case 'skillName': {
 				const noIcon = keys[0] === 'skillName'
 				if (Array.isArray(value)) {
-					const list = value.map(v => (
-						<Skill key={v} skillName={v} noIcon={noIcon} defaultElement={defaultElement || ''} />
-					))
+					const list = value.map(v => <Skill key={v} skillName={v} noIcon={noIcon} />)
 					values[k] = <>{Join(list)}</>
 				} else {
-					values[k] = <Skill skillName={value} noIcon={noIcon} defaultElement={defaultElement || ''} />
+					values[k] = <Skill skillName={value} noIcon={noIcon} />
 				}
 				break
 			}
@@ -124,7 +119,7 @@ const Attribute: React.SFC<Props> = props => {
 					if (Array.isArray(value)) {
 						const list = value.map(v => <T key={v} id={['tooltip', `${keys[0]}_type`, v]} />)
 						values[k] = <>{Join(list)}</>
-					} else if (typeof value === 'string') {
+					} else if (typeof value === 'string' && keys[0] !== 'value') {
 						values[k] = <T id={['tooltip', `${keys[0]}_type`, value]} />
 					}
 				}
@@ -138,7 +133,7 @@ const Attribute: React.SFC<Props> = props => {
 				<ImageLoader src={`${STATIC_SERVER}/images/skills/${attribute.icon || defaultIcon}`} />
 			)}
 			<T id={['tooltip', attribute.msg]} values={values} />
-			{values.element && <ImageLoader src={elementIcons[element]} className={style.element} />}
+			{values.powered && <ImageLoader src={powerIcon} className={style.element} />}
 		</span>
 	)
 }

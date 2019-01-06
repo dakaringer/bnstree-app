@@ -15,7 +15,7 @@ if (module.hot) {
 
 const Root: React.SFC = () => (
 	<ErrorBoundary>
-		<Provider store={store()}>
+		<Provider store={store}>
 			<BrowserRouter>
 				<Route component={App} />
 			</BrowserRouter>
@@ -23,15 +23,4 @@ const Root: React.SFC = () => (
 	</ErrorBoundary>
 )
 
-const EnsureIntl = new Promise(async resolve => {
-	if (!global.Intl) {
-		await require(['intl'], Intl => {
-			global.Intl = Intl
-		})
-	}
-	resolve()
-})
-
-EnsureIntl.then(() => {
-	ReactDOM.render(<Root />, document.getElementById('root'))
-})
+ReactDOM.render(<Root />, document.getElementById('root'))

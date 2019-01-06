@@ -46,17 +46,21 @@ class LoginButton extends React.PureComponent<Props, State> {
 		}
 
 		const retrievePromise = _googleYolo.retrieve(googleYoloConfig)
-		retrievePromise.then((credentials: any) => this.authenticate(credentials.idToken)).catch((error: any) => {
-			if (error.type === 'userCanceled') return
-			const hintPromise = _googleYolo.hint(googleYoloConfig)
-			hintPromise.then((credentials: any) => this.authenticate(credentials.idToken)).catch((err: any) => {
-				if (err.type === 'noCredentialsAvailable') {
-					this.openSubMenu()
-				} else {
-					_googleYolo.cancelLastOperation()
-				}
+		retrievePromise
+			.then((credentials: any) => this.authenticate(credentials.idToken))
+			.catch((error: any) => {
+				if (error.type === 'userCanceled') return
+				const hintPromise = _googleYolo.hint(googleYoloConfig)
+				hintPromise
+					.then((credentials: any) => this.authenticate(credentials.idToken))
+					.catch((err: any) => {
+						if (err.type === 'noCredentialsAvailable') {
+							this.openSubMenu()
+						} else {
+							_googleYolo.cancelLastOperation()
+						}
+					})
 			})
-		})
 	}
 
 	oauthLogin = () => {
@@ -102,7 +106,7 @@ class LoginButton extends React.PureComponent<Props, State> {
 		})
 	}
 
-	render() {
+	render = () => {
 		return (
 			<ListItem button onClick={this.login} className={style.loginButton}>
 				<Typography variant="button">

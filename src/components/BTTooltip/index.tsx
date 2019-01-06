@@ -1,14 +1,12 @@
 import * as React from 'react'
-import { Dialog, Popper, Paper, Fade, Typography, withWidth } from '@material-ui/core'
-import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
+import { Dialog, Popper, Paper, Fade, Typography } from '@material-ui/core'
 import classNames from 'classnames'
-import compose from '@src/utils/compose'
 import ImageLoader from '@src/components/ImageLoader'
 
 import * as style from './styles/index.css'
 
-interface SelfProps {
-	icon: any
+interface Props {
+	icon?: any
 	title: React.ReactNode
 	m1?: React.ReactNode | React.ReactNode[]
 	m2?: React.ReactNode | React.ReactNode[]
@@ -16,32 +14,24 @@ interface SelfProps {
 	extra?: React.ReactNode | React.ReactNode[]
 	target: React.ReactElement<any>
 	className?: string
+	offset?: number | string
 }
-
-interface Props extends SelfProps, WithWidth {}
 
 interface State {
 	tooltipOpen: boolean
 	dialogOpen: boolean
 	anchor: HTMLDivElement | undefined
-	touchTimeout: NodeJS.Timer | null
-}
-
-interface BTTooltip {
-	ref: React.RefObject<HTMLDivElement>
+	touchTimeout: number | null
 }
 
 class BTTooltip extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.ref = React.createRef()
-		this.state = {
-			tooltipOpen: false,
-			dialogOpen: false,
-			anchor: undefined,
-			touchTimeout: null
-		}
+	state: State = {
+		tooltipOpen: false,
+		dialogOpen: false,
+		anchor: undefined,
+		touchTimeout: null
 	}
+	ref: React.RefObject<HTMLDivElement> = React.createRef()
 
 	openTooltip = (event: React.PointerEvent) => {
 		if (event.pointerType === 'mouse') {
@@ -53,27 +43,31 @@ class BTTooltip extends React.PureComponent<Props, State> {
 		this.setState({ touchTimeout: setTimeout(() => this.setState({ dialogOpen: true }), 200) })
 	}
 
-	render() {
-		const { icon, title, m1, m2, sub, extra, target, className, width } = this.props
+	render = () => {
+		const { icon, title, m1, m2, sub, extra, target, className, offset } = this.props
 		const { tooltipOpen, dialogOpen } = this.state
 
 		const tooltipContent = (
 			<>
 				<div className={style.title}>{title}</div>
-				<div className={style.main}>
-					<ImageLoader src={icon} className={style.icon} />
-					<div className={style.mainText}>
-						<Typography variant={isWidthDown('xs', width) ? 'body2' : 'subtitle1'} color="inherit">
-							{m1}
-						</Typography>
-						<Typography variant="caption" color="inherit">
-							{m2}
-						</Typography>
+				{(m1 || m2 || icon) && (
+					<div className={style.main}>
+						{icon && <ImageLoader src={icon} className={style.icon} />}
+						<div className={style.mainText}>
+							<Typography variant="body2" color="inherit">
+								{m1}
+							</Typography>
+							<Typography variant="caption" color="inherit">
+								{m2}
+							</Typography>
+						</div>
 					</div>
-				</div>
-				<Typography variant="caption" color="inherit" className={style.sub}>
-					{sub}
-				</Typography>
+				)}
+				{sub && (
+					<Typography variant="caption" color="inherit" className={style.sub}>
+						{sub}
+					</Typography>
+				)}
 				{extra}
 			</>
 		)
@@ -102,10 +96,14 @@ class BTTooltip extends React.PureComponent<Props, State> {
 					open={tooltipOpen}
 					anchorEl={this.ref.current}
 					placement="bottom-start"
-					popperOptions={{ preventOverflow: { padding: isWidthDown('xs', width) ? 10 : 23 } }}
 					className={style.popper}
 					onPointerEnter={this.openTooltip}
-					onPointerLeave={() => this.setState({ tooltipOpen: false })}>
+					onPointerLeave={() => this.setState({ tooltipOpen: false })}
+					modifiers={{
+						offset: { offset: offset || 0 },
+						computeStyle: { gpuAcceleration: false },
+						preventOverflow: { padding: 0 }
+					}}>
 					{() => (
 						<Fade in={tooltipOpen} unmountOnExit>
 							<Paper className={classNames(style.tooltip, className)}>{tooltipContent}</Paper>
@@ -117,4 +115,4 @@ class BTTooltip extends React.PureComponent<Props, State> {
 	}
 }
 
-export default compose<Props, SelfProps>(withWidth())(BTTooltip)
+export default BTTooltip

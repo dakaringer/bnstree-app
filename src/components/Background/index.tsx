@@ -1,7 +1,7 @@
 import * as React from 'react'
 import FadeContainer from '@src/components/FadeContainer'
-
 import ImageLoader from '@src/components/ImageLoader'
+
 import * as style from './styles/index.css'
 
 const images = require.context('./images', true, /\.jpe?g$/)
@@ -19,18 +19,15 @@ interface Background {
 }
 
 class Background extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
-		super(props)
-		this.state = {
-			i: Math.floor(Math.random() * imageArray.length)
-		}
+	state: State = {
+		i: Math.floor(Math.random() * imageArray.length)
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		this.intervalId = window.setInterval(this.next, 60000)
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount = () => {
 		window.clearInterval(this.intervalId)
 	}
 
@@ -47,7 +44,7 @@ class Background extends React.PureComponent<Props, State> {
 		})
 	}
 
-	render() {
+	render = () => {
 		const { i } = this.state
 
 		return (

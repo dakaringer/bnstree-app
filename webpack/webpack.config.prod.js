@@ -6,6 +6,7 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const HTMLWebpackPlugin = require('html-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 const merge = require('webpack-merge')
 const common = require('./webpack.config.common.js')
@@ -15,6 +16,7 @@ const ROOT = process.cwd()
 
 module.exports = merge(common, {
 	mode: 'production',
+	devtool: 'hidden-source-map',
 	stats: {
 		all: false,
 		builtAt: true,
@@ -37,6 +39,30 @@ module.exports = merge(common, {
 		]
 	},
 	plugins: [
+		new ManifestPlugin({
+			writeToFileEmit: true,
+			seed: {
+				name: 'BnSTree',
+				short_name: 'BnSTree',
+				icons: [
+					{
+						src: '/android-chrome-192x192.png',
+						sizes: '192x192',
+						type: 'image/png'
+					},
+					{
+						src: '/android-chrome-256x256.png',
+						sizes: '256x256',
+						type: 'image/png'
+					}
+				],
+				start_url: './',
+				display: 'standalone',
+				theme_color: '#222222',
+				background_color: '#222222'
+			},
+			filter: fd => fd.isInitial
+		}),
 		new HTMLWebpackPlugin({
 			template: '!!raw-loader!' + path.join(ROOT, 'public', 'index.ejs'),
 			filename: 'index.ejs'
@@ -56,9 +82,10 @@ module.exports = merge(common, {
 			openAnalyzer: false
 		}),
 		new SentryPlugin({
-			release: process.env.RELEASE || 'abcdefg',
+			release: process.env.RELEASE || 'test',
 			include: './dist',
-			ignore: ['node_modules', 'webpack']
+			ignore: ['node_modules', 'webpack'],
+			dryRun: Boolean(process.env.RELEASE)
 		})
 	]
 })

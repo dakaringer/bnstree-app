@@ -1,0 +1,20 @@
+@import 'constants';
+
+.trait-skill {
+	margin: 1rem 0;
+	display: flex;
+	align-items: baseline;
+
+	& .icon {
+		margin-right: 1rem;
+
+		& img {
+			width: 2.4rem;
+			height: 2.4rem;
+		}
+	}
+
+	& .suffix {
+		margin-left: 1rem;
+	}
+}

@@ -24,14 +24,5 @@
 			width: 1em;
 			margin-left: 1rem;
 		}
-
-		& .element-icon {
-			height: 1.8rem;
-			margin-right: 1rem;
-		}
-
-		& .element-input {
-			width: calc(100% - 2.8rem);
-		}
 	}
 }
