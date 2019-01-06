@@ -131,7 +131,7 @@ export const getFilteredTraits = createSelector(
 		if (skillPreferences.search.trim() !== '') {
 			const fuseOption = {
 				threshold: 0.35,
-				keys: ['data.name', 'data.skills.name', 'data.skills.data.name']
+				keys: ['data.name', 'data.skills.name', 'data.skills.data.name', 'data.skills.data.tags']
 			}
 			const fuse = new Fuse(data, fuseOption)
 			data = fuse.search(skillPreferences.search)
