@@ -2,9 +2,6 @@
 	"name": "bnstree",
 	"version": "6.0.0",
 	"author": "dakaringer",
-	"sideEffects": [
-		"*.css"
-	],
 	"scripts": {
 		"postinstall": "npm run build",
 		"build": "webpack --config webpack/webpack.config.prod.js",

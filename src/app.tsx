@@ -1,3 +1,5 @@
+import './hotLoaderConfig'
+import { hot } from 'react-hot-loader'
 import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
@@ -5,7 +7,6 @@ import { RouteProps } from 'react-router'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import { Snackbar, Typography } from '@material-ui/core'
 import { IntlProvider } from 'react-intl'
-import { hot } from 'react-hot-loader'
 import compose from '@src/utils/compose'
 import T from '@src/components/T'
 
