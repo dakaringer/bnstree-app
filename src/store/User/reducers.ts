@@ -38,7 +38,7 @@ const initialState = {
 				GS: 'empty' as SkillSpecialization<'GS'>,
 				WR: 'empty' as SkillSpecialization<'WR'>
 			},
-			build: {
+			builds: {
 				BM: {},
 				KF: {},
 				DE: {},

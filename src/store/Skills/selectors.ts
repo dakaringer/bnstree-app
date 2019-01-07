@@ -3,7 +3,7 @@ import { get, groupBy } from 'lodash-es'
 import Fuse from 'fuse.js'
 import { getNameData, mergeSkills, getTags } from '@src/utils/helpers'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
+import { DeepReadonly, DeepReadonlyArray } from '@src/utils/immutableHelper'
 import { RootState } from '@src/store/rootReducer'
 import { getPreferences } from '@src/store/User/selectors'
 import { SkillData } from './types'
@@ -23,9 +23,16 @@ export const getCurrentClass = createSelector(
 	skills => skills.currentClass
 )
 export const getSpecialization = createSelector(
-	[getCurrentClass, getSkillPreferences],
-	(classCode, preferences) => {
+	[getSkillPreferences, getCurrentClass],
+	(preferences, classCode) => {
 		return preferences.specialization[classCode]
+	}
+)
+export const getBuild = createSelector(
+	[getSkillPreferences, getCurrentClass, getSpecialization],
+	(preferences, classCode, specialization) => {
+		const build: DeepReadonlyArray<number> = get(preferences, ['builds', classCode, specialization], [])
+		return build
 	}
 )
 export const getData = createSelector(

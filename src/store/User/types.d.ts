@@ -29,7 +29,7 @@ export interface UserPreferences {
 		search: string
 		mode: SkillMode
 		specialization: { [key in ClassCode]: SkillSpecialization<key> }
-		build: { [c in ClassCode]: { [s in SkillSpecialization<c>]: {} } | {} }
+		builds: { [c in ClassCode]: { [s in SkillSpecialization<c>]: number[] } | {} }
 		stats: {
 			ap: number
 			ad: number
