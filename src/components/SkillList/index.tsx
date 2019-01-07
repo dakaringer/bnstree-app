@@ -4,21 +4,20 @@ import { Typography } from '@material-ui/core'
 import T from '@src/components/T'
 
 import { RootState } from '@src/store/rootReducer'
-import { getCurrentClass, getFilteredSkills, getSkillPreferences } from '@src/store/Skills/selectors'
+import { getFilteredSkills, getSpecialization } from '@src/store/Skills/selectors'
 
 import style from './styles/index.css'
 import SkillListElement from '@src/components/SkillListElement'
 
 interface PropsFromStore {
-	classCode: ReturnType<typeof getCurrentClass>
 	skillData: ReturnType<typeof getFilteredSkills>
-	skillPreferences: ReturnType<typeof getSkillPreferences>
+	specialization: ReturnType<typeof getSpecialization>
 }
 
 interface Props extends PropsFromStore {}
 
 const SkillList: React.SFC<Props> = props => {
-	const { classCode, skillPreferences, skillData } = props
+	const { specialization, skillData } = props
 	return (
 		<div className={style.skillList}>
 			{Object.keys(skillData)
@@ -32,11 +31,7 @@ const SkillList: React.SFC<Props> = props => {
 							</Typography>
 							<div className={style.skillGroup}>
 								{groupData.map(skill => (
-									<SkillListElement
-										key={skill._id}
-										skill={skill}
-										specialization={skillPreferences.specialization[classCode]}
-									/>
+									<SkillListElement key={skill._id} skill={skill} specialization={specialization} />
 								))}
 							</div>
 						</div>
@@ -48,9 +43,8 @@ const SkillList: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		classCode: getCurrentClass(state),
 		skillData: getFilteredSkills(state),
-		skillPreferences: getSkillPreferences(state)
+		specialization: getSpecialization(state)
 	}
 }
 

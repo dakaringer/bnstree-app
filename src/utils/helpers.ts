@@ -92,7 +92,7 @@ export const mergeSkills = (
 		...targetSkillData,
 		...traitSkillData,
 		attributes: mergeAttributes(targetSkillData.attributes, traitSkillData.attributes),
-		info: merge({}, targetSkillData.info, traitSkillData.info),
+		info: targetSkillData.info && merge({}, targetSkillData.info, traitSkillData.info),
 		stance_change: mergeAttributes(targetSkillData.stance_change, traitSkillData.stance_change),
 		requirements: mergeAttributes(targetSkillData.requirements, traitSkillData.requirements),
 		tags: uniq([...t1, ...t2])

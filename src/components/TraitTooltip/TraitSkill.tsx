@@ -9,15 +9,15 @@ import { DeepReadonly } from '@src/utils/immutableHelper'
 import { RootState } from '@src/store/rootReducer'
 import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { TraitSkill, SkillData } from '@src/store/Skills/types'
-import { getSkillsWithTags, getSkillPreferences } from '@src/store/Skills/selectors'
+import { getData } from '@src/store/Skills/selectors'
+import { getTags } from '@src/utils/helpers'
 
 import { STATIC_SERVER } from '@src/constants'
 import style from './styles/TraitSkill.css'
 import SkillTooltip from '@src/components/SkillTooltip'
 
 interface PropsFromStore {
-	skillData: ReturnType<typeof getSkillsWithTags>
-	skillPreferences: ReturnType<typeof getSkillPreferences>
+	skillData: ReturnType<typeof getData>
 }
 
 interface Props extends PropsFromStore {
@@ -28,8 +28,16 @@ interface Props extends PropsFromStore {
 const TraitSkill: React.SFC<Props> = props => {
 	const { traitSkill, specialization, skillData } = props
 
-	const classSkills = skillData || []
-	const targetSkill = classSkills.find(skill => traitSkill.skillId === skill._id)
+	let targetSkill = skillData.find(skill => traitSkill.skillId === skill._id)
+	if (targetSkill) {
+		targetSkill = {
+			...targetSkill,
+			data: {
+				...targetSkill.data,
+				tags: getTags(targetSkill.data)
+			}
+		}
+	}
 
 	return (
 		<div className={style.traitSkill}>
@@ -123,8 +131,7 @@ const TraitSkill: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillData: getSkillsWithTags(state),
-		skillPreferences: getSkillPreferences(state)
+		skillData: getData(state)
 	}
 }
 

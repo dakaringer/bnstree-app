@@ -6,7 +6,7 @@ import { getNameData, mergeSkills, getTags } from '@src/utils/helpers'
 import { DeepReadonly, DeepReadonlyArray } from '@src/utils/immutableHelper'
 import { RootState } from '@src/store/rootReducer'
 import { getPreferences } from '@src/store/User/selectors'
-import { SkillData } from './types'
+import { SkillData, TraitSkill } from './types'
 
 const getSkills = (state: RootState) => state.skills
 
@@ -53,20 +53,102 @@ export const getData = createSelector(
 		return data
 	}
 )
-export const getSkillsWithTags = createSelector(
-	[getData],
-	skillData => {
-		return skillData.map(skill => ({
-			...skill,
-			data: {
-				...skill.data,
-				tags: getTags(skill.data)
+const getTraits = createSelector(
+	[state => getSkills(state).traits, getCurrentClass, getSpecialization],
+	(traits, classCode, specialization) => {
+		const data = (traits[classCode] || []).filter(
+			trait => get(trait, 'specialization', specialization) === specialization
+		)
+		return data
+	}
+)
+const getProcessedSkills = createSelector(
+	[getData, getBuild, getTraits],
+	(skillData, build, traits) => {
+		const modifiedSkills: { [id: string]: DeepReadonlyArray<TraitSkill> } = traits
+			.filter(trait => {
+				const currentIndex = build[trait.index[0] - 1] || 1
+				return trait.index[1] === currentIndex
+			})
+			.reduce((acc: { [id: string]: DeepReadonlyArray<TraitSkill> }, trait) => {
+				trait.data.skills.forEach(traitSkill => {
+					if (traitSkill.skillId) {
+						const traits = acc[traitSkill.skillId] || []
+						acc[traitSkill.skillId] = [...traits, traitSkill]
+					}
+				})
+				return acc
+			}, {})
+
+		return skillData.map(skill => {
+			let skillData = skill.data
+			const appliedTraits = modifiedSkills[skill._id] || []
+			appliedTraits.forEach(trait => {
+				if (trait.data) {
+					skillData =
+						trait.action === 'REPLACE' ? (trait.data as SkillData) : mergeSkills(skillData, trait.data)
+				}
+			})
+
+			return {
+				...skill,
+				data: {
+					...skillData,
+					...getNameData(skillData.nameId, 'skill'),
+					tags: getTags(skillData)
+				}
 			}
-		}))
+		})
+	}
+)
+const getProcessedTraits = createSelector(
+	[getTraits, getData],
+	(traits, skillData) => {
+		const data = traits.map(trait => {
+			const nameData = getNameData(trait.data.nameId, 'trait')
+
+			if (!nameData) return trait
+
+			return {
+				...trait,
+				data: {
+					...trait.data,
+					name: nameData.name,
+					icon: nameData.icon,
+					skills: trait.data.skills.map(traitSkill => {
+						const targetSkillData = skillData.find(skill => skill._id === traitSkill.skillId)
+
+						let traitData = traitSkill.data as DeepReadonly<SkillData>
+						if (traitData) {
+							if (targetSkillData && traitSkill.action !== 'REPLACE') {
+								traitData = mergeSkills(targetSkillData.data, traitData)
+							}
+
+							const nameData = traitData.nameId && getNameData(traitData.nameId, 'skill')
+
+							traitData = {
+								...traitData,
+								...nameData,
+								tags: getTags(traitData)
+							}
+						}
+
+						return {
+							...traitSkill,
+							name: targetSkillData && targetSkillData.data.name,
+							icon: targetSkillData && targetSkillData.data.icon,
+							data: traitData
+						}
+					})
+				}
+			}
+		})
+
+		return data
 	}
 )
 export const getFilteredSkills = createSelector(
-	[getSkillsWithTags, getSkillPreferences, getCurrentClass],
+	[getProcessedSkills, getSkillPreferences, getCurrentClass],
 	(skillData, skillPreferences) => {
 		let data = skillData
 
@@ -89,56 +171,8 @@ export const getFilteredSkills = createSelector(
 		)
 	}
 )
-export const getTraits = createSelector(
-	[state => getSkills(state).traits, getCurrentClass, getSpecialization, getData],
-	(traits, classCode, specialization, skillData) => {
-		const data = (traits[classCode] || [])
-			.filter(trait => get(trait, 'specialization', specialization) === specialization)
-			.map(trait => {
-				const nameData = getNameData(trait.data.nameId, 'trait')
-
-				if (!nameData) return trait
-
-				return {
-					...trait,
-					data: {
-						...trait.data,
-						name: nameData.name,
-						icon: nameData.icon,
-						skills: trait.data.skills.map(traitSkill => {
-							const targetSkillData = skillData.find(skill => skill._id === traitSkill.skillId)
-
-							let traitData: DeepReadonly<SkillData> = traitSkill.data as DeepReadonly<SkillData>
-							if (traitData) {
-								if (targetSkillData && traitSkill.action !== 'REPLACE') {
-									traitData = mergeSkills(targetSkillData.data, traitData)
-								}
-
-								const nameData = traitData.nameId && getNameData(traitData.nameId, 'skill')
-
-								traitData = {
-									...traitData,
-									...nameData,
-									tags: getTags(traitData)
-								}
-							}
-
-							return {
-								...traitSkill,
-								name: targetSkillData && targetSkillData.data.name,
-								icon: targetSkillData && targetSkillData.data.icon,
-								data: traitData
-							}
-						})
-					}
-				}
-			})
-
-		return data
-	}
-)
 export const getFilteredTraits = createSelector(
-	[getTraits, getSkillPreferences, getCurrentClass],
+	[getProcessedTraits, getSkillPreferences, getCurrentClass],
 	(traitData, skillPreferences) => {
 		let data = traitData
 
