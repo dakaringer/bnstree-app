@@ -4,12 +4,21 @@
 	overflow: hidden;
 	max-width: 120rem;
 	margin: 0 auto;
-	padding-top: 2rem;
+	padding-top: 1rem;
 
 	& .trait-group {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-gap: 2rem;
 		margin-bottom: 3rem;
+
+		@media (--xs-down) {
+			grid-gap: 1rem;
+			margin-bottom: 2rem;
+		}
+
+		& > div {
+			min-width: 0;
+		}
 	}
 }

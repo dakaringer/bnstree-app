@@ -1,24 +1,44 @@
 @import 'constants';
+@import 'breakpoints';
 
 .trait-list-element {
 	display: flex;
 	padding: 1rem;
+	min-width: 0;
+	@media (--sm-down) {
+		flex-direction: column;
+		align-items: center;
+	}
 
 	& .icon {
 		margin-right: 1rem;
+
+		@media (--sm-down) {
+			margin-bottom: 1rem;
+			margin-right: 0;
+		}
+
 		& img {
 			width: 5.2rem;
 			height: 5.2rem;
 			border-radius: 0.3rem;
 
 			@media (--sm-down) {
-				width: 3rem;
-				height: 3rem;
+				width: 4rem;
+				height: 4rem;
 			}
 		}
 	}
 
 	& .skill {
 		margin-top: -0.5rem;
+
+		@media (--sm-down) {
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			width: 100%;
+			overflow: hidden;
+			text-align: center;
+		}
 	}
 }
