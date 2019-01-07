@@ -55,7 +55,7 @@ const initialState = {
 				ap: 13,
 				ad: 0,
 				c: 1,
-				power: 1
+				power: 100.0
 			}
 		},
 		skillsLegacy: {

@@ -85,11 +85,15 @@ const SettingsDialog: React.SFC<Props> = props => {
 					/>
 					<TextField
 						label={<T id="skill.menu.power" />}
-						value={skillPreferences.stats.power * 100}
+						value={isNaN(skillPreferences.stats.power) ? '' : skillPreferences.stats.power}
 						InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
 						onChange={event =>
-							updatePreferences({ skills: { stats: { power: parseFloat(event.target.value || '1') } } })
+							updatePreferences({ skills: { stats: { power: parseFloat(event.target.value) } } })
 						}
+						onBlur={event => {
+							const value = event.target.value
+							if (value === '') updatePreferences({ skills: { stats: { power: 100 } } })
+						}}
 						type="number"
 					/>
 				</div>

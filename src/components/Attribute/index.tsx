@@ -35,6 +35,8 @@ const Attribute: React.SFC<Props> = props => {
 	values.additional = values.additional && <T id="tooltip.general.additional" />
 	values.element = null
 
+	let multiplied = false
+
 	Object.keys(values).forEach(k => {
 		const keys = k.split('-')
 		const value = values[k]
@@ -44,8 +46,8 @@ const Attribute: React.SFC<Props> = props => {
 				const ap = skillPreferences.stats.ap
 				const ad = skillPreferences.stats.ad
 				const c = skillPreferences.stats.c
-				const power = skillPreferences.stats.power || 1
-				const multiplyer = 1 * power
+				const power = (values.powered && skillPreferences.stats.power) || 100
+				const multiplyer = 1 * (power / 100)
 
 				const scale = value
 				const bottomScale = Array.isArray(scale) ? scale[0] : scale
@@ -57,8 +59,9 @@ const Attribute: React.SFC<Props> = props => {
 				let scaleTxt = Array.isArray(scale)
 					? `${bottomScale.toFixed(2)} ~ ${topScale.toFixed(2)}`
 					: scale.toFixed(2)
-				if (multiplyer > 1) {
+				if (multiplyer !== 1) {
 					scaleTxt += ` × ${multiplyer.toFixed(2)}`
+					multiplied = true
 				}
 
 				values[k] = (
@@ -128,7 +131,7 @@ const Attribute: React.SFC<Props> = props => {
 	})
 
 	return (
-		<span className={classNames(style.attribute, flag && [style[flag]])}>
+		<span className={classNames(style.attribute, flag && style[flag], { [style.multiplied]: multiplied })}>
 			{(attribute.icon || defaultIcon) && (
 				<ImageLoader src={`${STATIC_SERVER}/images/skills/${attribute.icon || defaultIcon}`} />
 			)}
