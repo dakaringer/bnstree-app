@@ -49,9 +49,9 @@ const TraitListElement: React.SFC<Props> = props => {
 						skills: {
 							builds: {
 								[classCode]: {
-									[specialization]: build.map((n, i) =>
-										i === trait.index[0] - 1 ? trait.index[1] : n
-									)
+									[specialization]: new Array(5)
+										.fill(1)
+										.map((_n, i) => (i === trait.index[0] - 1 ? trait.index[1] : build[i] || 1))
 								}
 							}
 						}
