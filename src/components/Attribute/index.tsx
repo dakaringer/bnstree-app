@@ -68,7 +68,12 @@ const Attribute: React.SFC<Props> = props => {
 					<span>
 						{bottom} ~ {top}{' '}
 						<span className={style.scale}>
-							[<T id="tooltip.general.scale" values={{ scale: scaleTxt }} />]
+							[
+							<T
+								id={values.pet ? 'tooltip.general.scalePet' : 'tooltip.general.scale'}
+								values={{ scale: scaleTxt }}
+							/>
+							]
 						</span>
 					</span>
 				)

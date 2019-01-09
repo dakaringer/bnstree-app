@@ -53,6 +53,7 @@ const initialState = {
 			},
 			stats: {
 				ap: 13,
+				apPet: 13,
 				ad: 0,
 				c: 1,
 				power: 100.0

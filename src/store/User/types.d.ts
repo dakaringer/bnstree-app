@@ -32,6 +32,7 @@ export interface UserPreferences {
 		builds: { [c in ClassCode]: { [s in SkillSpecialization<c>]: number[] } | {} }
 		stats: {
 			ap: number
+			apPet: number
 			ad: number
 			c: number
 			power: number

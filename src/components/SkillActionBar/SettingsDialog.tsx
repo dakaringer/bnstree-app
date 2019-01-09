@@ -15,12 +15,13 @@ import { HelpOutline } from '@material-ui/icons'
 import T from '@src/components/T'
 
 import { RootState } from '@src/store/rootReducer'
-import { getSkillPreferences } from '@src/store/Skills/selectors'
+import { getCurrentClass, getSkillPreferences } from '@src/store/Skills/selectors'
 import UserActions from '@src/store/User/actions'
 
 import style from './styles/SettingsDialog.css'
 
 interface PropsFromStore {
+	classCode: ReturnType<typeof getCurrentClass>
 	skillPreferences: ReturnType<typeof getSkillPreferences>
 }
 
@@ -36,7 +37,7 @@ interface SelfProps {
 interface Props extends SelfProps, PropsFromStore, PropsFromDispatch {}
 
 const SettingsDialog: React.SFC<Props> = props => {
-	const { open, close, skillPreferences, updatePreferences } = props
+	const { open, close, classCode, skillPreferences, updatePreferences } = props
 
 	return (
 		<Dialog open={open} onClose={close} className={style.settingsDialog}>
@@ -58,6 +59,16 @@ const SettingsDialog: React.SFC<Props> = props => {
 						}
 						type="number"
 					/>
+					{(classCode === 'SU' || classCode === 'WL') && (
+						<TextField
+							label={<T id="skill.menu.attack_power_pet" />}
+							value={skillPreferences.stats.apPet}
+							onChange={event =>
+								updatePreferences({ skills: { stats: { apPet: parseInt(event.target.value || '0') } } })
+							}
+							type="number"
+						/>
+					)}
 					<TextField
 						label={<T id="skill.menu.additional_damage" />}
 						value={skillPreferences.stats.ad}
@@ -104,6 +115,7 @@ const SettingsDialog: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
+		classCode: getCurrentClass(state),
 		skillPreferences: getSkillPreferences(state)
 	}
 }
