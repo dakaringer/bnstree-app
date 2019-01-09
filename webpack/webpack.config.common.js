@@ -39,12 +39,14 @@ module.exports = {
 										},
 										useBuiltIns: 'usage'
 									}
-								]
+								],
+								'@babel/preset-react',
+								'@babel/preset-typescript'
 							],
 							plugins: [
 								'react-hot-loader/babel',
+								'@babel/plugin-proposal-class-properties',
 								'@babel/plugin-syntax-dynamic-import',
-								'@babel/plugin-proposal-object-rest-spread',
 								[
 									'transform-imports',
 									{
@@ -63,12 +65,6 @@ module.exports = {
 									}
 								]
 							]
-						}
-					},
-					{
-						loader: 'ts-loader',
-						options: {
-							transpileOnly: true
 						}
 					}
 				]

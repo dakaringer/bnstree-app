@@ -25,7 +25,7 @@ interface Props extends PropsFromStore {
 	specialization: SkillSpecialization<ClassCode>
 }
 
-const TraitSkill: React.SFC<Props> = props => {
+const TraitSkillElement: React.SFC<Props> = props => {
 	const { traitSkill, specialization, skillData } = props
 
 	let targetSkill = skillData.find(skill => traitSkill.skillId === skill._id)
@@ -135,4 +135,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(React.memo(TraitSkill))
+export default connect(mapStateToProps)(React.memo(TraitSkillElement))
