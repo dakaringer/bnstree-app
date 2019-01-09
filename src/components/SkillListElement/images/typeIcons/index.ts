@@ -32,40 +32,6 @@ import t31 from './SkillAbility_Icon_31.png'
 import t32 from './SkillAbility_Icon_32.png'
 import t33 from './SkillAbility_Icon_33.png'
 
-import t1_selected from './SkillAbility_Icon_01_Selected.png'
-import t2_selected from './SkillAbility_Icon_02_Selected.png'
-import t3_selected from './SkillAbility_Icon_03_Selected.png'
-import t4_selected from './SkillAbility_Icon_04_Selected.png'
-import t5_selected from './SkillAbility_Icon_05_Selected.png'
-import t6_selected from './SkillAbility_Icon_06_Selected.png'
-import t7_selected from './SkillAbility_Icon_07_Selected.png'
-import t8_selected from './SkillAbility_Icon_08_Selected.png'
-import t9_selected from './SkillAbility_Icon_09_Selected.png'
-import t10_selected from './SkillAbility_Icon_10_Selected.png'
-import t11_selected from './SkillAbility_Icon_11_Selected.png'
-import t12_selected from './SkillAbility_Icon_12_Selected.png'
-import t13_selected from './SkillAbility_Icon_13_Selected.png'
-import t14_selected from './SkillAbility_Icon_14_Selected.png'
-import t15_selected from './SkillAbility_Icon_15_Selected.png'
-import t16_selected from './SkillAbility_Icon_16_Selected.png'
-import t17_selected from './SkillAbility_Icon_17_Selected.png'
-import t18_selected from './SkillAbility_Icon_18_Selected.png'
-import t19_selected from './SkillAbility_Icon_19_Selected.png'
-import t20_selected from './SkillAbility_Icon_20_Selected.png'
-import t21_selected from './SkillAbility_Icon_21_Selected.png'
-import t22_selected from './SkillAbility_Icon_22_Selected.png'
-import t23_selected from './SkillAbility_Icon_23_Selected.png'
-import t24_selected from './SkillAbility_Icon_24_Selected.png'
-import t25_selected from './SkillAbility_Icon_25_Selected.png'
-import t26_selected from './SkillAbility_Icon_26_Selected.png'
-import t27_selected from './SkillAbility_Icon_27_Selected.png'
-import t28_selected from './SkillAbility_Icon_28_Selected.png'
-import t29_selected from './SkillAbility_Icon_29_Selected.png'
-import t30_selected from './SkillAbility_Icon_30_Selected.png'
-import t31_selected from './SkillAbility_Icon_31_Selected.png'
-import t32_selected from './SkillAbility_Icon_32_Selected.png'
-import t33_selected from './SkillAbility_Icon_33_Selected.png'
-
 export const typeIcons: { [key: string]: any } = {
 	t1,
 	t2,
@@ -99,40 +65,7 @@ export const typeIcons: { [key: string]: any } = {
 	t30,
 	t31,
 	t32,
-	t33,
-	t1_selected,
-	t2_selected,
-	t3_selected,
-	t4_selected,
-	t5_selected,
-	t6_selected,
-	t7_selected,
-	t8_selected,
-	t9_selected,
-	t10_selected,
-	t11_selected,
-	t12_selected,
-	t13_selected,
-	t14_selected,
-	t15_selected,
-	t16_selected,
-	t17_selected,
-	t18_selected,
-	t19_selected,
-	t20_selected,
-	t21_selected,
-	t22_selected,
-	t23_selected,
-	t24_selected,
-	t25_selected,
-	t26_selected,
-	t27_selected,
-	t28_selected,
-	t29_selected,
-	t30_selected,
-	t31_selected,
-	t32_selected,
-	t33_selected
+	t33
 }
 
 export const types: { [key: string]: string } = {
