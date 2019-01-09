@@ -33,7 +33,7 @@ const initialState = {
 				AS: 'empty' as SkillSpecialization<'AS'>,
 				SU: 'empty' as SkillSpecialization<'SU'>,
 				BD: 'BD_TEMPEST' as SkillSpecialization<'BD'>,
-				WL: 'empty' as SkillSpecialization<'WL'>,
+				WL: 'WL_DISTORTION' as SkillSpecialization<'WL'>,
 				SF: 'empty' as SkillSpecialization<'SF'>,
 				GS: 'empty' as SkillSpecialization<'GS'>,
 				WR: 'empty' as SkillSpecialization<'WR'>

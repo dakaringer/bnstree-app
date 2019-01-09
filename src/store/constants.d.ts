@@ -6,7 +6,7 @@ type Specializations = {
 	AS: 'empty'
 	SU: 'empty'
 	BD: 'BD_TEMPEST' | 'BD_FLASH'
-	WL: 'empty'
+	WL: 'WL_DISTORTION' | 'WL_INFLICTION'
 	SF: 'empty'
 	GS: 'empty'
 	WR: 'empty'
