@@ -20,7 +20,7 @@ export const menuLinks: LinkObject[] = [
 		link: 'skills',
 		label: 'navigation.menu.skills',
 		subMenu: classes.map(c => {
-			if (!['BD'].includes(c.classCode)) {
+			if (!['BD', 'WL'].includes(c.classCode)) {
 				return {
 					...c,
 					disabled: true
