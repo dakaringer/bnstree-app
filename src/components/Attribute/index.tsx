@@ -43,7 +43,7 @@ const Attribute: React.SFC<Props> = props => {
 
 		switch (keys[0]) {
 			case 'scale': {
-				const ap = skillPreferences.stats.ap
+				const ap = values.pet ? skillPreferences.stats.apPet : skillPreferences.stats.ap
 				const ad = skillPreferences.stats.ad
 				const c = skillPreferences.stats.c
 				const power = (values.powered && skillPreferences.stats.power) || 100
