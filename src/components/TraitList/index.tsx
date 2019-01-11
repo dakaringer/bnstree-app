@@ -19,10 +19,12 @@ const TraitList: React.SFC<Props> = props => {
 	return (
 		<div className={style.traitList}>
 			{Object.keys(traitData)
-				.sort((a, b) => parseInt(a) - parseInt(b))
+				.sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
 				.map(group => {
 					const groupData = traitData[group]
-					if (!groupData) return null
+					if (!groupData) {
+						return null
+					}
 					return (
 						<div key={group} className={style.traitGroup}>
 							{groupData.map(trait => (

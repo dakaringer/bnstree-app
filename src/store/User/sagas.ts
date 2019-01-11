@@ -27,7 +27,7 @@ const loadPreferencesLocalCall = () => {
 }
 
 const idTokenLoginCall = (idToken: string) => {
-	console.log(idToken)
+	console.info(idToken)
 	return apollo.mutate({
 		mutation: idTokenLoginMutation,
 		variables: { idToken },
@@ -96,8 +96,11 @@ function* updatePreferencesSaga(action: ReturnType<typeof Actions.updatePreferen
 	const user = yield select(getData)
 	yield put(Actions.setPreferences(action.payload))
 
-	if (user) yield call(updatePreferencesCall, action.payload)
-	else yield call(updatePreferencesLocalCall, action.payload)
+	if (user) {
+		yield call(updatePreferencesCall, action.payload)
+	} else {
+		yield call(updatePreferencesLocalCall, action.payload)
+	}
 }
 
 // Watcher

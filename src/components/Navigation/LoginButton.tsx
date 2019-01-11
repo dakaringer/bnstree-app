@@ -37,9 +37,7 @@ interface Props extends PropsFromDispatch {
 	onSelect: (linkObject: LinkObject) => void
 }
 
-interface State {}
-
-class LoginButton extends React.PureComponent<Props, State> {
+class LoginButton extends React.PureComponent<Props> {
 	login = () => {
 		if (!_googleYolo) {
 			return this.openSubMenu()
@@ -49,7 +47,9 @@ class LoginButton extends React.PureComponent<Props, State> {
 		retrievePromise
 			.then((credentials: any) => this.authenticate(credentials.idToken))
 			.catch((error: any) => {
-				if (error.type === 'userCanceled') return
+				if (error.type === 'userCanceled') {
+					return
+				}
 				const hintPromise = _googleYolo.hint(googleYoloConfig)
 				hintPromise
 					.then((credentials: any) => this.authenticate(credentials.idToken))

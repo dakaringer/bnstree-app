@@ -8,8 +8,6 @@ const images = require.context('./images', true, /\.jpe?g$/)
 const keys = images.keys()
 const imageArray = keys.map(key => images(key))
 
-interface Props {}
-
 interface State {
 	i: number
 }
@@ -18,7 +16,7 @@ interface Background {
 	intervalId: number
 }
 
-class Background extends React.PureComponent<Props, State> {
+class Background extends React.PureComponent<{}, State> {
 	state: State = {
 		i: Math.floor(Math.random() * imageArray.length)
 	}

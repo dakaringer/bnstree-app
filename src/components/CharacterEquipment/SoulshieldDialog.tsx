@@ -7,13 +7,11 @@ import { CharacterEquipment } from '@src/store/Character/types'
 
 import style from './styles/SoulshieldDialog.css'
 
-interface SelfProps {
+interface Props {
 	soulshieldData: DeepReadonly<CharacterEquipment['soulshield']>
 	open: boolean
 	close: () => void
 }
-
-interface Props extends SelfProps {}
 
 const SoulshieldDialog: React.SFC<Props> = props => {
 	const { soulshieldData, open, close } = props

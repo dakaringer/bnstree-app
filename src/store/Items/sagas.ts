@@ -20,7 +20,11 @@ const loadDataCall = (type: ReturnType<typeof Actions.loadData>['payload']) => {
 // Sagas
 function* loadItemDataSaga(action: ReturnType<typeof Actions.loadData>) {
 	const data = yield select(getData)
-	if (data[action.payload]) return
+
+	if (data[action.payload]) {
+		return
+	}
+
 	yield put(Actions.setLoading(true))
 	const response = yield call(loadDataCall, action.payload)
 	yield put(

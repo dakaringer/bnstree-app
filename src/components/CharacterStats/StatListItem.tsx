@@ -22,7 +22,7 @@ interface Props {
 const StatListItem: React.SFC<Props> = props => {
 	const { stat, statData } = props
 
-	let defaultSubStats =
+	const defaultSubStats =
 		stat.statId !== 'int_hp_regen' && !stat.statId.endsWith('_stiff_duration_level') ? (
 			<>
 				<Typography color="textSecondary" key="base" className={style.subStat}>

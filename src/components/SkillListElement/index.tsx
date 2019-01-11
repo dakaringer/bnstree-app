@@ -22,7 +22,7 @@ interface Props {
 const SkillListElement: React.SFC<Props> = props => {
 	const { skill, specialization } = props
 
-	const keyIcon = isNaN(parseInt(skill.data.hotkey)) ? skill.data.hotkey : 'N' + skill.data.hotkey
+	const keyIcon = isNaN(parseInt(skill.data.hotkey, 10)) ? skill.data.hotkey : 'N' + skill.data.hotkey
 
 	return (
 		<Virtualizer minHeight="7rem">

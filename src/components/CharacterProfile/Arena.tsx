@@ -10,10 +10,18 @@ import style from './styles/Arena.css'
 import medals from './images/Medals'
 
 const getRank = (rating: number) => {
-	if (rating >= 2100) return 'diamond'
-	if (rating >= 1900) return 'platinum'
-	if (rating >= 1600) return 'gold'
-	if (rating >= 1350) return 'silver'
+	if (rating >= 2100) {
+		return 'diamond'
+	}
+	if (rating >= 1900) {
+		return 'platinum'
+	}
+	if (rating >= 1600) {
+		return 'gold'
+	}
+	if (rating >= 1350) {
+		return 'silver'
+	}
 	return 'bronze'
 }
 

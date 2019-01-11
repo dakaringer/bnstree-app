@@ -3,7 +3,6 @@ import { combineReducers } from 'redux'
 import { reduxActionTypes } from './rootActionTypes'
 import Actions from './rootActions'
 
-//import { reducer as GeneralReducer } from './General/reducers'
 import UserReducer, { State as UserState } from './User/reducers'
 import IntlReducer, { State as IntlState } from './Intl/reducers'
 import NameReducer, { State as NameState } from './Names/reducers'

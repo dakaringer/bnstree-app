@@ -59,7 +59,7 @@ const SettingsDialog: React.SFC<Props> = props => {
 						label={<T id="skill.menu.attack_power" />}
 						value={skillPreferences.stats.ap}
 						onChange={event =>
-							updatePreferences({ skills: { stats: { ap: parseInt(event.target.value || '0') } } })
+							updatePreferences({ skills: { stats: { ap: parseInt(event.target.value || '0', 10) } } })
 						}
 						type="number"
 					/>
@@ -68,7 +68,7 @@ const SettingsDialog: React.SFC<Props> = props => {
 						label={<T id="skill.menu.additional_damage" />}
 						value={skillPreferences.stats.ad}
 						onChange={event =>
-							updatePreferences({ skills: { stats: { ad: parseInt(event.target.value || '0') } } })
+							updatePreferences({ skills: { stats: { ad: parseInt(event.target.value || '0', 10) } } })
 						}
 						type="number"
 					/>
@@ -86,7 +86,7 @@ const SettingsDialog: React.SFC<Props> = props => {
 						}
 						value={skillPreferences.stats.c}
 						onChange={event =>
-							updatePreferences({ skills: { stats: { c: parseInt(event.target.value || '0') } } })
+							updatePreferences({ skills: { stats: { c: parseInt(event.target.value || '0', 10) } } })
 						}
 						type="number"
 					/>

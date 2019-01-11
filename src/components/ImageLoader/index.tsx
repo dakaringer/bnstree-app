@@ -29,7 +29,9 @@ class ImageLoader extends React.PureComponent<Props, State> {
 		this.setState({
 			loaded: true
 		})
-		if (onLoad && !noImage) onLoad()
+		if (onLoad && !noImage) {
+			onLoad()
+		}
 	}
 
 	onError = (error: React.SyntheticEvent<HTMLImageElement>) => {
@@ -38,7 +40,9 @@ class ImageLoader extends React.PureComponent<Props, State> {
 		this.setState({
 			noImage: true
 		})
-		if (onError) onError()
+		if (onError) {
+			onError()
+		}
 	}
 
 	render = () => {

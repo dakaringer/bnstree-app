@@ -1,14 +1,12 @@
 import * as React from 'react'
 import * as Raven from 'raven-js'
 
-interface Props {}
-
 interface State {
 	hasError: boolean
 }
 
-class ErrorBoundary extends React.PureComponent<Props, State> {
-	constructor(props: Props) {
+class ErrorBoundary extends React.PureComponent<{}, State> {
+	constructor(props: {}) {
 		super(props)
 		this.state = {
 			hasError: false

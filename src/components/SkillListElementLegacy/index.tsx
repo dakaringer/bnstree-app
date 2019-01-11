@@ -40,7 +40,9 @@ class SkillListElement extends React.PureComponent<Props, State> {
 
 	selectMove = (skillId: string, moveData: DeepReadonly<MoveData>) => {
 		const { updatePreferences, classCode, element, readonly } = this.props
-		if (readonly) return
+		if (readonly) {
+			return
+		}
 
 		updatePreferences({
 			skillsLegacy: {
@@ -68,9 +70,13 @@ class SkillListElement extends React.PureComponent<Props, State> {
 		})
 
 		const currentMoveData = moves.find(move => move.move === currentMove)
-		if (!currentMoveData) return null
+		if (!currentMoveData) {
+			return null
+		}
 
-		const keyIcon = isNaN(parseInt(skillData.group.hotkey)) ? skillData.group.hotkey : 'N' + skillData.group.hotkey
+		const keyIcon = isNaN(parseInt(skillData.group.hotkey, 10))
+			? skillData.group.hotkey
+			: 'N' + skillData.group.hotkey
 
 		return (
 			<Virtualizer minHeight="9rem">
@@ -95,7 +101,9 @@ class SkillListElement extends React.PureComponent<Props, State> {
 						{moves.map(moveData => {
 							const moveNumber = moveData.move
 
-							if (moveNumber > 3) return
+							if (moveNumber > 3) {
+								return
+							}
 							const hmMoveData = moves.find(hmMove => hmMove.move === moveNumber + 3)
 							return (
 								<SkillTooltip
@@ -112,7 +120,7 @@ class SkillListElement extends React.PureComponent<Props, State> {
 											hmActive={moveNumber + 3 === currentMove}
 											readonly={readonly || moves.length === 1}
 											selectMove={this.selectMove}
-											hoverMove={hoverMoveData => this.setState({ hoverMoveData })}
+											hoverMove={hoverMove => this.setState({ hoverMoveData: hoverMove })}
 										/>
 									}
 								/>

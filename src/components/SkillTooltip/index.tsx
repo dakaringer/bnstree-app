@@ -1,15 +1,11 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { Typography } from '@material-ui/core'
 import BTTooltip from '@src/components/BTTooltip'
 import T from '@src/components/T'
 
 import { DeepReadonly } from '@src/utils/immutableHelper'
-import { RootState } from '@src/store/rootReducer'
 import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { SkillData } from '@src/store/Skills/types'
-import { getResource } from '@src/store/Resources/selectors'
-import { getLocale } from '@src/store/Intl/selectors'
 
 import { STATIC_SERVER } from '@src/constants'
 import style from './styles/index.css'
@@ -18,12 +14,7 @@ import Attributes from './Attributes'
 import Info from './Info'
 import Tags from './Tags'
 
-interface PropsFromStore {
-	resource: ReturnType<typeof getResource>['skill']
-	locale: ReturnType<typeof getLocale>
-}
-
-interface Props extends PropsFromStore {
+interface Props {
 	id?: string
 	currentMoveData: DeepReadonly<SkillData>
 	hoverMoveData?: DeepReadonly<SkillData>
@@ -33,9 +24,17 @@ interface Props extends PropsFromStore {
 }
 
 const SkillTooltip: React.SFC<Props> = props => {
-	let { id, specialization, currentMoveData, hoverMoveData, resource, locale, ...tooltipProps } = props
+	const { id, specialization, currentMoveData, hoverMoveData: hoverData, target, offset, children } = props
+	const tooltipProps = {
+		target,
+		offset,
+		children
+	}
+	let hoverMoveData = hoverData
 
-	if (!hoverMoveData) hoverMoveData = currentMoveData
+	if (!hoverMoveData) {
+		hoverMoveData = currentMoveData
+	}
 
 	const { m1, m2, sub } = Attributes(currentMoveData.attributes || [], hoverMoveData.attributes || [], specialization)
 
@@ -109,11 +108,4 @@ const SkillTooltip: React.SFC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		resource: getResource(state).skill,
-		locale: getLocale(state)
-	}
-}
-
-export default connect(mapStateToProps)(React.memo(SkillTooltip))
+export default React.memo(SkillTooltip)

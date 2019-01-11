@@ -170,7 +170,9 @@ export default (state: State = initialState, action: Actions) => {
 			}
 		}
 		case reduxActionTypes.SET_PREFERENCES: {
-			if (!action.payload) return state
+			if (!action.payload) {
+				return state
+			}
 
 			const mergedPreferences = mergeWith({}, state.preferences, action.payload, (a, b) =>
 				b === null ? a : undefined

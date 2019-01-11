@@ -78,7 +78,9 @@ class CharacterSearch extends React.PureComponent<Props, State> {
 	}
 
 	submit = (event?: React.FormEvent<HTMLFormElement>) => {
-		if (event) event.preventDefault()
+		if (event) {
+			event.preventDefault()
+		}
 		const { region, history, onSubmit } = this.props
 		const { name } = this.state
 

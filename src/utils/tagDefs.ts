@@ -2,12 +2,12 @@ import { get } from 'lodash-es'
 import { SkillAttribute } from '@src/store/Skills/types'
 import { DeepReadonlyArray } from '@src/utils/immutableHelper'
 
-type tagDef = {
+interface TagDef {
 	tag: string
 	test: (attb: SkillAttribute, otherAttb?: DeepReadonlyArray<SkillAttribute>) => boolean
 }
 
-const tagDefs: tagDef[] = [
+const tagDefs: TagDef[] = [
 	{
 		tag: 'STUN',
 		test: attribute => attribute.msg.startsWith('inflict_') && get(attribute, 'values.status') === 'stun'
@@ -231,11 +231,11 @@ const tagDefs: tagDef[] = [
 	},
 	{
 		tag: 'TIME_DISTORTION',
-		test: attribute => attribute.msg == 'cd_reset.party_all_multiple_over_time'
+		test: attribute => attribute.msg === 'cd_reset.party_all_multiple_over_time'
 	},
 	{
 		tag: 'REVIVE',
-		test: attribute => attribute.msg == 'revive.all'
+		test: attribute => attribute.msg === 'revive.all'
 	}
 ]
 

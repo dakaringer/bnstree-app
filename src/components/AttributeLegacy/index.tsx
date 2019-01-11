@@ -32,7 +32,7 @@ interface Props extends SelfProps, PropsFromStore {}
 
 const Attribute: React.SFC<Props> = props => {
 	const { attribute, moddedAttribute, flag, defaultElement, defaultIcon, skillPreferences } = props
-	let values: { [key: string]: any } = attribute.values ? { ...attribute.values } : {}
+	const values: { [key: string]: any } = attribute.values ? { ...attribute.values } : {}
 	const element: SkillElement = values.element && (values.element !== 'default' ? values.element : defaultElement)
 
 	values.additional = values.additional && <T id="tooltip.general.additional" />

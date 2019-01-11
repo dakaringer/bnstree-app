@@ -20,7 +20,9 @@ const link = ApolloLink.from([
 			})
 			if (unauthorized) {
 				store.dispatch(UserActions.logout())
-				if (response) response.errors = undefined
+				if (response) {
+					response.errors = undefined
+				}
 			}
 		}
 	}),

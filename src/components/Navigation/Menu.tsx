@@ -112,12 +112,13 @@ class Menu extends React.PureComponent<Props, State> {
 									</ListItem>
 								)}
 								{linkList.map(linkObject => {
-									if (linkObject.render)
+									if (linkObject.render) {
 										return (
 											<React.Fragment key={linkObject.link}>
 												{linkObject.render(() => this.setState({ linkPath: [] }))}
 											</React.Fragment>
 										)
+									}
 
 									const link = `${baseUri !== '' ? '/' : ''}${baseUri}/${linkObject.link}`
 									return (

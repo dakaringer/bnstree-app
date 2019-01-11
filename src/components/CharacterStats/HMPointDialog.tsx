@@ -10,14 +10,12 @@ import style from './styles/HMPointDialog.css'
 import statIcons from './images/statIcons'
 import { hmPointEffects, hmPointBuffs } from './stats'
 
-interface SelfProps {
+interface Props {
 	type: 'attack' | 'defense'
 	pointData: DeepReadonly<any>
 	open: boolean
 	close: () => void
 }
-
-interface Props extends SelfProps {}
 
 const getAdditionalBuffValues = (type: string, tier: number) => {
 	switch (type) {

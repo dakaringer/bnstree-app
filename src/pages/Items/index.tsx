@@ -24,7 +24,9 @@ const ItemPage: React.SFC<Props> = props => {
 	const itemLink = items.find(c => c.link === match.params.itemType)
 	const itemType = itemLink && (itemLink.itemType as ItemType)
 
-	if (!itemType) return null
+	if (!itemType) {
+		return null
+	}
 
 	return (
 		<PageContainer isLoading={isLoading} topNav={<ItemActionBar />}>

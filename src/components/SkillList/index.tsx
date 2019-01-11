@@ -21,7 +21,7 @@ const SkillList: React.SFC<Props> = props => {
 	return (
 		<div className={style.skillList}>
 			{Object.keys(skillData)
-				.sort((a, b) => parseInt(a) - parseInt(b))
+				.sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
 				.map(group => {
 					const groupData = skillData[group]
 					return (

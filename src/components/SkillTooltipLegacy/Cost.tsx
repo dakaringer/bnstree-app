@@ -10,7 +10,9 @@ const Cost = (currentCost: number, hoverCost: number, type: 'focus' | 'health' =
 	const regen = type === 'focus' ? 'skill.general.regen_focus' : 'skill.general.regen_health'
 
 	if (currentCost === hoverCost) {
-		if (hoverCost === 0) return null
+		if (hoverCost === 0) {
+			return null
+		}
 
 		return (
 			<span className={style.cost}>

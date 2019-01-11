@@ -25,7 +25,9 @@ const SkillPage: React.SFC<Props> = props => {
 	const classLink = classes.find(c => c.link === match.params.className)
 	const classCode = classLink && (classLink.classCode as ClassCode)
 
-	if (!classCode) return null
+	if (!classCode) {
+		return null
+	}
 
 	const element = skillPreferences.element[classCode]
 

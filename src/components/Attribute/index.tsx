@@ -30,7 +30,7 @@ interface Props extends SelfProps, PropsFromStore {}
 
 const Attribute: React.SFC<Props> = props => {
 	const { attribute, moddedAttribute, flag, defaultIcon, skillPreferences } = props
-	let values: { [key: string]: any } = attribute.values ? { ...attribute.values } : {}
+	const values: { [key: string]: any } = attribute.values ? { ...attribute.values } : {}
 
 	values.additional = values.additional && <T id="tooltip.general.additional" />
 	values.element = null

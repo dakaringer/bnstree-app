@@ -11,19 +11,23 @@ interface Props {
 
 const ScrollContainer: React.SFC<Props> = props => {
 	const { height, flex, disabled, children, className, onScroll } = props
-	if (disabled) return <div className={className}>{children}</div>
+	if (disabled) {
+		return <div className={className}>{children}</div>
+	}
 
 	return (
 		<Scrollbars
 			autoHide
 			hideTracksWhenNotNeeded
 			autoHideDuration={500}
-			renderThumbVertical={props => <div {...props} style={{ background: 'rgba(120, 120, 120, 0.8)' }} />}
-			renderTrackVertical={props => (
+			renderThumbVertical={thumbProps => (
+				<div {...thumbProps} style={{ background: 'rgba(120, 120, 120, 0.8)' }} />
+			)}
+			renderTrackVertical={trackbProps => (
 				<div
-					{...props}
+					{...trackbProps}
 					style={{
-						...props.style,
+						...trackbProps.style,
 						width: '1.2rem',
 						right: 0,
 						top: 0,

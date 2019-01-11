@@ -73,7 +73,9 @@ const mergeAttributes = (
 			.map(attb => {
 				if (attb.modId) {
 					const replacement = traitAttributes.filter(tAttb => attb.modId === tAttb.modId)
-					if (replacement.length > 0) return replacement
+					if (replacement.length > 0) {
+						return replacement
+					}
 				}
 				return attb
 			})

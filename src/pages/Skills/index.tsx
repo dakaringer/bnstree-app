@@ -40,7 +40,9 @@ class SkillPage extends React.PureComponent<Props> {
 		const classLink = classes.find(c => c.link === match.params.className)
 		const classCode = classLink && (classLink.classCode as ClassCode)
 
-		if (classCode) loadClass(classCode)
+		if (classCode) {
+			loadClass(classCode)
+		}
 	}
 
 	componentDidUpdate = (prevProps: Props) => {
@@ -62,7 +64,9 @@ class SkillPage extends React.PureComponent<Props> {
 		const classLink = classes.find(c => c.link === match.params.className)
 		const classCode = classLink && (classLink.classCode as ClassCode)
 
-		if (!classCode) return null
+		if (!classCode) {
+			return null
+		}
 
 		const specialization = skillPreferences.specialization[classCode]
 		const mode = skillPreferences.mode

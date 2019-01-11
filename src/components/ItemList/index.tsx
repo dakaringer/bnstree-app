@@ -100,7 +100,9 @@ class ItemList extends React.PureComponent<Props, State> {
 	filterItems = () => {
 		const { itemPreferences } = this.props
 		const { itemData } = this.state
-		if (!itemData) return null
+		if (!itemData) {
+			return null
+		}
 
 		let data = itemData.filter(item => {
 			return itemPreferences.filter === 'ALL' || !item.classCode || item.classCode === itemPreferences.filter
@@ -126,7 +128,9 @@ class ItemList extends React.PureComponent<Props, State> {
 		const { filteredItemData } = this.state
 		const itemData = filteredItemData
 
-		if (!itemData) return null
+		if (!itemData) {
+			return null
+		}
 
 		return (
 			<div className={style.skillList}>
@@ -134,7 +138,9 @@ class ItemList extends React.PureComponent<Props, State> {
 					.sort(comparators[itemType])
 					.map(group => {
 						const groupData = itemData[group]
-						if (!groupData) return
+						if (!groupData) {
+							return
+						}
 						return (
 							<div key={group}>
 								<Typography variant="subtitle1" className={style.groupLabel}>

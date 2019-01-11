@@ -65,7 +65,11 @@ module.exports = merge(common, {
 		}),
 		new HTMLWebpackPlugin({
 			template: '!!raw-loader!' + path.join(ROOT, 'public', 'index.ejs'),
-			filename: 'index.ejs'
+			filename: 'index.ejs',
+			minify: {
+				removeComments: true,
+				collapseWhitespace: true
+			}
 		}),
 		new CleanWebpackPlugin(['dist'], {
 			root: ROOT,

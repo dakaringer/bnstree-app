@@ -29,7 +29,7 @@ const Attributes = (
 				currentAttributes.splice(matchIndex, 1)
 			}
 
-			let attributeObject: AttributeProps = {
+			const attributeObject: AttributeProps = {
 				attribute: hoverAttribute,
 				defaultElement,
 				defaultIcon
@@ -69,11 +69,19 @@ const Attributes = (
 }
 
 const isEqualAttribute = (a: SkillAttribute, b: SkillAttribute) => {
-	if (a.msg !== b.msg) return false
-	if (!a.values && !b.values) return true
-	if (!a.values || !b.values) return false
+	if (a.msg !== b.msg) {
+		return false
+	}
+	if (!a.values && !b.values) {
+		return true
+	}
+	if (!a.values || !b.values) {
+		return false
+	}
 
-	if (!isEqual(Object.keys(a.values), Object.keys(b.values))) return false
+	if (!isEqual(Object.keys(a.values), Object.keys(b.values))) {
+		return false
+	}
 
 	for (const key in a.values) {
 		if (typeof a.values[key] !== 'number' && !isEqual(a.values[key], b.values[key])) {

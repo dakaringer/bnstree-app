@@ -12,12 +12,12 @@ import { MoveInfo } from '@src/store/SkillsLegacy/types'
 import style from './styles/index.css'
 
 const getInfoText = (
-	value: number | DeepReadonlyArray<number> | DeepReadonlyObject<{ [element in SkillElement]?: number | number[] }>,
+	value: number | DeepReadonlyArray<number> | DeepReadonlyObject<{ [e in SkillElement]?: number | number[] }>,
 	type: 'range' | 'area' | 'time',
 	element: SkillElement
 ) => {
 	if (typeof value === 'object' && !Array.isArray(value)) {
-		value = (value as DeepReadonlyObject<{ [element in SkillElement]: number | number[] }>)[element]
+		value = (value as DeepReadonlyObject<{ [e in SkillElement]: number | number[] }>)[element]
 	}
 
 	if (type === 'range' || type === 'area') {

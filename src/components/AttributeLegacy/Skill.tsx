@@ -26,13 +26,13 @@ const Skill: React.SFC<Props> = props => {
 	const { skillName, noIcon, resource, locale, defaultElement } = props
 
 	const skillQuery = skillName.split(/ +/)
-	const element = skillQuery[1] && isNaN(parseInt(skillQuery[1])) && (
+	const element = skillQuery[1] && isNaN(parseInt(skillQuery[1], 10)) && (
 		<T id={['general', 'element_types', skillQuery[1].toUpperCase()]} />
 	)
 	const moves = skillQuery
 		.slice(element ? 2 : 1)
 		.map((move, i) => (
-			<T key={i} id={['skill', 'general', parseInt(move) > 3 ? 'move_hm' : 'move']} values={{ move }} />
+			<T key={i} id={['skill', 'general', parseInt(move, 10) > 3 ? 'move_hm' : 'move']} values={{ move }} />
 		))
 	const suffix =
 		element || moves.length > 0 ? (

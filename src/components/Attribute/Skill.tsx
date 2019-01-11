@@ -14,7 +14,9 @@ const Skill: React.SFC<Props> = props => {
 	const { skillName, noIcon } = props
 
 	const nameData = getNameData(skillName, 'skill')
-	if (!nameData) return null
+	if (!nameData) {
+		return null
+	}
 
 	return (
 		<span>

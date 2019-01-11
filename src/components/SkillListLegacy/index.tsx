@@ -112,7 +112,9 @@ class SkillList extends React.PureComponent<Props, State> {
 	filterSkills = () => {
 		const { element, skillPreferences, readonly } = this.props
 		const { skillData } = this.state
-		if (!skillData) return null
+		if (!skillData) {
+			return null
+		}
 
 		let data = skillData.filter(skill => {
 			const moves = skill.moves.filter(move => get(move, 'element', element) === element)
@@ -141,7 +143,9 @@ class SkillList extends React.PureComponent<Props, State> {
 		const { filteredSkillData } = this.state
 		const skillData = filteredSkillData
 
-		if (!skillData) return null
+		if (!skillData) {
+			return null
+		}
 
 		return (
 			<div className={style.skillList}>
@@ -149,7 +153,9 @@ class SkillList extends React.PureComponent<Props, State> {
 					.sort(comparators[skillPreferences.order])
 					.map(group => {
 						const groupData = skillData[group]
-						if (!groupData) return
+						if (!groupData) {
+							return
+						}
 						return (
 							<div key={group}>
 								<Typography variant="subtitle1" className={style.groupLabel}>

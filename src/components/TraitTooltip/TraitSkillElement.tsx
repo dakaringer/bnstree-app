@@ -43,7 +43,9 @@ const TraitSkillElement: React.SFC<Props> = props => {
 		<div className={style.traitSkill}>
 			{!traitSkill.action &&
 				(() => {
-					if (!targetSkill || !traitSkill.data) return null
+					if (!targetSkill || !traitSkill.data) {
+						return null
+					}
 					const modifiedSkillData = {
 						...targetSkill.data,
 						...traitSkill.data
@@ -72,7 +74,9 @@ const TraitSkillElement: React.SFC<Props> = props => {
 			{traitSkill.action &&
 				traitSkill.action !== 'ADD' &&
 				(() => {
-					if (!targetSkill) return null
+					if (!targetSkill) {
+						return null
+					}
 					const targetSkillData = targetSkill.data
 					return (
 						<>
@@ -98,7 +102,9 @@ const TraitSkillElement: React.SFC<Props> = props => {
 			{traitSkill.action &&
 				traitSkill.action !== 'REMOVE' &&
 				(() => {
-					if (!traitSkill.data) return null
+					if (!traitSkill.data) {
+						return null
+					}
 					const newSkillData = traitSkill.data as SkillData
 					return (
 						<>

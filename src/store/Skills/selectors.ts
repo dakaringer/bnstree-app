@@ -73,29 +73,28 @@ const getProcessedSkills = createSelector(
 			.reduce((acc: { [id: string]: DeepReadonlyArray<TraitSkill> }, trait) => {
 				trait.data.skills.forEach(traitSkill => {
 					if (traitSkill.skillId) {
-						const traits = acc[traitSkill.skillId] || []
-						acc[traitSkill.skillId] = [...traits, traitSkill]
+						const t = acc[traitSkill.skillId] || []
+						acc[traitSkill.skillId] = [...t, traitSkill]
 					}
 				})
 				return acc
 			}, {})
 
 		return skillData.map(skill => {
-			let skillData = skill.data
+			let data = skill.data
 			const appliedTraits = modifiedSkills[skill._id] || []
 			appliedTraits.forEach(trait => {
 				if (trait.data) {
-					skillData =
-						trait.action === 'REPLACE' ? (trait.data as SkillData) : mergeSkills(skillData, trait.data)
+					data = trait.action === 'REPLACE' ? (trait.data as SkillData) : mergeSkills(data, trait.data)
 				}
 			})
 
 			return {
 				...skill,
 				data: {
-					...skillData,
-					...getNameData(skillData.nameId, 'skill'),
-					tags: getTags(skillData)
+					...data,
+					...getNameData(data.nameId, 'skill'),
+					tags: getTags(data)
 				}
 			}
 		})
@@ -107,7 +106,9 @@ const getProcessedTraits = createSelector(
 		const data = traits.map(trait => {
 			const nameData = getNameData(trait.data.nameId, 'trait')
 
-			if (!nameData) return trait
+			if (!nameData) {
+				return trait
+			}
 
 			return {
 				...trait,
@@ -124,11 +125,11 @@ const getProcessedTraits = createSelector(
 								traitData = mergeSkills(targetSkillData.data, traitData)
 							}
 
-							const nameData = traitData.nameId && getNameData(traitData.nameId, 'skill')
+							const traitNameData = traitData.nameId && getNameData(traitData.nameId, 'skill')
 
 							traitData = {
 								...traitData,
-								...nameData,
+								...traitNameData,
 								tags: getTags(traitData)
 							}
 						}
@@ -163,8 +164,12 @@ export const getFilteredSkills = createSelector(
 
 		return groupBy(
 			data.sort((a, b) => {
-				if (a._id < b._id) return -1
-				if (a._id > b._id) return 1
+				if (a._id < b._id) {
+					return -1
+				}
+				if (a._id > b._id) {
+					return 1
+				}
 				return 0
 			}),
 			skill => skill.data.minLevel

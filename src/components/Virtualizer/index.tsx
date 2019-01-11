@@ -23,7 +23,9 @@ class Virtualizer extends React.PureComponent<Props, State> {
 			<VisibilitySensor
 				offset={{ top: -1000, bottom: -1000 }}
 				onChange={(isVisible: boolean) => {
-					if (isVisible) this.setState({ visible: true })
+					if (isVisible) {
+						this.setState({ visible: true })
+					}
 				}}
 				active={!visible}>
 				<div style={{ minHeight: minHeight || 0 }}>
