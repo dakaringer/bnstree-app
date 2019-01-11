@@ -1,7 +1,7 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
 import { get, mergeWith } from 'lodash-es'
 import { get as idbGet, set as idbSet } from 'idb-keyval'
-import apollo from '@src/apollo'
+import apollo from '@src/utils/apollo'
 
 import { sagaActionTypes } from './actionTypes'
 import {

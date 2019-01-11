@@ -10,7 +10,7 @@ import { RootState } from '@src/store/rootReducer'
 import { ItemType } from '@src/store/constants'
 import { getIsLoading } from '@src/store/Skills/selectors'
 
-import { items } from '@src/constants'
+import { items } from '@src/utils/constants'
 
 interface PropsFromStore {
 	isLoading: ReturnType<typeof getIsLoading>

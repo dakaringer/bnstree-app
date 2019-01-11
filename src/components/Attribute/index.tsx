@@ -9,7 +9,7 @@ import { RootState } from '@src/store/rootReducer'
 import { SkillAttribute } from '@src/store/Skills/types'
 import { getSkillPreferences } from '@src/store/Skills/selectors'
 
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import style from './styles/index.css'
 import powerIcon from './images/skill_attack_power.png'
 import Skill from './Skill'

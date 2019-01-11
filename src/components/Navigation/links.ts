@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { classes, items } from '@src/constants'
+import { classes, items } from '@src/utils/constants'
 
 export interface LinkObject {
 	link: string

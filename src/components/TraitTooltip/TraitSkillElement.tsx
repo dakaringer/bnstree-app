@@ -12,7 +12,7 @@ import { TraitSkill, SkillData } from '@src/store/Skills/types'
 import { getData } from '@src/store/Skills/selectors'
 import { getTags } from '@src/utils/helpers'
 
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import style from './styles/TraitSkill.css'
 import SkillTooltip from '@src/components/SkillTooltip'
 

@@ -14,7 +14,7 @@ import { Trait } from '@src/store/Skills/types'
 import UserActions from '@src/store/User/actions'
 import { getCurrentClass, getSpecialization, getBuild } from '@src/store/Skills/selectors'
 
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import style from './styles/index.css'
 import TraitTooltip from '@src/components/TraitTooltip'
 

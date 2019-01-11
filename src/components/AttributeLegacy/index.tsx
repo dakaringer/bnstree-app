@@ -12,7 +12,7 @@ import { getSkillPreferences } from '@src/store/SkillsLegacy/selectors'
 
 import style from './styles/index.css'
 import elementIcons from './images/elementIcons'
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import Skill from './Skill'
 import Join from './Join'
 

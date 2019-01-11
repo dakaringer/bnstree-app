@@ -8,7 +8,7 @@ import { DeepReadonly } from '@src/utils/immutableHelper'
 import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { Skill } from '@src/store/Skills/types'
 
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import style from './styles/index.css'
 import keyIcons from './images/keyIcons'
 import SkillTooltip from '@src/components/SkillTooltip'

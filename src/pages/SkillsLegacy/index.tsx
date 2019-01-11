@@ -7,7 +7,7 @@ import { RootState } from '@src/store/rootReducer'
 import { ClassCodeLegacy as ClassCode } from '@src/store/constants'
 import { getSkillPreferences, getIsLoading } from '@src/store/SkillsLegacy/selectors'
 
-import { classes } from '@src/constants'
+import { classes } from '@src/utils/constants'
 import PageContainer from '@src/components/PageContainer'
 import SkillActionBar from '@src/components/SkillActionBarLegacy'
 import SkillList from '@src/components/SkillListLegacy'

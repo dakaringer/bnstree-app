@@ -13,7 +13,7 @@ import { ClassCode, ItemFilter } from '@src/store/constants'
 import { getItemPreferences } from '@src/store/Items/selectors'
 import UserActions from '@src/store/User/actions'
 
-import { classes } from '@src/constants'
+import { classes } from '@src/utils/constants'
 import style from './styles/index.css'
 import classIcons from '@src/images/classIcons'
 

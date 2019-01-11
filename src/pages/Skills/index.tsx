@@ -12,7 +12,7 @@ import SkillActions from '@src/store/Skills/actions'
 import { getSkillPreferences, getIsLoading } from '@src/store/Skills/selectors'
 import UserActions from '@src/store/User/actions'
 
-import { classes } from '@src/constants'
+import { classes } from '@src/utils/constants'
 import PageContainer from '@src/components/PageContainer'
 import SkillActionBar from '@src/components/SkillActionBar'
 import SkillList from '@src/components/SkillList'

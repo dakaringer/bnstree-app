@@ -12,6 +12,5 @@ declare module '*.svg'
 declare module '*.gif'
 
 declare module 'react-sprite-animator'
-declare module 'i18next-fetch-backend'
 declare module 'fuse.js'
 declare module 'react-visibility-sensor'

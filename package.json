@@ -9,7 +9,8 @@
 		"start": "node server/server.js",
 		"lint": "lint:code && lint:style",
 		"lint:code": "tslint -p tsconfig.json",
-		"lint:style": "stylelint './src/**/*"
+		"lint:style": "stylelint './src/**/*",
+		"watch": "tsc --watch"
 	},
 	"dependencies": {
 		"@babel/polyfill": "^7.2.5",

@@ -9,7 +9,7 @@ import ImageLoader from '@src/components/ImageLoader'
 
 import { DeepReadonly, DeepReadonlyArray } from '@src/utils/immutableHelper'
 import { OtherCharacters, CharacterProfile as CharacterProfileType, CharacterBadge } from '@src/store/Character/types'
-import { API_SERVER } from '@src/constants'
+import { API_SERVER } from '@src/utils/constants'
 
 import style from './styles/index.css'
 import classIcons from '@src/images/classIcons'

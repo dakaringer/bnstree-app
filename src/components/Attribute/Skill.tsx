@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ImageLoader from '@src/components/ImageLoader'
 
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import { getNameData } from '@src/utils/helpers'
 import style from './styles/Skill.css'
 

@@ -7,7 +7,7 @@ import { DeepReadonly } from '@src/utils/immutableHelper'
 import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { SkillData } from '@src/store/Skills/types'
 
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import style from './styles/index.css'
 import Cost from './Cost'
 import Attributes from './Attributes'

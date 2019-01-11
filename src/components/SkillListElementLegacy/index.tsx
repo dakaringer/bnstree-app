@@ -11,7 +11,7 @@ import { SkillData, MoveData } from '@src/store/SkillsLegacy/types'
 import UserActions from '@src/store/User/actions'
 
 import style from './styles/index.css'
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import keyIcons from './images/keyIcons'
 import MoveButton from './MoveButton'
 import SkillTooltip from '@src/components/SkillTooltipLegacy'

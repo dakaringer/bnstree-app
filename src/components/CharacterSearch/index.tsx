@@ -7,7 +7,7 @@ import * as Autosuggest from 'react-autosuggest'
 import gql from 'graphql-tag'
 import classNames from 'classnames'
 import { debounce, get } from 'lodash-es'
-import apollo from '@src/apollo'
+import apollo from '@src/utils/apollo'
 import compose from '@src/utils/compose'
 
 import { RootState } from '@src/store/rootReducer'

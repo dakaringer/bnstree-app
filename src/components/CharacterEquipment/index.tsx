@@ -7,7 +7,7 @@ import T from '@src/components/T'
 import { DeepReadonly } from '@src/utils/immutableHelper'
 import { CharacterEquipment as CharacterEquipmentType } from '@src/store/Character/types'
 import { CharacterRegion } from '@src/store/constants'
-import { API_SERVER } from '@src/constants'
+import { API_SERVER } from '@src/utils/constants'
 
 import style from './styles/index.css'
 import SoulshieldDialog from './SoulshieldDialog'

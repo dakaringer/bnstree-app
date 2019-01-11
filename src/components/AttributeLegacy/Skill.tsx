@@ -8,7 +8,7 @@ import { getLocale } from '@src/store/Intl/selectors'
 import { getResource } from '@src/store/Resources/selectors'
 
 import style from './styles/Skill.css'
-import { STATIC_SERVER } from '@src/constants'
+import { STATIC_SERVER } from '@src/utils/constants'
 import Join from './Join'
 
 interface PropsFromStore {

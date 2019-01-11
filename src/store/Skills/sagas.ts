@@ -1,6 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
 import { get } from 'lodash-es'
-import apollo from '@src/apollo'
+import apollo from '@src/utils/apollo'
 
 import { sagaActionTypes } from './actionTypes'
 import { loadDataQuery } from './queries'

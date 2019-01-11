@@ -15,7 +15,7 @@ import { SkillSpecialization, ClassCode } from '@src/store/constants'
 import { getCurrentClass, getSkillPreferences } from '@src/store/Skills/selectors'
 import UserActions from '@src/store/User/actions'
 
-import { classes } from '@src/constants'
+import { classes } from '@src/utils/constants'
 import style from './styles/index.css'
 import classIcons from '@src/images/classIcons'
 import specializationIcons from '@src/images/specializationIcons'

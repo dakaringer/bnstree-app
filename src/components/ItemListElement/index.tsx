@@ -8,9 +8,9 @@ import Virtualizer from '@src/components/Virtualizer'
 import { DeepReadonly } from '@src/utils/immutableHelper'
 import { ItemData } from '@src/store/Items/types'
 
+import { STATIC_SERVER } from '@src/utils/constants'
 import style from './styles/index.css'
 import classIcons from '@src/images/classIcons'
-import { STATIC_SERVER } from '@src/constants'
 
 interface Props {
 	itemData: DeepReadonly<ItemData>
