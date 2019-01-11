@@ -1,6 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
 import { get, mergeWith } from 'lodash-es'
-import * as localForage from 'localforage'
+import { get as idbGet, set as idbSet } from 'idb-keyval'
 import apollo from '@src/apollo'
 
 import { sagaActionTypes } from './actionTypes'
@@ -23,7 +23,7 @@ const loadPreferencesCall = () => {
 }
 
 const loadPreferencesLocalCall = () => {
-	return localForage.getItem('userPreferences').catch(() => ({}))
+	return idbGet('userPreferences')
 }
 
 const idTokenLoginCall = (idToken: string) => {
@@ -58,10 +58,8 @@ const updatePreferencesCall = (payload: ReturnType<typeof Actions.updatePreferen
 }
 
 const updatePreferencesLocalCall = async (payload: ReturnType<typeof Actions.updatePreferences>['payload']) => {
-	const preferences = await localForage.getItem('userPreferences').catch(() => ({}))
-	localForage
-		.setItem('userPreferences', mergeWith(preferences || {}, payload, (a, b) => (b === null ? a : undefined)))
-		.catch(() => {})
+	const preferences = await idbGet('userPreferences')
+	idbSet('userPreferences', mergeWith(preferences || {}, payload, (a, b) => (b === null ? a : undefined)))
 }
 
 // Sagas
