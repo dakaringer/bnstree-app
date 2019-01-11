@@ -1,5 +1,4 @@
-import './hotLoaderConfig'
-import { hot } from 'react-hot-loader'
+import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
@@ -100,9 +99,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 	)
 
 export default compose<Props, {}>(
+	hot,
 	connect(
 		mapStateToProps,
 		mapDispatchToProps
-	),
-	hot(module)
+	)
 )(App)
