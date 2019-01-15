@@ -1,9 +1,8 @@
-import { DeepReadonly } from '@src/utils/immutableHelper'
 import { reduxActionTypes } from './actionTypes'
 import { Skills } from './types'
 import Actions from './actions'
 
-import { ClassCode } from '@src/store/constants'
+import { ClassCode } from '@store/constants'
 
 export type State = DeepReadonly<Skills>
 

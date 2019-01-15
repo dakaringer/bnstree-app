@@ -1,9 +1,0 @@
-.fade-image {
-	transition: opacity 0.5s ease;
-	opacity: 0;
-    image-rendering: pixelated;
-
-	&.loaded {
-		opacity: 1;
-	}
-}

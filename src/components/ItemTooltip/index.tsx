@@ -2,20 +2,20 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Typography, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
-import { DeepReadonly } from '@src/utils/immutableHelper'
 import compose from '@src/utils/compose'
-import BTTooltip from '@src/components/BTTooltip'
-import T from '@src/components/T'
-import ImageLoader from '@src/components/ImageLoader'
-
-import { ItemData } from '@src/store/Items/types'
-import { RootState } from '@src/store/rootReducer'
-import { getResource } from '@src/store/Resources/selectors'
-import { getLocale } from '@src/store/Intl/selectors'
-
-import style from './styles/index.css'
 import { STATIC_SERVER } from '@src/utils/constants'
-import Attributes from './Attributes'
+
+import T from '@components/T'
+import HoverTooltip from '@components/HoverTooltip'
+import ItemName from '@components/ItemName'
+
+import { ItemData } from '@store/Items/types'
+import { RootState } from '@store/rootReducer'
+import { getResource } from '@store/Resources/selectors'
+import { getLocale } from '@store/Intl/selectors'
+
+import { TooltipTitle } from './style'
+import getAttributes from './getAttributes'
 
 interface PropsFromStore {
 	resource: ReturnType<typeof getResource>
@@ -32,52 +32,46 @@ interface Props extends SelfProps, PropsFromStore, WithWidth {}
 const ItemTooltip: React.SFC<Props> = props => {
 	const { itemData, width, resource, locale, ...tooltipProps } = props
 
-	const { m1, m2, sub } = Attributes(itemData.attributes || [])
+	const { m1, m2, sub } = getAttributes(itemData.attributes || [])
 
-	const extra = []
+	let fuse
 	if (itemData.fuse) {
-		extra.push(
-			<div className={style.fuse} key="fuse">
+		fuse = (
+			<div key="fuse">
 				<Typography variant="caption" color="secondary">
 					<T id="tooltip.general.fuse" />
 				</Typography>
-				<Typography variant="caption" color="inherit" className={style.badges}>
+				<div>
 					{itemData.fuse.map((badge, i) => {
 						const item = resource.item[badge]
 						return (
 							<span key={badge}>
-								<span className={style.grade_5}>
-									<ImageLoader src={`${STATIC_SERVER}/images/items/${item.icon}`} />
-									{item.name[locale]}
-								</span>
-								{itemData.fuse && i !== itemData.fuse.length - 1 && (
-									<span className={style.plus}> + </span>
-								)}
+								<Typography variant="caption" color="inherit" inline>
+									<ItemName name={item.name[locale]} grade={5} icon={item.icon} />
+								</Typography>
+								{itemData.fuse && i !== itemData.fuse.length - 1 && <span> + </span>}
 							</span>
 						)
 					})}
-				</Typography>
+				</div>
 			</div>
 		)
 	}
 
 	return (
-		<BTTooltip
+		<HoverTooltip
 			icon={`${STATIC_SERVER}/images/items/${itemData.icon}`}
 			title={
-				<div className={style.title}>
-					<Typography
-						variant={isWidthDown('xs', width) ? 'subtitle1' : 'h6'}
-						className={style[`grade_${itemData.grade}`]}>
-						{itemData.name}
+				<TooltipTitle>
+					<Typography variant={isWidthDown('xs', width) ? 'subtitle1' : 'h6'}>
+						<ItemName name={itemData.name} grade={itemData.grade} />
 					</Typography>
-				</div>
+				</TooltipTitle>
 			}
 			m1={m1}
 			m2={m2}
 			sub={sub}
-			extra={<>{extra}</>}
-			className={style.itemTooltip}
+			extra={fuse}
 			offset={-2}
 			{...tooltipProps}
 		/>

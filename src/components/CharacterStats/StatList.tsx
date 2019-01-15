@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { ButtonBase, Typography, Collapse } from '@material-ui/core'
 import { ExpandMore, ExpandLess } from '@material-ui/icons'
-import T from '@src/components/T'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
-import { CharacterStats } from '@src/store/Character/types'
-import { ClassCode } from '@src/store/constants'
+import T from '@components/T'
+
+import { CharacterStats } from '@store/Character/types'
+import { ClassCode } from '@store/constants'
 
 import style from './styles/StatList.css'
 import { stats, classElements } from './stats'

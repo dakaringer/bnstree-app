@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import { RootState } from '@src/store/rootReducer'
-import { getPreferences } from '@src/store/User/selectors'
+import { RootState } from '@store/rootReducer'
+import { getPreferences } from '@store/User/selectors'
 import { get, transform } from 'lodash-es'
 import * as flat from 'flat'
 

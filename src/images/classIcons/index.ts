@@ -1,4 +1,4 @@
-import { ClassCode } from '@src/store/constants'
+import { ClassCode } from '@store/constants'
 
 import BM from './Job_Img_BladeMaster_40.png'
 import KF from './Job_Img_KungfuFighter_40.png'

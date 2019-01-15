@@ -1,16 +1,17 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
-import FadeContainer from '@src/components/FadeContainer'
 
-import { RootState } from '@src/store/rootReducer'
-import { ClassCodeLegacy as ClassCode } from '@src/store/constants'
-import { getSkillPreferences, getIsLoading } from '@src/store/SkillsLegacy/selectors'
+import FadeContainer from '@components/FadeContainer'
+import PageContainer from '@components/PageContainer'
+import SkillActionBar from '@components/SkillActionBarLegacy'
+import SkillList from '@components/SkillListLegacy'
+
+import { RootState } from '@store/rootReducer'
+import { ClassCodeLegacy as ClassCode } from '@store/constants'
+import { getSkillPreferences, getIsLoading } from '@store/SkillsLegacy/selectors'
 
 import { classes } from '@src/utils/constants'
-import PageContainer from '@src/components/PageContainer'
-import SkillActionBar from '@src/components/SkillActionBarLegacy'
-import SkillList from '@src/components/SkillListLegacy'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>

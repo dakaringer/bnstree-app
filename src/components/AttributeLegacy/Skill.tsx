@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import ImageLoader from '@src/components/ImageLoader'
-import T from '@src/components/T'
+import { STATIC_SERVER } from '@src/utils/constants'
 
-import { RootState } from '@src/store/rootReducer'
-import { getLocale } from '@src/store/Intl/selectors'
-import { getResource } from '@src/store/Resources/selectors'
+import ImageLoader from '@components/ImageLoader'
+import T from '@components/T'
+
+import { RootState } from '@store/rootReducer'
+import { getLocale } from '@store/Intl/selectors'
+import { getResource } from '@store/Resources/selectors'
 
 import style from './styles/Skill.css'
-import { STATIC_SERVER } from '@src/utils/constants'
 import Join from './Join'
 
 interface PropsFromStore {

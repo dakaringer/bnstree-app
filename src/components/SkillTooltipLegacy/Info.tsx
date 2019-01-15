@@ -3,11 +3,10 @@ import { Paper, Typography } from '@material-ui/core'
 import { ArrowDropDown } from '@material-ui/icons'
 import classNames from 'classnames'
 import { get, isEqual } from 'lodash-es'
-import T from '@src/components/T'
+import T from '@components/T'
 
-import { DeepReadonly, DeepReadonlyArray, DeepReadonlyObject } from '@src/utils/immutableHelper'
-import { SkillElement } from '@src/store/constants'
-import { MoveInfo } from '@src/store/SkillsLegacy/types'
+import { SkillElement } from '@store/constants'
+import { MoveInfo } from '@store/SkillsLegacy/types'
 
 import style from './styles/index.css'
 

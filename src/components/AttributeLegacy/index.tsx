@@ -1,18 +1,19 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-import T from '@src/components/T'
-import ImageLoader from '@src/components/ImageLoader'
 import { ArrowRight } from '@material-ui/icons'
+import { STATIC_SERVER } from '@src/utils/constants'
 
-import { RootState } from '@src/store/rootReducer'
-import { SkillElement } from '@src/store/constants'
-import { SkillAttribute } from '@src/store/SkillsLegacy/types'
-import { getSkillPreferences } from '@src/store/SkillsLegacy/selectors'
+import T from '@components/T'
+import ImageLoader from '@components/ImageLoader'
+
+import { RootState } from '@store/rootReducer'
+import { SkillElement } from '@store/constants'
+import { SkillAttribute } from '@store/SkillsLegacy/types'
+import { getSkillPreferences } from '@store/SkillsLegacy/selectors'
 
 import style from './styles/index.css'
 import elementIcons from './images/elementIcons'
-import { STATIC_SERVER } from '@src/utils/constants'
 import Skill from './Skill'
 import Join from './Join'
 
@@ -20,7 +21,7 @@ interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>
 }
 
-export interface SelfProps {
+interface SelfProps {
 	attribute: SkillAttribute
 	moddedAttribute?: SkillAttribute
 	flag?: 'add' | 'mod' | 'del'

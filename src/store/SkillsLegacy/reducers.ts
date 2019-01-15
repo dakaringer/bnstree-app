@@ -1,4 +1,3 @@
-import { DeepReadonly } from '@src/utils/immutableHelper'
 import { reduxActionTypes } from './actionTypes'
 import { Skills } from './types'
 import Actions from './actions'

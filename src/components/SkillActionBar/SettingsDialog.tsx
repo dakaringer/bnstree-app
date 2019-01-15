@@ -12,11 +12,12 @@ import {
 	InputAdornment
 } from '@material-ui/core'
 import { HelpOutline } from '@material-ui/icons'
-import T from '@src/components/T'
 
-import { RootState } from '@src/store/rootReducer'
-import { getCurrentClass, getSkillPreferences } from '@src/store/Skills/selectors'
-import UserActions from '@src/store/User/actions'
+import T from '@components/T'
+
+import { RootState } from '@store/rootReducer'
+import { getCurrentClass, getSkillPreferences } from '@store/Skills/selectors'
+import UserActions from '@store/User/actions'
 
 import style from './styles/SettingsDialog.css'
 

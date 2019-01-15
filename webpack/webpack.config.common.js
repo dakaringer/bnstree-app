@@ -18,7 +18,10 @@ module.exports = {
 		modules: ['node_modules'],
 		extensions: ['.ts', '.tsx', '.js'],
 		alias: {
-			'@src': path.join(ROOT, 'src')
+			'@src': path.join(ROOT, 'src'),
+			'@components': path.join(ROOT, 'src', 'components'),
+			'@store': path.join(ROOT, 'src', 'store'),
+			'@style': path.join(ROOT, 'src', 'style')
 		}
 	},
 	module: {
@@ -47,6 +50,7 @@ module.exports = {
 							plugins: [
 								'@babel/plugin-proposal-class-properties',
 								'@babel/plugin-syntax-dynamic-import',
+								'babel-plugin-styled-components',
 								[
 									'transform-imports',
 									{
@@ -87,7 +91,7 @@ module.exports = {
 						options: {
 							plugins: [
 								require('postcss-import')({
-									path: ['src/styles']
+									path: ['src/style']
 								}),
 								require('postcss-preset-env')({
 									stage: 0,

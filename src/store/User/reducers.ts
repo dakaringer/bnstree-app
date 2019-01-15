@@ -1,6 +1,5 @@
 import { mergeWith } from 'lodash-es'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
 import { reduxActionTypes } from './actionTypes'
 import { User } from './types'
 import Actions from './actions'
@@ -15,7 +14,7 @@ import {
 	CharacterRegion,
 	ItemFilter,
 	MarketRegion
-} from '@src/store/constants'
+} from '@store/constants'
 
 export type State = DeepReadonly<User>
 

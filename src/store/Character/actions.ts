@@ -2,7 +2,7 @@ import { createStandardAction, ActionType } from 'typesafe-actions'
 
 import { sagaActionTypes, reduxActionTypes } from './actionTypes'
 import { CharacterData } from './types'
-import { CharacterRegion } from '@src/store/constants'
+import { CharacterRegion } from '@store/constants'
 
 const Actions = {
 	// Saga actions

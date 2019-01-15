@@ -2,19 +2,19 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { Typography, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
-import BTTooltip from '@src/components/BTTooltip'
-import T from '@src/components/T'
-import Attribute from '@src/components/AttributeLegacy'
 import compose from '@src/utils/compose'
-import { DeepReadonly } from '@src/utils/immutableHelper'
-
-import { RootState } from '@src/store/rootReducer'
-import { SkillElement } from '@src/store/constants'
-import { MoveData } from '@src/store/SkillsLegacy/types'
-import { getResource } from '@src/store/Resources/selectors'
-import { getLocale } from '@src/store/Intl/selectors'
-
 import { STATIC_SERVER } from '@src/utils/constants'
+
+import HoverTooltip from '@components/HoverTooltip'
+import T from '@components/T'
+import Attribute from '@components/AttributeLegacy'
+
+import { RootState } from '@store/rootReducer'
+import { SkillElement } from '@store/constants'
+import { MoveData } from '@store/SkillsLegacy/types'
+import { getResource } from '@store/Resources/selectors'
+import { getLocale } from '@store/Intl/selectors'
+
 import style from './styles/index.css'
 import Cost from './Cost'
 import Attributes from './Attributes'
@@ -79,7 +79,7 @@ const SkillTooltip: React.SFC<Props> = props => {
 	const tags = Tags(currentMoveData.tags || [], hoverMoveData.tags || [])
 
 	return (
-		<BTTooltip
+		<HoverTooltip
 			icon={`${STATIC_SERVER}/images/skills/${hoverMoveData.icon}`}
 			title={title}
 			m1={m1}

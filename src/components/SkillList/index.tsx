@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Typography } from '@material-ui/core'
-import T from '@src/components/T'
 
-import { RootState } from '@src/store/rootReducer'
-import { getFilteredSkills, getSpecialization } from '@src/store/Skills/selectors'
+import T from '@components/T'
+import SkillListElement from './components/SkillListElement'
 
-import style from './styles/index.css'
-import SkillListElement from '@src/components/SkillListElement'
+import { RootState } from '@store/rootReducer'
+import { getFilteredSkills, getSpecialization } from '@store/Skills/selectors'
+
+import { SkillListContainer, SkillListGroup } from './style'
 
 interface PropsFromStore {
 	skillData: ReturnType<typeof getFilteredSkills>
@@ -19,25 +20,25 @@ interface Props extends PropsFromStore {}
 const SkillList: React.SFC<Props> = props => {
 	const { specialization, skillData } = props
 	return (
-		<div className={style.skillList}>
+		<SkillListContainer>
 			{Object.keys(skillData)
 				.sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
 				.map(group => {
 					const groupData = skillData[group]
 					return (
-						<div key={group}>
-							<Typography variant="subtitle1" className={style.groupLabel}>
+						<SkillListGroup key={group}>
+							<Typography variant="subtitle1">
 								<T id={['skill', 'group_label', 'level']} values={{ level: group }} />
 							</Typography>
-							<div className={style.skillGroup}>
+							<div>
 								{groupData.map(skill => (
 									<SkillListElement key={skill._id} skill={skill} specialization={specialization} />
 								))}
 							</div>
-						</div>
+						</SkillListGroup>
 					)
 				})}
-		</div>
+		</SkillListContainer>
 	)
 }
 

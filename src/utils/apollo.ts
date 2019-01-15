@@ -7,8 +7,8 @@ import { onError } from 'apollo-link-error'
 
 import { API_SERVER } from './constants'
 
-import store from '@src/store/redux'
-import UserActions from '@src/store/User/actions'
+import store from '@store/redux'
+import UserActions from '@store/User/actions'
 
 const uri = `${API_SERVER}/graphql`
 

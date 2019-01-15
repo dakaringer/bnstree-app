@@ -1,25 +1,26 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Typography } from '@material-ui/core'
 import { ArrowRight } from '@material-ui/icons'
-import classNames from 'classnames'
-import T from '@src/components/T'
-import ImageLoader from '@src/components/ImageLoader'
-
-import { RootState } from '@src/store/rootReducer'
-import { SkillAttribute } from '@src/store/Skills/types'
-import { getSkillPreferences } from '@src/store/Skills/selectors'
-
 import { STATIC_SERVER } from '@src/utils/constants'
-import style from './styles/index.css'
+import { getNameData } from '@src/utils/helpers'
+
+import T from '@components/T'
+import ImageLoader from '@components/ImageLoader'
+import SkillName from '@components/SkillName'
+
+import { RootState } from '@store/rootReducer'
+import { SkillAttribute } from '@store/Skills/types'
+import { getSkillPreferences } from '@store/Skills/selectors'
+
+import { AttributeContainer } from './style'
 import powerIcon from './images/skill_attack_power.png'
-import Skill from './Skill'
-import Join from './Join'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>
 }
 
-export interface SelfProps {
+interface SelfProps {
 	attribute: SkillAttribute
 	moddedAttribute?: SkillAttribute
 	flag?: 'add' | 'mod' | 'del'
@@ -28,14 +29,16 @@ export interface SelfProps {
 
 interface Props extends SelfProps, PropsFromStore {}
 
+const join = (list: React.ReactNode[], sep: string = ', ') => {
+	return list.reduce((acc: any[], cur) => (acc.length === 0 ? acc.concat([cur]) : acc.concat([sep, cur])), [])
+}
+
 const Attribute: React.SFC<Props> = props => {
 	const { attribute, moddedAttribute, flag, defaultIcon, skillPreferences } = props
 	const values: { [key: string]: any } = attribute.values ? { ...attribute.values } : {}
 
 	values.additional = values.additional && <T id="tooltip.general.additional" />
 	values.element = null
-
-	let multiplied = false
 
 	Object.keys(values).forEach(k => {
 		const keys = k.split('-')
@@ -61,21 +64,20 @@ const Attribute: React.SFC<Props> = props => {
 					: scale.toFixed(2)
 				if (multiplyer !== 1) {
 					scaleTxt += ` × ${multiplyer.toFixed(2)}`
-					multiplied = true
 				}
 
 				values[k] = (
-					<span>
+					<Typography variant="inherit" color={multiplyer !== 1 ? 'primary' : 'default'} inline>
 						{bottom} ~ {top}{' '}
-						<span className={style.scale}>
+						<Typography variant="inherit" color="secondary" inline>
 							[
 							<T
 								id={values.pet ? 'tooltip.general.scalePet' : 'tooltip.general.scale'}
 								values={{ scale: scaleTxt }}
 							/>
 							]
-						</span>
-					</span>
+						</Typography>
+					</Typography>
 				)
 
 				break
@@ -84,27 +86,23 @@ const Attribute: React.SFC<Props> = props => {
 			case 'skillName': {
 				const noIcon = keys[0] === 'skillName'
 				if (Array.isArray(value)) {
-					const list = value.map(v => <Skill key={v} skillName={v} noIcon={noIcon} />)
-					values[k] = <>{Join(list)}</>
+					const list = value.map(v => {
+						const nameData = getNameData(v, 'skill')
+						return nameData && <SkillName key={v} name={nameData.name} icon={!noIcon && nameData.icon} />
+					})
+					values[k] = <>{join(list)}</>
 				} else {
-					values[k] = <Skill skillName={value} noIcon={noIcon} />
+					const nameData = getNameData(value, 'skill')
+					values[k] = nameData && <SkillName name={nameData.name} icon={!noIcon && nameData.icon} />
 				}
 				break
 			}
 			case 'effect': {
 				if (Array.isArray(value)) {
-					const list = value.map(v => (
-						<span className={style.skill} key={v}>
-							<T id={['tooltip', 'effect_type', v]} />
-						</span>
-					))
-					values[k] = <>{Join(list)}</>
+					const list = value.map(v => <SkillName key={v} name={<T id={['tooltip', 'effect_type', v]} />} />)
+					values[k] = <>{join(list)}</>
 				} else {
-					values[k] = (
-						<span className={style.skill}>
-							<T id={['tooltip', 'effect_type', value]} />
-						</span>
-					)
+					values[k] = <SkillName name={<T id={['tooltip', 'effect_type', value]} />} />
 				}
 				break
 			}
@@ -126,7 +124,7 @@ const Attribute: React.SFC<Props> = props => {
 				} else {
 					if (Array.isArray(value)) {
 						const list = value.map(v => <T key={v} id={['tooltip', `${keys[0]}_type`, v]} />)
-						values[k] = <>{Join(list)}</>
+						values[k] = <>{join(list)}</>
 					} else if (typeof value === 'string' && keys[0] !== 'value') {
 						values[k] = <T id={['tooltip', `${keys[0]}_type`, value]} />
 					}
@@ -136,13 +134,13 @@ const Attribute: React.SFC<Props> = props => {
 	})
 
 	return (
-		<span className={classNames(style.attribute, flag && style[flag], { [style.multiplied]: multiplied })}>
+		<AttributeContainer flag={flag}>
 			{(attribute.icon || defaultIcon) && (
 				<ImageLoader src={`${STATIC_SERVER}/images/skills/${attribute.icon || defaultIcon}`} />
 			)}
 			<T id={['tooltip', attribute.msg]} values={values} />
-			{values.powered && <ImageLoader src={powerIcon} className={style.element} />}
-		</span>
+			{values.powered && <ImageLoader src={powerIcon} />}
+		</AttributeContainer>
 	)
 }
 

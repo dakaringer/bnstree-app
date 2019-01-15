@@ -1,6 +1,5 @@
 import { mergeWith } from 'lodash-es'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
 import { reduxActionTypes } from './actionTypes'
 import { Resource } from './types'
 import Actions from './actions'

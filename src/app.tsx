@@ -3,27 +3,26 @@ import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteProps } from 'react-router'
-import { MuiThemeProvider } from '@material-ui/core/styles'
 import { Snackbar, Typography } from '@material-ui/core'
+import { MuiThemeProvider } from '@material-ui/core/styles'
 import { IntlProvider } from 'react-intl'
 import compose from '@src/utils/compose'
-import T from '@src/components/T'
-
-import './styles/index.css'
-import theme from './styles/theme'
-
-import Actions from '@src/store/rootActions'
-import UserActions from '@src/store/User/actions'
-import { RootState } from '@src/store/rootReducer'
-import { getIsLoading } from '@src/store/rootSelector'
-import { getLocale, getFlatMessages } from '@src/store/Intl/selectors'
-import { getLogoutMessage } from '@src/store/User/selectors'
 
 import Router from './router'
 import GATracker from './GATracker'
-import Navigation from '@src/components/Navigation'
-import Background from '@src/components/Background'
-import LoadingLyn from '@src/components/LoadingLyn'
+import T from '@components/T'
+import Navigation from '@components/Navigation'
+import Background from '@components/Background'
+import LoadingLyn from '@components/LoadingLyn'
+import { ThemeProvider } from '@style/styled-components'
+import { muiTheme, styledTheme } from '@style/theme'
+
+import Actions from '@store/rootActions'
+import UserActions from '@store/User/actions'
+import { RootState } from '@store/rootReducer'
+import { getIsLoading } from '@store/rootSelector'
+import { getLocale, getFlatMessages } from '@store/Intl/selectors'
+import { getLogoutMessage } from '@store/User/selectors'
 
 interface PropsFromStore {
 	locale: string
@@ -54,25 +53,27 @@ class App extends React.PureComponent<Props> {
 					<LoadingLyn />
 				) : (
 					<IntlProvider locale={locale ? locale.toLowerCase() : 'en'} messages={messages}>
-						<MuiThemeProvider theme={theme}>
-							<Navigation>
-								<Router />
-							</Navigation>
-							<Snackbar
-								anchorOrigin={{
-									vertical: 'top',
-									horizontal: 'right'
-								}}
-								open={logoutMessage}
-								autoHideDuration={3000}
-								onClose={() => setLogoutMessage(false)}
-								message={
-									<Typography color="primary">
-										<T id="navigation.user.logout_message" />
-									</Typography>
-								}
-							/>
-						</MuiThemeProvider>
+						<ThemeProvider theme={styledTheme}>
+							<MuiThemeProvider theme={muiTheme}>
+								<Navigation>
+									<Router />
+								</Navigation>
+								<Snackbar
+									anchorOrigin={{
+										vertical: 'top',
+										horizontal: 'right'
+									}}
+									open={logoutMessage}
+									autoHideDuration={3000}
+									onClose={() => setLogoutMessage(false)}
+									message={
+										<Typography color="primary">
+											<T id="navigation.user.logout_message" />
+										</Typography>
+									}
+								/>
+							</MuiThemeProvider>
+						</ThemeProvider>
 					</IntlProvider>
 				)}
 				<Background />

@@ -1,4 +1,4 @@
-import { ClassCode, CharacterRegion } from '@src/store/constants'
+import { ClassCode, CharacterRegion } from '@store/constants'
 
 export interface Character {
 	data: CharacterData | null

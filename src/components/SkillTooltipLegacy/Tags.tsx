@@ -3,8 +3,6 @@ import { Typography } from '@material-ui/core'
 import { difference } from 'lodash-es'
 import classNames from 'classnames'
 
-import { DeepReadonlyArray } from '@src/utils/immutableHelper'
-
 import style from './styles/index.css'
 
 const Tags = (currentTags: DeepReadonlyArray<string>, hoverTags: DeepReadonlyArray<string>) => {

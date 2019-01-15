@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { get, isEqual } from 'lodash-es'
 
-import { DeepReadonlyArray } from '@src/utils/immutableHelper'
-import { SkillElement } from '@src/store/constants'
-import { SkillAttribute } from '@src/store/SkillsLegacy/types'
-import Attribute, { SelfProps as AttributeProps } from '@src/components/AttributeLegacy'
+import Attribute from '@components/AttributeLegacy'
+
+import { SkillElement } from '@store/constants'
+import { SkillAttribute } from '@store/SkillsLegacy/types'
 
 const Attributes = (
 	currentAttributeList: DeepReadonlyArray<SkillAttribute>,
@@ -29,7 +29,7 @@ const Attributes = (
 				currentAttributes.splice(matchIndex, 1)
 			}
 
-			const attributeObject: AttributeProps = {
+			const attributeObject: GetComponentProps<typeof Attribute> = {
 				attribute: hoverAttribute,
 				defaultElement,
 				defaultIcon
@@ -46,7 +46,7 @@ const Attributes = (
 		})
 		.concat(
 			currentAttributes.map(leftoverAttribute => {
-				const attributeObject: AttributeProps = {
+				const attributeObject: GetComponentProps<typeof Attribute> = {
 					attribute: leftoverAttribute,
 					flag: 'del',
 					defaultElement,

@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { Dialog, DialogTitle, DialogContent, Typography, Divider } from '@material-ui/core'
 import classNames from 'classnames'
-import T from '@src/components/T'
-import ImageLoader from '@src/components/ImageLoader'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
+import T from '@components/T'
+import ImageLoader from '@components/ImageLoader'
 
 import style from './styles/HMPointDialog.css'
 import statIcons from './images/statIcons'

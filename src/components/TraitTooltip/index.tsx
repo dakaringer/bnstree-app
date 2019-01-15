@@ -1,19 +1,17 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { Typography } from '@material-ui/core'
-import BTTooltip from '@src/components/BTTooltip'
-import T from '@src/components/T'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
-import { RootState } from '@src/store/rootReducer'
-import { Trait } from '@src/store/Skills/types'
-import { getResource } from '@src/store/Resources/selectors'
-import { getLocale } from '@src/store/Intl/selectors'
+import HoverTooltip from '@components/HoverTooltip'
+import SkillName from '@components/SkillName'
+import T from '@components/T'
+import TraitTooltipSkill from './components/TraitTooltipSkill'
 
-import { SkillSpecialization, ClassCode } from '@src/store/constants'
-
-import style from './styles/index.css'
-import TraitSkillElement from './TraitSkillElement'
+import { SkillSpecialization, ClassCode } from '@store/constants'
+import { RootState } from '@store/rootReducer'
+import { Trait } from '@store/Skills/types'
+import { getResource } from '@store/Resources/selectors'
+import { getLocale } from '@store/Intl/selectors'
 
 interface Props {
 	trait: DeepReadonly<Trait>
@@ -25,20 +23,15 @@ const TraitTooltip: React.SFC<Props> = props => {
 	const { trait, specialization, ...tooltipProps } = props
 
 	return (
-		<BTTooltip
-			title={
-				<Typography variant="subtitle1" className={style.skill}>
-					{trait.data.name}
-				</Typography>
-			}
-			className={style.traitTooltip}
+		<HoverTooltip
+			title={<SkillName name={trait.data.name} variant="subtitle1" />}
 			sub={
 				<Typography variant="caption" color="secondary">
 					<T id="skill.trait.tooltip" />
 				</Typography>
 			}
 			extra={trait.data.skills.map((skill, i) => (
-				<TraitSkillElement key={i} traitSkill={skill} specialization={specialization} />
+				<TraitTooltipSkill key={i} traitSkill={skill} specialization={specialization} />
 			))}
 			offset={-2}
 			{...tooltipProps}

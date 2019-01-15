@@ -13,13 +13,13 @@ import {
 	InputAdornment
 } from '@material-ui/core'
 import { HelpOutline } from '@material-ui/icons'
-import ImageLoader from '@src/components/ImageLoader'
-import T from '@src/components/T'
+import ImageLoader from '@components/ImageLoader'
+import T from '@components/T'
 
-import { RootState } from '@src/store/rootReducer'
-import { SkillElement } from '@src/store/constants'
-import { getSkillPreferences } from '@src/store/SkillsLegacy/selectors'
-import UserActions from '@src/store/User/actions'
+import { RootState } from '@store/rootReducer'
+import { SkillElement } from '@store/constants'
+import { getSkillPreferences } from '@store/SkillsLegacy/selectors'
+import UserActions from '@store/User/actions'
 
 import style from './styles/SettingsDialog.css'
 import elementIcons from '@src/images/elementIcons'

@@ -1,36 +1,24 @@
 import * as React from 'react'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import classNames from 'classnames'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-import style from './styles/index.css'
+import { GroupContainer, TransitionContainer } from './style'
 
 interface Props {
 	currentKey: string | number
 	timeout?: number
 	shift?: boolean
 	className?: string
-	containerProps?: {}
 }
 
 const FadeContainer: React.SFC<Props> = props => {
-	const { currentKey, children, timeout, shift, className, containerProps } = props
-
-	const transitionClasses = {
-		enter: shift ? style.fadeWithShiftEnter : style.fadeEnter,
-		enterActive: style.fadeEnterActive,
-		exit: style.fadeExit,
-		exitActive: style.fadeExitActive
-	}
+	const { currentKey, children, timeout, shift, className } = props
 
 	return (
-		<TransitionGroup
-			className={classNames(style.fadeContainer, { [style.withShift]: shift })}
-			style={{ animationDuration: timeout ? `${timeout}ms` : '500ms' }}
-			{...containerProps}>
-			<CSSTransition key={currentKey} classNames={transitionClasses} timeout={timeout || 500} unmountOnExit>
-				<div style={{ transitionDuration: timeout ? `${timeout}ms` : '500ms' }} className={className}>
+		<TransitionGroup component={GroupContainer} shift={shift} timeout={timeout}>
+			<CSSTransition key={currentKey} classNames="fade" timeout={timeout || 500} unmountOnExit>
+				<TransitionContainer shift={shift} timeout={timeout} className={className}>
 					{children}
-				</div>
+				</TransitionContainer>
 			</CSSTransition>
 		</TransitionGroup>
 	)

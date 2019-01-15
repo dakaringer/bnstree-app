@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { Paper } from '@material-ui/core'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
-import { CharacterStats as CharacterStatsType } from '@src/store/Character/types'
-import { ClassCode } from '@src/store/constants'
+import { CharacterStats as CharacterStatsType } from '@store/Character/types'
+import { ClassCode } from '@store/constants'
 
 import MainStat from './MainStat'
 import StatList from './StatList'

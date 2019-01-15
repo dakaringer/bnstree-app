@@ -9,7 +9,7 @@ import {
 	CharacterRegion,
 	ItemFilter,
 	MarketRegion
-} from '@src/store/constants'
+} from '@store/constants'
 
 export interface User {
 	data: UserData | null

@@ -4,18 +4,19 @@ import { connect } from 'react-redux'
 import { Button, IconButton, Input, MenuItem, Menu } from '@material-ui/core'
 import { Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
-import T from '@src/components/T'
-import ImageLoader from '@src/components/ImageLoader'
-import compose from '@src/utils/compose'
-
-import { RootState } from '@src/store/rootReducer'
-import { ClassCode, ItemFilter } from '@src/store/constants'
-import { getItemPreferences } from '@src/store/Items/selectors'
-import UserActions from '@src/store/User/actions'
-
 import { classes } from '@src/utils/constants'
-import style from './styles/index.css'
+import compose from '@src/utils/compose'
 import classIcons from '@src/images/classIcons'
+
+import T from '@components/T'
+import ImageLoader from '@components/ImageLoader'
+
+import { RootState } from '@store/rootReducer'
+import { ClassCode, ItemFilter } from '@store/constants'
+import { getItemPreferences } from '@store/Items/selectors'
+import UserActions from '@store/User/actions'
+
+import style from './styles/index.css'
 
 interface PropsFromStore {
 	itemPreferences: ReturnType<typeof getItemPreferences>

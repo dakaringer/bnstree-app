@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { ButtonBase, Hidden, withWidth } from '@material-ui/core'
+import { Hidden, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
-import classNames from 'classnames'
 
-import style from './styles/index.css'
-import Menu from './Menu'
+import ScrollContainer from '@components/ScrollContainer'
+import Hamburger from './components/Hamburger'
+import Menu from './components/Menu'
 
-import ScrollContainer from '@src/components/ScrollContainer'
+import { NavigationContainer } from './style'
 
 interface Props extends WithWidth {}
 
@@ -31,23 +31,14 @@ class Navigation extends React.PureComponent<Props, State> {
 
 		return (
 			<>
-				<div className={style.navigation}>
+				<NavigationContainer>
 					<ScrollContainer height="100%" disabled={isWidthDown('xs', width)}>
 						{children}
 					</ScrollContainer>
 					<Hidden lgUp>
-						<ButtonBase
-							centerRipple
-							onClick={this.toggleMenu}
-							className={classNames(style.menuToggle, style.hamburger, style.hamburgerSqueeze, {
-								[style.isActive]: menuOpen
-							})}>
-							<div className={style.hamburgerBox}>
-								<span className={style.hamburgerInner} />
-							</div>
-						</ButtonBase>
+						<Hamburger onClick={this.toggleMenu} />
 					</Hidden>
-				</div>
+				</NavigationContainer>
 				<Menu
 					isOpen={menuOpen}
 					onOpen={() => this.setState({ menuOpen: true })}

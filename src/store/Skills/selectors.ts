@@ -3,9 +3,8 @@ import { get, groupBy } from 'lodash-es'
 import Fuse from 'fuse.js'
 import { getNameData, mergeSkills, getTags } from '@src/utils/helpers'
 
-import { DeepReadonly, DeepReadonlyArray } from '@src/utils/immutableHelper'
-import { RootState } from '@src/store/rootReducer'
-import { getPreferences } from '@src/store/User/selectors'
+import { RootState } from '@store/rootReducer'
+import { getPreferences } from '@store/User/selectors'
 import { SkillData, TraitSkill } from './types'
 
 const getSkills = (state: RootState) => state.skills

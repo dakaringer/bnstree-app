@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
-import PageContainer from '@src/components/PageContainer'
-import ItemActionBar from '@src/components/ItemActionBar'
-import ItemList from '@src/components/ItemList'
-import FadeContainer from '@src/components/FadeContainer'
-
-import { RootState } from '@src/store/rootReducer'
-import { ItemType } from '@src/store/constants'
-import { getIsLoading } from '@src/store/Skills/selectors'
-
 import { items } from '@src/utils/constants'
+
+import PageContainer from '@components/PageContainer'
+import ItemActionBar from '@components/ItemActionBar'
+import ItemList from '@components/ItemList'
+import FadeContainer from '@components/FadeContainer'
+
+import { RootState } from '@store/rootReducer'
+import { ItemType } from '@store/constants'
+import { getIsLoading } from '@store/Skills/selectors'
 
 interface PropsFromStore {
 	isLoading: ReturnType<typeof getIsLoading>

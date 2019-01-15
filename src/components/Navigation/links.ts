@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { classes, items } from '@src/utils/constants'
 
 export interface LinkObject {
@@ -10,7 +9,7 @@ export interface LinkObject {
 	disabled?: boolean
 }
 
-export const menuLinks: LinkObject[] = [
+const menuLinks: LinkObject[] = [
 	{
 		link: 'news',
 		label: 'navigation.menu.news',
@@ -50,3 +49,5 @@ export const menuLinks: LinkObject[] = [
 		disabled: true
 	}
 ]
+
+export default menuLinks

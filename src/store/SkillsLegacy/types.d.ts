@@ -1,4 +1,4 @@
-import { ClassCodeLegacy, SkillElement, Attribute } from '@src/store/constants'
+import { ClassCodeLegacy, SkillElement, Attribute } from '@store/constants'
 
 export interface Skills {
 	data: { [key in ClassCodeLegacy]: SkillData[] | null }

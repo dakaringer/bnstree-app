@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { RootState } from '@src/store/rootReducer'
+import { RootState } from '@store/rootReducer'
 
 const getUser = (state: RootState) => state.user
 

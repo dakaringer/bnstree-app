@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Typography } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
-import T from '@src/components/T'
-import ImageLoader from '@src/components/ImageLoader'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
-import { CharacterStats } from '@src/store/Character/types'
+import T from '@components/T'
+import ImageLoader from '@components/ImageLoader'
+
+import { CharacterStats } from '@store/Character/types'
 
 import style from './styles/CharacterStatListItem.css'
 import statIcons from './images/statIcons'
@@ -38,12 +38,7 @@ const StatListItem: React.SFC<Props> = props => {
 
 	return (
 		<ExpansionPanel className={style.statListItem}>
-			<ExpansionPanelSummary
-				expandIcon={<ExpandMore />}
-				classes={{
-					root: style.expandSummary,
-					expandIcon: style.expandIcon
-				}}>
+			<ExpansionPanelSummary expandIcon={<ExpandMore />} className={style.expandSummary}>
 				<div className={style.statHeader}>
 					<Typography className={style.label}>
 						<ImageLoader src={statIcons[stat.icon]} />

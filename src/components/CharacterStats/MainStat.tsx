@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { Paper, Typography, ButtonBase } from '@material-ui/core'
 import classNames from 'classnames'
-import T from '@src/components/T'
-import ImageLoader from '@src/components/ImageLoader'
 
-import { DeepReadonly } from '@src/utils/immutableHelper'
-import { CharacterStats } from '@src/store/Character/types'
-import { ClassCode } from '@src/store/constants'
+import T from '@components/T'
+import ImageLoader from '@components/ImageLoader'
+
+import { CharacterStats } from '@store/Character/types'
+import { ClassCode } from '@store/constants'
 
 import { hmPointBuffs } from './stats'
 import style from './styles/MainStat.css'

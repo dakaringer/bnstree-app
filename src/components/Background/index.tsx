@@ -1,8 +1,8 @@
 import * as React from 'react'
-import FadeContainer from '@src/components/FadeContainer'
-import ImageLoader from '@src/components/ImageLoader'
 
-import style from './styles/index.css'
+import ImageLoader from '@components/ImageLoader'
+
+import { BackgroundContainer, ImageFadeContainer, Backdrop } from './style'
 
 const images = require.context('./images', true, /\.jpe?g$/)
 const keys = images.keys()
@@ -13,7 +13,7 @@ interface State {
 }
 
 interface Background {
-	intervalId: number
+	intervalId: NodeJS.Timeout
 }
 
 class Background extends React.PureComponent<{}, State> {
@@ -46,12 +46,12 @@ class Background extends React.PureComponent<{}, State> {
 		const { i } = this.state
 
 		return (
-			<div className={style.background}>
-				<FadeContainer currentKey={i} timeout={2000} className={style.imgContainer}>
+			<BackgroundContainer>
+				<ImageFadeContainer currentKey={i} timeout={2000}>
 					<ImageLoader key={i} src={imageArray[i]} />
-				</FadeContainer>
-				<div className={style.cover} />
-			</div>
+				</ImageFadeContainer>
+				<Backdrop />
+			</BackgroundContainer>
 		)
 	}
 }

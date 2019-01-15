@@ -1,3 +1,3 @@
-import { RootState } from '@src/store/rootReducer'
+import { RootState } from '@store/rootReducer'
 
 export const getNames = (state: RootState) => state.names.data

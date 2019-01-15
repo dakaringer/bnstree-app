@@ -1,4 +1,4 @@
-import { SkillSpecialization, ClassCode } from '@src/store/constants'
+import { SkillSpecialization, ClassCode } from '@store/constants'
 
 const specializations: { [c in ClassCode]: SkillSpecialization<c>[] } = {
 	BM: ['empty'],

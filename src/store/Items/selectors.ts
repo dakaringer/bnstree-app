@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import { RootState } from '@src/store/rootReducer'
-import { getPreferences } from '@src/store/User/selectors'
+import { RootState } from '@store/rootReducer'
+import { getPreferences } from '@store/User/selectors'
 
 const getItems = (state: RootState) => state.items
 

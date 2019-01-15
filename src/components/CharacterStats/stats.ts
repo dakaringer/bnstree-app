@@ -3,12 +3,14 @@ export const stats = {
 		{
 			statId: 'attack_power_value',
 			icon: 'attack_power',
-			subStats: []
+			subStats: [],
+			essential: true
 		},
 		{
 			statId: 'pc_attack_power_value',
 			icon: 'attack_power_pvp',
-			subStats: []
+			subStats: [],
+			essential: true
 		},
 		{
 			statId: 'boss_attack_power_value',
@@ -107,7 +109,8 @@ export const stats = {
 		{
 			statId: 'max_hp',
 			icon: 'health',
-			subStats: []
+			subStats: [],
+			essential: true
 		},
 		{
 			statId: 'defend_power_value',
@@ -124,7 +127,8 @@ export const stats = {
 		{
 			statId: 'boss_defend_power_value',
 			icon: 'defense_boss',
-			subStats: ['boss_defend_power_rate', 'aoe_defend_power_value', 'aoe_defend_damage_reduce_rate']
+			subStats: ['boss_defend_power_rate', 'aoe_defend_power_value', 'aoe_defend_damage_reduce_rate'],
+			essential: true
 		},
 		{
 			statId: 'defend_dodge_value',

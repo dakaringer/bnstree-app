@@ -1,8 +1,8 @@
 import { get, merge, uniq } from 'lodash-es'
 
-import store from '@src/store/redux'
-import { DeepReadonly, DeepReadonlyArray } from '@src/utils/immutableHelper'
-import { SkillData, SkillAttribute } from '@src/store/Skills/types'
+import store from '@store/redux'
+
+import { SkillData, SkillAttribute } from '@store/Skills/types'
 
 import tagDefs from './tagDefs'
 

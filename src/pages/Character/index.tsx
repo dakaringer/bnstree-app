@@ -2,73 +2,22 @@ import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
-import { Typography, Paper } from '@material-ui/core'
-import T from '@src/components/T'
-import FadeContainer from '@src/components/FadeContainer'
+import { Typography } from '@material-ui/core'
 
-import { RootState } from '@src/store/rootReducer'
-import { CharacterRegion, ClassCode, SkillElement } from '@src/store/constants'
-import { getData, getIsLoading } from '@src/store/Character/selectors'
-import CharacterActions from '@src/store/Character/actions'
-import UserActions from '@src/store/User/actions'
+import T from '@components/T'
+import FadeContainer from '@components/FadeContainer'
+import PageContainer from '@components/PageContainer'
+import CharacterProfile from '@components/CharacterProfile'
+import CharacterEquipment from '@components/CharacterEquipment'
+import CharacterStats from '@components/CharacterStats'
 
-import style from './styles/index.css'
-import PageContainer from '@src/components/PageContainer'
-import CharacterProfile from '@src/components/CharacterProfile'
-import CharacterEquipment from '@src/components/CharacterEquipment'
-import CharacterStats from '@src/components/CharacterStats'
-import SkillList from '@src/components/SkillListLegacy'
+import { RootState } from '@store/rootReducer'
+import { CharacterRegion } from '@store/constants'
+import { getData, getIsLoading } from '@store/Character/selectors'
+import CharacterActions from '@store/Character/actions'
+import UserActions from '@store/User/actions'
 
-const classElements: {
-	[key in ClassCode]: {
-		[i: number]: SkillElement
-	}
-} = {
-	BM: {
-		0: 'FLAME',
-		1: 'LIGHTNING'
-	},
-	KF: {
-		0: 'WIND',
-		1: 'FLAME'
-	},
-	DE: {
-		0: 'EARTH',
-		1: 'SHADOW'
-	},
-	FM: {
-		0: 'FLAME',
-		1: 'FROST'
-	},
-	AS: {
-		0: 'SHADOW',
-		1: 'LIGHTNING'
-	},
-	SU: {
-		0: 'WIND',
-		1: 'EARTH'
-	},
-	BD: {
-		0: 'WIND',
-		1: 'LIGHTNING'
-	},
-	SF: {
-		0: 'EARTH',
-		1: 'FROST'
-	},
-	WL: {
-		0: 'FROST',
-		1: 'SHADOW'
-	},
-	GS: {
-		0: 'FLAME',
-		1: 'SHADOW'
-	},
-	WR: {
-		0: 'LIGHTNING',
-		1: 'FROST'
-	}
-}
+import { CharacterLayout } from './style'
 
 interface PropsFromStore {
 	characterData: ReturnType<typeof getData>
@@ -88,8 +37,10 @@ class CharacterPage extends React.PureComponent<Props> {
 		const { match, search, updatePreferences } = props
 		const region = match.params.region.toUpperCase() as CharacterRegion
 		const name = match.params.name
-		updatePreferences({ character: { region: this.validateRegion(region) as CharacterRegion } })
-		search({ name, region })
+		if (region && name) {
+			updatePreferences({ character: { region: this.validateRegion(region) as CharacterRegion } })
+			search({ name, region })
+		}
 	}
 
 	componentWillUnmount = () => {
@@ -120,18 +71,18 @@ class CharacterPage extends React.PureComponent<Props> {
 		const { characterData, isLoading } = this.props
 
 		return (
-			<PageContainer isLoading={!characterData || isLoading} className={style.character}>
+			<PageContainer isLoading={!characterData || isLoading}>
 				{!characterData ||
 				!characterData.profile ||
 				!characterData.equipment ||
 				!characterData.stats ||
 				'failed' in characterData.profile ? (
 					<>
-						<Typography variant="h2" className={style.notFound}>
+						<Typography variant="h2">
 							<T id="character.not_found" />
 						</Typography>
 						{characterData && characterData.profile.failed === 'nameChanged' && (
-							<Typography variant="h6" className={style.notFound} color="textSecondary">
+							<Typography variant="h6" color="textSecondary">
 								<T id="character.not_found_name_changed" />
 							</Typography>
 						)}
@@ -143,42 +94,23 @@ class CharacterPage extends React.PureComponent<Props> {
 							otherCharacters={characterData.otherCharacters}
 							badges={characterData.badges}
 						/>
-						<div className={style.characterInfo}>
+						<CharacterLayout>
 							<CharacterEquipment
 								equipmentData={characterData.equipment}
 								region={characterData.profile.region}
-								className={style.equipment}
+								className="equipment"
 							/>
 							<CharacterStats
 								statData={characterData.stats}
 								type="attack"
 								classCode={characterData.profile.classCode}
-								className={style.stats}
 							/>
 							<CharacterStats
 								statData={characterData.stats}
 								type="defense"
 								classCode={characterData.profile.classCode}
-								className={style.stats}
 							/>
-						</div>
-						{characterData.skills && (
-							<Paper className={style.characterSkills}>
-								<Typography variant="h4">
-									<T id="character.navigation.skills" />
-								</Typography>
-								<SkillList
-									classCode={characterData.profile.classCode}
-									element={
-										classElements[characterData.profile.classCode][
-											characterData.skills.elementIndex
-										]
-									}
-									buildData={characterData.skills.build}
-									readonly
-								/>
-							</Paper>
-						)}
+						</CharacterLayout>
 					</FadeContainer>
 				)}
 			</PageContainer>

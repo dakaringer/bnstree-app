@@ -2,7 +2,7 @@ import { createStandardAction, ActionType } from 'typesafe-actions'
 
 import { sagaActionTypes, reduxActionTypes } from './actionTypes'
 import { ItemData } from './types'
-import { ItemType } from '@src/store/constants'
+import { ItemType } from '@store/constants'
 
 const Actions = {
 	// Saga actions

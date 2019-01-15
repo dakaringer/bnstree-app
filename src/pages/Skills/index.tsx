@@ -3,22 +3,22 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import { Button } from '@material-ui/core'
-import FadeContainer from '@src/components/FadeContainer'
-import T from '@src/components/T'
-
-import { RootState } from '@src/store/rootReducer'
-import { ClassCode } from '@src/store/constants'
-import SkillActions from '@src/store/Skills/actions'
-import { getSkillPreferences, getIsLoading } from '@src/store/Skills/selectors'
-import UserActions from '@src/store/User/actions'
-
 import { classes } from '@src/utils/constants'
-import PageContainer from '@src/components/PageContainer'
-import SkillActionBar from '@src/components/SkillActionBar'
-import SkillList from '@src/components/SkillList'
-import TraitList from '@src/components/TraitList'
 
-import style from './styles/index.css'
+import T from '@components/T'
+import FadeContainer from '@components/FadeContainer'
+import PageContainer from '@components/PageContainer'
+import SkillActionBar from '@components/SkillActionBar'
+import SkillList from '@components/SkillList'
+import TraitList from '@components/TraitList'
+
+import { RootState } from '@store/rootReducer'
+import { ClassCode } from '@store/constants'
+import { getSkillPreferences, getIsLoading } from '@store/Skills/selectors'
+import SkillActions from '@store/Skills/actions'
+import UserActions from '@store/User/actions'
+
+import { ModeSelector } from './style'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof getSkillPreferences>
@@ -32,7 +32,7 @@ interface PropsFromDispatch {
 
 interface Props extends PropsFromStore, PropsFromDispatch, RouteComponentProps<{ className: string }> {}
 
-class SkillPage extends React.PureComponent<Props> {
+class SkillsPage extends React.PureComponent<Props> {
 	constructor(props: Props) {
 		super(props)
 		const { match, loadClass } = props
@@ -72,8 +72,8 @@ class SkillPage extends React.PureComponent<Props> {
 		const mode = skillPreferences.mode
 
 		return (
-			<PageContainer isLoading={isLoading} topNav={<SkillActionBar />} className={style.skill}>
-				<div className={style.modes}>
+			<PageContainer isLoading={isLoading} topNav={<SkillActionBar />}>
+				<ModeSelector>
 					<Button
 						variant="outlined"
 						size="small"
@@ -88,7 +88,7 @@ class SkillPage extends React.PureComponent<Props> {
 						onClick={() => updatePreferences({ skills: { mode: 'LIST' } })}>
 						<T id="skill.navigation.skills" />
 					</Button>
-				</div>
+				</ModeSelector>
 				<FadeContainer currentKey={`${classCode}-${specialization}-${mode}`}>
 					{mode === 'TRAITS' && <TraitList />}
 					{mode === 'LIST' && <SkillList />}
@@ -117,4 +117,4 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(SkillPage)
+)(SkillsPage)

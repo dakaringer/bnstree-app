@@ -1,16 +1,24 @@
 import * as React from 'react'
-import { Paper, Typography, ButtonBase, Fade } from '@material-ui/core'
-import classNames from 'classnames'
-import ImageLoader from '@src/components/ImageLoader'
-import T from '@src/components/T'
-
-import { DeepReadonly } from '@src/utils/immutableHelper'
-import { CharacterEquipment as CharacterEquipmentType } from '@src/store/Character/types'
-import { CharacterRegion } from '@src/store/constants'
+import { Typography, Button, Fade, Paper } from '@material-ui/core'
 import { API_SERVER } from '@src/utils/constants'
 
-import style from './styles/index.css'
-import SoulshieldDialog from './SoulshieldDialog'
+import T from '@components/T'
+import ImageLoader from '@components/ImageLoader'
+import ItemName from '@components/ItemName'
+import SoulshieldDialog from './components/SoulshieldDialog'
+
+import { CharacterEquipment as CharacterEquipmentType } from '@store/Character/types'
+import { CharacterRegion } from '@store/constants'
+
+import {
+	CharacterEquipmentContainer,
+	Weapon,
+	Gems,
+	Item,
+	SoulshieldContainer,
+	SoulshieldCircle,
+	SoulshieldPiece
+} from './style'
 
 interface Props {
 	equipmentData: DeepReadonly<CharacterEquipmentType>
@@ -33,10 +41,9 @@ class CharacterEquipment extends React.PureComponent<Props, State> {
 
 		return (
 			<>
-				<Paper className={classNames(style.characterEquipment, className)}>
-					<div className={style.weapon}>
+				<Paper className={className} component={CharacterEquipmentContainer}>
+					<Weapon>
 						<ImageLoader
-							className={style.icon}
 							src={
 								equipmentData.weapon.icon
 									? `${API_SERVER}/proxy/${region.toLowerCase()}/resource_img/${
@@ -45,71 +52,60 @@ class CharacterEquipment extends React.PureComponent<Props, State> {
 									: ''
 							}
 						/>
-						<div>
-							<Typography className={style[equipmentData.weapon.grade]}>
-								{equipmentData.weapon.name}
-							</Typography>
-							<div className={style.gems}>
-								{equipmentData.weapon.gems.map(gem => (
-									<ImageLoader
-										src={
-											gem.icon
-												? `${API_SERVER}/proxy/${region.toLowerCase()}/resource_img/${gem.icon}`
-												: ''
-										}
-										key={gem.icon}
-									/>
-								))}
-							</div>
-						</div>
-					</div>
-					<div className={style.accessories}>
+						<Typography>
+							<ItemName name={equipmentData.weapon.name} grade={equipmentData.weapon.grade} />
+						</Typography>
+						<Gems>
+							{equipmentData.weapon.gems.map(gem => (
+								<ImageLoader
+									src={
+										gem.icon
+											? `${API_SERVER}/proxy/${region.toLowerCase()}/resource_img/${gem.icon}`
+											: ''
+									}
+									key={gem.icon}
+								/>
+							))}
+						</Gems>
+					</Weapon>
+					<div className="accessories">
 						{equipmentData.accessories.map((accessory, i) => (
 							<Fade in key={accessory.type} timeout={500} style={{ transitionDelay: `${i * 50}ms` }}>
-								<Typography className={classNames(style.accessory, style[accessory.grade])}>
-									<ImageLoader
-										src={
-											accessory.icon
-												? `${API_SERVER}/proxy/${region.toLowerCase()}/resource_img/${
-														accessory.icon
-												  }`
-												: ''
-										}
+								<Typography component={Item}>
+									<ItemName
+										name={accessory.name}
+										grade={accessory.grade}
+										icon={accessory.icon || 'none'}
+										fromNc={region.toLowerCase()}
 									/>
-									{accessory.name}
 								</Typography>
 							</Fade>
 						))}
 					</div>
-					<div className={style.cosmetics}>
+					<div>
 						{equipmentData.cosmetics.map((cosmetic, index) => (
 							<Fade
 								in
 								key={cosmetic.type}
 								timeout={500}
 								style={{ transitionDelay: `${(index + 11) * 50}ms` }}>
-								<Typography className={classNames(style.cosmetic, style[cosmetic.grade])}>
-									<ImageLoader
-										src={
-											cosmetic.icon
-												? `${API_SERVER}/proxy/${region.toLowerCase()}/resource_img/${
-														cosmetic.icon
-												  }`
-												: ''
-										}
+								<Typography component={Item}>
+									<ItemName
+										name={cosmetic.name}
+										grade={cosmetic.grade}
+										icon={cosmetic.icon || 'none'}
+										fromNc={region.toLowerCase()}
 									/>
-									{cosmetic.name}
 								</Typography>
 							</Fade>
 						))}
 					</div>
-					<div className={style.soulshieldContainer}>
-						<div className={style.soulshield}>
+					<SoulshieldContainer>
+						<SoulshieldCircle>
 							{equipmentData.soulshield.pieces.map((piece, i) => (
 								<Fade in key={i} timeout={500} style={{ transitionDelay: `${(i + 15) * 50}ms` }}>
-									<div>
+									<SoulshieldPiece n={i + 1}>
 										<ImageLoader
-											className={classNames(style.piece, style[`piece${i + 1}`])}
 											src={
 												piece.icon
 													? `${API_SERVER}/proxy/${region.toLowerCase()}/resource_img/${
@@ -118,18 +114,16 @@ class CharacterEquipment extends React.PureComponent<Props, State> {
 													: ''
 											}
 										/>
-									</div>
+									</SoulshieldPiece>
 								</Fade>
 							))}
-						</div>
-						<ButtonBase
-							className={style.viewButton}
-							onClick={() => this.setState({ soulshieldDialogOpen: true })}>
+						</SoulshieldCircle>
+						<Button onClick={() => this.setState({ soulshieldDialogOpen: true })}>
 							<Typography variant="caption" color="textSecondary">
 								<T id="character.navigation.soulshield_attributes_button" />
 							</Typography>
-						</ButtonBase>
-					</div>
+						</Button>
+					</SoulshieldContainer>
 				</Paper>
 				<SoulshieldDialog
 					soulshieldData={equipmentData.soulshield}

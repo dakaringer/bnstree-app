@@ -1,4 +1,4 @@
-import { ItemType, ClassCode, Attribute } from '@src/store/constants'
+import { ItemType, ClassCode, Attribute } from '@store/constants'
 
 export interface Items {
 	data: { [key in ItemType]: ItemData[] | null }

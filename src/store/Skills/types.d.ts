@@ -1,4 +1,4 @@
-import { ClassCode, SkillSpecialization, Attribute } from '@src/store/constants'
+import { ClassCode, SkillSpecialization, Attribute } from '@store/constants'
 
 export interface Skills {
 	data: { [key in ClassCode]: Skill[] | null }

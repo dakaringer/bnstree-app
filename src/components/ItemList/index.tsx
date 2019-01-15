@@ -2,21 +2,22 @@ import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { groupBy, debounce } from 'lodash-es'
-import Fuse from 'fuse.js'
 import { Typography } from '@material-ui/core'
-import T from '@src/components/T'
-import ItemListElement from '@src/components/ItemListElement'
-
-import { ItemType } from '@src/store/constants'
-import { RootState } from '@src/store/rootReducer'
-import { getData, getItemPreferences } from '@src/store/Items/selectors'
-import { getResource } from '@src/store/Resources/selectors'
-import { getLocale } from '@src/store/Intl/selectors'
-import ItemActions from '@src/store/Items/actions'
-
+import Fuse from 'fuse.js'
 import { classes } from '@src/utils/constants'
-import style from './styles/index.css'
+
+import T from '@components/T'
 import comparators from './comparators'
+import ItemListElement from './components/ItemListElement'
+
+import { ItemType } from '@store/constants'
+import { RootState } from '@store/rootReducer'
+import { getData, getItemPreferences } from '@store/Items/selectors'
+import { getResource } from '@store/Resources/selectors'
+import { getLocale } from '@store/Intl/selectors'
+import ItemActions from '@store/Items/actions'
+
+import { ItemListContainer, ItemListGroup } from './style'
 
 interface PropsFromStore {
 	itemData: ReturnType<typeof getData>
@@ -133,7 +134,7 @@ class ItemList extends React.PureComponent<Props, State> {
 		}
 
 		return (
-			<div className={style.skillList}>
+			<ItemListContainer>
 				{Object.keys(itemData)
 					.sort(comparators[itemType])
 					.map(group => {
@@ -142,11 +143,11 @@ class ItemList extends React.PureComponent<Props, State> {
 							return
 						}
 						return (
-							<div key={group}>
-								<Typography variant="subtitle1" className={style.groupLabel}>
+							<ItemListGroup key={group}>
+								<Typography variant="subtitle1">
 									<T id={['item', 'group_label', itemType, group]} />
 								</Typography>
-								<div className={style.itemGroup}>
+								<div>
 									{groupData
 										.concat()
 										.sort((a, b) => {
@@ -165,10 +166,10 @@ class ItemList extends React.PureComponent<Props, State> {
 											<ItemListElement key={item._id} itemData={item} />
 										))}
 								</div>
-							</div>
+							</ItemListGroup>
 						)
 					})}
-			</div>
+			</ItemListContainer>
 		)
 	}
 }

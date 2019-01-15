@@ -1,18 +1,19 @@
 import * as React from 'react'
 import { Typography } from '@material-ui/core'
-import BTTooltip from '@src/components/BTTooltip'
-import T from '@src/components/T'
-
-import { DeepReadonly } from '@src/utils/immutableHelper'
-import { SkillSpecialization, ClassCode } from '@src/store/constants'
-import { SkillData } from '@src/store/Skills/types'
-
 import { STATIC_SERVER } from '@src/utils/constants'
-import style from './styles/index.css'
-import Cost from './Cost'
-import Attributes from './Attributes'
-import Info from './Info'
-import Tags from './Tags'
+
+import T from '@components/T'
+import HoverTooltip from '@components/HoverTooltip'
+import SkillName from '@components/SkillName'
+import Cost from './components/Cost'
+import Info from './components/Info'
+import Tags from './components/Tags'
+
+import { SkillSpecialization, ClassCode } from '@store/constants'
+import { SkillData } from '@store/Skills/types'
+
+import { TooltipTitle } from './style'
+import getAttributes from './getAttributes'
 
 interface Props {
 	id?: string
@@ -36,18 +37,22 @@ const SkillTooltip: React.SFC<Props> = props => {
 		hoverMoveData = currentMoveData
 	}
 
-	const { m1, m2, sub } = Attributes(currentMoveData.attributes || [], hoverMoveData.attributes || [], specialization)
+	const { m1, m2, sub } = getAttributes(
+		currentMoveData.attributes || [],
+		hoverMoveData.attributes || [],
+		specialization
+	)
 
 	const info = currentMoveData.info && hoverMoveData.info ? Info(currentMoveData.info, hoverMoveData.info) : null
 
-	const stanceChange = Attributes(
+	const stanceChange = getAttributes(
 		currentMoveData.stance_change || [],
 		hoverMoveData.stance_change || [],
 		specialization,
 		'buff_debuff_icon_08_53'
 	).sub
 
-	const requirements = Attributes(
+	const requirements = getAttributes(
 		currentMoveData.requirements || [],
 		hoverMoveData.requirements || [],
 		specialization,
@@ -57,21 +62,24 @@ const SkillTooltip: React.SFC<Props> = props => {
 	const tags = Tags(currentMoveData.tags || [], hoverMoveData.tags || [])
 
 	return (
-		<BTTooltip
+		<HoverTooltip
 			icon={`${STATIC_SERVER}/images/skills/${hoverMoveData.icon}`}
 			title={
-				<div className={style.title}>
-					<Typography variant="subtitle1" className={style.skill}>
-						{hoverMoveData.name}
+				<TooltipTitle>
+					<div>
+						<SkillName name={hoverMoveData.name} variant="subtitle1" />
 						{process.env.NODE_ENV !== 'production' && id && (
-							<Typography color="secondary"> {id}</Typography>
+							<Typography color="secondary" inline>
+								{' '}
+								{id}
+							</Typography>
 						)}
-					</Typography>
-					<Typography color="textSecondary">
+					</div>
+					<Typography>
 						{Cost(currentMoveData.focus || 0, hoverMoveData.focus || 0)}
 						{Cost(currentMoveData.health || 0, hoverMoveData.health || 0, 'health')}
 					</Typography>
-				</div>
+				</TooltipTitle>
 			}
 			m1={m1}
 			m2={m2}
@@ -80,7 +88,7 @@ const SkillTooltip: React.SFC<Props> = props => {
 				<>
 					{info}
 					{stanceChange.length > 0 && (
-						<div className={style.requirements}>
+						<div>
 							<Typography variant="caption" color="secondary">
 								<T id="tooltip.general.stance_change" />
 							</Typography>
@@ -90,7 +98,7 @@ const SkillTooltip: React.SFC<Props> = props => {
 						</div>
 					)}
 					{requirements.length > 0 && (
-						<div className={style.requirements}>
+						<div>
 							<Typography variant="caption" color="secondary">
 								<T id="tooltip.general.requirements" />
 							</Typography>
@@ -102,7 +110,6 @@ const SkillTooltip: React.SFC<Props> = props => {
 					{tags}
 				</>
 			}
-			className={style.skillTooltip}
 			{...tooltipProps}
 		/>
 	)

@@ -5,10 +5,11 @@ import * as ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-import store from '@src/store/redux'
+import store from '@store/redux'
 
-import App from './app'
+import App from './App'
 import ErrorBoundary from './ErrorBoundary'
+import GlobalStyle from './style/global'
 
 if (module.hot) {
 	module.hot.accept()
@@ -16,6 +17,7 @@ if (module.hot) {
 
 const Root: React.SFC = () => (
 	<ErrorBoundary>
+		<GlobalStyle />
 		<Provider store={store}>
 			<BrowserRouter>
 				<Route component={App} />

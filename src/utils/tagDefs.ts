@@ -1,6 +1,5 @@
 import { get } from 'lodash-es'
-import { SkillAttribute } from '@src/store/Skills/types'
-import { DeepReadonlyArray } from '@src/utils/immutableHelper'
+import { SkillAttribute } from '@store/Skills/types'
 
 interface TagDef {
 	tag: string

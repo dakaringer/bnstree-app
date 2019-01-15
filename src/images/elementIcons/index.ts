@@ -1,4 +1,4 @@
-import { SkillElement } from '@src/store/constants'
+import { SkillElement } from '@store/constants'
 
 import FLAME from './SkillBook_AttributeIcon_02.png'
 import FROST from './SkillBook_AttributeIcon_03.png'

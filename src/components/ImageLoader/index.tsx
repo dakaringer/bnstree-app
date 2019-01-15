@@ -1,8 +1,7 @@
 import * as React from 'react'
-import classNames from 'classnames'
 
-import style from './styles/index.css'
-import * as blankImg from './images/blank.gif'
+import { ImageContainer } from './style'
+import blankImg from './images/blank.gif'
 
 interface Props {
 	src: string
@@ -49,11 +48,12 @@ class ImageLoader extends React.PureComponent<Props, State> {
 		const { src, className } = this.props
 		const { loaded } = this.state
 		return (
-			<img
+			<ImageContainer
+				loaded={loaded}
 				src={src}
 				onLoad={this.onLoad}
 				onError={this.onError}
-				className={classNames(style.fadeImage, { [style.loaded]: loaded }, className)}
+				className={className}
 			/>
 		)
 	}

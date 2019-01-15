@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Typography, Paper, FormControlLabel, Checkbox } from '@material-ui/core'
 
-import PageContainer from '@src/components/PageContainer'
+import PageContainer from '@components/PageContainer'
 
-const Home = () => {
+const HomePage = () => {
 	return (
 		<PageContainer>
 			<Paper style={{ padding: '2rem' }}>
@@ -81,4 +81,4 @@ const Home = () => {
 	)
 }
 
-export default Home
+export default React.memo(HomePage)

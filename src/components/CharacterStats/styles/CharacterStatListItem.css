@@ -1,10 +1,6 @@
 .stat-list-item {
 	& .expand-summary {
 		padding: 0 1.6rem;
-
-		& .expand-icon {
-			right: 0;
-		}
 	}
 	& .stat-header {
 		display: flex;

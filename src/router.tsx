@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom'
 
-import LoadingLyn from '@src/components/LoadingLyn'
-import FadeContainer from '@src/components/FadeContainer'
+import LoadingLyn from '@components/LoadingLyn'
+import FadeContainer from '@components/FadeContainer'
 
 const Home = React.lazy(() => import('@src/pages/Home'))
 const Character = React.lazy(() => import('@src/pages/Character'))

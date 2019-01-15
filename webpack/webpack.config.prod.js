@@ -36,7 +36,10 @@ module.exports = merge(common, {
 					}
 				}
 			})
-		]
+		],
+		splitChunks: {
+			chunks: 'all'
+		}
 	},
 	plugins: [
 		new ManifestPlugin({

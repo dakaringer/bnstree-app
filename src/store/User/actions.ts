@@ -1,6 +1,5 @@
 import { createStandardAction, ActionType } from 'typesafe-actions'
 
-import { DeepPartial } from '@src/utils/immutableHelper'
 import { sagaActionTypes, reduxActionTypes } from './actionTypes'
 import { UserData, UserPreferences } from './types'
 

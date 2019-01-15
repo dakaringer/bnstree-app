@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { RootState } from '@src/store/rootReducer'
-import { getFilteredTraits } from '@src/store/Skills/selectors'
+import TraitListElement from './components/TraitListElement'
 
-import style from './styles/index.css'
-import TraitListElement from '@src/components/TraitListElement'
+import { RootState } from '@store/rootReducer'
+import { getFilteredTraits } from '@store/Skills/selectors'
+
+import { TraitListcontainer, TraitGroup } from './style'
 
 interface PropsFromStore {
 	traitData: ReturnType<typeof getFilteredTraits>
@@ -17,7 +18,7 @@ const TraitList: React.SFC<Props> = props => {
 	const { traitData } = props
 
 	return (
-		<div className={style.traitList}>
+		<TraitListcontainer>
 			{Object.keys(traitData)
 				.sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
 				.map(group => {
@@ -26,14 +27,14 @@ const TraitList: React.SFC<Props> = props => {
 						return null
 					}
 					return (
-						<div key={group} className={style.traitGroup}>
+						<TraitGroup key={group}>
 							{groupData.map(trait => (
 								<TraitListElement key={trait._id} trait={trait} />
 							))}
-						</div>
+						</TraitGroup>
 					)
 				})}
-		</div>
+		</TraitListcontainer>
 	)
 }
 

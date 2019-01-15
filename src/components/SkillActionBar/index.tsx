@@ -6,19 +6,20 @@ import { Button, IconButton, Input, Hidden, MenuItem, Menu } from '@material-ui/
 import { Tune, Share, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { get, debounce } from 'lodash-es'
-import T from '@src/components/T'
-import ImageLoader from '@src/components/ImageLoader'
-import compose from '@src/utils/compose'
-
-import { RootState } from '@src/store/rootReducer'
-import { SkillSpecialization, ClassCode } from '@src/store/constants'
-import { getCurrentClass, getSkillPreferences } from '@src/store/Skills/selectors'
-import UserActions from '@src/store/User/actions'
-
 import { classes } from '@src/utils/constants'
-import style from './styles/index.css'
-import classIcons from '@src/images/classIcons'
+import compose from '@src/utils/compose'
 import specializationIcons from '@src/images/specializationIcons'
+import classIcons from '@src/images/classIcons'
+
+import T from '@components/T'
+import ImageLoader from '@components/ImageLoader'
+
+import { RootState } from '@store/rootReducer'
+import { SkillSpecialization, ClassCode } from '@store/constants'
+import { getCurrentClass, getSkillPreferences } from '@store/Skills/selectors'
+import UserActions from '@store/User/actions'
+
+import style from './styles/index.css'
 import SettingsDialog from './SettingsDialog'
 import specializations from './specializations'
 
