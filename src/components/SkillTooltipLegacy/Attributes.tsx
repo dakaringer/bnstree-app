@@ -3,8 +3,8 @@ import { get, isEqual } from 'lodash-es'
 
 import Attribute from '@components/AttributeLegacy'
 
-import { SkillElement } from '@store/constants'
-import { SkillAttribute } from '@store/SkillsLegacy/types'
+import { SkillElement } from '@store'
+import { SkillAttribute } from '@store/SkillsLegacy'
 
 const Attributes = (
 	currentAttributeList: DeepReadonlyArray<SkillAttribute>,

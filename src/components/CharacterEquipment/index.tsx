@@ -7,8 +7,8 @@ import ImageLoader from '@components/ImageLoader'
 import ItemName from '@components/ItemName'
 import SoulshieldDialog from './components/SoulshieldDialog'
 
-import { CharacterEquipment as CharacterEquipmentType } from '@store/Character/types'
-import { CharacterRegion } from '@store/constants'
+import { CharacterRegion } from '@store'
+import { CharacterEquipment as CharacterEquipmentType } from '@store/Character'
 
 import {
 	CharacterEquipmentContainer,

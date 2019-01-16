@@ -4,11 +4,11 @@ import apollo from '@src/utils/apollo'
 
 import { sagaActionTypes } from './actionTypes'
 import { loadDataQuery } from './queries'
-import Actions from './actions'
+import actions from './actions'
 import { getData } from './selectors'
 
 // Calls
-const loadDataCall = (classCode: ReturnType<typeof Actions.loadData>['payload']) => {
+const loadDataCall = (classCode: ReturnType<typeof actions.loadData>['payload']) => {
 	return apollo.query({
 		query: loadDataQuery,
 		variables: {
@@ -18,27 +18,27 @@ const loadDataCall = (classCode: ReturnType<typeof Actions.loadData>['payload'])
 }
 
 // Sagas
-function* loadSkillDataSaga(action: ReturnType<typeof Actions.loadData>) {
-	yield put(Actions.setClass(action.payload))
+function* loadSkillDataSaga(action: ReturnType<typeof actions.loadData>) {
+	yield put(actions.setClass(action.payload))
 	const data = yield select(getData)
 
 	if (data[action.payload]) {
 		return
 	}
 
-	yield put(Actions.setLoading(true))
+	yield put(actions.setLoading(true))
 	const response = yield call(loadDataCall, action.payload)
 	yield put(
-		Actions.setData({
+		actions.setData({
 			classCode: action.payload,
 			data: get(response, 'data.skills.data', null),
 			traits: get(response, 'data.skills.traits', null)
 		})
 	)
-	yield put(Actions.setLoading(false))
+	yield put(actions.setLoading(false))
 }
 
 // Watcher
-export default function* watchCharacter() {
+export default function*() {
 	yield takeLatest(sagaActionTypes.LOAD_DATA, loadSkillDataSaga)
 }

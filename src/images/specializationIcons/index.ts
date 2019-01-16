@@ -1,4 +1,4 @@
-import { ClassCode, SkillSpecialization } from '@store/constants'
+import { ClassCode, SkillSpecialization } from '@store'
 
 import BD_TEMPEST from './JobStyle_Img_SwordMaster01.png'
 import BD_FLASH from './JobStyle_Img_SwordMaster02.png'

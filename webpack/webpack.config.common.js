@@ -28,50 +28,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.tsx?$/,
-				use: [
-					'react-hot-loader/webpack',
-					{
-						loader: 'babel-loader',
-						options: {
-							presets: [
-								[
-									'@babel/preset-env',
-									{
-										modules: false,
-										targets: {
-											browsers: ['> 1%']
-										},
-										useBuiltIns: 'usage'
-									}
-								],
-								'@babel/preset-react',
-								'@babel/preset-typescript'
-							],
-							plugins: [
-								'@babel/plugin-proposal-class-properties',
-								'@babel/plugin-syntax-dynamic-import',
-								'babel-plugin-styled-components',
-								[
-									'transform-imports',
-									{
-										'@material-ui/core': {
-											transform: '@material-ui/core/${member}',
-											preventFullImport: true
-										},
-										'@material-ui/core/colors': {
-											transform: '@material-ui/core/colors/${member}',
-											preventFullImport: true
-										},
-										'@material-ui/icons': {
-											transform: '@material-ui/icons/${member}',
-											preventFullImport: true
-										}
-									}
-								]
-							]
-						}
-					}
-				]
+				use: ['react-hot-loader/webpack', 'babel-loader']
 			},
 			{
 				test: /\.css$/,

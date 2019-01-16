@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core'
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 
-import { CharacterProfile as CharacterProfileType } from '@store/Character/types'
+import { CharacterProfile } from '@store/Character'
 
 import { ArenaContainer, GameMode } from './style'
 import medals from './images/Medals'
@@ -26,7 +26,7 @@ const getRank = (rating: number) => {
 }
 
 interface Props {
-	arenaData: DeepReadonly<CharacterProfileType['arena']>
+	arenaData: DeepReadonly<CharacterProfile['arena']>
 }
 
 const Arena: React.SFC<Props> = props => {

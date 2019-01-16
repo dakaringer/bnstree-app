@@ -9,20 +9,19 @@ import { debounce, get } from 'lodash-es'
 import apollo from '@src/utils/apollo'
 import compose from '@src/utils/compose'
 
-import { RootState } from '@store/rootReducer'
-import { CharacterRegion } from '@store/constants'
-import { getCharacterPreferences } from '@store/Character/selectors'
-import UserActions from '@store/User/actions'
+import { RootState, CharacterRegion } from '@store'
+import { selectors as characterSelectors } from '@store/Character'
+import { actions as userActions } from '@store/User'
 
 import { CharacterSearchContainer, SuggestionMenuItem } from './style'
 import SearchInput from './components/SearchInput'
 
 interface PropsFromStore {
-	region: ReturnType<typeof getCharacterPreferences>['region']
+	region: ReturnType<typeof characterSelectors.getCharacterPreferences>['region']
 }
 
 interface PropsFromDispatch {
-	updatePreferences: typeof UserActions.updatePreferences
+	updatePreferences: typeof userActions.updatePreferences
 }
 
 interface SelfProps {
@@ -161,14 +160,14 @@ class CharacterSearch extends React.PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		region: getCharacterPreferences(state).region || 'NA'
+		region: characterSelectors.getCharacterPreferences(state).region || 'NA'
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			updatePreferences: UserActions.updatePreferences
+			updatePreferences: userActions.updatePreferences
 		},
 		dispatch
 	)

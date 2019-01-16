@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 
 import TraitListElement from './components/TraitListElement'
 
-import { RootState } from '@store/rootReducer'
-import { getFilteredTraits } from '@store/Skills/selectors'
+import { RootState } from '@store'
+import { selectors as skillSelectors } from '@store/Skills'
 
 import { TraitListcontainer, TraitGroup } from './style'
 
 interface PropsFromStore {
-	traitData: ReturnType<typeof getFilteredTraits>
+	traitData: ReturnType<typeof skillSelectors.getFilteredTraits>
 }
 
 interface Props extends PropsFromStore {}
@@ -40,7 +40,7 @@ const TraitList: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		traitData: getFilteredTraits(state)
+		traitData: skillSelectors.getFilteredTraits(state)
 	}
 }
 

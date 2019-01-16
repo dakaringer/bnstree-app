@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import { RootState } from '@store/rootReducer'
-import { getPreferences } from '@store/User/selectors'
+import { RootState } from '@store'
+import { selectors as userSelectors } from '@store/User'
 
 const getSkills = (state: RootState) => state.skillsLegacy
 
@@ -9,7 +9,7 @@ export const getIsLoading = createSelector(
 	skills => skills.isLoading
 )
 export const getSkillPreferences = createSelector(
-	getPreferences,
+	userSelectors.getPreferences,
 	preferences => preferences.skillsLegacy
 )
 export const getData = createSelector(

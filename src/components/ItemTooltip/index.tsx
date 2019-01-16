@@ -9,17 +9,17 @@ import T from '@components/T'
 import HoverTooltip from '@components/HoverTooltip'
 import ItemName from '@components/ItemName'
 
-import { ItemData } from '@store/Items/types'
-import { RootState } from '@store/rootReducer'
-import { getResource } from '@store/Resources/selectors'
-import { getLocale } from '@store/Intl/selectors'
+import { RootState } from '@store'
+import { ItemData } from '@store/Items'
+import { selectors as resourceSelectors } from '@store/Resources'
+import { selectors as intlSelectors } from '@store/Intl'
 
 import { TooltipTitle } from './style'
 import getAttributes from './getAttributes'
 
 interface PropsFromStore {
-	resource: ReturnType<typeof getResource>
-	locale: ReturnType<typeof getLocale>
+	resource: ReturnType<typeof resourceSelectors.getResource>
+	locale: ReturnType<typeof intlSelectors.getLocale>
 }
 
 interface SelfProps {
@@ -80,8 +80,8 @@ const ItemTooltip: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		resource: getResource(state),
-		locale: getLocale(state)
+		resource: resourceSelectors.getResource(state),
+		locale: intlSelectors.getLocale(state)
 	}
 }
 

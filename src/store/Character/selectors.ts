@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
-import { RootState } from '@store/rootReducer'
-import { getPreferences } from '@store/User/selectors'
+import { RootState } from '@store'
+import { selectors as userSelectors } from '@store/User'
 
 const getCharacter = (state: RootState) => state.character
 
@@ -9,7 +9,7 @@ export const getIsLoading = createSelector(
 	character => character.isLoading
 )
 export const getCharacterPreferences = createSelector(
-	[getPreferences],
+	[userSelectors.getPreferences],
 	preferences => preferences.character
 )
 export const getData = createSelector(

@@ -3,8 +3,8 @@ import { get, groupBy } from 'lodash-es'
 import Fuse from 'fuse.js'
 import { getNameData, mergeSkills, getTags } from '@src/utils/helpers'
 
-import { RootState } from '@store/rootReducer'
-import { getPreferences } from '@store/User/selectors'
+import { RootState } from '@store'
+import { selectors as userSelectors } from '@store/User'
 import { SkillData, TraitSkill } from './types'
 
 const getSkills = (state: RootState) => state.skills
@@ -14,7 +14,7 @@ export const getIsLoading = createSelector(
 	skills => skills.isLoading
 )
 export const getSkillPreferences = createSelector(
-	[getPreferences],
+	[userSelectors.getPreferences],
 	preferences => preferences.skills
 )
 export const getCurrentClass = createSelector(

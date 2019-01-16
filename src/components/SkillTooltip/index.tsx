@@ -9,8 +9,8 @@ import Cost from './components/Cost'
 import Info from './components/Info'
 import Tags from './components/Tags'
 
-import { SkillSpecialization, ClassCode } from '@store/constants'
-import { SkillData } from '@store/Skills/types'
+import { SkillSpecialization, ClassCode } from '@store'
+import { SkillData } from '@store/Skills'
 
 import { TooltipTitle } from './style'
 import getAttributes from './getAttributes'

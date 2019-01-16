@@ -1,4 +1,4 @@
-type Specializations = {
+interface Specializations {
 	BM: 'empty'
 	KF: 'empty'
 	DE: 'empty'

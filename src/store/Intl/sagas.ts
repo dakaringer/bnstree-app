@@ -5,10 +5,10 @@ import { get } from 'lodash-es'
 
 import { sagaActionTypes } from './actionTypes'
 import { loadLocaleQuery } from './queries'
-import Actions from './actions'
+import actions from './actions'
 
 // Calls
-const loadLocaleCall = (locale: ReturnType<typeof Actions.loadLocale>['payload']) => {
+const loadLocaleCall = (locale: ReturnType<typeof actions.loadLocale>['payload']) => {
 	return apollo.query({
 		query: loadLocaleQuery,
 		variables: {
@@ -18,19 +18,19 @@ const loadLocaleCall = (locale: ReturnType<typeof Actions.loadLocale>['payload']
 }
 
 // Sagas
-export function* loadLocaleSaga(action: ReturnType<typeof Actions.loadLocale>) {
-	yield put(Actions.setLoading(true))
+export function* loadLocaleSaga(action: ReturnType<typeof actions.loadLocale>) {
+	yield put(actions.setLoading(true))
 	const response = yield call(loadLocaleCall, action.payload)
 	yield put(
-		Actions.setMessages({
+		actions.setMessages({
 			messages: get(response, 'data.intl.messages', null),
 			locale: action.payload
 		})
 	)
-	yield put(Actions.setLoading(false))
+	yield put(actions.setLoading(false))
 }
 
 // Watcher
-export default function* watchCharacter() {
+export default function*() {
 	yield takeLatest(sagaActionTypes.LOAD_LOCALE, loadLocaleSaga)
 }

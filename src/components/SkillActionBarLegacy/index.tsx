@@ -9,10 +9,9 @@ import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 import compose from '@src/utils/compose'
 
-import { RootState } from '@store/rootReducer'
-import { SkillElement, ClassCode } from '@store/constants'
-import { getSkillPreferences } from '@store/SkillsLegacy/selectors'
-import UserActions from '@store/User/actions'
+import { RootState, SkillElement, ClassCode } from '@store'
+import { selectors as skillSelectors } from '@store/SkillsLegacy'
+import { actions as userActions } from '@store/User'
 
 import { classes } from '@src/utils/constants'
 import style from './styles/index.css'
@@ -21,12 +20,12 @@ import elementIcons from '@src/images/elementIcons'
 import SettingsDialog from './SettingsDialog'
 
 interface PropsFromStore {
-	skillPreferences: ReturnType<typeof getSkillPreferences>
+	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
 }
 
 interface PropsFromDispatch {
-	updatePreferences: typeof UserActions.updatePreferences
-	updatePreferencesNoSave: typeof UserActions.updatePreferencesNoSave
+	updatePreferences: typeof userActions.updatePreferences
+	updatePreferencesNoSave: typeof userActions.updatePreferencesNoSave
 }
 
 interface SelfProps {
@@ -166,15 +165,15 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillPreferences: getSkillPreferences(state)
+		skillPreferences: skillSelectors.getSkillPreferences(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			updatePreferences: UserActions.updatePreferences,
-			updatePreferencesNoSave: UserActions.updatePreferencesNoSave
+			updatePreferences: userActions.updatePreferences,
+			updatePreferencesNoSave: userActions.updatePreferencesNoSave
 		},
 		dispatch
 	)

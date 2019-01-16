@@ -11,20 +11,19 @@ import classIcons from '@src/images/classIcons'
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 
-import { RootState } from '@store/rootReducer'
-import { ClassCode, ItemFilter } from '@store/constants'
-import { getItemPreferences } from '@store/Items/selectors'
-import UserActions from '@store/User/actions'
+import { RootState, ClassCode, ItemFilter } from '@store'
+import { selectors as itemSelectors } from '@store/Items'
+import { actions as userActions } from '@store/User'
 
 import style from './styles/index.css'
 
 interface PropsFromStore {
-	itemPreferences: ReturnType<typeof getItemPreferences>
+	itemPreferences: ReturnType<typeof itemSelectors.getItemPreferences>
 }
 
 interface PropsFromDispatch {
-	updatePreferences: typeof UserActions.updatePreferences
-	updatePreferencesNoSave: typeof UserActions.updatePreferencesNoSave
+	updatePreferences: typeof userActions.updatePreferences
+	updatePreferencesNoSave: typeof userActions.updatePreferencesNoSave
 }
 
 interface Props extends InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
@@ -127,15 +126,15 @@ class ItemActionBar extends React.PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		itemPreferences: getItemPreferences(state)
+		itemPreferences: itemSelectors.getItemPreferences(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			updatePreferences: UserActions.updatePreferences,
-			updatePreferencesNoSave: UserActions.updatePreferencesNoSave
+			updatePreferences: userActions.updatePreferences,
+			updatePreferencesNoSave: userActions.updatePreferencesNoSave
 		},
 		dispatch
 	)

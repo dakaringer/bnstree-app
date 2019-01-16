@@ -9,12 +9,12 @@ import {
 	CharacterRegion,
 	ItemFilter,
 	MarketRegion
-} from '@store/constants'
+} from '@store'
 
 export interface User {
 	data: UserData | null
 	preferences: UserPreferences
-	logoutMessage: boolean
+	showLogoutMessage: boolean
 	isLoading: boolean
 }
 
@@ -28,8 +28,8 @@ export interface UserPreferences {
 	skills: {
 		search: string
 		mode: SkillMode
-		specialization: { [key in ClassCode]: SkillSpecialization<key> }
-		builds: { [c in ClassCode]: { [s in SkillSpecialization<c>]: number[] } | {} }
+		specialization: { [C in ClassCode]: SkillSpecialization<C> }
+		builds: { [C in ClassCode]: { [s in SkillSpecialization<C>]: number[] } | {} }
 		stats: {
 			ap: number
 			apPet: number
@@ -43,10 +43,10 @@ export interface UserPreferences {
 		mode: SkillModeLegacy
 		order: SkillOrder
 		visibility: SkillVisibility
-		element: { [key in ClassCode]: SkillElement }
+		element: { [C in ClassCode]: SkillElement }
 		build: {
-			[key in ClassCode]: {
-				[key in SkillElement]?: {
+			[C in ClassCode]: {
+				[E in SkillElement]?: {
 					[id: string]: number
 				}
 			}
@@ -55,7 +55,7 @@ export interface UserPreferences {
 			ap: number
 			ad: number
 			c: number
-			elementDamage: { [key in SkillElement]: number }
+			elementDamage: { [E in SkillElement]: number }
 		}
 	}
 	character: {

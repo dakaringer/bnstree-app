@@ -5,14 +5,14 @@ import { Typography } from '@material-ui/core'
 import T from '@components/T'
 import SkillListElement from './components/SkillListElement'
 
-import { RootState } from '@store/rootReducer'
-import { getFilteredSkills, getSpecialization } from '@store/Skills/selectors'
+import { RootState } from '@store'
+import { selectors as skillSelectors } from '@store/Skills'
 
 import { SkillListContainer, SkillListGroup } from './style'
 
 interface PropsFromStore {
-	skillData: ReturnType<typeof getFilteredSkills>
-	specialization: ReturnType<typeof getSpecialization>
+	skillData: ReturnType<typeof skillSelectors.getFilteredSkills>
+	specialization: ReturnType<typeof skillSelectors.getSpecialization>
 }
 
 interface Props extends PropsFromStore {}
@@ -44,8 +44,8 @@ const SkillList: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillData: getFilteredSkills(state),
-		specialization: getSpecialization(state)
+		skillData: skillSelectors.getFilteredSkills(state),
+		specialization: skillSelectors.getSpecialization(state)
 	}
 }
 

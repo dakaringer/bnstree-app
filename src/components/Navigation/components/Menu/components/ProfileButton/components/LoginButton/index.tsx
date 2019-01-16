@@ -6,7 +6,7 @@ import { Typography, ListItem } from '@material-ui/core'
 import T from '@components/T'
 import { LinkObject } from '@components/Navigation/links'
 
-import UserActions from '@store/User/actions'
+import { actions as userActions } from '@store/User'
 
 import { ProfileButton, GoogleLogo, GoogleLogoPressed, GoogleLoginButton } from './style'
 import { googleYoloConfig, googleAuthConfig } from './config'
@@ -29,7 +29,7 @@ window.gapi.load('auth2', () => {
 })
 
 interface PropsFromDispatch {
-	login: typeof UserActions.idTokenLogin
+	login: typeof userActions.idTokenLogin
 }
 
 interface Props extends PropsFromDispatch {
@@ -116,7 +116,7 @@ class LoginButton extends React.PureComponent<Props> {
 	}
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ login: UserActions.idTokenLogin }, dispatch)
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ login: userActions.idTokenLogin }, dispatch)
 
 export default connect(
 	null,

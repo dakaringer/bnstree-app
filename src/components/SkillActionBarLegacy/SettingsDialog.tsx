@@ -16,20 +16,19 @@ import { HelpOutline } from '@material-ui/icons'
 import ImageLoader from '@components/ImageLoader'
 import T from '@components/T'
 
-import { RootState } from '@store/rootReducer'
-import { SkillElement } from '@store/constants'
-import { getSkillPreferences } from '@store/SkillsLegacy/selectors'
-import UserActions from '@store/User/actions'
+import { RootState, SkillElement } from '@store'
+import { selectors as skillSelectors } from '@store/SkillsLegacy'
+import { actions as userActions } from '@store/User'
 
 import style from './styles/SettingsDialog.css'
 import elementIcons from '@src/images/elementIcons'
 
 interface PropsFromStore {
-	skillPreferences: ReturnType<typeof getSkillPreferences>
+	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
 }
 
 interface PropsFromDispatch {
-	updatePreferences: typeof UserActions.updatePreferences
+	updatePreferences: typeof userActions.updatePreferences
 }
 
 interface SelfProps {
@@ -126,14 +125,14 @@ const SettingsDialog: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillPreferences: getSkillPreferences(state)
+		skillPreferences: skillSelectors.getSkillPreferences(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			updatePreferences: UserActions.updatePreferences
+			updatePreferences: userActions.updatePreferences
 		},
 		dispatch
 	)

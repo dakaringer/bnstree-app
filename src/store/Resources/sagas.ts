@@ -3,10 +3,10 @@ import { get } from 'lodash-es'
 import apollo from '@src/utils/apollo'
 
 import { loadResourceQuery } from './queries'
-import Actions from './actions'
+import actions from './actions'
 
 // Calls
-export const loadResourceCall = (locale: ReturnType<typeof Actions.loadData>['payload']) => {
+export const loadResourceCall = (locale: ReturnType<typeof actions.loadData>['payload']) => {
 	return apollo.query({
 		query: loadResourceQuery,
 		variables: {
@@ -15,7 +15,7 @@ export const loadResourceCall = (locale: ReturnType<typeof Actions.loadData>['pa
 	})
 }
 
-export function* loadResourceSaga(action: ReturnType<typeof Actions.loadData>) {
+export function* loadResourceSaga(action: ReturnType<typeof actions.loadData>) {
 	const response = yield call(loadResourceCall, action.payload)
-	yield put(Actions.setData(get(response, 'data.resources', {})))
+	yield put(actions.setData(get(response, 'data.resources', {})))
 }

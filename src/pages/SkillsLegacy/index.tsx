@@ -7,15 +7,14 @@ import PageContainer from '@components/PageContainer'
 import SkillActionBar from '@components/SkillActionBarLegacy'
 import SkillList from '@components/SkillListLegacy'
 
-import { RootState } from '@store/rootReducer'
-import { ClassCodeLegacy as ClassCode } from '@store/constants'
-import { getSkillPreferences, getIsLoading } from '@store/SkillsLegacy/selectors'
+import { RootState, ClassCodeLegacy as ClassCode } from '@store'
+import { selectors as skillSelectors } from '@store/SkillsLegacy'
 
 import { classes } from '@src/utils/constants'
 
 interface PropsFromStore {
-	skillPreferences: ReturnType<typeof getSkillPreferences>
-	isLoading: ReturnType<typeof getIsLoading>
+	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
+	isLoading: ReturnType<typeof skillSelectors.getIsLoading>
 }
 
 interface Props extends PropsFromStore, RouteComponentProps<{ className: string }> {}
@@ -47,8 +46,8 @@ const SkillPage: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillPreferences: getSkillPreferences(state),
-		isLoading: getIsLoading(state)
+		skillPreferences: skillSelectors.getSkillPreferences(state),
+		isLoading: skillSelectors.getIsLoading(state)
 	}
 }
 

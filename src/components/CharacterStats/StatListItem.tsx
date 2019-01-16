@@ -5,7 +5,7 @@ import { ExpandMore } from '@material-ui/icons'
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 
-import { CharacterStats } from '@store/Character/types'
+import { CharacterStats } from '@store/Character'
 
 import style from './styles/CharacterStatListItem.css'
 import statIcons from './images/statIcons'

@@ -6,7 +6,7 @@ import { isEqual } from 'lodash-es'
 import T from '@components/T'
 import ModText from '@components/ModText'
 
-import { MoveInfo } from '@store/Skills/types'
+import { MoveInfo } from '@store/Skills'
 
 import { InfoContainer, InfoItem, InfoItemHeader, InfoItemData, AreaContainer, AreaImage } from './style'
 

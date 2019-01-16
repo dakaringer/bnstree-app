@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import Attribute from '@components/AttributeLegacy'
 
-import { ItemAttribute } from '@store/Items/types'
+import { ItemAttribute } from '@store/Items'
 
 export default (attributes: DeepReadonlyArray<ItemAttribute>) => {
 	const result = attributes.map(attribute => ({ attribute } as GetComponentProps<typeof Attribute>))

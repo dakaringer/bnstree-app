@@ -8,8 +8,8 @@ import T from '@components/T'
 import SkillTooltip from '@components/SkillTooltip'
 import SkillName from '@src/components/SkillName'
 
-import { SkillSpecialization, ClassCode } from '@store/constants'
-import { Skill } from '@store/Skills/types'
+import { SkillSpecialization, ClassCode } from '@store'
+import { Skill } from '@store/Skills'
 
 import { SkillListElementContainer, SkillIcon, KeyIcon, SkillLabel } from './style'
 import keyIcons from './images/keyIcons'

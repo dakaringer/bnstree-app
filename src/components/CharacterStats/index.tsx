@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Paper } from '@material-ui/core'
 
-import { CharacterStats as CharacterStatsType } from '@store/Character/types'
-import { ClassCode } from '@store/constants'
+import { ClassCode } from '@store'
+import { CharacterStats as CharacterStatsType } from '@store/Character'
 
 import MainStat from './MainStat'
 import StatList from './StatList'

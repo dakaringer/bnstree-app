@@ -7,18 +7,19 @@ import { STATIC_SERVER } from '@src/utils/constants'
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 
-import { RootState } from '@store/rootReducer'
-import { SkillElement } from '@store/constants'
-import { SkillAttribute } from '@store/SkillsLegacy/types'
-import { getSkillPreferences } from '@store/SkillsLegacy/selectors'
+import { RootState, SkillElement } from '@store'
+import { selectors as skillSelectors, SkillAttribute } from '@store/SkillsLegacy'
 
 import style from './styles/index.css'
 import elementIcons from './images/elementIcons'
 import Skill from './Skill'
-import Join from './Join'
+
+const joinList = (list: React.ReactNode[], sep: string = ', ') => {
+	return list.reduce((acc: any[], cur) => (acc.length === 0 ? acc.concat([cur]) : acc.concat([sep, cur])), [])
+}
 
 interface PropsFromStore {
-	skillPreferences: ReturnType<typeof getSkillPreferences>
+	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
 }
 
 interface SelfProps {
@@ -83,7 +84,7 @@ const Attribute: React.SFC<Props> = props => {
 					const list = value.map(v => (
 						<Skill key={v} skillName={v} noIcon={noIcon} defaultElement={defaultElement || ''} />
 					))
-					values[k] = <>{Join(list)}</>
+					values[k] = <>{joinList(list)}</>
 				} else {
 					values[k] = <Skill skillName={value} noIcon={noIcon} defaultElement={defaultElement || ''} />
 				}
@@ -96,7 +97,7 @@ const Attribute: React.SFC<Props> = props => {
 							<T id={['tooltip', 'effect_type', v]} />
 						</span>
 					))
-					values[k] = <>{Join(list)}</>
+					values[k] = <>{joinList(list)}</>
 				} else {
 					values[k] = (
 						<span className={style.skill}>
@@ -124,7 +125,7 @@ const Attribute: React.SFC<Props> = props => {
 				} else {
 					if (Array.isArray(value)) {
 						const list = value.map(v => <T key={v} id={['tooltip', `${keys[0]}_type`, v]} />)
-						values[k] = <>{Join(list)}</>
+						values[k] = <>{joinList(list)}</>
 					} else if (typeof value === 'string') {
 						values[k] = <T id={['tooltip', `${keys[0]}_type`, value]} />
 					}
@@ -146,7 +147,7 @@ const Attribute: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillPreferences: getSkillPreferences(state)
+		skillPreferences: skillSelectors.getSkillPreferences(state)
 	}
 }
 

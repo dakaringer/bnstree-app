@@ -5,8 +5,8 @@ import classNames from 'classnames'
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 
-import { CharacterStats } from '@store/Character/types'
-import { ClassCode } from '@store/constants'
+import { ClassCode } from '@store'
+import { CharacterStats } from '@store/Character'
 
 import { hmPointBuffs } from './stats'
 import style from './styles/MainStat.css'

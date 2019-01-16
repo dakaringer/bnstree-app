@@ -2,12 +2,14 @@ import { createStandardAction, ActionType } from 'typesafe-actions'
 
 import { sagaActionTypes, reduxActionTypes } from './rootActionTypes'
 
-const Actions = {
-	// Saga actions
-	initialize: createStandardAction(sagaActionTypes.INIT)<void>(),
-	// Redux actions
-	setLoading: createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
-}
-type Actions = ActionType<typeof Actions>
+// Saga actions
+const initialize = createStandardAction(sagaActionTypes.INIT)<void>()
 
-export default Actions
+// Redux actions
+const setLoading = createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
+
+export const sagaActions = { initialize }
+export const reduxActions = { setLoading }
+const actions = { ...sagaActions, ...reduxActions }
+export type ReduxAction = ActionType<typeof reduxActions>
+export default actions

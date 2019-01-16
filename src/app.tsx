@@ -8,7 +8,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles'
 import { IntlProvider } from 'react-intl'
 import compose from '@src/utils/compose'
 
-import Router from './router'
+import Router from './Router'
 import GATracker from './GATracker'
 import T from '@components/T'
 import Navigation from '@components/Navigation'
@@ -17,23 +17,19 @@ import LoadingLyn from '@components/LoadingLyn'
 import { ThemeProvider } from '@style/styled-components'
 import { muiTheme, styledTheme } from '@style/theme'
 
-import Actions from '@store/rootActions'
-import UserActions from '@store/User/actions'
-import { RootState } from '@store/rootReducer'
-import { getIsLoading } from '@store/rootSelector'
-import { getLocale, getFlatMessages } from '@store/Intl/selectors'
-import { getLogoutMessage } from '@store/User/selectors'
+import { selectors as rootSelectors, actions as rootActions, RootState } from '@store'
+import { selectors as intlSelectors } from '@store/Intl'
+import { selectors as userSelectors } from '@store/User'
 
 interface PropsFromStore {
-	locale: string
-	messages: {}
-	logoutMessage: boolean
-	isLoading: boolean
+	locale: ReturnType<typeof intlSelectors.getLocale>
+	messages: ReturnType<typeof intlSelectors.getFlatMessages>
+	showlogoutMessage: ReturnType<typeof userSelectors.getShowLogoutMessage>
+	isLoading: ReturnType<typeof rootSelectors.getIsLoading>
 }
 
 interface PropsFromDispatch {
-	initialize: typeof Actions.initialize
-	setLogoutMessage: typeof UserActions.setLogoutMessage
+	initialize: typeof rootActions.initialize
 }
 
 interface Props extends PropsFromStore, PropsFromDispatch, RouteProps {}
@@ -45,7 +41,7 @@ class App extends React.PureComponent<Props> {
 	}
 
 	render = () => {
-		const { locale, messages, logoutMessage, setLogoutMessage, isLoading, location } = this.props
+		const { locale, messages, showlogoutMessage, isLoading, location } = this.props
 
 		return (
 			<GATracker location={location ? location.pathname : '/'}>
@@ -63,9 +59,8 @@ class App extends React.PureComponent<Props> {
 										vertical: 'top',
 										horizontal: 'right'
 									}}
-									open={logoutMessage}
+									open={showlogoutMessage}
 									autoHideDuration={3000}
-									onClose={() => setLogoutMessage(false)}
 									message={
 										<Typography color="primary">
 											<T id="navigation.user.logout_message" />
@@ -84,17 +79,16 @@ class App extends React.PureComponent<Props> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		isLoading: getIsLoading(state),
-		locale: getLocale(state),
-		logoutMessage: getLogoutMessage(state),
-		messages: getFlatMessages(state)
+		isLoading: rootSelectors.getIsLoading(state),
+		locale: intlSelectors.getLocale(state),
+		messages: intlSelectors.getFlatMessages(state),
+		showlogoutMessage: userSelectors.getShowLogoutMessage(state)
 	}
 }
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			initialize: Actions.initialize,
-			setLogoutMessage: UserActions.setLogoutMessage
+			initialize: rootActions.initialize
 		},
 		dispatch
 	)

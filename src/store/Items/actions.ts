@@ -2,18 +2,20 @@ import { createStandardAction, ActionType } from 'typesafe-actions'
 
 import { sagaActionTypes, reduxActionTypes } from './actionTypes'
 import { ItemData } from './types'
-import { ItemType } from '@store/constants'
+import { ItemType } from '@store'
 
-const Actions = {
-	// Saga actions
-	loadData: createStandardAction(sagaActionTypes.LOAD_DATA)<ItemType>(),
-	// Redux actions
-	setData: createStandardAction(reduxActionTypes.SET_DATA)<{
-		itemType: ItemType
-		data: ItemData[]
-	}>(),
-	setLoading: createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
-}
-type Actions = ActionType<typeof Actions>
+// Saga actions
+const loadData = createStandardAction(sagaActionTypes.LOAD_DATA)<ItemType>()
 
-export default Actions
+// Redux actions
+const setData = createStandardAction(reduxActionTypes.SET_DATA)<{
+	itemType: ItemType
+	data: ItemData[]
+}>()
+const setLoading = createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
+
+export const sagaActions = { loadData }
+export const reduxActions = { setData, setLoading }
+const actions = { ...sagaActions, ...reduxActions }
+export type ReduxAction = ActionType<typeof reduxActions>
+export default actions

@@ -7,26 +7,24 @@ import { Typography } from '@material-ui/core'
 import T from '@components/T'
 import SkillListElement from './components/SkillListElementLegacy'
 
-import { RootState } from '@store/rootReducer'
-import { SkillElement, ClassCode } from '@store/constants'
-import { getData, getSkillPreferences } from '@store/SkillsLegacy/selectors'
-import { getResource } from '@store/Resources/selectors'
-import { getLocale, getMessages } from '@store/Intl/selectors'
-import SkillActions from '@store/SkillsLegacy/actions'
+import { RootState, SkillElement, ClassCode } from '@store'
+import { selectors as skillSelectors, actions as skillActions } from '@store/SkillsLegacy'
+import { selectors as resourceSelectors } from '@store/Resources'
+import { selectors as intlSelectors } from '@store/Intl'
 
 import style from './styles/index.css'
 import comparators from './comparators'
 
 interface PropsFromStore {
-	skillData: ReturnType<typeof getData>
-	skillPreferences: ReturnType<typeof getSkillPreferences>
-	resource: ReturnType<typeof getResource>
-	locale: ReturnType<typeof getLocale>
-	messages: ReturnType<typeof getMessages>
+	skillData: ReturnType<typeof skillSelectors.getData>
+	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
+	resource: ReturnType<typeof resourceSelectors.getResource>
+	locale: ReturnType<typeof intlSelectors.getLocale>
+	messages: ReturnType<typeof intlSelectors.getMessages>
 }
 
 interface PropsFromDispatch {
-	loadClass: typeof SkillActions.loadData
+	loadClass: typeof skillActions.loadData
 }
 
 interface Props extends PropsFromStore, PropsFromDispatch {
@@ -188,18 +186,18 @@ class SkillList extends React.PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillData: getData(state),
-		skillPreferences: getSkillPreferences(state),
-		resource: getResource(state),
-		locale: getLocale(state),
-		messages: getMessages(state)
+		skillData: skillSelectors.getData(state),
+		skillPreferences: skillSelectors.getSkillPreferences(state),
+		resource: resourceSelectors.getResource(state),
+		locale: intlSelectors.getLocale(state),
+		messages: intlSelectors.getMessages(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			loadClass: SkillActions.loadData
+			loadClass: skillActions.loadData
 		},
 		dispatch
 	)

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { reduxActionTypes } from './rootActionTypes'
-import Actions from './rootActions'
+import { ReduxAction } from './rootActions'
 
 import UserReducer, { State as UserState } from './User/reducers'
 import IntlReducer, { State as IntlState } from './Intl/reducers'
@@ -24,7 +24,7 @@ export interface RootState {
 	items: ItemState
 }
 
-const isLoadedReducer = (state: boolean = true, action: Actions) => {
+const isLoadedReducer = (state: boolean = true, action: ReduxAction) => {
 	switch (action.type) {
 		case reduxActionTypes.SET_LOADING: {
 			return action.payload

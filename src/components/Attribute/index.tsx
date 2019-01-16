@@ -9,15 +9,14 @@ import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 import SkillName from '@components/SkillName'
 
-import { RootState } from '@store/rootReducer'
-import { SkillAttribute } from '@store/Skills/types'
-import { getSkillPreferences } from '@store/Skills/selectors'
+import { RootState } from '@store'
+import { selectors, SkillAttribute } from '@store/Skills'
 
 import { AttributeContainer } from './style'
 import powerIcon from './images/skill_attack_power.png'
 
 interface PropsFromStore {
-	skillPreferences: ReturnType<typeof getSkillPreferences>
+	skillPreferences: ReturnType<typeof selectors.getSkillPreferences>
 }
 
 interface SelfProps {
@@ -146,7 +145,7 @@ const Attribute: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillPreferences: getSkillPreferences(state)
+		skillPreferences: selectors.getSkillPreferences(state)
 	}
 }
 

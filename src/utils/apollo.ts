@@ -8,7 +8,7 @@ import { onError } from 'apollo-link-error'
 import { API_SERVER } from './constants'
 
 import store from '@store/redux'
-import UserActions from '@store/User/actions'
+import { actions as userActions } from '@store/User'
 
 const uri = `${API_SERVER}/graphql`
 
@@ -19,7 +19,7 @@ const link = ApolloLink.from([
 				return error.message.trim() === 'Unauthorized'
 			})
 			if (unauthorized) {
-				store.dispatch(UserActions.logout())
+				store.dispatch(userActions.logout())
 				if (response) {
 					response.errors = undefined
 				}

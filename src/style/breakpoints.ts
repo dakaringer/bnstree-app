@@ -1,8 +1,8 @@
 import { css, FlattenInterpolation } from 'styled-components'
 
 type Breakpoint = 'lg' | 'md' | 'sm' | 'xs'
-type MediaObject = { [key in Breakpoint]: (...arg: ArgumentsType<typeof css>) => FlattenInterpolation<any> }
-const breakpoints: { [k in Breakpoint]: number } = {
+type MediaObject = { [B in Breakpoint]: (...arg: ArgumentsType<typeof css>) => FlattenInterpolation<any> }
+const breakpoints: { [B in Breakpoint]: number } = {
 	lg: 1600,
 	md: 1280,
 	sm: 960,

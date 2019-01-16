@@ -6,13 +6,12 @@ import { ListItem, Avatar } from '@material-ui/core'
 import T from '@components/T'
 import { LinkObject } from '@components/Navigation/links'
 
-import { UserData } from '@store/User/types'
-import UserActions from '@store/User/actions'
+import { actions as userActions, UserData } from '@store/User'
 
 import { ProfileButton, AvatarComponent } from './style'
 
 interface PropsFromDispatch {
-	logout: typeof UserActions.logout
+	logout: typeof userActions.logout
 }
 
 interface Props extends PropsFromDispatch {
@@ -58,7 +57,7 @@ class UserButton extends React.PureComponent<Props> {
 	}
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ logout: UserActions.logout }, dispatch)
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ logout: userActions.logout }, dispatch)
 
 export default connect(
 	null,

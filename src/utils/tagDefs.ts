@@ -1,5 +1,5 @@
 import { get } from 'lodash-es'
-import { SkillAttribute } from '@store/Skills/types'
+import { SkillAttribute } from '@store/Skills'
 
 interface TagDef {
 	tag: string

@@ -4,10 +4,10 @@ import apollo from '@src/utils/apollo'
 
 import { sagaActionTypes } from './actionTypes'
 import { searchCharacterQuery } from './queries'
-import Actions from './actions'
+import actions from './actions'
 
 // Calls
-const searchCharacterCall = (payload: ReturnType<typeof Actions.search>['payload']) => {
+const searchCharacterCall = (payload: ReturnType<typeof actions.search>['payload']) => {
 	return apollo.query({
 		query: searchCharacterQuery,
 		variables: payload,
@@ -16,18 +16,18 @@ const searchCharacterCall = (payload: ReturnType<typeof Actions.search>['payload
 }
 
 // Sagas
-function* searchCharacterSaga(action: ReturnType<typeof Actions.search>) {
+function* searchCharacterSaga(action: ReturnType<typeof actions.search>) {
 	if (!action.payload) {
-		return yield put(Actions.setData(null))
+		return yield put(actions.setData(null))
 	}
 
-	yield put(Actions.setLoading(true))
+	yield put(actions.setLoading(true))
 	const response = yield call(searchCharacterCall, action.payload)
-	yield put(Actions.setData(get(response, 'data.character.data', null)))
-	yield put(Actions.setLoading(false))
+	yield put(actions.setData(get(response, 'data.character.data', null)))
+	yield put(actions.setLoading(false))
 }
 
 // Watcher
-export default function* watchCharacter() {
+export default function*() {
 	yield takeLatest(sagaActionTypes.SEARCH, searchCharacterSaga)
 }

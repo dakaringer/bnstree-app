@@ -1,3 +1,4 @@
+import { delay } from 'redux-saga'
 import { takeLatest, call, put, select } from 'redux-saga/effects'
 import { get, mergeWith } from 'lodash-es'
 import { get as idbGet, set as idbSet } from 'idb-keyval'
@@ -11,7 +12,7 @@ import {
 	logoutMutation,
 	updatePreferencesMutation
 } from './queries'
-import Actions from './actions'
+import actions from './actions'
 import { getData } from './selectors'
 
 // Calls
@@ -48,7 +49,7 @@ const logoutCall = () => {
 	})
 }
 
-const updatePreferencesCall = (payload: ReturnType<typeof Actions.updatePreferences>['payload']) => {
+const updatePreferencesCall = (payload: ReturnType<typeof actions.updatePreferences>['payload']) => {
 	return apollo.mutate({
 		mutation: updatePreferencesMutation,
 		variables: {
@@ -57,7 +58,7 @@ const updatePreferencesCall = (payload: ReturnType<typeof Actions.updatePreferen
 	})
 }
 
-const updatePreferencesLocalCall = async (payload: ReturnType<typeof Actions.updatePreferences>['payload']) => {
+const updatePreferencesLocalCall = async (payload: ReturnType<typeof actions.updatePreferences>['payload']) => {
 	const preferences = await idbGet('userPreferences')
 	idbSet('userPreferences', mergeWith(preferences || {}, payload, (a, b) => (b === null ? a : undefined)))
 }
@@ -73,28 +74,30 @@ export function* loadPreferencesSaga() {
 		preferences = yield call(loadPreferencesLocalCall)
 	}
 
-	yield put(Actions.setPreferences(preferences))
+	yield put(actions.setPreferences(preferences))
 }
 
-function* idTokenLoginSaga(action: ReturnType<typeof Actions.idTokenLogin>) {
+function* idTokenLoginSaga(action: ReturnType<typeof actions.idTokenLogin>) {
 	const response = yield call(idTokenLoginCall, action.payload)
-	yield put(Actions.setData(get(response, 'data.user.login.withIdToken', null)))
+	yield put(actions.setData(get(response, 'data.user.login.withIdToken', null)))
 }
 
 export function* userTokenLoginSaga() {
 	const response = yield call(userTokenLoginCall)
-	yield put(Actions.setData(get(response, 'data.user.login.withUserToken', null)))
+	yield put(actions.setData(get(response, 'data.user.login.withUserToken', null)))
 }
 
 function* logoutSaga() {
-	yield put(Actions.setLogoutMessage(true))
-	yield put(Actions.clearData())
+	yield put(actions.setShowLogoutMessage(true))
+	yield put(actions.clearData())
 	yield call(logoutCall)
+	yield call(delay, 2000)
+	yield put(actions.setShowLogoutMessage(false))
 }
 
-function* updatePreferencesSaga(action: ReturnType<typeof Actions.updatePreferences>) {
+function* updatePreferencesSaga(action: ReturnType<typeof actions.updatePreferences>) {
 	const user = yield select(getData)
-	yield put(Actions.setPreferences(action.payload))
+	yield put(actions.setPreferences(action.payload))
 
 	if (user) {
 		yield call(updatePreferencesCall, action.payload)
@@ -104,7 +107,7 @@ function* updatePreferencesSaga(action: ReturnType<typeof Actions.updatePreferen
 }
 
 // Watcher
-export default function* watchUser() {
+export default function*() {
 	yield takeLatest(sagaActionTypes.ID_TOKEN_LOGIN, idTokenLoginSaga)
 	yield takeLatest(sagaActionTypes.LOGOUT, logoutSaga)
 	yield takeLatest(sagaActionTypes.UPDATE_PREFERENCES, updatePreferencesSaga)

@@ -5,16 +5,16 @@ import { STATIC_SERVER } from '@src/utils/constants'
 import ImageLoader from '@components/ImageLoader'
 import T from '@components/T'
 
-import { RootState } from '@store/rootReducer'
-import { getLocale } from '@store/Intl/selectors'
-import { getResource } from '@store/Resources/selectors'
+import { RootState } from '@store'
+import { selectors as intlSelectors } from '@store/Intl'
+import { selectors as resourceSelectors } from '@store/Resources'
 
 import style from './styles/Skill.css'
 import Join from './Join'
 
 interface PropsFromStore {
-	resource: ReturnType<typeof getResource>['skill']
-	locale: ReturnType<typeof getLocale>
+	resource: ReturnType<typeof resourceSelectors.getResource>['skill']
+	locale: ReturnType<typeof intlSelectors.getLocale>
 }
 
 interface Props extends PropsFromStore {
@@ -64,8 +64,8 @@ const Skill: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		resource: getResource(state).skill,
-		locale: getLocale(state)
+		resource: resourceSelectors.getResource(state).skill,
+		locale: intlSelectors.getLocale(state)
 	}
 }
 

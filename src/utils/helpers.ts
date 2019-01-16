@@ -2,7 +2,7 @@ import { get, merge, uniq } from 'lodash-es'
 
 import store from '@store/redux'
 
-import { SkillData, SkillAttribute } from '@store/Skills/types'
+import { SkillData, SkillAttribute } from '@store/Skills'
 
 import tagDefs from './tagDefs'
 

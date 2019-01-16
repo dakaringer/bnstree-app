@@ -2,7 +2,7 @@ import { mergeWith } from 'lodash-es'
 
 import { reduxActionTypes } from './actionTypes'
 import { User } from './types'
-import Actions from './actions'
+import { ReduxAction } from './actions'
 
 import {
 	SkillMode,
@@ -14,7 +14,7 @@ import {
 	CharacterRegion,
 	ItemFilter,
 	MarketRegion
-} from '@store/constants'
+} from '@store'
 
 export type State = DeepReadonly<User>
 
@@ -150,11 +150,11 @@ const initialState = {
 		},
 		locale: 'EN'
 	},
-	logoutMessage: false,
+	showLogoutMessage: false,
 	isLoading: false
 }
 
-export default (state: State = initialState, action: Actions) => {
+export default (state: State = initialState, action: ReduxAction) => {
 	switch (action.type) {
 		case reduxActionTypes.SET_DATA: {
 			return {
@@ -185,7 +185,7 @@ export default (state: State = initialState, action: Actions) => {
 		case reduxActionTypes.SET_LOGOUT_MESSAGE: {
 			return {
 				...state,
-				logoutMessage: action.payload
+				showLogoutMessage: action.payload
 			}
 		}
 		default:

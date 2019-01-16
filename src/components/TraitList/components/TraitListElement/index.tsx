@@ -11,21 +11,21 @@ import Virtualizer from '@components/Virtualizer'
 import SkillName from '@components/SkillName'
 import TraitTooltip from '@components/TraitTooltip'
 
-import { RootState } from '@store/rootReducer'
-import { Trait } from '@store/Skills/types'
-import UserActions from '@store/User/actions'
-import { getCurrentClass, getSpecialization, getBuild } from '@store/Skills/selectors'
+import { RootState } from '@store'
+import { Trait } from '@store/Skills'
+import { selectors as skillSelectors } from '@store/Skills'
+import { actions as userActions } from '@store/User'
 
 import { TrailListElementContainer } from './style'
 
 interface PropsFromStore {
-	classCode: ReturnType<typeof getCurrentClass>
-	specialization: ReturnType<typeof getSpecialization>
-	build: ReturnType<typeof getBuild>
+	classCode: ReturnType<typeof skillSelectors.getCurrentClass>
+	specialization: ReturnType<typeof skillSelectors.getSpecialization>
+	build: ReturnType<typeof skillSelectors.getBuild>
 }
 
 interface PropsFromDispatch {
-	updatePreferences: typeof UserActions.updatePreferences
+	updatePreferences: typeof userActions.updatePreferences
 }
 
 interface SelfProps {
@@ -70,16 +70,16 @@ const TraitListElement: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		classCode: getCurrentClass(state),
-		specialization: getSpecialization(state),
-		build: getBuild(state)
+		classCode: skillSelectors.getCurrentClass(state),
+		specialization: skillSelectors.getSpecialization(state),
+		build: skillSelectors.getBuild(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			updatePreferences: UserActions.updatePreferences
+			updatePreferences: userActions.updatePreferences
 		},
 		dispatch
 	)

@@ -3,10 +3,10 @@ import { get } from 'lodash-es'
 import apollo from '@src/utils/apollo'
 
 import { loadNamesQuery } from './queries'
-import Actions from './actions'
+import actions from './actions'
 
 // Calls
-export const loadNamesCall = (locale: ReturnType<typeof Actions.loadData>['payload']) => {
+export const loadNamesCall = (locale: ReturnType<typeof actions.loadData>['payload']) => {
 	return apollo.query({
 		query: loadNamesQuery,
 		variables: {
@@ -15,7 +15,7 @@ export const loadNamesCall = (locale: ReturnType<typeof Actions.loadData>['paylo
 	})
 }
 
-export function* loadNamesSaga(action: ReturnType<typeof Actions.loadData>) {
+export function* loadNamesSaga(action: ReturnType<typeof actions.loadData>) {
 	const response = yield call(loadNamesCall, action.payload)
-	yield put(Actions.setData(get(response, 'data.names', {})))
+	yield put(actions.setData(get(response, 'data.names', {})))
 }

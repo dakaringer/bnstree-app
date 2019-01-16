@@ -11,22 +11,20 @@ import CharacterProfile from '@components/CharacterProfile'
 import CharacterEquipment from '@components/CharacterEquipment'
 import CharacterStats from '@components/CharacterStats'
 
-import { RootState } from '@store/rootReducer'
-import { CharacterRegion } from '@store/constants'
-import { getData, getIsLoading } from '@store/Character/selectors'
-import CharacterActions from '@store/Character/actions'
-import UserActions from '@store/User/actions'
+import { RootState, CharacterRegion } from '@store'
+import { selectors as characterSelectors, actions as characterActions } from '@store/Character'
+import { actions as userActions } from '@store/User'
 
 import { CharacterLayout } from './style'
 
 interface PropsFromStore {
-	characterData: ReturnType<typeof getData>
-	isLoading: ReturnType<typeof getIsLoading>
+	characterData: ReturnType<typeof characterSelectors.getData>
+	isLoading: ReturnType<typeof characterSelectors.getIsLoading>
 }
 
 interface PropsFromDispatch {
-	search: typeof CharacterActions.search
-	updatePreferences: typeof UserActions.updatePreferences
+	search: typeof characterActions.search
+	updatePreferences: typeof userActions.updatePreferences
 }
 
 interface Props extends PropsFromStore, PropsFromDispatch, RouteComponentProps<{ region: string; name: string }> {}
@@ -120,16 +118,16 @@ class CharacterPage extends React.PureComponent<Props> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		characterData: getData(state),
-		isLoading: getIsLoading(state)
+		characterData: characterSelectors.getData(state),
+		isLoading: characterSelectors.getIsLoading(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			search: CharacterActions.search,
-			updatePreferences: UserActions.updatePreferences
+			search: characterActions.search,
+			updatePreferences: userActions.updatePreferences
 		},
 		dispatch
 	)

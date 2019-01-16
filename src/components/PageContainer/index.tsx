@@ -2,7 +2,6 @@ import * as React from 'react'
 import { Paper, Slide } from '@material-ui/core'
 
 import LoadingLyn from '@components/LoadingLyn'
-import FadeContainer from '@components/FadeContainer'
 
 import { Content, Nav } from './style'
 
@@ -23,9 +22,9 @@ const PageContainer: React.SFC<Props> = props => {
 					{topNav}
 				</Paper>
 			</Slide>
-			<FadeContainer currentKey={isLoading ? 'loading' : 'loaded'} timeout={1000} className={className}>
-				{isLoading ? <LoadingLyn /> : <Content>{children}</Content>}
-			</FadeContainer>
+			<Content currentKey={isLoading ? 'loading' : 'loaded'} timeout={1000} shift className={className}>
+				{isLoading ? <LoadingLyn /> : children}
+			</Content>
 		</>
 	)
 }

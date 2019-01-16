@@ -8,15 +8,13 @@ import T from '@components/T'
 import SkillName from '@components/SkillName'
 import SkillTooltip from '@components/SkillTooltip'
 
-import { RootState } from '@store/rootReducer'
-import { SkillSpecialization, ClassCode } from '@store/constants'
-import { TraitSkill, SkillData } from '@store/Skills/types'
-import { getData } from '@store/Skills/selectors'
+import { RootState, SkillSpecialization, ClassCode } from '@store'
+import { selectors as skillSelectors, TraitSkill, SkillData } from '@store/Skills'
 
 import { TraitTooltipSkillContainer } from './style'
 
 interface PropsFromStore {
-	skillData: ReturnType<typeof getData>
+	skillData: ReturnType<typeof skillSelectors.getData>
 }
 
 interface Props extends PropsFromStore {
@@ -112,7 +110,7 @@ const TraitTooltipSkill: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillData: getData(state)
+		skillData: skillSelectors.getData(state)
 	}
 }
 

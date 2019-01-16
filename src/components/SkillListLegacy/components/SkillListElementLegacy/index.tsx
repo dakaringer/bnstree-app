@@ -5,9 +5,9 @@ import { Paper, Typography, ButtonBase } from '@material-ui/core'
 import ImageLoader from '@components/ImageLoader'
 import Virtualizer from '@components/Virtualizer'
 
-import { SkillElement, ClassCode } from '@store/constants'
-import { SkillData, MoveData } from '@store/SkillsLegacy/types'
-import UserActions from '@store/User/actions'
+import { SkillElement, ClassCode } from '@store'
+import { SkillData, MoveData } from '@store/SkillsLegacy'
+import { actions as userActions } from '@store/User'
 
 import style from './styles/index.css'
 import { STATIC_SERVER } from '@src/utils/constants'
@@ -16,7 +16,7 @@ import MoveButton from './MoveButton'
 import SkillTooltip from '@components/SkillTooltipLegacy'
 
 interface PropsFromDispatch {
-	updatePreferences: typeof UserActions.updatePreferences
+	updatePreferences: typeof userActions.updatePreferences
 }
 
 interface Props extends PropsFromDispatch {
@@ -134,7 +134,7 @@ class SkillListElement extends React.PureComponent<Props, State> {
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			updatePreferences: UserActions.updatePreferences
+			updatePreferences: userActions.updatePreferences
 		},
 		dispatch
 	)

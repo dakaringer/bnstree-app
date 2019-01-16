@@ -2,18 +2,20 @@ import { createStandardAction, ActionType } from 'typesafe-actions'
 
 import { sagaActionTypes, reduxActionTypes } from './actionTypes'
 import { CharacterData } from './types'
-import { CharacterRegion } from '@store/constants'
+import { CharacterRegion } from '@store'
 
-const Actions = {
-	// Saga actions
-	search: createStandardAction(sagaActionTypes.SEARCH)<{
-		name: string
-		region: CharacterRegion
-	} | null>(),
-	// Redux actions
-	setData: createStandardAction(reduxActionTypes.SET_DATA)<CharacterData | null>(),
-	setLoading: createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
-}
-type Actions = ActionType<typeof Actions>
+// Saga actions
+const search = createStandardAction(sagaActionTypes.SEARCH)<{
+	name: string
+	region: CharacterRegion
+} | null>()
 
-export default Actions
+// Redux actions
+const setData = createStandardAction(reduxActionTypes.SET_DATA)<CharacterData | null>()
+const setLoading = createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
+
+export const sagaActions = { search }
+export const reduxActions = { setData, setLoading }
+const actions = { ...sagaActions, ...reduxActions }
+export type ReduxAction = ActionType<typeof reduxActions>
+export default actions

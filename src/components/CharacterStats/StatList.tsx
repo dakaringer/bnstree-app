@@ -4,8 +4,8 @@ import { ExpandMore, ExpandLess } from '@material-ui/icons'
 
 import T from '@components/T'
 
-import { CharacterStats } from '@store/Character/types'
-import { ClassCode } from '@store/constants'
+import { ClassCode } from '@store'
+import { CharacterStats } from '@store/Character'
 
 import style from './styles/StatList.css'
 import { stats, classElements } from './stats'

@@ -14,23 +14,22 @@ import classIcons from '@src/images/classIcons'
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 
-import { RootState } from '@store/rootReducer'
-import { SkillSpecialization, ClassCode } from '@store/constants'
-import { getCurrentClass, getSkillPreferences } from '@store/Skills/selectors'
-import UserActions from '@store/User/actions'
+import { RootState, SkillSpecialization, ClassCode } from '@store'
+import { selectors as skillSelectors } from '@store/Skills'
+import { actions as userActions } from '@store/User'
 
 import style from './styles/index.css'
 import SettingsDialog from './SettingsDialog'
 import specializations from './specializations'
 
 interface PropsFromStore {
-	classCode: ReturnType<typeof getCurrentClass>
-	skillPreferences: ReturnType<typeof getSkillPreferences>
+	classCode: ReturnType<typeof skillSelectors.getCurrentClass>
+	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
 }
 
 interface PropsFromDispatch {
-	updatePreferences: typeof UserActions.updatePreferences
-	updatePreferencesNoSave: typeof UserActions.updatePreferencesNoSave
+	updatePreferences: typeof userActions.updatePreferences
+	updatePreferencesNoSave: typeof userActions.updatePreferencesNoSave
 }
 
 interface Props extends InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
@@ -166,16 +165,16 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		classCode: getCurrentClass(state),
-		skillPreferences: getSkillPreferences(state)
+		classCode: skillSelectors.getCurrentClass(state),
+		skillPreferences: skillSelectors.getSkillPreferences(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			updatePreferences: UserActions.updatePreferences,
-			updatePreferencesNoSave: UserActions.updatePreferencesNoSave
+			updatePreferences: userActions.updatePreferences,
+			updatePreferencesNoSave: userActions.updatePreferencesNoSave
 		},
 		dispatch
 	)

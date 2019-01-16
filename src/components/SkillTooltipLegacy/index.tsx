@@ -9,11 +9,10 @@ import HoverTooltip from '@components/HoverTooltip'
 import T from '@components/T'
 import Attribute from '@components/AttributeLegacy'
 
-import { RootState } from '@store/rootReducer'
-import { SkillElement } from '@store/constants'
-import { MoveData } from '@store/SkillsLegacy/types'
-import { getResource } from '@store/Resources/selectors'
-import { getLocale } from '@store/Intl/selectors'
+import { RootState, SkillElement } from '@store'
+import { MoveData } from '@store/SkillsLegacy'
+import { selectors as resourceSelectors } from '@store/Resources'
+import { selectors as intlSelectors } from '@store/Intl'
 
 import style from './styles/index.css'
 import Cost from './Cost'
@@ -22,8 +21,8 @@ import Info from './Info'
 import Tags from './Tags'
 
 interface PropsFromStore {
-	resource: ReturnType<typeof getResource>['skill']
-	locale: ReturnType<typeof getLocale>
+	resource: ReturnType<typeof resourceSelectors.getResource>['skill']
+	locale: ReturnType<typeof intlSelectors.getLocale>
 }
 
 interface SelfProps {
@@ -139,8 +138,8 @@ const SkillTooltip: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		resource: getResource(state).skill,
-		locale: getLocale(state)
+		resource: resourceSelectors.getResource(state).skill,
+		locale: intlSelectors.getLocale(state)
 	}
 }
 

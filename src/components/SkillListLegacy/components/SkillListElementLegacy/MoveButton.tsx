@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import ImageLoader from '@components/ImageLoader'
 import T from '@components/T'
 
-import { MoveData } from '@store/SkillsLegacy/types'
+import { MoveData } from '@store/SkillsLegacy'
 
 import style from './styles/MoveButton.css'
 import { types, typeIcons } from './images/typeIcons'

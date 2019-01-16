@@ -10,24 +10,22 @@ import T from '@components/T'
 import comparators from './comparators'
 import ItemListElement from './components/ItemListElement'
 
-import { ItemType } from '@store/constants'
-import { RootState } from '@store/rootReducer'
-import { getData, getItemPreferences } from '@store/Items/selectors'
-import { getResource } from '@store/Resources/selectors'
-import { getLocale } from '@store/Intl/selectors'
-import ItemActions from '@store/Items/actions'
+import { RootState, ItemType } from '@store'
+import { selectors as itemSelectors, actions as itemActions } from '@store/Items'
+import { selectors as resourceSelectors } from '@store/Resources'
+import { selectors as intlSelectors } from '@store/Intl'
 
 import { ItemListContainer, ItemListGroup } from './style'
 
 interface PropsFromStore {
-	itemData: ReturnType<typeof getData>
-	itemPreferences: ReturnType<typeof getItemPreferences>
-	resource: ReturnType<typeof getResource>
-	locale: ReturnType<typeof getLocale>
+	itemData: ReturnType<typeof itemSelectors.getData>
+	itemPreferences: ReturnType<typeof itemSelectors.getItemPreferences>
+	resource: ReturnType<typeof resourceSelectors.getResource>
+	locale: ReturnType<typeof intlSelectors.getLocale>
 }
 
 interface PropsFromDispatch {
-	loadItems: typeof ItemActions.loadData
+	loadItems: typeof itemActions.loadData
 }
 
 interface Props extends PropsFromStore, PropsFromDispatch {
@@ -176,17 +174,17 @@ class ItemList extends React.PureComponent<Props, State> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		itemData: getData(state),
-		itemPreferences: getItemPreferences(state),
-		resource: getResource(state),
-		locale: getLocale(state)
+		itemData: itemSelectors.getData(state),
+		itemPreferences: itemSelectors.getItemPreferences(state),
+		resource: resourceSelectors.getResource(state),
+		locale: intlSelectors.getLocale(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			loadItems: ItemActions.loadData
+			loadItems: itemActions.loadData
 		},
 		dispatch
 	)

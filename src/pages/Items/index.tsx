@@ -8,12 +8,11 @@ import ItemActionBar from '@components/ItemActionBar'
 import ItemList from '@components/ItemList'
 import FadeContainer from '@components/FadeContainer'
 
-import { RootState } from '@store/rootReducer'
-import { ItemType } from '@store/constants'
-import { getIsLoading } from '@store/Skills/selectors'
+import { RootState, ItemType } from '@store'
+import { selectors as skillSelectors } from '@store/Skills'
 
 interface PropsFromStore {
-	isLoading: ReturnType<typeof getIsLoading>
+	isLoading: ReturnType<typeof skillSelectors.getIsLoading>
 }
 
 interface Props extends PropsFromStore, RouteComponentProps<{ itemType: string }> {}
@@ -39,7 +38,7 @@ const ItemPage: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		isLoading: getIsLoading(state)
+		isLoading: skillSelectors.getIsLoading(state)
 	}
 }
 

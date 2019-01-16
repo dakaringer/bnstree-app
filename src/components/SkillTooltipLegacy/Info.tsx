@@ -5,8 +5,8 @@ import classNames from 'classnames'
 import { get, isEqual } from 'lodash-es'
 import T from '@components/T'
 
-import { SkillElement } from '@store/constants'
-import { MoveInfo } from '@store/SkillsLegacy/types'
+import { SkillElement } from '@store'
+import { MoveInfo } from '@store/SkillsLegacy'
 
 import style from './styles/index.css'
 

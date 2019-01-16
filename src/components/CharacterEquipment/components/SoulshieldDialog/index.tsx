@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, Typography, Divider } from '@materi
 
 import T from '@components/T'
 
-import { CharacterEquipment } from '@store/Character/types'
+import { CharacterEquipment } from '@store/Character'
 
 import { SoulshieldStatDistributionTable } from './style'
 

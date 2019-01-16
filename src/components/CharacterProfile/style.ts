@@ -12,69 +12,6 @@ export const CharacterProfileContainer = styled.div`
 	`}
 `
 
-export const ProfileImgContainer = styled.div<{ noImage?: boolean }>`
-	${media.xs`
-		min-height: 35rem;
-		width: 100%;
-		padding: 0 1.5rem;
-		box-sizing: border-box;
-	`}
-
-	& > button {
-		position: relative;
-		overflow: hidden;
-		width: 23rem;
-		margin-right: -3rem;
-		transition: all 0.5s;
-		height: 0;
-		padding-bottom: 189%;
-
-		${media.md`
-			width: 20rem;
-		`}
-
-		${media.xs`
-			margin: 0;
-			width: 100%;
-			filter: brightness(0.75);
-			padding-bottom: 163%;
-		`}
-
-		${props =>
-			props.noImage &&
-			css`
-				margin: 0;
-				width: 0;
-			`}
-
-		& img {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-		}
-	}
-`
-
-export const ProfileImgModal = styled.button`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-
-	${media.xs`
-		width: 100%;
-	`}
-
-	& img {
-		width: 100%;
-		height: 100%;
-		max-width: 100%;
-		max-height: 100%;
-	}
-`
-
 export const GeneralInfo = styled.div<{ noImage?: boolean }>`
 	flex: 1;
 	overflow: hidden;
@@ -139,4 +76,67 @@ export const ArenaContainer = styled.div`
 	${media.xs`
 		justify-content: flex-start;
 	`}
+`
+
+export const ProfileImgModal = styled.button`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	${media.xs`
+		width: 100%;
+	`}
+
+	& img {
+		width: 100%;
+		height: 100%;
+		max-width: 100%;
+		max-height: 100%;
+	}
+`
+
+export const ProfileImgContainer = styled.div<{ noImage?: boolean }>`
+	${media.xs`
+		min-height: 35rem;
+		width: 100%;
+		padding: 0 1.5rem;
+		box-sizing: border-box;
+	`}
+
+	& > button {
+		position: relative;
+		overflow: hidden;
+		width: 23rem;
+		margin-right: -3rem;
+		transition: all 0.5s;
+		height: 0;
+		padding-bottom: 189%;
+
+		${media.md`
+			width: 20rem;
+		`}
+
+		${media.xs`
+			margin: 0;
+			width: 100%;
+			filter: brightness(0.75);
+			padding-bottom: 163%;
+		`}
+
+		${props =>
+			props.noImage &&
+			css`
+				margin: 0;
+				width: 0;
+			`}
+
+		& img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+	}
 `

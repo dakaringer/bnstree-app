@@ -1,6 +1,6 @@
 import { reduxActionTypes } from './actionTypes'
 import { Items } from './types'
-import Actions from './actions'
+import { ReduxAction } from './actions'
 
 export type State = DeepReadonly<Items>
 
@@ -13,7 +13,7 @@ const initialState = {
 	isLoading: false
 }
 
-export default (state: State = initialState, action: Actions) => {
+export default (state: State = initialState, action: ReduxAction) => {
 	switch (action.type) {
 		case reduxActionTypes.SET_DATA: {
 			return {

@@ -10,7 +10,7 @@ import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 import Arena from './components/Arena'
 
-import { OtherCharacters, CharacterProfile as CharacterProfileType, CharacterBadge } from '@store/Character/types'
+import { OtherCharacters, CharacterProfile as CharacterProfileType, CharacterBadge } from '@store/Character'
 
 import {
 	CharacterProfileContainer,

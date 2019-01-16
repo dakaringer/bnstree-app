@@ -12,22 +12,20 @@ import SkillActionBar from '@components/SkillActionBar'
 import SkillList from '@components/SkillList'
 import TraitList from '@components/TraitList'
 
-import { RootState } from '@store/rootReducer'
-import { ClassCode } from '@store/constants'
-import { getSkillPreferences, getIsLoading } from '@store/Skills/selectors'
-import SkillActions from '@store/Skills/actions'
-import UserActions from '@store/User/actions'
+import { RootState, ClassCode } from '@store'
+import { selectors as skillSelectors, actions as skillActions } from '@store/Skills'
+import { actions as userActions } from '@store/User'
 
 import { ModeSelector } from './style'
 
 interface PropsFromStore {
-	skillPreferences: ReturnType<typeof getSkillPreferences>
-	isLoading: ReturnType<typeof getIsLoading>
+	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
+	isLoading: ReturnType<typeof skillSelectors.getIsLoading>
 }
 
 interface PropsFromDispatch {
-	loadClass: typeof SkillActions.loadData
-	updatePreferences: typeof UserActions.updatePreferences
+	loadClass: typeof skillActions.loadData
+	updatePreferences: typeof userActions.updatePreferences
 }
 
 interface Props extends PropsFromStore, PropsFromDispatch, RouteComponentProps<{ className: string }> {}
@@ -100,16 +98,16 @@ class SkillsPage extends React.PureComponent<Props> {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		skillPreferences: getSkillPreferences(state),
-		isLoading: getIsLoading(state)
+		skillPreferences: skillSelectors.getSkillPreferences(state),
+		isLoading: skillSelectors.getIsLoading(state)
 	}
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
-			loadClass: SkillActions.loadData,
-			updatePreferences: UserActions.updatePreferences
+			loadClass: skillActions.loadData,
+			updatePreferences: userActions.updatePreferences
 		},
 		dispatch
 	)

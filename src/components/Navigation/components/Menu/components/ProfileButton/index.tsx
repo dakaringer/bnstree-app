@@ -5,11 +5,11 @@ import { LinkObject } from '@components/Navigation/links'
 import UserButton from './components/UserButton'
 import LoginButton from './components/LoginButton'
 
-import { RootState } from '@store/rootReducer'
-import { getData } from '@store/User/selectors'
+import { RootState } from '@store'
+import { selectors as userSelectors } from '@store/User'
 
 interface PropsFromStore {
-	userData: ReturnType<typeof getData>
+	userData: ReturnType<typeof userSelectors.getData>
 }
 
 interface Props extends PropsFromStore {
@@ -25,7 +25,7 @@ const ProfileButton: React.SFC<Props> = props => {
 
 const mapStateToProps = (state: RootState) => {
 	return {
-		userData: getData(state)
+		userData: userSelectors.getData(state)
 	}
 }
 

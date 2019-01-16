@@ -9,7 +9,7 @@ import ItemTooltip from '@components/ItemTooltip'
 import Virtualizer from '@components/Virtualizer'
 import ItemName from '@components/ItemName'
 
-import { ItemData } from '@store/Items/types'
+import { ItemData } from '@store/Items'
 
 import { ItemListElementContainer, ItemIcon, ClassLabel } from './style'
 

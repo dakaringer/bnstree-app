@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { Typography } from '@material-ui/core'
 
 import HoverTooltip from '@components/HoverTooltip'
@@ -7,11 +6,8 @@ import SkillName from '@components/SkillName'
 import T from '@components/T'
 import TraitTooltipSkill from './components/TraitTooltipSkill'
 
-import { SkillSpecialization, ClassCode } from '@store/constants'
-import { RootState } from '@store/rootReducer'
-import { Trait } from '@store/Skills/types'
-import { getResource } from '@store/Resources/selectors'
-import { getLocale } from '@store/Intl/selectors'
+import { SkillSpecialization, ClassCode } from '@store'
+import { Trait } from '@store/Skills'
 
 interface Props {
 	trait: DeepReadonly<Trait>
@@ -39,11 +35,4 @@ const TraitTooltip: React.SFC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		resource: getResource(state).skill,
-		locale: getLocale(state)
-	}
-}
-
-export default connect(mapStateToProps)(React.memo(TraitTooltip))
+export default React.memo(TraitTooltip)

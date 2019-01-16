@@ -2,16 +2,18 @@ import { createStandardAction, ActionType } from 'typesafe-actions'
 
 import { sagaActionTypes, reduxActionTypes } from './actionTypes'
 
-const Actions = {
-	// Saga actions
-	loadLocale: createStandardAction(sagaActionTypes.LOAD_LOCALE)<string>(),
-	// Redux actions
-	setMessages: createStandardAction(reduxActionTypes.SET_MESSAGES)<{
-		locale: string
-		messages: {}
-	}>(),
-	setLoading: createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
-}
-type Actions = ActionType<typeof Actions>
+// Saga actions
+const loadLocale = createStandardAction(sagaActionTypes.LOAD_LOCALE)<string>()
 
-export default Actions
+// Redux actions
+const setMessages = createStandardAction(reduxActionTypes.SET_MESSAGES)<{
+	locale: string
+	messages: {}
+}>()
+const setLoading = createStandardAction(reduxActionTypes.SET_LOADING)<boolean>()
+
+export const sagaActions = { loadLocale }
+export const reduxActions = { setMessages, setLoading }
+const actions = { ...sagaActions, ...reduxActions }
+export type ReduxAction = ActionType<typeof reduxActions>
+export default actions

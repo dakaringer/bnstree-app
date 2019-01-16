@@ -1,7 +1,9 @@
 import styled, { media } from '@style/styled-components'
+import FadeContainer from '@components/FadeContainer'
 
-export const Content = styled.div`
+export const Content = styled(FadeContainer)`
 	padding: 2rem 4rem 10rem;
+	box-sizing: border-box;
 
 	${media.xs`
 		padding: 1rem;

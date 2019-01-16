@@ -1,12 +1,12 @@
 import * as React from 'react'
-import Scrollbars from 'react-custom-scrollbars'
+import Scrollbars, { positionValues } from 'react-custom-scrollbars'
 
 interface Props {
 	height?: string
 	flex?: boolean
 	disabled?: boolean
 	className?: string
-	onScroll?: (value: {}) => void
+	onScroll?: (value: positionValues) => void
 }
 
 const ScrollContainer: React.SFC<Props> = props => {

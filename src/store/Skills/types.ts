@@ -1,8 +1,8 @@
-import { ClassCode, SkillSpecialization, Attribute } from '@store/constants'
+import { ClassCode, SkillSpecialization } from '@store'
 
 export interface Skills {
-	data: { [key in ClassCode]: Skill[] | null }
-	traits: { [key in ClassCode]: Trait[] | null }
+	data: { [C in ClassCode]: Skill[] | null }
+	traits: { [C in ClassCode]: Trait[] | null }
 	currentClass: ClassCode
 	isLoading: boolean
 }
