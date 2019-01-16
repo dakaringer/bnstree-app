@@ -27,12 +27,6 @@ export const muiTheme = createMuiTheme({
 		allVariants: {
 			textTransform: 'initial'
 		},
-		h6: {
-			fontWeight: 'normal'
-		},
-		body2: {
-			color: 'rgba(255, 255, 255, 0.9)'
-		},
 		button: {
 			fontWeight: 'normal',
 			textTransform: 'uppercase'
@@ -78,19 +72,8 @@ export const muiTheme = createMuiTheme({
 	overrides: {
 		MuiPaper: {
 			rounded: {
-				borderRadius: '0.5rem'
-			}
-		},
-		MuiPopover: {
-			paper: {
-				background: 'rgba(8, 8, 8, 0.9)',
-				marginTop: '0.3rem'
-			}
-		},
-		MuiDialog: {
-			paper: {
-				background: 'rgba(8, 8, 8, 0.9)',
-				minWidth: '30rem'
+				borderRadius: '0.5rem',
+				overflow: 'hidden'
 			}
 		},
 		MuiList: {
@@ -104,31 +87,9 @@ export const muiTheme = createMuiTheme({
 				margin: '2rem 0'
 			}
 		},
-		MuiExpansionPanelSummary: {
-			root: {
-				minHeight: '4rem'
-			}
-		},
-		MuiDialogTitle: {
-			root: {
-				display: 'flex',
-				alignItems: 'baseline',
-				padding: '2rem 2.4rem'
-			}
-		},
-		MuiFormControlLabel: {
-			root: {
-				marginLeft: 0
-			}
-		},
 		MuiIconButton: {
 			root: {
 				padding: 0
-			}
-		},
-		MuiCheckbox: {
-			root: {
-				padding: '1.2rem'
 			}
 		}
 	}

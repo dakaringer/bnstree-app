@@ -96,8 +96,7 @@ const TraitTooltipSkill: React.SFC<Props> = props => {
 								offset={-10}
 							/>
 							{traitSkill.action === 'ADD' && (
-								<Typography variant="caption" color="textSecondary" inline>
-									{' '}
+								<Typography variant="caption" color="textSecondary" className="label">
 									<T id="skill.trait.added" />
 								</Typography>
 							)}

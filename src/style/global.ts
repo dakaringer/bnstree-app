@@ -14,7 +14,7 @@ export default createGlobalStyle`
 		font-family: 'Open Sans', 'system-ui', sans-serif;
 		font-weight: 300;
 		color: #eeeeee;
-		background: black;
+		background: #111111;
 	}
 
 	& a {

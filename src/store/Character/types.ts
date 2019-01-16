@@ -43,7 +43,21 @@ export interface CharacterStats {
 	base_ability: { [key: string]: number }
 	equipped_ability: { [key: string]: number }
 	total_ability: { [key: string]: number }
-	point_ability: any
+	point_ability: {
+		offense_point: number
+		defense_point: number
+		attack_power_value: number
+		attack_attribute_value: number
+		max_hp: number
+		defend_power_value: number
+		picks: {
+			slot: number
+			name: string
+			tier: number
+			point: number
+			description: string | null
+		}[]
+	}
 }
 
 export interface CharacterEquipment {

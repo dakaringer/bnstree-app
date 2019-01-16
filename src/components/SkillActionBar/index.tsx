@@ -3,6 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Button, IconButton, Input, Hidden, MenuItem, Menu } from '@material-ui/core'
+import { MenuItemProps } from '@material-ui/core/MenuItem'
 import { Tune, Share, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { get, debounce } from 'lodash-es'
@@ -70,6 +71,8 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 	}
 	debouncedSearch = debounce(this.search, 200, { leading: true })
 
+	renderLink = ({ innerRef, ...props }: MenuItemProps, link: string) => <NavLink to={link} {...props} />
+
 	render = () => {
 		const { classCode, intl, skillPreferences } = this.props
 		const { settingsDialogOpen, classAnchor, specializationAnchor, searchString } = this.state
@@ -97,14 +100,14 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 									key={c.classCode}
 									onClick={() => this.setState({ classAnchor: undefined })}
 									className={style.menuClassName}
-									component={(props: any) => <NavLink to={c.link} {...props} />}>
+									component={props => this.renderLink(props, c.link)}>
 									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
 									<T id={['general', 'class_names', c.classCode]} />
 								</MenuItem>
 							))}
 					</Menu>
 					<Button
-						className={style.className}
+						className={style.elementToggle}
 						onClick={event => this.setState({ specializationAnchor: event.currentTarget })}>
 						<ImageLoader src={get(specializationIcons, [classCode, specialization], '')} />
 						<T id={['general', 'specializations', specialization]} />

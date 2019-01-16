@@ -5,13 +5,15 @@ import classNames from 'classnames'
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
 
+import { CharacterStats } from '@store/Character'
+
 import style from './styles/HMPointDialog.css'
 import statIcons from './images/statIcons'
-import { hmPointEffects, hmPointBuffs } from './stats'
+import { hmPointEffects, hmPointBuffs } from './hmPoint'
 
 interface Props {
 	type: 'attack' | 'defense'
-	pointData: DeepReadonly<any>
+	pointData: DeepReadonly<CharacterStats['point_ability']>
 	open: boolean
 	close: () => void
 }
@@ -98,14 +100,18 @@ const HMPointDialog: React.SFC<Props> = props => {
 							<ImageLoader src={statIcons[hmBonus.m1.icon]} />
 							<T id={['character', 'stats', hmBonus.m1.statId]} />
 						</Typography>
-						<Typography color="primary">{pointData[hmBonus.m1.value]}</Typography>
+						<Typography color="primary">
+							{pointData[hmBonus.m1.value as 'attack_power_value' | 'attack_attribute_value']}
+						</Typography>
 					</div>
 					<div className={style.mainEffect}>
 						<Typography className={style.label}>
 							<ImageLoader src={statIcons[hmBonus.m2.icon]} />
 							<T id={['character', 'stats', hmBonus.m2.statId]} />
 						</Typography>
-						<Typography color="primary">{pointData[hmBonus.m2.value]}</Typography>
+						<Typography color="primary">
+							{pointData[hmBonus.m2.value as 'max_hp' | 'defend_power_value']}
+						</Typography>
 					</div>
 				</div>
 				<Divider />

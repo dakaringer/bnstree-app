@@ -5,7 +5,7 @@ export interface LinkObject {
 	label: string
 	icon?: string
 	subMenu?: LinkObject[]
-	render?: (resetMenu: () => void) => React.ReactElement<any>
+	render?: (resetMenu: () => void) => React.ReactNode
 	disabled?: boolean
 }
 

@@ -3,6 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Button, IconButton, Input, Hidden, Checkbox, MenuItem, Menu, Tooltip } from '@material-ui/core'
+import { MenuItemProps } from '@material-ui/core/MenuItem'
 import { Tune, Share, FilterList, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import T from '@components/T'
@@ -72,6 +73,8 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 		})
 	}
 
+	renderLink = ({ innerRef, ...props }: MenuItemProps, link: string) => <NavLink to={link} {...props} />
+
 	render = () => {
 		const { classCode, element, intl, skillPreferences, updatePreferences } = this.props
 		const { settingsDialogOpen, classAnchor } = this.state
@@ -98,7 +101,7 @@ class SkillActionBar extends React.PureComponent<Props, State> {
 									key={c.classCode}
 									onClick={() => this.setState({ classAnchor: undefined })}
 									className={style.menuClassName}
-									component={(props: any) => <NavLink to={c.link} {...props} />}>
+									component={props => this.renderLink(props, c.link)}>
 									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
 									<T id={['general', 'class_names', c.classCode]} />
 								</MenuItem>

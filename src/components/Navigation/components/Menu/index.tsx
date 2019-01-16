@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Link, NavLink, withRouter, RouteComponentProps } from 'react-router-dom'
-import { Drawer, Typography, List, SwipeableDrawer, Hidden } from '@material-ui/core'
+import { Drawer, Typography, List, ListItem, SwipeableDrawer, Hidden } from '@material-ui/core'
+import { ListItemProps } from '@material-ui/core/ListItem'
 import { ChevronRight, ChevronLeft } from '@material-ui/icons'
 
 import T from '@components/T'
@@ -61,6 +62,13 @@ class Menu extends React.PureComponent<Props, State> {
 		})
 	}
 
+	renderLinkItem = (props: ListItemProps, active: boolean, link?: string) =>
+		link ? (
+			<LinkItem as={NavLink} to={link} activeClassName="active" {...props} />
+		) : (
+			<LinkItem active={active} {...props} />
+		)
+
 	renderContent = () => {
 		const { location, onClose } = this.props
 		const { linkPath } = this.state
@@ -86,12 +94,12 @@ class Menu extends React.PureComponent<Props, State> {
 					<ScrollContainer flex>
 						<List>
 							{currentLink && (
-								<LinkItem className="back" onClick={this.back}>
+								<ListItem button component={LinkItem} className="back" onClick={this.back}>
 									<ChevronLeft />
 									<Typography variant="caption" color="inherit">
 										<T id="navigation.menu.back" />
 									</Typography>
-								</LinkItem>
+								</ListItem>
 							)}
 							{linkList.map(linkObject => {
 								if (linkObject.render) {
@@ -107,22 +115,18 @@ class Menu extends React.PureComponent<Props, State> {
 									return acc && location.pathname.split('/')[i] === path
 								}, true)
 								return (
-									<LinkItem
+									<ListItem
 										key={linkObject.link}
-										active={active}
-										onClick={() => this.openSubMenu(linkObject)}
-										component={
-											!linkObject.subMenu
-												? (props: any) => (
-														<NavLink to={link} activeClassName="active" {...props} />
-												  )
-												: 'div'
+										button
+										component={props =>
+											this.renderLinkItem(props, active, !linkObject.subMenu ? link : undefined)
 										}
+										onClick={() => this.openSubMenu(linkObject)}
 										disabled={linkObject.disabled}>
 										{linkObject.icon && <img src={linkObject.icon} />}
 										<T id={linkObject.label} />
 										{linkObject.subMenu && <ChevronRight />}
-									</LinkItem>
+									</ListItem>
 								)
 							})}
 						</List>

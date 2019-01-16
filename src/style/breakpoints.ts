@@ -1,22 +1,16 @@
-import { css, FlattenInterpolation } from 'styled-components'
+import { css, ThemedCssFunction } from 'styled-components'
+import { styledTheme, muiTheme } from './theme'
 
-type Breakpoint = 'lg' | 'md' | 'sm' | 'xs'
-type MediaObject = { [B in Breakpoint]: (...arg: ArgumentsType<typeof css>) => FlattenInterpolation<any> }
-const breakpoints: { [B in Breakpoint]: number } = {
-	lg: 1600,
-	md: 1280,
-	sm: 960,
-	xs: 650
-}
+const breakpoints = muiTheme.breakpoints.values
 
-export default (Object.keys(breakpoints) as Breakpoint[]).reduce(
+export default (Object.keys(breakpoints) as (keyof typeof breakpoints)[]).reduce(
 	(acc, label) => {
-		acc[label] = (...args: ArgumentsType<typeof css>) => css`
+		acc[label] = (first: any, ...interpolations: any[]) => css`
 			@media (max-width: ${breakpoints[label] - 1}px) {
-				${css(...args)}
+				${css(first, ...interpolations)}
 			}
 		`
 		return acc
 	},
-	{} as MediaObject
+	{} as { [key in keyof typeof breakpoints]: ThemedCssFunction<typeof styledTheme> }
 )

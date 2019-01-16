@@ -10,4 +10,12 @@ export const TraitTooltipSkillContainer = styled.div`
 		width: 2.2rem;
 		height: 2.2rem;
 	}
+
+	& svg {
+		align-self: flex-end;
+	}
+
+	& .label {
+		margin-left: 0.5rem;
+	}
 `

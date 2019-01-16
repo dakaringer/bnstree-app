@@ -6,7 +6,7 @@ import ImageLoader from '@components/ImageLoader'
 import { Target, Tooltip, TooltipTitle, TooltipMainSection, TooltipSection, ExtraContainer } from './style'
 
 interface Props {
-	icon?: any
+	icon?: string
 	title: React.ReactNode
 	m1?: React.ReactNode | React.ReactNode[]
 	m2?: React.ReactNode | React.ReactNode[]

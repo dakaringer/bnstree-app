@@ -7,6 +7,7 @@ import T from '@components/T'
 import ModText from '@components/ModText'
 
 import { MoveInfo } from '@store/Skills'
+import areaIcons from './images/areaIcons'
 
 import { InfoContainer, InfoItem, InfoItemHeader, InfoItemData, AreaContainer, AreaImage } from './style'
 
@@ -61,7 +62,7 @@ const Info = (currentInfo: DeepReadonly<MoveInfo>, hoverInfo: DeepReadonly<MoveI
 					{currentInfo.area.type === hoverInfo.area.type ? (
 						<InfoItemData>
 							<AreaContainer>
-								<AreaImage area={hoverInfo.area.type} />
+								<AreaImage src={areaIcons[`A${hoverInfo.area.type}`]} />
 								{getInfoText(currentInfo.area.range, 'area')}
 								{!isEqual(currentInfo.area.range, hoverInfo.area.range) && (
 									<>
@@ -74,12 +75,12 @@ const Info = (currentInfo: DeepReadonly<MoveInfo>, hoverInfo: DeepReadonly<MoveI
 					) : (
 						<InfoItemData>
 							<AreaContainer>
-								<AreaImage area={currentInfo.area.type} />
+								<AreaImage src={areaIcons[`A${currentInfo.area.type}`]} />
 								{getInfoText(currentInfo.area.range, 'area')}
 							</AreaContainer>
 							<ArrowDropDown />
 							<AreaContainer flag="mod">
-								<AreaImage area={currentInfo.area.type} />
+								<AreaImage src={areaIcons[`A${hoverInfo.area.type}`]} />
 								{getInfoText(hoverInfo.area.range, 'area')}
 							</AreaContainer>
 						</InfoItemData>

@@ -22,7 +22,7 @@ const SoulshieldDialog: React.SFC<Props> = props => {
 	)
 
 	return (
-		<Dialog open={open} onClose={close}>
+		<Dialog open={open} onClose={close} maxWidth="xs">
 			<DialogTitle disableTypography>
 				<Typography variant="h6" color="primary">
 					<T id="character.navigation.soulshield_attributes" />

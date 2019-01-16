@@ -9,7 +9,7 @@ import { CharacterStats } from '@store/Character'
 
 import style from './styles/StatList.css'
 import { stats, classElements } from './stats'
-import StatListItem from './StatListItem'
+import StatListItem from './components/StatListItem'
 
 interface Props {
 	statData: DeepReadonly<CharacterStats>

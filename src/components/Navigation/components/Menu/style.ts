@@ -1,6 +1,4 @@
-import * as React from 'react'
 import styled from '@style/styled-components'
-import { ListItem } from '@material-ui/core'
 
 import FadeContainer from '@components/FadeContainer'
 import CharacterSearchComponent from './components/CharacterSearch'
@@ -36,10 +34,11 @@ export const CharacterSearch = styled(CharacterSearchComponent)`
 	align-items: flex-start;
 `
 
-const ListItemInner: React.SFC<{ active?: boolean }> = ({ active, ...props }) => <ListItem {...props} />
-export const LinkItem = styled(ListItemInner as React.FunctionComponent<GetComponentProps<typeof ListItem>>).attrs({
-	button: true
-})<{ active?: boolean }>`
+export const LinkItem = styled.li<{
+	active?: boolean
+	to?: string
+	activeClassName?: string
+}>`
 	&& {
 		padding: 1rem 1.5rem;
 		transition: color 0.5s;

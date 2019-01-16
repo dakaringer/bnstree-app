@@ -1,13 +1,6 @@
-import * as React from 'react'
 import styled, { media } from '@style/styled-components'
-import { Paper } from '@material-ui/core'
 
-const PaperInner: React.SFC<{ active?: boolean }> = ({ active, ...props }) => <Paper {...props} />
-export const TrailListElementContainer = styled(PaperInner as React.FunctionComponent<
-	GetComponentProps<typeof Paper>
->)<{
-	active?: boolean
-}>`
+export const TraitListElementContainer = styled.div<{ active?: boolean }>`
 	display: flex;
 	padding: 1rem;
 	min-width: 0;

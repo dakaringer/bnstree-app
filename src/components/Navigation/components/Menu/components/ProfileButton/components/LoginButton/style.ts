@@ -11,14 +11,18 @@ export const ProfileButton = styled.li`
 	}
 `
 
-export const GoogleLogo = styled(GoogleLogoSVG).attrs({ height: 40, width: 40 })`
+export const GoogleLogo = styled(GoogleLogoSVG)`
+	height: 4rem;
+	width: 4rem;
 	position: absolute;
 	top: -5px;
 	left: -5px;
 	transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 `
 
-export const GoogleLogoPressed = styled(GoogleLogoPressedSVG).attrs({ height: 40, width: 40 })`
+export const GoogleLogoPressed = styled(GoogleLogoPressedSVG)`
+	height: 4rem;
+	width: 4rem;
 	position: absolute;
 	top: -5px;
 	left: -5px;

@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { withWidth } from '@material-ui/core'
+import { Paper, withWidth } from '@material-ui/core'
+import { PaperProps } from '@material-ui/core/Paper'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
 import compose from '@src/utils/compose'
 import { STATIC_SERVER } from '@src/utils/constants'
@@ -16,7 +17,7 @@ import { Trait } from '@store/Skills'
 import { selectors as skillSelectors } from '@store/Skills'
 import { actions as userActions } from '@store/User'
 
-import { TrailListElementContainer } from './style'
+import { TraitListElementContainer } from './style'
 
 interface PropsFromStore {
 	classCode: ReturnType<typeof skillSelectors.getCurrentClass>
@@ -34,38 +35,45 @@ interface SelfProps {
 
 interface Props extends SelfProps, PropsFromStore, PropsFromDispatch, WithWidth {}
 
-const TraitListElement: React.SFC<Props> = props => {
-	const { trait, classCode, specialization, build, width, updatePreferences } = props
+class TraitListElement extends React.PureComponent<Props> {
+	renderContainer = (props: PaperProps) => {
+		const { trait, build } = this.props
+		const currentIndex = build[trait.index[0] - 1] || 1
+		const active = currentIndex === trait.index[1]
 
-	const currentIndex = build[trait.index[0] - 1] || 1
-	const active = currentIndex === trait.index[1]
+		return <TraitListElementContainer active={active} {...props} />
+	}
 
-	return (
-		<Virtualizer minHeight="7rem">
-			<TrailListElementContainer
-				active={active}
-				onClick={() =>
-					updatePreferences({
-						skills: {
-							builds: {
-								[classCode]: {
-									[specialization]: new Array(5)
-										.fill(1)
-										.map((_n, i) => (i === trait.index[0] - 1 ? trait.index[1] : build[i] || 1))
+	render = () => {
+		const { trait, classCode, specialization, build, width, updatePreferences } = this.props
+
+		return (
+			<Virtualizer minHeight="7rem">
+				<Paper
+					component={this.renderContainer}
+					onClick={() =>
+						updatePreferences({
+							skills: {
+								builds: {
+									[classCode]: {
+										[specialization]: new Array(5)
+											.fill(1)
+											.map((_n, i) => (i === trait.index[0] - 1 ? trait.index[1] : build[i] || 1))
+									}
 								}
 							}
-						}
-					})
-				}>
-				<TraitTooltip
-					trait={trait}
-					specialization={specialization}
-					target={<ImageLoader src={`${STATIC_SERVER}/images/skills/${trait.data.icon}`} />}
-				/>
-				<SkillName name={trait.data.name} variant={isWidthDown('xs', width) ? 'caption' : 'subtitle1'} />
-			</TrailListElementContainer>
-		</Virtualizer>
-	)
+						})
+					}>
+					<TraitTooltip
+						trait={trait}
+						specialization={specialization}
+						target={<ImageLoader src={`${STATIC_SERVER}/images/skills/${trait.data.icon}`} />}
+					/>
+					<SkillName name={trait.data.name} variant={isWidthDown('xs', width) ? 'caption' : 'subtitle1'} />
+				</Paper>
+			</Virtualizer>
+		)
+	}
 }
 
 const mapStateToProps = (state: RootState) => {

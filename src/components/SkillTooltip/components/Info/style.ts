@@ -3,8 +3,6 @@ import styled from '@style/styled-components'
 import ImageLoader from '@components/ImageLoader'
 import ModText from '@components/ModText'
 
-import areaIcons from './images/areaIcons'
-
 export const InfoContainer = styled.div`
 	display: flex;
 `
@@ -52,11 +50,7 @@ export const AreaContainer = styled(ModText)`
 	}
 `
 
-export const AreaImage = styled(ImageLoader).attrs((props: { area: number }) => ({
-	src: areaIcons[`A${props.area}`]
-}))<{
-	area: number
-}>`
+export const AreaImage = styled(ImageLoader)`
 	position: absolute;
 	z-index: 0;
 	height: 100%;

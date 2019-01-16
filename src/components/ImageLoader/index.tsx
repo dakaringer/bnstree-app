@@ -6,7 +6,7 @@ import blankImg from './images/blank.gif'
 interface Props {
 	src: string
 	className?: string
-	placeholder?: any
+	placeholder?: React.ReactNode
 	onLoad?: () => void
 	onError?: () => void
 }

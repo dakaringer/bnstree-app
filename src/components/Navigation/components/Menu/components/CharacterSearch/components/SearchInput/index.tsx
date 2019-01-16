@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { MenuItem } from '@material-ui/core'
+import { InputBaseComponentProps } from '@material-ui/core/InputBase'
 
 import { SearchInputComponent, RegionSelect, RegionSelectMenuItem } from './style'
 
 const regions = ['NA', 'EU', 'KR', 'TW']
 
 interface SelfProps {
-	inputProps: any
+	inputProps: InputBaseComponentProps
 	currentRegion: string
 	onRegionChange: (region: string) => void
 }

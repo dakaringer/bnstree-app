@@ -4,8 +4,8 @@ import { Paper } from '@material-ui/core'
 import { ClassCode } from '@store'
 import { CharacterStats as CharacterStatsType } from '@store/Character'
 
-import MainStat from './MainStat'
-import StatList from './StatList'
+import MainStat from './components/MainStat'
+// import StatList from './components/StatList'
 
 interface Props {
 	statData: DeepReadonly<CharacterStatsType>
@@ -19,7 +19,7 @@ const CharacterStats: React.SFC<Props> = props => {
 	return (
 		<Paper className={className}>
 			<MainStat {...otherProps} />
-			<StatList {...otherProps} />
+			{/* <StatList {...otherProps} /> */}
 		</Paper>
 	)
 }

@@ -29,7 +29,10 @@ interface SelfProps {
 interface Props extends SelfProps, PropsFromStore {}
 
 const join = (list: React.ReactNode[], sep: string = ', ') => {
-	return list.reduce((acc: any[], cur) => (acc.length === 0 ? acc.concat([cur]) : acc.concat([sep, cur])), [])
+	return list.reduce(
+		(acc: React.ReactNode[], cur) => (acc.length === 0 ? acc.concat([cur]) : acc.concat([sep, cur])),
+		[]
+	)
 }
 
 const Attribute: React.SFC<Props> = props => {
