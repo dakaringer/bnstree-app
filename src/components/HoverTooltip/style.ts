@@ -5,10 +5,10 @@ export const Target = styled.div`
 	touch-action: none;
 `
 
-export const Tooltip = styled.div`
-	padding: 1.2rem;
+export const TooltipContent = styled.div`
+	padding: 0.5rem 1.2rem;
 	width: 55rem;
-	max-width: calc(100vw - 2rem);
+	max-width: calc(100vw - 1rem);
 	box-sizing: border-box;
 	border: 0.1rem solid ${props => props.theme.palette.grey};
 	border-radius: 0.5rem;

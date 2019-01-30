@@ -1,6 +1,6 @@
-import * as React from 'react'
+import React from 'react'
 import { Typography } from '@material-ui/core'
-import { STATIC_SERVER } from '@src/utils/constants'
+import { STATIC_SERVER } from '@utils/constants'
 
 import ImageLoader from '@components/ImageLoader'
 
@@ -13,7 +13,7 @@ interface Props {
 	variant?: GetComponentProps<typeof Typography>['variant']
 }
 
-const SkillName: React.SFC<Props> = props => {
+const SkillName: React.FC<Props> = props => {
 	const { name, icon, className, variant } = props
 
 	return (
@@ -26,4 +26,4 @@ const SkillName: React.SFC<Props> = props => {
 	)
 }
 
-export default React.memo(SkillName)
+export default SkillName

@@ -1,10 +1,10 @@
-import * as React from 'react'
+import React from 'react'
 import { Typography } from '@material-ui/core'
 
 import HoverTooltip from '@components/HoverTooltip'
 import SkillName from '@components/SkillName'
 import T from '@components/T'
-import TraitTooltipSkill from './components/TraitTooltipSkill'
+import TraitTooltipSkill from './TraitTooltipSkill'
 
 import { SkillSpecialization, ClassCode } from '@store'
 import { Trait } from '@store/Skills'
@@ -15,11 +15,12 @@ interface Props {
 	target: React.ReactElement<any>
 }
 
-const TraitTooltip: React.SFC<Props> = props => {
+const TraitTooltip: React.FC<Props> = props => {
 	const { trait, specialization, ...tooltipProps } = props
 
 	return (
 		<HoverTooltip
+			button
 			title={<SkillName name={trait.data.name} variant="subtitle1" />}
 			sub={
 				<Typography variant="caption" color="secondary">
@@ -29,10 +30,9 @@ const TraitTooltip: React.SFC<Props> = props => {
 			extra={trait.data.skills.map((skill, i) => (
 				<TraitTooltipSkill key={i} traitSkill={skill} specialization={specialization} />
 			))}
-			offset={-2}
 			{...tooltipProps}
 		/>
 	)
 }
 
-export default React.memo(TraitTooltip)
+export default TraitTooltip

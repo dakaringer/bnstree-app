@@ -12,10 +12,12 @@
 			"@components/*": ["src/components/*"],
 			"@store": ["src/store"],
 			"@store/*": ["src/store/*"],
-			"@style/*": ["src/style/*"]
+			"@style/*": ["src/style/*"],
+			"@utils/*": ["src/utils/*"]
 		},
 		"noEmit": true,
 		"strict": true,
+		"allowSyntheticDefaultImports": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,

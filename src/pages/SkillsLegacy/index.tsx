@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ import SkillList from '@components/SkillListLegacy'
 import { RootState, ClassCodeLegacy as ClassCode } from '@store'
 import { selectors as skillSelectors } from '@store/SkillsLegacy'
 
-import { classes } from '@src/utils/constants'
+import { classes } from '@utils/constants'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
@@ -19,7 +19,7 @@ interface PropsFromStore {
 
 interface Props extends PropsFromStore, RouteComponentProps<{ className: string }> {}
 
-const SkillPage: React.SFC<Props> = props => {
+const SkillPage: React.FC<Props> = props => {
 	const { match, skillPreferences, isLoading } = props
 
 	const classLink = classes.find(c => c.link === match.params.className)
@@ -34,11 +34,7 @@ const SkillPage: React.SFC<Props> = props => {
 	return (
 		<PageContainer isLoading={isLoading} topNav={<SkillActionBar classCode={classCode} element={element} />}>
 			<FadeContainer currentKey={`${classCode}-${element}`}>
-				<SkillList
-					classCode={classCode}
-					element={element}
-					buildData={skillPreferences.build[classCode][element]}
-				/>
+				<SkillList classCode={classCode} buildData={skillPreferences.build[classCode][element]} />
 			</FadeContainer>
 		</PageContainer>
 	)
@@ -51,4 +47,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(React.memo(SkillPage))
+export default connect(mapStateToProps)(SkillPage)

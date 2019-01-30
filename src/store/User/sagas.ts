@@ -1,8 +1,7 @@
-import { delay } from 'redux-saga'
-import { takeLatest, call, put, select } from 'redux-saga/effects'
+import { takeLatest, call, put, select, delay } from 'redux-saga/effects'
 import { get, mergeWith } from 'lodash-es'
 import { get as idbGet, set as idbSet } from 'idb-keyval'
-import apollo from '@src/utils/apollo'
+import apollo from '@utils/apollo'
 
 import { sagaActionTypes } from './actionTypes'
 import {
@@ -91,7 +90,7 @@ function* logoutSaga() {
 	yield put(actions.setShowLogoutMessage(true))
 	yield put(actions.clearData())
 	yield call(logoutCall)
-	yield call(delay, 2000)
+	yield delay(2000)
 	yield put(actions.setShowLogoutMessage(false))
 }
 

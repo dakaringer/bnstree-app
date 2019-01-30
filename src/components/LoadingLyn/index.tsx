@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import SpriteAnimator from 'react-sprite-animator'
 
 import { LoadingContainer } from './style'

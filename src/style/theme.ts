@@ -1,5 +1,8 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import { blue, amber } from '@material-ui/core/colors'
+import * as styles from '@material-ui/styles'
+
+export const useTheme = () => styles.useTheme<typeof muiTheme>()
 
 export const muiTheme = createMuiTheme({
 	breakpoints: {
@@ -91,6 +94,13 @@ export const muiTheme = createMuiTheme({
 			root: {
 				padding: 0
 			}
+		},
+		MuiTooltip: {
+			tooltip: {
+				padding: '0 !important',
+				margin: '0 !important',
+				maxWidth: 'none'
+			}
 		}
 	}
 })
@@ -106,6 +116,5 @@ export const styledTheme = {
 		blackGlass: 'rgba(3, 3, 3, 0.8)',
 		greyGlass: 'rgba(15, 15, 15, 0.8)'
 	},
-	navbarHeight: '7rem',
-	menuWidth: '24rem'
+	navbarHeight: '7rem'
 }

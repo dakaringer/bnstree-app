@@ -1,11 +1,10 @@
-import { classes, items } from '@src/utils/constants'
+import { classes, items } from '@utils/constants'
 
 export interface LinkObject {
 	link: string
 	label: string
 	icon?: string
 	subMenu?: LinkObject[]
-	render?: (resetMenu: () => void) => React.ReactNode
 	disabled?: boolean
 }
 

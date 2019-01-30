@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
-import { items } from '@src/utils/constants'
+import { items } from '@utils/constants'
 
 import PageContainer from '@components/PageContainer'
 import ItemActionBar from '@components/ItemActionBar'
@@ -17,7 +17,7 @@ interface PropsFromStore {
 
 interface Props extends PropsFromStore, RouteComponentProps<{ itemType: string }> {}
 
-const ItemPage: React.SFC<Props> = props => {
+const ItemPage: React.FC<Props> = props => {
 	const { match, isLoading } = props
 
 	const itemLink = items.find(c => c.link === match.params.itemType)
@@ -42,4 +42,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(React.memo(ItemPage))
+export default connect(mapStateToProps)(ItemPage)

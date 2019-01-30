@@ -1,13 +1,14 @@
-import * as React from 'react'
+import React from 'react'
 
 import { ModTextContainer } from './style'
 
 interface Props {
 	flag?: 'add' | 'mod' | 'del'
 	className?: string
+	children: React.ReactNode
 }
 
-const ModText: React.SFC<Props> = props => {
+const ModText: React.FC<Props> = props => {
 	const { flag, className, children } = props
 
 	return (
@@ -17,4 +18,4 @@ const ModText: React.SFC<Props> = props => {
 	)
 }
 
-export default React.memo(ModText)
+export default ModText

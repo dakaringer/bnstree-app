@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const CssExtractPlugin = require('extract-css-chunks-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
@@ -23,12 +22,7 @@ module.exports = merge(common, {
 				locals: {}
 			}
 		}),
-		new webpack.HotModuleReplacementPlugin(),
-		new CssExtractPlugin({
-			filename: '[name].css',
-			chunkFilename: '[id].css',
-			hot: true
-		})
+		new webpack.HotModuleReplacementPlugin()
 	],
 	devServer: {
 		// stats: 'errors-only',

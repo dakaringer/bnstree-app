@@ -1,6 +1,6 @@
-import * as React from 'react'
+import React from 'react'
 import { Typography } from '@material-ui/core'
-import { API_SERVER, STATIC_SERVER } from '@src/utils/constants'
+import { API_SERVER, STATIC_SERVER } from '@utils/constants'
 
 import ImageLoader from '@components/ImageLoader'
 
@@ -12,10 +12,11 @@ interface Props {
 	icon?: string
 	fromNc?: string
 	className?: string
+	variant?: GetComponentProps<typeof Typography>['variant']
 }
 
-const ItemName: React.SFC<Props> = props => {
-	const { name, icon, grade, fromNc, className } = props
+const ItemName: React.FC<Props> = props => {
+	const { name, icon, grade, fromNc, className, variant } = props
 
 	return (
 		<ItemNameContainer grade={typeof grade === 'number' ? `grade_${grade}` : grade} className={className}>
@@ -27,11 +28,11 @@ const ItemName: React.SFC<Props> = props => {
 
 					return <ImageLoader src={icon !== 'none' ? iconSrc : ''} />
 				})()}
-			<Typography variant="inherit" component="span">
+			<Typography variant={variant || 'inherit'} color="inherit" component="span" inline>
 				{name}
 			</Typography>
 		</ItemNameContainer>
 	)
 }
 
-export default React.memo(ItemName)
+export default ItemName

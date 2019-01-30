@@ -1,6 +1,5 @@
 const path = require('path')
 const Dotenv = require('dotenv-webpack')
-const CssExtractPlugin = require('extract-css-chunks-webpack-plugin')
 
 const ROOT = process.cwd()
 
@@ -21,7 +20,8 @@ module.exports = {
 			'@src': path.join(ROOT, 'src'),
 			'@components': path.join(ROOT, 'src', 'components'),
 			'@store': path.join(ROOT, 'src', 'store'),
-			'@style': path.join(ROOT, 'src', 'style')
+			'@style': path.join(ROOT, 'src', 'style'),
+			'@utils': path.join(ROOT, 'src', 'utils')
 		}
 	},
 	module: {
@@ -29,40 +29,6 @@ module.exports = {
 			{
 				test: /\.tsx?$/,
 				use: ['react-hot-loader/webpack', 'babel-loader']
-			},
-			{
-				test: /\.css$/,
-				use: [
-					CssExtractPlugin.loader,
-					{
-						loader: 'css-loader',
-						options: {
-							modules: true,
-							camelCase: true,
-							localIdentName: '[name]__[local]__[hash:8]',
-							importLoaders: 1
-						}
-					},
-					{
-						loader: 'postcss-loader',
-						options: {
-							plugins: [
-								require('postcss-import')({
-									path: ['src/style']
-								}),
-								require('postcss-preset-env')({
-									stage: 0,
-									features: {
-										'custom-properties': {
-											preserve: false
-										}
-									}
-								}),
-								require('cssnano')
-							]
-						}
-					}
-				]
 			},
 			{
 				test: /\.(eot|woff|woff2|ttf)$/,

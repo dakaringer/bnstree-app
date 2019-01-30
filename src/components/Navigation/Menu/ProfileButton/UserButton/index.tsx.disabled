@@ -1,0 +1,64 @@
+import React from 'react'
+import { bindActionCreators, Dispatch } from 'redux'
+import { connect } from 'react-redux'
+import { ListItem, Avatar } from '@material-ui/core'
+import { useCallback } from '@utils/hooks'
+
+import T from '@components/T'
+import { LinkObject } from '@components/Navigation/links'
+
+import { actions as userActions, UserData } from '@store/User'
+
+import { ProfileButton, AvatarComponent } from './style'
+
+interface PropsFromDispatch {
+	logout: typeof userActions.logout
+}
+
+interface Props extends PropsFromDispatch {
+	userData: DeepReadonly<UserData>
+	onSelect: (linkObject: LinkObject) => void
+}
+
+const UserButton: React.FC<Props> = props => {
+	const handleSelect = () => {
+		const { onSelect, logout } = props
+
+		onSelect({
+			link: 'user',
+			label: 'User',
+			subMenu: [
+				{
+					link: 'logout',
+					label: 'Logout',
+					render: resetMenu => (
+						<ListItem
+							button
+							onClick={useCallback(() => {
+								resetMenu()
+								logout()
+							})}>
+							<T id="navigation.user.logout" />
+						</ListItem>
+					)
+				}
+			]
+		})
+	}
+
+	const { userData } = props
+
+	return (
+		<ListItem button component={ProfileButton} onClick={handleSelect}>
+			<Avatar component={AvatarComponent} src={userData.profileImg} />
+			{userData.displayName}
+		</ListItem>
+	)
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ logout: userActions.logout }, dispatch)
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(UserButton)

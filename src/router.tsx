@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Switch, Route, withRouter, RouteComponentProps } from 'react-router-dom'
 
 import LoadingLyn from '@components/LoadingLyn'
@@ -12,7 +12,7 @@ const Items = React.lazy(() => import('@src/pages/Items'))
 
 interface Props extends RouteComponentProps<{}> {}
 
-const Router: React.SFC<Props> = props => {
+const Router: React.FC<Props> = props => {
 	const { location } = props
 	return (
 		<FadeContainer currentKey={location.pathname.split('/')[1]} shift>
@@ -29,4 +29,4 @@ const Router: React.SFC<Props> = props => {
 	)
 }
 
-export default withRouter(React.memo(Router))
+export default withRouter(Router)

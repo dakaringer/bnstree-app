@@ -1,11 +1,13 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Button, IconButton, Input, MenuItem, Menu } from '@material-ui/core'
 import { Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
-import { classes } from '@src/utils/constants'
-import compose from '@src/utils/compose'
+import { debounce } from 'lodash-es'
+import { useCallback } from '@utils/hooks'
+import { classes } from '@utils/constants'
+import compose from '@utils/compose'
 import classIcons from '@src/images/classIcons'
 
 import T from '@components/T'
@@ -15,7 +17,7 @@ import { RootState, ClassCode, ItemFilter } from '@store'
 import { selectors as itemSelectors } from '@store/Items'
 import { actions as userActions } from '@store/User'
 
-import style from './styles/index.css'
+import { ItemActionBarContainer, BarGroup, MenuItemContainer, SearchContainer } from './style'
 
 interface PropsFromStore {
 	itemPreferences: ReturnType<typeof itemSelectors.getItemPreferences>
@@ -28,100 +30,87 @@ interface PropsFromDispatch {
 
 interface Props extends InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
 
-interface State {
-	classAnchor: HTMLElement | undefined
-}
+const ItemActionBar: React.FC<Props> = props => {
+	const [classAnchor, setClassAnchor] = useState<HTMLElement | undefined>(undefined)
+	const [searchString, setSearchString] = useState('')
 
-class ItemActionBar extends React.PureComponent<Props, State> {
-	state: State = {
-		classAnchor: undefined
-	}
+	const { itemPreferences, intl, updatePreferencesNoSave } = props
 
-	search = (value: string) => {
-		const { updatePreferencesNoSave } = this.props
+	const filter = useCallback((value: ItemFilter) => () => {
+		const { updatePreferences } = props
+		updatePreferences({ items: { filter: value } })
+		setClassAnchor(undefined)
+	})
 
-		updatePreferencesNoSave({
-			items: {
-				search: value
-			}
-		})
-	}
+	const filterItems = useCallback(
+		debounce(
+			(search: string) => {
+				updatePreferencesNoSave({ skillsLegacy: { search } })
+			},
+			200,
+			{ leading: true }
+		)
+	)
 
-	filter = (value: ItemFilter) => {
-		const { updatePreferences } = this.props
+	const handleSearchInput = useCallback(event => {
+		setSearchString(event.target.value || '')
+		filterItems(event.target.value || '')
+	})
 
-		updatePreferences({
-			items: {
-				filter: value
-			}
-		})
-
-		this.setState({ classAnchor: undefined })
-	}
-
-	render = () => {
-		const { itemPreferences, intl } = this.props
-		const { classAnchor } = this.state
-
-		return (
-			<div className={style.itemActionBar}>
-				<div className={style.leftGroup}>
-					<Button
-						className={style.filter}
-						onClick={event => this.setState({ classAnchor: event.currentTarget })}>
-						{itemPreferences.filter !== 'ALL' && <ImageLoader src={classIcons[itemPreferences.filter]} />}
-						<T
-							id={
-								itemPreferences.filter !== 'ALL'
-									? ['general', 'class_names', itemPreferences.filter]
-									: 'item.general.all'
-							}
-						/>
-					</Button>
-					<Menu
-						anchorEl={classAnchor}
-						open={!!classAnchor}
-						onClose={() => this.setState({ classAnchor: undefined })}>
-						{itemPreferences.filter !== 'ALL' && (
-							<MenuItem key="all" onClick={() => this.filter('ALL')} className={style.menuFilter}>
-								<T id="item.general.all" />
-							</MenuItem>
-						)}
-						{classes
-							.filter(c => c.classCode !== itemPreferences.filter)
-							.map(c => (
-								<MenuItem
-									key={c.classCode}
-									onClick={() => this.filter(c.classCode as ClassCode)}
-									className={style.menuFilter}>
-									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
-									<T id={['general', 'class_names', c.classCode]} />
-								</MenuItem>
-							))}
-					</Menu>
-				</div>
-				<div className={style.searchContainer}>
-					<Input
-						disableUnderline
-						placeholder={intl.formatMessage({ id: 'item.search_placeholder' })}
-						className={style.search}
-						value={itemPreferences.search}
-						onChange={event => this.search(event.currentTarget.value)}
-						endAdornment={
-							<>
-								{itemPreferences.search.trim() !== '' && (
-									<IconButton className={style.clear} onClick={() => this.search('')}>
-										<Clear />
-									</IconButton>
-								)}
-							</>
+	return (
+		<ItemActionBarContainer>
+			<BarGroup align="left">
+				<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
+					{itemPreferences.filter !== 'ALL' && <ImageLoader src={classIcons[itemPreferences.filter]} />}
+					<T
+						id={
+							itemPreferences.filter !== 'ALL'
+								? ['general', 'class_names', itemPreferences.filter]
+								: 'item.general.all'
 						}
 					/>
-				</div>
-				<div className={style.rightGroup} />
-			</div>
-		)
-	}
+				</Button>
+				<Menu
+					anchorEl={classAnchor}
+					open={!!classAnchor}
+					onClose={useCallback(() => setClassAnchor(undefined))}>
+					{itemPreferences.filter !== 'ALL' && (
+						<MenuItem key="all" onClick={filter('ALL')}>
+							<T id="item.general.all" />
+						</MenuItem>
+					)}
+					{classes
+						.filter(c => c.classCode !== itemPreferences.filter)
+						.map(c => (
+							<MenuItem key={c.classCode} onClick={filter(c.classCode as ClassCode)}>
+								<MenuItemContainer>
+									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
+									<T id={['general', 'class_names', c.classCode]} />
+								</MenuItemContainer>
+							</MenuItem>
+						))}
+				</Menu>
+			</BarGroup>
+			<SearchContainer>
+				<Input
+					disableUnderline
+					placeholder={intl.formatMessage({ id: 'item.search_placeholder' })}
+					value={searchString}
+					onChange={handleSearchInput}
+					endAdornment={
+						<>
+							{searchString.trim() !== '' && (
+								<IconButton onClick={handleSearchInput}>
+									<Clear fontSize="small" />
+								</IconButton>
+							)}
+						</>
+					}
+				/>
+			</SearchContainer>
+			<BarGroup align="right" />
+		</ItemActionBarContainer>
+	)
 }
 
 const mapStateToProps = (state: RootState) => {

@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Typography } from '@material-ui/core'
 
 import T from '@components/T'
-import SkillListElement from './components/SkillListElement'
+import SkillListElement from './SkillListElement'
 
 import { RootState } from '@store'
 import { selectors as skillSelectors } from '@store/Skills'
@@ -17,7 +17,7 @@ interface PropsFromStore {
 
 interface Props extends PropsFromStore {}
 
-const SkillList: React.SFC<Props> = props => {
+const SkillList: React.FC<Props> = props => {
 	const { specialization, skillData } = props
 	return (
 		<SkillListContainer>

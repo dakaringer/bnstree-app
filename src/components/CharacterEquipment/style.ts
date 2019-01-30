@@ -25,7 +25,7 @@ export const Weapon = styled.div`
 	grid-column: 1 / 3;
 	display: grid;
 	grid-gap: 0 1rem;
-	grid-template-columns: 4.5rem 1fr;
+	grid-template-columns: 5rem 1fr;
 	grid-template-rows: 1fr 1fr;
 
 	${media.xs`
@@ -35,6 +35,7 @@ export const Weapon = styled.div`
 	& > img {
 		grid-row: 1 / 3;
 		width: 100%;
+		background: ${props => props.theme.palette.blackGlass};
 	}
 `
 
@@ -49,7 +50,7 @@ export const Gems = styled.div`
 	}
 `
 
-export const Item = styled.p`
+export const Item = styled.div`
 	&& {
 		margin: 0.5rem 0 1rem;
 		display: flex;

@@ -1,5 +1,7 @@
-import * as React from 'react'
-import * as Raven from 'raven-js'
+import React from 'react'
+import Raven from 'raven-js'
+
+import store from '@store/redux'
 
 interface State {
 	hasError: boolean
@@ -18,10 +20,16 @@ class ErrorBoundary extends React.PureComponent<{}, State> {
 	}
 
 	componentDidCatch = (error: Error) => {
-		this.setState({
-			hasError: true
+		if (error.message.startsWith('Loading chunk')) {
+			location.reload()
+			return
+		}
+		this.setState({ hasError: true })
+		Raven.captureException(error, {
+			extra: {
+				store: store.getState()
+			}
 		})
-		Raven.captureException(error)
 	}
 
 	render = () => {

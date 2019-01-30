@@ -1,3 +1,6 @@
+import { install } from '@material-ui/styles'
+install()
+
 export default new Promise(async resolve => {
 	if (!Array.prototype.flat) {
 		await require(['array.prototype.flat'], flat => {

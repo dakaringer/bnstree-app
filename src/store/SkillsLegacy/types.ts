@@ -1,6 +1,7 @@
 import { ClassCodeLegacy, SkillElement } from '@store'
 
 export interface Skills {
+	currentClass: ClassCodeLegacy
 	data: { [C in ClassCodeLegacy]: SkillData[] | null }
 	isLoading: boolean
 }

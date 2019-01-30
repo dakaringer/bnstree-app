@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { GroupContainer, TransitionContainer } from './style'
@@ -10,7 +10,7 @@ interface Props {
 	className?: string
 }
 
-const FadeContainer: React.SFC<Props> = props => {
+const FadeContainer: React.FC<Props> = props => {
 	const { currentKey, children, timeout, shift, className } = props
 
 	return (
@@ -24,4 +24,4 @@ const FadeContainer: React.SFC<Props> = props => {
 	)
 }
 
-export default React.memo(FadeContainer)
+export default FadeContainer

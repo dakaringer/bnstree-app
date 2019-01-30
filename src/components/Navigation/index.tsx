@@ -1,52 +1,33 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import { Hidden, withWidth } from '@material-ui/core'
-import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
+import { useCallback } from '@utils/hooks'
 
 import ScrollContainer from '@components/ScrollContainer'
-import Hamburger from './components/Hamburger'
-import Menu from './components/Menu'
+import Hamburger from './Hamburger'
+import Menu from './Menu'
 
 import { NavigationContainer } from './style'
 
-interface Props extends WithWidth {}
+interface Props {}
 
-interface State {
-	menuOpen: boolean
-}
+const Navigation: React.FC<Props> = props => {
+	const [menuOpen, setMenuOpen] = useState(false)
 
-class Navigation extends React.PureComponent<Props, State> {
-	state = {
-		menuOpen: false
-	}
-	menuContainer: React.RefObject<HTMLDivElement> = React.createRef()
+	const { children } = props
 
-	toggleMenu = () => {
-		const { menuOpen } = this.state
-		this.setState({ menuOpen: !menuOpen })
-	}
-
-	render = () => {
-		const { width, children } = this.props
-		const { menuOpen } = this.state
-
-		return (
-			<>
-				<NavigationContainer>
-					<ScrollContainer height="100%" disabled={isWidthDown('xs', width)}>
-						{children}
-					</ScrollContainer>
-					<Hidden lgUp>
-						<Hamburger onClick={this.toggleMenu} />
-					</Hidden>
-				</NavigationContainer>
-				<Menu
-					isOpen={menuOpen}
-					onOpen={() => this.setState({ menuOpen: true })}
-					onClose={() => this.setState({ menuOpen: false })}
-				/>
-			</>
-		)
-	}
+	return (
+		<NavigationContainer>
+			<Menu
+				isOpen={menuOpen}
+				onOpen={useCallback(() => setMenuOpen(true))}
+				onClose={useCallback(() => setMenuOpen(false))}
+			/>
+			<ScrollContainer>{children}</ScrollContainer>
+			<Hidden lgUp>
+				<Hamburger onClick={useCallback(() => setMenuOpen(true))} />
+			</Hidden>
+		</NavigationContainer>
+	)
 }
 
 export default withWidth()(Navigation)

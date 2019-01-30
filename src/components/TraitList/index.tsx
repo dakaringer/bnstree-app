@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-import TraitListElement from './components/TraitListElement'
+import TraitListElement from './TraitListElement'
 
 import { RootState } from '@store'
 import { selectors as skillSelectors } from '@store/Skills'
@@ -14,7 +14,7 @@ interface PropsFromStore {
 
 interface Props extends PropsFromStore {}
 
-const TraitList: React.SFC<Props> = props => {
+const TraitList: React.FC<Props> = props => {
 	const { traitData } = props
 
 	return (

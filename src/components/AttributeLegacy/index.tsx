@@ -1,8 +1,10 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
+import { Typography } from '@material-ui/core'
 import { ArrowRight } from '@material-ui/icons'
-import { STATIC_SERVER } from '@src/utils/constants'
+import { STATIC_SERVER } from '@utils/constants'
+
+import Skill from './Skill'
 
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
@@ -10,9 +12,8 @@ import ImageLoader from '@components/ImageLoader'
 import { RootState, SkillElement } from '@store'
 import { selectors as skillSelectors, SkillAttribute } from '@store/SkillsLegacy'
 
-import style from './styles/index.css'
+import { AttributeContainer } from './style'
 import elementIcons from './images/elementIcons'
-import Skill from './Skill'
 
 const joinList = (list: React.ReactNode[], sep: string = ', ') => {
 	return list.reduce((acc: any[], cur) => (acc.length === 0 ? acc.concat([cur]) : acc.concat([sep, cur])), [])
@@ -32,7 +33,7 @@ interface SelfProps {
 
 interface Props extends SelfProps, PropsFromStore {}
 
-const Attribute: React.SFC<Props> = props => {
+const Attribute: React.FC<Props> = props => {
 	const { attribute, moddedAttribute, flag, defaultElement, defaultIcon, skillPreferences } = props
 	const values: { [key: string]: any } = attribute.values ? { ...attribute.values } : {}
 	const element: SkillElement = values.element && (values.element !== 'default' ? values.element : defaultElement)
@@ -67,12 +68,19 @@ const Attribute: React.SFC<Props> = props => {
 				}
 
 				values[k] = (
-					<span>
-						{bottom} ~ {top}{' '}
-						<span className={style.scale}>
-							[<T id="tooltip.general.scale" values={{ scale: scaleTxt }} />]
-						</span>
-					</span>
+					<>
+						<Typography variant="inherit" color={multiplyer !== 1 ? 'primary' : 'default'} inline>
+							{bottom} ~ {top}{' '}
+						</Typography>
+						<Typography variant="inherit" color="secondary" inline>
+							[
+							<T
+								id={values.pet ? 'tooltip.general.scalePet' : 'tooltip.general.scale'}
+								values={{ scale: scaleTxt }}
+							/>
+							]
+						</Typography>
+					</>
 				)
 
 				break
@@ -93,14 +101,14 @@ const Attribute: React.SFC<Props> = props => {
 			case 'effect': {
 				if (Array.isArray(value)) {
 					const list = value.map(v => (
-						<span className={style.skill} key={v}>
+						<span className="skill" key={v}>
 							<T id={['tooltip', 'effect_type', v]} />
 						</span>
 					))
 					values[k] = <>{joinList(list)}</>
 				} else {
 					values[k] = (
-						<span className={style.skill}>
+						<span className="skill">
 							<T id={['tooltip', 'effect_type', value]} />
 						</span>
 					)
@@ -135,13 +143,13 @@ const Attribute: React.SFC<Props> = props => {
 	})
 
 	return (
-		<span className={classNames(style.attribute, flag && [style[flag]])}>
+		<AttributeContainer flag={flag}>
 			{(attribute.icon || defaultIcon) && (
 				<ImageLoader src={`${STATIC_SERVER}/images/skills/${attribute.icon || defaultIcon}`} />
 			)}
 			<T id={['tooltip', attribute.msg]} values={values} />
-			{values.element && <ImageLoader src={elementIcons[element]} className={style.element} />}
-		</span>
+			{values.element && <ImageLoader src={elementIcons[element]} />}
+		</AttributeContainer>
 	)
 }
 
@@ -151,4 +159,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(React.memo(Attribute))
+export default connect(mapStateToProps)(Attribute)

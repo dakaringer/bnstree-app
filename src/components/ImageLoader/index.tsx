@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 
 import { ImageContainer } from './style'
 import blankImg from './images/blank.gif'
@@ -11,52 +11,29 @@ interface Props {
 	onError?: () => void
 }
 
-interface State {
-	loaded: boolean
-	noImage: boolean
-}
+const ImageLoader: React.FC<Props> = props => {
+	const [loaded, setLoaded] = useState(false)
+	const [noImage, setNoImage] = useState(false)
 
-class ImageLoader extends React.PureComponent<Props, State> {
-	state: State = {
-		loaded: false,
-		noImage: false
-	}
-
-	onLoad = () => {
-		const { onLoad } = this.props
-		const { noImage } = this.state
-		this.setState({
-			loaded: true
-		})
+	const handleLoad = () => {
+		const { onLoad } = props
+		setLoaded(true)
 		if (onLoad && !noImage) {
 			onLoad()
 		}
 	}
 
-	onError = (error: React.SyntheticEvent<HTMLImageElement>) => {
-		const { placeholder, onError } = this.props
+	const handleError = (error: React.SyntheticEvent<HTMLImageElement>) => {
+		const { placeholder, onError } = props
 		error.currentTarget.src = placeholder || blankImg
-		this.setState({
-			noImage: true
-		})
+		setNoImage(true)
 		if (onError) {
 			onError()
 		}
 	}
 
-	render = () => {
-		const { src, className } = this.props
-		const { loaded } = this.state
-		return (
-			<ImageContainer
-				loaded={loaded}
-				src={src}
-				onLoad={this.onLoad}
-				onError={this.onError}
-				className={className}
-			/>
-		)
-	}
+	const { src, className } = props
+	return <ImageContainer loaded={loaded} src={src} onLoad={handleLoad} onError={handleError} className={className} />
 }
 
 export default ImageLoader

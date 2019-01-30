@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { RootState } from '@store'
 import { selectors as userSelectors } from '@store/User'
-import * as flat from 'flat'
+import flat from 'flat'
 
 const getIntl = (state: RootState) => state.intl
 

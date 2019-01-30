@@ -1,5 +1,4 @@
 const path = require('path')
-const CssExtractPlugin = require('extract-css-chunks-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
@@ -78,11 +77,7 @@ module.exports = merge(common, {
 			root: ROOT,
 			beforeEmit: true
 		}),
-		new CssExtractPlugin({
-			filename: 'css/[name].[hash:8].css',
-			chunkFilename: 'css/[id].[hash:8].css'
-		}),
-		new CompressionPlugin({ test: /\.(js|css)$/ }),
+		new CompressionPlugin({ test: /\.js$/ }),
 		new CopyWebpackPlugin([{ from: 'public' }]),
 		new BundleAnalyzerPlugin({
 			analyzerMode: 'static',

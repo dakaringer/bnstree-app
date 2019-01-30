@@ -1,6 +1,6 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
 import { get } from 'lodash-es'
-import apollo from '@src/utils/apollo'
+import apollo from '@utils/apollo'
 
 import { sagaActionTypes } from './actionTypes'
 import { loadDataQuery } from './queries'
@@ -19,6 +19,7 @@ const loadDataCall = (classCode: ReturnType<typeof actions.loadData>['payload'])
 
 // Sagas
 function* loadSkillDataSaga(action: ReturnType<typeof actions.loadData>) {
+	yield put(actions.setClass(action.payload))
 	const data = yield select(getData)
 
 	if (data[action.payload]) {

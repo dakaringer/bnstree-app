@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Typography } from '@material-ui/core'
 import { ArrowRight } from '@material-ui/icons'
-import { STATIC_SERVER } from '@src/utils/constants'
-import { getNameData } from '@src/utils/helpers'
+import { STATIC_SERVER } from '@utils/constants'
+import { getNameData } from '@utils/helpers'
 
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
@@ -19,14 +19,12 @@ interface PropsFromStore {
 	skillPreferences: ReturnType<typeof selectors.getSkillPreferences>
 }
 
-interface SelfProps {
+interface Props extends PropsFromStore {
 	attribute: SkillAttribute
 	moddedAttribute?: SkillAttribute
 	flag?: 'add' | 'mod' | 'del'
 	defaultIcon?: string
 }
-
-interface Props extends SelfProps, PropsFromStore {}
 
 const join = (list: React.ReactNode[], sep: string = ', ') => {
 	return list.reduce(
@@ -35,7 +33,7 @@ const join = (list: React.ReactNode[], sep: string = ', ') => {
 	)
 }
 
-const Attribute: React.SFC<Props> = props => {
+const Attribute: React.FC<Props> = props => {
 	const { attribute, moddedAttribute, flag, defaultIcon, skillPreferences } = props
 	const values: { [key: string]: any } = attribute.values ? { ...attribute.values } : {}
 
@@ -69,8 +67,10 @@ const Attribute: React.SFC<Props> = props => {
 				}
 
 				values[k] = (
-					<Typography variant="inherit" color={multiplyer !== 1 ? 'primary' : 'default'} inline>
-						{bottom} ~ {top}{' '}
+					<>
+						<Typography variant="inherit" color={multiplyer !== 1 ? 'primary' : 'default'} inline>
+							{bottom} ~ {top}{' '}
+						</Typography>
 						<Typography variant="inherit" color="secondary" inline>
 							[
 							<T
@@ -79,7 +79,7 @@ const Attribute: React.SFC<Props> = props => {
 							/>
 							]
 						</Typography>
-					</Typography>
+					</>
 				)
 
 				break
@@ -152,4 +152,4 @@ const mapStateToProps = (state: RootState) => {
 	}
 }
 
-export default connect(mapStateToProps)(React.memo(Attribute))
+export default connect(mapStateToProps)(Attribute)

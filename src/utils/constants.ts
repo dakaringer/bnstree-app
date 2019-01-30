@@ -9,6 +9,8 @@ export const API_SERVER =
 
 export const STATIC_SERVER = 'https://static.bnstree.com'
 
+export const regions = ['NA', 'EU', 'KR', 'TW']
+
 export const classes = [
 	{
 		classCode: 'BM',

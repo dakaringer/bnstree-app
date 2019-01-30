@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { get, groupBy } from 'lodash-es'
 import Fuse from 'fuse.js'
-import { getNameData, mergeSkills, getTags } from '@src/utils/helpers'
+import { getNameData, mergeSkills, getTags } from '@utils/helpers'
 
 import { RootState } from '@store'
 import { selectors as userSelectors } from '@store/User'

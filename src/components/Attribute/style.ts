@@ -15,7 +15,12 @@ export const AttributeContainer = styled(ModText)`
 	& img {
 		height: 1.2em;
 		width: 1.2em;
-		margin: 0 0.3em;
+		margin-right: 0.3em;
 		vertical-align: middle;
+	}
+
+	& > img:last-child {
+		margin-right: 0;
+		margin-left: 0.3em;
 	}
 `

@@ -1,13 +1,13 @@
-import * as React from 'react'
+import React from 'react'
 import { Typography } from '@material-ui/core'
-import { STATIC_SERVER } from '@src/utils/constants'
+import { STATIC_SERVER } from '@utils/constants'
 
 import T from '@components/T'
 import HoverTooltip from '@components/HoverTooltip'
 import SkillName from '@components/SkillName'
-import Cost from './components/Cost'
-import Info from './components/Info'
-import Tags from './components/Tags'
+import Cost from './Cost'
+import Info from './Info'
+import Tags from './Tags'
 
 import { SkillSpecialization, ClassCode } from '@store'
 import { SkillData } from '@store/Skills'
@@ -21,16 +21,11 @@ interface Props {
 	hoverMoveData?: DeepReadonly<SkillData>
 	specialization: SkillSpecialization<ClassCode>
 	target: React.ReactElement<any>
-	offset?: number | string
 }
 
-const SkillTooltip: React.SFC<Props> = props => {
-	const { id, specialization, currentMoveData, hoverMoveData: hoverData, target, offset, children } = props
-	const tooltipProps = {
-		target,
-		offset,
-		children
-	}
+const SkillTooltip: React.FC<Props> = props => {
+	const { id, specialization, currentMoveData, hoverMoveData: hoverData, target, children } = props
+	const tooltipProps = { target, children }
 	let hoverMoveData = hoverData
 
 	if (!hoverMoveData) {
@@ -63,6 +58,7 @@ const SkillTooltip: React.SFC<Props> = props => {
 
 	return (
 		<HoverTooltip
+			button
 			icon={`${STATIC_SERVER}/images/skills/${hoverMoveData.icon}`}
 			title={
 				<TooltipTitle>
@@ -115,4 +111,4 @@ const SkillTooltip: React.SFC<Props> = props => {
 	)
 }
 
-export default React.memo(SkillTooltip)
+export default SkillTooltip

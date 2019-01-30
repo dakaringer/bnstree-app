@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Typography, withWidth } from '@material-ui/core'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
-import compose from '@src/utils/compose'
-import { STATIC_SERVER } from '@src/utils/constants'
+import compose from '@utils/compose'
+import { STATIC_SERVER } from '@utils/constants'
 
 import T from '@components/T'
 import HoverTooltip from '@components/HoverTooltip'
@@ -29,7 +29,7 @@ interface SelfProps {
 
 interface Props extends SelfProps, PropsFromStore, WithWidth {}
 
-const ItemTooltip: React.SFC<Props> = props => {
+const ItemTooltip: React.FC<Props> = props => {
 	const { itemData, width, resource, locale, ...tooltipProps } = props
 
 	const { m1, m2, sub } = getAttributes(itemData.attributes || [])
@@ -60,6 +60,7 @@ const ItemTooltip: React.SFC<Props> = props => {
 
 	return (
 		<HoverTooltip
+			button
 			icon={`${STATIC_SERVER}/images/items/${itemData.icon}`}
 			title={
 				<TooltipTitle>
@@ -72,7 +73,6 @@ const ItemTooltip: React.SFC<Props> = props => {
 			m2={m2}
 			sub={sub}
 			extra={fuse}
-			offset={-2}
 			{...tooltipProps}
 		/>
 	)
@@ -88,4 +88,4 @@ const mapStateToProps = (state: RootState) => {
 export default compose<Props, SelfProps>(
 	withWidth(),
 	connect(mapStateToProps)
-)(React.memo(ItemTooltip))
+)(ItemTooltip)

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import ImageLoader from '@components/ImageLoader'
 
@@ -8,52 +8,32 @@ const images = require.context('./images', true, /\.jpe?g$/)
 const keys = images.keys()
 const imageArray = keys.map(key => images(key))
 
-interface State {
-	i: number
-}
+const Background: React.FC = () => {
+	const [i, setIndex] = useState(Math.floor(Math.random() * imageArray.length))
 
-interface Background {
-	intervalId: NodeJS.Timeout
-}
+	useEffect(() => {
+		const interval = setInterval(() => {
+			let next = i + 1
+			if (next === imageArray.length) {
+				next = 0
+			}
 
-class Background extends React.PureComponent<{}, State> {
-	state: State = {
-		i: Math.floor(Math.random() * imageArray.length)
-	}
+			setIndex(next)
+		}, 60000)
 
-	componentDidMount = () => {
-		this.intervalId = setInterval(this.next, 60000)
-	}
-
-	componentWillUnmount = () => {
-		clearInterval(this.intervalId)
-	}
-
-	next = () => {
-		const { i } = this.state
-
-		let next = i + 1
-		if (next === imageArray.length) {
-			next = 0
+		return () => {
+			clearInterval(interval)
 		}
+	}, [])
 
-		this.setState({
-			i: next
-		})
-	}
-
-	render = () => {
-		const { i } = this.state
-
-		return (
-			<BackgroundContainer>
-				<ImageFadeContainer currentKey={i} timeout={2000}>
-					<ImageLoader key={i} src={imageArray[i]} />
-				</ImageFadeContainer>
-				<Backdrop />
-			</BackgroundContainer>
-		)
-	}
+	return (
+		<BackgroundContainer>
+			<ImageFadeContainer currentKey={i} timeout={2000}>
+				<ImageLoader key={i} src={imageArray[i]} />
+			</ImageFadeContainer>
+			<Backdrop />
+		</BackgroundContainer>
+	)
 }
 
 export default Background

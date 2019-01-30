@@ -1,15 +1,18 @@
 import { get, merge, uniq } from 'lodash-es'
+import { regions } from './constants'
 
 import store from '@store/redux'
 
 import { SkillData, SkillAttribute } from '@store/Skills'
+import { selectors as intlSelectors } from '@store/Intl'
+import { selectors as namesSelectors } from '@store/Names'
 
 import tagDefs from './tagDefs'
 
 export const getNameData = (name: string, group: string) => {
 	const state = store.getState()
-	const locale = state.user.preferences.locale
-	const names = state.names.data
+	const locale = intlSelectors.getLocale(state)
+	const names = namesSelectors.getNames(state)
 
 	const nameData = get(names, [group, name], null)
 	if (!nameData) {
@@ -26,8 +29,8 @@ export const getNameData = (name: string, group: string) => {
 export const processSkillNameAndTags = (skillData: DeepReadonly<SkillData>): DeepReadonly<SkillData> => {
 	const state = store.getState()
 
-	const messages = state.intl.messages
-	const locale = state.user.preferences.locale
+	const locale = intlSelectors.getLocale(state)
+	const messages = intlSelectors.getMessages(state)
 	const tagList: { [x: string]: string } = get(messages, [locale, 'skill', 'tag'], {})
 
 	const nameData = getNameData(skillData.nameId, 'skill')
@@ -42,8 +45,8 @@ export const processSkillNameAndTags = (skillData: DeepReadonly<SkillData>): Dee
 export const getTags = (skillData: DeepReadonly<Partial<SkillData>>) => {
 	const state = store.getState()
 
-	const messages = state.intl.messages
-	const locale = state.user.preferences.locale
+	const locale = intlSelectors.getLocale(state)
+	const messages = intlSelectors.getMessages(state)
 	const tagList: { [x: string]: string } = get(messages, [locale, 'skill', 'tag'], {})
 
 	const tags = skillData.tags ? [...skillData.tags] : []
@@ -99,4 +102,8 @@ export const mergeSkills = (
 		requirements: mergeAttributes(targetSkillData.requirements, traitSkillData.requirements),
 		tags: uniq([...t1, ...t2])
 	}
+}
+
+export const getValidRegion = (region: string) => {
+	return regions.includes(region) ? region : 'NA'
 }

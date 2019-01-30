@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Typography, Paper, FormControlLabel, Checkbox } from '@material-ui/core'
 
 import PageContainer from '@components/PageContainer'
@@ -81,4 +81,4 @@ const HomePage = () => {
 	)
 }
 
-export default React.memo(HomePage)
+export default HomePage

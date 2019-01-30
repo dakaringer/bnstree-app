@@ -1,12 +1,12 @@
 import { hot } from 'react-hot-loader/root'
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteProps } from 'react-router'
 import { Snackbar, Typography } from '@material-ui/core'
-import { MuiThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles'
 import { IntlProvider } from 'react-intl'
-import compose from '@src/utils/compose'
+import compose from '@utils/compose'
 
 import Router from './Router'
 import GATracker from './GATracker'
@@ -34,47 +34,43 @@ interface PropsFromDispatch {
 
 interface Props extends PropsFromStore, PropsFromDispatch, RouteProps {}
 
-class App extends React.PureComponent<Props> {
-	constructor(props: Props) {
-		super(props)
+const App: React.FC<Props> = props => {
+	useEffect(() => {
 		props.initialize()
-	}
+	}, [])
 
-	render = () => {
-		const { locale, messages, showlogoutMessage, isLoading, location } = this.props
-
-		return (
-			<GATracker location={location ? location.pathname : '/'}>
-				{isLoading ? (
-					<LoadingLyn />
-				) : (
-					<IntlProvider locale={locale ? locale.toLowerCase() : 'en'} messages={messages}>
-						<ThemeProvider theme={styledTheme}>
-							<MuiThemeProvider theme={muiTheme}>
-								<Navigation>
-									<Router />
-								</Navigation>
-								<Snackbar
-									anchorOrigin={{
-										vertical: 'top',
-										horizontal: 'right'
-									}}
-									open={showlogoutMessage}
-									autoHideDuration={3000}
-									message={
-										<Typography color="primary">
-											<T id="navigation.user.logout_message" />
-										</Typography>
-									}
-								/>
-							</MuiThemeProvider>
-						</ThemeProvider>
-					</IntlProvider>
-				)}
-				<Background />
-			</GATracker>
-		)
-	}
+	const { locale, messages, showlogoutMessage, isLoading, location } = props
+	return (
+		<GATracker location={location ? location.pathname : '/'}>
+			{isLoading ? (
+				<LoadingLyn />
+			) : (
+				<IntlProvider locale={locale ? locale.toLowerCase() : 'en'} messages={messages}>
+					<ThemeProvider theme={styledTheme}>
+						<MuiThemeProvider theme={muiTheme}>
+							<Navigation>
+								<Router />
+							</Navigation>
+							<Snackbar
+								anchorOrigin={{
+									vertical: 'top',
+									horizontal: 'right'
+								}}
+								open={showlogoutMessage}
+								autoHideDuration={3000}
+								message={
+									<Typography color="primary">
+										<T id="navigation.user.logout_message" />
+									</Typography>
+								}
+							/>
+						</MuiThemeProvider>
+					</ThemeProvider>
+				</IntlProvider>
+			)}
+			<Background />
+		</GATracker>
+	)
 }
 
 const mapStateToProps = (state: RootState) => {

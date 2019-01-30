@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects'
 import { get } from 'lodash-es'
-import apollo from '@src/utils/apollo'
+import apollo from '@utils/apollo'
 
 import { loadResourceQuery } from './queries'
 import actions from './actions'

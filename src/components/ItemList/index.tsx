@@ -1,14 +1,14 @@
-import * as React from 'react'
+import React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { groupBy, debounce } from 'lodash-es'
 import { Typography } from '@material-ui/core'
 import Fuse from 'fuse.js'
-import { classes } from '@src/utils/constants'
+import { classes } from '@utils/constants'
 
 import T from '@components/T'
 import comparators from './comparators'
-import ItemListElement from './components/ItemListElement'
+import ItemListElement from './ItemListElement'
 
 import { RootState, ItemType } from '@store'
 import { selectors as itemSelectors, actions as itemActions } from '@store/Items'

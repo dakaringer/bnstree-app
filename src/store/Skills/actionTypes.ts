@@ -3,7 +3,7 @@ export enum sagaActionTypes {
 }
 
 export enum reduxActionTypes {
+	SET_CLASS = '[Redux] Skills/SET_CLASS',
 	SET_DATA = '[Redux] Skills/SET_DATA',
-	SET_LOADING = '[Redux] Skills/SET_LOADING',
-	SET_CLASS = '[Redux] Skills/SET_CLASS'
+	SET_LOADING = '[Redux] Skills/SET_LOADING'
 }

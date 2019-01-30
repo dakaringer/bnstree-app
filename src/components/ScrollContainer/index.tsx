@@ -1,17 +1,20 @@
-import * as React from 'react'
+import React from 'react'
 import Scrollbars, { positionValues } from 'react-custom-scrollbars'
+import { withWidth } from '@material-ui/core'
+import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
+import { useCallback } from '@utils/hooks'
 
-interface Props {
+interface Props extends WithWidth {
 	height?: string
 	flex?: boolean
-	disabled?: boolean
 	className?: string
 	onScroll?: (value: positionValues) => void
 }
 
-const ScrollContainer: React.SFC<Props> = props => {
-	const { height, flex, disabled, children, className, onScroll } = props
-	if (disabled) {
+const ScrollContainer: React.FC<Props> = props => {
+	const { width, height, flex, children, className, onScroll } = props
+
+	if (isWidthDown('xs', width)) {
 		return <div className={className}>{children}</div>
 	}
 
@@ -20,10 +23,10 @@ const ScrollContainer: React.SFC<Props> = props => {
 			autoHide
 			hideTracksWhenNotNeeded
 			autoHideDuration={500}
-			renderThumbVertical={thumbProps => (
+			renderThumbVertical={useCallback(thumbProps => (
 				<div {...thumbProps} style={{ background: 'rgba(120, 120, 120, 0.8)' }} />
-			)}
-			renderTrackVertical={trackbProps => (
+			))}
+			renderTrackVertical={useCallback(trackbProps => (
 				<div
 					{...trackbProps}
 					style={{
@@ -35,7 +38,7 @@ const ScrollContainer: React.SFC<Props> = props => {
 						zIndex: 100
 					}}
 				/>
-			)}
+			))}
 			onScrollFrame={onScroll ? value => onScroll(value) : () => null}
 			style={{ height, flex: flex ? 1 : undefined }}
 			className={className}>
@@ -44,4 +47,4 @@ const ScrollContainer: React.SFC<Props> = props => {
 	)
 }
 
-export default React.memo(ScrollContainer)
+export default withWidth()(ScrollContainer)

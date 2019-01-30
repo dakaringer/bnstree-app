@@ -5,11 +5,6 @@
 	},
 	"eslint.enable": false,
 	"editor.formatOnSave": true,
-	"files.associations": {
-		"*css": "postcss"
-	},
-	"css.validate": false,
-	"postcss.validate": false,
 	"stylelint.configOverrides": {
 		"ignoreFiles": ["**/*.tsx", "**/*.ts"]
 	}

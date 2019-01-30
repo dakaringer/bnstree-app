@@ -1,11 +1,11 @@
-import * as React from 'react'
+import React from 'react'
 import { Paper } from '@material-ui/core'
 
 import { ClassCode } from '@store'
 import { CharacterStats as CharacterStatsType } from '@store/Character'
 
-import MainStat from './components/MainStat'
-// import StatList from './components/StatList'
+import MainStat from './MainStat'
+import StatList from './StatList'
 
 interface Props {
 	statData: DeepReadonly<CharacterStatsType>
@@ -14,14 +14,14 @@ interface Props {
 	className?: string
 }
 
-const CharacterStats: React.SFC<Props> = props => {
+const CharacterStats: React.FC<Props> = props => {
 	const { className, ...otherProps } = props
 	return (
 		<Paper className={className}>
 			<MainStat {...otherProps} />
-			{/* <StatList {...otherProps} /> */}
+			<StatList {...otherProps} />
 		</Paper>
 	)
 }
 
-export default React.memo(CharacterStats)
+export default CharacterStats

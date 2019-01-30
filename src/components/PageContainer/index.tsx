@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Paper, Slide } from '@material-ui/core'
 
 import LoadingLyn from '@components/LoadingLyn'
@@ -12,7 +12,7 @@ interface Props {
 	children: React.ReactNode
 }
 
-const PageContainer: React.SFC<Props> = props => {
+const PageContainer: React.FC<Props> = props => {
 	const { isLoading, children, topNav, className } = props
 
 	return (
@@ -29,4 +29,4 @@ const PageContainer: React.SFC<Props> = props => {
 	)
 }
 
-export default React.memo(PageContainer)
+export default PageContainer

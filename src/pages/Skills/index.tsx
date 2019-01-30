@@ -1,9 +1,10 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import { Button } from '@material-ui/core'
-import { classes } from '@src/utils/constants'
+import { useCallback } from '@utils/hooks'
+import { classes } from '@utils/constants'
 
 import T from '@components/T'
 import FadeContainer from '@components/FadeContainer'
@@ -30,70 +31,46 @@ interface PropsFromDispatch {
 
 interface Props extends PropsFromStore, PropsFromDispatch, RouteComponentProps<{ className: string }> {}
 
-class SkillsPage extends React.PureComponent<Props> {
-	constructor(props: Props) {
-		super(props)
-		const { match, loadClass } = props
+const SkillsPage: React.FC<Props> = props => {
+	const { match, skillPreferences, isLoading, updatePreferences, loadClass } = props
+	const classLink = classes.find(c => c.link === match.params.className)
+	const classCode = classLink && (classLink.classCode as ClassCode)
 
-		const classLink = classes.find(c => c.link === match.params.className)
-		const classCode = classLink && (classLink.classCode as ClassCode)
-
-		if (classCode) {
-			loadClass(classCode)
-		}
+	if (!classCode) {
+		return null
 	}
 
-	componentDidUpdate = (prevProps: Props) => {
-		const { match, loadClass } = this.props
+	useEffect(() => {
+		loadClass(classCode)
+	}, [classCode])
 
-		const classLink = classes.find(c => c.link === match.params.className)
-		const prevClassLink = classes.find(c => c.link === prevProps.match.params.className)
-		const classCode = classLink && (classLink.classCode as ClassCode)
-		const prevClassCode = prevClassLink && (prevClassLink.classCode as ClassCode)
+	const specialization = skillPreferences.specialization[classCode]
+	const mode = skillPreferences.mode
 
-		if (classCode && classCode !== prevClassCode) {
-			loadClass(classCode)
-		}
-	}
-
-	render = () => {
-		const { match, skillPreferences, isLoading, updatePreferences } = this.props
-
-		const classLink = classes.find(c => c.link === match.params.className)
-		const classCode = classLink && (classLink.classCode as ClassCode)
-
-		if (!classCode) {
-			return null
-		}
-
-		const specialization = skillPreferences.specialization[classCode]
-		const mode = skillPreferences.mode
-
-		return (
-			<PageContainer isLoading={isLoading} topNav={<SkillActionBar />}>
-				<ModeSelector>
-					<Button
-						variant="outlined"
-						size="small"
-						color={mode === 'TRAITS' ? 'primary' : 'default'}
-						onClick={() => updatePreferences({ skills: { mode: 'TRAITS' } })}>
-						<T id="skill.navigation.traits" />
-					</Button>
-					<Button
-						variant="outlined"
-						size="small"
-						color={mode === 'LIST' ? 'primary' : 'default'}
-						onClick={() => updatePreferences({ skills: { mode: 'LIST' } })}>
-						<T id="skill.navigation.skills" />
-					</Button>
-				</ModeSelector>
-				<FadeContainer currentKey={`${classCode}-${specialization}-${mode}`}>
-					{mode === 'TRAITS' && <TraitList />}
-					{mode === 'LIST' && <SkillList />}
-				</FadeContainer>
-			</PageContainer>
-		)
-	}
+	return (
+		<PageContainer isLoading={isLoading} topNav={<SkillActionBar />}>
+			<ModeSelector>
+				<Button
+					variant="outlined"
+					size="small"
+					color={mode === 'TRAITS' ? 'primary' : 'default'}
+					onClick={useCallback(() => updatePreferences({ skills: { mode: 'TRAITS' } }))}>
+					<T id="skill.navigation.traits" />
+				</Button>
+				<Button
+					variant="outlined"
+					size="small"
+					color={mode === 'LIST' ? 'primary' : 'default'}
+					onClick={useCallback(() => updatePreferences({ skills: { mode: 'LIST' } }))}>
+					<T id="skill.navigation.skills" />
+				</Button>
+			</ModeSelector>
+			<FadeContainer currentKey={`${classCode}-${specialization}-${mode}`}>
+				{mode === 'TRAITS' && <TraitList />}
+				{mode === 'LIST' && <SkillList />}
+			</FadeContainer>
+		</PageContainer>
+	)
 }
 
 const mapStateToProps = (state: RootState) => {

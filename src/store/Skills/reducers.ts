@@ -7,6 +7,7 @@ import { ClassCode } from '@store'
 export type State = DeepReadonly<Skills>
 
 const initialState = {
+	currentClass: 'BM' as ClassCode,
 	data: {
 		BM: null,
 		KF: null,
@@ -33,7 +34,6 @@ const initialState = {
 		GS: null,
 		WR: null
 	},
-	currentClass: 'BM' as ClassCode,
 	isLoading: false
 }
 
