@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, NavLink, withRouter, RouteComponentProps } from 'react-router-dom'
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
 import { Drawer, Typography, List, ListItem, SwipeableDrawer, Hidden } from '@material-ui/core'
 import { ListItemProps } from '@material-ui/core/ListItem'
 import { ChevronRight, ChevronLeft } from '@material-ui/icons'
@@ -43,7 +43,9 @@ const Menu: React.FC<Props> = props => {
 	const renderLinkItem = useCallback(
 		(linkObject: typeof baseLinks[0], menuLink: string, active: boolean) => (listItemProps: ListItemProps) =>
 			!linkObject.subMenu ? (
-				<LinkItem as={NavLink} to={menuLink} activeClassName="active" {...listItemProps} />
+				<Link to={menuLink}>
+					<LinkItem active={active} {...listItemProps} />
+				</Link>
 			) : (
 				<LinkItem active={active} {...listItemProps} />
 			)

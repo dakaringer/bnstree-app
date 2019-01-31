@@ -66,7 +66,6 @@ export const LinkItem = styled.li<{
 		padding-left: 1rem;
 	}
 
-	&.active,
 	&:hover {
 		color: ${props => props.theme.palette.primary};
 
