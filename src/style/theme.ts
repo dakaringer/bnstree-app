@@ -101,6 +101,11 @@ export const muiTheme = createMuiTheme({
 				margin: '0 !important',
 				maxWidth: 'none'
 			}
+		},
+		MuiDialog: {
+			paper: {
+				margin: '1rem'
+			}
 		}
 	}
 })
