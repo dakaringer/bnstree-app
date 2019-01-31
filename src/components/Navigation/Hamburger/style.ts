@@ -6,7 +6,7 @@ export const HamburgerButton = styled.button<{ active?: boolean }>`
 		position: fixed;
 		z-index: 1200;
 		top: 2.3rem;
-		left: -1.5rem;
+		left: -0.8rem;
 		transform-origin: 50% 0;
 		letter-spacing: 0.5rem;
 		color: ${props => props.theme.palette.textSecondary};
@@ -29,7 +29,6 @@ export const HamburgerButton = styled.button<{ active?: boolean }>`
 		display: inline-block;
 		vertical-align: middle;
 		position: relative;
-		margin-left: 0.5rem;
 
 		& > span {
 			&::before,
