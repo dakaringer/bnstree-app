@@ -12,6 +12,7 @@ import compose from '@utils/compose'
 
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
+import ActionBar from '@components/ActionBar'
 import SettingsDialog from './SettingsDialog'
 
 import { RootState, SkillElement, ClassCode } from '@store'
@@ -21,7 +22,7 @@ import { actions as userActions } from '@store/User'
 import classIcons from '@src/images/classIcons'
 import elementIcons from '@src/images/elementIcons'
 
-import { SkillActionBarContainer, BarGroup, MenuItemContainer, SearchContainer } from './style'
+import { MenuItemContainer } from './style'
 
 interface PropsFromStore {
 	skillPreferences: ReturnType<typeof skillSelectors.getSkillPreferences>
@@ -76,40 +77,42 @@ const SkillActionBar: React.FC<Props> = props => {
 	})
 
 	return (
-		<SkillActionBarContainer>
-			<BarGroup align="left">
-				<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
-					<ImageLoader src={classIcons[classCode]} />
-					<Hidden smDown>
-						<T id={['general', 'class_names', classCode]} />
-					</Hidden>
-				</Button>
-				<Menu
-					anchorEl={classAnchor}
-					open={!!classAnchor}
-					onClose={useCallback(() => setClassAnchor(undefined))}>
-					{classes
-						.filter(c => c.classCode !== classCode)
-						.map(c => (
-							<MenuItem
-								key={c.classCode}
-								onClick={useCallback(() => setClassAnchor(undefined))}
-								component={useCallback(({ innerRef, ...linkProps }) => (
-									<NavLink to={c.link} {...linkProps} />
-								))}>
-								<MenuItemContainer>
-									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
-									<T id={['general', 'class_names', c.classCode]} />
-								</MenuItemContainer>
-							</MenuItem>
-						))}
-				</Menu>
-				<Button onClick={toggleElement}>
-					<ImageLoader src={elementIcons[element]} />
-					<T id={['general', 'element_types', element]} />
-				</Button>
-			</BarGroup>
-			<SearchContainer>
+		<ActionBar
+			left={
+				<>
+					<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
+						<ImageLoader src={classIcons[classCode]} />
+						<Hidden smDown>
+							<T id={['general', 'class_names', classCode]} />
+						</Hidden>
+					</Button>
+					<Menu
+						anchorEl={classAnchor}
+						open={!!classAnchor}
+						onClose={useCallback(() => setClassAnchor(undefined))}>
+						{classes
+							.filter(c => c.classCode !== classCode)
+							.map(c => (
+								<MenuItem
+									key={c.classCode}
+									onClick={useCallback(() => setClassAnchor(undefined))}
+									component={useCallback(({ innerRef, ...linkProps }) => (
+										<NavLink to={c.link} {...linkProps} />
+									))}>
+									<MenuItemContainer>
+										<ImageLoader src={classIcons[c.classCode as ClassCode]} />
+										<T id={['general', 'class_names', c.classCode]} />
+									</MenuItemContainer>
+								</MenuItem>
+							))}
+					</Menu>
+					<Button onClick={toggleElement}>
+						<ImageLoader src={elementIcons[element]} />
+						<T id={['general', 'element_types', element]} />
+					</Button>
+				</>
+			}
+			searchInput={
 				<Input
 					disableUnderline
 					placeholder={intl.formatMessage({ id: 'skill.search_placeholder' })}
@@ -141,17 +144,19 @@ const SkillActionBar: React.FC<Props> = props => {
 						</>
 					}
 				/>
-			</SearchContainer>
-			<BarGroup align="right">
-				<IconButton color="inherit" onClick={useCallback(() => setSettingsDialogOpen(true))}>
-					<Tune fontSize="small" />
-				</IconButton>
-				<IconButton color="primary" disabled>
-					<Share fontSize="small" />
-				</IconButton>
-			</BarGroup>
-			<SettingsDialog open={settingsDialogOpen} close={useCallback(() => setSettingsDialogOpen(false))} />
-		</SkillActionBarContainer>
+			}
+			right={
+				<>
+					<IconButton color="inherit" onClick={useCallback(() => setSettingsDialogOpen(true))}>
+						<Tune fontSize="small" />
+					</IconButton>
+					<IconButton color="primary" disabled>
+						<Share fontSize="small" />
+					</IconButton>
+					<SettingsDialog open={settingsDialogOpen} close={useCallback(() => setSettingsDialogOpen(false))} />
+				</>
+			}
+		/>
 	)
 }
 

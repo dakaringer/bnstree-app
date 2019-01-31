@@ -12,13 +12,14 @@ import compose from '@utils/compose'
 
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
+import ActionBar from '@components/ActionBar'
 import SettingsDialog from './SettingsDialog'
 
 import { RootState, SkillSpecialization, ClassCode } from '@store'
 import { selectors as skillSelectors } from '@store/Skills'
 import { actions as userActions } from '@store/User'
 
-import { SkillActionBarContainer, BarGroup, MenuItemContainer, SearchContainer } from './style'
+import { MenuItemContainer } from './style'
 import specializations from './specializations'
 import classIcons from '@src/images/classIcons'
 import specializationIcons from '@src/images/specializationIcons'
@@ -74,55 +75,57 @@ const SkillActionBar: React.FC<Props> = props => {
 	const specialization = skillPreferences.specialization[classCode]
 
 	return (
-		<SkillActionBarContainer>
-			<BarGroup align="left">
-				<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
-					<ImageLoader src={classIcons[classCode]} />
-					<Hidden smDown>
-						<T id={['general', 'class_names', classCode]} />
-					</Hidden>
-				</Button>
-				<Menu
-					anchorEl={classAnchor}
-					open={!!classAnchor}
-					onClose={useCallback(() => setClassAnchor(undefined))}>
-					{classes
-						.filter(c => c.classCode !== classCode)
-						.map(c => (
-							<MenuItem
-								key={c.classCode}
-								onClick={useCallback(() => setClassAnchor(undefined))}
-								component={useCallback(({ innerRef, ...linkProps }) => (
-									<NavLink to={c.link} {...linkProps} />
-								))}>
-								<MenuItemContainer>
-									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
-									<T id={['general', 'class_names', c.classCode]} />
-								</MenuItemContainer>
-							</MenuItem>
-						))}
-				</Menu>
-				<Button onClick={useCallback(event => setSpecializationAnchor(event.currentTarget))}>
-					<ImageLoader src={get(specializationIcons, [classCode, specialization], '')} />
-					<T id={['general', 'specializations', specialization]} />
-				</Button>
-				<Menu
-					anchorEl={specializationAnchor}
-					open={!!specializationAnchor}
-					onClose={useCallback(() => setSpecializationAnchor(undefined))}>
-					{(specializations[classCode] as SkillSpecialization<ClassCode>[])
-						.filter(s => s !== specialization)
-						.map(s => (
-							<MenuItem key={s} onClick={selectSpecialization(s)}>
-								<MenuItemContainer>
-									<ImageLoader src={get(specializationIcons, [classCode, s], '')} />
-									<T id={['general', 'specializations', s]} />
-								</MenuItemContainer>
-							</MenuItem>
-						))}
-				</Menu>
-			</BarGroup>
-			<SearchContainer>
+		<ActionBar
+			left={
+				<>
+					<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
+						<ImageLoader src={classIcons[classCode]} />
+						<Hidden smDown>
+							<T id={['general', 'class_names', classCode]} />
+						</Hidden>
+					</Button>
+					<Menu
+						anchorEl={classAnchor}
+						open={!!classAnchor}
+						onClose={useCallback(() => setClassAnchor(undefined))}>
+						{classes
+							.filter(c => c.classCode !== classCode)
+							.map(c => (
+								<MenuItem
+									key={c.classCode}
+									onClick={useCallback(() => setClassAnchor(undefined))}
+									component={useCallback(({ innerRef, ...linkProps }) => (
+										<NavLink to={c.link} {...linkProps} />
+									))}>
+									<MenuItemContainer>
+										<ImageLoader src={classIcons[c.classCode as ClassCode]} />
+										<T id={['general', 'class_names', c.classCode]} />
+									</MenuItemContainer>
+								</MenuItem>
+							))}
+					</Menu>
+					<Button onClick={useCallback(event => setSpecializationAnchor(event.currentTarget))}>
+						<ImageLoader src={get(specializationIcons, [classCode, specialization], '')} />
+						<T id={['general', 'specializations', specialization]} />
+					</Button>
+					<Menu
+						anchorEl={specializationAnchor}
+						open={!!specializationAnchor}
+						onClose={useCallback(() => setSpecializationAnchor(undefined))}>
+						{(specializations[classCode] as SkillSpecialization<ClassCode>[])
+							.filter(s => s !== specialization)
+							.map(s => (
+								<MenuItem key={s} onClick={selectSpecialization(s)}>
+									<MenuItemContainer>
+										<ImageLoader src={get(specializationIcons, [classCode, s], '')} />
+										<T id={['general', 'specializations', s]} />
+									</MenuItemContainer>
+								</MenuItem>
+							))}
+					</Menu>
+				</>
+			}
+			searchInput={
 				<Input
 					disableUnderline
 					placeholder={intl.formatMessage({ id: 'skill.search_placeholder' })}
@@ -138,17 +141,20 @@ const SkillActionBar: React.FC<Props> = props => {
 						</>
 					}
 				/>
-			</SearchContainer>
-			<BarGroup align="right">
-				<IconButton color="inherit" onClick={useCallback(() => setSettingsDialogOpen(true))}>
-					<Tune fontSize="small" />
-				</IconButton>
-				<IconButton color="primary" disabled>
-					<Share fontSize="small" />
-				</IconButton>
-			</BarGroup>
-			<SettingsDialog open={settingsDialogOpen} close={useCallback(() => setSettingsDialogOpen(false))} />
-		</SkillActionBarContainer>
+			}
+			right={
+				<>
+					<IconButton color="inherit" onClick={useCallback(() => setSettingsDialogOpen(true))}>
+						<Tune fontSize="small" />
+					</IconButton>
+					<IconButton color="primary" disabled>
+						<Share fontSize="small" />
+					</IconButton>
+
+					<SettingsDialog open={settingsDialogOpen} close={useCallback(() => setSettingsDialogOpen(false))} />
+				</>
+			}
+		/>
 	)
 }
 

@@ -12,12 +12,13 @@ import classIcons from '@src/images/classIcons'
 
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
+import ActionBar from '@components/ActionBar'
 
 import { RootState, ClassCode, ItemFilter } from '@store'
 import { selectors as itemSelectors } from '@store/Items'
 import { actions as userActions } from '@store/User'
 
-import { ItemActionBarContainer, BarGroup, MenuItemContainer, SearchContainer } from './style'
+import { MenuItemContainer } from './style'
 
 interface PropsFromStore {
 	itemPreferences: ReturnType<typeof itemSelectors.getItemPreferences>
@@ -58,40 +59,42 @@ const ItemActionBar: React.FC<Props> = props => {
 	})
 
 	return (
-		<ItemActionBarContainer>
-			<BarGroup align="left">
-				<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
-					{itemPreferences.filter !== 'ALL' && <ImageLoader src={classIcons[itemPreferences.filter]} />}
-					<T
-						id={
-							itemPreferences.filter !== 'ALL'
-								? ['general', 'class_names', itemPreferences.filter]
-								: 'item.general.all'
-						}
-					/>
-				</Button>
-				<Menu
-					anchorEl={classAnchor}
-					open={!!classAnchor}
-					onClose={useCallback(() => setClassAnchor(undefined))}>
-					{itemPreferences.filter !== 'ALL' && (
-						<MenuItem key="all" onClick={filter('ALL')}>
-							<T id="item.general.all" />
-						</MenuItem>
-					)}
-					{classes
-						.filter(c => c.classCode !== itemPreferences.filter)
-						.map(c => (
-							<MenuItem key={c.classCode} onClick={filter(c.classCode as ClassCode)}>
-								<MenuItemContainer>
-									<ImageLoader src={classIcons[c.classCode as ClassCode]} />
-									<T id={['general', 'class_names', c.classCode]} />
-								</MenuItemContainer>
+		<ActionBar
+			left={
+				<>
+					<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
+						{itemPreferences.filter !== 'ALL' && <ImageLoader src={classIcons[itemPreferences.filter]} />}
+						<T
+							id={
+								itemPreferences.filter !== 'ALL'
+									? ['general', 'class_names', itemPreferences.filter]
+									: 'item.general.all'
+							}
+						/>
+					</Button>
+					<Menu
+						anchorEl={classAnchor}
+						open={!!classAnchor}
+						onClose={useCallback(() => setClassAnchor(undefined))}>
+						{itemPreferences.filter !== 'ALL' && (
+							<MenuItem key="all" onClick={filter('ALL')}>
+								<T id="item.general.all" />
 							</MenuItem>
-						))}
-				</Menu>
-			</BarGroup>
-			<SearchContainer>
+						)}
+						{classes
+							.filter(c => c.classCode !== itemPreferences.filter)
+							.map(c => (
+								<MenuItem key={c.classCode} onClick={filter(c.classCode as ClassCode)}>
+									<MenuItemContainer>
+										<ImageLoader src={classIcons[c.classCode as ClassCode]} />
+										<T id={['general', 'class_names', c.classCode]} />
+									</MenuItemContainer>
+								</MenuItem>
+							))}
+					</Menu>
+				</>
+			}
+			searchInput={
 				<Input
 					disableUnderline
 					placeholder={intl.formatMessage({ id: 'item.search_placeholder' })}
@@ -107,9 +110,8 @@ const ItemActionBar: React.FC<Props> = props => {
 						</>
 					}
 				/>
-			</SearchContainer>
-			<BarGroup align="right" />
-		</ItemActionBarContainer>
+			}
+		/>
 	)
 }
 
