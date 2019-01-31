@@ -1,10 +1,8 @@
 import React from 'react'
 import Scrollbars, { positionValues } from 'react-custom-scrollbars'
-import { withWidth } from '@material-ui/core'
-import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
 import { useCallback } from '@utils/hooks'
 
-interface Props extends WithWidth {
+interface Props {
 	height?: string
 	flex?: boolean
 	className?: string
@@ -12,11 +10,7 @@ interface Props extends WithWidth {
 }
 
 const ScrollContainer: React.FC<Props> = props => {
-	const { width, height, flex, children, className, onScroll } = props
-
-	if (isWidthDown('xs', width)) {
-		return <div className={className}>{children}</div>
-	}
+	const { height, flex, children, className, onScroll } = props
 
 	return (
 		<Scrollbars
@@ -47,4 +41,4 @@ const ScrollContainer: React.FC<Props> = props => {
 	)
 }
 
-export default withWidth()(ScrollContainer)
+export default ScrollContainer
