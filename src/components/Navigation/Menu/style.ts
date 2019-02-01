@@ -41,7 +41,7 @@ export const CharacterSearch = styled(CharacterSearchComponent)`
 `
 
 export const LinkItem = styled.li<{
-	active?: boolean
+	active?: boolean | number
 	to?: string
 	activeClassName?: string
 }>`

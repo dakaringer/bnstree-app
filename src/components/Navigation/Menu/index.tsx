@@ -43,9 +43,7 @@ const Menu: React.FC<Props> = props => {
 	const renderLinkItem = useCallback(
 		(linkObject: typeof baseLinks[0], menuLink: string, active: boolean) => (listItemProps: ListItemProps) =>
 			!linkObject.subMenu ? (
-				<Link to={menuLink}>
-					<LinkItem active={active} {...listItemProps} />
-				</Link>
+				<LinkItem active={active ? 1 : undefined} as={Link} to={menuLink} {...listItemProps} />
 			) : (
 				<LinkItem active={active} {...listItemProps} />
 			)
