@@ -29,9 +29,8 @@ export const getNameData = (name: string, group: string) => {
 export const processSkillNameAndTags = (skillData: DeepReadonly<SkillData>): DeepReadonly<SkillData> => {
 	const state = store.getState()
 
-	const locale = intlSelectors.getLocale(state)
 	const messages = intlSelectors.getMessages(state)
-	const tagList: { [x: string]: string } = get(messages, [locale, 'skill', 'tag'], {})
+	const tagList: { [x: string]: string } = get(messages, ['skill', 'tag'], {})
 
 	const nameData = getNameData(skillData.nameId, 'skill')
 
@@ -45,9 +44,8 @@ export const processSkillNameAndTags = (skillData: DeepReadonly<SkillData>): Dee
 export const getTags = (skillData: DeepReadonly<Partial<SkillData>>) => {
 	const state = store.getState()
 
-	const locale = intlSelectors.getLocale(state)
 	const messages = intlSelectors.getMessages(state)
-	const tagList: { [x: string]: string } = get(messages, [locale, 'skill', 'tag'], {})
+	const tagList: { [x: string]: string } = get(messages, ['skill', 'tag'], {})
 
 	const tags = skillData.tags ? [...skillData.tags] : []
 
