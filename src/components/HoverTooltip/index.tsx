@@ -61,7 +61,7 @@ const HoverTooltip: React.FC<Props> = props => {
 			leaveTouchDelay={99999}
 			PopperProps={{
 				modifiers: {
-					flip: {
+					preventOverflow: {
 						boundariesElement: 'viewport'
 					}
 				}

@@ -57,17 +57,6 @@ export const muiTheme = createMuiTheme({
 			},
 			getContentAnchorEl: undefined
 		},
-		MuiPopover: {
-			anchorOrigin: {
-				vertical: 'bottom',
-				horizontal: 'left'
-			},
-			transformOrigin: {
-				vertical: 'top',
-				horizontal: 'left'
-			},
-			marginThreshold: 5
-		},
 		MuiDialog: {
 			fullWidth: true
 		}
@@ -100,6 +89,11 @@ export const muiTheme = createMuiTheme({
 				padding: '0 !important',
 				margin: '0 !important',
 				maxWidth: 'none'
+			},
+			popper: {
+				['@media(min-width: 650px)']: {
+					left: '1rem !important'
+				}
 			}
 		},
 		MuiDialog: {
