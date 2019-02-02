@@ -71,7 +71,7 @@ const SkillTooltip: React.FC<Props> = props => {
 							</Typography>
 						)}
 					</div>
-					<Typography>
+					<Typography variant="caption">
 						{Cost(currentMoveData.focus || 0, hoverMoveData.focus || 0)}
 						{Cost(currentMoveData.health || 0, hoverMoveData.health || 0, 'health')}
 					</Typography>
