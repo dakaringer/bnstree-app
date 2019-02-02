@@ -25,7 +25,7 @@ const initialState = {
 			search: '',
 			mode: 'TRAITS' as SkillMode,
 			specialization: {
-				BM: 'empty' as SkillSpecialization<'BM'>,
+				BM: 'BM_BLAZEBLADE' as SkillSpecialization<'BM'>,
 				KF: 'empty' as SkillSpecialization<'KF'>,
 				DE: 'empty' as SkillSpecialization<'DE'>,
 				FM: 'empty' as SkillSpecialization<'FM'>,

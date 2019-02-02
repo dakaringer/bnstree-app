@@ -1,7 +1,7 @@
 import { SkillSpecialization, ClassCode } from '@store'
 
 const specializations: { [c in ClassCode]: SkillSpecialization<c>[] } = {
-	BM: ['empty'],
+	BM: ['BM_BLAZEBLADE', 'BM_SWIFTBLADE'],
 	KF: ['empty'],
 	DE: ['empty'],
 	FM: ['empty'],
