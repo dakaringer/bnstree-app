@@ -22,15 +22,11 @@ export const CharacterEquipmentContainer = styled.div`
 `
 
 export const Weapon = styled.div`
-	grid-column: 1 / 3;
+	grid-column: 1 / -1;
 	display: grid;
 	grid-gap: 0 1rem;
 	grid-template-columns: 5rem 1fr;
 	grid-template-rows: 1fr 1fr;
-
-	${media.xs`
-		grid-column: 1 / 2;
-	`}
 
 	& > img {
 		grid-row: 1 / 3;

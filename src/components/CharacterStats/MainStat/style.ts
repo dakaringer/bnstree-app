@@ -11,7 +11,7 @@ export const MainStatContainer = styled.div<{ type: 'attack' | 'defense' }>`
 		display: flex;
 		justify-content: space-between;
 		align-items: baseline;
-		padding: 2.4rem 2rem 0.5rem;
+		padding: 1.8rem 2rem 0.5rem;
 		& h4 {
 			font-weight: 300;
 		}

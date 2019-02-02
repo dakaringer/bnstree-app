@@ -52,10 +52,6 @@ export const MoveContainer = styled.div`
 	}
 
 	${media.sm`
-		grid-column: 1 / 3;
-	`}
-
-	${media.xs`
-		grid-template-columns: 1fr;
+		grid-column: 1 / -1;
 	`}
 `

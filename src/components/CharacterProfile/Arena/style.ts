@@ -12,7 +12,7 @@ export const ArenaContainer = styled.div`
 	`}
 
 	& .stats {
-		grid-column: 1 / 3;
+		grid-column: 1 / -1;
 	}
 `
 

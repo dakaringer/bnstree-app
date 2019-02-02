@@ -59,7 +59,7 @@ export const SearchContainer = styled.div`
 
 	${media.sm`
 		grid-row: 2;
-		grid-column: 1 / 3;
+		grid-column: 1 / -1;
 		margin: 1rem -2rem -1rem;
 		padding-left: 3.3rem;
 		padding-right: 2rem;
