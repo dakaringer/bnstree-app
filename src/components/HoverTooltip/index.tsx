@@ -59,6 +59,8 @@ const HoverTooltip: React.FC<Props> = props => {
 		<Tooltip
 			title={<Paper>{tooltip}</Paper>}
 			placement="right-start"
+			enterDelay={200}
+			leaveDelay={200}
 			enterTouchDelay={500}
 			leaveTouchDelay={99999}
 			PopperProps={{
