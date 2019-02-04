@@ -89,8 +89,6 @@ export const mergeSkills = (
 	targetSkillData: DeepReadonly<SkillData>,
 	traitSkillData: Partial<DeepReadonly<SkillData>>
 ): DeepReadonly<SkillData> => {
-	const t1 = targetSkillData.tags || []
-	const t2 = targetSkillData.tags || []
 	return {
 		...targetSkillData,
 		...traitSkillData,
@@ -98,7 +96,7 @@ export const mergeSkills = (
 		info: targetSkillData.info && merge({}, targetSkillData.info, traitSkillData.info),
 		stance_change: mergeAttributes(targetSkillData.stance_change, traitSkillData.stance_change),
 		requirements: mergeAttributes(targetSkillData.requirements, traitSkillData.requirements),
-		tags: uniq([...t1, ...t2])
+		tags: traitSkillData.tags
 	}
 }
 
