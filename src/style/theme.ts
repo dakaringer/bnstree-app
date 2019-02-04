@@ -25,7 +25,7 @@ export const muiTheme = createMuiTheme({
 	typography: {
 		useNextVariants: true,
 		htmlFontSize: 10,
-		fontFamily: "'Open Sans', sans-serif",
+		fontFamily: "'Montserrat', sans-serif",
 		fontWeightMedium: 600,
 		allVariants: {
 			textTransform: 'initial'
