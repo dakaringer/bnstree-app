@@ -15,7 +15,7 @@ export const TooltipContent = styled.div`
 `
 
 export const TooltipTitle = styled.div`
-	margin-bottom: 1rem;
+	margin-bottom: 0.5rem;
 	white-space: nowrap;
 `
 
