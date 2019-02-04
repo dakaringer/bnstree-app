@@ -89,11 +89,6 @@ export const muiTheme = createMuiTheme({
 				padding: '0 !important',
 				margin: '0 !important',
 				maxWidth: 'none'
-			},
-			popper: {
-				['@media(min-width: 650px)']: {
-					left: '1rem !important'
-				}
 			}
 		},
 		MuiDialog: {

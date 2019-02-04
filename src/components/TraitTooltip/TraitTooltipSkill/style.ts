@@ -3,7 +3,7 @@ import styled from '@style/styled-components'
 export const TraitTooltipSkillContainer = styled.div`
 	margin: 1rem 0;
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 
 	& img {
 		margin-right: 0.5rem;
@@ -13,6 +13,7 @@ export const TraitTooltipSkillContainer = styled.div`
 
 	& svg {
 		align-self: flex-end;
+		margin-right: 0.5rem;
 	}
 
 	& .label {

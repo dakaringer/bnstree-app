@@ -67,7 +67,7 @@ const Menu: React.FC<Props> = props => {
 						<CharacterSearch onSubmit={onClose} />
 					</>
 				)}
-				<ScrollContainer flex>
+				<ScrollContainer>
 					<List>
 						{!!topLink && (
 							<ListItem button component={LinkItem} className="back" onClick={goBack}>
