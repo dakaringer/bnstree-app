@@ -13,7 +13,7 @@ const initialize = keyframes`
 const initializeWithShift = keyframes`
 	0% {
 		opacity: 0;
-		transform: translateY(5rem);
+		transform: translateY(3rem);
 	}
 
 	100% {
@@ -27,7 +27,7 @@ export const GroupContainer = styled.div<{
 	timeout?: number
 }>`
 	position: relative;
-	animation: ${props => (props.shift ? initializeWithShift : initialize)} ${props => props.timeout || 500}ms ease;
+	animation: ${props => (props.shift ? initializeWithShift : initialize)} ${props => props.timeout || 200}ms ease-out;
 	height: 100%;
 `
 
@@ -35,8 +35,8 @@ export const TransitionContainer = styled.div<{
 	shift?: boolean
 	timeout?: number
 }>`
-	transition: opacity ease-in-out, transform ease-in-out;
-	transition-duration: ${props => props.timeout || 500}ms;
+	transition: opacity ease-out, transform ease-out;
+	transition-duration: ${props => props.timeout || 200}ms;
 
 	&.fade-enter {
 		${props =>
