@@ -26,13 +26,14 @@ interface PropsFromStore {
 
 interface PropsFromDispatch {
 	loadClass: typeof skillActions.loadData
+	reloadClass: typeof skillActions.reloadData
 	updatePreferences: typeof userActions.updatePreferences
 }
 
 interface Props extends PropsFromStore, PropsFromDispatch, RouteComponentProps<{ className: string }> {}
 
 const SkillsPage: React.FC<Props> = props => {
-	const { match, skillPreferences, isLoading, updatePreferences, loadClass } = props
+	const { match, skillPreferences, isLoading, updatePreferences, loadClass, reloadClass } = props
 	const classLink = classes.find(c => c.link === match.params.className)
 	const classCode = classLink && (classLink.classCode as ClassCode)
 
@@ -50,6 +51,15 @@ const SkillsPage: React.FC<Props> = props => {
 	return (
 		<PageContainer isLoading={isLoading} topNav={<SkillActionBar />}>
 			<ModeSelector>
+				{process.env.NODE_ENV !== 'production' && (
+					<Button
+						variant="outlined"
+						size="small"
+						color="secondary"
+						onClick={useCallback(() => reloadClass())}>
+						Refresh
+					</Button>
+				)}
 				<Button
 					variant="outlined"
 					size="small"
@@ -84,6 +94,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{
 			loadClass: skillActions.loadData,
+			reloadClass: skillActions.reloadData,
 			updatePreferences: userActions.updatePreferences
 		},
 		dispatch

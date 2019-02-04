@@ -1,5 +1,6 @@
 export enum sagaActionTypes {
-	LOAD_DATA = '[Saga] Skills/LOAD_DATA'
+	LOAD_DATA = '[Saga] Skills/LOAD_DATA',
+	RELOAD_DATA = '[Saga] Skills/RELOAD_DATA'
 }
 
 export enum reduxActionTypes {

@@ -6,7 +6,8 @@ import { ClassCode } from '@store'
 
 // Saga actions
 export const sagaActions = {
-	loadData: createStandardAction(sagaActionTypes.LOAD_DATA)<ClassCode>()
+	loadData: createStandardAction(sagaActionTypes.LOAD_DATA)<ClassCode>(),
+	reloadData: createStandardAction(sagaActionTypes.RELOAD_DATA)()
 }
 
 export const reduxActions = {

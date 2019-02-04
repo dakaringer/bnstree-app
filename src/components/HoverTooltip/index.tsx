@@ -25,8 +25,10 @@ const HoverTooltip: React.FC<Props> = props => {
 		<TooltipContent
 			className={className}
 			onContextMenu={useCallback(event => {
-				event.preventDefault()
-				event.stopPropagation()
+				if (process.env.NODE_ENV === 'production') {
+					event.preventDefault()
+					event.stopPropagation()
+				}
 			})}>
 			<TooltipTitle>{title}</TooltipTitle>
 			{(m1 || m2 || icon) && (
