@@ -22,7 +22,7 @@ const PageContainer: React.FC<Props> = props => {
 					{topNav}
 				</Paper>
 			</Slide>
-			<Content currentKey={isLoading ? 'loading' : 'loaded'} timeout={1000} shift className={className}>
+			<Content currentKey={isLoading ? 'loading' : 'loaded'} shift className={className}>
 				{isLoading ? <LoadingLyn /> : children}
 			</Content>
 		</>

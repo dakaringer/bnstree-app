@@ -27,7 +27,7 @@ export const GroupContainer = styled.div<{
 	timeout?: number
 }>`
 	position: relative;
-	animation: ${props => (props.shift ? initializeWithShift : initialize)} ${props => props.timeout || 200}ms ease-out;
+	animation: ${props => (props.shift ? initializeWithShift : initialize)} ${props => props.timeout || 500}ms ease-out;
 	height: 100%;
 `
 
@@ -36,7 +36,7 @@ export const TransitionContainer = styled.div<{
 	timeout?: number
 }>`
 	transition: opacity ease-out, transform ease-out;
-	transition-duration: ${props => props.timeout || 200}ms;
+	transition-duration: ${props => props.timeout || 500}ms;
 
 	&.fade-enter {
 		${props =>

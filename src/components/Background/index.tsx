@@ -28,7 +28,7 @@ const Background: React.FC = () => {
 
 	return (
 		<BackgroundContainer>
-			<ImageFadeContainer currentKey={i} timeout={2000}>
+			<ImageFadeContainer currentKey={i} timeout={1000}>
 				<ImageLoader key={i} src={imageArray[i]} />
 			</ImageFadeContainer>
 			<Backdrop />

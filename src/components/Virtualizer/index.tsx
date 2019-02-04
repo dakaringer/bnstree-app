@@ -22,7 +22,7 @@ const Virtualizer: React.FC<Props> = props => {
 			})}
 			active={!visible}>
 			<div style={{ minHeight: minHeight || 0 }}>
-				<Fade in={visible} timeout={1000} unmountOnExit>
+				<Fade in={visible} timeout={500} unmountOnExit>
 					{children}
 				</Fade>
 			</div>
