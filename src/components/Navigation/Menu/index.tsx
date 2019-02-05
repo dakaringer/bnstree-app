@@ -29,7 +29,7 @@ const Menu: React.FC<Props> = props => {
 		if (linkArray.length > 0) {
 			setLinkArray([])
 		}
-	}, [location.pathname])
+	}, [location.pathname, isOpen])
 
 	const goBack = useCallback(() => setLinkArray(linkArray.slice(0, -1)))
 	const goForward = useCallback((linkObject: typeof baseLinks[0]) => () => {
