@@ -63,7 +63,7 @@ export interface Trait {
 }
 
 export interface TraitSkill {
-	skillId?: string
+	skillId: string
 	action?: 'ADD' | 'REPLACE' | 'REMOVE'
 	data?: Partial<SkillData>
 }

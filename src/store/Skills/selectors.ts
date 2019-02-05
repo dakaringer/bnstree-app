@@ -5,7 +5,7 @@ import { getNameData, mergeSkills, getTags } from '@utils/helpers'
 
 import { RootState } from '@store'
 import { selectors as userSelectors } from '@store/User'
-import { SkillData, TraitSkill } from './types'
+import { Skill, SkillData, TraitSkill } from './types'
 
 const getSkills = (state: RootState) => state.skills
 
@@ -64,22 +64,35 @@ const getTraits = createSelector(
 const getProcessedSkills = createSelector(
 	[getData, getBuild, getTraits],
 	(skillData, build, traits) => {
-		const modifiedSkills: { [id: string]: DeepReadonlyArray<TraitSkill> } = traits
-			.filter(trait => {
-				const currentIndex = build[trait.index[0] - 1] || 1
-				return trait.index[1] === currentIndex
-			})
-			.reduce((acc: { [id: string]: DeepReadonlyArray<TraitSkill> }, trait) => {
+		const activeTraits = traits.filter(trait => {
+			const currentIndex = build[trait.index[0] - 1] || 1
+			return trait.index[1] === currentIndex
+		})
+
+		const modifiedSkills: { [id: string]: DeepReadonlyArray<TraitSkill> } = activeTraits.reduce(
+			(acc: { [id: string]: DeepReadonlyArray<TraitSkill> }, trait) => {
 				trait.data.skills.forEach(traitSkill => {
-					if (traitSkill.skillId) {
-						const t = acc[traitSkill.skillId] || []
-						acc[traitSkill.skillId] = [...t, traitSkill]
-					}
+					const t = acc[traitSkill.skillId] || []
+					acc[traitSkill.skillId] = [...t, traitSkill]
 				})
 				return acc
-			}, {})
+			},
+			{}
+		)
 
-		return skillData.map(skill => {
+		const addedSkills = activeTraits.reduce((acc: DeepReadonly<Skill>[], trait) => {
+			trait.data.skills.forEach(traitSkill => {
+				if (traitSkill.action === 'ADD') {
+					acc.push({
+						_id: traitSkill.skillId,
+						data: traitSkill.data
+					} as Skill)
+				}
+			})
+			return acc
+		}, [])
+
+		return [...skillData, ...addedSkills].map(skill => {
 			let data = skill.data
 			const appliedTraits = modifiedSkills[skill._id] || []
 			appliedTraits.forEach(trait => {
