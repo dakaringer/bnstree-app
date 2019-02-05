@@ -96,7 +96,7 @@ export const mergeSkills = (
 		info: targetSkillData.info && merge({}, targetSkillData.info, traitSkillData.info),
 		stance_change: mergeAttributes(targetSkillData.stance_change, traitSkillData.stance_change),
 		requirements: mergeAttributes(targetSkillData.requirements, traitSkillData.requirements),
-		tags: traitSkillData.tags
+		tags: traitSkillData.tags || targetSkillData.tags
 	}
 }
 
