@@ -109,7 +109,7 @@ export const ProfileImgContainer = styled.div<{ noImage?: boolean }>`
 		overflow: hidden;
 		width: 23rem;
 		margin-right: -3rem;
-		transition: all 0.5s ease-in-out;
+		transition: all 0.5s ease-in;
 		height: 0;
 		padding-bottom: 189%;
 

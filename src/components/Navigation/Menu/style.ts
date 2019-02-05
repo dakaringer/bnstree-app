@@ -47,7 +47,7 @@ export const LinkItem = styled.li<{
 }>`
 	&& {
 		padding: 1rem 1.5rem;
-		transition: color 0.5s ease-in-out;
+		transition: color 0.5s ease-in;
 		color: ${props => (props.active ? props.theme.palette.primary : props.theme.palette.textSecondary)};
 	}
 
@@ -58,7 +58,7 @@ export const LinkItem = styled.li<{
 	& img {
 		height: 1.6em;
 		margin-right: 1.2rem;
-		transition: filter 0.5s ease-in-out;
+		transition: filter 0.5s ease-in;
 		filter: saturate(${props => (props.active ? 1 : 0.2)});
 	}
 
