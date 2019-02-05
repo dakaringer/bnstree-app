@@ -8,4 +8,8 @@ export const InputContainer = styled.div`
 	${media.xs`
 		grid-template-columns: 1fr;
 	`}
+
+	& svg {
+		margin: 0 0.5rem;
+	}
 `

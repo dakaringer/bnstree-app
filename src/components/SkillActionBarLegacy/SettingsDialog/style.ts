@@ -14,6 +14,10 @@ export const InputContainer = styled.div`
 		margin-right: 1rem;
 	}
 
+	& svg {
+		margin: 0 0.5rem;
+	}
+
 	& .element-input {
 		width: calc(100% - 2.8rem);
 	}

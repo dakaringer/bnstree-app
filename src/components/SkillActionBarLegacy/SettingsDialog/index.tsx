@@ -6,7 +6,6 @@ import {
 	DialogTitle,
 	DialogContent,
 	Typography,
-	IconButton,
 	Divider,
 	TextField,
 	Tooltip,
@@ -81,9 +80,7 @@ const SettingsDialog: React.FC<Props> = props => {
 							<>
 								<T id="skill.menu.constant" />
 								<Tooltip title={<T id="skill.menu.constant_help" />} placement="bottom-start">
-									<IconButton>
-										<HelpOutline />
-									</IconButton>
+									<HelpOutline fontSize="inherit" />
 								</Tooltip>
 							</>
 						}

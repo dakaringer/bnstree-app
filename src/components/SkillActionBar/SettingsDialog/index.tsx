@@ -1,16 +1,7 @@
 import React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import {
-	Dialog,
-	DialogTitle,
-	DialogContent,
-	Typography,
-	IconButton,
-	TextField,
-	Tooltip,
-	InputAdornment
-} from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, Typography, TextField, Tooltip, InputAdornment } from '@material-ui/core'
 import { HelpOutline } from '@material-ui/icons'
 import { useCallback } from '@utils/hooks'
 
@@ -82,9 +73,7 @@ const SettingsDialog: React.FC<Props> = props => {
 							<>
 								<T id="skill.menu.constant" />
 								<Tooltip title={<T id="skill.menu.constant_help" />} placement="bottom-start">
-									<IconButton>
-										<HelpOutline />
-									</IconButton>
+									<HelpOutline fontSize="inherit" />
 								</Tooltip>
 							</>
 						}

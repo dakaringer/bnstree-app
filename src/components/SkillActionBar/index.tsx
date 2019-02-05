@@ -3,7 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Button, IconButton, Input, Hidden, MenuItem, Menu } from '@material-ui/core'
-import { Tune, Share, Clear } from '@material-ui/icons'
+import { Tune, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { get, debounce } from 'lodash-es'
 import { classes } from '@utils/constants'
@@ -147,10 +147,6 @@ const SkillActionBar: React.FC<Props> = props => {
 					<IconButton color="inherit" onClick={useCallback(() => setSettingsDialogOpen(true))}>
 						<Tune fontSize="small" />
 					</IconButton>
-					<IconButton color="primary" disabled>
-						<Share fontSize="small" />
-					</IconButton>
-
 					<SettingsDialog open={settingsDialogOpen} close={useCallback(() => setSettingsDialogOpen(false))} />
 				</>
 			}

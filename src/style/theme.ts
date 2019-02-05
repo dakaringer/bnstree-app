@@ -79,18 +79,6 @@ export const muiTheme = createMuiTheme({
 				margin: '2rem 0'
 			}
 		},
-		MuiIconButton: {
-			root: {
-				padding: 0
-			}
-		},
-		MuiTooltip: {
-			tooltip: {
-				padding: '0 !important',
-				margin: '0 !important',
-				maxWidth: 'none'
-			}
-		},
 		MuiDialog: {
 			paper: {
 				margin: '1rem'
