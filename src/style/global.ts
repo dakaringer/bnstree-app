@@ -11,7 +11,7 @@ export default createGlobalStyle`
 		font-size: 1.6rem;
 		margin: 0;
 		padding: 0 !important;
-		font-family: 'Noto Sans', 'system-ui', sans-serif;
+		font-family: 'Open Sans', 'system-ui', sans-serif;
 		font-weight: 300;
 		color: #eeeeee;
 		background: #111111;
