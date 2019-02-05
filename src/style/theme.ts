@@ -83,6 +83,11 @@ export const muiTheme = createMuiTheme({
 			paper: {
 				margin: '1rem'
 			}
+		},
+		MuiTooltip: {
+			tooltip: {
+				backgroundColor: '#000000'
+			}
 		}
 	}
 })
@@ -95,8 +100,8 @@ export const styledTheme = {
 		disabled: muiTheme.palette.text.disabled,
 		textPrimary: muiTheme.palette.text.primary,
 		textSecondary: muiTheme.palette.text.secondary,
-		blackGlass: 'rgba(3, 3, 3, 0.8)',
-		greyGlass: 'rgba(15, 15, 15, 0.8)'
+		blackGlass: 'rgba(3, 3, 3, 0.9)',
+		greyGlass: 'rgba(15, 15, 15, 0.9)'
 	},
 	navbarHeight: '7rem'
 }
