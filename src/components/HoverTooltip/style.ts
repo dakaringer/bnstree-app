@@ -26,15 +26,18 @@ export const TooltipSection = styled.div`
 export const TooltipMainSection = styled(TooltipSection)`
 	display: flex;
 
-	& > img {
-		height: 6rem;
-		width: 6rem;
+	& > .icon {
 		margin-right: 1rem;
 
-		${media.xs`
-			width: 5rem;
-			height: 5rem;
-		`}
+		& img {
+			height: 6rem;
+			width: 6rem;
+
+			${media.xs`
+				width: 5rem;
+				height: 5rem;
+			`}
+		}
 	}
 `
 

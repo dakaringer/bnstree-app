@@ -15,7 +15,7 @@ import {
 } from './style'
 
 interface Props {
-	icon?: string
+	icon?: string | React.ReactNode
 	title: React.ReactNode
 	m1?: React.ReactNode | React.ReactNode[]
 	m2?: React.ReactNode | React.ReactNode[]
@@ -41,7 +41,9 @@ const HoverTooltip: React.FC<Props> = props => {
 			<TooltipTitle>{title}</TooltipTitle>
 			{(m1 || m2 || icon) && (
 				<TooltipMainSection>
-					{icon && <ImageLoader src={icon} />}
+					{icon && (
+						<span className="icon">{typeof icon === 'string' ? <ImageLoader src={icon} /> : icon}</span>
+					)}
 					<div>
 						<Typography variant="body2" color="inherit">
 							{m1}

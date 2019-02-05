@@ -5,6 +5,7 @@ import { STATIC_SERVER } from '@utils/constants'
 import T from '@components/T'
 import HoverTooltip from '@components/HoverTooltip'
 import SkillName from '@components/SkillName'
+import ImageLoader from '@components/ImageLoader'
 import Cost from './Cost'
 import Info from './Info'
 import Tags from './Tags'
@@ -12,7 +13,7 @@ import Tags from './Tags'
 import { SkillSpecialization, ClassCode } from '@store'
 import { SkillData } from '@store/Skills'
 
-import { TooltipTitle } from './style'
+import { TooltipTitle, SkillIcon } from './style'
 import getAttributes from './getAttributes'
 
 interface Props {
@@ -59,7 +60,14 @@ const SkillTooltip: React.FC<Props> = props => {
 	return (
 		<HoverTooltip
 			button
-			icon={`${STATIC_SERVER}/images/skills/${hoverMoveData.icon}`}
+			icon={
+				<SkillIcon>
+					<ImageLoader src={`${STATIC_SERVER}/images/skills/${hoverMoveData.icon}`} />
+					{hoverMoveData.hotkey !== 'NONE' && hoverMoveData.hotkey !== 'PASSIVE' && (
+						<Typography>{hoverMoveData.hotkey.toLowerCase()}</Typography>
+					)}
+				</SkillIcon>
+			}
 			title={
 				<TooltipTitle>
 					<div>
