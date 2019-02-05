@@ -28,14 +28,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.tsx?$/,
-				use: ['react-hot-loader/webpack', 'babel-loader']
-			},
-			{
-				test: /\.(eot|woff|woff2|ttf)$/,
-				loader: 'file-loader',
-				options: {
-					name: 'static/font/[name].[ext]'
-				}
+				use: ['babel-loader']
 			},
 			{
 				test: /\.(gif|jpe?g|png)$/,
@@ -57,16 +50,7 @@ module.exports = {
 			},
 			{
 				test: /\.svg$/,
-				use: [
-					{
-						loader: 'react-svg-loader',
-						options: {
-							svgo: {
-								plugins: [{ cleanupAttrs: true }]
-							}
-						}
-					}
-				]
+				use: ['react-svg-loader']
 			}
 		]
 	},

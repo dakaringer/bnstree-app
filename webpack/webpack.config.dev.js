@@ -10,7 +10,7 @@ const ROOT = process.cwd()
 
 module.exports = merge(common, {
 	mode: 'development',
-	devtool: 'eval-source-map',
+	devtool: 'eval',
 	plugins: [
 		new ManifestPlugin({
 			writeToFileEmit: true,
