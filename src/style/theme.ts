@@ -89,6 +89,11 @@ export const muiTheme = createMuiTheme({
 			tooltip: {
 				backgroundColor: '#000000'
 			}
+		},
+		MuiIconButton: {
+			root: {
+				padding: '0.5rem'
+			}
 		}
 	}
 })
