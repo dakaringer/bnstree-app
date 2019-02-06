@@ -25,9 +25,10 @@ class ErrorBoundary extends React.PureComponent<{}, State> {
 			return
 		}
 		this.setState({ hasError: true })
+		const state = store.getState()
 		Raven.captureException(error, {
 			extra: {
-				store: store.getState()
+				user: state.user
 			}
 		})
 	}
