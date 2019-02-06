@@ -1,5 +1,5 @@
 interface Specializations {
-	BM: 'BM_BLAZEBLADE' | 'BM_SWIFTBLADE'
+	BM: 'BM_BLAZEBLADE' | 'BM_SWIFTBLADE' | 'BM_SOULBLADE'
 	KF: 'empty'
 	DE: 'empty'
 	FM: 'empty'
