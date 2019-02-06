@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import { STATIC_SERVER } from '@utils/constants'
+import { IS_DEV, STATIC_SERVER } from '@utils/constants'
 
 import T from '@components/T'
 import HoverTooltip from '@components/HoverTooltip'
@@ -72,7 +72,7 @@ const SkillTooltip: React.FC<Props> = props => {
 				<TooltipTitle>
 					<div>
 						<SkillName name={hoverMoveData.name} variant="subtitle1" />
-						{process.env.NODE_ENV !== 'production' && id && (
+						{IS_DEV && id && (
 							<Typography color="secondary" inline>
 								{' '}
 								{id}

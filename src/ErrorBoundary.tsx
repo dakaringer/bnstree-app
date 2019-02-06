@@ -1,5 +1,6 @@
 import React from 'react'
 import Raven from 'raven-js'
+import { IS_DEV } from '@utils/constants'
 
 import store from '@store/redux'
 
@@ -14,7 +15,7 @@ class ErrorBoundary extends React.PureComponent<{}, State> {
 			hasError: false
 		}
 
-		if ((process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') && process.env.SENTRY_DSN) {
+		if (!IS_DEV && process.env.SENTRY_DSN) {
 			Raven.config(process.env.SENTRY_DSN).install()
 		}
 	}

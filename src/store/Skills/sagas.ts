@@ -1,6 +1,7 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
 import { get } from 'lodash-es'
 import apollo from '@utils/apollo'
+import { IS_DEV } from '@utils/constants'
 
 import { sagaActionTypes } from './actionTypes'
 import { loadDataQuery } from './queries'
@@ -8,13 +9,12 @@ import actions from './actions'
 import { getData, getCurrentClass } from './selectors'
 
 // Calls
-const loadDataCall = (classCode: ReturnType<typeof actions.loadData>['payload'], force?: boolean) => {
+const loadDataCall = (classCode: ReturnType<typeof actions.loadData>['payload']) => {
 	return apollo.query({
 		query: loadDataQuery,
 		variables: {
 			classCode
-		},
-		fetchPolicy: force ? 'no-cache' : 'cache-first'
+		}
 	})
 }
 
@@ -23,11 +23,13 @@ function* loadSkillDataSaga(action: ReturnType<typeof actions.loadData>) {
 	yield put(actions.setClass(action.payload))
 	const data = yield select(getData)
 
-	if (data[action.payload]) {
+	if (!IS_DEV && data.length > 0) {
 		return
 	}
 
-	yield put(actions.setLoading(true))
+	if (data.length === 0) {
+		yield put(actions.setLoading(true))
+	}
 	const response = yield call(loadDataCall, action.payload)
 	yield put(
 		actions.setData({
@@ -42,7 +44,7 @@ function* loadSkillDataSaga(action: ReturnType<typeof actions.loadData>) {
 function* reloadSkillDataSaga() {
 	const classCode = yield select(getCurrentClass)
 
-	const response = yield call(loadDataCall, classCode, true)
+	const response = yield call(loadDataCall, classCode)
 	yield put(
 		actions.setData({
 			classCode,

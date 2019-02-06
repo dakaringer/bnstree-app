@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 import { useCallback } from '@utils/hooks'
-import { classes } from '@utils/constants'
+import { IS_DEV, classes } from '@utils/constants'
 
 import T from '@components/T'
 import FadeContainer from '@components/FadeContainer'
@@ -52,7 +52,7 @@ const SkillsPage: React.FC<Props> = props => {
 	return (
 		<PageContainer isLoading={isLoading} topNav={<SkillActionBar />}>
 			<ModeSelector>
-				{process.env.NODE_ENV !== 'production' && (
+				{IS_DEV && (
 					<Button
 						variant="outlined"
 						size="small"

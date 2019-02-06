@@ -1,6 +1,7 @@
 import React from 'react'
 import { Tooltip, Paper, Typography, ButtonBase } from '@material-ui/core'
 import { useCallback } from '@utils/hooks'
+import { IS_DEV } from '@utils/constants'
 
 import ImageLoader from '@components/ImageLoader'
 
@@ -33,7 +34,7 @@ const HoverTooltip: React.FC<Props> = props => {
 		<TooltipContent
 			className={className}
 			onContextMenu={useCallback(event => {
-				if (process.env.NODE_ENV === 'production') {
+				if (!IS_DEV) {
 					event.preventDefault()
 					event.stopPropagation()
 				}

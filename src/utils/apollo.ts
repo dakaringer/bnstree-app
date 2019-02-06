@@ -5,7 +5,7 @@ import { RetryLink } from 'apollo-link-retry'
 import { BatchHttpLink } from 'apollo-link-batch-http'
 import { onError } from 'apollo-link-error'
 
-import { API_SERVER } from './constants'
+import { IS_DEV, API_SERVER } from './constants'
 
 import store from '@store/redux'
 import { actions as userActions } from '@store/User'
@@ -53,5 +53,10 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 
 export default new ApolloClient({
 	link,
-	cache: new InMemoryCache({ fragmentMatcher })
+	cache: new InMemoryCache({ fragmentMatcher }),
+	defaultOptions: {
+		query: {
+			fetchPolicy: IS_DEV ? 'no-cache' : 'cache-first'
+		}
+	}
 })

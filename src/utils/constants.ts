@@ -1,11 +1,8 @@
 import classIcons from '@src/images/classIcons'
 
-export const API_SERVER =
-	process.env.NODE_ENV === 'production'
-		? 'https://next-api.bnstree.com'
-		: process.env.NODE_ENV === 'staging'
-		? 'https://next-api.bnstree.com'
-		: 'http://localhost:4001'
+export const IS_DEV = process.env.NODE_ENV !== 'production'
+
+export const API_SERVER = IS_DEV ? 'http://localhost:4001' : 'https://next-api.bnstree.com'
 
 export const STATIC_SERVER = 'https://static.bnstree.com'
 
