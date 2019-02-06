@@ -27,7 +27,14 @@ function* initializeAppSaga() {
 	yield put(rootActions.setLoading(false))
 }
 
+function* reloadDataSaga() {
+	const userPreferences = yield select(getPreferences)
+	yield call(loadLocaleSaga, { payload: userPreferences.locale } as ReturnType<typeof intlActions.loadLocale>)
+	yield call(loadNamesSaga, { payload: userPreferences.locale } as ReturnType<typeof nameActions.loadData>)
+}
+
 export default function*() {
 	yield takeLatest(sagaActionTypes.INIT, initializeAppSaga)
+	yield takeLatest(sagaActionTypes.RELOAD_DATA, reloadDataSaga)
 	yield all([userSagas(), intlSagas(), characterSagas(), skillSagas(), skillSagasLegacy(), itemSagas()])
 }

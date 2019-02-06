@@ -3,7 +3,8 @@ import { createStandardAction, ActionType } from 'typesafe-actions'
 import { sagaActionTypes, reduxActionTypes } from './rootActionTypes'
 
 export const sagaActions = {
-	initialize: createStandardAction(sagaActionTypes.INIT)<void>()
+	initialize: createStandardAction(sagaActionTypes.INIT)<void>(),
+	reloadData: createStandardAction(sagaActionTypes.RELOAD_DATA)<void>()
 }
 
 export const reduxActions = {

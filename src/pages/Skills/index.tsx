@@ -13,7 +13,7 @@ import SkillActionBar from '@components/SkillActionBar'
 import SkillList from '@components/SkillList'
 import TraitList from '@components/TraitList'
 
-import { RootState, ClassCode } from '@store'
+import { actions as rootActions, RootState, ClassCode } from '@store'
 import { selectors as skillSelectors, actions as skillActions } from '@store/Skills'
 import { actions as userActions } from '@store/User'
 
@@ -27,13 +27,14 @@ interface PropsFromStore {
 interface PropsFromDispatch {
 	loadClass: typeof skillActions.loadData
 	reloadClass: typeof skillActions.reloadData
+	reloadData: typeof rootActions.reloadData
 	updatePreferences: typeof userActions.updatePreferences
 }
 
 interface Props extends PropsFromStore, PropsFromDispatch, RouteComponentProps<{ className: string }> {}
 
 const SkillsPage: React.FC<Props> = props => {
-	const { match, skillPreferences, isLoading, updatePreferences, loadClass, reloadClass } = props
+	const { match, skillPreferences, isLoading, updatePreferences, loadClass, reloadClass, reloadData } = props
 	const classLink = classes.find(c => c.link === match.params.className)
 	const classCode = classLink && (classLink.classCode as ClassCode)
 
@@ -56,7 +57,10 @@ const SkillsPage: React.FC<Props> = props => {
 						variant="outlined"
 						size="small"
 						color="secondary"
-						onClick={useCallback(() => reloadClass())}>
+						onClick={useCallback(() => {
+							reloadData()
+							reloadClass()
+						})}>
 						Refresh
 					</Button>
 				)}
@@ -95,6 +99,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 		{
 			loadClass: skillActions.loadData,
 			reloadClass: skillActions.reloadData,
+			reloadData: rootActions.reloadData,
 			updatePreferences: userActions.updatePreferences
 		},
 		dispatch
