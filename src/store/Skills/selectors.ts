@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { get, groupBy } from 'lodash-es'
+import { get, concat, groupBy } from 'lodash-es'
 import Fuse from 'fuse.js'
 import { getNameData, mergeSkills, getTags } from '@utils/helpers'
 
@@ -38,7 +38,7 @@ export const getData = createSelector(
 	[state => getSkills(state).data, getCurrentClass, getSpecialization],
 	(skillData, classCode, specialization) => {
 		const data = (skillData[classCode] || [])
-			.filter(skill => get(skill, 'specialization', specialization) === specialization)
+			.filter(skill => concat(get(skill, 'specialization', specialization)).includes(specialization))
 			.map(skill => {
 				return {
 					...skill,
@@ -55,8 +55,8 @@ export const getData = createSelector(
 const getTraits = createSelector(
 	[state => getSkills(state).traits, getCurrentClass, getSpecialization],
 	(traits, classCode, specialization) => {
-		const data = (traits[classCode] || []).filter(
-			trait => get(trait, 'specialization', specialization) === specialization
+		const data = (traits[classCode] || []).filter(trait =>
+			concat(get(trait, 'specialization', specialization)).includes(specialization)
 		)
 		return data
 	}

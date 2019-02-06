@@ -1,5 +1,5 @@
 import React from 'react'
-import { get, isEqual } from 'lodash-es'
+import { get, concat, isEqual } from 'lodash-es'
 
 import Attribute from '@components/Attribute'
 
@@ -12,11 +12,11 @@ export default (
 	defaultSpecialization: SkillSpecialization<ClassCode>,
 	defaultIcon?: string
 ) => {
-	const currentAttributes = currentAttributeList.filter(
-		attribute => !attribute.specialization || attribute.specialization === defaultSpecialization
+	const currentAttributes = currentAttributeList.filter(attribute =>
+		concat(get(attribute, 'specialization', defaultSpecialization)).includes(defaultSpecialization)
 	)
-	const hoverAttributes = hoverAttributeList.filter(
-		attribute => !attribute.specialization || attribute.specialization === defaultSpecialization
+	const hoverAttributes = hoverAttributeList.filter(attribute =>
+		concat(get(attribute, 'specialization', defaultSpecialization)).includes(defaultSpecialization)
 	)
 
 	const result = hoverAttributes
