@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { ButtonBase, Typography, Collapse } from '@material-ui/core'
 import { ExpandMore, ExpandLess } from '@material-ui/icons'
-import { useCallback } from '@utils/hooks'
 
 import T from '@components/T'
 import StatListItem from './StatListItem'
@@ -35,7 +34,7 @@ const StatList: React.FC<Props> = props => {
 					<StatListItem stat={stat} statData={statData} />
 				</Collapse>
 			))}
-			<ButtonBase onClick={useCallback(() => setShowMore(!showMore))} component={ShowMore}>
+			<ButtonBase onClick={() => setShowMore(!showMore)} component={ShowMore}>
 				<Typography variant="caption" color="textSecondary" inline>
 					<T id={showMore ? 'character.navigation.show_less' : 'character.navigation.show_more'} />
 				</Typography>

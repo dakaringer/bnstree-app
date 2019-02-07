@@ -9,6 +9,7 @@ export const sagaActions = {
 }
 
 export const reduxActions = {
+	setType: createStandardAction(reduxActionTypes.SET_TYPE)<ItemType>(),
 	setData: createStandardAction(reduxActionTypes.SET_DATA)<{
 		itemType: ItemType
 		data: ItemData[]

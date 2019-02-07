@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import ReactGA from 'react-ga'
-import { useCallback } from '@utils/hooks'
 
 interface Props {
 	location: string
@@ -20,10 +19,10 @@ const GATracker: React.FC<Props> = props => {
 		trackPage(location)
 	})
 
-	const trackPage = useCallback((page: string) => {
+	const trackPage = (page: string) => {
 		ReactGA.set({ page })
 		ReactGA.pageview(page)
-	})
+	}
 
 	const { children } = props
 	return <>{children}</>

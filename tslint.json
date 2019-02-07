@@ -1,16 +1,23 @@
 {
 	"defaultSeverity": "error",
-	"extends": ["tslint:recommended", "tslint-react", "tslint-plugin-prettier", "tslint-config-prettier"],
+	"extends": [
+		"tslint:recommended",
+		"tslint-react",
+		"tslint-react-hooks",
+		"tslint-plugin-prettier",
+		"tslint-config-prettier"
+	],
 	"rules": {
 		"prettier": true,
 		"interface-name": {
 			"options": ["never-prefix"]
 		},
 		"ordered-imports": false,
-		// "jsx-no-lambda": false,
+		"jsx-no-lambda": false,
 		"jsx-boolean-value": {
 			"options": ["never"]
 		},
+		"react-hooks-nesting": "error",
 		"no-console": {
 			"options": ["log"]
 		},

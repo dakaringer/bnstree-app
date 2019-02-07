@@ -3,7 +3,6 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import { Button } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
 import { IS_DEV, classes } from '@utils/constants'
 
 import T from '@components/T'
@@ -57,10 +56,10 @@ const SkillsPage: React.FC<Props> = props => {
 						variant="outlined"
 						size="small"
 						color="secondary"
-						onClick={useCallback(() => {
+						onClick={() => {
 							reloadData()
 							reloadClass()
-						})}>
+						}}>
 						Refresh
 					</Button>
 				)}
@@ -68,14 +67,14 @@ const SkillsPage: React.FC<Props> = props => {
 					variant="outlined"
 					size="small"
 					color={mode === 'TRAITS' ? 'primary' : 'default'}
-					onClick={useCallback(() => updatePreferences({ skills: { mode: 'TRAITS' } }))}>
+					onClick={() => updatePreferences({ skills: { mode: 'TRAITS' } })}>
 					<T id="skill.navigation.traits" />
 				</Button>
 				<Button
 					variant="outlined"
 					size="small"
 					color={mode === 'LIST' ? 'primary' : 'default'}
-					onClick={useCallback(() => updatePreferences({ skills: { mode: 'LIST' } }))}>
+					onClick={() => updatePreferences({ skills: { mode: 'LIST' } })}>
 					<T id="skill.navigation.skills" />
 				</Button>
 			</ModeSelector>

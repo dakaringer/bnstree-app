@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Paper, Typography, ButtonBase } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
 import { STATIC_SERVER } from '@utils/constants'
 
 import ImageLoader from '@components/ImageLoader'
@@ -35,7 +34,7 @@ const SkillListElement: React.FC<Props> = props => {
 
 	const { classCode, skillData, currentMove, element, showHotkey, readonly, updatePreferences } = props
 
-	const selectMove = useCallback((skillId: string, moveData: DeepReadonly<MoveData>) => {
+	const selectMove = (skillId: string, moveData: DeepReadonly<MoveData>) => {
 		if (readonly) {
 			return
 		}
@@ -51,7 +50,7 @@ const SkillListElement: React.FC<Props> = props => {
 				}
 			}
 		})
-	})
+	}
 
 	const filteredMoves = skillData.moves.filter(move => !move.element || move.element === element)
 	const moves = filteredMoves.map((move, i) => {
@@ -110,7 +109,7 @@ const SkillListElement: React.FC<Props> = props => {
 										hmActive={moveNumber + 3 === currentMove}
 										readonly={readonly || moves.length === 1}
 										selectMove={selectMove}
-										hoverMove={useCallback(hoverMove => setHoverMoveData(hoverMove))}
+										hoverMove={setHoverMoveData}
 									/>
 								}
 							/>

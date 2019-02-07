@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Button, IconButton, Input, MenuItem, Menu } from '@material-ui/core'
 import { Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
-import { debounce } from 'lodash-es'
-import { useCallback } from '@utils/hooks'
 import { classes } from '@utils/constants'
+import { useDebounce } from '@utils/hooks'
 import compose from '@utils/compose'
-import classIcons from '@src/images/classIcons'
 
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
@@ -19,6 +17,7 @@ import { selectors as itemSelectors } from '@store/Items'
 import { actions as userActions } from '@store/User'
 
 import { MenuItemContainer } from './style'
+import classIcons from '@src/images/classIcons'
 
 interface PropsFromStore {
 	itemPreferences: ReturnType<typeof itemSelectors.getItemPreferences>
@@ -32,37 +31,26 @@ interface PropsFromDispatch {
 interface Props extends InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
 
 const ItemActionBar: React.FC<Props> = props => {
+	const { itemPreferences, intl, updatePreferencesNoSave } = props
 	const [classAnchor, setClassAnchor] = useState<HTMLElement | undefined>(undefined)
 	const [searchString, setSearchString] = useState('')
+	const debouncedSearchString = useDebounce(searchString, 200)
 
-	const { itemPreferences, intl, updatePreferencesNoSave } = props
+	useEffect(() => {
+		updatePreferencesNoSave({ items: { search: debouncedSearchString } })
+	}, [debouncedSearchString])
 
-	const filter = useCallback((value: ItemFilter) => () => {
+	const filter = (value: ItemFilter) => () => {
 		const { updatePreferences } = props
 		updatePreferences({ items: { filter: value } })
 		setClassAnchor(undefined)
-	})
-
-	const filterItems = useCallback(
-		debounce(
-			(search: string) => {
-				updatePreferencesNoSave({ skillsLegacy: { search } })
-			},
-			200,
-			{ leading: true }
-		)
-	)
-
-	const handleSearchInput = useCallback(event => {
-		setSearchString(event.target.value || '')
-		filterItems(event.target.value || '')
-	})
+	}
 
 	return (
 		<ActionBar
 			left={
 				<>
-					<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
+					<Button onClick={event => setClassAnchor(event.currentTarget)}>
 						{itemPreferences.filter !== 'ALL' && <ImageLoader src={classIcons[itemPreferences.filter]} />}
 						<T
 							id={
@@ -72,10 +60,7 @@ const ItemActionBar: React.FC<Props> = props => {
 							}
 						/>
 					</Button>
-					<Menu
-						anchorEl={classAnchor}
-						open={!!classAnchor}
-						onClose={useCallback(() => setClassAnchor(undefined))}>
+					<Menu anchorEl={classAnchor} open={!!classAnchor} onClose={() => setClassAnchor(undefined)}>
 						{itemPreferences.filter !== 'ALL' && (
 							<MenuItem key="all" onClick={filter('ALL')}>
 								<T id="item.general.all" />
@@ -99,11 +84,11 @@ const ItemActionBar: React.FC<Props> = props => {
 					disableUnderline
 					placeholder={intl.formatMessage({ id: 'item.search_placeholder' })}
 					value={searchString}
-					onChange={handleSearchInput}
+					onChange={event => setSearchString(event.target.value)}
 					endAdornment={
 						<>
 							{searchString.trim() !== '' && (
-								<IconButton onClick={handleSearchInput}>
+								<IconButton onClick={() => setSearchString('')}>
 									<Clear fontSize="small" />
 								</IconButton>
 							)}

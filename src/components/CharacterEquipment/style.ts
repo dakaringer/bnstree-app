@@ -47,17 +47,15 @@ export const Gems = styled.div`
 `
 
 export const Item = styled.div`
-	&& {
-		margin: 0.5rem 0 1rem;
-		display: flex;
-		align-items: center;
+	margin: 0.5rem 0 1rem;
+	display: flex;
+	align-items: center;
 
-		& img {
-			height: 3.5rem;
-			width: 3.5rem;
-			background: ${props => props.theme.palette.blackGlass};
-			margin-right: 1rem;
-		}
+	& img {
+		height: 3.5rem;
+		width: 3.5rem;
+		background: ${props => props.theme.palette.blackGlass};
+		margin-right: 1rem;
 	}
 `
 

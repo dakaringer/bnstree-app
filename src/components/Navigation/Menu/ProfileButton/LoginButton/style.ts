@@ -4,10 +4,8 @@ import GoogleLogoSVG from './images/GoogleLogo.svg'
 import GoogleLogoPressedSVG from './images/GoogleLogo-pressed.svg'
 
 export const ProfileButton = styled.li`
-	&& {
-		height: 5.4rem;
-		padding: 1.5rem;
-	}
+	height: 5.4rem;
+	padding: 1.5rem;
 `
 
 export const GoogleLogo = styled(GoogleLogoSVG)`

@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { Paper, MenuItem } from '@material-ui/core'
 import Autosuggest from 'react-autosuggest'
 import gql from 'graphql-tag'
-import { debounce, get } from 'lodash-es'
-import { useCallback } from '@utils/hooks'
+import { get } from 'lodash-es'
+import { useCallback, useDebounce } from '@utils/hooks'
 import apollo from '@utils/apollo'
 import compose from '@utils/compose'
 import { getValidRegion } from '@utils/helpers'
@@ -36,40 +36,39 @@ interface Props extends SelfProps, PropsFromStore, PropsFromDispatch, RouteCompo
 const CharacterSearch: React.FC<Props> = props => {
 	const [name, setName] = useState('')
 	const [suggestions, setSuggestions] = useState([])
+	const [searchString, setSearchString] = useState('')
+	const debouncedSearchString = useDebounce(searchString, 200)
 
-	const fetchSuggestions = useCallback(
-		debounce((options: Autosuggest.SuggestionsFetchRequestedParams) => {
-			const { value } = options
-			const { region } = props
-			apollo
-				.query({
-					query: gql`
-						query searchSuggestions($name: String!, $region: CharacterRegion!) {
-							character {
-								search(name: $name, region: $region) {
-									suggestions
-								}
+	useEffect(() => {
+		const { region } = props
+		apollo
+			.query({
+				query: gql`
+					query searchSuggestions($name: String!, $region: CharacterRegion!) {
+						character {
+							search(name: $name, region: $region) {
+								suggestions
 							}
 						}
-					`,
-					variables: {
-						name: value,
-						region
-					},
-					errorPolicy: 'ignore'
-				})
-				.then(response => {
-					setSuggestions(get(response, 'data.character.search.suggestions', []))
-				})
-		}, 200)
-	)
+					}
+				`,
+				variables: {
+					name: debouncedSearchString,
+					region
+				},
+				errorPolicy: 'ignore'
+			})
+			.then(response => {
+				setSuggestions(get(response, 'data.character.search.suggestions', []))
+			})
+	}, [debouncedSearchString])
 
-	const selectRegion = useCallback((region: string) => {
+	const selectRegion = (region: string) => {
 		const { updatePreferences } = props
 		updatePreferences({ character: { region: (region as CharacterRegion) || 'NA' } })
-	})
+	}
 
-	const submit = useCallback((search: string) => {
+	const submit = (search: string) => {
 		const { region, history, onSubmit } = props
 		onSubmit()
 		if (search.trim() !== '') {
@@ -77,7 +76,7 @@ const CharacterSearch: React.FC<Props> = props => {
 			history.push(`/character/${searchRegion.toLowerCase()}/${search}`)
 			setName('')
 		}
-	})
+	}
 
 	const { className } = props
 
@@ -85,14 +84,14 @@ const CharacterSearch: React.FC<Props> = props => {
 		<CharacterSearchContainer className={className}>
 			<Autosuggest
 				suggestions={suggestions}
-				onSuggestionsFetchRequested={fetchSuggestions}
-				onSuggestionsClearRequested={useCallback(() => setSuggestions([]))}
-				getSuggestionValue={useCallback(suggestion => suggestion)}
+				onSuggestionsFetchRequested={options => setSearchString(options.value)}
+				onSuggestionsClearRequested={() => setSuggestions([])}
+				getSuggestionValue={suggestion => suggestion}
 				inputProps={{
 					value: name,
-					onChange: useCallback(event => setName(event.currentTarget.value))
+					onChange: event => setName(event.currentTarget.value)
 				}}
-				onSuggestionSelected={useCallback((_event, { suggestion }) => submit(suggestion))}
+				onSuggestionSelected={(_event, { suggestion }) => submit(suggestion)}
 				renderInputComponent={useCallback((inputProps: any) => {
 					const { region } = props
 					const { ref, ...other } = inputProps

@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Button, IconButton, Input, Hidden, MenuItem, Menu } from '@material-ui/core'
+import { MenuItemProps } from '@material-ui/core/MenuItem'
 import { Tune, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
-import { get, debounce } from 'lodash-es'
+import { get } from 'lodash-es'
 import { classes } from '@utils/constants'
-import { useCallback } from '@utils/hooks'
+import { useCallback, useDebounce } from '@utils/hooks'
 import compose from '@utils/compose'
 
 import T from '@components/T'
@@ -37,66 +38,53 @@ interface PropsFromDispatch {
 interface Props extends InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
 
 const SkillActionBar: React.FC<Props> = props => {
+	const { classCode, intl, skillPreferences, updatePreferences, updatePreferencesNoSave } = props
+
 	const [settingsDialogOpen, setSettingsDialogOpen] = useState(false)
 	const [classAnchor, setClassAnchor] = useState<HTMLElement | undefined>(undefined)
 	const [specializationAnchor, setSpecializationAnchor] = useState<HTMLElement | undefined>(undefined)
 	const [searchString, setSearchString] = useState('')
+	const debouncedSearchString = useDebounce(searchString, 200)
 
-	const filterSkills = useCallback(
-		debounce(
-			(search: string) => {
-				const { updatePreferencesNoSave } = props
-				updatePreferencesNoSave({ skills: { search } })
-			},
-			200,
-			{ leading: true }
-		)
-	)
+	useEffect(() => {
+		updatePreferencesNoSave({ skills: { search: debouncedSearchString } })
+	}, [debouncedSearchString])
 
-	const handleSearchInput = useCallback(event => {
-		setSearchString(event.target.value || '')
-		filterSkills(event.target.value || '')
-	})
-
-	const selectSpecialization = useCallback((newSpecialization: SkillSpecialization<ClassCode>) => () => {
-		const { updatePreferences, classCode: targetClassCode } = props
-
+	const selectSpecialization = (newSpecialization: SkillSpecialization<ClassCode>) => () => {
 		updatePreferences({
 			skills: {
 				specialization: {
-					[targetClassCode]: newSpecialization
+					[classCode]: newSpecialization
 				}
 			}
 		})
 		setSpecializationAnchor(undefined)
-	})
+	}
 
-	const { classCode, intl, skillPreferences } = props
+	const renderLink = useCallback(c => ({ innerRef, ...linkProps }: MenuItemProps) => (
+		<NavLink to={c.link} {...linkProps} />
+	))
+
 	const specialization = skillPreferences.specialization[classCode]
 
 	return (
 		<ActionBar
 			left={
 				<>
-					<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
+					<Button onClick={event => setClassAnchor(event.currentTarget)}>
 						<ImageLoader src={classIcons[classCode]} />
 						<Hidden smDown>
 							<T id={['general', 'class_names', classCode]} />
 						</Hidden>
 					</Button>
-					<Menu
-						anchorEl={classAnchor}
-						open={!!classAnchor}
-						onClose={useCallback(() => setClassAnchor(undefined))}>
+					<Menu anchorEl={classAnchor} open={!!classAnchor} onClose={() => setClassAnchor(undefined)}>
 						{classes
 							.filter(c => c.classCode !== classCode)
 							.map(c => (
 								<MenuItem
 									key={c.classCode}
-									onClick={useCallback(() => setClassAnchor(undefined))}
-									component={useCallback(({ innerRef, ...linkProps }) => (
-										<NavLink to={c.link} {...linkProps} />
-									))}>
+									onClick={() => setClassAnchor(undefined)}
+									component={renderLink(c)}>
 									<MenuItemContainer>
 										<ImageLoader src={classIcons[c.classCode as ClassCode]} />
 										<T id={['general', 'class_names', c.classCode]} />
@@ -104,14 +92,14 @@ const SkillActionBar: React.FC<Props> = props => {
 								</MenuItem>
 							))}
 					</Menu>
-					<Button onClick={useCallback(event => setSpecializationAnchor(event.currentTarget))}>
+					<Button onClick={event => setSpecializationAnchor(event.currentTarget)}>
 						<ImageLoader src={get(specializationIcons, [classCode, specialization], '')} />
 						<T id={['general', 'specializations', specialization]} />
 					</Button>
 					<Menu
 						anchorEl={specializationAnchor}
 						open={!!specializationAnchor}
-						onClose={useCallback(() => setSpecializationAnchor(undefined))}>
+						onClose={() => setSpecializationAnchor(undefined)}>
 						{(specializations[classCode] as SkillSpecialization<ClassCode>[])
 							.filter(s => s !== specialization)
 							.map(s => (
@@ -130,11 +118,11 @@ const SkillActionBar: React.FC<Props> = props => {
 					disableUnderline
 					placeholder={intl.formatMessage({ id: 'skill.search_placeholder' })}
 					value={searchString}
-					onChange={handleSearchInput}
+					onChange={event => setSearchString(event.target.value)}
 					endAdornment={
 						<>
 							{searchString.trim() !== '' && (
-								<IconButton onClick={handleSearchInput}>
+								<IconButton onClick={() => setSearchString('')}>
 									<Clear fontSize="small" />
 								</IconButton>
 							)}
@@ -144,10 +132,10 @@ const SkillActionBar: React.FC<Props> = props => {
 			}
 			right={
 				<>
-					<IconButton color="inherit" onClick={useCallback(() => setSettingsDialogOpen(true))}>
+					<IconButton color="inherit" onClick={() => setSettingsDialogOpen(true)}>
 						<Tune fontSize="small" />
 					</IconButton>
-					<SettingsDialog open={settingsDialogOpen} close={useCallback(() => setSettingsDialogOpen(false))} />
+					<SettingsDialog open={settingsDialogOpen} close={() => setSettingsDialogOpen(false)} />
 				</>
 			}
 		/>

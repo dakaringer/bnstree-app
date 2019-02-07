@@ -1,23 +1,21 @@
 import styled, { css, media } from '@style/styled-components'
 
 export const HamburgerButton = styled.button<{ active?: boolean }>`
-	&& {
-		padding: 0.5rem;
-		position: fixed;
-		z-index: 1200;
-		top: 2.3rem;
-		left: -0.8rem;
-		transform-origin: 50% 0;
-		letter-spacing: 0.5rem;
-		color: ${props => props.theme.palette.textSecondary};
-		border: 0;
-		margin: 0;
-		outline: none;
+	padding: 0.5rem;
+	position: fixed;
+	z-index: 1200;
+	top: 2.3rem;
+	left: -0.8rem;
+	transform-origin: 50% 0;
+	letter-spacing: 0.5rem;
+	color: ${props => props.theme.palette.textSecondary};
+	border: 0;
+	margin: 0;
+	outline: none;
 
-		${media.xs`
+	${media.xs`
 			top: 1.8rem;
 		`}
-	}
 
 	&:hover {
 		opacity: 0.8;

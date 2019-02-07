@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Button, IconButton, Input, Hidden, Checkbox, MenuItem, Menu, Tooltip } from '@material-ui/core'
+import { MenuItemProps } from '@material-ui/core/MenuItem'
 import { Tune, Share, FilterList, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
-import { debounce } from 'lodash-es'
 import { classes } from '@utils/constants'
-import { useCallback } from '@utils/hooks'
+import { useCallback, useDebounce } from '@utils/hooks'
 import compose from '@utils/compose'
 
 import T from '@components/T'
@@ -42,28 +42,18 @@ interface SelfProps {
 interface Props extends SelfProps, InjectedIntlProps, PropsFromStore, PropsFromDispatch {}
 
 const SkillActionBar: React.FC<Props> = props => {
+	const { classCode, element, intl, skillPreferences, updatePreferences, updatePreferencesNoSave } = props
+
 	const [settingsDialogOpen, setSettingsDialogOpen] = useState(false)
 	const [classAnchor, setClassAnchor] = useState<HTMLElement | undefined>(undefined)
 	const [searchString, setSearchString] = useState('')
+	const debouncedSearchString = useDebounce(searchString, 200)
 
-	const { classCode, element, intl, skillPreferences, updatePreferences, updatePreferencesNoSave } = props
+	useEffect(() => {
+		updatePreferencesNoSave({ skillsLegacy: { search: debouncedSearchString } })
+	}, [debouncedSearchString])
 
-	const filterSkills = useCallback(
-		debounce(
-			(search: string) => {
-				updatePreferencesNoSave({ skillsLegacy: { search } })
-			},
-			200,
-			{ leading: true }
-		)
-	)
-
-	const handleSearchInput = useCallback(event => {
-		setSearchString(event.target.value || '')
-		filterSkills(event.target.value || '')
-	})
-
-	const toggleElement = useCallback(() => {
+	const toggleElement = () => {
 		const classElements = Object.keys(skillPreferences.build[classCode])
 		const newElement = classElements[0] === element ? classElements[1] : classElements[0]
 
@@ -74,31 +64,30 @@ const SkillActionBar: React.FC<Props> = props => {
 				}
 			}
 		})
-	})
+	}
+
+	const renderLink = useCallback(c => ({ innerRef, ...linkProps }: MenuItemProps) => (
+		<NavLink to={c.link} {...linkProps} />
+	))
 
 	return (
 		<ActionBar
 			left={
 				<>
-					<Button onClick={useCallback(event => setClassAnchor(event.currentTarget))}>
+					<Button onClick={event => setClassAnchor(event.currentTarget)}>
 						<ImageLoader src={classIcons[classCode]} />
 						<Hidden smDown>
 							<T id={['general', 'class_names', classCode]} />
 						</Hidden>
 					</Button>
-					<Menu
-						anchorEl={classAnchor}
-						open={!!classAnchor}
-						onClose={useCallback(() => setClassAnchor(undefined))}>
+					<Menu anchorEl={classAnchor} open={!!classAnchor} onClose={() => setClassAnchor(undefined)}>
 						{classes
 							.filter(c => c.classCode !== classCode)
 							.map(c => (
 								<MenuItem
 									key={c.classCode}
-									onClick={useCallback(() => setClassAnchor(undefined))}
-									component={useCallback(({ innerRef, ...linkProps }) => (
-										<NavLink to={c.link} {...linkProps} />
-									))}>
+									onClick={() => setClassAnchor(undefined)}
+									component={renderLink(c)}>
 									<MenuItemContainer>
 										<ImageLoader src={classIcons[c.classCode as ClassCode]} />
 										<T id={['general', 'class_names', c.classCode]} />
@@ -117,11 +106,11 @@ const SkillActionBar: React.FC<Props> = props => {
 					disableUnderline
 					placeholder={intl.formatMessage({ id: 'skill.search_placeholder' })}
 					value={searchString}
-					onChange={handleSearchInput}
+					onChange={event => setSearchString(event.target.value)}
 					endAdornment={
 						<>
 							{searchString.trim() !== '' && (
-								<IconButton onClick={handleSearchInput}>
+								<IconButton onClick={() => setSearchString('')}>
 									<Clear fontSize="small" />
 								</IconButton>
 							)}
@@ -131,14 +120,14 @@ const SkillActionBar: React.FC<Props> = props => {
 									color="primary"
 									icon={<FilterList fontSize="small" />}
 									checkedIcon={<FilterList fontSize="small" />}
-									onClick={useCallback(() =>
+									onClick={() =>
 										updatePreferences({
 											skillsLegacy: {
 												visibility:
 													skillPreferences.visibility === 'TRAINABLE' ? 'ALL' : 'TRAINABLE'
 											}
 										})
-									)}
+									}
 								/>
 							</Tooltip>
 						</>
@@ -147,13 +136,13 @@ const SkillActionBar: React.FC<Props> = props => {
 			}
 			right={
 				<>
-					<IconButton color="inherit" onClick={useCallback(() => setSettingsDialogOpen(true))}>
+					<IconButton color="inherit" onClick={() => setSettingsDialogOpen(true)}>
 						<Tune fontSize="small" />
 					</IconButton>
 					<IconButton color="primary" disabled>
 						<Share fontSize="small" />
 					</IconButton>
-					<SettingsDialog open={settingsDialogOpen} close={useCallback(() => setSettingsDialogOpen(false))} />
+					<SettingsDialog open={settingsDialogOpen} close={() => setSettingsDialogOpen(false)} />
 				</>
 			}
 		/>

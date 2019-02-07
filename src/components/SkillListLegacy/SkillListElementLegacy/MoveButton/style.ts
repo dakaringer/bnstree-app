@@ -9,31 +9,29 @@ export const StyledMoveButton = styled.button<{
 	withHM?: boolean
 	disabled?: boolean
 }>`
-	&& {
-		width: 100%;
-		font-size: 1rem;
-		justify-content: flex-start;
-		padding: 0.8rem;
-		${props => props.withHM && 'padding-right: 3rem;'}
+	width: 100%;
+	font-size: 1rem;
+	justify-content: flex-start;
+	padding: 0.8rem;
+	${props => props.withHM && 'padding-right: 3rem;'}
 
-		${props =>
-			props.disabled &&
-			css`
-				border-color: transparent;
-				color: ${props.theme.palette.textPrimary} !important;
-				filter: brightness(0.7);
-			`}
+	${props =>
+		props.disabled &&
+		css`
+			border-color: transparent;
+			color: ${props.theme.palette.textPrimary} !important;
+			filter: brightness(0.7);
+		`}
 
-		${props =>
-			props.active &&
-			css`
-				border-color: rgba(0, 255, 255, 0.5);
+	${props =>
+		props.active &&
+		css`
+			border-color: rgba(0, 255, 255, 0.5);
 
-				& label {
-					color: aqua;
-				}
-			`}
-	}
+			& label {
+				color: aqua;
+			}
+		`}
 
 	& img {
 		height: 1.6em;

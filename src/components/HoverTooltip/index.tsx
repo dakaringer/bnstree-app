@@ -1,6 +1,5 @@
 import React from 'react'
 import { Tooltip, Paper, Typography, ButtonBase } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
 import { IS_DEV } from '@utils/constants'
 
 import ImageLoader from '@components/ImageLoader'
@@ -33,12 +32,12 @@ const HoverTooltip: React.FC<Props> = props => {
 	const tooltip = (
 		<TooltipContent
 			className={className}
-			onContextMenu={useCallback(event => {
+			onContextMenu={event => {
 				if (!IS_DEV) {
 					event.preventDefault()
 					event.stopPropagation()
 				}
-			})}>
+			}}>
 			<TooltipTitle>{title}</TooltipTitle>
 			{(m1 || m2 || icon) && (
 				<TooltipMainSection>
@@ -86,10 +85,10 @@ const HoverTooltip: React.FC<Props> = props => {
 				}}
 				interactive>
 				<Target
-					onContextMenu={useCallback(event => {
+					onContextMenu={event => {
 						event.preventDefault()
 						event.stopPropagation()
-					})}>
+					}}>
 					{button ? <ButtonBase>{target}</ButtonBase> : target}
 				</Target>
 			</Tooltip>

@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ButtonBase, Modal, Typography, Divider, Paper, Hidden, Menu, MenuItem } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
-import { useCallback } from '@utils/hooks'
 import { API_SERVER } from '@utils/constants'
 import classIcons from '@src/images/classIcons'
 
@@ -39,7 +38,7 @@ const CharacterProfile: React.FC<Props> = props => {
 	const profileImg = (
 		<ImageLoader
 			src={`${API_SERVER}/proxy/${profileData.region.toLowerCase()}/profile_img/${profileData.profileImg}`}
-			onError={useCallback(() => setNoImage(true))}
+			onError={() => setNoImage(true)}
 		/>
 	)
 
@@ -55,7 +54,7 @@ const CharacterProfile: React.FC<Props> = props => {
 	return (
 		<CharacterProfileContainer className={className}>
 			<ProfileImgContainer noImage={noImage}>
-				<ButtonBase onClick={useCallback(() => setImgOpen(true))} disabled={noImage}>
+				<ButtonBase onClick={() => setImgOpen(true)} disabled={noImage}>
 					{profileImg}
 				</ButtonBase>
 			</ProfileImgContainer>
@@ -65,7 +64,7 @@ const CharacterProfile: React.FC<Props> = props => {
 						{profileData.name}
 					</Typography>
 					<Typography color="textSecondary">
-						<ButtonBase onClick={useCallback(event => setAccountAnchor(event.currentTarget))}>
+						<ButtonBase onClick={event => setAccountAnchor(event.currentTarget)}>
 							{profileData.account}
 							<ExpandMore />
 						</ButtonBase>
@@ -114,15 +113,12 @@ const CharacterProfile: React.FC<Props> = props => {
 					</ArenaContainer>
 				</Paper>
 			</GeneralInfo>
-			<Modal open={imgOpen} onClose={useCallback(() => setImgOpen(false))}>
-				<ButtonBase component={ProfileImgModal} onClick={useCallback(() => setImgOpen(false))}>
+			<Modal open={imgOpen} onClose={() => setImgOpen(false)}>
+				<ButtonBase component={ProfileImgModal} onClick={() => setImgOpen(false)}>
 					{profileImg}
 				</ButtonBase>
 			</Modal>
-			<Menu
-				open={!!accountAnchor}
-				anchorEl={accountAnchor}
-				onClose={useCallback(() => setAccountAnchor(undefined))}>
+			<Menu open={!!accountAnchor} anchorEl={accountAnchor} onClose={() => setAccountAnchor(undefined)}>
 				{accountCharacters}
 			</Menu>
 		</CharacterProfileContainer>

@@ -19,12 +19,10 @@ export const MainStatContainer = styled.div<{ type: 'attack' | 'defense' }>`
 `
 
 export const HMPointButton = styled.button`
-	&& {
-		width: 100%;
-		justify-content: space-between;
-		background: rgba(0, 0, 0, 0.5);
-		padding: 0.5rem 1.6rem;
-	}
+	width: 100%;
+	justify-content: space-between;
+	background: rgba(0, 0, 0, 0.5);
+	padding: 0.5rem 1.6rem;
 
 	& img {
 		vertical-align: bottom;

@@ -3,7 +3,6 @@ import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { MenuItem } from '@material-ui/core'
 import { InputBaseComponentProps } from '@material-ui/core/InputBase'
 import { regions } from '@utils/constants'
-import { useCallback } from '@utils/hooks'
 
 import { SearchInputComponent, RegionSelect, RegionSelectMenuItem } from './style'
 
@@ -25,18 +24,16 @@ const SearchInput: React.FC<Props> = props => {
 
 	return (
 		<form
-			onSubmit={useCallback(event => {
+			onSubmit={event => {
 				event.preventDefault()
 				onSubmit(inputProps.value)
-			})}>
+			}}>
 			<SearchInputComponent
 				placeholder={intl.formatMessage({ id: 'character.search_placeholder' })}
 				inputRef={inputRef}
 				inputProps={inputProps}
 				endAdornment={
-					<RegionSelect
-						onChange={useCallback(event => onRegionChange(event.target.value))}
-						value={currentRegion}>
+					<RegionSelect onChange={event => onRegionChange(event.target.value)} value={currentRegion}>
 						{regions.map(region => (
 							<MenuItem key={region} value={region} component={RegionSelectMenuItem}>
 								{region}

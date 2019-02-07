@@ -31,14 +31,14 @@ const Menu: React.FC<Props> = props => {
 		}
 	}, [location.pathname, isOpen])
 
-	const goBack = useCallback(() => setLinkArray(linkArray.slice(0, -1)))
-	const goForward = useCallback((linkObject: typeof baseLinks[0]) => () => {
+	const goBack = () => setLinkArray(linkArray.slice(0, -1))
+	const goForward = (linkObject: typeof baseLinks[0]) => () => {
 		if (linkObject.subMenu) {
 			setLinkArray([...linkArray, linkObject])
 		} else {
 			onClose()
 		}
-	})
+	}
 
 	const renderLinkItem = useCallback(
 		(linkObject: typeof baseLinks[0], menuLink: string, active: boolean) => (listItemProps: ListItemProps) =>

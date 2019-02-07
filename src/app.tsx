@@ -3,8 +3,9 @@ import React, { useEffect } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RouteProps } from 'react-router'
+import { create } from 'jss'
 import { Snackbar, Typography } from '@material-ui/core'
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles'
+import { ThemeProvider as MuiThemeProvider, StylesProvider, jssPreset } from '@material-ui/styles'
 import { IntlProvider } from 'react-intl'
 import compose from '@utils/compose'
 
@@ -20,6 +21,11 @@ import { muiTheme, styledTheme } from '@style/theme'
 import { selectors as rootSelectors, actions as rootActions, RootState } from '@store'
 import { selectors as intlSelectors } from '@store/Intl'
 import { selectors as userSelectors } from '@store/User'
+
+const jss = create({
+	...jssPreset(),
+	insertionPoint: document.getElementById('jss-insertion-point') as HTMLElement
+})
 
 interface PropsFromStore {
 	locale: ReturnType<typeof intlSelectors.getLocale>
@@ -42,33 +48,37 @@ const App: React.FC<Props> = props => {
 	const { locale, messages, showlogoutMessage, isLoading, location } = props
 	return (
 		<GATracker location={location ? location.pathname : '/'}>
-			{isLoading ? (
-				<LoadingLyn />
-			) : (
-				<IntlProvider locale={locale ? locale.toLowerCase() : 'en'} messages={messages}>
+			<IntlProvider locale={locale ? locale.toLowerCase() : 'en'} messages={messages}>
+				<StylesProvider jss={jss}>
 					<ThemeProvider theme={styledTheme}>
 						<MuiThemeProvider theme={muiTheme}>
-							<Navigation>
-								<Router />
-							</Navigation>
-							<Snackbar
-								anchorOrigin={{
-									vertical: 'top',
-									horizontal: 'right'
-								}}
-								open={showlogoutMessage}
-								autoHideDuration={3000}
-								message={
-									<Typography color="primary">
-										<T id="navigation.user.logout_message" />
-									</Typography>
-								}
-							/>
+							{isLoading ? (
+								<LoadingLyn />
+							) : (
+								<>
+									<Navigation>
+										<Router />
+									</Navigation>
+									<Snackbar
+										anchorOrigin={{
+											vertical: 'top',
+											horizontal: 'right'
+										}}
+										open={showlogoutMessage}
+										autoHideDuration={3000}
+										message={
+											<Typography color="primary">
+												<T id="navigation.user.logout_message" />
+											</Typography>
+										}
+									/>
+								</>
+							)}
+							<Background />
 						</MuiThemeProvider>
 					</ThemeProvider>
-				</IntlProvider>
-			)}
-			<Background />
+				</StylesProvider>
+			</IntlProvider>
 		</GATracker>
 	)
 }

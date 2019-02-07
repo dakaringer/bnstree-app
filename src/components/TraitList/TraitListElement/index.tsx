@@ -47,7 +47,7 @@ const TraitListElement: React.FC<Props> = props => {
 				component={useCallback((paperProps: PaperProps) => (
 					<TraitListElementContainer active={active} {...paperProps} />
 				))}
-				onClick={useCallback(() => {
+				onClick={() => {
 					if (active) {
 						return
 					}
@@ -62,7 +62,7 @@ const TraitListElement: React.FC<Props> = props => {
 							}
 						}
 					})
-				})}>
+				}}>
 				<TraitTooltip
 					trait={trait}
 					specialization={specialization}

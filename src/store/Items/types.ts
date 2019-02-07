@@ -1,6 +1,7 @@
 import { ItemType, ClassCode } from '@store'
 
 export interface Items {
+	currentType: ItemType
 	data: { [I in ItemType]: ItemData[] | null }
 	isLoading: boolean
 }

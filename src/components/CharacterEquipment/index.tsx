@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Typography, Button, Fade, Paper } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
 import { API_SERVER } from '@utils/constants'
 
 import T from '@components/T'
@@ -112,7 +111,7 @@ const CharacterEquipment: React.FC<Props> = props => {
 						))}
 					</SoulshieldCircle>
 					{equipmentData.soulshield.pieces.filter(piece => piece.name).length > 0 && (
-						<Button onClick={useCallback(() => setSoulshieldDialogOpen(true))}>
+						<Button onClick={() => setSoulshieldDialogOpen(true)}>
 							<Typography variant="caption" color="textSecondary">
 								<T id="character.navigation.soulshield_attributes_button" />
 							</Typography>
@@ -123,7 +122,7 @@ const CharacterEquipment: React.FC<Props> = props => {
 			<SoulshieldDialog
 				soulshieldData={equipmentData.soulshield}
 				open={soulshieldDialogOpen}
-				close={useCallback(() => setSoulshieldDialogOpen(false))}
+				close={() => setSoulshieldDialogOpen(false)}
 			/>
 		</>
 	)

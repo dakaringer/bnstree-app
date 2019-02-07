@@ -28,17 +28,15 @@ const MoveButton: React.FC<Props> = props => {
 
 	const type = types[hmMoveData && hmActive ? hmMoveData.type : moveData.type]
 
-	const handleHover = useCallback(hoverMoveData => () => hoverMove(hoverMoveData))
-	const handleSelect = useCallback(
-		(condition, selectMoveData) => (
-			event: React.MouseEvent<HTMLElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>
-		) => {
-			event.stopPropagation()
-			if (condition) {
-				selectMove(skillId, selectMoveData)
-			}
+	const handleHover = (hoverMoveData: DeepReadonlyObject<MoveData>) => () => hoverMove(hoverMoveData)
+	const handleSelect = (condition: boolean, selectMoveData: DeepReadonlyObject<MoveData>) => (
+		event: React.MouseEvent<HTMLElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>
+	) => {
+		event.stopPropagation()
+		if (condition) {
+			selectMove(skillId, selectMoveData)
 		}
-	)
+	}
 
 	return (
 		<MoveButtonContainer onPointerEnter={handleHover(hmActive && hmMoveData ? hmMoveData : moveData)}>
@@ -69,7 +67,7 @@ const MoveButton: React.FC<Props> = props => {
 						icon={<ImageLoader src={masteryIcon} />}
 						checkedIcon={<ImageLoader src={masteryIcon_selected} />}
 						checked={hmActive}
-						onChange={handleSelect(selectMove, !hmActive ? hmMoveData : moveData)}
+						onChange={handleSelect(!!selectMove, !hmActive ? hmMoveData : moveData)}
 						disabled={readonly}
 					/>
 				</HMToggle>

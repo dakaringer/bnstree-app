@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Hidden, withWidth } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
 
 import ScrollContainer from '@components/ScrollContainer'
 import Hamburger from './Hamburger'
@@ -17,14 +16,10 @@ const Navigation: React.FC<Props> = props => {
 
 	return (
 		<NavigationContainer>
-			<Menu
-				isOpen={menuOpen}
-				onOpen={useCallback(() => setMenuOpen(true))}
-				onClose={useCallback(() => setMenuOpen(false))}
-			/>
+			<Menu isOpen={menuOpen} onOpen={() => setMenuOpen(true)} onClose={() => setMenuOpen(false)} />
 			<ScrollContainer>{children}</ScrollContainer>
 			<Hidden lgUp>
-				<Hamburger onClick={useCallback(() => setMenuOpen(true))} />
+				<Hamburger onClick={() => setMenuOpen(true)} />
 			</Hidden>
 		</NavigationContainer>
 	)

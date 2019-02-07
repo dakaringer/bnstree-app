@@ -38,7 +38,7 @@ const MainStat: React.FC<Props> = props => {
 						{mainStatValue}
 					</Typography>
 				</div>
-				<ButtonBase component={HMPointButton} onClick={useCallback(() => setHmPointDialogOpen(true))}>
+				<ButtonBase component={HMPointButton} onClick={() => setHmPointDialogOpen(true)}>
 					<div>
 						<ImageLoader src={statIcons[type === 'attack' ? 'attack_power' : 'defense']} />
 						<Typography variant="caption" color="textSecondary" inline>

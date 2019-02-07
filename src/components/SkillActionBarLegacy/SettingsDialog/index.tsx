@@ -12,7 +12,6 @@ import {
 	InputAdornment
 } from '@material-ui/core'
 import { HelpOutline } from '@material-ui/icons'
-import { useCallback } from '@utils/hooks'
 
 import ImageLoader from '@components/ImageLoader'
 import T from '@components/T'
@@ -42,14 +41,14 @@ interface Props extends SelfProps, PropsFromStore, PropsFromDispatch {}
 const SettingsDialog: React.FC<Props> = props => {
 	const { open, close, skillPreferences, updatePreferences } = props
 
-	const updateValue = useCallback((stat: string) => (event: any) => {
+	const updateValue = (stat: string) => (event: any) => {
 		updatePreferences({ skills: { stats: { [stat]: parseInt(event.target.value || '0', 10) } } })
-	})
-	const updateElementValue = useCallback((element: string) => (event: any) => {
+	}
+	const updateElementValue = (element: string) => (event: any) => {
 		updatePreferences({
 			skillsLegacy: { stats: { elementDamage: { [element]: parseInt(event.target.value || '1', 10) } } }
 		})
-	})
+	}
 
 	return (
 		<Dialog open={open} onClose={close}>

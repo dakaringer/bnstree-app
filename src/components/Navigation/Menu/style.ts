@@ -4,9 +4,7 @@ import FadeContainer from '@components/FadeContainer'
 import CharacterSearchComponent from './CharacterSearch'
 
 export const DrawerContainer = styled.div`
-	&& {
-		position: relative;
-	}
+	position: relative;
 `
 
 export const MenuContainer = styled.div`
@@ -45,11 +43,9 @@ export const LinkItem = styled.li<{
 	to?: string
 	activeClassName?: string
 }>`
-	&& {
-		padding: 1rem 1.5rem;
-		transition: color 0.5s ease-in;
-		color: ${props => (props.active ? props.theme.palette.primary : props.theme.palette.textSecondary)};
-	}
+	padding: 1rem 1.5rem;
+	transition: color 0.5s ease-in;
+	color: ${props => (props.active ? props.theme.palette.primary : props.theme.palette.textSecondary)};
 
 	& > svg {
 		height: 0.8em;

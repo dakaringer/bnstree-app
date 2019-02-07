@@ -3,7 +3,6 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Dialog, DialogTitle, DialogContent, Typography, TextField, Tooltip, InputAdornment } from '@material-ui/core'
 import { HelpOutline } from '@material-ui/icons'
-import { useCallback } from '@utils/hooks'
 
 import T from '@components/T'
 
@@ -32,9 +31,9 @@ interface Props extends SelfProps, PropsFromStore, PropsFromDispatch {}
 const SettingsDialog: React.FC<Props> = props => {
 	const { open, close, classCode, skillPreferences, updatePreferences } = props
 
-	const updateValue = useCallback((stat: string) => (event: any) => {
+	const updateValue = (stat: string) => (event: any) => {
 		updatePreferences({ skills: { stats: { [stat]: parseInt(event.target.value || '0', 10) } } })
-	})
+	}
 
 	return (
 		<Dialog open={open} onClose={close}>
@@ -85,15 +84,15 @@ const SettingsDialog: React.FC<Props> = props => {
 						label={<T id="skill.menu.power" />}
 						value={isNaN(skillPreferences.stats.power) ? '' : skillPreferences.stats.power}
 						InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
-						onChange={useCallback(event =>
+						onChange={event =>
 							updatePreferences({ skills: { stats: { power: parseFloat(event.target.value) } } })
-						)}
-						onBlur={useCallback(event => {
+						}
+						onBlur={event => {
 							const value = event.target.value
 							if (value === '') {
 								updatePreferences({ skills: { stats: { power: 100 } } })
 							}
-						})}
+						}}
 						type="number"
 					/>
 				</InputContainer>
