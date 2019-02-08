@@ -100,7 +100,7 @@ const Menu: React.FC<Props> = props => {
 				</ScrollContainer>
 			</MenuContent>
 			<Typography variant="caption" color="textSecondary">
-				<p>&copy; BnSTree {year}. All rights reserved.</p>
+				&copy; BnSTree {year}. All rights reserved.
 			</Typography>
 		</MenuContainer>
 	)
