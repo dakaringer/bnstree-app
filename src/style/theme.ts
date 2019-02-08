@@ -85,6 +85,12 @@ export const muiTheme = createMuiTheme({
 			}
 		},
 		MuiTooltip: {
+			popperInteractive: {
+				['& > div']: {
+					padding: 0,
+					maxWidth: 'none'
+				}
+			},
 			tooltip: {
 				backgroundColor: '#000000'
 			}

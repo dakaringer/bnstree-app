@@ -4,15 +4,7 @@ import { IS_DEV } from '@utils/constants'
 
 import ImageLoader from '@components/ImageLoader'
 
-import {
-	Target,
-	TooltipContent,
-	TooltipTitle,
-	TooltipMainSection,
-	TooltipSection,
-	ExtraContainer,
-	TooltipStyle
-} from './style'
+import { Target, TooltipContent, TooltipTitle, TooltipMainSection, TooltipSection, ExtraContainer } from './style'
 
 interface Props {
 	icon?: string | React.ReactNode
@@ -66,33 +58,30 @@ const HoverTooltip: React.FC<Props> = props => {
 	)
 
 	return (
-		<>
-			<TooltipStyle />
-			<Tooltip
-				title={<Paper>{tooltip}</Paper>}
-				placement="right-start"
-				classes={{ tooltip: 'hover-tooltip' }}
-				enterDelay={200}
-				leaveDelay={200}
-				enterTouchDelay={500}
-				leaveTouchDelay={99999}
-				PopperProps={{
-					modifiers: {
-						preventOverflow: {
-							boundariesElement: 'viewport'
-						}
+		<Tooltip
+			title={<Paper>{tooltip}</Paper>}
+			placement="right-start"
+			classes={{ tooltip: 'hover-tooltip' }}
+			enterDelay={200}
+			leaveDelay={200}
+			enterTouchDelay={500}
+			leaveTouchDelay={99999}
+			PopperProps={{
+				modifiers: {
+					preventOverflow: {
+						boundariesElement: 'viewport'
 					}
-				}}
-				interactive>
-				<Target
-					onContextMenu={event => {
-						event.preventDefault()
-						event.stopPropagation()
-					}}>
-					{button ? <ButtonBase>{target}</ButtonBase> : target}
-				</Target>
-			</Tooltip>
-		</>
+				}
+			}}
+			interactive>
+			<Target
+				onContextMenu={event => {
+					event.preventDefault()
+					event.stopPropagation()
+				}}>
+				{button ? <ButtonBase>{target}</ButtonBase> : target}
+			</Target>
+		</Tooltip>
 	)
 }
 

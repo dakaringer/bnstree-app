@@ -1,4 +1,4 @@
-import styled, { media, createGlobalStyle } from '@style/styled-components'
+import styled, { media } from '@style/styled-components'
 
 export const Target = styled.div`
 	user-select: none;
@@ -44,13 +44,5 @@ export const TooltipMainSection = styled(TooltipSection)`
 export const ExtraContainer = styled.div`
 	& > div {
 		margin-bottom: 1rem;
-	}
-`
-
-export const TooltipStyle = createGlobalStyle`
-	& .hover-tooltip {
-		padding: 0 !important;
-		margin: 0 !important;
-		max-width: none !important;
 	}
 `
