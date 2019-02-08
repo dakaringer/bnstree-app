@@ -6,7 +6,7 @@ import { PaperProps } from '@material-ui/core/Paper'
 import { WithWidth, isWidthDown } from '@material-ui/core/withWidth'
 import compose from '@utils/compose'
 import { STATIC_SERVER } from '@utils/constants'
-import { useCallback } from '@utils/hooks'
+import { useRender } from '@utils/hooks'
 
 import ImageLoader from '@components/ImageLoader'
 import Virtualizer from '@components/Virtualizer'
@@ -44,7 +44,7 @@ const TraitListElement: React.FC<Props> = props => {
 	return (
 		<Virtualizer minHeight="7rem">
 			<Paper
-				component={useCallback((paperProps: PaperProps) => (
+				component={useRender((paperProps: PaperProps) => (
 					<TraitListElementContainer active={active} {...paperProps} />
 				))}
 				onClick={() => {

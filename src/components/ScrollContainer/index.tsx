@@ -1,6 +1,6 @@
 import React from 'react'
 import Scrollbars from 'react-custom-scrollbars'
-import { useCallback } from '@utils/hooks'
+import { useRender } from '@utils/hooks'
 
 interface Props {
 	className?: string
@@ -15,7 +15,7 @@ const ScrollContainer: React.FC<Props> = props => {
 			autoHide
 			hideTracksWhenNotNeeded
 			autoHideDuration={500}
-			renderThumbVertical={useCallback(thumbProps => (
+			renderThumbVertical={useRender(thumbProps => (
 				<div
 					{...thumbProps}
 					style={{
@@ -24,7 +24,7 @@ const ScrollContainer: React.FC<Props> = props => {
 					}}
 				/>
 			))}
-			renderTrackVertical={useCallback(trackProps => (
+			renderTrackVertical={useRender(trackProps => (
 				<div
 					{...trackProps}
 					style={{

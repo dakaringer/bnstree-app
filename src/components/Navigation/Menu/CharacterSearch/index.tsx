@@ -6,7 +6,7 @@ import { Paper, MenuItem } from '@material-ui/core'
 import Autosuggest from 'react-autosuggest'
 import gql from 'graphql-tag'
 import { get } from 'lodash-es'
-import { useCallback, useDebounce } from '@utils/hooks'
+import { useRender, useDebounce } from '@utils/hooks'
 import apollo from '@utils/apollo'
 import compose from '@utils/compose'
 import { getValidRegion } from '@utils/helpers'
@@ -92,7 +92,7 @@ const CharacterSearch: React.FC<Props> = props => {
 					onChange: event => setName(event.currentTarget.value)
 				}}
 				onSuggestionSelected={(_event, { suggestion }) => submit(suggestion)}
-				renderInputComponent={useCallback((inputProps: any) => {
+				renderInputComponent={useRender((inputProps: any) => {
 					const { region } = props
 					const { ref, ...other } = inputProps
 					return (
@@ -105,7 +105,7 @@ const CharacterSearch: React.FC<Props> = props => {
 						/>
 					)
 				})}
-				renderSuggestionsContainer={useCallback((options: any) => {
+				renderSuggestionsContainer={useRender((options: any) => {
 					const { containerProps, children } = options
 					return (
 						<Paper square {...containerProps}>
@@ -113,7 +113,7 @@ const CharacterSearch: React.FC<Props> = props => {
 						</Paper>
 					)
 				})}
-				renderSuggestion={useCallback((suggestion: string, options: any) => {
+				renderSuggestion={useRender((suggestion: string, options: any) => {
 					const { isHighlighted } = options
 					return (
 						<MenuItem selected={isHighlighted} component={SuggestionMenuItem}>

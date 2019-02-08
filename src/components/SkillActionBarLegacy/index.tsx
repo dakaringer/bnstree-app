@@ -7,7 +7,7 @@ import { MenuItemProps } from '@material-ui/core/MenuItem'
 import { Tune, Share, FilterList, Clear } from '@material-ui/icons'
 import { injectIntl, InjectedIntlProps } from 'react-intl'
 import { classes } from '@utils/constants'
-import { useCallback, useDebounce } from '@utils/hooks'
+import { useRender, useDebounce } from '@utils/hooks'
 import compose from '@utils/compose'
 
 import T from '@components/T'
@@ -66,7 +66,7 @@ const SkillActionBar: React.FC<Props> = props => {
 		})
 	}
 
-	const renderLink = useCallback(c => ({ innerRef, ...linkProps }: MenuItemProps) => (
+	const renderLink = useRender(c => ({ innerRef, ...linkProps }: MenuItemProps) => (
 		<NavLink to={c.link} {...linkProps} />
 	))
 

@@ -2,7 +2,6 @@ import React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { ListItem, Avatar } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
 
 import T from '@components/T'
 import { LinkObject } from '@components/Navigation/links'
@@ -34,10 +33,10 @@ const UserButton: React.FC<Props> = props => {
 					render: resetMenu => (
 						<ListItem
 							button
-							onClick={useCallback(() => {
+							onClick={() => {
 								resetMenu()
 								logout()
-							})}>
+							}}>
 							<T id="navigation.user.logout" />
 						</ListItem>
 					)

@@ -2,7 +2,6 @@ import React from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Typography, ListItem } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
 
 import T from '@components/T'
 import { LinkObject } from '@components/Navigation/links'
@@ -38,7 +37,7 @@ interface Props extends PropsFromDispatch {
 }
 
 const LoginButton: React.FC<Props> = props => {
-	const handleLogin = useCallback(() => {
+	const handleLogin = () => {
 		if (!_googleYolo) {
 			return openSubMenu()
 		}
@@ -61,18 +60,18 @@ const LoginButton: React.FC<Props> = props => {
 						}
 					})
 			})
-	})
+	}
 
-	const oauthLogin = useCallback(() => {
+	const oauthLogin = () => {
 		_googleAuth.signIn().then((user: any) => {
 			authenticate(user.getAuthResponse().id_token)
 		})
-	})
+	}
 
-	const authenticate = useCallback((idToken: string) => {
+	const authenticate = (idToken: string) => {
 		const { login } = props
 		login(idToken)
-	})
+	}
 
 	const openSubMenu = () => {
 		const { onSelect } = props
@@ -88,10 +87,10 @@ const LoginButton: React.FC<Props> = props => {
 						<ListItem
 							button
 							component={GoogleLoginButton}
-							onClick={useCallback(() => {
+							onClick={() => {
 								resetMenu()
 								oauthLogin()
-							})}>
+							}}>
 							<span>
 								<GoogleLogo />
 								<GoogleLogoPressed />

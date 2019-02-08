@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Paper, Typography, ButtonBase } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
 
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
@@ -68,7 +67,7 @@ const MainStat: React.FC<Props> = props => {
 				type={type}
 				pointData={statData.point_ability}
 				open={hmPointDialogOpen}
-				close={useCallback(() => setHmPointDialogOpen(false))}
+				close={() => setHmPointDialogOpen(false)}
 			/>
 		</Paper>
 	)

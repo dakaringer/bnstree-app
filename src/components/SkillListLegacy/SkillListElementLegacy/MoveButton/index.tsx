@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Checkbox } from '@material-ui/core'
-import { useCallback } from '@utils/hooks'
+import { useRender } from '@utils/hooks'
 
 import ImageLoader from '@components/ImageLoader'
 import T from '@components/T'
@@ -41,7 +41,7 @@ const MoveButton: React.FC<Props> = props => {
 	return (
 		<MoveButtonContainer onPointerEnter={handleHover(hmActive && hmMoveData ? hmMoveData : moveData)}>
 			<Button
-				component={useCallback(buttonProps => (
+				component={useRender(buttonProps => (
 					<StyledMoveButton
 						withHM={!!hmMoveData}
 						disabled={readonly}

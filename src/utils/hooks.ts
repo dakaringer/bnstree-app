@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef, useCallback as useReactCallback } from 'react'
+import { useEffect, useState, useRef, useRender as useReactCallback } from 'react'
 
-export const useCallback = <T extends (...args: any[]) => any>(callback: T): T => {
+export const useRender = <T extends (...args: any[]) => any>(callback: T): T => {
 	const ref = useRef<T>((() => null) as T)
 
 	ref.current = callback

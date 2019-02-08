@@ -2,14 +2,14 @@ import React from 'react'
 import { Typography } from '@material-ui/core'
 import { TypographyProps } from '@material-ui/core/Typography'
 import { difference } from 'lodash-es'
-import { useCallback } from '@utils/hooks'
+import { useRender } from '@utils/hooks'
 
 import { Tag } from './style'
 
 const Tags = (currentTags: DeepReadonlyArray<string>, hoverTags: DeepReadonlyArray<string>) => {
 	const diff = difference(currentTags, hoverTags)
 
-	const renderTag = useCallback((disabled?: boolean) => (typographyProps: TypographyProps) => (
+	const renderTag = useRender((disabled?: boolean) => (typographyProps: TypographyProps) => (
 		<Tag {...typographyProps} disabled={disabled} />
 	))
 

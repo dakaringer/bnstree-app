@@ -3,7 +3,7 @@ import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
 import { Drawer, Typography, List, ListItem, SwipeableDrawer, Hidden } from '@material-ui/core'
 import { ListItemProps } from '@material-ui/core/ListItem'
 import { ChevronRight, ChevronLeft } from '@material-ui/icons'
-import { useCallback } from '@utils/hooks'
+import { useRender } from '@utils/hooks'
 
 import T from '@components/T'
 import ImageLoader from '@components/ImageLoader'
@@ -40,7 +40,7 @@ const Menu: React.FC<Props> = props => {
 		}
 	}
 
-	const renderLinkItem = useCallback(
+	const renderLinkItem = useRender(
 		(linkObject: typeof baseLinks[0], menuLink: string, active: boolean) => (listItemProps: ListItemProps) =>
 			!linkObject.subMenu ? (
 				<LinkItem active={active ? 1 : undefined} as={Link} to={menuLink} {...listItemProps} />
