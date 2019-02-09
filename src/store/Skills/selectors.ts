@@ -97,7 +97,10 @@ const getProcessedSkills = createSelector(
 			const appliedTraits = modifiedSkills[skill._id] || []
 			appliedTraits.forEach(trait => {
 				if (trait.data) {
-					data = trait.action === 'REPLACE' ? (trait.data as SkillData) : mergeSkills(data, trait.data)
+					data =
+						trait.action === 'REPLACE' || trait.action === 'ADD'
+							? (trait.data as SkillData)
+							: mergeSkills(data, trait.data)
 				}
 			})
 
