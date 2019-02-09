@@ -58,11 +58,7 @@ const CharacterPage: React.FC<Props> = props => {
 
 	return (
 		<PageContainer isLoading={!characterData || isLoading}>
-			{!characterData ||
-			!characterData.profile ||
-			!characterData.equipment ||
-			!characterData.stats ||
-			'failed' in characterData.profile ? (
+			{!characterData || !characterData.profile || 'failed' in characterData.profile ? (
 				<>
 					<Typography variant="h2">
 						<T id="character.not_found" />
@@ -81,21 +77,27 @@ const CharacterPage: React.FC<Props> = props => {
 						badges={characterData.badges}
 					/>
 					<CharacterLayout>
-						<CharacterEquipment
-							equipmentData={characterData.equipment}
-							region={characterData.profile.region}
-							className="equipment"
-						/>
-						<CharacterStats
-							statData={characterData.stats}
-							type="attack"
-							classCode={characterData.profile.classCode}
-						/>
-						<CharacterStats
-							statData={characterData.stats}
-							type="defense"
-							classCode={characterData.profile.classCode}
-						/>
+						{characterData.equipment && (
+							<CharacterEquipment
+								equipmentData={characterData.equipment}
+								region={characterData.profile.region}
+								className="equipment"
+							/>
+						)}
+						{characterData.stats && (
+							<>
+								<CharacterStats
+									statData={characterData.stats}
+									type="attack"
+									classCode={characterData.profile.classCode}
+								/>
+								<CharacterStats
+									statData={characterData.stats}
+									type="defense"
+									classCode={characterData.profile.classCode}
+								/>
+							</>
+						)}
 					</CharacterLayout>
 				</FadeContainer>
 			)}
