@@ -72,11 +72,9 @@ const ItemList: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		itemData: itemSelectors.getFilteredItems(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	itemData: itemSelectors.getFilteredItems(state)
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(

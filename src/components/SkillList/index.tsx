@@ -42,11 +42,9 @@ const SkillList: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		skillData: skillSelectors.getFilteredSkills(state),
-		specialization: skillSelectors.getSpecialization(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	skillData: skillSelectors.getFilteredSkills(state),
+	specialization: skillSelectors.getSpecialization(state)
+})
 
 export default connect(mapStateToProps)(SkillList)

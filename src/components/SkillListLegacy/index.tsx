@@ -68,12 +68,10 @@ const SkillList: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState, props: { readonly?: boolean }) => {
-	return {
-		skillData: skillSelectors.getFilteredSkills(state, props),
-		element: skillSelectors.getElement(state)
-	}
-}
+const mapStateToProps = (state: RootState, props: { readonly?: boolean }) => ({
+	skillData: skillSelectors.getFilteredSkills(state, props),
+	element: skillSelectors.getElement(state)
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(

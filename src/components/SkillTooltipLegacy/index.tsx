@@ -138,11 +138,9 @@ const SkillTooltip: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		resource: resourceSelectors.getResource(state).skill,
-		locale: intlSelectors.getLocale(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	resource: resourceSelectors.getResource(state).skill,
+	locale: intlSelectors.getLocale(state)
+})
 
 export default connect(mapStateToProps)(SkillTooltip)

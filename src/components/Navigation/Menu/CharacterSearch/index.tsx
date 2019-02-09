@@ -131,11 +131,9 @@ const CharacterSearch: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		region: characterSelectors.getCharacterPreferences(state).region || 'NA'
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	region: characterSelectors.getCharacterPreferences(state).region || 'NA'
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(

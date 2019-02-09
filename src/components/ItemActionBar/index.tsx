@@ -100,11 +100,9 @@ const ItemActionBar: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		itemPreferences: itemSelectors.getItemPreferences(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	itemPreferences: itemSelectors.getItemPreferences(state)
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(

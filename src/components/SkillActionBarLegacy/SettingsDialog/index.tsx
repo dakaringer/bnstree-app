@@ -113,11 +113,9 @@ const SettingsDialog: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		skillPreferences: skillSelectors.getSkillPreferences(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	skillPreferences: skillSelectors.getSkillPreferences(state)
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(

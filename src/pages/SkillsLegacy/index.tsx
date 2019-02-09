@@ -40,11 +40,9 @@ const SkillPage: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		skillPreferences: skillSelectors.getSkillPreferences(state),
-		isLoading: skillSelectors.getIsLoading(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	skillPreferences: skillSelectors.getSkillPreferences(state),
+	isLoading: skillSelectors.getIsLoading(state)
+})
 
 export default connect(mapStateToProps)(SkillPage)

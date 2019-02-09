@@ -103,12 +103,10 @@ const CharacterPage: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		characterData: characterSelectors.getData(state),
-		isLoading: characterSelectors.getIsLoading(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	characterData: characterSelectors.getData(state),
+	isLoading: characterSelectors.getIsLoading(state)
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(

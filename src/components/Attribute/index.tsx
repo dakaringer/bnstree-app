@@ -146,10 +146,8 @@ const Attribute: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		skillPreferences: selectors.getSkillPreferences(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	skillPreferences: selectors.getSkillPreferences(state)
+})
 
 export default connect(mapStateToProps)(Attribute)

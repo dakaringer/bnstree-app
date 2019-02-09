@@ -86,12 +86,10 @@ const SkillsPage: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		skillPreferences: skillSelectors.getSkillPreferences(state),
-		isLoading: skillSelectors.getIsLoading(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	skillPreferences: skillSelectors.getSkillPreferences(state),
+	isLoading: skillSelectors.getIsLoading(state)
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(

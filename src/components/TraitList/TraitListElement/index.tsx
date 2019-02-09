@@ -74,13 +74,11 @@ const TraitListElement: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		classCode: skillSelectors.getCurrentClass(state),
-		specialization: skillSelectors.getSpecialization(state),
-		build: skillSelectors.getBuild(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	classCode: skillSelectors.getCurrentClass(state),
+	specialization: skillSelectors.getSpecialization(state),
+	build: skillSelectors.getBuild(state)
+})
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(

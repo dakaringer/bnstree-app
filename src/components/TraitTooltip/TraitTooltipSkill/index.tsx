@@ -104,10 +104,8 @@ const TraitTooltipSkill: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		skillData: skillSelectors.getData(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	skillData: skillSelectors.getData(state)
+})
 
 export default connect(mapStateToProps)(TraitTooltipSkill)

@@ -83,14 +83,13 @@ const App: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		isLoading: rootSelectors.getIsLoading(state),
-		locale: intlSelectors.getLocale(state),
-		messages: intlSelectors.getFlatMessages(state),
-		showlogoutMessage: userSelectors.getShowLogoutMessage(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	isLoading: rootSelectors.getIsLoading(state),
+	locale: intlSelectors.getLocale(state),
+	messages: intlSelectors.getFlatMessages(state),
+	showlogoutMessage: userSelectors.getShowLogoutMessage(state)
+})
+
 const mapDispatchToProps = (dispatch: Dispatch) =>
 	bindActionCreators(
 		{

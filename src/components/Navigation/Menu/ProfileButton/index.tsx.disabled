@@ -23,10 +23,8 @@ const ProfileButton: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		userData: userSelectors.getData(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	userData: userSelectors.getData(state)
+})
 
 export default connect(mapStateToProps)(ProfileButton)

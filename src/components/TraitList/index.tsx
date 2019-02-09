@@ -38,10 +38,8 @@ const TraitList: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		traitData: skillSelectors.getFilteredTraits(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	traitData: skillSelectors.getFilteredTraits(state)
+})
 
 export default connect(mapStateToProps)(TraitList)

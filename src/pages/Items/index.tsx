@@ -36,10 +36,8 @@ const ItemPage: React.FC<Props> = props => {
 	)
 }
 
-const mapStateToProps = (state: RootState) => {
-	return {
-		isLoading: skillSelectors.getIsLoading(state)
-	}
-}
+const mapStateToProps = (state: RootState) => ({
+	isLoading: skillSelectors.getIsLoading(state)
+})
 
 export default connect(mapStateToProps)(ItemPage)
