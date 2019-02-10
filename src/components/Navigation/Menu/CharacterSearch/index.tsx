@@ -41,26 +41,29 @@ const CharacterSearch: React.FC<Props> = props => {
 
 	useEffect(() => {
 		const { region } = props
-		apollo
-			.query({
-				query: gql`
-					query searchSuggestions($name: String!, $region: CharacterRegion!) {
-						character {
-							search(name: $name, region: $region) {
-								suggestions
+
+		if (debouncedSearchString !== '') {
+			apollo
+				.query({
+					query: gql`
+						query searchSuggestions($name: String!, $region: CharacterRegion!) {
+							character {
+								search(name: $name, region: $region) {
+									suggestions
+								}
 							}
 						}
-					}
-				`,
-				variables: {
-					name: debouncedSearchString,
-					region
-				},
-				errorPolicy: 'ignore'
-			})
-			.then(response => {
-				setSuggestions(get(response, 'data.character.search.suggestions', []))
-			})
+					`,
+					variables: {
+						name: debouncedSearchString,
+						region
+					},
+					errorPolicy: 'ignore'
+				})
+				.then(response => {
+					setSuggestions(get(response, 'data.character.search.suggestions', []))
+				})
+		}
 	}, [debouncedSearchString])
 
 	const selectRegion = (region: string) => {
