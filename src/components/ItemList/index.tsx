@@ -44,7 +44,7 @@ const ItemList: React.FC<Props> = props => {
 					return (
 						<ItemListGroup key={group}>
 							<Typography variant="subtitle1">
-								<T id={['item', 'group_label', itemType, group]} />
+								<T id={['item', 'general', itemType, group]} />
 							</Typography>
 							<div>
 								{groupData

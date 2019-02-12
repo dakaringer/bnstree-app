@@ -64,7 +64,9 @@ const SkillTooltip: React.FC<Props> = props => {
 				<SkillIcon>
 					<ImageLoader src={`${STATIC_SERVER}/images/skills/${hoverMoveData.icon}`} />
 					{hoverMoveData.hotkey !== 'NONE' && hoverMoveData.hotkey !== 'PASSIVE' && (
-						<Typography>{hoverMoveData.hotkey.toLowerCase()}</Typography>
+						<Typography>
+							<T id={['skill', 'hotkey', hoverMoveData.hotkey]} />
+						</Typography>
 					)}
 				</SkillIcon>
 			}

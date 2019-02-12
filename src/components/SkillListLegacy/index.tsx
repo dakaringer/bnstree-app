@@ -46,7 +46,7 @@ const SkillList: React.FC<Props> = props => {
 					return (
 						<SkillListGroup key={group}>
 							<Typography variant="subtitle1">
-								<T id={['skill', 'group_label', 'level']} values={{ level: group }} />
+								<T id={['skill', 'general', 'level']} values={{ level: group }} />
 							</Typography>
 							<div>
 								{groupData.map(skill => (
