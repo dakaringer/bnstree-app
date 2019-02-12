@@ -55,7 +55,8 @@ export const muiTheme = createMuiTheme({
 				vertical: 'top',
 				horizontal: 'left'
 			},
-			getContentAnchorEl: undefined
+			getContentAnchorEl: undefined,
+			disableAutoFocusItem: true
 		},
 		MuiDialog: {
 			fullWidth: true
