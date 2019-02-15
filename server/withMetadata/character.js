@@ -68,24 +68,24 @@ const app = async (req, res) => {
 			fetchPolicy: 'network-only'
 		})
 		.then(response => {
-			const character = response.data.character.data
+			const characterData = response.data.character.data
 
-			if (!character || character.profile.failed) {
+			if (!characterData || !characterData.profile || characterData.profile.failed || !characterData.stats) {
 				return null
 			}
 
-			const characterName = character.profile.name
-			const characterLevel = `Level ${character.profile.level[0]}${character.profile.level[1] &&
-				` • HM ${character.profile.level[1]}`}`
-			const characterServer = `${character.profile.region.toUpperCase()}-${character.profile.server}`
+			const characterName = characterData.profile.name
+			const characterLevel = `Level ${characterData.profile.level[0]}${characterData.profile.level[1] &&
+				` • HM ${characterData.profile.level[1]}`}`
+			const characterServer = `${characterData.profile.region.toUpperCase()}-${characterData.profile.server}`
 
-			const AP = `AP: ${character.stats.total_ability.attack_power_value}`
-			const CHR = `Crit Rate: ${character.stats.total_ability.attack_critical_rate}%`
-			const CHD = `Crit Dmg: ${character.stats.total_ability.attack_critical_damage_rate}%`
+			const AP = `AP: ${characterData.stats.total_ability.attack_power_value}`
+			const CHR = `Crit Rate: ${characterData.stats.total_ability.attack_critical_rate}%`
+			const CHD = `Crit Dmg: ${characterData.stats.total_ability.attack_critical_damage_rate}%`
 
-			const ED = classElements[character.profile.classCode].reduce(
+			const ED = classElements[characterData.profile.classCode].reduce(
 				(acc, element) => {
-					const rate = character.stats.total_ability[element]
+					const rate = characterData.stats.total_ability[element]
 					if (rate === acc.rate) {
 						return null
 					} else if (rate > acc.rate) {
@@ -102,7 +102,7 @@ const app = async (req, res) => {
 
 			return {
 				title: `${characterName} | ${characterLevel} | ${characterServer}`,
-				image: `${STATIC_SERVER}/images/class/${character.profile.classCode}`,
+				image: `${STATIC_SERVER}/images/class/${characterData.profile.classCode}`,
 				desc: `${AP} | ${CHR} | ${CHD}${ED ? ` | ${ED.element}: ${ED.rate}` : ''}`
 			}
 		})
