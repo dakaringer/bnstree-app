@@ -63,7 +63,7 @@ const HoverTooltip: React.FC<Props> = props => {
 			placement="right-start"
 			classes={{ tooltip: 'hover-tooltip' }}
 			enterDelay={200}
-			leaveDelay={200}
+			leaveDelay={100}
 			enterTouchDelay={500}
 			leaveTouchDelay={99999}
 			PopperProps={{
