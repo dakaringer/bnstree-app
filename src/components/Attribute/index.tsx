@@ -136,7 +136,7 @@ const Attribute: React.FC<Props> = props => {
 	})
 
 	return (
-		<AttributeContainer flag={flag}>
+		<AttributeContainer flag={flag} color={attribute.color}>
 			{(attribute.icon || defaultIcon) && (
 				<ImageLoader src={`${STATIC_SERVER}/images/skills/${attribute.icon || defaultIcon}`} />
 			)}

@@ -2,10 +2,11 @@ import styled from '@style/styled-components'
 
 import ModText from '@components/ModText'
 
-export const AttributeContainer = styled(ModText)`
+export const AttributeContainer = styled(ModText)<{ color?: string }>`
 	display: block;
 	line-height: 1.2em;
 	margin-bottom: 0.2em;
+	color: ${props => props.color || 'inherit'};
 
 	& svg {
 		margin: -0.4rem;

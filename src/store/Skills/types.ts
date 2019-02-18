@@ -47,6 +47,7 @@ export interface SkillAttribute {
 	specialization?: SkillSpecialization<ClassCode>
 	modId?: number
 	delete?: boolean
+	color?: string
 }
 
 export interface Trait {
